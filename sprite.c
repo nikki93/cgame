@@ -26,13 +26,31 @@ static Sprite *entity_sprite[ENTITY_MAX];
 
 void sprite_add(Entity ent)
 {
-    Sprite *sprite = &sprites[num_sprites++];
+    Sprite *sprite;
 
+    if (entity_sprite[ent])
+        return; /* already has a sprite */
+
+    sprite = &sprites[num_sprites++];
     entity_sprite[ent] = sprite;
 
     sprite->entity = ent;
     sprite->cell.x = 32.0f; sprite->cell.y = 32.0f;
     sprite->size.x = 32.0f; sprite->size.y = 32.0f;
+}
+void sprite_remove(Entity ent)
+{
+    Sprite *old_sprite = entity_sprite[ent];
+    entity_sprite[ent] = NULL;
+
+    /* replace with last sprite */
+    if (old_sprite != &sprites[num_sprites - 1] && num_sprites > 1)
+    {
+        *old_sprite = sprites[num_sprites - 1];
+        entity_sprite[old_sprite->entity] = old_sprite;
+    }
+
+    --num_sprites;
 }
 
 void sprite_set_cell(Entity ent, Vec2 cell)
@@ -48,21 +66,6 @@ void sprite_set_size(Entity ent, Vec2 size)
     assert(sprite);
 
     sprite->size = size;
-}
-
-static void sprite_del(Entity ent)
-{
-    Sprite *old_sprite = entity_sprite[ent];
-    entity_sprite[ent] = NULL;
-
-    /* replace with last sprite */
-    if (old_sprite != &sprites[num_sprites - 1] && num_sprites > 1)
-    {
-        *old_sprite = sprites[num_sprites - 1];
-        entity_sprite[old_sprite->entity] = old_sprite;
-    }
-
-    --num_sprites;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -206,7 +209,7 @@ void sprite_check_messages_all()
                 msg = entity_get_next_message(msg))
             if (message_get_type(msg) == MSG_DESTROY)
             {
-                sprite_del(ent);
+                sprite_remove(ent);
                 break;
             }
     }

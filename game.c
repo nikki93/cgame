@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <GL/glew.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
@@ -9,9 +10,41 @@
 SDL_Window *sdl_window;
 SDL_GLContext sdl_context;
 
-Entity player, block;
+Entity player;
 
-static void game_init()
+static void _test_init()
+{
+    Entity block;
+    unsigned int i;
+
+    player = entity_new();
+
+    transform_add(player);
+    transform_set_origin(player, vec2(0.0f, 0.0f));
+
+    sprite_add(player);
+    sprite_set_cell(player, vec2( 0.0f, 32.0f));
+    sprite_set_size(player, vec2(32.0f, 32.0f));
+
+    for (i = 0; i < 100; ++i)
+    {
+        block = entity_new();
+
+        transform_add(block);
+        transform_set_origin(block,
+                vec2((rand() % 25) - 12, (rand() % 9) - 4));
+
+        sprite_add(block);
+        sprite_set_cell(block, vec2(32.0f, 32.0f));
+        sprite_set_size(block, vec2(32.0f, 32.0f));
+    }
+}
+
+static void _test_update()
+{
+}
+
+static void _game_init()
 {
     /* initialize SDL, force core profile */
     SDL_Init(SDL_INIT_VIDEO);
@@ -38,28 +71,11 @@ static void game_init()
     /* init systems */
     sprite_init();
 
-    /* set up test object */
-
-    player = entity_new();
-
-    transform_add(player);
-    transform_set_origin(player, vec2(0.0f, 0.0f));
-
-    sprite_add(player);
-    sprite_set_cell(player, vec2( 0.0f, 32.0f));
-    sprite_set_size(player, vec2(32.0f, 32.0f));
-
-    block = entity_new();
-
-    transform_add(block);
-    transform_set_origin(block, vec2(0.0f, -1.0f));
-
-    sprite_add(block);
-    sprite_set_cell(block, vec2(32.0f, 32.0f));
-    sprite_set_size(block, vec2(32.0f, 32.0f));
+    /* test */
+    _test_init();
 }
 
-static void game_deinit()
+static void _game_deinit()
 {
     /* deinit systems */
     sprite_deinit();
@@ -69,7 +85,7 @@ static void game_deinit()
     SDL_Quit();
 }
 
-static bool game_events()
+static bool _game_events()
 {
     SDL_Event event;
     while (SDL_PollEvent(&event))
@@ -78,15 +94,23 @@ static bool game_events()
             case SDL_QUIT:
                 return false;
 
+            case SDL_KEYDOWN:
+                switch (event.key.keysym.sym)
+                {
+                    case SDLK_UP:
+                        entity_new_message(player, MSG_DESTROY, 0);
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+
             case SDL_KEYUP:
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_ESCAPE:
                         return false;
-
-                    case SDLK_UP:
-                        entity_new_message(player, MSG_DESTROY, 0);
-                        break;
 
                     default:
                         break;
@@ -100,7 +124,7 @@ static bool game_events()
     return true;
 }
 
-static void game_update(float dt)
+static void _game_update(float dt)
 {
     /* test update */
     Vec2 v = transform_get_origin(player);
@@ -121,7 +145,7 @@ static void game_update(float dt)
             /*block_pos.x, block_pos.y);*/
 }
 
-static void game_draw()
+static void _game_draw()
 {
     glClearColor(1.f, 1.f, 1.f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -134,14 +158,14 @@ static void game_draw()
 
 void game_run()
 {
-    game_init();
+    _game_init();
 
-    while (game_events())
+    while (_game_events())
     {
-        game_update(0.1);
-        game_draw();
+        _game_update(0.1);
+        _game_draw();
     }
 
-    game_deinit();
+    _game_deinit();
 }
 
