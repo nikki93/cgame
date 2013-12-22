@@ -16,7 +16,7 @@ struct Sprite
     Vec2 size;
 };
 
-Sprite sprites[ENTITY_MAX];
+static Sprite sprites[ENTITY_MAX];
 
 /* ------------------------------------------------------------------------- */
 
