@@ -1,5 +1,6 @@
 #include "sprite.h"
 
+#include <assert.h>
 #include <stdio.h>
 #include <GL/glew.h>
 #include <SDL.h>
@@ -11,28 +12,57 @@ static unsigned int num_sprites = 0;
 typedef struct Sprite Sprite;
 struct Sprite
 {
+    Entity entity;
+
     Vec2 position;
     Vec2 cell;
     Vec2 size;
 };
 
 static Sprite sprites[ENTITY_MAX];
+static Sprite *entity_sprite[ENTITY_MAX];
 
 /* ------------------------------------------------------------------------- */
 
 void sprite_add(Entity ent)
 {
-    if (ent + 1 > num_sprites)
-        num_sprites = ent + 1;
+    Sprite *sprite = &sprites[num_sprites++];
+
+    entity_sprite[ent] = sprite;
+
+    sprite->entity = ent;
+    sprite->cell.x = 32.0f; sprite->cell.y = 32.0f;
+    sprite->size.x = 32.0f; sprite->size.y = 32.0f;
 }
 
 void sprite_set_cell(Entity ent, Vec2 cell)
 {
-    sprites[ent].cell = cell;
+    Sprite *sprite = entity_sprite[ent];
+    assert(sprite);
+
+    sprite->cell = cell;
 }
 void sprite_set_size(Entity ent, Vec2 size)
 {
-    sprites[ent].size = size;
+    Sprite *sprite = entity_sprite[ent];
+    assert(sprite);
+
+    sprite->size = size;
+}
+
+static void sprite_del(Entity ent)
+{
+    Sprite *old_sprite = entity_sprite[ent];
+    entity_sprite[ent] = NULL;
+
+    /* replace with last sprite */
+    if (old_sprite != &sprites[num_sprites - 1] && num_sprites > 1)
+    {
+        *old_sprite = sprites[num_sprites - 1];
+        entity_sprite[old_sprite->entity] = old_sprite;
+    }
+
+    --num_sprites;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -99,6 +129,11 @@ static void _bind_attributes(GLuint position, GLuint cell, GLuint size)
 
 void sprite_init()
 {
+    unsigned int i;
+
+    for (i = 0; i < ENTITY_MAX; ++i)
+        entity_sprite[i] = NULL;
+
     /* compile shaders */
     vertex_shader = glCreateShader(GL_VERTEX_SHADER);
     _compile_shader(vertex_shader, "sprite.vert");
@@ -157,10 +192,45 @@ void sprite_deinit()
     glDeleteVertexArrays(1, &vao);
 }
 
+void sprite_check_messages_all()
+{
+    unsigned int i;
+    Message *msg;
+    Entity ent;
+
+    for (i = 0; i < num_sprites; ++i)
+    {
+        ent = sprites[i].entity;
+
+        for (msg = entity_get_first_message(ent); msg;
+                msg = entity_get_next_message(msg))
+            if (message_get_type(msg) == MSG_DESTROY)
+            {
+                sprite_del(ent);
+                break;
+            }
+    }
+}
+
 void sprite_update_all()
 {
-    for (unsigned int i = 0; i < num_sprites; ++i)
-        sprites[i].position = transform_get_origin(i);
+    unsigned int i;
+
+    for (i = 0; i < num_sprites; ++i)
+        sprites[i].position = transform_get_origin(sprites[i].entity);
+
+    /*
+    for (i = 0; i < num_sprites; ++i)
+    {
+        printf("{ %d, (%f, %f), (%f, %f), (%f, %f) } ",
+                sprites[i].entity,
+                sprites[i].position.x, sprites[i].position.y,
+                sprites[i].cell.x, sprites[i].cell.y,
+                sprites[i].size.x, sprites[i].size.y);
+    }
+
+    puts("");
+    */
 }
 
 void sprite_draw_all()

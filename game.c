@@ -9,7 +9,7 @@
 SDL_Window *sdl_window;
 SDL_GLContext sdl_context;
 
-Entity test_obj;
+Entity player, block;
 
 static void game_init()
 {
@@ -40,14 +40,23 @@ static void game_init()
 
     /* set up test object */
 
-    test_obj = entity_gen();
+    player = entity_new();
 
-    transform_add(test_obj);
-    transform_set_origin(test_obj, vec2(0.0f, 0.0f));
+    transform_add(player);
+    transform_set_origin(player, vec2(0.0f, 0.0f));
 
-    sprite_add(test_obj);
-    sprite_set_cell(test_obj, vec2( 0.0f, 32.0f));
-    sprite_set_size(test_obj, vec2(32.0f, 32.0f));
+    sprite_add(player);
+    sprite_set_cell(player, vec2( 0.0f, 32.0f));
+    sprite_set_size(player, vec2(32.0f, 32.0f));
+
+    block = entity_new();
+
+    transform_add(block);
+    transform_set_origin(block, vec2(0.0f, -1.0f));
+
+    sprite_add(block);
+    sprite_set_cell(block, vec2(32.0f, 32.0f));
+    sprite_set_size(block, vec2(32.0f, 32.0f));
 }
 
 static void game_deinit()
@@ -70,8 +79,18 @@ static bool game_events()
                 return false;
 
             case SDL_KEYUP:
-                if (event.key.keysym.sym == SDLK_ESCAPE)
-                    return false;
+                switch (event.key.keysym.sym)
+                {
+                    case SDLK_ESCAPE:
+                        return false;
+
+                    case SDLK_UP:
+                        entity_new_message(player, MSG_DESTROY, 0);
+                        break;
+
+                    default:
+                        break;
+                }
                 break;
 
             default:
@@ -84,12 +103,22 @@ static bool game_events()
 static void game_update(float dt)
 {
     /* test update */
-    Vec2 v = transform_get_origin(test_obj);
+    Vec2 v = transform_get_origin(player);
     v.x += 0.5 * dt;
-    transform_set_origin(test_obj, v);
+    transform_set_origin(player, v);
+    
+    /* check messages */
+    sprite_check_messages_all();
     
     /* update systems */
     sprite_update_all();
+    entity_update_all();
+
+    /* debug */
+    /*Vec2 player_pos = transform_get_origin(player);*/
+    /*Vec2 block_pos = transform_get_origin(block);*/
+    /*printf("(%f, %f), (%f, %f)\n", player_pos.x, player_pos.y,*/
+            /*block_pos.x, block_pos.y);*/
 }
 
 static void game_draw()
