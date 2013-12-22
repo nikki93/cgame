@@ -27,4 +27,3 @@ Vec2 transform_get_origin(Entity ent)
     return transforms[ent].origin;
 }
 
-

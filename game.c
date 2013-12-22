@@ -7,10 +7,10 @@
 #include "sprite.h"
 #include "transform.h"
 
-SDL_Window *sdl_window;
-SDL_GLContext sdl_context;
+static SDL_Window *sdl_window;
+static SDL_GLContext sdl_context;
 
-Entity player;
+static Entity player;
 
 static void _test_init()
 {
