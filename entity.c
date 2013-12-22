@@ -21,13 +21,12 @@ Entity entity_new()
     return top++;
 }
 
-void entity_update_all()
+static void _entity_clear_messages()
 {
     Message *msg, *next;
+    Entity ent;
 
-    /* TODO: delete entities with MSG_DESTROY */
-
-    for (Entity ent = 0; ent < top; ++ent)
+    for (ent = 0; ent < top; ++ent)
     {
         for (msg = entity_get_first_message(ent); msg; msg = next)
         {
@@ -37,6 +36,18 @@ void entity_update_all()
 
         messages[ent] = NULL;
     }
+}
+
+void entity_deinit()
+{
+    _entity_clear_messages();
+}
+
+void entity_update_all()
+{
+    /* TODO: delete entities with MSG_DESTROY */
+
+    _entity_clear_messages();
 }
 
 /* get size_t offset of 'field' in struct 'type' */

@@ -9,6 +9,7 @@ typedef unsigned int Entity;
 
 Entity entity_new();
 
+void entity_deinit();
 void entity_update_all();
 
 /* ------------------------------------------------------------------------- */

@@ -99,6 +99,8 @@ static void _compile_shader(GLuint shader, const char *filename)
     glShaderSource(shader, 1, (const GLchar **) &file_contents, NULL);
     glCompileShader(shader);
 
+    free(file_contents);
+
     /* log */
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
     printf(status ? "successful\n" : "unsuccessful\n");

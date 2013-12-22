@@ -111,6 +111,7 @@ static void _game_deinit()
 {
     /* deinit systems */
     sprite_deinit();
+    entity_deinit();
 
     /* deinit glfw */
     glfwTerminate();
