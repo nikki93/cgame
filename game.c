@@ -9,6 +9,8 @@
 SDL_Window *sdl_window;
 SDL_GLContext sdl_context;
 
+Entity test_obj;
+
 static void game_init()
 {
     /* initialize SDL, force core profile */
@@ -36,16 +38,16 @@ static void game_init()
     /* init systems */
     sprite_init();
 
-    /* add test object */
+    /* set up test object */
 
-    Entity ent = entity_gen();
+    test_obj = entity_gen();
 
-    transform_add(ent);
-    transform_set_origin(ent, vec2(0.0f, 0.0f));
+    transform_add(test_obj);
+    transform_set_origin(test_obj, vec2(0.0f, 0.0f));
 
-    sprite_add(ent);
-    sprite_set_cell(ent, vec2( 0.0f, 32.0f));
-    sprite_set_size(ent, vec2(32.0f, 32.0f));
+    sprite_add(test_obj);
+    sprite_set_cell(test_obj, vec2( 0.0f, 32.0f));
+    sprite_set_size(test_obj, vec2(32.0f, 32.0f));
 }
 
 static void game_deinit()
@@ -82,9 +84,9 @@ static bool game_events()
 static void game_update(float dt)
 {
     /* test update */
-    Vec2 v = transform_get_origin(0);
-    v.x += 2 * dt;
-    transform_set_origin(0, v);
+    Vec2 v = transform_get_origin(test_obj);
+    v.x += 0.5 * dt;
+    transform_set_origin(test_obj, v);
     
     /* update systems */
     sprite_update_all();
