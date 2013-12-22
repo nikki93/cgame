@@ -18,6 +18,8 @@ struct Sprite
 
 Sprite sprites[ENTITY_MAX];
 
+/* ------------------------------------------------------------------------- */
+
 void sprite_add(Entity ent)
 {
     if (ent + 1 > num_sprites)
@@ -32,6 +34,8 @@ void sprite_set_size(Entity ent, Vec2 size)
 {
     sprites[ent].size = size;
 }
+
+/* ------------------------------------------------------------------------- */
 
 static GLuint vertex_shader;
 static GLuint geometry_shader;
@@ -75,23 +79,22 @@ static void _compile_shader(GLuint shader, const char *filename)
 #define poffsetof(type, field) \
     ((void *) (&((type *) 0)->field))
 
-static void _bind_attributes(GLuint position_, GLuint cell_, GLuint size_)
+static void _bind_attributes(GLuint position, GLuint cell, GLuint size)
 {
-
-    glVertexAttribPointer(position_, 2, GL_FLOAT, GL_FALSE,
+    glVertexAttribPointer(position, 2, GL_FLOAT, GL_FALSE,
             sizeof(Sprite), poffsetof(Sprite, position));
-    glEnableVertexAttribArray(position_);
-    /* glVertexAttribDivisor(position_, divisor); */
+    glEnableVertexAttribArray(position);
+    /* glVertexAttribDivisor(position, divisor); */
 
-    glVertexAttribPointer(cell_, 2, GL_FLOAT, GL_FALSE,
+    glVertexAttribPointer(cell, 2, GL_FLOAT, GL_FALSE,
             sizeof(Sprite), poffsetof(Sprite, cell));
-    glEnableVertexAttribArray(cell_);
-    /* glVertexAttribDivisor(cell_, divisor); */
+    glEnableVertexAttribArray(cell);
+    /* glVertexAttribDivisor(cell, divisor); */
 
-    glVertexAttribPointer(size_, 2, GL_FLOAT, GL_FALSE,
+    glVertexAttribPointer(size, 2, GL_FLOAT, GL_FALSE,
             sizeof(Sprite), poffsetof(Sprite, size));
-    glEnableVertexAttribArray(size_);
-    /* glVertexAttribDivisor(size_, divisor); */
+    glEnableVertexAttribArray(size);
+    /* glVertexAttribDivisor(size, divisor); */
 }
 
 void sprite_init()
