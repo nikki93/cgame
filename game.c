@@ -17,15 +17,6 @@ static void _test_init()
     Entity block;
     unsigned int i;
 
-    player = entity_new();
-
-    transform_add(player);
-    transform_set_origin(player, vec2(0.0f, 0.0f));
-
-    sprite_add(player);
-    sprite_set_cell(player, vec2( 0.0f, 32.0f));
-    sprite_set_size(player, vec2(32.0f, 32.0f));
-
     for (i = 0; i < 100; ++i)
     {
         block = entity_new();
@@ -38,6 +29,15 @@ static void _test_init()
         sprite_set_cell(block, vec2(32.0f, 32.0f));
         sprite_set_size(block, vec2(32.0f, 32.0f));
     }
+
+    player = entity_new();
+
+    transform_add(player);
+    transform_set_origin(player, vec2(0.0f, 0.0f));
+
+    sprite_add(player);
+    sprite_set_cell(player, vec2( 0.0f, 32.0f));
+    sprite_set_size(player, vec2(32.0f, 32.0f));
 }
 
 static void _test_update()
