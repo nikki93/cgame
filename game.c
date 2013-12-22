@@ -41,12 +41,11 @@ static void game_init()
     Entity ent = entity_gen();
 
     transform_add(ent);
-    Vec2 tmp = vec2(0.0f, 0.0f);
     transform_set_origin(ent, vec2(0.0f, 0.0f));
 
     sprite_add(ent);
-    sprite_set_cell(ent, vec2(0.5f, 0.5f));
-    sprite_set_size(ent, vec2(0.5f, 0.5f));
+    sprite_set_cell(ent, vec2( 0.0f, 32.0f));
+    sprite_set_size(ent, vec2(32.0f, 32.0f));
 }
 
 static void game_deinit()
