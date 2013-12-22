@@ -1,7 +1,5 @@
 #include "transform.h"
 
-Vec2 vec2(float x, float y) { Vec2 v; v.x = x; v.y = y; return v; }
-
 typedef struct Transform Transform;
 struct Transform
 {

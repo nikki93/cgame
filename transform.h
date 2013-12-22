@@ -6,7 +6,7 @@
 typedef struct Vec2 Vec2;
 struct Vec2 { float x; float y; };
 
-Vec2 vec2(float x, float y);
+#define vec2(x, y) ((Vec2) { x, y })
 
 void transform_add(Entity ent);
 void transform_remove(Entity ent);
