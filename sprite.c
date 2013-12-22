@@ -3,8 +3,6 @@
 #include <assert.h>
 #include <stdio.h>
 #include <GL/glew.h>
-#include <SDL.h>
-#include <SDL_opengl.h>
 #include <Freeimage.h>
 
 static unsigned int num_sprites = 0;

@@ -1,14 +1,16 @@
+#include "game.h"
+
 #include <stdlib.h>
 #include <GL/glew.h>
-#include <SDL.h>
-#include <SDL_opengl.h>
+#include <GLFW/glfw3.h>
 #include <Freeimage.h>
 
 #include "sprite.h"
 #include "transform.h"
 
-static SDL_Window *sdl_window;
-static SDL_GLContext sdl_context;
+static GLFWwindow *window;
+
+static int quit = 0; /* exit main loop if 1 */
 
 static Entity player;
 
@@ -16,6 +18,8 @@ static void _test_init()
 {
     Entity block;
     unsigned int i;
+
+    /* add 100 blocks */
 
     for (i = 0; i < 100; ++i)
     {
@@ -30,6 +34,8 @@ static void _test_init()
         sprite_set_size(block, vec2(32.0f, 32.0f));
     }
 
+    /* add player */
+
     player = entity_new();
 
     transform_add(player);
@@ -40,23 +46,49 @@ static void _test_init()
     sprite_set_size(player, vec2(32.0f, 32.0f));
 }
 
-static void _test_update()
+static void _test_update(float dt)
 {
+    static int player_exists = 1;
+    Vec2 player_pos;
+
+    if (player_exists)
+    {
+        player_pos = transform_get_origin(player);
+
+        if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+            player_pos.x -= 0.5 * dt;
+        if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+            player_pos.x += 0.5 * dt;
+        if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+            player_pos.y += 0.5 * dt;
+        if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+            player_pos.y -= 0.5 * dt;
+
+        transform_set_origin(player, player_pos);
+
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        {
+            entity_new_message(player, MSG_DESTROY, 0);
+            player_exists = 0;
+        }
+    }
 }
 
 static void _game_init()
 {
-    /* initialize SDL, force core profile */
-    SDL_Init(SDL_INIT_VIDEO);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
-            SDL_GL_CONTEXT_PROFILE_CORE);
+    /* initialize glfw */
+    glfwInit();
 
-    /* create window and GL context */
-    sdl_window = SDL_CreateWindow("cgame", 100, 100, 800, 600,
-            SDL_WINDOW_OPENGL);
-    sdl_context = SDL_GL_CreateContext(sdl_window);
+    /* create glfw window */
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    window = glfwCreateWindow(800, 600, "cgame", NULL, NULL);
+
+    /* activate OpenGL context */
+    glfwMakeContextCurrent(window);
 
     /* initialize GLEW */
     glewExperimental = GL_TRUE;
@@ -80,69 +112,30 @@ static void _game_deinit()
     /* deinit systems */
     sprite_deinit();
 
-    /* deinit SDL */
-    SDL_GL_DeleteContext(sdl_context);
-    SDL_Quit();
+    /* deinit glfw */
+    glfwTerminate();
 }
 
-static bool _game_events()
+static void _game_events()
 {
-    SDL_Event event;
-    while (SDL_PollEvent(&event))
-        switch (event.type)
-        {
-            case SDL_QUIT:
-                return false;
+    glfwPollEvents();
 
-            case SDL_KEYDOWN:
-                switch (event.key.keysym.sym)
-                {
-                    case SDLK_UP:
-                        entity_new_message(player, MSG_DESTROY, 0);
-                        break;
-
-                    default:
-                        break;
-                }
-                break;
-
-            case SDL_KEYUP:
-                switch (event.key.keysym.sym)
-                {
-                    case SDLK_ESCAPE:
-                        return false;
-
-                    default:
-                        break;
-                }
-                break;
-
-            default:
-                break;
-        }
-
-    return true;
+    /* quit on escape key */
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        game_quit();
 }
 
 static void _game_update(float dt)
 {
     /* test update */
-    Vec2 v = transform_get_origin(player);
-    v.x += 0.5 * dt;
-    transform_set_origin(player, v);
-    
+    _test_update(dt);
+
     /* check messages */
     sprite_check_messages_all();
     
     /* update systems */
     sprite_update_all();
     entity_update_all();
-
-    /* debug */
-    /*Vec2 player_pos = transform_get_origin(player);*/
-    /*Vec2 block_pos = transform_get_origin(block);*/
-    /*printf("(%f, %f), (%f, %f)\n", player_pos.x, player_pos.y,*/
-            /*block_pos.x, block_pos.y);*/
 }
 
 static void _game_draw()
@@ -153,19 +146,25 @@ static void _game_draw()
     /* draw systems */
     sprite_draw_all();
 
-    SDL_GL_SwapWindow(sdl_window);
+    glfwSwapBuffers(window);
 }
 
 void game_run()
 {
     _game_init();
 
-    while (_game_events())
+    while (!quit && !glfwWindowShouldClose(window))
     {
+        _game_events();
         _game_update(0.1);
         _game_draw();
     }
 
     _game_deinit();
+}
+
+void game_quit()
+{
+    quit = 1;
 }
 

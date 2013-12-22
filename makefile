@@ -1,8 +1,7 @@
 CC?=clang
 LINKER=clang
 CFLAGS?=-g -I/usr/local/include/SDL2 -DGLEW_STATIC
-LDFLAGS?=-g -framework OpenGL -lSDL2 -lSDL2main -lGLEW -lfreeimage \
-	 -DGLEW_STATIC
+LDFLAGS?=-g -framework OpenGL -lglfw3 -lGLEW -lfreeimage -DGLEW_STATIC
 SOURCES=main.c game.c sprite.c transform.c entity.c
 
 all: cgame
