@@ -5,7 +5,7 @@
 
 typedef unsigned int Entity;
 
-// generate new empty entity
+/* generate new empty entity */
 Entity entity_gen();
 
 #endif

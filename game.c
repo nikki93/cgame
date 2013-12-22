@@ -11,32 +11,32 @@ SDL_GLContext sdl_context;
 
 static void game_init()
 {
-    // initialize SDL, force core profile
+    /* initialize SDL, force core profile */
     SDL_Init(SDL_INIT_VIDEO);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
             SDL_GL_CONTEXT_PROFILE_CORE);
 
-    // create window and GL context
+    /* create window and GL context */
     sdl_window = SDL_CreateWindow("cgame", 100, 100, 800, 600,
             SDL_WINDOW_OPENGL);
     sdl_context = SDL_GL_CreateContext(sdl_window);
 
-    // initialize GLEW
+    /* initialize GLEW */
     glewExperimental = GL_TRUE;
     glewInit();
-    glGetError(); // see http://www.opengl.org/wiki/OpenGL_Loading_Library
+    glGetError(); /* see http://www.opengl.org/wiki/OpenGL_Loading_Library */
 
-    // some GL settings
+    /* some GL settings */
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glDisable(GL_DEPTH_TEST);
 
-    // init systems
+    /* init systems */
     sprite_init();
 
-    // add test object
+    /* add test object */
 
     Entity ent = entity_gen();
 
@@ -51,10 +51,10 @@ static void game_init()
 
 static void game_deinit()
 {
-    // deinit systems
+    /* deinit systems */
     sprite_deinit();
 
-    // deinit SDL
+    /* deinit SDL */
     SDL_GL_DeleteContext(sdl_context);
     SDL_Quit();
 }
@@ -82,12 +82,12 @@ static bool game_events()
 
 static void game_update(float dt)
 {
-    // test update
+    /* test update */
     Vec2 v = transform_get_origin(0);
     v.x += 2 * dt;
     transform_set_origin(0, v);
     
-    // update systems
+    /* update systems */
     sprite_update_all();
 }
 
@@ -96,7 +96,7 @@ static void game_draw()
     glClearColor(1.f, 1.f, 1.f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // draw systems
+    /* draw systems */
     sprite_draw_all();
 
     SDL_GL_SwapWindow(sdl_window);
