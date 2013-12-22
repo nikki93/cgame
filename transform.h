@@ -1,0 +1,18 @@
+#ifndef TRANSFORM_H_SKXSVJO1
+#define TRANSFORM_H_SKXSVJO1
+
+#include "entity.h"
+
+typedef struct Vec2 Vec2;
+struct Vec2 { float x; float y; };
+
+Vec2 vec2(float x, float y);
+
+void transform_add(Entity ent);
+void transform_remove(Entity ent);
+
+void transform_set_origin(Entity ent, Vec2 origin);
+Vec2 transform_get_origin(Entity ent);
+
+#endif
+

@@ -1,0 +1,2 @@
+-I/usr/local/include/SDL2
+-DGLEW_STATIC
