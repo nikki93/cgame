@@ -5,6 +5,8 @@
 #include <GLFW/glfw3.h>
 #include <Freeimage.h>
 
+#include "system.h"
+
 #include "sprite.h"
 #include "transform.h"
 
@@ -110,8 +112,7 @@ static void _game_init()
 static void _game_deinit()
 {
     /* deinit systems */
-    sprite_deinit();
-    entity_deinit();
+    system_deinit_all();
 
     /* deinit glfw */
     glfwTerminate();
@@ -131,12 +132,9 @@ static void _game_update(float dt)
     /* test update */
     _test_update(dt);
 
-    /* check messages */
-    sprite_check_messages_all();
-    
     /* update systems */
-    sprite_update_all();
-    entity_update_all();
+    system_check_messages_all();
+    system_update_all(dt);
 }
 
 static void _game_draw()
@@ -144,8 +142,7 @@ static void _game_draw()
     glClearColor(1.f, 1.f, 1.f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    /* draw systems */
-    sprite_draw_all();
+    system_draw_all();
 
     glfwSwapBuffers(window);
 }
