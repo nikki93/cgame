@@ -14,13 +14,12 @@ void system_deinit_all()
     entity_deinit();
 }
 
-void system_check_messages_all()
-{
-    sprite_check_messages_all();
-}
-
 void system_update_all(float dt)
 {
+    /* check messages */
+    sprite_check_messages_all();
+
+    /* update */
     sprite_update_all();
     entity_update_all();
 }
