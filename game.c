@@ -133,7 +133,6 @@ static void _game_update(float dt)
     _test_update(dt);
 
     /* update systems */
-    system_check_messages_all();
     system_update_all(dt);
 }
 
