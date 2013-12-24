@@ -5,6 +5,7 @@ dependencies
 - glfw3
 - glew
 - freeimage
+- luajit
 
 todo
 ----
