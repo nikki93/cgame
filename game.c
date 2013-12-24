@@ -59,13 +59,13 @@ static void _test_update(float dt)
         player_pos = transform_get_origin(player);
 
         if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-            player_pos.x -= 0.5 * dt;
+            player_pos.x -= 2 * dt;
         if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-            player_pos.x += 0.5 * dt;
+            player_pos.x += 2 * dt;
         if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-            player_pos.y += 0.5 * dt;
+            player_pos.y += 2 * dt;
         if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-            player_pos.y -= 0.5 * dt;
+            player_pos.y -= 2 * dt;
 
         transform_set_origin(player, player_pos);
 
