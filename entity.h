@@ -5,12 +5,16 @@
 
 #define ENTITY_MAX 256
 
+/* script_begin */
+
 typedef unsigned int Entity;
 
 Entity entity_new();
 
 void entity_deinit();
 void entity_update_all();
+
+/* script_end */
 
 /* ------------------------------------------------------------------------- */
 

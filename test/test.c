@@ -2,21 +2,38 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <lua.h>
+#include <lauxlib.h>
+#include <lualib.h>
 
 #include "entity.h"
 #include "transform.h"
 #include "sprite.h"
 #include "test/keyboard_controlled.h"
 
-void test_init()
+void test_lua()
+{
+    lua_State *L = lua_open();
+    luaL_openlibs(L);
+
+    if (luaL_loadfile(L, "test/test.lua") || 
+            lua_pcall(L, 0, 0, 0))
+    {
+          fprintf(stderr, "%s\n", lua_tostring(L, -1));
+          lua_pop(L, 1);
+    }
+
+    lua_close(L);
+}
+
+void test_c()
 {
     Entity block, player;
     unsigned int i, n_blocks;
 
-    srand(time(NULL));
-
     /* add some blocks */
 
+    srand(time(NULL));
     n_blocks = rand() % 50;
     for (i = 0; i < n_blocks; ++i)
     {
@@ -43,5 +60,12 @@ void test_init()
     sprite_set_size(player, vec2(32.0f, 32.0f));
 
     keyboard_controlled_add(player);
+
+}
+
+void test_init()
+{
+    /* lua */
+    test_lua();
 }
 

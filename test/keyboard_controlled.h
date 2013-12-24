@@ -5,8 +5,12 @@
 
 #include "entity.h"
 
+/* script_begin */
+
 void keyboard_controlled_add(Entity ent);
 void keyboard_controlled_remove(Entity ent);
+
+/* script_end */
 
 void keyboard_controlled_update_all(float dt);
 void keyboard_controlled_save_all(FILE *file);

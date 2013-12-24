@@ -5,7 +5,12 @@ typedef struct GLFWwindow GLFWwindow;
 GLFWwindow *window;
 
 void game_run();
+
+/* script_begin */
+
 void game_quit();
+
+/* script_end */
 
 #endif
 
