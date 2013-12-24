@@ -1,6 +1,7 @@
 #include "game.h"
 
 #include <stdlib.h>
+#include <stdbool.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <Freeimage.h>
@@ -12,7 +13,7 @@
 
 static GLFWwindow *window;
 
-static int quit = 0; /* exit main loop if 1 */
+static bool quit = false; /* exit main loop if true */
 
 static Entity player;
 
@@ -162,6 +163,6 @@ void game_run()
 
 void game_quit()
 {
-    quit = 1;
+    quit = true;
 }
 
