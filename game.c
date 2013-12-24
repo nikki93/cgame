@@ -17,6 +17,8 @@ static bool quit = false; /* exit main loop if true */
 
 static Entity player;
 
+/* ------------------------------------------------------------------------- */
+
 static void _test_init()
 {
     Entity block;
@@ -104,7 +106,7 @@ static void _game_init()
     glDisable(GL_DEPTH_TEST);
 
     /* init systems */
-    sprite_init();
+    system_init_all();
 
     /* test */
     _test_init();

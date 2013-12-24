@@ -20,9 +20,11 @@ void system_deinit_all()
 void system_update_all(float dt)
 {
     /* check messages */
+
     sprite_check_messages_all();
 
     /* update */
+
     sprite_update_all();
     entity_update_all();
 }
