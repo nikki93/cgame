@@ -8,6 +8,8 @@ struct Transform
 
 static Transform transforms[ENTITY_MAX];
 
+/* ------------------------------------------------------------------------- */
+
 void transform_add(Entity ent)
 {
     transforms[ent].origin = vec2(0.0f, 0.0f);

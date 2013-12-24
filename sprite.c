@@ -5,8 +5,6 @@
 #include <GL/glew.h>
 #include <Freeimage.h>
 
-static unsigned int num_sprites = 0;
-
 typedef struct Sprite Sprite;
 struct Sprite
 {
@@ -17,8 +15,9 @@ struct Sprite
     Vec2 size;
 };
 
-static Sprite sprites[ENTITY_MAX];
-static Sprite *entity_sprite[ENTITY_MAX];
+static unsigned int num_sprites = 0;
+static Sprite sprites[ENTITY_MAX];            /* all sprites tightly packed */
+static Sprite *entity_sprite[ENTITY_MAX];     /* pointers into above */
 
 /* ------------------------------------------------------------------------- */
 
@@ -221,19 +220,6 @@ void sprite_update_all()
 
     for (i = 0; i < num_sprites; ++i)
         sprites[i].position = transform_get_origin(sprites[i].entity);
-
-    /*
-    for (i = 0; i < num_sprites; ++i)
-    {
-        printf("{ %d, (%f, %f), (%f, %f), (%f, %f) } ",
-                sprites[i].entity,
-                sprites[i].position.x, sprites[i].position.y,
-                sprites[i].cell.x, sprites[i].cell.y,
-                sprites[i].size.x, sprites[i].size.y);
-    }
-
-    puts("");
-    */
 }
 
 void sprite_draw_all()

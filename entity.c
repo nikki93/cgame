@@ -14,6 +14,8 @@ struct Message
 
 static Message *messages[ENTITY_MAX];
 
+/* ------------------------------------------------------------------------- */
+
 Entity entity_new()
 {
     assert(top < ENTITY_MAX);
