@@ -39,6 +39,7 @@ static void _game_init()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glDisable(GL_DEPTH_TEST);
+    glClearColor(1.f, 1.f, 1.f, 1.f);
 
     /* init systems */
     system_init_all();
@@ -89,7 +90,6 @@ static void _game_update(float dt)
 
 static void _game_draw()
 {
-    glClearColor(1.f, 1.f, 1.f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     system_draw_all();
