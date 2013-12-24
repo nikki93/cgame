@@ -29,7 +29,7 @@ void keyboard_controlled_update_all(float dt)
 
     if (kc_exists)
     {
-        pos = transform_get_origin(kc_entity);
+        pos = transform_get_position(kc_entity);
 
         if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
             pos.x -= 5 * dt;
@@ -40,7 +40,7 @@ void keyboard_controlled_update_all(float dt)
         if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
             pos.y -= 5 * dt;
 
-        transform_set_origin(kc_entity, pos);
+        transform_set_position(kc_entity, pos);
     }
 }
 

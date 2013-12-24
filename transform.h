@@ -11,8 +11,8 @@ struct Vec2 { float x; float y; };
 void transform_add(Entity ent);
 void transform_remove(Entity ent);
 
-void transform_set_origin(Entity ent, Vec2 origin);
-Vec2 transform_get_origin(Entity ent);
+void transform_set_position(Entity ent, Vec2 origin);
+Vec2 transform_get_position(Entity ent);
 
 void transform_save_all();
 void transform_load_all();

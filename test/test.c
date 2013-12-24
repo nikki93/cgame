@@ -23,7 +23,7 @@ void test_init()
         block = entity_new();
 
         transform_add(block);
-        transform_set_origin(block,
+        transform_set_position(block,
                 vec2((rand() % 25) - 12, (rand() % 9) - 4));
 
         sprite_add(block);
@@ -36,7 +36,7 @@ void test_init()
     player = entity_new();
 
     transform_add(player);
-    transform_set_origin(player, vec2(0.0f, 0.0f));
+    transform_set_position(player, vec2(0.0f, 0.0f));
 
     sprite_add(player);
     sprite_set_cell(player, vec2( 0.0f, 32.0f));

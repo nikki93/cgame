@@ -219,7 +219,7 @@ void sprite_update_all()
     unsigned int i;
 
     for (i = 0; i < num_sprites; ++i)
-        sprites[i].position = transform_get_origin(sprites[i].entity);
+        sprites[i].position = transform_get_position(sprites[i].entity);
 }
 
 void sprite_draw_all()

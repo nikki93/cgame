@@ -24,11 +24,11 @@ void transform_remove(Entity ent)
 {
 }
 
-void transform_set_origin(Entity ent, Vec2 origin)
+void transform_set_position(Entity ent, Vec2 origin)
 {
     transforms[ent].origin = origin;
 }
-Vec2 transform_get_origin(Entity ent)
+Vec2 transform_get_position(Entity ent)
 {
     return transforms[ent].origin;
 }
