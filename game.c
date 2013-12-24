@@ -121,11 +121,27 @@ static void _game_deinit()
 
 static void _game_events()
 {
+    FILE *file;
+
     glfwPollEvents();
 
     /* quit on escape key */
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         game_quit();
+
+    /* save/load */
+    if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
+    {
+        file = fopen("test.sav", "w");
+        system_save_all(file);
+        fclose(file);
+    }
+    if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+    {
+        file = fopen("test.sav", "r");
+        system_load_all(file);
+        fclose(file);
+    }
 }
 
 static void _game_update(float dt)

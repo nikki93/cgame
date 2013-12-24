@@ -14,5 +14,8 @@ void transform_remove(Entity ent);
 void transform_set_origin(Entity ent, Vec2 origin);
 Vec2 transform_get_origin(Entity ent);
 
+void transform_save_all();
+void transform_load_all();
+
 #endif
 

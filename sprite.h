@@ -1,6 +1,8 @@
 #ifndef SPRITE_H_L45BNMPA
 #define SPRITE_H_L45BNMPA
 
+#include <stdio.h>
+
 #include "entity.h"
 #include "transform.h"
 
@@ -15,6 +17,8 @@ void sprite_deinit();
 void sprite_check_messages_all();
 void sprite_update_all();
 void sprite_draw_all();
+void sprite_save_all(FILE *file);
+void sprite_load_all(FILE *file);
 
 #endif
 

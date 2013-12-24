@@ -1,5 +1,8 @@
 #include "system.h"
 
+#include <stdbool.h>
+#include <stdio.h>
+
 #include "sprite.h"
 #include "transform.h"
 
@@ -27,5 +30,25 @@ void system_update_all(float dt)
 void system_draw_all()
 {
     sprite_draw_all();
+}
+
+/* do it this way so we save/load in the same order */
+static void _saveload_all(FILE *file, bool save)
+{
+#define saveload(sys) \
+    if (save) sys##_save_all(file); else sys##_load_all(file)
+
+    saveload(transform);
+    saveload(sprite);
+}
+
+void system_save_all(FILE *file)
+{
+    _saveload_all(file, true);
+}
+
+void system_load_all(FILE *file)
+{
+    _saveload_all(file, false);
 }
 

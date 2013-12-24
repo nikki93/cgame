@@ -231,3 +231,23 @@ void sprite_draw_all()
     glDrawArrays(GL_POINTS, 0, num_sprites);
 }
 
+void sprite_save_all(FILE *file)
+{
+    fwrite(&num_sprites, sizeof(num_sprites), 1, file);
+    fwrite(sprites, sizeof(Sprite), num_sprites, file);
+}
+
+void sprite_load_all(FILE *file)
+{
+    unsigned int i;
+
+    fread(&num_sprites, sizeof(num_sprites), 1, file);
+    fread(sprites, sizeof(Sprite), num_sprites, file);
+
+    /* restore entity <-> sprite connections */
+    for (i = 0; i < ENTITY_MAX; ++i)
+        entity_sprite[i] = NULL;
+    for (i = 0; i < num_sprites; ++i)
+        entity_sprite[sprites[i].entity] = &sprites[i];
+}
+
