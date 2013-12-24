@@ -136,12 +136,14 @@ static void _game_events()
     {
         file = fopen("test.sav", "w");
         system_save_all(file);
+        fwrite(&player, sizeof(player), 1, file);
         fclose(file);
     }
     if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
     {
         file = fopen("test.sav", "r");
         system_load_all(file);
+        fread(&player, sizeof(player), 1, file);
         fclose(file);
     }
 }
