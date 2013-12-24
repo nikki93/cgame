@@ -35,11 +35,13 @@ Vec2 transform_get_origin(Entity ent)
 
 void transform_save_all(FILE *file)
 {
+    fwrite(&max_entity, sizeof(max_entity), 1, file);
     fwrite(transforms, sizeof(Transform), max_entity + 1, file);
 }
 
 void transform_load_all(FILE *file)
 {
+    fread(&max_entity, sizeof(max_entity), 1, file);
     fread(transforms, sizeof(Transform), max_entity + 1, file);
 }
 
