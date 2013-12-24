@@ -165,12 +165,21 @@ static void _game_draw()
 
 void game_run()
 {
+    double last_time, curr_time, dt;
+
     _game_init();
 
+    last_time = glfwGetTime();
     while (!quit && !glfwWindowShouldClose(window))
     {
         _game_events();
-        _game_update(0.1);
+
+        curr_time = glfwGetTime();
+        dt = curr_time - last_time;
+        last_time = curr_time;
+        /* printf("fps: %f\n", 1.0f / dt); */
+        _game_update(dt);
+
         _game_draw();
     }
 
