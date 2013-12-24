@@ -3,7 +3,7 @@ todo
 
 - c99 cleanup
 
-- add nop *_init(), *_deinit(), *_update() for systems that don't do it (?)
+- use proper transform matrix (allows translation + rotation + scaling).
 
 - try animation
 
