@@ -10,23 +10,23 @@
 
 #include "sprite.h"
 #include "transform.h"
-
-static GLFWwindow *window;
+#include "test/keyboard_controlled.h"
 
 static bool quit = false; /* exit main loop if true */
-
-static Entity player;
 
 /* ------------------------------------------------------------------------- */
 
 static void _test_init()
 {
-    Entity block;
-    unsigned int i;
+    Entity block, player;
+    unsigned int i, n_blocks;
 
-    /* add 100 blocks */
+    srand(time(NULL));
 
-    for (i = 0; i < 100; ++i)
+    /* add some blocks */
+
+    n_blocks = rand() % 50;
+    for (i = 0; i < n_blocks; ++i)
     {
         block = entity_new();
 
@@ -49,34 +49,8 @@ static void _test_init()
     sprite_add(player);
     sprite_set_cell(player, vec2( 0.0f, 32.0f));
     sprite_set_size(player, vec2(32.0f, 32.0f));
-}
 
-static void _test_update(float dt)
-{
-    static int player_exists = 1;
-    Vec2 player_pos;
-
-    if (player_exists)
-    {
-        player_pos = transform_get_origin(player);
-
-        if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-            player_pos.x -= 5 * dt;
-        if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-            player_pos.x += 5 * dt;
-        if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-            player_pos.y += 5 * dt;
-        if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-            player_pos.y -= 5 * dt;
-
-        transform_set_origin(player, player_pos);
-
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        {
-            entity_new_message(player, MSG_DESTROY, 0);
-            player_exists = 0;
-        }
-    }
+    keyboard_controlled_add(player);
 }
 
 static void _game_init()
@@ -136,23 +110,18 @@ static void _game_events()
     {
         file = fopen("test.sav", "w");
         system_save_all(file);
-        fwrite(&player, sizeof(player), 1, file);
         fclose(file);
     }
     if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
     {
         file = fopen("test.sav", "r");
         system_load_all(file);
-        fread(&player, sizeof(player), 1, file);
         fclose(file);
     }
 }
 
 static void _game_update(float dt)
 {
-    /* test update */
-    _test_update(dt);
-
     /* update systems */
     system_update_all(dt);
 }

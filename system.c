@@ -3,8 +3,10 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+#include "entity.h"
 #include "sprite.h"
 #include "transform.h"
+#include "test/keyboard_controlled.h"
 
 void system_init_all()
 {
@@ -25,6 +27,8 @@ void system_update_all(float dt)
 
     /* update */
 
+    keyboard_controlled_update_all(dt);
+
     sprite_update_all();
     entity_update_all();
 }
@@ -42,6 +46,8 @@ static void _saveload_all(FILE *file, bool save)
 
     saveload(transform);
     saveload(sprite);
+
+    saveload(keyboard_controlled);
 }
 
 void system_save_all(FILE *file)
