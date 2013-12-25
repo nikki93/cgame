@@ -11,7 +11,7 @@ OBJS=$(SOURCES:.c=.o)
 all: cgame cgame_ffi.h
 
 clean:
-	rm -rf cgame $(OBJS)
+	rm -rf cgame cgame_ffi.h $(OBJS)
 
 cgame: $(OBJS)
 	$(LINKER) $(LDFLAGS) -o cgame $(OBJS) 
