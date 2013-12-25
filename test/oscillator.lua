@@ -3,7 +3,7 @@
 local tbl = {}
 local time = 0
 
-cgame.add_system('test',
+cgame.add_system('oscillator',
 {
     update_all = function (dt)
         time = time + dt
