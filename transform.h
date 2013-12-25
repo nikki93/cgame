@@ -1,16 +1,8 @@
 #ifndef TRANSFORM_H_SKXSVJO1
 #define TRANSFORM_H_SKXSVJO1
 
+#include "vec2.h"
 #include "entity.h"
-
-/* script_begin */
-
-typedef struct Vec2 Vec2;
-struct Vec2 { float x; float y; };
-
-/* script_end */
-
-#define vec2(x, y) ((Vec2) { x, y })
 
 /* script_begin */
 

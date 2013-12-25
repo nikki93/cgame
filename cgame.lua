@@ -8,7 +8,6 @@ local C = ffi.C
 
 local cgame = setmetatable(
 {
-    Vec2 = ffi.typeof('Vec2')
 }, { __index = C })
 
 return cgame

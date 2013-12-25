@@ -39,6 +39,7 @@ local fmt =
 
 local str = readdef
 {
+    'vec2.h',
     'game.h',
     'entity.h',
     'transform.h',

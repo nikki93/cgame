@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 #include "entity.h"
-#include "transform.h"
+#include "vec2.h"
 
 /* script_begin */
 

@@ -5,6 +5,8 @@
 #include <GL/glew.h>
 #include <Freeimage.h>
 
+#include "transform.h"
+
 typedef struct Sprite Sprite;
 struct Sprite
 {
