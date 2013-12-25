@@ -11,10 +11,10 @@ typedef unsigned int Entity;
 
 Entity entity_new();
 
+/* script_end */
+
 void entity_deinit();
 void entity_update_all();
-
-/* script_end */
 
 /* ------------------------------------------------------------------------- */
 
