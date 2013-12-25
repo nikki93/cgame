@@ -10,6 +10,20 @@
 local tbl = {} -- stores data per oscillator entity
 local time = 0
 
+function oscillator_set(ent, osc)
+    -- default parameters
+    if not osc.amp then osc.amp = 1 end
+    if not osc.freq then osc.freq = 1 end
+
+    osc.initx = cgame.transform_get_position(ent).x
+
+    tbl[ent] = osc
+end
+
+function oscillator_reset_all()
+    time = 0
+end
+
 cgame.add_system('oscillator',
 {
     update_all = function (dt)
@@ -26,18 +40,7 @@ cgame.add_system('oscillator',
 
 return
 {
-    set = function (ent, osc)
-        -- default parameters
-        if not osc.amp then osc.amp = 1 end
-        if not osc.freq then osc.freq = 1 end
-
-        osc.initx = cgame.transform_get_position(ent).x
-
-        tbl[ent] = osc
-    end,
-
-    reset = function ()
-        time = 0
-    end,
+    set = oscillator_set,
+    reset_all = oscillator_reset_all,
 }
 

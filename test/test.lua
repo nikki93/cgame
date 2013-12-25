@@ -1,4 +1,4 @@
-local oscillator = require 'test.oscillator'
+require 'test.oscillator'
 
 -- add some blocks
 
@@ -17,7 +17,7 @@ for i = 0, n_blocks do
     cgame.sprite_set_size(block, cgame.vec2(32.0, 32.0))
 
     if pos.y < 0 then
-        oscillator.set(block, { freq = math.random() })
+        oscillator_set(block, { freq = math.random() })
     end
 end
 
