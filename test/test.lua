@@ -17,7 +17,7 @@ for i = 0, n_blocks do
     cgame.sprite_set_size(block, cgame.vec2(32.0, 32.0))
 
     if pos.y < 0 then
-        oscillator.set(block, { rate = 5 * math.random() })
+        oscillator.set(block, { freq = math.random() })
     end
 end
 
