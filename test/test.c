@@ -2,29 +2,11 @@
 
 #include <stdlib.h>
 #include <time.h>
-#include <lua.h>
-#include <lauxlib.h>
-#include <lualib.h>
 
 #include "entity.h"
 #include "transform.h"
 #include "sprite.h"
 #include "test/keyboard_controlled.h"
-
-void test_lua()
-{
-    lua_State *L = lua_open();
-    luaL_openlibs(L);
-
-    if (luaL_loadfile(L, "test/test.lua") || 
-            lua_pcall(L, 0, 0, 0))
-    {
-          fprintf(stderr, "%s\n", lua_tostring(L, -1));
-          lua_pop(L, 1);
-    }
-
-    lua_close(L);
-}
 
 void test_c()
 {
@@ -65,7 +47,6 @@ void test_c()
 
 void test_init()
 {
-    /* lua */
-    test_lua();
+    /* everything happens through lua now! check main.lua */
 }
 

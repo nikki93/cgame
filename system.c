@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "entity.h"
+#include "script.h"
 #include "sprite.h"
 #include "transform.h"
 #include "test/keyboard_controlled.h"
@@ -11,10 +12,12 @@
 void system_init_all()
 {
     sprite_init();
+    script_init_all();
 }
 
 void system_deinit_all()
 {
+    script_deinit_all();
     sprite_deinit();
     entity_deinit();
 }
@@ -27,6 +30,8 @@ void system_update_all(float dt)
 
     /* update */
 
+    script_update_all(dt);
+
     keyboard_controlled_update_all(dt);
 
     sprite_update_all();
@@ -35,6 +40,7 @@ void system_update_all(float dt)
 
 void system_draw_all()
 {
+    script_draw_all();
     sprite_draw_all();
 }
 
@@ -48,6 +54,8 @@ static void _saveload_all(FILE *file, bool save)
     saveload(sprite);
 
     saveload(keyboard_controlled);
+
+    saveload(script);
 }
 
 void system_save_all(FILE *file)
