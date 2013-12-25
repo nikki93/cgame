@@ -2,7 +2,8 @@
 cgame
 *.o
 
+cgame_ffi.h
+
 *.swp
 *~
 
-all.h

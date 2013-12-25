@@ -6,15 +6,18 @@ LDFLAGS?=-g -framework OpenGL -lglfw3 -lGLEW -lfreeimage -lluajit-5.1 \
 SOURCES=main.c game.c sprite.c transform.c entity.c system.c \
 	test/keyboard_controlled.c test/test.c
 
-all: cgame
-
 OBJS=$(SOURCES:.c=.o)
+
+all: cgame cgame_ffi.h
 
 clean:
 	rm -rf cgame $(OBJS)
 
 cgame: $(OBJS)
 	$(LINKER) $(LDFLAGS) -o cgame $(OBJS) 
+
+cgame_ffi.h: game.h entity.h transform.h sprite.h test/keyboard_controlled.h
+	lua gen_cgame_ffi.lua
 
 .c.o:
 	$(CC) $(CFLAGS) -o $(<:.c=.o) -c $<
