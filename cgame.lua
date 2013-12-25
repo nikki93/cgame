@@ -1,10 +1,7 @@
---- ffi -----------------------------------------------------------------------
+--- inherit ffi ---------------------------------------------------------------
 
 local ffi = require 'ffi'
-local file = assert(io.open('cgame_ffi.h'))
-ffi.cdef(file:read('*all'))
-local C = ffi.C
-local cgame = setmetatable({}, { __index = C })
+local cgame = setmetatable({}, { __index = ffi.C })
 
 
 --- lua utils -----------------------------------------------------------------

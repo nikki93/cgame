@@ -20,6 +20,8 @@ cgame_ffi.h: game.h entity.h transform.h sprite.h test/keyboard_controlled.h \
     vec2.h
 	lua gen_cgame_ffi.lua
 
+script.o: cgame_ffi.h
+
 .c.o:
 	$(CC) $(CFLAGS) -o $(<:.c=.o) -c $<
 

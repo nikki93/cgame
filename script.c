@@ -4,7 +4,9 @@
 #include <lauxlib.h>
 #include <lualib.h>
 
-lua_State *L;
+#include "cgame_ffi.h"
+
+static lua_State *L;
 
 /* macrohax to make lua error handling simpler -- replace soon */
 #define errbegin \
@@ -36,6 +38,35 @@ void script_init_all()
 
     errbegin
     {
+        /* 
+         * load cgame ffi -- this is equivalent to:
+         *
+         *     ffi = require 'ffi'
+         *     ffi.cdef(cgame_ffi)
+         *
+         * 'cgame_ffi' comes from cgame_ffi.h and is automatically generated
+         */
+        lua_getglobal(L, "require");
+        lua_pushstring(L, "ffi");
+        errcheck(lua_pcall(L, 1, 0, 0));
+        lua_getfield(L, lua_gettop(L), "cdef");
+        lua_pushstring(L, cgame_ffi);
+        errcheck(lua_pcall(L, 1, 0, 0));
+
+        /*
+         * load 'cgame' module as a global -- this makes it easier to fire
+         * events and also makes it so we don't have to "require 'cgame'" in
+         * scripts
+         *
+         * TODO: fix this
+         */
+        /*
+        lua_getglobal(L, "require");
+        lua_pushstring(L, "cgame");
+        errcheck(lua_pcall(L, 1, 0, 0));
+        lua_setglobal(L, "cgame");
+        */
+
         /* run main.lua */
         errcheck(luaL_loadfile(L, "main.lua"));
         errcheck(lua_pcall(L, 0, 0, 0));
