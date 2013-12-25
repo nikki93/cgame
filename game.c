@@ -97,6 +97,26 @@ static void _game_draw()
     glfwSwapBuffers(window);
 }
 
+static void _fps_display()
+{
+    static const double display_period = 5.0f; /* fps display update period */
+    static unsigned int nframes = 0;
+    static double last_time = 0.0, curr_time;
+    double interval;
+
+    ++nframes;
+
+    curr_time = glfwGetTime();
+    interval = curr_time - last_time;
+    if (interval > display_period)
+    {
+        printf("fps: %f\n", nframes / interval);
+
+        nframes = 0;
+        last_time = curr_time;
+    }
+}
+
 void game_run()
 {
     double last_time, curr_time, dt;
@@ -111,10 +131,11 @@ void game_run()
         curr_time = glfwGetTime();
         dt = curr_time - last_time;
         last_time = curr_time;
-        /* printf("fps: %f\n", 1.0f / dt); */
         _game_update(dt);
 
         _game_draw();
+
+        _fps_display();
     }
 
     _game_deinit();
