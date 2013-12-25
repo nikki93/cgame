@@ -104,7 +104,7 @@ static void _compile_shader(GLuint shader, const char *filename)
 
     /* log */
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
-    printf(status ? "successful\n" : "unsuccessful\n");
+    printf(status ? " successful\n" : " unsuccessful\n");
     glGetShaderInfoLog(shader, 512, NULL, log);
     printf("%s\n", log);
 }
