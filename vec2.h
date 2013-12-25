@@ -10,5 +10,8 @@ Vec2 vec2(float x, float y);
 
 /* script_end */
 
+/* inline vec2(...) in C */
+#define vec2(x, y) ((Vec2) { (x), (y) })
+
 #endif
 
