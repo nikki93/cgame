@@ -1,6 +1,8 @@
-*.sav
 cgame
 *.o
+
+usr/*
+!usr/.keepme
 
 cgame_ffi.h
 

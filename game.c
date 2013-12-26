@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include <Freeimage.h>
 
+#include "dirs.h"
 #include "system.h"
 
 #include "test/test.h"
@@ -70,13 +71,13 @@ static void _game_events()
     /* save/load */
     if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
     {
-        file = fopen("test.sav", "w");
+        file = fopen(usr_path("test.sav"), "w");
         system_save_all(file);
         fclose(file);
     }
     if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
     {
-        file = fopen("test.sav", "r");
+        file = fopen(usr_path("test.sav"), "r");
         system_load_all(file);
         fclose(file);
     }
