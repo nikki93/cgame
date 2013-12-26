@@ -1,10 +1,10 @@
 --
 -- a silly test system
 --
---     oscillator.set(ent, { amp = ..., freq = ... }) to set
+--     oscillator_set(ent, { amp = ..., freq = ... }) to set
 --     for entity ent
 --
---     oscillator.reset() to reset time
+--     oscillator_reset_all() to reset time
 --
 
 local tbl = {} -- stores data per oscillator entity
