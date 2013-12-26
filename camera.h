@@ -1,6 +1,8 @@
 #ifndef CAMERA_H_3PIJHFMW
 #define CAMERA_H_3PIJHFMW
 
+#include <stdio.h>
+
 #include "entity.h"
 #include "mat3.h"
 
@@ -17,8 +19,11 @@ Mat3 camera_get_inverse_view_matrix();
 
 /* script_end */
 
-void camera_update_all();
 Mat3 *camera_get_inverse_view_matrix_ptr(); /* for quick GLSL binding */
+
+void camera_update_all();
+void camera_save_all(FILE *file);
+void camera_load_all(FILE *file);
 
 #endif
 

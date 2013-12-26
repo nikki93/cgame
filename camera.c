@@ -54,3 +54,16 @@ void camera_update_all()
                 transform_get_world_matrix(camera_entity));
 }
 
+void camera_save_all(FILE *file)
+{
+    fwrite(&camera_exists, sizeof(camera_exists), 1, file);
+    fwrite(&camera_entity, sizeof(camera_entity), 1, file);
+    fwrite(&inverse_view_matrix, sizeof(inverse_view_matrix), 1, file);
+}
+void camera_load_all(FILE *file)
+{
+    fread(&camera_exists, sizeof(camera_exists), 1, file);
+    fread(&camera_entity, sizeof(camera_entity), 1, file);
+    fread(&inverse_view_matrix, sizeof(inverse_view_matrix), 1, file);
+}
+
