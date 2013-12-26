@@ -1,3 +1,5 @@
+MATRICES ARE IN COLUMN MAJOR ORDER (to reflect GLSL)
+
 dependencies
 ------------
 

@@ -12,7 +12,10 @@ struct Sprite
 {
     Entity entity;
 
-    Vec2 position;
+    float transform1[3];
+    float transform2[3];
+    float transform3[3];
+
     Vec2 cell;
     Vec2 size;
 };
@@ -113,22 +116,32 @@ static void _compile_shader(GLuint shader, const char *filename)
 #define poffsetof(type, field) \
     ((void *) (&((type *) 0)->field))
 
-static void _bind_attributes(GLuint position, GLuint cell, GLuint size)
+static void _bind_attributes()
 {
-    glVertexAttribPointer(position, 2, GL_FLOAT, GL_FALSE,
-            sizeof(Sprite), poffsetof(Sprite, position));
-    glEnableVertexAttribArray(position);
-    /* glVertexAttribDivisor(position, divisor); */
+    GLuint transform1, transform2, transform3, cell, size;
 
+    transform1 = glGetAttribLocation(program, "transform1");
+    glVertexAttribPointer(transform1, 3, GL_FLOAT, GL_FALSE,
+            sizeof(Sprite), poffsetof(Sprite, transform1));
+    glEnableVertexAttribArray(transform1);
+    transform2 = glGetAttribLocation(program, "transform2");
+    glVertexAttribPointer(transform2, 3, GL_FLOAT, GL_FALSE,
+            sizeof(Sprite), poffsetof(Sprite, transform2));
+    glEnableVertexAttribArray(transform2);
+    transform3 = glGetAttribLocation(program, "transform3");
+    glVertexAttribPointer(transform3, 3, GL_FLOAT, GL_FALSE,
+            sizeof(Sprite), poffsetof(Sprite, transform3));
+    glEnableVertexAttribArray(transform3);
+
+    cell = glGetAttribLocation(program, "cell");
     glVertexAttribPointer(cell, 2, GL_FLOAT, GL_FALSE,
             sizeof(Sprite), poffsetof(Sprite, cell));
     glEnableVertexAttribArray(cell);
-    /* glVertexAttribDivisor(cell, divisor); */
 
+    size = glGetAttribLocation(program, "size");
     glVertexAttribPointer(size, 2, GL_FLOAT, GL_FALSE,
             sizeof(Sprite), poffsetof(Sprite, size));
     glEnableVertexAttribArray(size);
-    /* glVertexAttribDivisor(size, divisor); */
 }
 
 void sprite_init()
@@ -164,9 +177,7 @@ void sprite_init()
     glBindBuffer(GL_ARRAY_BUFFER, buffer_object);
     glBufferData(GL_ARRAY_BUFFER, num_sprites * sizeof(Sprite), sprites,
             GL_STREAM_DRAW);
-    _bind_attributes(glGetAttribLocation(program, "position"),
-            glGetAttribLocation(program, "cell"),
-            glGetAttribLocation(program, "size"));
+    _bind_attributes();
 
     /* load and use atlas texture */
     glGenTextures(1, &atlas_tex);
@@ -221,7 +232,7 @@ void sprite_update_all()
     unsigned int i;
 
     for (i = 0; i < num_sprites; ++i)
-        sprites[i].position = transform_get_position(sprites[i].entity);
+        transform_get_world_matrix(sprites[i].entity, &sprites[i].transform1);
 }
 
 void sprite_draw_all()
