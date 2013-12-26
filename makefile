@@ -20,7 +20,7 @@ cgame: $(OBJS)
 	$(LINKER) $(LDFLAGS) -o cgame $(OBJS) 
 
 cgame_ffi.h: $(FFI)
-	python gen_cgame_ffi.py $(FFI)
+	python scripts/gen_cgame_ffi.py $(FFI)
 
 script.o: cgame_ffi.h
 
