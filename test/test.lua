@@ -1,4 +1,5 @@
 require 'test.oscillator'
+require 'test.rotator'
 
 -- add some blocks
 
@@ -19,6 +20,9 @@ for i = 0, n_blocks do
     if pos.y < 0 then
         oscillator_set(block, { freq = math.random() })
     end
+    if pos.x < 0 then
+        rotator_set(block, math.pi)
+    end
 end
 
 -- add player
@@ -33,4 +37,6 @@ cgame.sprite_set_cell(player, cgame.vec2( 0.0, 32.0))
 cgame.sprite_set_size(player, cgame.vec2(32.0, 32.0))
 
 cgame.keyboard_controlled_add(player)
+
+rotator_set(player, -math.pi)
 

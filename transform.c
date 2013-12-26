@@ -40,6 +40,10 @@ void transform_set_rotation(Entity ent, float rot)
 {
     transforms[ent].rotation = rot;
 }
+void transform_rotate(Entity ent, float rot)
+{
+    transforms[ent].rotation += rot;
+}
 float transform_get_rotation(Entity ent)
 {
     return transforms[ent].rotation;
