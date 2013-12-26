@@ -5,6 +5,8 @@ LDFLAGS?=-g -framework OpenGL -lglfw3 -lGLEW -lfreeimage -lluajit-5.1 \
 	 -DGLEW_STATIC -pagezero_size 10000 -image_base 100000000
 SOURCES=main.c vec2.c game.c sprite.c transform.c entity.c system.c script.c \
 	test/keyboard_controlled.c test/test.c
+FFI=game.h vec2.h entity.h transform.h sprite.h test/keyboard_controlled.h
+
 
 OBJS=$(SOURCES:.c=.o)
 
@@ -16,9 +18,8 @@ clean:
 cgame: $(OBJS)
 	$(LINKER) $(LDFLAGS) -o cgame $(OBJS) 
 
-cgame_ffi.h: game.h entity.h transform.h sprite.h test/keyboard_controlled.h \
-    vec2.h
-	lua gen_cgame_ffi.lua
+cgame_ffi.h: $(FFI)
+	python gen_cgame_ffi.py $(FFI)
 
 script.o: cgame_ffi.h
 
