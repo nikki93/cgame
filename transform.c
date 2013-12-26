@@ -8,6 +8,7 @@ struct Transform
 {
     Vec2 position;
     float rotation;
+    Vec2 scale;
 };
 
 static unsigned int max_entity = 0;
@@ -19,6 +20,7 @@ void transform_add(Entity ent)
 {
     transforms[ent].position = vec2(0.0f, 0.0f);
     transforms[ent].rotation = 0.0f;
+    transforms[ent].scale = vec2(1.0f, 1.0f);
 
     if (ent > max_entity)
         max_entity = ent;
@@ -49,10 +51,22 @@ float transform_get_rotation(Entity ent)
     return transforms[ent].rotation;
 }
 
+void transform_set_scale(Entity ent, Vec2 pos)
+{
+    transforms[ent].scale = pos;
+}
+Vec2 transform_get_scale(Entity ent)
+{
+    return transforms[ent].scale;
+}
+
 Mat3 transform_get_world_matrix(Entity ent)
 {
-    return mat3_translation_rotation(transforms[ent].position,
-            transforms[ent].rotation);
+    return mat3_scaling_rotation_translation(
+            transforms[ent].scale,
+            transforms[ent].rotation,
+            transforms[ent].position
+            );
 }
 
 void transform_save_all(FILE *file)

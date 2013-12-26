@@ -2,10 +2,10 @@
 
 #include <math.h>
 
-Mat3 mat3_translation_rotation(Vec2 trans, float rot)
+Mat3 mat3_scaling_rotation_translation(Vec2 scale, float rot, Vec2 trans)
 {
-    return mat3(cos(rot), sin(rot), 0.0f,
-            -sin(rot), cos(rot), 0.0f,
+    return mat3(scale.x * cos(rot), scale.x * sin(rot), 0.0f,
+            scale.y * -sin(rot), scale.y * cos(rot), 0.0f,
             trans.x, trans.y, 1.0f);
 }
 

@@ -39,4 +39,5 @@ cgame.sprite_set_size(player, cgame.vec2(32.0, 32.0))
 cgame.keyboard_controlled_add(player)
 
 rotator_set(player, -math.pi)
+cgame.transform_set_scale(player, cgame.vec2(2, 2))
 

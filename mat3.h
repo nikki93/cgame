@@ -14,7 +14,8 @@ Mat3 mat3(float m00, float m01, float m02,
         float m10, float m11, float m12,
         float m20, float m21, float m22);
 
-Mat3 mat3_translation_rotation(Vec2 trans, float rot);
+/* matrix that applies scale, rot and trans in that order */
+Mat3 mat3_scaling_rotation_translation(Vec2 scale, float rot, Vec2 trans);
 
 /* script_end */
 
