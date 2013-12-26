@@ -7,6 +7,7 @@ dependencies
 - freeimage
 - luajit
 
+
 ideas
 -----
 
@@ -17,6 +18,7 @@ ideas
 - in edit mode each system has its own window with all entities, when you
   select one it focuses on the right row -- allows system-specific interfaces
   (transform is a tree etc.)
+
 
 todo
 ----
@@ -30,10 +32,22 @@ todo
 
 - try animation
 
+
+files
+-----
+
+- cgame.lua: cgame lua interface -- can be accessed as cgame.entity_new() etc.
+- main.lua: startup script -- run on game start
+
+- cgame_ffi.h: C interface for Lua -- used by script.c to bind to Lua
+- gen_cgame_ffi.py: automatically generates above, see 'make cgame_ffi.h'
+
+
 systems
 -------
 
 - entity
 - transform
 - sprite
+
 
