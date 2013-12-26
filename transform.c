@@ -5,7 +5,7 @@
 typedef struct Transform Transform;
 struct Transform
 {
-    struct Vec2 origin;
+    Vec2 origin;
 };
 
 static unsigned int max_entity = 0;
