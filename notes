@@ -23,6 +23,8 @@ todo
 
 - c99 cleanup
 
+- replace fread/fwrite with *_save/load functions for portability
+
 - fix message system -- right now it uses pointer weirdness and is messy
 
 - make systems add entites to systems they depend on
