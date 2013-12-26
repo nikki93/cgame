@@ -49,22 +49,10 @@ float transform_get_rotation(Entity ent)
     return transforms[ent].rotation;
 }
 
-void transform_get_world_matrix(Entity ent, float cols[3][3])
+Mat3 transform_get_world_matrix(Entity ent)
 {
-    float rot = transforms[ent].rotation;
-    Vec2 pos = transforms[ent].position;
-
-    cols[0][0] = cos(rot);
-    cols[0][1] = sin(rot);
-    cols[0][2] = 0.0f;
-
-    cols[1][0] = -sin(rot);
-    cols[1][1] = cos(rot);
-    cols[1][2] = 0.0f;
-
-    cols[2][0] = pos.x;
-    cols[2][1] = pos.y;
-    cols[2][2] = 1.0f;
+    return mat3_translation_rotation(transforms[ent].position,
+            transforms[ent].rotation);
 }
 
 void transform_save_all(FILE *file)

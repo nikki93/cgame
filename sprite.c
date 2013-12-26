@@ -13,9 +13,7 @@ struct Sprite
 {
     Entity entity;
 
-    float transform1[3];
-    float transform2[3];
-    float transform3[3];
+    Mat3 transform;
 
     Vec2 cell;
     Vec2 size;
@@ -123,15 +121,15 @@ static void _bind_attributes()
 
     transform1 = glGetAttribLocation(program, "transform1");
     glVertexAttribPointer(transform1, 3, GL_FLOAT, GL_FALSE,
-            sizeof(Sprite), poffsetof(Sprite, transform1));
+            sizeof(Sprite), poffsetof(Sprite, transform.m[0]));
     glEnableVertexAttribArray(transform1);
     transform2 = glGetAttribLocation(program, "transform2");
     glVertexAttribPointer(transform2, 3, GL_FLOAT, GL_FALSE,
-            sizeof(Sprite), poffsetof(Sprite, transform2));
+            sizeof(Sprite), poffsetof(Sprite, transform.m[1]));
     glEnableVertexAttribArray(transform2);
     transform3 = glGetAttribLocation(program, "transform3");
     glVertexAttribPointer(transform3, 3, GL_FLOAT, GL_FALSE,
-            sizeof(Sprite), poffsetof(Sprite, transform3));
+            sizeof(Sprite), poffsetof(Sprite, transform.m[2]));
     glEnableVertexAttribArray(transform3);
 
     cell = glGetAttribLocation(program, "cell");
@@ -234,7 +232,7 @@ void sprite_update_all()
     unsigned int i;
 
     for (i = 0; i < num_sprites; ++i)
-        transform_get_world_matrix(sprites[i].entity, &sprites[i].transform1);
+        sprites[i].transform = transform_get_world_matrix(sprites[i].entity);
 }
 
 void sprite_draw_all()

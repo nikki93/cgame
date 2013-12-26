@@ -1,6 +1,6 @@
 #version 150
 
-in vec3 transform1;
+in vec3 transform1; // columns 1, 2, 3 of transform matrix
 in vec3 transform2;
 in vec3 transform3;
 in vec2 cell;
