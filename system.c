@@ -53,6 +53,7 @@ static void _saveload_all(FILE *file, bool save)
     if (save) sys##_save_all(file); else sys##_load_all(file)
 
     saveload(transform);
+    saveload(camera);
     saveload(sprite);
 
     saveload(keyboard_controlled);
