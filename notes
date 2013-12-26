@@ -27,7 +27,9 @@ todo
 
 - c99 cleanup
 
-- use proper transform matrix (allows translation + rotation + scaling).
+- make systems add entites to systems they depend on
+
+- make transform dynamic and not reset entities it already has
 
 - try animation
 
