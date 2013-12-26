@@ -25,9 +25,6 @@ todo
 
 - c99 cleanup
 
-- make gen_cgame_ffi.lua get filenames from args, then just list the files
-  once in makefile under SCRIPT_HEADERS or such
-
 - use proper transform matrix (allows translation + rotation + scaling).
 
 - try animation
