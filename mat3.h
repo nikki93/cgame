@@ -3,8 +3,6 @@
 
 #include "vec2.h"
 
-/* NOTE: matrices are stored in column-major order */
-
 /* script_begin */
 
 typedef struct Mat3 Mat3;
@@ -14,10 +12,13 @@ Mat3 mat3(float m00, float m01, float m02,
         float m10, float m11, float m12,
         float m20, float m21, float m22);
 
-/* matrix that applies scale, rot and trans in that order */
+Mat3 mat3_inverse(Mat3 m);
+
+/* matrix that applies scale, rot and trans in order */
 Mat3 mat3_scaling_rotation_translation(Vec2 scale, float rot, Vec2 trans);
 
 /* script_end */
+
 
 /* C inline stuff */
 

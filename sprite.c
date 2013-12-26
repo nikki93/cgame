@@ -7,6 +7,7 @@
 
 #include "dirs.h"
 #include "transform.h"
+#include "camera.h"
 
 typedef struct Sprite Sprite;
 struct Sprite
@@ -238,6 +239,11 @@ void sprite_update_all()
 void sprite_draw_all()
 {
     glBindVertexArray(vao);
+
+    glUniformMatrix3fv(glGetUniformLocation(program, "inverse_view_matrix"),
+            1, GL_FALSE,
+            (const GLfloat *) camera_get_inverse_view_matrix_ptr());
+
     glBindBuffer(GL_ARRAY_BUFFER, buffer_object);
     glBufferData(GL_ARRAY_BUFFER, num_sprites * sizeof(Sprite), sprites,
             GL_STREAM_DRAW);

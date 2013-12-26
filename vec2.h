@@ -7,6 +7,7 @@ typedef struct Vec2 Vec2;
 struct Vec2 { float x; float y; };
 
 Vec2 vec2(float x, float y);
+Vec2 vec2_scalar_mul(Vec2 v, float f);
 
 /* script_end */
 

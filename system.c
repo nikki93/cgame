@@ -5,8 +5,9 @@
 
 #include "entity.h"
 #include "script.h"
-#include "sprite.h"
 #include "transform.h"
+#include "camera.h"
+#include "sprite.h"
 #include "test/keyboard_controlled.h"
 
 void system_init_all()
@@ -34,6 +35,7 @@ void system_update_all(float dt)
 
     keyboard_controlled_update_all(dt);
 
+    camera_update_all();
     sprite_update_all();
     entity_update_all();
 }
