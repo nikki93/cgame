@@ -4,6 +4,7 @@
 #include "keyboard_controlled.h"
 
 #include <stdbool.h>
+#include <math.h>
 #include <GLFW/glfw3.h>
 
 #include "transform.h"
@@ -25,11 +26,15 @@ void keyboard_controlled_remove(Entity ent)
 
 void keyboard_controlled_update_all(float dt)
 {
-    Vec2 pos;
+    Vec2 pos, sca;
+    float rot, aspect;
 
     if (kc_exists)
     {
         pos = transform_get_position(kc_entity);
+        rot = transform_get_rotation(kc_entity);
+        sca = transform_get_scale(kc_entity);
+        aspect = sca.y / sca.x;
 
         if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
             pos.x -= 5 * dt;
@@ -40,7 +45,25 @@ void keyboard_controlled_update_all(float dt)
         if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
             pos.y -= 5 * dt;
 
+        if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
+            rot += 0.35 * M_PI * dt;
+        if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+            rot -= 0.35 * M_PI * dt;
+
+        if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+        {
+            sca.x += 12 * dt;
+            sca.y = aspect * sca.x;
+        }
+        if (sca.x > 12 * dt && glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+        {
+            sca.x -= 12 * dt;
+            sca.y = aspect * sca.x;
+        }
+
         transform_set_position(kc_entity, pos);
+        transform_set_rotation(kc_entity, rot);
+        transform_set_scale(kc_entity, sca);
     }
 }
 
