@@ -4,6 +4,8 @@
 #include <lauxlib.h>
 #include <lualib.h>
 
+#include "dirs.h"
+
 #include "cgame_ffi.h"
 
 static lua_State *L;
@@ -38,6 +40,13 @@ void script_init_all()
 
     errbegin
     {
+        /*
+         * send data path to lua, main.lua should update package.path with
+         * this
+         */
+        lua_pushstring(L, data_path("?.lua"));
+        lua_setglobal(L, "cgame_data_path");
+
         /* 
          * load cgame ffi -- this is equivalent to:
          *

@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include <Freeimage.h>
 
+#include "dirs.h"
 #include "transform.h"
 
 typedef struct Sprite Sprite;
@@ -153,11 +154,11 @@ void sprite_init()
 
     /* compile shaders */
     vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-    _compile_shader(vertex_shader, "sprite.vert");
+    _compile_shader(vertex_shader, data_path("sprite.vert"));
     geometry_shader = glCreateShader(GL_GEOMETRY_SHADER);
-    _compile_shader(geometry_shader, "sprite.geom");
+    _compile_shader(geometry_shader, data_path("sprite.geom"));
     fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-    _compile_shader(fragment_shader, "sprite.frag");
+    _compile_shader(fragment_shader, data_path("sprite.frag"));
 
     /* link program */
     program = glCreateProgram();
@@ -186,7 +187,8 @@ void sprite_init()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     FIBITMAP *img = FreeImage_ConvertTo32Bits(FreeImage_Load(
-                FreeImage_GetFileType("atlas.png", 0), "atlas.png", 0));
+                FreeImage_GetFileType(data_path("atlas.png"), 0),
+                data_path("atlas.png"), 0));
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
             FreeImage_GetWidth(img), FreeImage_GetHeight(img),
             0, GL_BGRA, GL_UNSIGNED_BYTE, FreeImage_GetBits(img));
