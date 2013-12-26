@@ -3,12 +3,8 @@
 
 /* script_begin */
 
-typedef union Vec2 Vec2;
-union Vec2
-{
-    float v[2];
-    struct { float x; float y; };
-};
+typedef struct Vec2 Vec2;
+struct Vec2 { float x; float y; };
 
 Vec2 vec2(float x, float y);
 
