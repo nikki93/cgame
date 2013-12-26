@@ -13,10 +13,6 @@ dependencies
 ideas
 -----
 
-- camera is a system with just one entity (initially), has width, height (in
-  world units) and needs transform -- then in rendering we inverse move/rotate
-  everything and scale based on width/height vs. window width/height
-
 - in edit mode each system has its own window with all entities, when you
   select one it focuses on the right row -- allows system-specific interfaces
   (transform is a tree etc.)
@@ -26,6 +22,8 @@ todo
 ----
 
 - c99 cleanup
+
+- fix message system -- right now it uses pointer weirdness and is messy
 
 - make systems add entites to systems they depend on
 
