@@ -16,6 +16,7 @@ void transform_remove(Entity ent);
 
 void transform_set_position(Entity ent, Vec2 pos);
 Vec2 transform_get_position(Entity ent);
+void transform_translate(Entity ent, Vec2 trans);
 
 void transform_set_rotation(Entity ent, float rot);
 float transform_get_rotation(Entity ent);

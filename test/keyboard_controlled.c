@@ -27,24 +27,23 @@ void keyboard_controlled_remove(Entity ent)
 
 void keyboard_controlled_update_all(float dt)
 {
-    Vec2 pos, sca;
+    Vec2 dpos = vec2(0, 0), sca;
     float rot, aspect;
 
     if (kc_exists)
     {
-        pos = transform_get_position(kc_entity);
         rot = transform_get_rotation(kc_entity);
         sca = transform_get_scale(kc_entity);
         aspect = sca.y / sca.x;
 
         if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-            pos.x -= 5 * dt;
+            dpos = vec2_add(dpos, vec2(-5 * dt, 0));
         if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-            pos.x += 5 * dt;
+            dpos = vec2_add(dpos, vec2( 5 * dt, 0));
         if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-            pos.y += 5 * dt;
+            dpos = vec2_add(dpos, vec2(0,  5 * dt));
         if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-            pos.y -= 5 * dt;
+            dpos = vec2_add(dpos, vec2(0, -5 * dt));
 
         if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
             rot += 0.35 * M_PI * dt;
@@ -62,7 +61,8 @@ void keyboard_controlled_update_all(float dt)
             sca.y = aspect * sca.x;
         }
 
-        transform_set_position(kc_entity, pos);
+        dpos = vec2_rot(dpos, rot);
+        transform_translate(kc_entity, dpos);
         transform_set_rotation(kc_entity, rot);
         transform_set_scale(kc_entity, sca);
     }

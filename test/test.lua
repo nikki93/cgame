@@ -13,7 +13,7 @@ cgame.camera_add(camera)
 cgame.camera_set_viewport_size(
     cgame.vec2(WIN_WIDTH / GRID_SIZE, WIN_HEIGHT / GRID_SIZE))
 
-cgame.keyboard_controlled_add(camera)
+-- cgame.keyboard_controlled_add(camera)
 
 -- add some blocks
 
@@ -50,7 +50,7 @@ cgame.sprite_add(player)
 cgame.sprite_set_cell(player, cgame.vec2( 0.0, 32.0))
 cgame.sprite_set_size(player, cgame.vec2(32.0, 32.0))
 
--- cgame.keyboard_controlled_add(player)
+cgame.keyboard_controlled_add(player)
 
 -- rotator_set(player, -math.pi)
 cgame.transform_set_scale(player, cgame.vec2(2, 2))

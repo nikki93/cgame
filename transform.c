@@ -39,18 +39,22 @@ Vec2 transform_get_position(Entity ent)
 {
     return transforms[ent].position;
 }
+void transform_translate(Entity ent, Vec2 trans)
+{
+    transforms[ent].position = vec2_add(transforms[ent].position, trans);
+}
 
 void transform_set_rotation(Entity ent, float rot)
 {
     transforms[ent].rotation = rot;
 }
-void transform_rotate(Entity ent, float rot)
-{
-    transforms[ent].rotation += rot;
-}
 float transform_get_rotation(Entity ent)
 {
     return transforms[ent].rotation;
+}
+void transform_rotate(Entity ent, float rot)
+{
+    transforms[ent].rotation += rot;
 }
 
 void transform_set_scale(Entity ent, Vec2 pos)
