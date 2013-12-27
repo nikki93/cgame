@@ -46,7 +46,7 @@ void script_init_all()
          * this
          */
         lua_pushstring(L, data_path("?.lua"));
-        lua_setglobal(L, "cgame_data_path");
+        lua_setglobal(L, "cgame_require_path");
 
         /* 
          * load cgame ffi -- this is equivalent to:
