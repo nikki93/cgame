@@ -19,6 +19,9 @@ Mat3 mat3_scaling_rotation_translation(Vec2 scale, float rot, Vec2 trans);
 
 /* script_end */
 
+void mat3_save(Mat3 *m, FILE *file);
+void mat3_load(Mat3 *m, FILE *file);
+
 
 /* C inline stuff */
 

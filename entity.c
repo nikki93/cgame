@@ -3,6 +3,8 @@
 #include <assert.h>
 #include <stdlib.h>
 
+#include "saveload.h"
+
 static unsigned int top = 0;
 
 struct Message
@@ -50,6 +52,15 @@ void entity_update_all()
     /* TODO: delete entities with MSG_DESTROY */
 
     _entity_clear_messages();
+}
+
+void entity_save(Entity *ent, FILE *file)
+{
+    save_uint(ent, file);
+}
+void entity_load(Entity *ent, FILE *file)
+{
+    load_uint(ent, file);
 }
 
 /* get size_t offset of 'field' in struct 'type' */

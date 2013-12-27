@@ -2,6 +2,8 @@
 
 #include <math.h>
 
+#include "saveload.h"
+
 Mat3 mat3_scaling_rotation_translation(Vec2 scale, float rot, Vec2 trans)
 {
     return mat3(scale.x * cos(rot), scale.x * sin(rot), 0.0f,
@@ -42,6 +44,23 @@ Mat3 mat3_inverse(Mat3 m)
     inv.m[2][2] /= det;
 
     return inv;
+}
+
+void mat3_save(Mat3 *m, FILE *file)
+{
+    unsigned int i, j;
+
+    for (i = 0; i < 3; ++i)
+        for (j = 0; j < 3; ++j)
+            save_scalar(&m->m[i][j], file);
+}
+void mat3_load(Mat3 *m, FILE *file)
+{
+    unsigned int i, j;
+
+    for (i = 0; i < 3; ++i)
+        for (j = 0; j < 3; ++j)
+            load_scalar(&m->m[i][j], file);
 }
 
 #undef mat3

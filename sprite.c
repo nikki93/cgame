@@ -6,6 +6,7 @@
 #include <Freeimage.h>
 
 #include "dirs.h"
+#include "saveload.h"
 #include "transform.h"
 #include "camera.h"
 
@@ -252,16 +253,36 @@ void sprite_draw_all()
 
 void sprite_save_all(FILE *file)
 {
-    fwrite(&num_sprites, sizeof(num_sprites), 1, file);
-    fwrite(sprites, sizeof(Sprite), num_sprites, file);
+    unsigned int i;
+
+    save_uint(&num_sprites, file);
+
+    for (i = 0; i < num_sprites; ++i)
+    {
+        entity_save(&sprites[i].entity, file);
+
+        mat3_save(&sprites[i].transform, file);
+
+        vec2_save(&sprites[i].cell, file);
+        vec2_save(&sprites[i].size, file);
+    }
 }
 
 void sprite_load_all(FILE *file)
 {
     unsigned int i;
 
-    fread(&num_sprites, sizeof(num_sprites), 1, file);
-    fread(sprites, sizeof(Sprite), num_sprites, file);
+    load_uint(&num_sprites, file);
+
+    for (i = 0; i < num_sprites; ++i)
+    {
+        entity_load(&sprites[i].entity, file);
+
+        mat3_load(&sprites[i].transform, file);
+
+        vec2_load(&sprites[i].cell, file);
+        vec2_load(&sprites[i].size, file);
+    }
 
     /* restore entity <-> sprite connections */
     for (i = 0; i < ENTITY_MAX; ++i)

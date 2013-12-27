@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#include "saveload.h"
+
 typedef struct Transform Transform;
 struct Transform
 {
@@ -71,13 +73,29 @@ Mat3 transform_get_world_matrix(Entity ent)
 
 void transform_save_all(FILE *file)
 {
-    fwrite(&max_entity, sizeof(max_entity), 1, file);
-    fwrite(transforms, sizeof(Transform), max_entity + 1, file);
+    unsigned int i;
+
+    save_uint(&max_entity, file);
+
+    for (i = 0; i <= max_entity; ++i)
+    {
+        vec2_save(&transforms[i].position, file);
+        save_scalar(&transforms[i].rotation, file);
+        vec2_save(&transforms[i].scale, file);
+    }
 }
 
 void transform_load_all(FILE *file)
 {
-    fread(&max_entity, sizeof(max_entity), 1, file);
-    fread(transforms, sizeof(Transform), max_entity + 1, file);
+    unsigned int i;
+
+    load_uint(&max_entity, file);
+
+    for (i = 0; i <= max_entity; ++i)
+    {
+        vec2_load(&transforms[i].position, file);
+        load_scalar(&transforms[i].rotation, file);
+        vec2_load(&transforms[i].scale, file);
+    }
 }
 

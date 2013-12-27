@@ -2,6 +2,7 @@
 #define ENTITY_H_GUOK04WE
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #define ENTITY_MAX 256
 
@@ -15,6 +16,8 @@ Entity entity_new();
 
 void entity_deinit();
 void entity_update_all();
+void entity_save(Entity *ent, FILE *file);  /* save/load just the id */
+void entity_load(Entity *ent, FILE *file);
 
 /* ------------------------------------------------------------------------- */
 
