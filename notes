@@ -23,8 +23,6 @@ todo
 
 - c99 cleanup
 
-- clean up lua stack in script.c
-
 - add serialization for lua structures
 
 - fix message system -- right now it uses pointer weirdness and is messy

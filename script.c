@@ -29,7 +29,8 @@ static lua_State *L;
 static void _push_event(const char *event)
 {
     lua_getglobal(L, "cgame");
-    lua_getfield(L, lua_gettop(L), "__fire_event");
+    lua_getfield(L, -1, "__fire_event");
+    lua_remove(L, -2);
     lua_pushstring(L, event);
 }
 
@@ -59,6 +60,7 @@ void script_init_all()
         lua_pushstring(L, "ffi");
         errcheck(lua_pcall(L, 1, 0, 0));
         lua_getfield(L, lua_gettop(L), "cdef");
+        lua_remove(L, -2);
         lua_pushstring(L, cgame_ffi);
         errcheck(lua_pcall(L, 1, 0, 0));
 
