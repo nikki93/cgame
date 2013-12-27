@@ -18,7 +18,6 @@ void sprite_set_size(Entity ent, Vec2 size);
 
 void sprite_init();
 void sprite_deinit();
-void sprite_check_messages_all();
 void sprite_update_all();
 void sprite_draw_all();
 void sprite_save_all(FILE *file);

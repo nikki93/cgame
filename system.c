@@ -20,24 +20,16 @@ void system_deinit_all()
 {
     script_deinit_all();
     sprite_deinit();
-    entity_deinit();
 }
 
 void system_update_all(float dt)
 {
-    /* check messages */
-
-    sprite_check_messages_all();
-
-    /* update */
-
     script_update_all(dt);
 
     keyboard_controlled_update_all(dt);
 
     camera_update_all();
     sprite_update_all();
-    entity_update_all();
 }
 
 void system_draw_all()

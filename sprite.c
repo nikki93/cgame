@@ -209,26 +209,6 @@ void sprite_deinit()
     glDeleteVertexArrays(1, &vao);
 }
 
-void sprite_check_messages_all()
-{
-    unsigned int i;
-    Message *msg;
-    Entity ent;
-
-    for (i = 0; i < num_sprites; ++i)
-    {
-        ent = sprites[i].entity;
-
-        for (msg = entity_get_first_message(ent); msg;
-                msg = entity_get_next_message(msg))
-            if (message_get_type(msg) == MSG_DESTROY)
-            {
-                sprite_remove(ent);
-                break;
-            }
-    }
-}
-
 void sprite_update_all()
 {
     unsigned int i;
