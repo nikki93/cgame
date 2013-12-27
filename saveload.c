@@ -20,7 +20,7 @@ void uint_load(unsigned int *u, FILE *file)
 
 void bool_save(bool *b, FILE *file)
 {
-    fprintf(file, "%d\n", (int) *b);
+    fprintf(file, "%d\n", *b ? 1 : 0);
 }
 void bool_load(bool *b, FILE *file)
 {
