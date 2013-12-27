@@ -63,6 +63,16 @@ void mat3_load(Mat3 *m, FILE *file)
             scalar_load(&m->m[i][j], file);
 }
 
+#undef mat3_identity
+Mat3 mat3_identity()
+{
+    return mat3(
+            1.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 1.0f
+            );
+}
+
 #undef mat3
 Mat3 mat3(float m00, float m01, float m02,
         float m10, float m11, float m12,
