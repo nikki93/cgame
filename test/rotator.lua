@@ -2,7 +2,7 @@
 -- another silly test system
 --
 
-local tbl = {}
+local tbl = {}   -- tbl[ent] contains data for ent -- right now just speed
 
 function rotator_set(ent, speed)
     if not speed then speed = 2 * math.pi end
@@ -17,9 +17,4 @@ cgame.add_system('rotator',
         end
     end,
 })
-
-return
-{
-    set = rotator_set,
-}
 

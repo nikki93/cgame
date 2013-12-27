@@ -38,9 +38,3 @@ cgame.add_system('oscillator',
     end,
 })
 
-return
-{
-    set = oscillator_set,
-    reset_all = oscillator_reset_all,
-}
-
