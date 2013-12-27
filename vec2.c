@@ -9,13 +9,13 @@ Vec2 vec2_scalar_mul(Vec2 v, float f)
 
 void vec2_save(Vec2 *v, FILE *file)
 {
-    save_scalar(&v->x, file);
-    save_scalar(&v->y, file);
+    scalar_save(&v->x, file);
+    scalar_save(&v->y, file);
 }
 void vec2_load(Vec2 *v, FILE *file)
 {
-    load_scalar(&v->x, file);
-    load_scalar(&v->y, file);
+    scalar_load(&v->x, file);
+    scalar_load(&v->y, file);
 }
 
 #undef vec2

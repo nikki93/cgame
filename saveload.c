@@ -1,19 +1,19 @@
 #include <saveload.h>
 
-void save_scalar(float *f, FILE *file)
+void scalar_save(float *f, FILE *file)
 {
     fprintf(file, "%f\n", *f);
 }
-void load_scalar(float *f, FILE *file)
+void scalar_load(float *f, FILE *file)
 {
     fscanf(file, "%f\n", f);
 }
 
-void save_uint(unsigned int *u, FILE *file)
+void uint_save(unsigned int *u, FILE *file)
 {
     fprintf(file, "%u\n", *u);
 }
-void load_uint(unsigned int *u, FILE *file)
+void uint_load(unsigned int *u, FILE *file)
 {
     fscanf(file, "%u\n", u);
 }

@@ -56,11 +56,11 @@ void entity_update_all()
 
 void entity_save(Entity *ent, FILE *file)
 {
-    save_uint(ent, file);
+    uint_save(ent, file);
 }
 void entity_load(Entity *ent, FILE *file)
 {
-    load_uint(ent, file);
+    uint_load(ent, file);
 }
 
 /* get size_t offset of 'field' in struct 'type' */

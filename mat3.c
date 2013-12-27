@@ -52,7 +52,7 @@ void mat3_save(Mat3 *m, FILE *file)
 
     for (i = 0; i < 3; ++i)
         for (j = 0; j < 3; ++j)
-            save_scalar(&m->m[i][j], file);
+            scalar_save(&m->m[i][j], file);
 }
 void mat3_load(Mat3 *m, FILE *file)
 {
@@ -60,7 +60,7 @@ void mat3_load(Mat3 *m, FILE *file)
 
     for (i = 0; i < 3; ++i)
         for (j = 0; j < 3; ++j)
-            load_scalar(&m->m[i][j], file);
+            scalar_load(&m->m[i][j], file);
 }
 
 #undef mat3

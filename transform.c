@@ -75,12 +75,12 @@ void transform_save_all(FILE *file)
 {
     unsigned int i;
 
-    save_uint(&max_entity, file);
+    uint_save(&max_entity, file);
 
     for (i = 0; i <= max_entity; ++i)
     {
         vec2_save(&transforms[i].position, file);
-        save_scalar(&transforms[i].rotation, file);
+        scalar_save(&transforms[i].rotation, file);
         vec2_save(&transforms[i].scale, file);
     }
 }
@@ -89,12 +89,12 @@ void transform_load_all(FILE *file)
 {
     unsigned int i;
 
-    load_uint(&max_entity, file);
+    uint_load(&max_entity, file);
 
     for (i = 0; i <= max_entity; ++i)
     {
         vec2_load(&transforms[i].position, file);
-        load_scalar(&transforms[i].rotation, file);
+        scalar_load(&transforms[i].rotation, file);
         vec2_load(&transforms[i].scale, file);
     }
 }

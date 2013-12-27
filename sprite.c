@@ -255,7 +255,7 @@ void sprite_save_all(FILE *file)
 {
     unsigned int i;
 
-    save_uint(&num_sprites, file);
+    uint_save(&num_sprites, file);
 
     for (i = 0; i < num_sprites; ++i)
     {
@@ -272,7 +272,7 @@ void sprite_load_all(FILE *file)
 {
     unsigned int i;
 
-    load_uint(&num_sprites, file);
+    uint_load(&num_sprites, file);
 
     for (i = 0; i < num_sprites; ++i)
     {
