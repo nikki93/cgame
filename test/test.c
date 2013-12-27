@@ -42,7 +42,6 @@ void test_c()
     sprite_set_size(player, vec2(32.0f, 32.0f));
 
     keyboard_controlled_add(player);
-
 }
 
 void test_init()
