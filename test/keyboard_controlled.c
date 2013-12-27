@@ -7,6 +7,7 @@
 #include <math.h>
 #include <GLFW/glfw3.h>
 
+#include "saveload.h"
 #include "transform.h"
 #include "game.h"
 
@@ -69,13 +70,13 @@ void keyboard_controlled_update_all(float dt)
 
 void keyboard_controlled_save_all(FILE *file)
 {
-    fwrite(&kc_exists, sizeof(kc_exists), 1, file);
-    fwrite(&kc_entity, sizeof(kc_entity), 1, file);
+    bool_save(&kc_exists, file);
+    entity_save(&kc_entity, file);
 }
 void keyboard_controlled_load_all(FILE *file)
 {
-    fread(&kc_exists, sizeof(kc_exists), 1, file);
-    fread(&kc_entity, sizeof(kc_entity), 1, file);
+    bool_load(&kc_exists, file);
+    entity_load(&kc_entity, file);
 }
 
 #endif
