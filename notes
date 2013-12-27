@@ -23,7 +23,9 @@ todo
 
 - c99 cleanup
 
-- replace fread/fwrite with *_save/load functions for portability
+- clean up lua stack in script.c
+
+- add serialization for lua structures
 
 - fix message system -- right now it uses pointer weirdness and is messy
 
