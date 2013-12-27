@@ -1,6 +1,6 @@
 CC?=clang
 LINKER=clang
-CFLAGS?=-g -I. -I/usr/local/include/SDL2 -DGLEW_STATIC
+CFLAGS?=-g -I. -DGLEW_STATIC
 LDFLAGS?=-g -framework OpenGL -lglfw3 -lGLEW -lfreeimage -lluajit-5.1 \
 	 -DGLEW_STATIC -pagezero_size 10000 -image_base 100000000
 SOURCES=main.c vec2.c mat3.c game.c entity.c system.c saveload.c script.c \

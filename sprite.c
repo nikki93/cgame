@@ -145,6 +145,30 @@ static void _bind_attributes()
     glEnableVertexAttribArray(size);
 }
 
+static void _load_atlases()
+{
+    FIBITMAP *img1, *img2;
+
+    glGenTextures(1, &atlas_tex);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, atlas_tex);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    img1 = FreeImage_Load(FreeImage_GetFileType(data_path("atlas.png"), 0),
+            data_path("atlas.png"), 0);
+    img2 = FreeImage_ConvertTo32Bits(img1);
+    FreeImage_Unload(img1);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+            FreeImage_GetWidth(img2), FreeImage_GetHeight(img2),
+            0, GL_BGRA, GL_UNSIGNED_BYTE, FreeImage_GetBits(img2));
+    FreeImage_Unload(img2);
+
+    glUniform1i(glGetUniformLocation(program, "tex0"), 0);
+    glUniform2f(glGetUniformLocation(program, "atlas_size"),
+            FreeImage_GetWidth(img2), FreeImage_GetHeight(img2));
+}
+
 void sprite_init()
 {
     unsigned int i;
@@ -180,22 +204,8 @@ void sprite_init()
             GL_STREAM_DRAW);
     _bind_attributes();
 
-    /* load and use atlas texture */
-    glGenTextures(1, &atlas_tex);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, atlas_tex);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    FIBITMAP *img = FreeImage_ConvertTo32Bits(FreeImage_Load(
-                FreeImage_GetFileType(data_path("atlas.png"), 0),
-                data_path("atlas.png"), 0));
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-            FreeImage_GetWidth(img), FreeImage_GetHeight(img),
-            0, GL_BGRA, GL_UNSIGNED_BYTE, FreeImage_GetBits(img));
-    FreeImage_Unload(img);
-    glUniform1i(glGetUniformLocation(program, "tex0"), 0);
-    glUniform2f(glGetUniformLocation(program, "atlas_size"),
-            FreeImage_GetWidth(img), FreeImage_GetHeight(img));
+    /* load atlas textures */
+    _load_atlases();
 }
 
 void sprite_deinit()
