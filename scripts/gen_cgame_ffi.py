@@ -40,7 +40,8 @@ static const char cgame_ffi[] =
     ;
 """
 
-s = readdef(sys.argv[1:])
-with open('cgame_ffi.h', 'w') as file:
+out = sys.argv[1]
+s = readdef(sys.argv[2:])
+with open(out, 'w') as file:
     file.write(fmt % (s))
 
