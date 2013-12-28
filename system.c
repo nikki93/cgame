@@ -12,6 +12,7 @@
 
 void system_init_all()
 {
+    camera_init();
     sprite_init();
     script_init_all();
 }

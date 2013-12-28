@@ -8,7 +8,7 @@
 static bool camera_exists = false;
 static Entity camera_entity;
 
-static Mat3 inverse_view_matrix = mat3_identity();
+static Mat3 inverse_view_matrix;
 
 /* ------------------------------------------------------------------------- */
 
@@ -43,6 +43,11 @@ Mat3 *camera_get_inverse_view_matrix_ptr()
 }
 
 /* ------------------------------------------------------------------------- */
+
+void camera_init()
+{
+    inverse_view_matrix = mat3_identity();
+}
 
 void camera_update_all()
 {

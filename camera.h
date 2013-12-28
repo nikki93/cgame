@@ -21,6 +21,7 @@ Mat3 camera_get_inverse_view_matrix();
 
 Mat3 *camera_get_inverse_view_matrix_ptr(); /* for quick GLSL binding */
 
+void camera_init();
 void camera_update_all();
 void camera_save_all(FILE *file);
 void camera_load_all(FILE *file);
