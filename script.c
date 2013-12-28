@@ -45,8 +45,8 @@ void script_init_all()
          * send data path to lua, main.lua should update package.path with
          * this
          */
-        lua_pushstring(L, data_path("?.lua"));
-        lua_setglobal(L, "cgame_require_path");
+        lua_pushstring(L, data_path(""));
+        lua_setglobal(L, "cgame_data_path");
 
         /* 
          * load cgame ffi -- this is equivalent to:
@@ -79,7 +79,7 @@ void script_init_all()
         */
 
         /* run main.lua */
-        errcheck(luaL_loadfile(L, "main.lua"));
+        errcheck(luaL_loadfile(L, data_path("main.lua")));
         errcheck(lua_pcall(L, 0, 0, 0));
 
         /* fire init event */

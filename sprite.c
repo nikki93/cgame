@@ -155,8 +155,9 @@ static void _load_atlases()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    img1 = FreeImage_Load(FreeImage_GetFileType(data_path("atlas.png"), 0),
-            data_path("atlas.png"), 0);
+    img1 = FreeImage_Load(FreeImage_GetFileType(
+                data_path("test/atlas.png"), 0),
+            data_path("test/atlas.png"), 0);
     img2 = FreeImage_ConvertTo32Bits(img1);
     FreeImage_Unload(img1);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
