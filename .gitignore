@@ -1,5 +1,6 @@
 cgame
 *.o
+build/
 
 usr/*
 !usr/.keepme
