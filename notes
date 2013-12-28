@@ -37,8 +37,14 @@ todo
 files
 -----
 
-- cgame.lua: cgame lua interface -- can be accessed as cgame.entity_new() etc.
-- main.lua: startup script -- run on game start
+- /: C code for core
+- data/ data for core (except in test directory)
+
+- test/: C code for test game
+- data/test: data for test game
+
+- data/cgame.lua: cgame lua interface -- can be accessed as cgame.entity_new() etc.
+- data/main.lua: startup script -- run on game start
 
 - cgame_ffi.h: C interface for Lua -- used by script.c to bind to Lua
 - gen_cgame_ffi.py: automatically generates above, see 'make cgame_ffi.h'
