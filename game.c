@@ -4,7 +4,6 @@
 #include <stdbool.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <Freeimage.h>
 
 #include "dirs.h"
 #include "system.h"

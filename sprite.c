@@ -2,8 +2,9 @@
 
 #include <assert.h>
 #include <stdio.h>
+#include <string.h>
 #include <GL/glew.h>
-#include <Freeimage.h>
+#include <stb_image.h>
 
 #include "dirs.h"
 #include "saveload.h"
@@ -145,9 +146,25 @@ static void _bind_attributes()
     glEnableVertexAttribArray(size);
 }
 
+static void _flip_image_vertical(unsigned char *data,
+        unsigned int width, unsigned int height)
+{
+    unsigned int size = width * height * 4;
+    unsigned int stride = sizeof(char) * width * 4;
+    unsigned char *new_data = malloc(sizeof(char) * size);
+    for (unsigned int i = 0; i < height; i++)
+    {
+        unsigned int j = height - i - 1;
+        memcpy(new_data + j * stride, data + i * stride, stride);
+    }
+    memcpy(data, new_data, size);
+    free(new_data);
+}
+
 static void _load_atlases()
 {
-    FIBITMAP *img1, *img2;
+    int x, y, n;
+    unsigned char *data;
 
     glGenTextures(1, &atlas_tex);
     glActiveTexture(GL_TEXTURE0);
@@ -155,19 +172,14 @@ static void _load_atlases()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    img1 = FreeImage_Load(FreeImage_GetFileType(
-                data_path("test/atlas.png"), 0),
-            data_path("test/atlas.png"), 0);
-    img2 = FreeImage_ConvertTo32Bits(img1);
-    FreeImage_Unload(img1);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-            FreeImage_GetWidth(img2), FreeImage_GetHeight(img2),
-            0, GL_BGRA, GL_UNSIGNED_BYTE, FreeImage_GetBits(img2));
-    FreeImage_Unload(img2);
+    data = stbi_load(data_path("test/atlas.png"), &x, &y, &n, 0);
+    _flip_image_vertical(data, x, y);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, x, y, 0, GL_RGBA,
+            GL_UNSIGNED_BYTE, data);
+    stbi_image_free(data);
 
     glUniform1i(glGetUniformLocation(program, "tex0"), 0);
-    glUniform2f(glGetUniformLocation(program, "atlas_size"),
-            FreeImage_GetWidth(img2), FreeImage_GetHeight(img2));
+    glUniform2f(glGetUniformLocation(program, "atlas_size"), x, y);
 }
 
 void sprite_init()
