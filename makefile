@@ -1,8 +1,8 @@
 CC?=clang
 LINKER=clang
-CFLAGS?=-g -I. -DGLEW_STATIC
+CFLAGS?=-g -I.
 LDFLAGS?=-g -framework OpenGL -lglfw3 -lGLEW -lfreeimage -lluajit-5.1 \
-	 -DGLEW_STATIC -pagezero_size 10000 -image_base 100000000
+	 -pagezero_size 10000 -image_base 100000000
 SOURCES=main.c vec2.c mat3.c game.c entity.c system.c saveload.c script.c \
 	transform.c camera.c sprite.c test/keyboard_controlled.c test/test.c
 FFI=game.h vec2.h mat3.h entity.h transform.h camera.h sprite.h \
