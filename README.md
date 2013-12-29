@@ -10,10 +10,8 @@ and data/test/test.lua shows the same in Lua.
 Building
 ---
 
-CMake should make it easy to set up. GLFW, GLEW, stb_image are dependencies and
-are included in ext/. LuaJIT is an external dependency needed for now but I'll
-get it into the repository soon making it self-contained except for OpenGL and
-the standard library.
+CMake should make it easy to set up. GLFW, GLEW, stb_image, LuaJIT are
+dependencies and are included in ext/.
 
 Running
 ---
