@@ -16,11 +16,12 @@
 #include "test/keyboard_controlled.h"
 
 /*
- * to include a module, add here &cgame_ffi_NAME where NAME is from
- * SCRIPT(NAME, ...) as used in the definition of the module
+ * to include a module for Lua bindings, add here &cgame_ffi_NAME where NAME
+ * is from SCRIPT(NAME, ...) as used in the definition of the module, and also
+ * make sure to #include the relevant file above
  *
- * make sure to respect dependencies in the order -- for example 'transform'
- * mentions 'Mat3' and so 'mat3' must come before 'transform'
+ * respect dependencies in the order -- for example 'transform' mentions 'Mat3'
+ * and so 'mat3' must come before 'transform'
  */
 static const char **cgame_ffi[] =
 {

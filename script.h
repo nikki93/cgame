@@ -10,6 +10,16 @@ void script_draw_all();
 void script_load_all(FILE *f);
 void script_save_all(FILE *f);
 
+/*
+ * surround declarations with SCRIPT(modulename, ...) (check transform.h for
+ * an example) to make them visible from Lua -- you'll also need to edit
+ * cgame_ffi.h as explained in the comments there
+ *
+ * each SCRIPT(...) mention must have a different modulename
+ *
+ * the declarations will continue to function as usual C declarations too
+ * so you can #include into other files and use them normally
+ */
 #ifdef __CGAME_FFI__
 #define SCRIPT(name, arg) \
     static const char *cgame_ffi_##name = #arg; \
