@@ -4,13 +4,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "script.h"
+
 #define ENTITY_MAX 256
 
-/* script_begin */
+SCRIPT(entity,
 
-typedef unsigned int Entity;
+        typedef unsigned int Entity;
 
-Entity entity_new();
+        Entity entity_new();
+
+      )
 
 /* script_end */
 

@@ -1,25 +1,27 @@
 #ifndef MAT3_H_YVET8M7D
 #define MAT3_H_YVET8M7D
 
+#include "script.h"
 #include "vec2.h"
 
-/* script_begin */
+SCRIPT(mat3,
 
-typedef struct Mat3 Mat3;
-struct Mat3 { float m[3][3]; };
+        typedef struct Mat3 Mat3;
+        struct Mat3 { float m[3][3]; };
 
-Mat3 mat3(float m00, float m01, float m02,
-        float m10, float m11, float m12,
-        float m20, float m21, float m22);
+        Mat3 mat3(float m00, float m01, float m02,
+            float m10, float m11, float m12,
+            float m20, float m21, float m22);
 
-Mat3 mat3_identity(); /* eturns identity matrix */
+        Mat3 mat3_identity(); /* returns identity matrix */
 
-/* matrix that applies scale, rot and trans in order */
-Mat3 mat3_scaling_rotation_translation(Vec2 scale, float rot, Vec2 trans);
+        /* matrix that applies scale, rot and trans in order */
+        Mat3 mat3_scaling_rotation_translation(Vec2 scale, float rot,
+            Vec2 trans);
 
-Mat3 mat3_inverse(Mat3 m);
+        Mat3 mat3_inverse(Mat3 m);
 
-/* script_end */
+      )
 
 void mat3_save(Mat3 *m, FILE *file);
 void mat3_load(Mat3 *m, FILE *file);

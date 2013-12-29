@@ -3,19 +3,21 @@
 
 #include <stdio.h>
 
-/* script_begin */
+#include "script.h"
 
-typedef struct Vec2 Vec2;
-struct Vec2 { float x; float y; };
+SCRIPT(vec2,
 
-Vec2 vec2(float x, float y);
+        typedef struct Vec2 Vec2;
+        struct Vec2 { float x; float y; };
 
-Vec2 vec2_add(Vec2 u, Vec2 v);
-Vec2 vec2_scalar_mul(Vec2 v, float f);
+        Vec2 vec2(float x, float y);
 
-Vec2 vec2_rot(Vec2 v, float rot);
+        Vec2 vec2_add(Vec2 u, Vec2 v);
+        Vec2 vec2_scalar_mul(Vec2 v, float f);
 
-/* script_end */
+        Vec2 vec2_rot(Vec2 v, float rot);
+
+      )
 
 void vec2_save(Vec2 *v, FILE *file);
 void vec2_load(Vec2 *v, FILE *file);

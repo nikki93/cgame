@@ -1,3 +1,5 @@
+#define __CGAME_FFI__
+
 #include "script.h"
 
 #include <lua.h>
@@ -49,19 +51,24 @@ void script_init_all()
         lua_setglobal(L, "cgame_data_path");
 
         /* 
-         * load cgame ffi -- this is equivalent to:
+         * load cgame ffi -- equivalent to
          *
          *     ffi = require 'ffi'
-         *     ffi.cdef(cgame_ffi)
+         *     ffi.cdef(cgame_ffi[0] .. cgame_ffi[1] .. ...)
          *
-         * 'cgame_ffi' comes from cgame_ffi.h and is automatically generated
          */
+
         lua_getglobal(L, "require");
         lua_pushstring(L, "ffi");
         errcheck(lua_pcall(L, 1, 0, 0));
         lua_getfield(L, lua_gettop(L), "cdef");
-        lua_remove(L, -2);
-        lua_pushstring(L, cgame_ffi);
+
+        luaL_Buffer buf;
+        luaL_buffinit(L, &buf);
+        for (unsigned int i = 0; i < n_cgame_ffi; ++i)
+            luaL_addstring(&buf, *cgame_ffi[i]);
+        luaL_pushresult(&buf);
+
         errcheck(lua_pcall(L, 1, 0, 0));
 
         /*

@@ -1,16 +1,18 @@
 #ifndef GAME_H_W59MMXDF
 #define GAME_H_W59MMXDF
 
+#include "script.h"
+
 typedef struct GLFWwindow GLFWwindow;
 GLFWwindow *window;
 
 void game_run();
 
-/* script_begin */
+SCRIPT(game,
 
-void game_quit();
+        void game_quit();
 
-/* script_end */
+      )
 
 #endif
 

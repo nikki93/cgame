@@ -5,16 +5,17 @@
 
 #include "entity.h"
 #include "vec2.h"
+#include "script.h"
 
-/* script_begin */
+SCRIPT(sprite,
 
-void sprite_add(Entity ent);
-void sprite_remove(Entity ent);
+        void sprite_add(Entity ent);
+        void sprite_remove(Entity ent);
 
-void sprite_set_cell(Entity ent, Vec2 cell);
-void sprite_set_size(Entity ent, Vec2 size);
+        void sprite_set_cell(Entity ent, Vec2 cell);
+        void sprite_set_size(Entity ent, Vec2 size);
 
-/* script_end */
+      )
 
 void sprite_init();
 void sprite_deinit();
