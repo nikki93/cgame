@@ -4,9 +4,14 @@ local ffi = require 'ffi'
 local cgame = setmetatable({}, { __index = ffi.C })
 
 
---- lua utils -----------------------------------------------------------------
+--- lua utils/wrappers --------------------------------------------------------
 
-cgame.Vec2 = ffi.typeof('Vec2')
+cgame.Vec2 = ffi.metatype('Vec2',
+{
+    __add = function (u, v) return cgame.vec2_add(u, v) end,
+})
+
+cgame.Mat3 = ffi.typeof('Mat3')
 
 
 --- lua systems ---------------------------------------------------------------
@@ -26,6 +31,9 @@ end
 
 
 -------------------------------------------------------------------------------
+
+v = cgame.vec2(2, 3) + cgame.vec2(5, 6)
+print(v.x .. ', ' .. v.y)
 
 print('lua: loaded cgame')
 return cgame
