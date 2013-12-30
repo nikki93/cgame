@@ -12,21 +12,15 @@
 
 static lua_State *L;
 
-/* macrohax to make lua error handling simpler -- replace soon */
-#define errbegin \
+#define errcheck(...) \
     do \
-    { \
-        switch (0) \
+        if (__VA_ARGS__) \
         { \
-            default:
-#define errcheck(p) \
-                if (p) break
-#define errend \
-                continue; \
+            fprintf(stderr, "lua: %s\n", lua_tostring(L, -1)); \
+            lua_pop(L, 1); \
         } \
-        fprintf(stderr, "lua: %s\n", lua_tostring(L, -1)); \
-        lua_pop(L, 1); \
-    } while (0)
+    while (0)
+
 
 static void _push_event(const char *event)
 {
@@ -36,97 +30,68 @@ static void _push_event(const char *event)
     lua_pushstring(L, event);
 }
 
+/* 
+ * equivalent to:
+ *
+ *     ffi = require 'ffi'
+ *     ffi.cdef(cgame_ffi[0] .. cgame_ffi[1] .. ...)
+ */
+static void _load_cgame_ffi()
+{
+    unsigned int i;
+    luaL_Buffer buf; /* will accumulate cgame_ffi cdefs onto here */
+
+    lua_getglobal(L, "require");
+    lua_pushstring(L, "ffi");
+    errcheck(lua_pcall(L, 1, 0, 0));
+    lua_getfield(L, lua_gettop(L), "cdef");
+
+    luaL_buffinit(L, &buf);
+    for (i = 0; i < n_cgame_ffi; ++i)
+        luaL_addstring(&buf, *cgame_ffi[i]);
+    luaL_pushresult(&buf);
+
+    errcheck(lua_pcall(L, 1, 0, 0));
+}
+
 void script_init_all()
 {
     L = lua_open();
     luaL_openlibs(L);
 
-    errbegin
-    {
-        /*
-         * send data path to lua, main.lua should update package.path with
-         * this
-         */
-        lua_pushstring(L, data_path(""));
-        lua_setglobal(L, "cgame_data_path");
+    /* load ffi so that cgame.lua can bind it */
+    _load_cgame_ffi();
 
-        /* 
-         * load cgame ffi -- equivalent to
-         *
-         *     ffi = require 'ffi'
-         *     ffi.cdef(cgame_ffi[0] .. cgame_ffi[1] .. ...)
-         *
-         */
+    /* set cgame_data_path to data_path root and run main.lua */
+    lua_pushstring(L, data_path(""));
+    lua_setglobal(L, "cgame_data_path");
+    errcheck(luaL_loadfile(L, data_path("main.lua")));
+    errcheck(lua_pcall(L, 0, 0, 0));
 
-        lua_getglobal(L, "require");
-        lua_pushstring(L, "ffi");
-        errcheck(lua_pcall(L, 1, 0, 0));
-        lua_getfield(L, lua_gettop(L), "cdef");
-
-        luaL_Buffer buf;
-        luaL_buffinit(L, &buf);
-        for (unsigned int i = 0; i < n_cgame_ffi; ++i)
-            luaL_addstring(&buf, *cgame_ffi[i]);
-        luaL_pushresult(&buf);
-
-        errcheck(lua_pcall(L, 1, 0, 0));
-
-        /*
-         * load 'cgame' module as a global -- this makes it easier to fire
-         * events and also makes it so we don't have to "require 'cgame'" in
-         * scripts
-         *
-         * TODO: fix this
-         */
-        /*
-        lua_getglobal(L, "require");
-        lua_pushstring(L, "cgame");
-        errcheck(lua_pcall(L, 1, 0, 0));
-        lua_setglobal(L, "cgame");
-        */
-
-        /* run main.lua */
-        errcheck(luaL_loadfile(L, data_path("main.lua")));
-        errcheck(lua_pcall(L, 0, 0, 0));
-
-        /* fire init event */
-        _push_event("init");
-        errcheck(lua_pcall(L, 1, 0, 0));
-    }
-    errend;
+    /* fire init event */
+    _push_event("init");
+    errcheck(lua_pcall(L, 1, 0, 0));
 }
 
 void script_deinit_all()
 {
-    errbegin
-    {
-        _push_event("deinit");
-        errcheck(lua_pcall(L, 1, 0, 0));
-    }
-    errend;
+    _push_event("deinit");
+    errcheck(lua_pcall(L, 1, 0, 0));
 
     lua_close(L);
 }
 
 void script_update_all(float dt)
 {
-    errbegin
-    {
-        _push_event("update_all");
-        lua_pushnumber(L, dt);
-        errcheck(lua_pcall(L, 2, 0, 0));
-    }
-    errend;
+    _push_event("update_all");
+    lua_pushnumber(L, dt);
+    errcheck(lua_pcall(L, 2, 0, 0));
 }
 
 void script_draw_all()
 {
-    errbegin
-    {
-        _push_event("draw_all");
-        errcheck(lua_pcall(L, 1, 0, 0));
-    }
-    errend;
+    _push_event("draw_all");
+    errcheck(lua_pcall(L, 1, 0, 0));
 }
 
 void script_load_all(FILE *f)

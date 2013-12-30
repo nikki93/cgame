@@ -23,7 +23,7 @@ struct Sprite
 };
 
 static unsigned int num_sprites = 0;
-static Sprite sprites[ENTITY_MAX];            /* all sprites tightly packed */
+static Sprite sprite_buf[ENTITY_MAX];         /* all sprites tightly packed */
 static Sprite *entity_sprite[ENTITY_MAX];     /* pointers into above */
 
 /* ------------------------------------------------------------------------- */
@@ -35,7 +35,7 @@ void sprite_add(Entity ent)
     if (entity_sprite[ent])
         return; /* already has a sprite */
 
-    sprite = &sprites[num_sprites++];
+    sprite = &sprite_buf[num_sprites++];
     entity_sprite[ent] = sprite;
 
     sprite->entity = ent;
@@ -48,9 +48,9 @@ void sprite_remove(Entity ent)
     entity_sprite[ent] = NULL;
 
     /* replace with last sprite */
-    if (old_sprite != &sprites[num_sprites - 1] && num_sprites > 1)
+    if (old_sprite != &sprite_buf[num_sprites - 1] && num_sprites > 1)
     {
-        *old_sprite = sprites[num_sprites - 1];
+        *old_sprite = sprite_buf[num_sprites - 1];
         entity_sprite[old_sprite->entity] = old_sprite;
     }
 
@@ -80,7 +80,7 @@ static GLuint fragment_shader;
 static GLuint program;
 
 static GLuint vao;
-static GLuint buffer_object;
+static GLuint sprite_buf_object;
 
 static GLuint atlas_tex;
 
@@ -120,6 +120,7 @@ static void _compile_shader(GLuint shader, const char *filename)
 
 static void _bind_attributes()
 {
+    /* attribute locations */
     GLuint transform1, transform2, transform3, cell, size;
 
     transform1 = glGetAttribLocation(program, "transform1");
@@ -149,21 +150,27 @@ static void _bind_attributes()
 static void _flip_image_vertical(unsigned char *data,
         unsigned int width, unsigned int height)
 {
-    unsigned int size = width * height * 4;
-    unsigned int stride = sizeof(char) * width * 4;
-    unsigned char *new_data = malloc(sizeof(char) * size);
-    for (unsigned int i = 0; i < height; i++)
+    unsigned int size, stride, i, j;
+    unsigned char *new_data;
+
+    size = width * height * 4;
+    stride = sizeof(char) * width * 4;
+
+    new_data = malloc(sizeof(char) * size);
+    for (i = 0; i < height; i++)
     {
-        unsigned int j = height - i - 1;
+        j = height - i - 1;
         memcpy(new_data + j * stride, data + i * stride, stride);
     }
+
     memcpy(data, new_data, size);
     free(new_data);
 }
 
 static void _load_atlases()
 {
-    int x, y, n;
+    int width, height, n; /* n is number of components as returned by
+                             stbi_load() -- we don't really care */
     unsigned char *data;
 
     glGenTextures(1, &atlas_tex);
@@ -172,14 +179,14 @@ static void _load_atlases()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    data = stbi_load(data_path("test/atlas.png"), &x, &y, &n, 0);
-    _flip_image_vertical(data, x, y);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, x, y, 0, GL_RGBA,
+    data = stbi_load(data_path("test/atlas.png"), &width, &height, &n, 0);
+    _flip_image_vertical(data, width, height);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA,
             GL_UNSIGNED_BYTE, data);
     stbi_image_free(data);
 
     glUniform1i(glGetUniformLocation(program, "tex0"), 0);
-    glUniform2f(glGetUniformLocation(program, "atlas_size"), x, y);
+    glUniform2f(glGetUniformLocation(program, "atlas_size"), width, height);
 }
 
 void sprite_init()
@@ -211,9 +218,9 @@ void sprite_init()
     glBindVertexArray(vao);
 
     /* make buffer object and bind attributes */
-    glGenBuffers(1, &buffer_object);
-    glBindBuffer(GL_ARRAY_BUFFER, buffer_object);
-    glBufferData(GL_ARRAY_BUFFER, num_sprites * sizeof(Sprite), sprites,
+    glGenBuffers(1, &sprite_buf_object);
+    glBindBuffer(GL_ARRAY_BUFFER, sprite_buf_object);
+    glBufferData(GL_ARRAY_BUFFER, num_sprites * sizeof(Sprite), sprite_buf,
             GL_STREAM_DRAW);
     _bind_attributes();
 
@@ -228,7 +235,7 @@ void sprite_deinit()
     glDeleteShader(fragment_shader);
     glDeleteShader(geometry_shader);
     glDeleteShader(vertex_shader);
-    glDeleteBuffers(1, &buffer_object);
+    glDeleteBuffers(1, &sprite_buf_object);
     glDeleteVertexArrays(1, &vao);
 }
 
@@ -237,7 +244,8 @@ void sprite_update_all()
     unsigned int i;
 
     for (i = 0; i < num_sprites; ++i)
-        sprites[i].transform = transform_get_world_matrix(sprites[i].entity);
+        sprite_buf[i].transform =
+            transform_get_world_matrix(sprite_buf[i].entity);
 }
 
 void sprite_draw_all()
@@ -248,8 +256,8 @@ void sprite_draw_all()
             1, GL_FALSE,
             (const GLfloat *) camera_get_inverse_view_matrix_ptr());
 
-    glBindBuffer(GL_ARRAY_BUFFER, buffer_object);
-    glBufferData(GL_ARRAY_BUFFER, num_sprites * sizeof(Sprite), sprites,
+    glBindBuffer(GL_ARRAY_BUFFER, sprite_buf_object);
+    glBufferData(GL_ARRAY_BUFFER, num_sprites * sizeof(Sprite), sprite_buf,
             GL_STREAM_DRAW);
     glDrawArrays(GL_POINTS, 0, num_sprites);
 }
@@ -262,12 +270,12 @@ void sprite_save_all(FILE *file)
 
     for (i = 0; i < num_sprites; ++i)
     {
-        entity_save(&sprites[i].entity, file);
+        entity_save(&sprite_buf[i].entity, file);
 
-        mat3_save(&sprites[i].transform, file);
+        mat3_save(&sprite_buf[i].transform, file);
 
-        vec2_save(&sprites[i].cell, file);
-        vec2_save(&sprites[i].size, file);
+        vec2_save(&sprite_buf[i].cell, file);
+        vec2_save(&sprite_buf[i].size, file);
     }
 }
 
@@ -279,18 +287,18 @@ void sprite_load_all(FILE *file)
 
     for (i = 0; i < num_sprites; ++i)
     {
-        entity_load(&sprites[i].entity, file);
+        entity_load(&sprite_buf[i].entity, file);
 
-        mat3_load(&sprites[i].transform, file);
+        mat3_load(&sprite_buf[i].transform, file);
 
-        vec2_load(&sprites[i].cell, file);
-        vec2_load(&sprites[i].size, file);
+        vec2_load(&sprite_buf[i].cell, file);
+        vec2_load(&sprite_buf[i].size, file);
     }
 
     /* restore entity <-> sprite connections */
     for (i = 0; i < ENTITY_MAX; ++i)
         entity_sprite[i] = NULL;
     for (i = 0; i < num_sprites; ++i)
-        entity_sprite[sprites[i].entity] = &sprites[i];
+        entity_sprite[sprite_buf[i].entity] = &sprite_buf[i];
 }
 

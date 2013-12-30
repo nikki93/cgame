@@ -46,8 +46,7 @@ files
 - data/cgame.lua: cgame lua interface -- can be accessed as cgame.entity_new() etc.
 - data/main.lua: startup script -- run on game start
 
-- cgame_ffi.h: C interface for Lua -- used by script.c to bind to Lua
-- gen_cgame_ffi.py: automatically generates above, see 'make cgame_ffi.h'
+- cgame_ffi.h: C interface for Lua
 
 
 systems

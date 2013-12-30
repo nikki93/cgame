@@ -32,9 +32,6 @@ end
 
 -------------------------------------------------------------------------------
 
-v = cgame.vec2(2, 3) + cgame.vec2(5, 6)
-print(v.x .. ', ' .. v.y)
-
 print('lua: loaded cgame')
 return cgame
 

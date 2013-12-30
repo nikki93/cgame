@@ -36,5 +36,6 @@ static const char **cgame_ffi[] =
     &cgame_ffi_keyboard_controlled,
 };
 
-const unsigned int n_cgame_ffi = sizeof(cgame_ffi) / sizeof(cgame_ffi[0]);
+static const unsigned int n_cgame_ffi = sizeof(cgame_ffi)
+    / sizeof(cgame_ffi[0]);
 

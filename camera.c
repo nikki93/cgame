@@ -37,7 +37,7 @@ Mat3 camera_get_inverse_view_matrix()
     return inverse_view_matrix;
 }
 
-Mat3 *camera_get_inverse_view_matrix_ptr()
+const Mat3 *camera_get_inverse_view_matrix_ptr()
 {
     return &inverse_view_matrix;
 }

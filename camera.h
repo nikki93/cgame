@@ -20,7 +20,7 @@ SCRIPT(camera,
 
       )
 
-Mat3 *camera_get_inverse_view_matrix_ptr(); /* for quick GLSL binding */
+const Mat3 *camera_get_inverse_view_matrix_ptr(); /* for quick GLSL binding */
 
 void camera_init();
 void camera_update_all();
