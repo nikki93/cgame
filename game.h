@@ -4,7 +4,7 @@
 #include "glew_glfw.h"
 #include "script.h"
 
-GLFWwindow *window;
+extern GLFWwindow *window;
 
 void game_run();
 

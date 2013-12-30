@@ -9,6 +9,8 @@
 
 #include "test/test.h"
 
+GLFWwindow *window;
+
 static bool quit = false; /* exit main loop if true */
 
 /* ------------------------------------------------------------------------- */
