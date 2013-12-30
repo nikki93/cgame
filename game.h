@@ -1,9 +1,9 @@
 #ifndef GAME_H_W59MMXDF
 #define GAME_H_W59MMXDF
 
+#include "glew_glfw.h"
 #include "script.h"
 
-typedef struct GLFWwindow GLFWwindow;
 GLFWwindow *window;
 
 void game_run();

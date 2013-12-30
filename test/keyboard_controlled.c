@@ -5,8 +5,8 @@
 
 #include <stdbool.h>
 #include <math.h>
-#include <GLFW/glfw3.h>
 
+#include "glew_glfw.h"
 #include "saveload.h"
 #include "transform.h"
 #include "game.h"
