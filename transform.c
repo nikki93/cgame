@@ -145,9 +145,9 @@ void transform_load_all(FILE *file)
     Transform *curr;
 
     /* free old */
-    max = entitymap_get_max(emap);
-    for (i = 0; i < max; ++i)
-        free(entitymap_get(emap, i));
+    /*max = entitymap_get_max(emap);*/
+    /*for (i = 0; i < max; ++i)*/
+        /*free(entitymap_get(emap, i));*/
 
     /* load new */
     uint_load(&n_transforms, file);

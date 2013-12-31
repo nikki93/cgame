@@ -11,6 +11,7 @@ extern void *entitymap_nil; /* != NULL, can use this as default_val
 
 EntityMap *entitymap_new(void *nil); /* nil is the value used to delete or
                                         returned if not found -- like Lua */
+void entitymap_clear(EntityMap *emap);
 void entitymap_free(EntityMap *emap);
 
 void entitymap_set(EntityMap *emap, Entity ent, /* if val == nil from */

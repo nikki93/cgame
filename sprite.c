@@ -6,6 +6,7 @@
 #include <GL/glew.h>
 #include <stb_image.h>
 
+#include "entitymap.h"
 #include "dirs.h"
 #include "saveload.h"
 #include "transform.h"
@@ -22,9 +23,11 @@ struct Sprite
     Vec2 size;
 };
 
+static Sprite *sprite_buf = NULL;        /* all sprites tightly packed */
+static unsigned int sprite_buf_capacity;
 static unsigned int num_sprites = 0;
-static Sprite sprite_buf[ENTITY_MAX];         /* all sprites tightly packed */
-static Sprite *entity_sprite[ENTITY_MAX];     /* pointers into above */
+
+static EntityMap *emap;                  /* map of pointers into sprite_buf */
 
 /* ------------------------------------------------------------------------- */
 
@@ -32,41 +35,54 @@ void sprite_add(Entity ent)
 {
     Sprite *sprite;
 
-    if (entity_sprite[ent])
-        return; /* already has a sprite */
+    /* already has sprite? */
+    if (entitymap_get(emap, ent))
+        return;
 
-    sprite = &sprite_buf[num_sprites++];
-    entity_sprite[ent] = sprite;
+    /* maybe realloc buffer */
+    if (++num_sprites > sprite_buf_capacity)
+    {
+        sprite_buf_capacity <<= 1;
+        sprite_buf = realloc(sprite_buf, sprite_buf_capacity * sizeof(Sprite));
+    }
 
+    /* claim new spot at end */
+    sprite = &sprite_buf[num_sprites - 1];
     sprite->entity = ent;
     sprite->cell.x = 32.0f; sprite->cell.y = 32.0f;
     sprite->size.x = 32.0f; sprite->size.y = 32.0f;
+    entitymap_set(emap, ent, sprite);
 }
 void sprite_remove(Entity ent)
 {
-    Sprite *old_sprite = entity_sprite[ent];
-    entity_sprite[ent] = NULL;
+    Sprite *sprite = entitymap_get(emap, ent);
+    entitymap_set(emap, ent, NULL);
 
     /* replace with last sprite */
-    if (old_sprite != &sprite_buf[num_sprites - 1] && num_sprites > 1)
+    if (sprite != &sprite_buf[num_sprites - 1] && num_sprites > 1)
     {
-        *old_sprite = sprite_buf[num_sprites - 1];
-        entity_sprite[old_sprite->entity] = old_sprite;
+        *sprite = sprite_buf[num_sprites - 1];
+        entitymap_set(emap, sprite->entity, sprite);
     }
 
-    --num_sprites;
+    /* maybe realloc buffer */
+    if (--num_sprites << 2 < sprite_buf_capacity)
+    {
+        sprite_buf_capacity >>= 1;
+        sprite_buf = realloc(sprite_buf, sprite_buf_capacity * sizeof(Sprite));
+    }
 }
 
 void sprite_set_cell(Entity ent, Vec2 cell)
 {
-    Sprite *sprite = entity_sprite[ent];
+    Sprite *sprite = entitymap_get(emap, ent);
     assert(sprite);
 
     sprite->cell = cell;
 }
 void sprite_set_size(Entity ent, Vec2 size)
 {
-    Sprite *sprite = entity_sprite[ent];
+    Sprite *sprite = entitymap_get(emap, ent);
     assert(sprite);
 
     sprite->size = size;
@@ -193,8 +209,12 @@ void sprite_init()
 {
     unsigned int i;
 
-    for (i = 0; i < ENTITY_MAX; ++i)
-        entity_sprite[i] = NULL;
+    /* initialize buffer */
+    sprite_buf_capacity = 2;
+    sprite_buf = malloc(sprite_buf_capacity * sizeof(Sprite));
+
+    /* initialize map */
+    emap = entitymap_new(NULL);
 
     /* compile shaders */
     vertex_shader = glCreateShader(GL_VERTEX_SHADER);
@@ -237,6 +257,12 @@ void sprite_deinit()
     glDeleteShader(vertex_shader);
     glDeleteBuffers(1, &sprite_buf_object);
     glDeleteVertexArrays(1, &vao);
+
+    /* free entity map */
+    entitymap_free(emap);
+
+    /* free buffer */
+    free(sprite_buf);
 }
 
 void sprite_update_all()
@@ -278,13 +304,15 @@ void sprite_save_all(FILE *file)
         vec2_save(&sprite_buf[i].size, file);
     }
 }
-
 void sprite_load_all(FILE *file)
 {
     unsigned int i;
 
     uint_load(&num_sprites, file);
 
+    /* keep it simple -- make capacity just fit */
+    sprite_buf_capacity = num_sprites << 1;
+    sprite_buf = realloc(sprite_buf, sprite_buf_capacity * sizeof(Sprite));
     for (i = 0; i < num_sprites; ++i)
     {
         entity_load(&sprite_buf[i].entity, file);
@@ -295,10 +323,9 @@ void sprite_load_all(FILE *file)
         vec2_load(&sprite_buf[i].size, file);
     }
 
-    /* restore entity <-> sprite connections */
-    for (i = 0; i < ENTITY_MAX; ++i)
-        entity_sprite[i] = NULL;
+    /* restore map */
+    entitymap_clear(emap);
     for (i = 0; i < num_sprites; ++i)
-        entity_sprite[sprite_buf[i].entity] = &sprite_buf[i];
+        entitymap_set(emap, sprite_buf[i].entity, &sprite_buf[i]);
 }
 

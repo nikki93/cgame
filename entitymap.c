@@ -17,21 +17,31 @@ struct EntityMap
 static char nil_obj;
 void *entitymap_nil = &nil_obj;
 
-EntityMap *entitymap_new(void *nil)
+static void _init(EntityMap *emap)
 {
     unsigned int i;
-    EntityMap *emap;
 
-    emap = malloc(sizeof(EntityMap));
     emap->arr = malloc(MIN_CAPACITY * sizeof(void *));
     emap->max = 0;
     emap->capacity = MIN_CAPACITY;
-    emap->nil = nil;
 
     for (i = 0; i < MIN_CAPACITY; ++i)
-        emap->arr[i] = nil;
+        emap->arr[i] = emap->nil;
+}
 
+EntityMap *entitymap_new(void *nil)
+{
+    EntityMap *emap;
+
+    emap = malloc(sizeof(EntityMap));
+    emap->nil = nil;
+    _init(emap);
     return emap;
+}
+void entitymap_clear(EntityMap *emap)
+{
+    free(emap->arr);
+    _init(emap);
 }
 void entitymap_free(EntityMap *emap)
 {
