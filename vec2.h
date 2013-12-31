@@ -10,12 +10,12 @@ SCRIPT(vec2,
         typedef struct Vec2 Vec2;
         struct Vec2 { float x; float y; };
 
-        Vec2 vec2(float x, float y);
+        EXPORT Vec2 vec2(float x, float y);
 
-        Vec2 vec2_add(Vec2 u, Vec2 v);
-        Vec2 vec2_scalar_mul(Vec2 v, float f);
+        EXPORT Vec2 vec2_add(Vec2 u, Vec2 v);
+        EXPORT Vec2 vec2_scalar_mul(Vec2 v, float f);
 
-        Vec2 vec2_rot(Vec2 v, float rot);
+        EXPORT Vec2 vec2_rot(Vec2 v, float rot);
 
       )
 

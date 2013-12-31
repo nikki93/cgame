@@ -10,7 +10,7 @@ SCRIPT(entity,
 
         typedef unsigned int Entity;
 
-        Entity entity_new();
+        EXPORT Entity entity_new();
 
       )
 

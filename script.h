@@ -28,5 +28,15 @@ void script_save_all(FILE *f);
 #define SCRIPT(name, ...) __VA_ARGS__
 #endif
 
+/*
+ * place this in front of functions -- MSVC doesn't export functions by
+ * default and they won't be visible from luajit otherwise
+ */
+#ifdef _MSC_VER
+#define EXPORT __declspec(dllexport)
+#else
+#define EXPORT
+#endif
+
 #endif
 

@@ -2,6 +2,7 @@
 
 #include "script.h"
 
+#include <string.h>
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
@@ -30,15 +31,29 @@ static void _push_event(const char *event)
     lua_pushstring(L, event);
 }
 
+/* LuaJIT parser doesn't like 'EXPORT' -- make it whitespace */
+static void _fix_exports(char *s)
+{
+    static const char keyword[] = "EXPORT";
+    unsigned int i;
+
+    while ((s = strstr(s, keyword)))
+        for (i = 0; i < sizeof(keyword) - 1; ++i)
+            *s++ = ' ';
+}
+
 /* 
  * equivalent to:
  *
  *     ffi = require 'ffi'
  *     ffi.cdef(cgame_ffi[0] .. cgame_ffi[1] .. ...)
+ *
+ * with 'EXPORT's fixed
  */
 static void _load_cgame_ffi()
 {
     unsigned int i;
+    char *fixed;
     luaL_Buffer buf; /* will accumulate cgame_ffi cdefs onto here */
 
     lua_getglobal(L, "require");
@@ -48,7 +63,13 @@ static void _load_cgame_ffi()
 
     luaL_buffinit(L, &buf);
     for (i = 0; i < n_cgame_ffi; ++i)
-        luaL_addstring(&buf, *cgame_ffi[i]);
+    {
+        fixed = malloc(strlen(*cgame_ffi[i]) + 1);
+        strcpy(fixed, *cgame_ffi[i]);
+        _fix_exports(fixed);
+        luaL_addstring(&buf, fixed);
+        free(fixed);
+    }
     luaL_pushresult(&buf);
 
     errcheck(lua_pcall(L, 1, 0, 0));
