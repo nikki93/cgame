@@ -34,7 +34,12 @@ void _update_cache(Transform *transform)
 
 void transform_add(Entity ent)
 {
-    Transform *transform = malloc(sizeof(Transform));
+    Transform *transform;
+
+    if (entitymap_get(emap, ent))
+        return; /* already has a transform */
+
+    transform = malloc(sizeof(Transform));
     transform->position = vec2(0.0f, 0.0f);
     transform->rotation = 0.0f;
     transform->scale = vec2(1.0f, 1.0f);
