@@ -25,6 +25,8 @@ todo
 
 - add serialization for lua structures
 
+- make entity system reuse free entity ids
+
 - fix message system -- right now it uses pointer weirdness and is messy
 
 - make systems add entites to systems they depend on
