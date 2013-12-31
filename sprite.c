@@ -6,6 +6,7 @@
 #include <GL/glew.h>
 #include <stb_image.h>
 
+#include "pool.h"
 #include "entitymap.h"
 #include "dirs.h"
 #include "saveload.h"
@@ -23,53 +24,45 @@ struct Sprite
     Vec2 size;
 };
 
-static Sprite *sprite_buf = NULL;        /* all sprites tightly packed */
-static unsigned int sprite_buf_capacity;
-static unsigned int num_sprites = 0;
+union
+{
+    Pool pool;
+    Sprite *array;         /* all sprites tightly packed managed by pool */
+} sprites;
 
-static EntityMap *emap;                  /* map of pointers into sprite_buf */
+static EntityMap *emap;    /* map of pointers into sprite_buf */
 
 /* ------------------------------------------------------------------------- */
+
+/* called whenever a sprite is moved in memory by pool */
+void _move_callback(void *obj)
+{
+    Sprite *sprite = obj;
+    entitymap_set(emap, sprite->entity, sprite);
+}
 
 void sprite_add(Entity ent)
 {
     Sprite *sprite;
 
-    /* already has sprite? */
     if (entitymap_get(emap, ent))
-        return;
+        return; /* already has a sprite */
 
-    /* maybe realloc buffer */
-    if (++num_sprites > sprite_buf_capacity)
-    {
-        sprite_buf_capacity <<= 1;
-        sprite_buf = realloc(sprite_buf, sprite_buf_capacity * sizeof(Sprite));
-    }
-
-    /* claim new spot at end */
-    sprite = &sprite_buf[num_sprites - 1];
+    sprite = pool_new_obj(&sprites.pool);
     sprite->entity = ent;
     sprite->cell.x = 32.0f; sprite->cell.y = 32.0f;
     sprite->size.x = 32.0f; sprite->size.y = 32.0f;
+
     entitymap_set(emap, ent, sprite);
 }
 void sprite_remove(Entity ent)
 {
-    Sprite *sprite = entitymap_get(emap, ent);
-    entitymap_set(emap, ent, NULL);
+    Sprite *sprite;
 
-    /* replace with last sprite */
-    if (sprite != &sprite_buf[num_sprites - 1] && num_sprites > 1)
+    if ((sprite = entitymap_get(emap, ent)))
     {
-        *sprite = sprite_buf[num_sprites - 1];
-        entitymap_set(emap, sprite->entity, sprite);
-    }
-
-    /* maybe realloc buffer */
-    if (--num_sprites << 2 < sprite_buf_capacity)
-    {
-        sprite_buf_capacity >>= 1;
-        sprite_buf = realloc(sprite_buf, sprite_buf_capacity * sizeof(Sprite));
+        pool_free_obj(&sprites.pool, sprite);
+        entitymap_set(emap, ent, NULL);
     }
 }
 
@@ -207,13 +200,8 @@ static void _load_atlases()
 
 void sprite_init()
 {
-    unsigned int i;
-
-    /* initialize buffer */
-    sprite_buf_capacity = 2;
-    sprite_buf = malloc(sprite_buf_capacity * sizeof(Sprite));
-
-    /* initialize map */
+    /* initialize pool, map */
+    pool_init(&sprites.pool, sizeof(Sprite), &_move_callback);
     emap = entitymap_new(NULL);
 
     /* compile shaders */
@@ -240,8 +228,8 @@ void sprite_init()
     /* make buffer object and bind attributes */
     glGenBuffers(1, &sprite_buf_object);
     glBindBuffer(GL_ARRAY_BUFFER, sprite_buf_object);
-    glBufferData(GL_ARRAY_BUFFER, num_sprites * sizeof(Sprite), sprite_buf,
-            GL_STREAM_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sprites.pool.num * sizeof(Sprite),
+            sprites.array, GL_STREAM_DRAW);
     _bind_attributes();
 
     /* load atlas textures */
@@ -258,20 +246,18 @@ void sprite_deinit()
     glDeleteBuffers(1, &sprite_buf_object);
     glDeleteVertexArrays(1, &vao);
 
-    /* free entity map */
+    /* deinit map, pool */
     entitymap_free(emap);
-
-    /* free buffer */
-    free(sprite_buf);
+    pool_deinit(&sprites.pool);
 }
 
 void sprite_update_all()
 {
     unsigned int i;
 
-    for (i = 0; i < num_sprites; ++i)
-        sprite_buf[i].transform =
-            transform_get_world_matrix(sprite_buf[i].entity);
+    for (i = 0; i < sprites.pool.num; ++i)
+        sprites.array[i].transform =
+            transform_get_world_matrix(sprites.array[i].entity);
 }
 
 void sprite_draw_all()
@@ -283,49 +269,46 @@ void sprite_draw_all()
             (const GLfloat *) camera_get_inverse_view_matrix_ptr());
 
     glBindBuffer(GL_ARRAY_BUFFER, sprite_buf_object);
-    glBufferData(GL_ARRAY_BUFFER, num_sprites * sizeof(Sprite), sprite_buf,
-            GL_STREAM_DRAW);
-    glDrawArrays(GL_POINTS, 0, num_sprites);
+    glBufferData(GL_ARRAY_BUFFER, sprites.pool.num * sizeof(Sprite),
+            sprites.array, GL_STREAM_DRAW);
+    glDrawArrays(GL_POINTS, 0, sprites.pool.num);
 }
 
 void sprite_save_all(FILE *file)
 {
     unsigned int i;
 
-    uint_save(&num_sprites, file);
-
-    for (i = 0; i < num_sprites; ++i)
+    uint_save(&sprites.pool.num, file);
+    for (i = 0; i < sprites.pool.num; ++i)
     {
-        entity_save(&sprite_buf[i].entity, file);
+        entity_save(&sprites.array[i].entity, file);
 
-        mat3_save(&sprite_buf[i].transform, file);
+        mat3_save(&sprites.array[i].transform, file);
 
-        vec2_save(&sprite_buf[i].cell, file);
-        vec2_save(&sprite_buf[i].size, file);
+        vec2_save(&sprites.array[i].cell, file);
+        vec2_save(&sprites.array[i].size, file);
     }
 }
 void sprite_load_all(FILE *file)
 {
-    unsigned int i;
+    unsigned int i, n;
 
-    uint_load(&num_sprites, file);
-
-    /* keep it simple -- make capacity just fit */
-    sprite_buf_capacity = num_sprites << 1;
-    sprite_buf = realloc(sprite_buf, sprite_buf_capacity * sizeof(Sprite));
-    for (i = 0; i < num_sprites; ++i)
+    /* just reset pool to saved size */
+    uint_load(&n, file);
+    pool_reset(&sprites.pool, n);
+    for (i = 0; i < sprites.pool.num; ++i)
     {
-        entity_load(&sprite_buf[i].entity, file);
+        entity_load(&sprites.array[i].entity, file);
 
-        mat3_load(&sprite_buf[i].transform, file);
+        mat3_load(&sprites.array[i].transform, file);
 
-        vec2_load(&sprite_buf[i].cell, file);
-        vec2_load(&sprite_buf[i].size, file);
+        vec2_load(&sprites.array[i].cell, file);
+        vec2_load(&sprites.array[i].size, file);
     }
 
     /* restore map */
     entitymap_clear(emap);
-    for (i = 0; i < num_sprites; ++i)
-        entitymap_set(emap, sprite_buf[i].entity, &sprite_buf[i]);
+    for (i = 0; i < sprites.pool.num; ++i)
+        entitymap_set(emap, sprites.array[i].entity, &sprites.array[i]);
 }
 

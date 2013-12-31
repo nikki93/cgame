@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 project(cgame)
 
 add_executable(cgame main.c vec2.c mat3.c game.c entity.c system.c entitymap.c
-    saveload.c script.c transform.c camera.c sprite.c
+    pool.c saveload.c script.c transform.c camera.c sprite.c
     test/keyboard_controlled.c test/test.c
     
     ext/glew/src/glew.c ext/stb/stb_image.c)
