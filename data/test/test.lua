@@ -14,8 +14,6 @@ cgame.camera_add(camera)
 cgame.camera_set_viewport_size(
     cgame.vec2(WIN_WIDTH / GRID_SIZE, WIN_HEIGHT / GRID_SIZE))
 
-cgame.keyboard_controlled_add(camera)
-
 -- add some blocks
 
 math.randomseed(os.time())
@@ -32,12 +30,12 @@ for i = 0, n_blocks do
     cgame.sprite_set_cell(block, cgame.vec2(32.0, 32.0))
     cgame.sprite_set_size(block, cgame.vec2(32.0, 32.0))
 
-    if pos.y < 0 then
-        oscillator_set(block, { freq = math.random() })
-    end
-    if pos.x < 0 then
-        rotator_set(block, math.pi)
-    end
+    --if pos.y < 0 then
+        --oscillator_set(block, { freq = math.random() })
+    --end
+    --if pos.x < 0 then
+        --rotator_set(block, math.pi)
+    --end
 end
 
 -- add player
@@ -51,8 +49,6 @@ cgame.sprite_add(player)
 cgame.sprite_set_cell(player, cgame.vec2( 0.0, 32.0))
 cgame.sprite_set_size(player, cgame.vec2(32.0, 32.0))
 
--- cgame.keyboard_controlled_add(player)
-
--- rotator_set(player, -math.pi)
+cgame.keyboard_controlled_add(player)
 cgame.transform_set_scale(player, cgame.vec2(2, 2))
 

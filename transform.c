@@ -144,10 +144,11 @@ void transform_load_all(FILE *file)
     Entity ent;
     Transform *curr;
 
-    /* free old */
-    /*max = entitymap_get_max(emap);*/
-    /*for (i = 0; i < max; ++i)*/
-        /*free(entitymap_get(emap, i));*/
+    /* clear old */
+    max = entitymap_get_max(emap);
+    for (i = 0; i < max; ++i)
+        free(entitymap_get(emap, i));
+    entitymap_clear(emap);
 
     /* load new */
     uint_load(&n_transforms, file);
