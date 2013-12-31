@@ -12,6 +12,7 @@
 
 void system_init_all()
 {
+    transform_init();
     camera_init();
     sprite_init();
     script_init_all();
@@ -21,6 +22,7 @@ void system_deinit_all()
 {
     script_deinit_all();
     sprite_deinit();
+    transform_deinit();
 }
 
 void system_update_all(float dt)

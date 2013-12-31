@@ -2,16 +2,16 @@ cmake_minimum_required(VERSION 2.8)
 
 project(cgame)
 
-add_executable(cgame main.c vec2.c mat3.c game.c entity.c system.c saveload.c
-    script.c transform.c camera.c sprite.c test/keyboard_controlled.c
-    test/test.c
+add_executable(cgame main.c vec2.c mat3.c game.c entity.c system.c entitymap.c
+    saveload.c script.c transform.c camera.c sprite.c
+    test/keyboard_controlled.c test/test.c
     
     ext/glew/src/glew.c ext/stb/stb_image.c)
 
 if(MSVC)
     add_definitions(/D _USE_MATH_DEFINES)
 else()
-    add_definitions(-std=c99 -O3)
+    add_definitions(-std=c99)
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR})

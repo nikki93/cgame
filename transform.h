@@ -30,6 +30,9 @@ SCRIPT(transform,
 
       )
 
+void transform_init();
+void transform_deinit();
+
 void transform_save_all();
 void transform_load_all();
 
