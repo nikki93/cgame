@@ -17,25 +17,30 @@ cgame.camera_set_viewport_size(
 -- add some blocks
 
 math.randomseed(os.time())
-local n_blocks = math.random(50)
+
+function symrand()
+    return 2 * math.random() - 1
+end
+
+local n_blocks = 30000
 for i = 0, n_blocks do
     local block = cgame.entity_new()
 
-    local pos = cgame.vec2(math.random(25) - 12, math.random(9) - 4)
+    local pos = cgame.vec2(8 * symrand(), 8 * symrand())
 
     cgame.transform_add(block)
     cgame.transform_set_position(block, pos)
 
     cgame.sprite_add(block)
-    cgame.sprite_set_cell(block, cgame.vec2(32.0, 32.0))
+    if symrand() < 0 then
+        cgame.sprite_set_cell(block, cgame.vec2( 0.0, 32.0))
+    else
+        cgame.sprite_set_cell(block, cgame.vec2(32.0, 32.0))
+    end
     cgame.sprite_set_size(block, cgame.vec2(32.0, 32.0))
 
-    --if pos.y < 0 then
-        --oscillator_set(block, { freq = math.random() })
-    --end
-    --if pos.x < 0 then
-        --rotator_set(block, math.pi)
-    --end
+    oscillator_set(block, { amp = 3 * math.random(), freq = math.random() })
+    rotator_set(block, math.random() * math.pi)
 end
 
 -- add player
@@ -49,6 +54,10 @@ cgame.sprite_add(player)
 cgame.sprite_set_cell(player, cgame.vec2( 0.0, 32.0))
 cgame.sprite_set_size(player, cgame.vec2(32.0, 32.0))
 
-cgame.keyboard_controlled_add(player)
 cgame.transform_set_scale(player, cgame.vec2(2, 2))
+
+-- who gets keyboard?
+
+cgame.keyboard_controlled_add(camera)
+--cgame.keyboard_controlled_add(player)
 

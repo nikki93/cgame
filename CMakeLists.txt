@@ -11,7 +11,7 @@ add_executable(cgame main.c vec2.c mat3.c game.c entity.c system.c entitymap.c
 if(MSVC)
     add_definitions(/D _USE_MATH_DEFINES)
 else()
-    add_definitions(-std=c99)
+    add_definitions(-std=c99 -O3)
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR})
