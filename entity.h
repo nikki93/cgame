@@ -6,8 +6,6 @@
 
 #include "script.h"
 
-#define ENTITY_MAX 256
-
 SCRIPT(entity,
 
         typedef unsigned int Entity;

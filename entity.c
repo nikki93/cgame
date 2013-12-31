@@ -11,7 +11,6 @@ static unsigned int top = 0;
 
 Entity entity_new()
 {
-    assert(top < ENTITY_MAX);
     return top++;
 }
 
