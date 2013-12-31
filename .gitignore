@@ -6,6 +6,7 @@ usr/*
 !usr/.keepme
 
 .clang_complete
+.gdbinit
 *.swp
 *~
 
