@@ -1,3 +1,5 @@
+![cgame](screenshot.png "cgame")
+
 NOTE: the 'cgame' executable looks for data in './data' so make sure you run it
 with the repository root as working directory
 
