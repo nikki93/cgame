@@ -3,8 +3,8 @@
 
 #include <stdio.h>
 
-void script_init_all();
-void script_deinit_all();
+void script_init();
+void script_deinit();
 void script_update_all(float dt);
 void script_draw_all();
 void script_load_all(FILE *f);

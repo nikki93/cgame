@@ -10,17 +10,17 @@
 #include "sprite.h"
 #include "test/keyboard_controlled.h"
 
-void system_init_all()
+void system_init()
 {
     transform_init();
     camera_init();
     sprite_init();
-    script_init_all();
+    script_init();
 }
 
-void system_deinit_all()
+void system_deinit()
 {
-    script_deinit_all();
+    script_deinit();
     sprite_deinit();
     transform_deinit();
 }

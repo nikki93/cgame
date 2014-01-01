@@ -43,7 +43,7 @@ static void _game_init()
     glClearColor(1.f, 1.f, 1.f, 1.f);
 
     /* init systems */
-    system_init_all();
+    system_init();
 
     /* init test */
     test_init();
@@ -52,7 +52,7 @@ static void _game_init()
 static void _game_deinit()
 {
     /* deinit systems */
-    system_deinit_all();
+    system_deinit();
 
     /* deinit glfw */
     glfwTerminate();
@@ -85,7 +85,6 @@ static void _game_events()
 
 static void _game_update(float dt)
 {
-    /* update systems */
     system_update_all(dt);
 }
 

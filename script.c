@@ -75,7 +75,7 @@ static void _load_cgame_ffi()
     errcheck(lua_pcall(L, 1, 0, 0));
 }
 
-void script_init_all()
+void script_init()
 {
     L = lua_open();
     luaL_openlibs(L);
@@ -94,7 +94,7 @@ void script_init_all()
     errcheck(lua_pcall(L, 1, 0, 0));
 }
 
-void script_deinit_all()
+void script_deinit()
 {
     _push_event("deinit");
     errcheck(lua_pcall(L, 1, 0, 0));

@@ -3,8 +3,8 @@
 
 #include <stdio.h>
 
-void system_init_all();
-void system_deinit_all();
+void system_init();
+void system_deinit();
 void system_update_all(float dt);
 void system_draw_all();
 void system_load_all(FILE *f);
