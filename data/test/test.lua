@@ -22,7 +22,7 @@ function symrand()
     return 2 * math.random() - 1
 end
 
-local n_blocks = 30000
+local n_blocks = 20
 for i = 0, n_blocks do
     local block = cgame.entity_new()
 
