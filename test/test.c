@@ -6,12 +6,22 @@
 #include "entity.h"
 #include "transform.h"
 #include "sprite.h"
+#include "camera.h"
 #include "test/keyboard_controlled.h"
 
 void test_c()
 {
-    Entity block, player;
+    Entity camera, block, player;
     unsigned int i, n_blocks;
+
+    /* add camera */
+
+    camera = entity_new();
+
+    transform_add(camera);
+
+    camera_add(camera);
+    camera_set_viewport_size(vec2(800 / 32.0, 600 / 32.0));
 
     /* add some blocks */
 
@@ -41,7 +51,8 @@ void test_c()
     sprite_set_cell(player, vec2( 0.0f, 32.0f));
     sprite_set_size(player, vec2(32.0f, 32.0f));
 
-    keyboard_controlled_add(player);
+    /* who gets keyboard control? */
+    keyboard_controlled_add(camera);
 }
 
 void test_init()

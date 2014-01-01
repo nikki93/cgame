@@ -7,7 +7,7 @@ dependencies
 - glfw3 (included in ext/)
 - glew (included in ext/)
 - stb_image (included in ext/)
-- luajit
+- luajit (included in ext/)
 
 
 ideas

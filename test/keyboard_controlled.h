@@ -8,8 +8,8 @@
 
 SCRIPT(keyboard_controlled,
 
-        void keyboard_controlled_add(Entity ent);
-        void keyboard_controlled_remove(Entity ent);
+        EXPORT void keyboard_controlled_add(Entity ent);
+        EXPORT void keyboard_controlled_remove(Entity ent);
 
       )
 

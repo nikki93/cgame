@@ -10,7 +10,7 @@ void game_run();
 
 SCRIPT(game,
 
-        void game_quit();
+        EXPORT void game_quit();
 
       )
 

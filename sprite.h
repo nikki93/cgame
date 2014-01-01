@@ -9,11 +9,11 @@
 
 SCRIPT(sprite,
 
-        void sprite_add(Entity ent);
-        void sprite_remove(Entity ent);
+        EXPORT void sprite_add(Entity ent);
+        EXPORT void sprite_remove(Entity ent);
 
-        void sprite_set_cell(Entity ent, Vec2 cell);
-        void sprite_set_size(Entity ent, Vec2 size);
+        EXPORT void sprite_set_cell(Entity ent, Vec2 cell);
+        EXPORT void sprite_set_size(Entity ent, Vec2 size);
 
       )
 

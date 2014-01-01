@@ -9,17 +9,17 @@ SCRIPT(mat3,
         typedef struct Mat3 Mat3;
         struct Mat3 { float m[3][3]; };
 
-        Mat3 mat3(float m00, float m01, float m02,
+        EXPORT Mat3 mat3(float m00, float m01, float m02,
             float m10, float m11, float m12,
             float m20, float m21, float m22);
 
-        Mat3 mat3_identity(); /* returns identity matrix */
+        EXPORT Mat3 mat3_identity(); /* returns identity matrix */
 
         /* matrix that applies scale, rot and trans in order */
-        Mat3 mat3_scaling_rotation_translation(Vec2 scale, float rot,
-            Vec2 trans);
+        EXPORT Mat3 mat3_scaling_rotation_translation(Vec2 scale,
+            float rot, Vec2 trans);
 
-        Mat3 mat3_inverse(Mat3 m);
+        EXPORT Mat3 mat3_inverse(Mat3 m);
 
       )
 
