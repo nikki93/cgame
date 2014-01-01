@@ -8,6 +8,7 @@
 #include <lualib.h>
 
 #include "dirs.h"
+#include "saveload.h"
 
 #include "cgame_ffi.h"
 
@@ -115,11 +116,42 @@ void script_draw_all()
     errcheck(lua_pcall(L, 1, 0, 0));
 }
 
-void script_load_all(FILE *f)
+void script_load_all(FILE *file)
 {
+    unsigned int len;
+    char *str;
+
+    uint_load(&len, file);
+    str = malloc(len + 1);
+    fread(str, 1, len, file);
+    str[len] = '\0';
+    fscanf(file, "\n");
+
+    lua_getglobal(L, "cgame");
+    lua_getfield(L, -1, "__load_all");
+    lua_remove(L, -2);
+    lua_pushstring(L, str);
+    errcheck(lua_pcall(L, 1, 0, 0));
+
+    free(str);
 }
 
-void script_save_all(FILE *f)
+void script_save_all(FILE *file)
 {
+    unsigned int len;
+    const char *str;
+
+    lua_getglobal(L, "cgame");
+    lua_getfield(L, -1, "__save_all");
+    lua_remove(L, -2);
+    errcheck(lua_pcall(L, 0, 1, 0));
+
+    str = lua_tostring(L, -1);
+    len = strlen(str);
+    uint_save(&len, file);
+    fwrite(str, 1, len, file);
+    fprintf(file, "\n");
+
+    lua_pop(L, 1);
 }
 

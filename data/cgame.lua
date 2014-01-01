@@ -1,3 +1,5 @@
+require 'serialize'
+
 --- inherit ffi ---------------------------------------------------------------
 
 local ffi = require 'ffi'
@@ -19,9 +21,31 @@ cgame.Mat3 = ffi.typeof('Mat3')
 local systems = {}
 
 function cgame.__fire_event(event, args)
-    for _, handlers in pairs(systems) do
-        func = handlers[event]
+    for _, system in pairs(systems) do
+        func = system[event]
         if func then func(args) end
+    end
+end
+
+function cgame.__save_all()
+    -- make table of all system dumps
+    local tbl = {}
+    for name, system in pairs(systems) do
+        if system.save_all then
+            tbl[name] = system.save_all()
+        end
+    end
+    return serialize(tbl)
+end
+
+function cgame.__load_all(str)
+    -- load table and tell systems
+    local tbl = loadstring(str)()
+    for name, dump in pairs(tbl) do
+        local system = systems[name]
+        if system.load_all then
+            systems[name].load_all(dump)
+        end
     end
 end
 
