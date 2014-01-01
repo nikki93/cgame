@@ -21,7 +21,7 @@ void *entitymap_get(EntityMap *emap, Entity ent); /* return nil from
                                                      found */
 Entity entitymap_get_max(EntityMap *emap); /* get 1 + max key, 0 if empty */
 
-/* convenience macros to remove the ugly looking casts */
+/* convenience macro to hide ugly casts */
 #define entitymap_get_type(type, emap, ent) \
     ((type) entitymap_get(emap, ent))
 

@@ -16,8 +16,8 @@ SCRIPT(mat3,
         EXPORT Mat3 mat3_identity(); /* returns identity matrix */
 
         /* matrix that applies scale, rot and trans in order */
-        EXPORT Mat3 mat3_scaling_rotation_translation(Vec2 scale,
-            float rot, Vec2 trans);
+        EXPORT Mat3 mat3_scaling_rotation_translation(Vec2 scale, float rot,
+            Vec2 trans);
 
         EXPORT Mat3 mat3_inverse(Mat3 m);
 
