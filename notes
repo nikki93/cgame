@@ -31,8 +31,6 @@ todo
 
 - make systems add entites to systems they depend on
 
-- make transform dynamic and not reset entities it already has
-
 - try animation
 
 
