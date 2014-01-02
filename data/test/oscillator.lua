@@ -7,8 +7,6 @@
 --     oscillator_reset_all() to reset time
 --
 
-require 'serialize'
-
 local tbl = {} -- stores data per oscillator entity
 local time = 0
 
@@ -41,7 +39,7 @@ cgame.add_system('oscillator',
 
     save_all = function ()
         local dump = { tbl = tbl, time = time }
-        return serialize(dump)
+        return serpent.dump(dump)
     end,
 
     load_all = function (str)

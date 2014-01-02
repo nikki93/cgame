@@ -2,8 +2,6 @@
 -- another silly test system
 --
 
-require 'serialize'
-
 local tbl = {}   -- tbl[ent] contains data for ent -- right now just speed
 
 function rotator_set(ent, speed)
@@ -20,7 +18,7 @@ cgame.add_system('rotator',
     end,
 
     save_all = function ()
-        return serialize(tbl)
+        return serpent.dump(tbl)
     end,
 
     load_all = function (str)

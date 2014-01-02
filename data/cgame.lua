@@ -1,4 +1,6 @@
-require 'serialize'
+--- load some modules ---------------------------------------------------------
+
+serpent = require 'serpent'
 
 --- inherit ffi ---------------------------------------------------------------
 
@@ -35,7 +37,7 @@ function cgame.__save_all()
             tbl[name] = system.save_all()
         end
     end
-    return serialize(tbl)
+    return serpent.dump(tbl)
 end
 
 function cgame.__load_all(str)
