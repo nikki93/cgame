@@ -12,6 +12,7 @@ local time = 0
 
 function oscillator_set(ent, osc)
     -- default parameters
+    if not osc.phase then osc.phase = 0 end
     if not osc.amp then osc.amp = 1 end
     if not osc.freq then osc.freq = 1 end
 
@@ -32,7 +33,8 @@ cgame.add_system('oscillator',
         for ent, osc in pairs(tbl) do
             pos = cgame.transform_get_position(ent)
             pos.x = osc.initx
-                + osc.amp * math.sin(2 * math.pi * osc.freq * time)
+                + osc.amp * math.sin(2 * math.pi
+                    * (osc.phase + osc.freq * time))
             cgame.transform_set_position(ent, pos)
         end
     end,

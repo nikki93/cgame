@@ -22,25 +22,25 @@ function symrand()
     return 2 * math.random() - 1
 end
 
-local n_blocks = 20
+local n_blocks = 200
 for i = 0, n_blocks do
     local block = cgame.entity_new()
 
-    local pos = cgame.vec2(8 * symrand(), 8 * symrand())
+    local pos = cgame.vec2(i/10 - 8, i/10 - 8)
 
     cgame.transform_add(block)
     cgame.transform_set_position(block, pos)
 
     cgame.sprite_add(block)
-    if symrand() < 0 then
+    if i / 2 == math.floor(i / 2) then
         cgame.sprite_set_cell(block, cgame.vec2( 0.0, 32.0))
     else
         cgame.sprite_set_cell(block, cgame.vec2(32.0, 32.0))
     end
     cgame.sprite_set_size(block, cgame.vec2(32.0, 32.0))
 
-    oscillator_set(block, { amp = 3 * math.random(), freq = math.random() })
-    rotator_set(block, math.random() * math.pi)
+    oscillator_set(block, { amp = 1, freq = 1, phase = 5 * i / n_blocks })
+    rotator_set(block, 2 * math.pi)
 end
 
 -- add player
