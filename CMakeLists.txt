@@ -24,7 +24,8 @@ include_directories(${PROJECT_SOURCE_DIR}/ext/stb)
 include_directories(${PROJECT_SOURCE_DIR}/ext/luajit/src)
 
 if(APPLE)
-    set_target_properties(cgame PROPERTIES LINK_FLAGS "-pagezero_size 10000 -image_base 100000000")
+    set_target_properties(cgame PROPERTIES LINK_FLAGS
+        "-pagezero_size 10000 -image_base 100000000")
     target_link_libraries(cgame glfw ${GLFW_LIBRARIES} libluajit)
 elseif(UNIX)
     target_link_libraries(cgame dl glfw ${GLFW_LIBRARIES} libluajit)
