@@ -2,9 +2,11 @@ cmake_minimum_required(VERSION 2.8)
 
 project(cgame)
 
-add_executable(cgame main.c vec2.c mat3.c game.c entity.c system.c entitymap.c
-    pool.c saveload.c script.c transform.c camera.c sprite.c
-    test/keyboard_controlled.c test/test.c
+add_executable(cgame src/main.c src/vec2.c src/mat3.c src/game.c src/entity.c
+    src/system.c src/entitymap.c src/pool.c src/saveload.c src/script.c
+    src/transform.c src/camera.c src/sprite.c
+
+    src/test/keyboard_controlled.c src/test/test.c
     
     ext/glew/src/glew.c ext/stb/stb_image.c)
 
@@ -14,7 +16,7 @@ else()
     add_definitions(-std=c99 -O3)
 endif()
 
-include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR}/src)
 
 add_subdirectory(ext/glfw)
 add_subdirectory(ext/luajit)
