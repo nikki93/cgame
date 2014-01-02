@@ -23,7 +23,7 @@ static unsigned int n_transforms = 0;
 
 /* ------------------------------------------------------------------------- */
 
-void _update_cache(Transform *transform)
+static void _update_cache(Transform *transform)
 {
     transform->worldmat_cache = mat3_scaling_rotation_translation(
             transform->scale,

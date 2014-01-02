@@ -35,7 +35,7 @@ static EntityMap *emap;    /* map of pointers into sprite_buf */
 /* ------------------------------------------------------------------------- */
 
 /* called whenever a sprite is moved in memory by pool */
-void _move_callback(void *obj)
+static void _move_callback(void *obj)
 {
     Sprite *sprite = obj;
     entitymap_set(emap, sprite->entity, sprite);
