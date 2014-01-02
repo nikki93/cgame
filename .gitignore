@@ -1,5 +1,3 @@
-cgame
-*.o
 build/
 
 usr/*
@@ -7,6 +5,7 @@ usr/*
 
 .clang_complete
 .gdbinit
+
 *.swp
 *~
 
