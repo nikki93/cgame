@@ -45,7 +45,7 @@ files
 - test/: C code for test game
 - data/test: data for test game
 
-- data/cgame.lua: cgame lua interface -- can be accessed as cgame.entity_new() etc.
+- data/cgame.lua: cgame lua interface -- available as cgame.entity_new() etc.
 - data/main.lua: startup script -- run on game start
 
 - cgame_ffi.h: C interface for Lua
