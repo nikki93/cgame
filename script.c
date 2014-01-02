@@ -116,21 +116,6 @@ void script_draw_all()
     errcheck(lua_pcall(L, 1, 0, 0));
 }
 
-void script_load_all(FILE *file)
-{
-    char *str;
-
-    string_load(&str, file);
-
-    lua_getglobal(L, "cgame");
-    lua_getfield(L, -1, "__load_all");
-    lua_remove(L, -2);
-    lua_pushstring(L, str);
-    errcheck(lua_pcall(L, 1, 0, 0));
-
-    free(str);
-}
-
 void script_save_all(FILE *file)
 {
     const char *str;
@@ -144,5 +129,20 @@ void script_save_all(FILE *file)
     string_save(&str, file);
 
     lua_pop(L, 1);
+}
+
+void script_load_all(FILE *file)
+{
+    char *str;
+
+    string_load(&str, file);
+
+    lua_getglobal(L, "cgame");
+    lua_getfield(L, -1, "__load_all");
+    lua_remove(L, -2);
+    lua_pushstring(L, str);
+    errcheck(lua_pcall(L, 1, 0, 0));
+
+    free(str);
 }
 

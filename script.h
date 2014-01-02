@@ -7,8 +7,8 @@ void script_init();
 void script_deinit();
 void script_update_all(float dt);
 void script_draw_all();
-void script_load_all(FILE *file);
 void script_save_all(FILE *file);
+void script_load_all(FILE *file);
 
 /*
  * surround declarations with SCRIPT(modulename, ...) (check transform.h for
