@@ -23,7 +23,9 @@ todo
 
 - c99 cleanup
 
-- add serialization for lua structures
+- make Entity type a struct to allow reallocation on deserialize etc.
+
+- add serialization for C types in Lua
 
 - make entity system reuse free entity ids
 
