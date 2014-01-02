@@ -118,14 +118,9 @@ void script_draw_all()
 
 void script_load_all(FILE *file)
 {
-    size_t len;
     char *str;
 
-    size_t_load(&len, file);
-    str = malloc(len + 1);
-    fread(str, 1, len, file);
-    str[len] = '\0';
-    fscanf(file, "\n");
+    string_load(&str, file);
 
     lua_getglobal(L, "cgame");
     lua_getfield(L, -1, "__load_all");
@@ -138,19 +133,15 @@ void script_load_all(FILE *file)
 
 void script_save_all(FILE *file)
 {
-    size_t len;
     const char *str;
 
     lua_getglobal(L, "cgame");
     lua_getfield(L, -1, "__save_all");
     lua_remove(L, -2);
     errcheck(lua_pcall(L, 0, 1, 0));
-
     str = lua_tostring(L, -1);
-    len = strlen(str);
-    size_t_save(&len, file);
-    fwrite(str, 1, len, file);
-    fprintf(file, "\n");
+
+    string_save(&str, file);
 
     lua_pop(L, 1);
 }
