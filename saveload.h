@@ -7,6 +7,8 @@
 void scalar_save(float *f, FILE *file);
 void scalar_load(float *f, FILE *file);
 
+void size_t_save(size_t *s, FILE *file);
+void size_t_load(size_t *s, FILE *file);
 void uint_save(unsigned int *u, FILE *file);
 void uint_load(unsigned int *u, FILE *file);
 

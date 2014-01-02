@@ -118,10 +118,10 @@ void script_draw_all()
 
 void script_load_all(FILE *file)
 {
-    unsigned int len;
+    size_t len;
     char *str;
 
-    uint_load(&len, file);
+    size_t_load(&len, file);
     str = malloc(len + 1);
     fread(str, 1, len, file);
     str[len] = '\0';
@@ -138,7 +138,7 @@ void script_load_all(FILE *file)
 
 void script_save_all(FILE *file)
 {
-    unsigned int len;
+    size_t len;
     const char *str;
 
     lua_getglobal(L, "cgame");
@@ -148,7 +148,7 @@ void script_save_all(FILE *file)
 
     str = lua_tostring(L, -1);
     len = strlen(str);
-    uint_save(&len, file);
+    size_t_save(&len, file);
     fwrite(str, 1, len, file);
     fprintf(file, "\n");
 
