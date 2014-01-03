@@ -50,8 +50,8 @@ void sprite_add(Entity ent)
 
     sprite = pool_new_obj(&sprites.pool);
     sprite->entity = ent;
-    sprite->cell.x = 32.0f; sprite->cell.y = 32.0f;
-    sprite->size.x = 32.0f; sprite->size.y = 32.0f;
+    sprite->cell = vec2(32.0f, 32.0f);
+    sprite->size = vec2(32.0f, 32.0f);
 
     entitymap_set(emap, ent, sprite);
 }
