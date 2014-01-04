@@ -16,6 +16,8 @@ static Entity kc_entity;
 
 void keyboard_controlled_add(Entity ent)
 {
+    transform_add(ent);
+
     kc_exists = true;
     kc_entity = ent;
 }

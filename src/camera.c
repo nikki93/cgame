@@ -14,6 +14,8 @@ static Mat3 inverse_view_matrix;
 
 void camera_add(Entity ent)
 {
+    transform_add(ent);
+
     camera_exists = true;
     camera_entity = ent;
 }

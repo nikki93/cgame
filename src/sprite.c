@@ -48,6 +48,8 @@ void sprite_add(Entity ent)
     if (entitymap_get(emap, ent))
         return; /* already has a sprite */
 
+    transform_add(ent);
+
     sprite = pool_new_obj(&sprites.pool);
     sprite->entity = ent;
     sprite->cell = vec2(32.0f, 32.0f);
