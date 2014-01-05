@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 2.8)
 project(cgame)
 
 add_executable(cgame src/main.c src/vec2.c src/mat3.c src/game.c src/entity.c
-    src/system.c src/entitymap.c src/pool.c src/saveload.c src/script.c
-    src/transform.c src/camera.c src/sprite.c
+    src/system.c src/entitymap.c src/pool.c src/array.c src/saveload.c
+    src/script.c src/transform.c src/camera.c src/sprite.c
 
     src/test/keyboard_controlled.c src/test/test.c
     
@@ -13,7 +13,7 @@ add_executable(cgame src/main.c src/vec2.c src/mat3.c src/game.c src/entity.c
 if(MSVC)
     add_definitions(/D _USE_MATH_DEFINES)
 else()
-    add_definitions(-std=c99 -O3)
+    add_definitions(-std=c99)
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
