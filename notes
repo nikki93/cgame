@@ -31,13 +31,16 @@ todo
 
 - c99 cleanup
 
-- make entity system reuse free entity ids, serialize all data
+- serialize all entity system data
+
+- refactor pool into generic dynamic array, make entity maps store array
+  indices as values
 
 - make Entity type a struct to allow reallocation on deserialize etc.
 
 - add serialization for C types in Lua
 
-- fix message system -- right now it uses pointer weirdness and is messy
+- expose key events to Lua
 
 - make systems add entites to systems they depend on
 
