@@ -59,9 +59,10 @@ void pool_reset(Pool *pool, unsigned int num)
 
 void pool_free_obj(Pool *pool, void *obj)
 {
-    void *ret = NULL, *end;
+    void *end;
 
-    /* replace with object at end */
+    /* replace with object at end, then pop */
+
     end = ((char *) pool->pool) + pool->obj_size * (pool->num - 1);
     if (obj != end && pool->num > 1)
     {
@@ -70,6 +71,11 @@ void pool_free_obj(Pool *pool, void *obj)
             pool->move_callback(obj);
     }
 
+    pool_pop_obj(pool);
+}
+
+void pool_pop_obj(Pool *pool)
+{
     /* maybe shrink */
     if (--pool->num << 2 < pool->capacity)
         _realloc(pool, pool->capacity >> 1);

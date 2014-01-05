@@ -23,6 +23,9 @@ struct DestroyEntry
 union { Pool pool; DestroyEntry *array; } destroyed; /* list of destroyed, will
                                                         _remove() */
 
+union { Pool pool; Entity *array; } unused; /* id put here after _remove(),
+                                               can reuse */
+
 /*
  * life cycle
  * ----------
@@ -58,22 +61,33 @@ static inline bool _exists(Entity ent)
 
 Entity entity_create()
 {
-    unsigned int e = 0;
+    Entity ent;
+    static unsigned int top = 0;
 
-    while (_exists(e))
-        ++e;
+    if (unused.pool.num > 0)
+    {
+        ent = unused.array[unused.pool.num - 1];
+        pool_pop_obj(&unused.pool);
+    }
+    else
+        ent = top++;
 
-    entitymap_set(emap, e, dummy_ptr);
-    printf("new id: %u\n", e);
-    return e;
+    entitymap_set(emap, ent, dummy_ptr);
+
+    printf("new id: %u\n", ent);
+    return ent;
 }
 
 /* actually remove an entity entirely */
 static inline void _remove(Entity ent)
 {
-    printf("%u removed\n", ent);
+    Entity *unused_entry;
+
     entitymap_set(emap, ent, NULL);
     entitymap_set(destroyed_map, ent, NULL);
+
+    unused_entry = pool_new_obj(&unused.pool);
+    *unused_entry = ent;
 }
 
 void entity_destroy(Entity ent)
@@ -102,9 +116,11 @@ void entity_init()
     emap = entitymap_new(NULL);
     destroyed_map = entitymap_new(NULL);
     pool_init(&destroyed.pool, sizeof(DestroyEntry), NULL);
+    pool_init(&unused.pool, sizeof(int), NULL);
 }
 void entity_deinit()
 {
+    pool_deinit(&unused.pool);
     pool_deinit(&destroyed.pool);
     entitymap_free(destroyed_map);
     entitymap_free(emap);

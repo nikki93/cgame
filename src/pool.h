@@ -29,6 +29,7 @@ void *pool_new_obj(Pool *pool);
 void pool_reset(Pool *pool, unsigned int num); /* resize to 'num' objects,
                                                   old data is lost */
 void pool_free_obj(Pool *pool, void *obj);
+void pool_pop_obj(Pool *pool); /* free last object */
 
 #endif
 
