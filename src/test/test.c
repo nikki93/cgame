@@ -16,7 +16,7 @@ void test_c()
 
     /* add camera */
 
-    camera = entity_new();
+    camera = entity_create();
 
     transform_add(camera);
 
@@ -29,7 +29,7 @@ void test_c()
     n_blocks = rand() % 50;
     for (i = 0; i < n_blocks; ++i)
     {
-        block = entity_new();
+        block = entity_create();
 
         transform_add(block);
         transform_set_position(block,
@@ -42,7 +42,7 @@ void test_c()
 
     /* add player */
 
-    player = entity_new();
+    player = entity_create();
 
     transform_add(player);
     transform_set_position(player, vec2(0.0f, 0.0f));
