@@ -26,7 +26,7 @@ static Array *transforms;
 
 /* ------------------------------------------------------------------------- */
 
-static void _update_cache(Transform *transform)
+static inline void _update_cache(Transform *transform)
 {
     transform->worldmat_cache = mat3_scaling_rotation_translation(
             transform->scale,
@@ -37,17 +37,16 @@ static void _update_cache(Transform *transform)
 
 void transform_add(Entity ent)
 {
-    Transform *transform;
-
     if (entitymap_get(emap, ent) >= 0)
         return; /* already has a transform */
 
-    transform = array_add(transforms);
-    transform->ent = ent;
-    transform->position = vec2(0.0f, 0.0f);
-    transform->rotation = 0.0f;
-    transform->scale = vec2(1.0f, 1.0f);
-
+    array_add_val(Transform, transforms) = (Transform)
+    {
+        .ent = ent,
+        .position = vec2(0.0f, 0.0f),
+        .rotation = 0.0f,
+        .scale = vec2(1.0f, 1.0f),
+    };
     entitymap_set(emap, ent, array_length(transforms) - 1);
 }
 void transform_remove(Entity ent)

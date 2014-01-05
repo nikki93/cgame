@@ -16,7 +16,7 @@
 typedef struct Sprite Sprite;
 struct Sprite
 {
-    Entity entity;
+    Entity ent;
 
     Mat3 transform;
 
@@ -31,18 +31,17 @@ static EntityMap *emap; /* map of indices into above */
 
 void sprite_add(Entity ent)
 {
-    Sprite *sprite;
-
     if (entitymap_get(emap, ent) >= 0)
         return; /* already has a sprite */
 
     transform_add(ent);
 
-    sprite = array_add(sprites);
-    sprite->entity = ent;
-    sprite->cell = vec2(32.0f, 32.0f);
-    sprite->size = vec2(32.0f, 32.0f);
-
+    array_add_val(Sprite, sprites) = (Sprite)
+    {
+        .ent = ent,
+        .cell = vec2(32.0f, 32.0f),
+        .size = vec2(32.0f, 32.0f),
+    };
     entitymap_set(emap, ent, array_length(sprites) - 1);
 }
 void sprite_remove(Entity ent)
@@ -52,7 +51,7 @@ void sprite_remove(Entity ent)
     if ((i = entitymap_get(emap, ent)) >= 0)
     {
         if (array_quick_remove(sprites, i))
-            entitymap_set(emap, array_get_val(Sprite, sprites, i).entity, i);
+            entitymap_set(emap, array_get_val(Sprite, sprites, i).ent, i);
         entitymap_set(emap, ent, -1);
     }
 }
@@ -248,8 +247,8 @@ void sprite_update_all()
     for (i = 0; i < array_length(sprites); )
     {
         sprite = array_get(sprites, i);
-        if (entity_destroyed(sprite->entity))
-            sprite_remove(sprite->entity);
+        if (entity_destroyed(sprite->ent))
+            sprite_remove(sprite->ent);
         else
             ++i;
     }
@@ -258,7 +257,7 @@ void sprite_update_all()
     for (i = 0; i < n; ++i)
     {
         sprite = array_get(sprites, i);
-        sprite->transform = transform_get_world_matrix(sprite->entity);
+        sprite->transform = transform_get_world_matrix(sprite->ent);
     }
 }
 
@@ -287,7 +286,7 @@ void sprite_save_all(FILE *file)
     for (i = 0; i < n; ++i)
     {
         sprite = array_get(sprites, i);
-        entity_save(&sprite->entity, file);
+        entity_save(&sprite->ent, file);
         mat3_save(&sprite->transform, file);
         vec2_save(&sprite->cell, file);
         vec2_save(&sprite->size, file);
@@ -306,12 +305,12 @@ void sprite_load_all(FILE *file)
     for (i = 0; i < n; ++i)
     {
         sprite = array_get(sprites, i);
-        entity_load(&sprite->entity, file);
+        entity_load(&sprite->ent, file);
         mat3_load(&sprite->transform, file);
         vec2_load(&sprite->cell, file);
         vec2_load(&sprite->size, file);
 
-        entitymap_set(emap, sprite->entity, i);
+        entitymap_set(emap, sprite->ent, i);
     }
 }
 
