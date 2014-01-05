@@ -2,16 +2,13 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "saveload.h"
 #include "entitymap.h"
 #include "array.h"
 
-static int dummy;
-static void *dummy_ptr = &dummy; /* put in EntityMap to differentiate from
-                                    NULL */
-
-static EntityMap *emap;
+static EntityMap *exists_map;
 
 static EntityMap *destroyed_map; /* whether entity is destroyed */
 typedef struct DestroyEntry DestroyEntry;
@@ -28,22 +25,22 @@ static Array *unused; /* id put here after _remove(), can reuse */
  * ----------
  *
  *     doesn't exist (or removed):
- *         emap[ent] = NULL
- *         destroyed_map[ent] = NULL
+ *         exists_map[ent] = false
+ *         destroyed_map[ent] = false
  *         ent not in destroyed
  *
  *         on entity_create() go to exists
  *
  *     exists:
- *         emap[ent] = dummy_ptr
- *         destroyed_map[ent] = NULL
+ *         exists_map[ent] = true
+ *         destroyed_map[ent] = false
  *         ent not in destroyed
  *
  *         on entity_destroy() go to destroyed
  *
  *     destroyed:
- *         emap[ent] = NULL
- *         destroyed_map[ent] = dummy_ptr
+ *         exists_map[ent] = false
+ *         destroyed_map[ent] = true
  *         { ent, pass } in destroyed
  *
  *         each update if ++pass >= 2 then _remove() (go back to doesn't exist)
@@ -51,15 +48,10 @@ static Array *unused; /* id put here after _remove(), can reuse */
 
 /* ------------------------------------------------------------------------- */
 
-static inline bool _exists(Entity ent)
-{
-    return entitymap_get(emap, ent) == dummy_ptr;
-}
-
 Entity entity_create()
 {
     Entity ent;
-    static unsigned int top = 0;
+    static unsigned int counter = 0;
 
     if (array_length(unused) > 0)
     {
@@ -67,10 +59,9 @@ Entity entity_create()
         array_pop(unused);
     }
     else
-        ent = top++;
+        ent = counter++;
 
-    entitymap_set(emap, ent, dummy_ptr);
-
+    entitymap_set(exists_map, ent, true);
     printf("new id: %u\n", ent);
     return ent;
 }
@@ -78,8 +69,8 @@ Entity entity_create()
 /* actually remove an entity entirely */
 static inline void _remove(Entity ent)
 {
-    entitymap_set(emap, ent, NULL);
-    entitymap_set(destroyed_map, ent, NULL);
+    entitymap_set(exists_map, ent, false);
+    entitymap_set(destroyed_map, ent, false);
     array_add_val(Entity, unused) = ent;
 }
 
@@ -87,26 +78,26 @@ void entity_destroy(Entity ent)
 {
     DestroyEntry *entry;
 
-    if (!_exists(ent))
+    if (!entitymap_get(exists_map, ent))
         return;
-    if (entitymap_get(destroyed_map, ent) == dummy_ptr)
+    if (entitymap_get(destroyed_map, ent))
         return; /* already noted */
 
-    entitymap_set(destroyed_map, ent, dummy_ptr);
+    entitymap_set(destroyed_map, ent, true);
     array_add_val(DestroyEntry, destroyed) = (DestroyEntry) { ent, 0 };
 }
 
 bool entity_destroyed(Entity ent)
 {
-    return entitymap_get(destroyed_map, ent) == dummy_ptr;
+    return entitymap_get(destroyed_map, ent);
 }
 
 /* ------------------------------------------------------------------------- */
 
 void entity_init()
 {
-    emap = entitymap_new(NULL);
-    destroyed_map = entitymap_new(NULL);
+    exists_map = entitymap_new(false);
+    destroyed_map = entitymap_new(false);
     destroyed = array_new(DestroyEntry);
     unused = array_new(Entity);
 }
@@ -115,7 +106,7 @@ void entity_deinit()
     array_free(unused);
     array_free(destroyed);
     entitymap_free(destroyed_map);
-    entitymap_free(emap);
+    entitymap_free(exists_map);
 }
 
 void entity_update_all()

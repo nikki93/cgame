@@ -33,7 +33,7 @@ void sprite_add(Entity ent)
 {
     Sprite *sprite;
 
-    if ((int) entitymap_get(emap, ent) >= 0)
+    if (entitymap_get(emap, ent) >= 0)
         return; /* already has a sprite */
 
     transform_add(ent);
@@ -43,30 +43,29 @@ void sprite_add(Entity ent)
     sprite->cell = vec2(32.0f, 32.0f);
     sprite->size = vec2(32.0f, 32.0f);
 
-    entitymap_set(emap, ent, (void *) ((int) array_length(sprites) - 1));
+    entitymap_set(emap, ent, array_length(sprites) - 1);
 }
 void sprite_remove(Entity ent)
 {
     int i;
 
-    if ((i = (int) entitymap_get(emap, ent)) >= 0)
+    if ((i = entitymap_get(emap, ent)) >= 0)
     {
         if (array_quick_remove(sprites, i))
-            entitymap_set(emap, array_get_val(Sprite, sprites, i).entity,
-                    (void *) i);
-        entitymap_set(emap, ent, (void *) -1);
+            entitymap_set(emap, array_get_val(Sprite, sprites, i).entity, i);
+        entitymap_set(emap, ent, -1);
     }
 }
 
 void sprite_set_cell(Entity ent, Vec2 cell)
 {
-    int i = (int) entitymap_get(emap, ent);
+    int i = entitymap_get(emap, ent);
     assert(i >= 0);
     array_get_val(Sprite, sprites, i).cell = cell;
 }
 void sprite_set_size(Entity ent, Vec2 size)
 {
-    int i = (int) entitymap_get(emap, ent);
+    int i = entitymap_get(emap, ent);
     assert(i >= 0);
     array_get_val(Sprite, sprites, i).size = size;
 }
@@ -192,7 +191,7 @@ void sprite_init()
 {
     /* initialize array, map */
     sprites = array_new(Sprite);
-    emap = entitymap_new((void *) -1);
+    emap = entitymap_new(-1);
 
     /* compile shaders */
     vertex_shader = glCreateShader(GL_VERTEX_SHADER);
@@ -279,8 +278,7 @@ void sprite_draw_all()
 
 void sprite_save_all(FILE *file)
 {
-    int i;
-    unsigned int n;
+    unsigned int i, n;
     Sprite *sprite;
 
     n = array_length(sprites);
@@ -297,8 +295,7 @@ void sprite_save_all(FILE *file)
 }
 void sprite_load_all(FILE *file)
 {
-    int i;
-    unsigned int n;
+    unsigned int i, n;
     Sprite *sprite;
 
     uint_load(&n, file);
@@ -314,7 +311,7 @@ void sprite_load_all(FILE *file)
         vec2_load(&sprite->cell, file);
         vec2_load(&sprite->size, file);
 
-        entitymap_set(emap, sprite->entity, (void *) i);
+        entitymap_set(emap, sprite->entity, i);
     }
 }
 

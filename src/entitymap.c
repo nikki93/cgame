@@ -6,12 +6,12 @@
 
 struct EntityMap
 {
-    void **arr;
-    unsigned int max;      /* 1 + maximum key */
+    int *arr;
+    unsigned int bound;      /* 1 + maximum key */
     unsigned int capacity; /* heap size of arr / sizeof(*arr) */
-    void *nil;
+    int def;
 
-    /* invariant: max <= capacity && MIN_CAPACITY <= capacity */
+    /* invariant: bound <= capacity && MIN_CAPACITY <= capacity */
 };
 
 static char nil_obj;
@@ -21,20 +21,20 @@ static void _init(EntityMap *emap)
 {
     unsigned int i;
 
-    emap->arr = malloc(MIN_CAPACITY * sizeof(void *));
-    emap->max = 0;
+    emap->arr = malloc(MIN_CAPACITY * sizeof(*emap->arr));
+    emap->bound = 0;
     emap->capacity = MIN_CAPACITY;
 
     for (i = 0; i < MIN_CAPACITY; ++i)
-        emap->arr[i] = emap->nil;
+        emap->arr[i] = emap->def;
 }
 
-EntityMap *entitymap_new(void *nil)
+EntityMap *entitymap_new(int def)
 {
     EntityMap *emap;
 
     emap = malloc(sizeof(EntityMap));
-    emap->nil = nil;
+    emap->def = def;
     _init(emap);
     return emap;
 }
@@ -51,60 +51,60 @@ void entitymap_free(EntityMap *emap)
 
 static void _grow(EntityMap *emap)
 {
-    unsigned int new_capacity, i, max;
+    unsigned int new_capacity, i, bound;
 
     /* find next power of 2 (TODO: use log?) */
-    max = emap->max;
-    for (new_capacity = emap->capacity; new_capacity < max;
+    bound = emap->bound;
+    for (new_capacity = emap->capacity; new_capacity < bound;
             new_capacity <<= 1);
 
     /* grow, clear new */
-    emap->arr = realloc(emap->arr, new_capacity * sizeof(void *));
+    emap->arr = realloc(emap->arr, new_capacity * sizeof(*emap->arr));
     for (i = emap->capacity; i < new_capacity; ++i)
-        emap->arr[i] = emap->nil;
+        emap->arr[i] = emap->def;
     emap->capacity = new_capacity;
 }
 static void _shrink(EntityMap *emap)
 {
-    unsigned int new_capacity, max_times_4;
+    unsigned int new_capacity, bound_times_4;
 
     if (emap->capacity <= MIN_CAPACITY)
         return;
 
-    /* halve capacity while max is less than a fourth */
-    max_times_4 = emap->max << 2;
-    if (max_times_4 >= emap->capacity)
+    /* halve capacity while bound is less than a fourth */
+    bound_times_4 = emap->bound << 2;
+    if (bound_times_4 >= emap->capacity)
         return;
     for (new_capacity = emap->capacity;
-            new_capacity > MIN_CAPACITY && max_times_4 < new_capacity;
+            new_capacity > MIN_CAPACITY && bound_times_4 < new_capacity;
             new_capacity >>= 1);
     if (new_capacity < MIN_CAPACITY)
         new_capacity = MIN_CAPACITY;
 
-    emap->arr = realloc(emap->arr, new_capacity * sizeof(void *));
+    emap->arr = realloc(emap->arr, new_capacity * sizeof(*emap->arr));
     emap->capacity = new_capacity;
 }
 
-void entitymap_set(EntityMap *emap, Entity ent, void *val)
+void entitymap_set(EntityMap *emap, Entity ent, int val)
 {
-    if (val == emap->nil) /* deleting? */
+    if (val == emap->def) /* deleting? */
     {
         emap->arr[ent] = val;
 
-        /* possibly move max down and shrink */
-        if (emap->max == ent + 1)
+        /* possibly move bound down and shrink */
+        if (emap->bound == ent + 1)
         {
-            while (emap->max > 0 && emap->arr[emap->max - 1] == emap->nil)
-                --emap->max;
+            while (emap->bound > 0 && emap->arr[emap->bound - 1] == emap->def)
+                --emap->bound;
             _shrink(emap);
         }
     }
     else
     {
-        /* possibly move max up and grow */
-        if (ent + 1 > emap->max)
+        /* possibly move bound up and grow */
+        if (ent + 1 > emap->bound)
         {
-            emap->max = ent + 1;
+            emap->bound = ent + 1;
             if (ent >= emap->capacity)
                 _grow(emap);
         }
@@ -112,15 +112,15 @@ void entitymap_set(EntityMap *emap, Entity ent, void *val)
         emap->arr[ent] = val;
     }
 }
-void *entitymap_get(EntityMap *emap, Entity ent)
+int entitymap_get(EntityMap *emap, Entity ent)
 {
     if (ent >= emap->capacity)
-        return emap->nil;
+        return emap->def;
     return emap->arr[ent];
 }
 
-Entity entitymap_get_max(EntityMap *emap)
+Entity entitymap_get_bound(EntityMap *emap)
 {
-    return emap->max;
+    return emap->bound;
 }
 
