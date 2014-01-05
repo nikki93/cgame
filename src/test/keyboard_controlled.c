@@ -34,6 +34,12 @@ void keyboard_controlled_update_all(float dt)
 
     if (kc_exists)
     {
+        if (entity_destroyed(kc_entity))
+        {
+            keyboard_controlled_remove(kc_entity);
+            return;
+        }
+
         rot = transform_get_rotation(kc_entity);
         sca = transform_get_scale(kc_entity);
         aspect = sca.y / sca.x;

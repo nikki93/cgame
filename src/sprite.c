@@ -24,13 +24,8 @@ struct Sprite
     Vec2 size;
 };
 
-union
-{
-    Pool pool;
-    Sprite *array;         /* all sprites tightly packed managed by pool */
-} sprites;
-
-static EntityMap *emap;    /* map of pointers into sprite_buf */
+union { Pool pool; Sprite *array; } sprites; /* all sprites tightly packed */
+static EntityMap *emap; /* map of pointers into above */
 
 /* ------------------------------------------------------------------------- */
 
@@ -256,6 +251,12 @@ void sprite_deinit()
 void sprite_update_all()
 {
     unsigned int i;
+
+    for (i = 0; i < sprites.pool.num; )
+        if (entity_destroyed(sprites.array[i].entity))
+            sprite_remove(sprites.array[i].entity);
+        else
+            ++i;
 
     for (i = 0; i < sprites.pool.num; ++i)
         sprites.array[i].transform =

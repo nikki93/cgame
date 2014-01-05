@@ -137,6 +137,19 @@ void transform_deinit()
     entitymap_free(emap);
 }
 
+void transform_update_all()
+{
+    unsigned int max;
+    Entity ent;
+    Transform *curr;
+
+    max = entitymap_get_max(emap);
+    for (ent = 0; ent < max; ++ent)
+        if ((curr = entitymap_get(emap, ent))
+                && entity_destroyed(ent))
+            transform_remove(ent);
+}
+
 void transform_save_all(FILE *file)
 {
     unsigned int max;

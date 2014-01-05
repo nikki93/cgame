@@ -12,6 +12,7 @@
 
 void system_init()
 {
+    entity_init();
     transform_init();
     camera_init();
     sprite_init();
@@ -23,6 +24,7 @@ void system_deinit()
     script_deinit();
     sprite_deinit();
     transform_deinit();
+    entity_deinit();
 }
 
 void system_update_all(float dt)
@@ -31,8 +33,11 @@ void system_update_all(float dt)
 
     keyboard_controlled_update_all(dt);
 
+    transform_update_all();
     camera_update_all();
     sprite_update_all();
+
+    entity_update_all();
 }
 
 void system_draw_all()

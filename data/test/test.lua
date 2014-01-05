@@ -7,7 +7,7 @@ WIN_HEIGHT = 600
 
 -- add camera
 
-local camera = cgame.entity_new()
+local camera = cgame.entity_create()
 
 cgame.transform_add(camera)
 cgame.camera_add(camera)
@@ -22,11 +22,11 @@ function symrand()
     return 2 * math.random() - 1
 end
 
-local n_blocks = 200
+local n_blocks = 20
 for i = 0, n_blocks do
-    local block = cgame.entity_new()
+    local block = cgame.entity_create()
 
-    local pos = cgame.vec2(i/10 - 8, i/10 - 8)
+    local pos = cgame.vec2(i - 8, i - 8)
 
     cgame.transform_add(block)
     cgame.transform_set_position(block, pos)
@@ -45,7 +45,7 @@ end
 
 -- add player
 
-local player = cgame.entity_new()
+local player = cgame.entity_create()
 
 cgame.transform_add(player)
 cgame.transform_set_position(player, cgame.vec2(0.0, 0.0))

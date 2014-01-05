@@ -54,8 +54,16 @@ void camera_init()
 void camera_update_all()
 {
     if (camera_exists)
+    {
+        if (entity_destroyed(camera_entity))
+        {
+            camera_remove();
+            return;
+        }
+
         inverse_view_matrix = mat3_inverse(
                 transform_get_world_matrix(camera_entity));
+    }
 }
 
 void camera_save_all(FILE *file)
