@@ -13,21 +13,29 @@ dependencies
 ideas
 -----
 
+- message system: there is none -- instead you just have a system that
+  best does the job you want -- why generic messages? do each thing the best
+  way it can be done ('collision' message would just be a collision system that
+  stores a dual map of two ids to the collision contact, etc.)
+
 - in edit mode each system has its own window with all entities, when you
   select one it focuses on the right row -- allows system-specific interfaces
   (transform is a tree etc.)
 
+- is the system-data extremely tight coupling right now good?
+    - it made it easy to see all the data about, for example, sprites,
+      visualize the invariants and make sure they held on *_remove() etc.
 
 todo
 ----
 
 - c99 cleanup
 
+- make entity system reuse free entity ids, serialize all data
+
 - make Entity type a struct to allow reallocation on deserialize etc.
 
 - add serialization for C types in Lua
-
-- make entity system reuse free entity ids
 
 - fix message system -- right now it uses pointer weirdness and is messy
 
@@ -45,7 +53,7 @@ files
 - test/: C code for test game
 - data/test: data for test game
 
-- data/cgame.lua: cgame lua interface -- available as cgame.entity_new() etc.
+- data/cgame.lua: cgame lua interface -- available as cgame.entity_create() etc.
 - data/main.lua: startup script -- run on game start
 
 - cgame_ffi.h: C interface for Lua
