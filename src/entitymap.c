@@ -14,9 +14,6 @@ struct EntityMap
     /* invariant: bound <= capacity && MIN_CAPACITY <= capacity */
 };
 
-static char nil_obj;
-void *entitymap_nil = &nil_obj;
-
 static void _init(EntityMap *emap)
 {
     unsigned int i;

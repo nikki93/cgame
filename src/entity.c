@@ -8,16 +8,16 @@
 #include "entitymap.h"
 #include "array.h"
 
-static EntityMap *exists_map;
-
-static EntityMap *destroyed_map; /* whether entity is destroyed */
 typedef struct DestroyEntry DestroyEntry;
 struct DestroyEntry
 {
     Entity ent;
     unsigned int pass;
 };
-static Array *destroyed; /* destroyed objects that we will _remove() soon */
+
+static EntityMap *exists_map;
+static EntityMap *destroyed_map; /* whether entity is destroyed */
+static Array *destroyed; /* array of DestroyEntry for destroyed objects */
 static Array *unused; /* id put here after _remove(), can reuse */
 
 /*
