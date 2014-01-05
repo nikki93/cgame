@@ -5,7 +5,7 @@
 
 #include "saveload.h"
 #include "entitymap.h"
-#include "pool.h"
+#include "array.h"
 
 static int dummy;
 static void *dummy_ptr = &dummy; /* put in EntityMap to differentiate from
@@ -20,11 +20,8 @@ struct DestroyEntry
     Entity ent;
     unsigned int pass;
 };
-union { Pool pool; DestroyEntry *array; } destroyed; /* list of destroyed, will
-                                                        _remove() */
-
-union { Pool pool; Entity *array; } unused; /* id put here after _remove(),
-                                               can reuse */
+static Array *destroyed; /* destroyed objects that we will _remove() soon */
+static Array *unused; /* id put here after _remove(), can reuse */
 
 /*
  * life cycle
@@ -64,10 +61,10 @@ Entity entity_create()
     Entity ent;
     static unsigned int top = 0;
 
-    if (unused.pool.num > 0)
+    if (array_length(unused) > 0)
     {
-        ent = unused.array[unused.pool.num - 1];
-        pool_pop_obj(&unused.pool);
+        ent = array_top_val(Entity, unused);
+        array_pop(unused);
     }
     else
         ent = top++;
@@ -81,13 +78,9 @@ Entity entity_create()
 /* actually remove an entity entirely */
 static inline void _remove(Entity ent)
 {
-    Entity *unused_entry;
-
     entitymap_set(emap, ent, NULL);
     entitymap_set(destroyed_map, ent, NULL);
-
-    unused_entry = pool_new_obj(&unused.pool);
-    *unused_entry = ent;
+    array_add_val(Entity, unused) = ent;
 }
 
 void entity_destroy(Entity ent)
@@ -100,8 +93,7 @@ void entity_destroy(Entity ent)
         return; /* already noted */
 
     entitymap_set(destroyed_map, ent, dummy_ptr);
-    entry = pool_new_obj(&destroyed.pool);
-    *entry = (DestroyEntry) { ent, 0 };
+    array_add_val(DestroyEntry, destroyed) = (DestroyEntry) { ent, 0 };
 }
 
 bool entity_destroyed(Entity ent)
@@ -115,31 +107,37 @@ void entity_init()
 {
     emap = entitymap_new(NULL);
     destroyed_map = entitymap_new(NULL);
-    pool_init(&destroyed.pool, sizeof(DestroyEntry), NULL);
-    pool_init(&unused.pool, sizeof(int), NULL);
+    destroyed = array_new(DestroyEntry);
+    unused = array_new(Entity);
 }
 void entity_deinit()
 {
-    pool_deinit(&unused.pool);
-    pool_deinit(&destroyed.pool);
+    array_free(unused);
+    array_free(destroyed);
     entitymap_free(destroyed_map);
     entitymap_free(emap);
 }
 
 void entity_update_all()
 {
+    DestroyEntry *entry;
+
     /* check destroyeds -- first pass we let go, second pass we remove */
-    for (unsigned int i = 0; i < destroyed.pool.num; ++i)
-        if (destroyed.array[i].pass == 0)
+    for (unsigned int i = 0; i < array_length(destroyed); )
+    {
+        entry = array_get(destroyed, i);
+        if (entry->pass == 0)
         {
-            printf("%u first pass\n", destroyed.array[i].ent);
-            ++destroyed.array[i].pass;
+            printf("%u first pass\n", entry->ent);
+            ++entry->pass;
+            ++i;
         }
         else
         {
-            _remove(destroyed.array[i].ent);
-            pool_free_obj(&destroyed.pool, &destroyed.array[i]);
+            _remove(entry->ent);
+            array_quick_remove(destroyed, i);
         }
+    }
 }
 
 void entity_save(Entity *ent, FILE *file)
