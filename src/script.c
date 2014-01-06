@@ -32,6 +32,31 @@ static void _push_event(const char *event)
     lua_pushstring(L, event);
 }
 
+/* args are available as cgame_args[0], cgame_args[1], ... */
+static void _forward_args()
+{
+    int i, argc;
+    char **argv;
+
+    argc = game_get_argc();
+    argv = game_get_argv();
+
+    lua_createtable(L, argc, 0);
+    for (i = 0; i < argc; ++i)
+    {
+        lua_pushstring(L, argv[i]);
+        lua_rawseti(L, -2, i);
+    }
+    lua_setglobal(L, "cgame_args");
+}
+
+/* set cgame_data_path global to data path */
+static void _set_data_path()
+{
+    lua_pushstring(L, data_path(""));
+    lua_setglobal(L, "cgame_data_path");
+}
+
 /* LuaJIT parser doesn't like 'EXPORT' -- make it whitespace */
 static void _fix_exports(char *s)
 {
@@ -49,7 +74,7 @@ static void _fix_exports(char *s)
  *     ffi = require 'ffi'
  *     ffi.cdef(cgame_ffi[0] .. cgame_ffi[1] .. ...)
  *
- * with 'EXPORT's fixed
+ * with 'EXPORT's fixed -- after this cgame.lua can bind the ffi
  */
 static void _load_cgame_ffi()
 {
@@ -81,16 +106,13 @@ void script_init()
     L = lua_open();
     luaL_openlibs(L);
 
-    /* load ffi so that cgame.lua can bind it */
     _load_cgame_ffi();
+    _forward_args();
+    _set_data_path();
 
-    /* set cgame_data_path to data_path root and run main.lua */
-    lua_pushstring(L, data_path(""));
-    lua_setglobal(L, "cgame_data_path");
+    /* run main.lua and fire init event */
     errcheck(luaL_loadfile(L, data_path("main.lua")));
     errcheck(lua_pcall(L, 0, 0, 0));
-
-    /* fire init event */
     _push_event("init");
     errcheck(lua_pcall(L, 1, 0, 0));
 }
