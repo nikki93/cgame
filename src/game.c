@@ -16,6 +16,8 @@
 GLFWwindow *game_window;
 
 static bool quit = false; /* exit main loop if true */
+static int sargc = 0;
+static char **sargv;
 
 /* ------------------------------------------------------------------------- */
 
@@ -155,9 +157,12 @@ static void _fps_display()
     }
 }
 
-void game_run()
+void game_run(int argc, char **argv)
 {
     double last_time, curr_time, dt;
+
+    sargc = argc;
+    sargv = argv;
 
     _game_init();
 
@@ -182,5 +187,14 @@ void game_run()
 void game_quit()
 {
     quit = true;
+}
+
+int game_get_argc()
+{
+    return sargc;
+}
+char **game_get_argv()
+{
+    return sargv;
 }
 

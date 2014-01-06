@@ -6,7 +6,10 @@
 
 extern GLFWwindow *game_window;
 
-void game_run();
+void game_run(int argc, char **argv);
+
+int game_get_argc();
+char **game_get_argv();
 
 SCRIPT(game,
 
