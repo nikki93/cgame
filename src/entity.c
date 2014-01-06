@@ -62,7 +62,6 @@ Entity entity_create()
         ent = counter++;
 
     entitymap_set(exists_map, ent, true);
-    printf("new id: %u\n", ent);
     return ent;
 }
 
@@ -119,7 +118,6 @@ void entity_update_all()
         entry = array_get(destroyed, i);
         if (entry->pass == 0)
         {
-            printf("%u first pass\n", entry->ent);
             ++entry->pass;
             ++i;
         }
