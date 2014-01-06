@@ -86,45 +86,38 @@ bool array_quick_remove(Array *arr, unsigned int i)
 
 #include <stdio.h>
 
+typedef struct { int a, b; } IntPair;
+
 void dump(Array *arr)
 {
     printf("{ (%d, %d) -- ", arr->capacity, arr->length);
     for (unsigned int i = 0; i < arr->length; ++i)
     {
-        int *p = array_get(arr, i);
-        printf("%d ", *p);
+        IntPair *p = array_get(arr, i);
+        printf("(%d, %d) ", p->a, p->b);
     }
     printf("}\n");
 }
 
 int main()
 {
-    Array *arr = array_new(int);
+    Array *arr = array_new(IntPair);
 
-    /* add 0 .. 9 */
-    for (unsigned int i = 0; i < 10; ++i)
+    /* add some */
+    for (unsigned int i = 0; i < 7; ++i)
     {
-        int *added = array_add(arr);
-        *added = i;
+        array_add_val(IntPair, arr) = (IntPair) { i, i * i };
         dump(arr);
     }
 
-    /* try removing some */
-    array_unordered_remove(arr, 2);
+    /* remove some */
+    array_quick_remove(arr, 2);
     dump(arr);
-    array_unordered_remove(arr, 4);
+    array_quick_remove(arr, 4);
     dump(arr);
     while (array_length(arr) > 0)
     {
-        array_unordered_remove(arr, 0);
-        dump(arr);
-    }
-
-    /* add 0 .. 9 */
-    for (unsigned int i = 0; i < 10; ++i)
-    {
-        int *added = array_add(arr);
-        *added = i;
+        array_quick_remove(arr, 0);
         dump(arr);
     }
 
