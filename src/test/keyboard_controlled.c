@@ -44,26 +44,26 @@ void keyboard_controlled_update_all(float dt)
         sca = transform_get_scale(kc_entity);
         aspect = sca.y / sca.x;
 
-        if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+        if (glfwGetKey(game_window, GLFW_KEY_LEFT) == GLFW_PRESS)
             dpos = vec2_add(dpos, vec2(-5 * dt, 0));
-        if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+        if (glfwGetKey(game_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
             dpos = vec2_add(dpos, vec2( 5 * dt, 0));
-        if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+        if (glfwGetKey(game_window, GLFW_KEY_UP) == GLFW_PRESS)
             dpos = vec2_add(dpos, vec2(0,  5 * dt));
-        if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+        if (glfwGetKey(game_window, GLFW_KEY_DOWN) == GLFW_PRESS)
             dpos = vec2_add(dpos, vec2(0, -5 * dt));
 
-        if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
+        if (glfwGetKey(game_window, GLFW_KEY_N) == GLFW_PRESS)
             rot += 0.35 * M_PI * dt;
-        if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+        if (glfwGetKey(game_window, GLFW_KEY_M) == GLFW_PRESS)
             rot -= 0.35 * M_PI * dt;
 
-        if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+        if (glfwGetKey(game_window, GLFW_KEY_K) == GLFW_PRESS)
         {
             sca.x += 12 * dt;
             sca.y = aspect * sca.x;
         }
-        if (sca.x > 12 * dt && glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+        if (sca.x > 12 * dt && glfwGetKey(game_window, GLFW_KEY_I) == GLFW_PRESS)
         {
             sca.x -= 12 * dt;
             sca.y = aspect * sca.x;

@@ -13,7 +13,7 @@
 #include "transform.h"
 #include "sprite.h"
 
-GLFWwindow *window;
+GLFWwindow *game_window;
 
 static bool quit = false; /* exit main loop if true */
 
@@ -30,10 +30,10 @@ static void _game_init()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-    window = glfwCreateWindow(800, 600, "cgame", NULL, NULL);
+    game_window = glfwCreateWindow(800, 600, "cgame", NULL, NULL);
 
     /* activate OpenGL context */
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(game_window);
 
     /* initialize GLEW */
     glewExperimental = GL_TRUE;
@@ -69,45 +69,45 @@ static void _game_events()
     glfwPollEvents();
 
     /* quit on escape key */
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         game_quit();
 
     /* save/load */
-    if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_O) == GLFW_PRESS)
     {
         file = fopen(usr_path("test.sav"), "w");
         system_save_all(file);
         fclose(file);
     }
-    if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_P) == GLFW_PRESS)
     {
         file = fopen(usr_path("test.sav"), "r");
         system_load_all(file);
         fclose(file);
     }
 
-    if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_0) == GLFW_PRESS)
         entity_destroy(0);
-    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_1) == GLFW_PRESS)
         entity_destroy(1);
-    if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_2) == GLFW_PRESS)
         entity_destroy(2);
-    if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_3) == GLFW_PRESS)
         entity_destroy(3);
-    if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_4) == GLFW_PRESS)
         entity_destroy(4);
-    if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_5) == GLFW_PRESS)
         entity_destroy(5);
-    if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_6) == GLFW_PRESS)
         entity_destroy(6);
-    if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_7) == GLFW_PRESS)
         entity_destroy(7);
-    if (glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_8) == GLFW_PRESS)
         entity_destroy(8);
-    if (glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_9) == GLFW_PRESS)
         entity_destroy(9);
 
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    if (glfwGetKey(game_window, GLFW_KEY_SPACE) == GLFW_PRESS)
     {
         Entity block = entity_create();
 
@@ -132,7 +132,7 @@ static void _game_draw()
 
     system_draw_all();
 
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(game_window);
 }
 
 static void _fps_display()
@@ -162,7 +162,7 @@ void game_run()
     _game_init();
 
     last_time = glfwGetTime();
-    while (!quit && !glfwWindowShouldClose(window))
+    while (!quit && !glfwWindowShouldClose(game_window))
     {
         _game_events();
 
