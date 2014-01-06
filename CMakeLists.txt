@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
+set(CMAKE_BUILD_TYPE Release)
 
 project(cgame)
 
@@ -13,7 +14,8 @@ add_executable(cgame src/main.c src/vec2.c src/mat3.c src/game.c src/entity.c
 if(MSVC)
     add_definitions(/D _USE_MATH_DEFINES)
 else()
-    add_definitions(-std=c99)
+    set(CMAKE_C_FLAGS "-std=c99")
+    set(CMAKE_C_FLAGS_RELEASE "-O3")
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
