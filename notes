@@ -31,11 +31,12 @@ todo
 
 - c99 cleanup
 
+- tie Lua C type serialization to actual load_*/save_* C functions, so you
+  don't have to rewrite everything in Lua too
+
 - serialize all entity system data
 
 - make Entity type a struct to allow reallocation on deserialize etc.
-
-- add serialization for C types in Lua
 
 - expose key events to Lua
 

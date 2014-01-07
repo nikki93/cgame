@@ -13,6 +13,12 @@ local cgame = setmetatable({}, { __index = ffi.C })
 cgame.Vec2 = ffi.metatype('Vec2',
 {
     __add = function (u, v) return cgame.vec2_add(u, v) end,
+    __index =
+    {
+        __serialize = function (v)
+            return string.format('cgame.vec2(%f, %f)', v.x, v.y)
+        end,
+    },
 })
 
 cgame.Mat3 = ffi.typeof('Mat3')

@@ -50,6 +50,8 @@ local function s(t, opts)
       seen[t] = insref or spath
       if mt.__serialize then t = mt.__serialize(t) else t = tostring(t) end
       ttype = type(t) end -- new value falls through to be serialized
+    if ttype == "cdata" and t.__serialize then
+      return tag..t.__serialize(t) end
     if ttype == "table" then
       if level >= maxl then return tag..'{}'..comment('max', level) end
       seen[t] = insref or spath
