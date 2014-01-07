@@ -17,8 +17,6 @@ SCRIPT(entity,
 
       )
 
-/* script_end */
-
 void entity_init();
 void entity_deinit();
 void entity_update_all();

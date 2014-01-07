@@ -33,15 +33,11 @@ todo
 
 - serialize all entity system data
 
-- make entity maps store ints as values, update all maps
-
 - make Entity type a struct to allow reallocation on deserialize etc.
 
 - add serialization for C types in Lua
 
 - expose key events to Lua
-
-- make systems add entites to systems they depend on
 
 - try animation
 

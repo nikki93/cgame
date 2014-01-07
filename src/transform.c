@@ -135,10 +135,9 @@ void transform_deinit()
 
 void transform_update_all()
 {
-    unsigned int i, n;
+    unsigned int i;
     Transform *transform;
 
-    n = array_length(transforms);
     for (i = 0; i < array_length(transforms); )
     {
         transform = array_get(transforms, i);

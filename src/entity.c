@@ -24,26 +24,26 @@ static Array *unused; /* id put here after _remove(), can reuse */
  * life cycle
  * ----------
  *
- *     doesn't exist (or removed):
+ *     (1) doesn't exist (or removed):
  *         exists_map[ent] = false
  *         destroyed_map[ent] = false
  *         ent not in destroyed
  *
  *         on entity_create() go to exists
  *
- *     exists:
+ *     (2) exists:
  *         exists_map[ent] = true
  *         destroyed_map[ent] = false
  *         ent not in destroyed
  *
  *         on entity_destroy() go to destroyed
  *
- *     destroyed:
+ *     (3) destroyed:
  *         exists_map[ent] = false
  *         destroyed_map[ent] = true
  *         { ent, pass } in destroyed
  *
- *         each update if ++pass >= 2 then _remove() (go back to doesn't exist)
+ *         each update if ++pass >= 2, _remove() (go to (1) "doesn't exist")
  */
 
 /* ------------------------------------------------------------------------- */

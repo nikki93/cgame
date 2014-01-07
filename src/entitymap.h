@@ -19,9 +19,5 @@ void entitymap_set(EntityMap *emap, Entity ent, int val);
 int entitymap_get(EntityMap *emap, Entity ent);
 Entity entitymap_get_bound(EntityMap *emap); /* get 1 + max key, 0 if empty */
 
-/* convenience macro to hide ugly casts */
-#define entitymap_get_type(type, emap, ent) \
-    ((type) entitymap_get(emap, ent))
-
 #endif
 

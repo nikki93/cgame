@@ -97,7 +97,7 @@ static void _compile_shader(GLuint shader, const char *filename)
     fclose(input_file);
     file_contents[input_file_size] = '\0';
 
-    printf("compiling shader '%s' ...", filename);
+    printf("sprite: compiling shader '%s' ...", filename);
 
     glShaderSource(shader, 1, (const GLchar **) &file_contents, NULL);
     glCompileShader(shader);
@@ -108,7 +108,7 @@ static void _compile_shader(GLuint shader, const char *filename)
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
     printf(status ? " successful\n" : " unsuccessful\n");
     glGetShaderInfoLog(shader, 512, NULL, log);
-    printf("%s\n", log);
+    printf("%s", log);
 }
 
 /* get pointer offset of 'field' in struct 'type' */
