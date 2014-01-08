@@ -167,14 +167,6 @@ void scalar_load(float *f, FILE *file)
     fscanf(file, "%f\n", f);
 }
 
-void size_t_save(const size_t *s, FILE *file)
-{
-    fprintf(file, "%zu\n", *s);
-}
-void size_t_load(size_t *s, FILE *file)
-{
-    fscanf(file, "%zu\n", s);
-}
 void uint_save(const unsigned int *u, FILE *file)
 {
     fprintf(file, "%u\n", *u);
@@ -197,10 +189,10 @@ void bool_load(bool *b, FILE *file)
 
 void string_save(const char **s, FILE *file)
 {
-    size_t len;
+    unsigned int len;
 
     len = strlen(*s);
-    size_t_save(&len, file);
+    uint_save(&len, file);
 
     fwrite(*s, 1, len, file);
 
@@ -208,9 +200,9 @@ void string_save(const char **s, FILE *file)
 }
 void string_load(char **s, FILE *file)
 {
-    size_t len;
+    unsigned int len;
 
-    size_t_load(&len, file);
+    uint_load(&len, file);
 
     *s = malloc(len + 1);
     fread(*s, 1, len, file);

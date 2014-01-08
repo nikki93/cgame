@@ -19,8 +19,6 @@ void deserializer_close(Deserializer *s);
 void scalar_save(const float *f, FILE *file);
 void scalar_load(float *f, FILE *file);
 
-void size_t_save(const size_t *s, FILE *file);
-void size_t_load(size_t *s, FILE *file);
 void uint_save(const unsigned int *u, FILE *file);
 void uint_load(unsigned int *u, FILE *file);
 
