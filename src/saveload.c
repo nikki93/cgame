@@ -209,7 +209,7 @@ void string_save(const char **s, FILE *file)
 void string_load(char **s, FILE *file)
 {
     size_t len;
-    
+
     size_t_load(&len, file);
 
     *s = malloc(len + 1);

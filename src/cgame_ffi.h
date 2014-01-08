@@ -1,6 +1,6 @@
-/* 
+/*
  * C interface visible from Lua
- * 
+ *
  * all declarations in SCRIPT(...) blocks from modules listed below are
  * available under 'cgame.' in Lua
  */

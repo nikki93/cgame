@@ -68,7 +68,7 @@ static void _fix_exports(char *s)
             *s++ = ' ';
 }
 
-/* 
+/*
  * equivalent to:
  *
  *     ffi = require 'ffi'
