@@ -26,6 +26,7 @@ ideas
     - it made it easy to see all the data about, for example, sprites,
       visualize the invariants and make sure they held on *_remove() etc.
 
+
 todo
 ----
 
