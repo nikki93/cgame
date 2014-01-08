@@ -66,7 +66,7 @@ Entity entity_create()
 }
 
 /* actually remove an entity entirely */
-static inline void _remove(Entity ent)
+static void _remove(Entity ent)
 {
     entitymap_set(exists_map, ent, false);
     entitymap_set(destroyed_map, ent, false);
@@ -75,8 +75,6 @@ static inline void _remove(Entity ent)
 
 void entity_destroy(Entity ent)
 {
-    DestroyEntry *entry;
-
     if (!entitymap_get(exists_map, ent))
         return;
     if (entitymap_get(destroyed_map, ent))
