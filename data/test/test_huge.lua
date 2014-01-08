@@ -22,7 +22,8 @@ function symrand()
     return 2 * math.random() - 1
 end
 
-local n_blocks = 30000
+local n_blocks = cgame_args[2] or 30000
+print('creating ' .. n_blocks .. ' blocks')
 for i = 0, n_blocks do
     local block = cgame.entity_create()
 
