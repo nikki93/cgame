@@ -76,15 +76,15 @@ void keyboard_controlled_update_all(float dt)
     }
 }
 
-void keyboard_controlled_save_all(FILE *file)
+void keyboard_controlled_save_all(Serializer *s)
 {
-    bool_save(&kc_exists, file);
-    entity_save(&kc_entity, file);
+    bool_save(&kc_exists, s);
+    entity_save(&kc_entity, s);
 }
-void keyboard_controlled_load_all(FILE *file)
+void keyboard_controlled_load_all(Deserializer *s)
 {
-    bool_load(&kc_exists, file);
-    entity_load(&kc_entity, file);
+    bool_load(&kc_exists, s);
+    entity_load(&kc_entity, s);
 }
 
 #endif

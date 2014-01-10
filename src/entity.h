@@ -2,9 +2,9 @@
 #define ENTITY_H_GUOK04WE
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <stdbool.h>
 
+#include "saveload.h"
 #include "script.h"
 
 SCRIPT(entity,
@@ -20,8 +20,8 @@ SCRIPT(entity,
 void entity_init();
 void entity_deinit();
 void entity_update_all();
-void entity_save(Entity *ent, FILE *file);  /* save/load just the id */
-void entity_load(Entity *ent, FILE *file);
+void entity_save(Entity *ent, Serializer *s);  /* save/load just the id */
+void entity_load(Entity *ent, Deserializer *s);
 
 #endif
 

@@ -276,29 +276,29 @@ void sprite_draw_all()
     glDrawArrays(GL_POINTS, 0, array_length(sprites));
 }
 
-void sprite_save_all(FILE *file)
+void sprite_save_all(Serializer *s)
 {
     unsigned int i, n;
     Sprite *sprite;
 
     n = array_length(sprites);
 
-    uint_save(&n, file);
+    uint_save(&n, s);
     for (i = 0; i < n; ++i)
     {
         sprite = array_get(sprites, i);
-        entity_save(&sprite->ent, file);
-        mat3_save(&sprite->transform, file);
-        vec2_save(&sprite->cell, file);
-        vec2_save(&sprite->size, file);
+        entity_save(&sprite->ent, s);
+        mat3_save(&sprite->transform, s);
+        vec2_save(&sprite->cell, s);
+        vec2_save(&sprite->size, s);
     }
 }
-void sprite_load_all(FILE *file)
+void sprite_load_all(Deserializer *s)
 {
     unsigned int i, n;
     Sprite *sprite;
 
-    uint_load(&n, file);
+    uint_load(&n, s);
     array_reset(sprites, n);
 
     entitymap_clear(emap);
@@ -306,10 +306,10 @@ void sprite_load_all(FILE *file)
     for (i = 0; i < n; ++i)
     {
         sprite = array_get(sprites, i);
-        entity_load(&sprite->ent, file);
-        mat3_load(&sprite->transform, file);
-        vec2_load(&sprite->cell, file);
-        vec2_load(&sprite->size, file);
+        entity_load(&sprite->ent, s);
+        mat3_load(&sprite->transform, s);
+        vec2_load(&sprite->cell, s);
+        vec2_load(&sprite->size, s);
 
         entitymap_set(emap, sprite->ent, i);
     }

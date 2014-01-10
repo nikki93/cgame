@@ -19,15 +19,15 @@ Vec2 vec2_rot(Vec2 v, float rot)
             v.x * sin(rot) + v.y * cos(rot));
 }
 
-void vec2_save(Vec2 *v, FILE *file)
+void vec2_save(Vec2 *v, Serializer *s)
 {
-    scalar_save(&v->x, file);
-    scalar_save(&v->y, file);
+    scalar_save(&v->x, s);
+    scalar_save(&v->y, s);
 }
-void vec2_load(Vec2 *v, FILE *file)
+void vec2_load(Vec2 *v, Deserializer *s)
 {
-    scalar_load(&v->x, file);
-    scalar_load(&v->y, file);
+    scalar_load(&v->x, s);
+    scalar_load(&v->y, s);
 }
 
 #undef vec2

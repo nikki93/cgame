@@ -97,7 +97,7 @@ static void _deserializer_scanf_(Deserializer *s, const char *fmt, int *n, ...)
     do \
     { \
         int n_read__; \
-        _deserializer_scanf_(s, fmt, &n_read__, __VA_ARGS__, &n_read__); \
+        _deserializer_scanf_(s, fmt, &n_read__, ##__VA_ARGS__, &n_read__); \
     } while (0)
 
 Serializer *serializer_open_str()
@@ -158,57 +158,54 @@ void deserializer_close(Deserializer *s)
     free(s);
 }
 
-void scalar_save(const float *f, FILE *file)
+void scalar_save(const float *f, Serializer *s)
 {
-    fprintf(file, "%f\n", *f);
+    _serializer_printf(s, "%f\n", *f);
 }
-void scalar_load(float *f, FILE *file)
+void scalar_load(float *f, Deserializer *s)
 {
-    fscanf(file, "%f\n", f);
-}
-
-void uint_save(const unsigned int *u, FILE *file)
-{
-    fprintf(file, "%u\n", *u);
-}
-void uint_load(unsigned int *u, FILE *file)
-{
-    fscanf(file, "%u\n", u);
+    _deserializer_scanf(s, "%f\n", f);
 }
 
-void bool_save(const bool *b, FILE *file)
+void uint_save(const unsigned int *u, Serializer *s)
 {
-    fprintf(file, "%d\n", *b ? 1 : 0);
+    _serializer_printf(s, "%u\n", *u);
 }
-void bool_load(bool *b, FILE *file)
+void uint_load(unsigned int *u, Deserializer *s)
+{
+    _deserializer_scanf(s, "%u\n", u);
+}
+
+void bool_save(const bool *b, Serializer *s)
+{
+    _serializer_printf(s, "%d\n", *b ? 1 : 0);
+}
+void bool_load(bool *b, Deserializer *s)
 {
     int i;
-    fscanf(file, "%d\n", &i);
+    _deserializer_scanf(s, "%d\n", &i);
     *b = i ? true : false;
 }
 
-void string_save(const char **s, FILE *file)
+void string_save(const char **c, Serializer *s)
 {
     unsigned int len;
 
-    len = strlen(*s);
-    uint_save(&len, file);
-
-    fwrite(*s, 1, len, file);
-
-    fprintf(file, "\n");
+    len = strlen(*c);
+    uint_save(&len, s);
+    _serializer_printf(s, "%s\n", *c);
 }
-void string_load(char **s, FILE *file)
+void string_load(char **c, Deserializer *s)
 {
     unsigned int len;
+    char fmt[32];
 
-    uint_load(&len, file);
-
-    *s = malloc(len + 1);
-    fread(*s, 1, len, file);
-    (*s)[len] = '\0';
-
-    fscanf(file, "\n");
+    uint_load(&len, s);
+    *c = malloc(len + 1);
+    sprintf(fmt, "%%%u[^]", len);
+    _deserializer_scanf(s, fmt, *c);
+    printf("fmt: '%s', *c: '%s'\n", fmt, *c);
+    _deserializer_scanf(s, "\n");
 }
 
 #ifdef SERIALIZER_TEST

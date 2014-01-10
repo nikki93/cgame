@@ -77,15 +77,15 @@ static void _game_events()
     /* save/load */
     if (glfwGetKey(game_window, GLFW_KEY_O) == GLFW_PRESS)
     {
-        file = fopen(usr_path("test.sav"), "w");
-        system_save_all(file);
-        fclose(file);
+        Serializer *s = serializer_open_file(usr_path("test.sav"));
+        system_save_all(s);
+        serializer_close(s);
     }
     if (glfwGetKey(game_window, GLFW_KEY_P) == GLFW_PRESS)
     {
-        file = fopen(usr_path("test.sav"), "r");
-        system_load_all(file);
-        fclose(file);
+        Deserializer *s = deserializer_open_file(usr_path("test.sav"));
+        system_load_all(s);
+        deserializer_close(s);
     }
 
     if (glfwGetKey(game_window, GLFW_KEY_0) == GLFW_PRESS)

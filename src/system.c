@@ -47,10 +47,10 @@ void system_draw_all()
 }
 
 /* do it this way so we save/load in the same order */
-static void _saveload_all(FILE *file, bool save)
+static void _saveload_all(void *s, bool save)
 {
 #define saveload(sys) \
-    if (save) sys##_save_all(file); else sys##_load_all(file)
+    if (save) sys##_save_all(s); else sys##_load_all(s)
 
     saveload(transform);
     saveload(camera);
@@ -61,13 +61,13 @@ static void _saveload_all(FILE *file, bool save)
     saveload(script);
 }
 
-void system_save_all(FILE *file)
+void system_save_all(Serializer *s)
 {
-    _saveload_all(file, true);
+    _saveload_all(s, true);
 }
 
-void system_load_all(FILE *file)
+void system_load_all(Deserializer *s)
 {
-    _saveload_all(file, false);
+    _saveload_all(s, false);
 }
 

@@ -66,16 +66,16 @@ void camera_update_all()
     }
 }
 
-void camera_save_all(FILE *file)
+void camera_save_all(Serializer *s)
 {
-    bool_save(&camera_exists, file);
-    entity_save(&camera_entity, file);
-    mat3_save(&inverse_view_matrix, file);
+    bool_save(&camera_exists, s);
+    entity_save(&camera_entity, s);
+    mat3_save(&inverse_view_matrix, s);
 }
-void camera_load_all(FILE *file)
+void camera_load_all(Deserializer *s)
 {
-    bool_load(&camera_exists, file);
-    entity_load(&camera_entity, file);
-    mat3_load(&inverse_view_matrix, file);
+    bool_load(&camera_exists, s);
+    entity_load(&camera_entity, s);
+    mat3_load(&inverse_view_matrix, s);
 }
 

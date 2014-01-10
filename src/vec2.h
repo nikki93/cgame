@@ -1,8 +1,7 @@
 #ifndef VEC2_H_OWWB2FND
 #define VEC2_H_OWWB2FND
 
-#include <stdio.h>
-
+#include "saveload.h"
 #include "script.h"
 
 SCRIPT(vec2,
@@ -19,8 +18,8 @@ SCRIPT(vec2,
 
       )
 
-void vec2_save(Vec2 *v, FILE *file);
-void vec2_load(Vec2 *v, FILE *file);
+void vec2_save(Vec2 *v, Serializer *s);
+void vec2_load(Vec2 *v, Deserializer *s);
 
 
 /* C inline stuff */

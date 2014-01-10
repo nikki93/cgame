@@ -138,7 +138,7 @@ void script_draw_all()
     errcheck(lua_pcall(L, 1, 0, 0));
 }
 
-void script_save_all(FILE *file)
+void script_save_all(Serializer *s)
 {
     const char *str;
 
@@ -148,16 +148,16 @@ void script_save_all(FILE *file)
     errcheck(lua_pcall(L, 0, 1, 0));
     str = lua_tostring(L, -1);
 
-    string_save(&str, file);
+    string_save(&str, s);
 
     lua_pop(L, 1);
 }
 
-void script_load_all(FILE *file)
+void script_load_all(Deserializer *s)
 {
     char *str;
 
-    string_load(&str, file);
+    string_load(&str, s);
 
     lua_getglobal(L, "cgame");
     lua_getfield(L, -1, "__load_all");

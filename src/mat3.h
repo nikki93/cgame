@@ -3,6 +3,7 @@
 
 #include "script.h"
 #include "vec2.h"
+#include "saveload.h"
 
 SCRIPT(mat3,
 
@@ -23,8 +24,8 @@ SCRIPT(mat3,
 
       )
 
-void mat3_save(Mat3 *m, FILE *file);
-void mat3_load(Mat3 *m, FILE *file);
+void mat3_save(Mat3 *m, Serializer *s);
+void mat3_load(Mat3 *m, Deserializer *s);
 
 
 /* C inline stuff */

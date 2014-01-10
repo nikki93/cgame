@@ -127,12 +127,12 @@ void entity_update_all()
     }
 }
 
-void entity_save(Entity *ent, FILE *file)
+void entity_save(Entity *ent, Serializer *s)
 {
-    uint_save(ent, file);
+    uint_save(ent, s);
 }
-void entity_load(Entity *ent, FILE *file)
+void entity_load(Entity *ent, Deserializer *s)
 {
-    uint_load(ent, file);
+    uint_load(ent, s);
 }
 

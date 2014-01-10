@@ -46,21 +46,21 @@ Mat3 mat3_inverse(Mat3 m)
     return inv;
 }
 
-void mat3_save(Mat3 *m, FILE *file)
+void mat3_save(Mat3 *m, Serializer *s)
 {
     unsigned int i, j;
 
     for (i = 0; i < 3; ++i)
         for (j = 0; j < 3; ++j)
-            scalar_save(&m->m[i][j], file);
+            scalar_save(&m->m[i][j], s);
 }
-void mat3_load(Mat3 *m, FILE *file)
+void mat3_load(Mat3 *m, Deserializer *s)
 {
     unsigned int i, j;
 
     for (i = 0; i < 3; ++i)
         for (j = 0; j < 3; ++j)
-            scalar_load(&m->m[i][j], file);
+            scalar_load(&m->m[i][j], s);
 }
 
 #undef mat3_identity

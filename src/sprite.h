@@ -1,8 +1,7 @@
 #ifndef SPRITE_H_L45BNMPA
 #define SPRITE_H_L45BNMPA
 
-#include <stdio.h>
-
+#include "saveload.h"
 #include "entity.h"
 #include "vec2.h"
 #include "script.h"
@@ -21,8 +20,8 @@ void sprite_init();
 void sprite_deinit();
 void sprite_update_all();
 void sprite_draw_all();
-void sprite_save_all(FILE *file);
-void sprite_load_all(FILE *file);
+void sprite_save_all(Serializer *s);
+void sprite_load_all(Deserializer *s);
 
 #endif
 

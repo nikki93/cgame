@@ -5,6 +5,7 @@
 #include "mat3.h"
 #include "entity.h"
 #include "script.h"
+#include "saveload.h"
 
 /*
  * can set scale, rotation, position -- transformations applied in that order
@@ -33,8 +34,8 @@ SCRIPT(transform,
 void transform_init();
 void transform_deinit();
 void transform_update_all();
-void transform_save_all();
-void transform_load_all();
+void transform_save_all(Serializer *s);
+void transform_load_all(Deserializer *s);
 
 #endif
 

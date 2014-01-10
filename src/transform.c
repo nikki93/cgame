@@ -149,30 +149,30 @@ void transform_update_all()
     }
 }
 
-void transform_save_all(FILE *file)
+void transform_save_all(Serializer *s)
 {
     unsigned int i, n;
     Transform *transform;
 
     n = array_length(transforms);
 
-    uint_save(&n, file);
+    uint_save(&n, s);
     for (i = 0; i < n; ++i)
     {
         transform = array_get(transforms, i);
-        entity_save(&transform->ent, file);
-        vec2_save(&transform->position, file);
-        scalar_save(&transform->rotation, file);
-        vec2_save(&transform->scale, file);
-        mat3_save(&transform->worldmat_cache, file);
+        entity_save(&transform->ent, s);
+        vec2_save(&transform->position, s);
+        scalar_save(&transform->rotation, s);
+        vec2_save(&transform->scale, s);
+        mat3_save(&transform->worldmat_cache, s);
     }
 }
-void transform_load_all(FILE *file)
+void transform_load_all(Deserializer *s)
 {
     unsigned int i, n;
     Transform *transform;
 
-    uint_load(&n, file);
+    uint_load(&n, s);
     array_reset(transforms, n);
 
     entitymap_clear(emap);
@@ -180,11 +180,11 @@ void transform_load_all(FILE *file)
     for (i = 0; i < n; ++i)
     {
         transform = array_get(transforms, i);
-        entity_load(&transform->ent, file);
-        vec2_load(&transform->position, file);
-        scalar_load(&transform->rotation, file);
-        vec2_load(&transform->scale, file);
-        mat3_load(&transform->worldmat_cache, file);
+        entity_load(&transform->ent, s);
+        vec2_load(&transform->position, s);
+        scalar_load(&transform->rotation, s);
+        vec2_load(&transform->scale, s);
+        mat3_load(&transform->worldmat_cache, s);
 
         entitymap_set(emap, transform->ent, i);
     }
