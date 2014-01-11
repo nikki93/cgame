@@ -1,7 +1,8 @@
 #ifndef SCRIPT_H_GYSDQCZ0
 #define SCRIPT_H_GYSDQCZ0
 
-#include "saveload.h"
+typedef struct Serializer Serializer;
+typedef struct Deserializer Deserializer;
 
 void script_init();
 void script_deinit();

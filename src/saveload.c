@@ -204,7 +204,6 @@ void string_load(char **c, Deserializer *s)
     *c = malloc(len + 1);
     sprintf(fmt, "%%%u[^]", len);
     _deserializer_scanf(s, fmt, *c);
-    printf("fmt: '%s', *c: '%s'\n", fmt, *c);
     _deserializer_scanf(s, "\n");
 }
 

@@ -6,6 +6,7 @@
  */
 
 #include "game.h"
+#include "saveload.h"
 #include "vec2.h"
 #include "mat3.h"
 #include "entity.h"
@@ -26,6 +27,7 @@
 static const char **cgame_ffi[] =
 {
     &cgame_ffi_game,
+    &cgame_ffi_saveload,
     &cgame_ffi_vec2,
     &cgame_ffi_mat3,
     &cgame_ffi_entity,
