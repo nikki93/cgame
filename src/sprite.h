@@ -4,7 +4,7 @@
 #include "saveload.h"
 #include "entity.h"
 #include "vec2.h"
-#include "script.h"
+#include "script_export.h"
 
 SCRIPT(sprite,
 

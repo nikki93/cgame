@@ -4,7 +4,7 @@
 #include "saveload.h"
 #include "entity.h"
 #include "mat3.h"
-#include "script.h"
+#include "script_export.h"
 
 /* for now there's just one camera */
 

@@ -2,7 +2,7 @@
 #define GAME_H_W59MMXDF
 
 #include "glew_glfw.h"
-#include "script.h"
+#include "script_export.h"
 
 extern GLFWwindow *game_window;
 

@@ -1,7 +1,7 @@
 #ifndef MAT3_H_YVET8M7D
 #define MAT3_H_YVET8M7D
 
-#include "script.h"
+#include "script_export.h"
 #include "vec2.h"
 #include "saveload.h"
 

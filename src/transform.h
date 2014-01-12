@@ -4,7 +4,7 @@
 #include "vec2.h"
 #include "mat3.h"
 #include "entity.h"
-#include "script.h"
+#include "script_export.h"
 #include "saveload.h"
 
 /*

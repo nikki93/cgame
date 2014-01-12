@@ -2,7 +2,7 @@
 #define VEC2_H_OWWB2FND
 
 #include "saveload.h"
-#include "script.h"
+#include "script_export.h"
 
 SCRIPT(vec2,
 

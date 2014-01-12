@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "script.h"
+#include "script_export.h"
 
 SCRIPT(saveload,
 

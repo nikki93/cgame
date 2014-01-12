@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 #include "saveload.h"
-#include "script.h"
+#include "script_export.h"
 
 SCRIPT(entity,
 

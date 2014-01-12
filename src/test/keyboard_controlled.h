@@ -3,7 +3,7 @@
 
 #include "saveload.h"
 #include "entity.h"
-#include "script.h"
+#include "script_export.h"
 
 SCRIPT(keyboard_controlled,
 
