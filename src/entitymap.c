@@ -116,8 +116,3 @@ int entitymap_get(EntityMap *emap, Entity ent)
     return emap->arr[ent];
 }
 
-Entity entitymap_get_bound(EntityMap *emap)
-{
-    return emap->bound;
-}
-

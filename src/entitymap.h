@@ -17,7 +17,6 @@ void entitymap_free(EntityMap *emap);
 
 void entitymap_set(EntityMap *emap, Entity ent, int val);
 int entitymap_get(EntityMap *emap, Entity ent);
-Entity entitymap_get_bound(EntityMap *emap); /* get 1 + max key, 0 if empty */
 
 #endif
 
