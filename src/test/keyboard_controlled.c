@@ -63,7 +63,8 @@ void keyboard_controlled_update_all(float dt)
             sca.x += 12 * dt;
             sca.y = aspect * sca.x;
         }
-        if (sca.x > 12 * dt && glfwGetKey(game_window, GLFW_KEY_I) == GLFW_PRESS)
+        if (sca.x > 12 * dt
+                && glfwGetKey(game_window, GLFW_KEY_I) == GLFW_PRESS)
         {
             sca.x -= 12 * dt;
             sca.y = aspect * sca.x;
