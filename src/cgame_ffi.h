@@ -5,6 +5,7 @@
  * available under 'cgame.' in Lua
  */
 
+#include "scalar.h"
 #include "game.h"
 #include "saveload.h"
 #include "vec2.h"
@@ -26,6 +27,7 @@
  */
 static const char **cgame_ffi[] =
 {
+    &cgame_ffi_scalar,
     &cgame_ffi_game,
     &cgame_ffi_saveload,
     &cgame_ffi_vec2,
