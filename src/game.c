@@ -71,8 +71,6 @@ static void _game_deinit()
 
 static void _game_events()
 {
-    FILE *file;
-
     glfwPollEvents();
 
     /* quit on escape key */
