@@ -10,18 +10,55 @@ local cgame = setmetatable({}, { __index = ffi.C })
 
 --- lua utils/wrappers --------------------------------------------------------
 
+-- return serialized string for cdata, func must be of form
+-- void (typeof(cdata) *, Serializer *)
+function cgame.c_serialize(func, cdata)
+    s = cgame.serializer_open_str()
+    func(cdata, s)
+    dump = ffi.string(cgame.serializer_get_str(s))
+    cgame.serializer_close(s)
+    return dump
+end
+
+-- return struct deserialized from string 'str', func must be of form
+-- void (ctype *, Deserializer *)
+function cgame.c_deserialize(ctype, func, str)
+    cdata = ctype { }
+    s = cgame.deserializer_open_str(str)
+    func(cdata, s)
+    cgame.deserializer_close(s)
+    return cdata
+end
+
+-- create a save/load function given C type and C save/load functions all
+-- as string names
+function cgame.c_save_load(ctype, c_save, c_load)
+    return function (cdata)
+        cdump = cgame.c_serialize(loadstring('return ' .. c_save)(), cdata)
+        cdumpe = ("%q"):format(cdump):gsub("\010", "n"):gsub("\026", "\\026")
+        return 'cgame.c_deserialize(' .. ctype .. ', ' .. c_load .. ', '
+                .. cdumpe .. ')'
+    end
+end
+
 cgame.Vec2 = ffi.metatype('Vec2',
 {
     __add = function (u, v) return cgame.vec2_add(u, v) end,
     __index =
     {
-        __serialize = function (v)
-            return string.format('cgame.vec2(%f, %f)', v.x, v.y)
-        end,
+        __serialize = cgame.c_save_load('cgame.Vec2', 'cgame.vec2_save',
+            'cgame.vec2_load')
     },
 })
 
-cgame.Mat3 = ffi.typeof('Mat3')
+cgame.Mat3 = ffi.metatype('Mat3',
+{
+    __index =
+    {
+        __serialize = cgame.c_save_load('cgame.Mat3', 'cgame.mat3_save',
+            'cgame.mat3_load')
+    },
+})
 
 
 --- lua systems ---------------------------------------------------------------

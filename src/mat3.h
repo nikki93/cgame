@@ -22,11 +22,10 @@ SCRIPT(mat3,
 
         EXPORT Mat3 mat3_inverse(Mat3 m);
 
+        EXPORT void mat3_save(Mat3 *m, Serializer *s);
+        EXPORT void mat3_load(Mat3 *m, Deserializer *s);
+
       )
-
-void mat3_save(Mat3 *m, Serializer *s);
-void mat3_load(Mat3 *m, Deserializer *s);
-
 
 /* C inline stuff */
 

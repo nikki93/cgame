@@ -32,9 +32,6 @@ todo
 
 - c99 cleanup
 
-- tie Lua C type serialization to actual load_*/save_* C functions, so you
-  don't have to rewrite everything in Lua too
-
 - serialize all entity system data
 
 - add a 'scalar' type that's used for all numbers to avoid tying to float
