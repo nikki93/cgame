@@ -27,10 +27,10 @@ void keyboard_controlled_remove(Entity ent)
         kc_exists = false;
 }
 
-void keyboard_controlled_update_all(float dt)
+void keyboard_controlled_update_all(Scalar dt)
 {
     Vec2 dpos = vec2(0, 0), sca;
-    float rot, aspect;
+    Scalar rot, aspect;
 
     if (kc_exists)
     {

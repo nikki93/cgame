@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <time.h>
 
+#include "scalar.h"
 #include "glew_glfw.h"
 #include "dirs.h"
 #include "system.h"
@@ -127,7 +128,7 @@ static void _game_events()
     }
 }
 
-static void _game_update(float dt)
+static void _game_update(Scalar dt)
 {
     system_update_all(dt);
 }

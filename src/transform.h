@@ -1,6 +1,7 @@
 #ifndef TRANSFORM_H_SKXSVJO1
 #define TRANSFORM_H_SKXSVJO1
 
+#include "scalar.h"
 #include "vec2.h"
 #include "mat3.h"
 #include "entity.h"
@@ -20,9 +21,9 @@ SCRIPT(transform,
         EXPORT Vec2 transform_get_position(Entity ent);
         EXPORT void transform_translate(Entity ent, Vec2 trans);
 
-        EXPORT void transform_set_rotation(Entity ent, float rot);
-        EXPORT float transform_get_rotation(Entity ent);
-        EXPORT void transform_rotate(Entity ent, float rot);
+        EXPORT void transform_set_rotation(Entity ent, Scalar rot);
+        EXPORT Scalar transform_get_rotation(Entity ent);
+        EXPORT void transform_rotate(Entity ent, Scalar rot);
 
         EXPORT void transform_set_scale(Entity ent, Vec2 scale);
         EXPORT Vec2 transform_get_scale(Entity ent);

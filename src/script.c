@@ -125,7 +125,7 @@ void script_deinit()
     lua_close(L);
 }
 
-void script_update_all(float dt)
+void script_update_all(Scalar dt)
 {
     _push_event("update_all");
     lua_pushnumber(L, dt);

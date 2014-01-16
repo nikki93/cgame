@@ -27,7 +27,7 @@ void system_deinit()
     entity_deinit();
 }
 
-void system_update_all(float dt)
+void system_update_all(Scalar dt)
 {
     script_update_all(dt);
 

@@ -158,11 +158,11 @@ void deserializer_close(Deserializer *s)
     free(s);
 }
 
-void scalar_save(const float *f, Serializer *s)
+void scalar_save(const Scalar *f, Serializer *s)
 {
     _serializer_printf(s, "%f\n", *f);
 }
-void scalar_load(float *f, Deserializer *s)
+void scalar_load(Scalar *f, Deserializer *s)
 {
     _deserializer_scanf(s, "%f\n", f);
 }

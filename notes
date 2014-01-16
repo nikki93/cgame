@@ -32,8 +32,6 @@ todo
 
 - c99 cleanup
 
-- add a 'scalar' type that's used for all numbers to avoid tying to float
-
 - make Entity type a struct to allow reallocation on deserialize etc.
 
 - expose key events to Lua

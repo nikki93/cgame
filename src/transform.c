@@ -15,7 +15,7 @@ struct Transform
     Entity ent;
 
     Vec2 position;
-    float rotation;
+    Scalar rotation;
     Vec2 scale;
 
     Mat3 worldmat_cache; /* remember to update this! */
@@ -85,18 +85,18 @@ void transform_translate(Entity ent, Vec2 trans)
     _update_cache(transform);
 }
 
-void transform_set_rotation(Entity ent, float rot)
+void transform_set_rotation(Entity ent, Scalar rot)
 {
     GET;
     transform->rotation = rot;
     _update_cache(transform);
 }
-float transform_get_rotation(Entity ent)
+Scalar transform_get_rotation(Entity ent)
 {
     GET;
     return transform->rotation;
 }
-void transform_rotate(Entity ent, float rot)
+void transform_rotate(Entity ent, Scalar rot)
 {
     GET;
     transform->rotation += rot;

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+#include "scalar.h"
 #include "script_export.h"
 
 SCRIPT(saveload,
@@ -22,8 +23,8 @@ SCRIPT(saveload,
 
       )
 
-void scalar_save(const float *f, Serializer *s);
-void scalar_load(float *f, Deserializer *s);
+void scalar_save(const Scalar *f, Serializer *s);
+void scalar_load(Scalar *f, Deserializer *s);
 
 void uint_save(const unsigned int *u, Serializer *s);
 void uint_load(unsigned int *u, Deserializer *s);
