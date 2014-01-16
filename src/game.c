@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 #include "glew_glfw.h"
 #include "dirs.h"
@@ -47,6 +48,9 @@ static void _game_init()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glDisable(GL_DEPTH_TEST);
     glClearColor(1.f, 1.f, 1.f, 1.f);
+
+    /* random seed */
+    srand(time(NULL));
 
     /* init systems */
     system_init();
