@@ -52,6 +52,8 @@ static void _saveload_all(void *s, bool save)
 #define saveload(sys) \
     if (save) sys##_save_all(s); else sys##_load_all(s)
 
+    saveload(entity);
+
     saveload(transform);
     saveload(camera);
     saveload(sprite);

@@ -15,9 +15,10 @@ struct DestroyEntry
     unsigned int pass;
 };
 
-static EntityMap *exists_map;
+static unsigned int counter = 0;
 static EntityMap *destroyed_map; /* whether entity is destroyed */
 static Array *destroyed; /* array of DestroyEntry for destroyed objects */
+static EntityMap *unused_map; /* whether has entry in unused array */
 static Array *unused; /* id put here after _remove(), can reuse */
 
 /*
@@ -25,21 +26,18 @@ static Array *unused; /* id put here after _remove(), can reuse */
  * ----------
  *
  *     (1) doesn't exist (or removed):
- *         exists_map[ent] = false
  *         destroyed_map[ent] = false
  *         ent not in destroyed
  *
  *         on entity_create() go to exists
  *
  *     (2) exists:
- *         exists_map[ent] = true
  *         destroyed_map[ent] = false
  *         ent not in destroyed
  *
  *         on entity_destroy() go to destroyed
  *
  *     (3) destroyed:
- *         exists_map[ent] = false
  *         destroyed_map[ent] = true
  *         { ent, pass } in destroyed
  *
@@ -51,31 +49,30 @@ static Array *unused; /* id put here after _remove(), can reuse */
 Entity entity_create()
 {
     Entity ent;
-    static unsigned int counter = 0;
 
     if (array_length(unused) > 0)
     {
         ent = array_top_val(Entity, unused);
+        entitymap_set(unused_map, ent, false);
         array_pop(unused);
     }
     else
         ent = counter++;
 
-    entitymap_set(exists_map, ent, true);
     return ent;
 }
 
 /* actually remove an entity entirely */
 static void _remove(Entity ent)
 {
-    entitymap_set(exists_map, ent, false);
     entitymap_set(destroyed_map, ent, false);
     array_add_val(Entity, unused) = ent;
+    entitymap_set(unused_map, ent, true);
 }
 
 void entity_destroy(Entity ent)
 {
-    if (!entitymap_get(exists_map, ent))
+    if (entitymap_get(unused_map, ent))
         return;
     if (entitymap_get(destroyed_map, ent))
         return; /* already noted */
@@ -93,17 +90,17 @@ bool entity_destroyed(Entity ent)
 
 void entity_init()
 {
-    exists_map = entitymap_new(false);
     destroyed_map = entitymap_new(false);
     destroyed = array_new(DestroyEntry);
+    unused_map = entitymap_new(false);
     unused = array_new(Entity);
 }
 void entity_deinit()
 {
     array_free(unused);
+    entitymap_free(unused_map);
     array_free(destroyed);
     entitymap_free(destroyed_map);
-    entitymap_free(exists_map);
 }
 
 void entity_update_all()
@@ -134,5 +131,57 @@ void entity_save(Entity *ent, Serializer *s)
 void entity_load(Entity *ent, Deserializer *s)
 {
     uint_load(ent, s);
+}
+
+void entity_save_all(Serializer *s)
+{
+    unsigned int n, i;
+    DestroyEntry *entry;
+
+    uint_save(&counter, s);
+
+    n = array_length(destroyed);
+    uint_save(&n, s);
+    for (i = 0; i < n; ++i)
+    {
+        entry = array_get(destroyed, i);
+        entity_save(&entry->ent, s);
+        uint_save(&entry->pass, s);
+    }
+
+    n = array_length(unused);
+    uint_save(&n, s);
+    for (i = 0; i < n; ++i)
+        entity_save(array_get(unused, i), s);
+}
+void entity_load_all(Deserializer *s)
+{
+    unsigned int n, i;
+    DestroyEntry *entry;
+    Entity ent;
+
+    uint_load(&counter, s);
+
+    uint_load(&n, s);
+    array_reset(destroyed, n);
+    entitymap_clear(destroyed_map);
+    for (i = 0; i < n; ++i)
+    {
+        entry = array_get(destroyed, i);
+        entity_load(&entry->ent, s);
+        uint_load(&entry->pass, s);
+
+        entitymap_set(destroyed_map, entry->ent, true);
+    }
+
+    uint_load(&n, s);
+    array_reset(unused, n);
+    entitymap_clear(unused_map);
+    for (i = 0; i < n; ++i)
+    {
+        entity_load(&ent, s);
+        array_get_val(Entity, unused, i) = ent;
+        entitymap_set(unused_map, ent, true);
+    }
 }
 
