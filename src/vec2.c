@@ -1,7 +1,5 @@
 #include "vec2.h"
 
-#include <math.h>
-
 #include "saveload.h"
 
 Vec2 vec2_add(Vec2 u, Vec2 v)
@@ -15,8 +13,8 @@ Vec2 vec2_scalar_mul(Vec2 v, Scalar f)
 
 Vec2 vec2_rot(Vec2 v, Scalar rot)
 {
-    return vec2(v.x * cos(rot) - v.y * sin(rot),
-            v.x * sin(rot) + v.y * cos(rot));
+    return vec2(v.x * scalar_cos(rot) - v.y * scalar_sin(rot),
+            v.x * scalar_sin(rot) + v.y * scalar_cos(rot));
 }
 
 void vec2_save(Vec2 *v, Serializer *s)

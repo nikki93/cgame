@@ -4,7 +4,6 @@
 #include "keyboard_controlled.h"
 
 #include <stdbool.h>
-#include <math.h>
 
 #include "glew_glfw.h"
 #include "saveload.h"
@@ -54,9 +53,9 @@ void keyboard_controlled_update_all(Scalar dt)
             dpos = vec2_add(dpos, vec2(0, -5 * dt));
 
         if (glfwGetKey(game_window, GLFW_KEY_N) == GLFW_PRESS)
-            rot += 0.35 * M_PI * dt;
+            rot += 0.35 * SCALAR_PI * dt;
         if (glfwGetKey(game_window, GLFW_KEY_M) == GLFW_PRESS)
-            rot -= 0.35 * M_PI * dt;
+            rot -= 0.35 * SCALAR_PI * dt;
 
         if (glfwGetKey(game_window, GLFW_KEY_K) == GLFW_PRESS)
         {

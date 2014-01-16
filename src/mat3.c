@@ -1,13 +1,11 @@
 #include "mat3.h"
 
-#include <math.h>
-
 #include "saveload.h"
 
 Mat3 mat3_scaling_rotation_translation(Vec2 scale, Scalar rot, Vec2 trans)
 {
-    return mat3(scale.x * cos(rot), scale.x * sin(rot), 0.0f,
-            scale.y * -sin(rot), scale.y * cos(rot), 0.0f,
+    return mat3(scale.x * scalar_cos(rot), scale.x * scalar_sin(rot), 0.0f,
+            scale.y * -scalar_sin(rot), scale.y * scalar_cos(rot), 0.0f,
             trans.x, trans.y, 1.0f);
 }
 
