@@ -2,10 +2,9 @@
 
 #include <stdbool.h>
 
-#include "glew_glfw.h"
+#include "input.h"
 #include "saveload.h"
 #include "transform.h"
-#include "game.h"
 
 static bool kc_exists = false;
 static Entity kc_entity;
@@ -40,27 +39,26 @@ void keyboard_controlled_update_all(Scalar dt)
         sca = transform_get_scale(kc_entity);
         aspect = sca.y / sca.x;
 
-        if (glfwGetKey(game_window, GLFW_KEY_LEFT) == GLFW_PRESS)
+        if (input_key_down(KC_LEFT))
             dpos = vec2_add(dpos, vec2(-5 * dt, 0));
-        if (glfwGetKey(game_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+        if (input_key_down(KC_RIGHT))
             dpos = vec2_add(dpos, vec2( 5 * dt, 0));
-        if (glfwGetKey(game_window, GLFW_KEY_UP) == GLFW_PRESS)
+        if (input_key_down(KC_UP))
             dpos = vec2_add(dpos, vec2(0,  5 * dt));
-        if (glfwGetKey(game_window, GLFW_KEY_DOWN) == GLFW_PRESS)
+        if (input_key_down(KC_DOWN))
             dpos = vec2_add(dpos, vec2(0, -5 * dt));
 
-        if (glfwGetKey(game_window, GLFW_KEY_N) == GLFW_PRESS)
+        if (input_key_down(KC_N))
             rot += 0.35 * SCALAR_PI * dt;
-        if (glfwGetKey(game_window, GLFW_KEY_M) == GLFW_PRESS)
+        if (input_key_down(KC_M))
             rot -= 0.35 * SCALAR_PI * dt;
 
-        if (glfwGetKey(game_window, GLFW_KEY_K) == GLFW_PRESS)
+        if (input_key_down(KC_K))
         {
             sca.x += 12 * dt;
             sca.y = aspect * sca.x;
         }
-        if (sca.x > 12 * dt
-                && glfwGetKey(game_window, GLFW_KEY_I) == GLFW_PRESS)
+        if (sca.x > 12 * dt && input_key_down(KC_I))
         {
             sca.x -= 12 * dt;
             sca.y = aspect * sca.x;
