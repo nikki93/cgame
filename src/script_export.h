@@ -12,9 +12,9 @@
  * so you can #include into other files and use them normally
  */
 #ifdef __CGAME_FFI__
-#define SCRIPT(name, arg) \
-    static const char *cgame_ffi_##name = #arg; \
-    arg
+#define SCRIPT(name, ...) \
+    static const char *cgame_ffi_##name = #__VA_ARGS__; \
+    __VA_ARGS__
 #else
 #define SCRIPT(name, ...) __VA_ARGS__
 #endif
