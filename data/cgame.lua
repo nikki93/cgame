@@ -1,6 +1,6 @@
 --- load some modules ---------------------------------------------------------
 
-serpent = require 'serpent'
+local serpent = require 'serpent'
 
 --- inherit ffi ---------------------------------------------------------------
 

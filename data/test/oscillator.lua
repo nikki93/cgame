@@ -7,6 +7,8 @@
 --     oscillator_reset_all() to reset time
 --
 
+local serpent = require 'serpent'
+
 local tbl = {} -- stores data per oscillator entity
 local time = 0
 

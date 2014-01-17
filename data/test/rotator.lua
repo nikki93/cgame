@@ -2,6 +2,8 @@
 -- another silly test system
 --
 
+local serpent = require 'serpent'
+
 local tbl = {}   -- tbl[ent] contains data for ent -- right now just speed
 
 function rotator_set(ent, speed)
