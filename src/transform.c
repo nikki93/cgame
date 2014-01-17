@@ -56,7 +56,8 @@ void transform_remove(Entity ent)
     if ((i = entitymap_get(emap, ent)) >= 0)
     {
         if (array_quick_remove(transforms, i))
-            entitymap_set(emap, array_get_val(Transform, transforms, i).ent, i);
+            entitymap_set(emap,
+                    array_get_val(Transform, transforms, i).ent, i);
         entitymap_set(emap, ent, -1);
     }
 }

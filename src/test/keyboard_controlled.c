@@ -1,6 +1,3 @@
-#ifndef KEYBOARD_CONTROLLED_C_4OQTGXF9
-#define KEYBOARD_CONTROLLED_C_4OQTGXF9
-
 #include "keyboard_controlled.h"
 
 #include <stdbool.h>
@@ -86,6 +83,4 @@ void keyboard_controlled_load_all(Deserializer *s)
     bool_load(&kc_exists, s);
     entity_load(&kc_entity, s);
 }
-
-#endif
 
