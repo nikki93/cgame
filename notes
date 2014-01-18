@@ -33,7 +33,9 @@ todo
 
 - c99 cleanup
 
-- integrate Chipmunk2D physics
+- implement physics serialization, expose more physics functions (force etc.)
+
+- integrate the common EntityMap-Array combo into a single data structure
 
 - add sprite animation
 
