@@ -1,6 +1,10 @@
 #include <stdint.h>
 #include <float.h>
 
+#ifdef _MSC_VER
+   #define inline
+#endif
+
 #ifdef __APPLE__
    #include "TargetConditionals.h"
 #endif

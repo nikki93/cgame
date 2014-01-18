@@ -90,8 +90,9 @@ void cpConstraintFree(cpConstraint *constraint);
 /// @private
 static inline void cpConstraintActivateBodies(cpConstraint *constraint)
 {
-	cpBody *a = constraint->a; if(a) cpBodyActivate(a);
-	cpBody *b = constraint->b; if(b) cpBodyActivate(b);
+	cpBody *a, *b;
+	a = constraint->a; if(a) cpBodyActivate(a);
+	b = constraint->b; if(b) cpBodyActivate(b);
 }
 
 /// @private
