@@ -124,7 +124,7 @@ SCRIPT(input,
             KC_NUM_KEYCODES
         };
 
-        bool input_key_down(KeyCode key);
+        EXPORT bool input_key_down(KeyCode key);
 
     )
 
