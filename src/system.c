@@ -8,6 +8,8 @@
 #include "transform.h"
 #include "camera.h"
 #include "sprite.h"
+#include "physics.h"
+
 #include "test/keyboard_controlled.h"
 
 void system_init()
@@ -16,12 +18,14 @@ void system_init()
     transform_init();
     camera_init();
     sprite_init();
+    physics_init();
     script_init();
 }
 
 void system_deinit()
 {
     script_deinit();
+    physics_deinit();
     sprite_deinit();
     transform_deinit();
     entity_deinit();
@@ -33,6 +37,7 @@ void system_update_all(Scalar dt)
 
     keyboard_controlled_update_all(dt);
 
+    physics_update_all(dt);
     transform_update_all();
     camera_update_all();
     sprite_update_all();
@@ -57,6 +62,7 @@ static void _saveload_all(void *s, bool save)
     saveload(transform);
     saveload(camera);
     saveload(sprite);
+    saveload(physics);
 
     saveload(keyboard_controlled);
 

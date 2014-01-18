@@ -15,6 +15,7 @@
 #include "transform.h"
 #include "camera.h"
 #include "sprite.h"
+#include "physics.h"
 
 #include "test/keyboard_controlled.h"
 
@@ -38,6 +39,7 @@ static const char **cgame_ffi[] =
     &cgame_ffi_transform,
     &cgame_ffi_camera,
     &cgame_ffi_sprite,
+    &cgame_ffi_physics,
 
     &cgame_ffi_keyboard_controlled,
 };
