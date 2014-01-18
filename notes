@@ -45,10 +45,10 @@ todo
 files
 -----
 
-- /: C code for core
+- src/: C code for core (except in test directory)
 - data/ data for core (except in test directory)
 
-- test/: C code for test game
+- src/test/: C code for test game
 - data/test: data for test game
 
 - data/cgame.lua: cgame lua interface -- available as cgame.entity_create() etc.
