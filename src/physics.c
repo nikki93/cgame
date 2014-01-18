@@ -109,15 +109,36 @@ void physics_add_box_shape(Entity ent, Scalar l, Scalar b, Scalar r, Scalar t)
     cpShapeSetFriction(info->shape, 1);
 }
 
+#define GET \
+    int i = entitymap_get(emap, ent); \
+    assert(i >= 0); \
+    PhysicsInfo *info = array_get(infos, i);
+
+void physics_freeze_rotation(Entity ent)
+{
+    GET;
+    cpBodySetMoment(info->body, INFINITY);
+}
+
 void physics_set_velocity(Entity ent, Vec2 vel)
 {
-    int i;
-    PhysicsInfo *info;
-
-    i = entitymap_get(emap, ent);
-    assert(i >= 0);
-    info = array_get(infos, i);
+    GET;
     cpBodySetVel(info->body, cpv_of_vec2(vel));
+}
+
+void physics_reset_forces(Entity ent)
+{
+    GET;
+    cpBodyResetForces(info->body);
+}
+void physics_apply_force(Entity ent, Vec2 force)
+{
+    physics_apply_force_at(ent, force, vec2_zero);
+}
+void physics_apply_force_at(Entity ent, Vec2 force, Vec2 at)
+{
+    GET;
+    cpBodyApplyForce(info->body, cpv_of_vec2(force), cpv_of_vec2(at));
 }
 
 /* ------------------------------------------------------------------------- */
