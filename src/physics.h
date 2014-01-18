@@ -11,6 +11,7 @@ SCRIPT(physics,
 
         EXPORT void physics_add_static(Entity ent);
         EXPORT void physics_add_dynamic(Entity ent, Scalar mass);
+        EXPORT void physics_remove(Entity ent);
 
         EXPORT void physics_add_box_shape(Entity ent, Scalar l, Scalar b,
             Scalar r, Scalar t);
