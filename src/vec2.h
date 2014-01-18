@@ -11,6 +11,7 @@ SCRIPT(vec2,
         struct Vec2 { Scalar x; Scalar y; };
 
         EXPORT Vec2 vec2(Scalar x, Scalar y);
+        EXPORT extern Vec2 vec2_zero;
 
         EXPORT Vec2 vec2_add(Vec2 u, Vec2 v);
         EXPORT Vec2 vec2_scalar_mul(Vec2 v, Scalar f);
