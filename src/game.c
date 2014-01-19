@@ -11,10 +11,6 @@
 
 #include "test/test.h"
 
-#include "entity.h"
-#include "transform.h"
-#include "sprite.h"
-
 GLFWwindow *game_window;
 
 static bool quit = false; /* exit main loop if true */
@@ -89,40 +85,6 @@ static void _game_events()
         Deserializer *s = deserializer_open_file(usr_path("test.sav"));
         system_load_all(s);
         deserializer_close(s);
-    }
-
-    if (glfwGetKey(game_window, GLFW_KEY_0) == GLFW_PRESS)
-        entity_destroy(0);
-    if (glfwGetKey(game_window, GLFW_KEY_1) == GLFW_PRESS)
-        entity_destroy(1);
-    if (glfwGetKey(game_window, GLFW_KEY_2) == GLFW_PRESS)
-        entity_destroy(2);
-    if (glfwGetKey(game_window, GLFW_KEY_3) == GLFW_PRESS)
-        entity_destroy(3);
-    if (glfwGetKey(game_window, GLFW_KEY_4) == GLFW_PRESS)
-        entity_destroy(4);
-    if (glfwGetKey(game_window, GLFW_KEY_5) == GLFW_PRESS)
-        entity_destroy(5);
-    if (glfwGetKey(game_window, GLFW_KEY_6) == GLFW_PRESS)
-        entity_destroy(6);
-    if (glfwGetKey(game_window, GLFW_KEY_7) == GLFW_PRESS)
-        entity_destroy(7);
-    if (glfwGetKey(game_window, GLFW_KEY_8) == GLFW_PRESS)
-        entity_destroy(8);
-    if (glfwGetKey(game_window, GLFW_KEY_9) == GLFW_PRESS)
-        entity_destroy(9);
-
-    if (glfwGetKey(game_window, GLFW_KEY_SPACE) == GLFW_PRESS)
-    {
-        Entity block = entity_create();
-
-        transform_add(block);
-        transform_set_position(block,
-                vec2((rand() % 25) - 12, (rand() % 9) - 4));
-
-        sprite_add(block);
-        sprite_set_cell(block, vec2(32.0f, 32.0f));
-        sprite_set_size(block, vec2(32.0f, 32.0f));
     }
 }
 
