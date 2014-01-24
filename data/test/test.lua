@@ -61,3 +61,16 @@ cgame.transform_set_scale(player, cgame.vec2(2, 2))
 cgame.keyboard_controlled_add(camera)
 --cgame.keyboard_controlled_add(player)
 
+-- entity destruction
+
+cgame.add_system('destroyer',
+{
+    update_all = function (dt)
+        for i = 1, 9 do
+            if (cgame.input_key_down('KC_' .. i)) then
+                cgame.entity_destroy(i)
+            end
+        end
+    end
+})
+

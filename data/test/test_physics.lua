@@ -72,7 +72,7 @@ while y < ymax do
     y = y + 1.2
 end
 
--- add more boxes with 'B'
+-- add more boxes with 'B', apply force with 'F'
 
 cgame.add_system('box_gen',
 {
@@ -84,6 +84,17 @@ cgame.add_system('box_gen',
     end
 })
 
+cgame.add_system('box_force',
+{
+    update_all = function (dt)
+        if cgame.input_key_down('KC_F') then
+            cgame.physics_apply_force(10, cgame.vec2(0, 20))
+        else
+            cgame.physics_reset_forces(10)
+        end
+    end
+})
+
 -- rotate gravity with the camera for kicks
 
 cgame.add_system('camera_gravity',
@@ -91,6 +102,19 @@ cgame.add_system('camera_gravity',
     update_all = function (dt)
         rot = cgame.transform_get_rotation(camera)
         cgame.physics_set_gravity(cgame.vec2_rot(cgame.vec2(0, -9.8), rot))
+    end
+})
+
+-- entity destruction
+
+cgame.add_system('destroyer',
+{
+    update_all = function (dt)
+        for i = 1, 9 do
+            if (cgame.input_key_down('KC_' .. i)) then
+                cgame.entity_destroy(i)
+            end
+        end
     end
 })
 
