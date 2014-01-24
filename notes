@@ -35,8 +35,6 @@ todo
 
 - implement physics serialization, expose more physics functions (force etc.)
 
-- integrate the common EntityMap-Array combo into a single data structure
-
 - add sprite animation
 
 - make Entity type a struct to allow reallocation on deserialize etc.
