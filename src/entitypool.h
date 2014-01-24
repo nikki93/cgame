@@ -12,16 +12,16 @@
 typedef struct EntityPool EntityPool;
 
 /*
- * this struct must be at the top of pool elements, eg.
+ * this struct must be at the top of pool elements:
  * 
- *      struct Data
- *      {
- *          EntityPoolElem pool_elem;
+ *     struct Data
+ *     {
+ *         EntityPoolElem pool_elem;
  *
- *          ...
- *      }
+ *         ...
+ *     }
  *
- *  values in it are managed by EntityPool
+ * values in it are metadata managed by EntityPool
  */
 typedef struct EntityPoolElem EntityPoolElem;
 struct EntityPoolElem
@@ -37,8 +37,16 @@ void *entitypool_add(EntityPool *pool, Entity ent);
 void entitypool_remove(EntityPool *pool, Entity ent);
 void *entitypool_get(EntityPool *pool, Entity ent);
 
+/* since elements are contiguoous, can iterate with pointers:
+ *
+ *     for (ptr = entitypool_begin(pool), end = entitypool_end(pool);
+ *             ptr != end; ++ptr)
+ *         ... use ptr ...
+ *
+ */
 void *entitypool_begin(EntityPool *pool);
 void *entitypool_end(EntityPool *pool); /* one-past-end */
+
 unsigned int entitypool_size(EntityPool *pool);
 
 void entitypool_clear(EntityPool *pool);

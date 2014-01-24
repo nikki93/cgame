@@ -129,9 +129,11 @@ void transform_update_all()
 
     /* don't precalculate end pointer here because it changes as we remove */
     for (transform = entitypool_begin(pool);
-            transform != entitypool_end(pool); ++transform)
+            transform != entitypool_end(pool); )
         if (entity_destroyed(transform->pool_elem.ent))
             transform_remove(transform->pool_elem.ent);
+        else
+            ++transform;
 }
 
 void transform_save_all(Serializer *s)
