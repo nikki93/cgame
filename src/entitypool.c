@@ -9,9 +9,6 @@ struct EntityPool
     Array *array;
 };
 
-typedef struct EntityPoolElem EntityPoolElem;
-struct EntityPoolElem { ENTITYPOOL_HEAD; };
-
 EntityPool *entitypool_new_(size_t object_size)
 {
     EntityPool *pool = malloc(sizeof(EntityPool));
@@ -29,8 +26,10 @@ void entitypool_free(EntityPool *pool)
 
 void *entitypool_add(EntityPool *pool, Entity ent)
 {
-    entitymap_set(pool->emap, ent, array_length(pool->array));
-    return array_add(pool->array);
+    EntityPoolElem *elem = array_add(pool->array);
+    elem->ent = ent;
+    entitymap_set(pool->emap, ent, array_length(pool->array) - 1);
+    return elem;
 }
 void entitypool_remove(EntityPool *pool, Entity ent)
 {
@@ -55,9 +54,13 @@ void *entitypool_get(EntityPool *pool, Entity ent)
     return NULL;
 }
 
-void *entitypool_ptr(EntityPool *pool)
+void *entitypool_begin(EntityPool *pool)
 {
     return array_get(pool->array, 0);
+}
+void *entitypool_end(EntityPool *pool)
+{
+    return array_get(pool->array, array_length(pool->array));
 }
 unsigned int entitypool_size(EntityPool *pool)
 {
@@ -68,5 +71,20 @@ void entitypool_clear(EntityPool *pool)
 {
     entitymap_clear(pool->emap);
     array_reset(pool->array, 0);
+}
+
+void entitypool_elem_save(EntityPool *pool, void *elem, Serializer *s)
+{
+    EntityPoolElem **p = elem;
+    entity_save(&(*p)->ent, s);
+}
+void entitypool_elem_load(EntityPool *pool, void *elem, Deserializer *s)
+{
+    Entity ent;
+    EntityPoolElem **p = elem;
+    entity_load(&ent, s);
+    p = elem;
+    *p = entitypool_add(pool, ent);
+    (*p)->ent = ent;
 }
 

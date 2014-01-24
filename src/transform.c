@@ -10,7 +10,7 @@
 typedef struct Transform Transform;
 struct Transform
 {
-    ENTITYPOOL_HEAD;
+    EntityPoolElem pool_elem;
 
     Vec2 position;
     Scalar rotation;
@@ -40,7 +40,6 @@ void transform_add(Entity ent)
         return;
 
     transform = entitypool_add(pool, ent);
-    transform->ent = ent;
     transform->position = vec2(0.0f, 0.0f);
     transform->rotation = 0.0f;
     transform->scale = vec2(1.0f, 1.0f);
@@ -126,35 +125,31 @@ void transform_deinit()
 
 void transform_update_all()
 {
-    unsigned int i;
-    Transform *transforms;
+    Transform *transform;
 
-    transforms = entitypool_ptr(pool);
-    for (i = 0; i < entitypool_size(pool); )
-        if (entity_destroyed(transforms[i].ent))
-            transform_remove(transforms[i].ent);
-        else
-            ++i;
+    /* don't precalculate end pointer here because it changes as we remove */
+    for (transform = entitypool_begin(pool);
+            transform != entitypool_end(pool); ++transform)
+        if (entity_destroyed(transform->pool_elem.ent))
+            transform_remove(transform->pool_elem.ent);
 }
 
 void transform_save_all(Serializer *s)
 {
     unsigned int n;
-    Transform *transform;
+    Transform *transform, *end;
 
     n = entitypool_size(pool);
     uint_save(&n, s);
 
-    transform = entitypool_ptr(pool);
-    while (n--)
+    for (transform = entitypool_begin(pool), end = entitypool_end(pool);
+            transform != end; ++transform)
     {
-        entity_save(&transform->ent, s);
+        entitypool_elem_save(pool, &transform, s);
         vec2_save(&transform->position, s);
         scalar_save(&transform->rotation, s);
         vec2_save(&transform->scale, s);
         mat3_save(&transform->worldmat_cache, s);
-
-        ++transform;
     }
 }
 void transform_load_all(Deserializer *s)
@@ -166,12 +161,10 @@ void transform_load_all(Deserializer *s)
     entitypool_clear(pool);
 
     uint_load(&n, s);
+
     while (n--)
     {
-        entity_load(&ent, s);
-
-        transform = entitypool_add(pool, ent);
-        transform->ent = ent;
+        entitypool_elem_load(pool, &transform, s);
         vec2_load(&transform->position, s);
         scalar_load(&transform->rotation, s);
         vec2_load(&transform->scale, s);
