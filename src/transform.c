@@ -4,14 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "array.h"
-#include "entitymap.h"
+#include "entitypool.h"
 #include "saveload.h"
 
 typedef struct Transform Transform;
 struct Transform
 {
-    Entity ent;
+    ENTITYPOOL_HEAD;
 
     Vec2 position;
     Scalar rotation;
@@ -20,8 +19,7 @@ struct Transform
     Mat3 worldmat_cache; /* remember to update this! */
 };
 
-static EntityMap *emap;
-static Array *transforms;
+static EntityPool *pool;
 
 /* ------------------------------------------------------------------------- */
 
@@ -38,86 +36,80 @@ void transform_add(Entity ent)
 {
     Transform *transform;
 
-    if (entitymap_get(emap, ent) >= 0)
-        return; /* already has a transform */
+    if (entitypool_get(pool, ent))
+        return;
 
-    transform = array_add(transforms);
+    transform = entitypool_add(pool, ent);
     transform->ent = ent;
     transform->position = vec2(0.0f, 0.0f);
     transform->rotation = 0.0f;
     transform->scale = vec2(1.0f, 1.0f);
-
-    entitymap_set(emap, ent, array_length(transforms) - 1);
 }
 void transform_remove(Entity ent)
 {
-    int i;
-
-    if ((i = entitymap_get(emap, ent)) >= 0)
-    {
-        if (array_quick_remove(transforms, i))
-            entitymap_set(emap,
-                    array_get_val(Transform, transforms, i).ent, i);
-        entitymap_set(emap, ent, -1);
-    }
+    entitypool_remove(pool, ent);
 }
-
-#define GET \
-    int i = entitymap_get(emap, ent); \
-    assert(i >= 0); \
-    Transform *transform = array_get(transforms, i);
 
 void transform_set_position(Entity ent, Vec2 pos)
 {
-    GET;
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
     transform->position = pos;
     _update_cache(transform);
 }
 Vec2 transform_get_position(Entity ent)
 {
-    GET;
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
     return transform->position;
 }
 void transform_translate(Entity ent, Vec2 trans)
 {
-    GET;
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
     transform->position = vec2_add(transform->position, trans);
     _update_cache(transform);
 }
 
 void transform_set_rotation(Entity ent, Scalar rot)
 {
-    GET;
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
     transform->rotation = rot;
     _update_cache(transform);
 }
 Scalar transform_get_rotation(Entity ent)
 {
-    GET;
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
     return transform->rotation;
 }
 void transform_rotate(Entity ent, Scalar rot)
 {
-    GET;
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
     transform->rotation += rot;
     _update_cache(transform);
 }
 
 void transform_set_scale(Entity ent, Vec2 scale)
 {
-    GET;
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
     transform->scale = scale;
     _update_cache(transform);
 }
 Vec2 transform_get_scale(Entity ent)
 {
-    GET;
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
     return transform->scale;
 }
 
 Mat3 transform_get_world_matrix(Entity ent)
 {
-    GET;
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
     return transform->worldmat_cache;
 }
 
@@ -125,68 +117,65 @@ Mat3 transform_get_world_matrix(Entity ent)
 
 void transform_init()
 {
-    emap = entitymap_new(-1);
-    transforms = array_new(Transform);
+    pool = entitypool_new(Transform);
 }
 void transform_deinit()
 {
-    array_free(transforms);
-    entitymap_free(emap);
+    entitypool_free(pool);
 }
 
 void transform_update_all()
 {
     unsigned int i;
-    Transform *transform;
+    Transform *transforms;
 
-    for (i = 0; i < array_length(transforms); )
-    {
-        transform = array_get(transforms, i);
-        if (entity_destroyed(transform->ent))
-            transform_remove(transform->ent);
+    transforms = entitypool_ptr(pool);
+    for (i = 0; i < entitypool_size(pool); )
+        if (entity_destroyed(transforms[i].ent))
+            transform_remove(transforms[i].ent);
         else
             ++i;
-    }
 }
 
 void transform_save_all(Serializer *s)
 {
-    unsigned int i, n;
+    unsigned int n;
     Transform *transform;
 
-    n = array_length(transforms);
-
+    n = entitypool_size(pool);
     uint_save(&n, s);
-    for (i = 0; i < n; ++i)
+
+    transform = entitypool_ptr(pool);
+    while (n--)
     {
-        transform = array_get(transforms, i);
         entity_save(&transform->ent, s);
         vec2_save(&transform->position, s);
         scalar_save(&transform->rotation, s);
         vec2_save(&transform->scale, s);
         mat3_save(&transform->worldmat_cache, s);
+
+        ++transform;
     }
 }
 void transform_load_all(Deserializer *s)
 {
-    unsigned int i, n;
+    unsigned int n;
     Transform *transform;
+    Entity ent;
+
+    entitypool_clear(pool);
 
     uint_load(&n, s);
-    array_reset(transforms, n);
-
-    entitymap_clear(emap);
-
-    for (i = 0; i < n; ++i)
+    while (n--)
     {
-        transform = array_get(transforms, i);
-        entity_load(&transform->ent, s);
+        entity_load(&ent, s);
+
+        transform = entitypool_add(pool, ent);
+        transform->ent = ent;
         vec2_load(&transform->position, s);
         scalar_load(&transform->rotation, s);
         vec2_load(&transform->scale, s);
         mat3_load(&transform->worldmat_cache, s);
-
-        entitymap_set(emap, transform->ent, i);
     }
 }
 
