@@ -6,8 +6,7 @@
 #include <GL/glew.h>
 #include <stb_image.h>
 
-#include "array.h"
-#include "entitymap.h"
+#include "entitypool.h"
 #include "dirs.h"
 #include "saveload.h"
 #include "transform.h"
@@ -16,7 +15,7 @@
 typedef struct Sprite Sprite;
 struct Sprite
 {
-    Entity ent;
+    EntityPoolElem pool_elem;
 
     Mat3 transform;
 
@@ -24,8 +23,7 @@ struct Sprite
     Vec2 size;
 };
 
-static Array *sprites;
-static EntityMap *emap; /* map of indices into above */
+static EntityPool *pool;
 
 /* ------------------------------------------------------------------------- */
 
@@ -33,41 +31,31 @@ void sprite_add(Entity ent)
 {
     Sprite *sprite;
 
-    if (entitymap_get(emap, ent) >= 0)
+    if (entitypool_get(pool, ent))
         return; /* already has a sprite */
 
     transform_add(ent);
 
-    sprite = array_add(sprites);
-    sprite->ent = ent;
+    sprite = entitypool_add(pool, ent);
     sprite->cell = vec2(32.0f, 32.0f);
     sprite->size = vec2(32.0f, 32.0f);
-
-    entitymap_set(emap, ent, array_length(sprites) - 1);
 }
 void sprite_remove(Entity ent)
 {
-    int i;
-
-    if ((i = entitymap_get(emap, ent)) >= 0)
-    {
-        if (array_quick_remove(sprites, i))
-            entitymap_set(emap, array_get_val(Sprite, sprites, i).ent, i);
-        entitymap_set(emap, ent, -1);
-    }
+    entitypool_remove(pool, ent);
 }
 
 void sprite_set_cell(Entity ent, Vec2 cell)
 {
-    int i = entitymap_get(emap, ent);
-    assert(i >= 0);
-    array_get_val(Sprite, sprites, i).cell = cell;
+    Sprite *sprite = entitypool_get(pool, ent);
+    assert(sprite);
+    sprite->cell = cell;
 }
 void sprite_set_size(Entity ent, Vec2 size)
 {
-    int i = entitymap_get(emap, ent);
-    assert(i >= 0);
-    array_get_val(Sprite, sprites, i).size = size;
+    Sprite *sprite = entitypool_get(pool, ent);
+    assert(sprite);
+    sprite->size = size;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -189,9 +177,8 @@ static void _load_atlases()
 
 void sprite_init()
 {
-    /* initialize array, map */
-    sprites = array_new(Sprite);
-    emap = entitymap_new(-1);
+    /* initialize pool */
+    pool = entitypool_new(Sprite);
 
     /* compile shaders */
     vertex_shader = glCreateShader(GL_VERTEX_SHADER);
@@ -217,8 +204,8 @@ void sprite_init()
     /* make buffer object and bind attributes */
     glGenBuffers(1, &sprite_buf_object);
     glBindBuffer(GL_ARRAY_BUFFER, sprite_buf_object);
-    glBufferData(GL_ARRAY_BUFFER, array_length(sprites) * sizeof(Sprite),
-            array_get(sprites, 0), GL_STREAM_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, entitypool_size(pool) * sizeof(Sprite),
+            entitypool_begin(pool), GL_STREAM_DRAW);
     _bind_attributes();
 
     /* load atlas textures */
@@ -235,31 +222,24 @@ void sprite_deinit()
     glDeleteBuffers(1, &sprite_buf_object);
     glDeleteVertexArrays(1, &vao);
 
-    /* deinit map, array */
-    entitymap_free(emap);
-    array_free(sprites);
+    /* deinit pool */
+    entitypool_free(pool);
 }
 
 void sprite_update_all()
 {
-    unsigned int i, n;
-    Sprite *sprite;
+    Sprite *sprite, *end;
 
-    for (i = 0; i < array_length(sprites); )
-    {
-        sprite = array_get(sprites, i);
-        if (entity_destroyed(sprite->ent))
-            sprite_remove(sprite->ent);
+    for (sprite = entitypool_begin(pool);
+            sprite != entitypool_end(pool); )
+        if (entity_destroyed(sprite->pool_elem.ent))
+            sprite_remove(sprite->pool_elem.ent);
         else
-            ++i;
-    }
+            ++sprite;
 
-    n = array_length(sprites);
-    for (i = 0; i < n; ++i)
-    {
-        sprite = array_get(sprites, i);
-        sprite->transform = transform_get_world_matrix(sprite->ent);
-    }
+    for (sprite = entitypool_begin(pool), end = entitypool_end(pool);
+            sprite != end; ++sprite)
+        sprite->transform = transform_get_world_matrix(sprite->pool_elem.ent);
 }
 
 void sprite_draw_all()
@@ -271,23 +251,23 @@ void sprite_draw_all()
             (const GLfloat *) camera_get_inverse_view_matrix_ptr());
 
     glBindBuffer(GL_ARRAY_BUFFER, sprite_buf_object);
-    glBufferData(GL_ARRAY_BUFFER, array_length(sprites) * sizeof(Sprite),
-            array_get(sprites, 0), GL_STREAM_DRAW);
-    glDrawArrays(GL_POINTS, 0, array_length(sprites));
+    glBufferData(GL_ARRAY_BUFFER, entitypool_size(pool) * sizeof(Sprite),
+            entitypool_begin(pool), GL_STREAM_DRAW);
+    glDrawArrays(GL_POINTS, 0, entitypool_size(pool));
 }
 
 void sprite_save_all(Serializer *s)
 {
-    unsigned int i, n;
-    Sprite *sprite;
+    unsigned int n;
+    Sprite *sprite, *end;
 
-    n = array_length(sprites);
-
+    n = entitypool_size(pool);
     uint_save(&n, s);
-    for (i = 0; i < n; ++i)
+
+    for (sprite = entitypool_begin(pool), end = entitypool_end(pool);
+            sprite != end; ++sprite)
     {
-        sprite = array_get(sprites, i);
-        entity_save(&sprite->ent, s);
+        entitypool_elem_save(pool, &sprite, s);
         mat3_save(&sprite->transform, s);
         vec2_save(&sprite->cell, s);
         vec2_save(&sprite->size, s);
@@ -295,23 +275,19 @@ void sprite_save_all(Serializer *s)
 }
 void sprite_load_all(Deserializer *s)
 {
-    unsigned int i, n;
+    unsigned int n;
     Sprite *sprite;
 
+    entitypool_clear(pool);
+
     uint_load(&n, s);
-    array_reset(sprites, n);
 
-    entitymap_clear(emap);
-
-    for (i = 0; i < n; ++i)
+    while (n--)
     {
-        sprite = array_get(sprites, i);
-        entity_load(&sprite->ent, s);
+        entitypool_elem_load(pool, &sprite, s);
         mat3_load(&sprite->transform, s);
         vec2_load(&sprite->cell, s);
         vec2_load(&sprite->size, s);
-
-        entitymap_set(emap, sprite->ent, i);
     }
 }
 
