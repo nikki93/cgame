@@ -22,6 +22,9 @@ void *array_top(Array *arr);
 #define array_top_val(type, arr) (*((type *) array_top(arr)))
 unsigned int array_length(Array *arr); /* number of objects in array */
 
+void *array_begin(Array *arr); /* pointer to first element */
+void *array_end(Array *arr);   /* pointer to 'one past last' element */
+
 void *array_add(Array *arr); /* add new object, index is length - 1 */
 #define array_add_val(type, arr) (*((type *) array_add(arr)))
 void array_reset(Array *arr, unsigned int num); /* resize to 'num 'objects

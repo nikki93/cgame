@@ -42,6 +42,15 @@ unsigned int array_length(Array *arr)
     return arr->length;
 }
 
+void *array_begin(Array *arr)
+{
+    return arr->buf;
+}
+void *array_end(Array *arr)
+{
+    return arr->buf + arr->object_size * arr->length;
+}
+
 void *array_add(Array *arr)
 {
     if (++arr->length > arr->capacity)
