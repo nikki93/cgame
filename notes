@@ -9,6 +9,7 @@ dependencies
 - glew (included in ext/)
 - stb_image (included in ext/)
 - luajit (included in ext/)
+- chipmunk (included in ext/)
 
 
 ideas

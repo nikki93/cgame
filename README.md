@@ -17,8 +17,11 @@ and data/test/test.lua shows the same in Lua.
 Building
 ---
 
-CMake should make it easy to set up. GLFW, GLEW, stb_image, LuaJIT are
-dependencies and are included in ext/. From the repository root,
+CMake should make it easy to set up. [GLFW](http://www.glfw.org/),
+[GLEW](http://glew.sourceforge.net/),
+[stb_image](http://code.google.com/p/stblib/), [LuaJIT](http://luajit.org/),
+[chipmunk](http://chipmunk-physics.net/) are dependencies and are included in
+ext/. From the repository root,
 
     mkdir build
     cd build
