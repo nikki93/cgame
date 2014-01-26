@@ -41,6 +41,7 @@ function cgame.c_save_load(ctype, c_save, c_load)
     end
 end
 
+
 cgame.Vec2 = ffi.metatype('Vec2',
 {
     __add = function (u, v) return cgame.vec2_add(u, v) end,
@@ -59,6 +60,21 @@ cgame.Mat3 = ffi.metatype('Mat3',
             'cgame.mat3_load')
     },
 })
+
+
+-- generic add/remove, get/set for any system, property -- needs corresponding
+-- C functions of the form sys_add()/sys_remove(),
+-- sys_get_prop(ent)/sys_set_prop(ent, val)
+
+function cgame.adder(sys) return cgame[sys .. '_add'] end
+function cgame.remover(sys) return cgame[sys .. '_remove'] end
+function cgame.add(sys, ent) cgame.adder(sys)(ent) end
+function cgame.remove(sys, ent) cgame.remover(sys)(ent) end
+
+function cgame.getter(sys, prop) return cgame[sys .. '_get_' .. prop] end
+function cgame.setter(sys, prop) return cgame[sys .. '_set_' .. prop] end
+function cgame.get(sys, prop, ent) return cgame.getter(sys, prop)(ent) end
+function cgame.set(sys, prop, ent, val) cgame.setter(sys, prop)(ent, val) end
 
 
 --- lua systems ---------------------------------------------------------------
