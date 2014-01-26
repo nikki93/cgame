@@ -12,6 +12,7 @@ typedef struct PhysicsInfo PhysicsInfo;
 struct PhysicsInfo
 {
     EntityPoolElem pool_elem;
+    Scalar mass; /* store mass ourselves so we can convert to/from static */
 
     cpBody *body;
     Array *shapes;
@@ -37,7 +38,8 @@ static inline Vec2 vec2_of_cpv(cpVect v) { return vec2(v.x, v.y); }
 
 static inline void _remove_body(cpBody *body)
 {
-    cpSpaceRemoveBody(space, body);
+    if (cpSpaceContainsBody(space, body))
+        cpSpaceRemoveBody(space, body);
     cpBodyFree(body);
 }
 static inline void _remove_shape(cpShape *shape)
@@ -65,26 +67,20 @@ static inline PhysicsInfo *_add(Entity ent)
 
     return info;
 }
-void physics_add_dynamic(Entity ent, Scalar mass)
+void physics_add(Entity ent)
 {
     PhysicsInfo *info = _add(ent);
 
     if (info)
     {
-        info->body = cpSpaceAddBody(space, cpBodyNew(mass, 1.0));
+        info->mass = 1.0;
+        info->body = cpSpaceAddBody(space, cpBodyNew(1.0, 1.0));
 
         cpBodySetUserData(info->body, ent);
 
         cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
         cpBodySetAngle(info->body, transform_get_rotation(ent));
     }
-}
-void physics_add_static(Entity ent)
-{
-    PhysicsInfo *info = _add(ent);
-
-    if (info)
-        info->body = NULL;
 }
 
 /* remove chipmunk stuff (doesn't remove from pool) */
@@ -97,8 +93,7 @@ static void _remove(PhysicsInfo *info)
         _remove_shape(shapeInfo->shape);
 
     array_free(info->shapes);
-    if (info->body)
-        _remove_body(info->body);
+    _remove_body(info->body);
 }
 void physics_remove(Entity ent)
 {
@@ -168,14 +163,11 @@ static unsigned int _add_shape(Entity ent, ShapeType type, cpShape *shape)
     cpShapeSetUserData(shapeInfo->shape, ent);
 
     /* update moment */
-    if (info->body)
-    {
-        if (array_length(info->shapes) > 1)
-            cpBodySetMoment(info->body, _moment(info->body, shapeInfo)
-                    + cpBodyGetMoment(info->body));
-        else
-            cpBodySetMoment(info->body, _moment(info->body, shapeInfo));
-    }
+    if (array_length(info->shapes) > 1)
+        cpBodySetMoment(info->body, _moment(info->body, shapeInfo)
+                + cpBodyGetMoment(info->body));
+    else
+        cpBodySetMoment(info->body, _moment(info->body, shapeInfo));
 
     return array_length(info->shapes) - 1;
 }
@@ -192,6 +184,49 @@ unsigned int physics_add_box_shape(Entity ent, Scalar l, Scalar b, Scalar r,
                 cpBBNew(l, b, r, t)));
 }
 
+void physics_set_static(Entity ent, bool stat)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+
+    if (cpBodyIsStatic(info->body) == stat)
+        return; /* already set */
+
+    if (stat)
+    {
+        cpSpaceRemoveBody(space, info->body);
+        cpSpaceConvertBodyToStatic(space, info->body);
+    }
+    else
+    {
+        cpSpaceConvertBodyToDynamic(space, info->body, info->mass, 1.0);
+        cpSpaceAddBody(space, info->body);
+        _recalculate_moment(info);
+    }
+}
+bool physics_get_static(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+
+    return cpBodyIsStatic(info->body);
+}
+
+void physics_set_mass(Entity ent, Scalar mass)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+
+    cpBodySetMass(info->body, info->mass = mass);
+}
+Scalar physics_get_mass(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+
+    return info->mass;
+}
+
 void physics_set_freeze_rotation(Entity ent, bool freeze)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
@@ -201,6 +236,14 @@ void physics_set_freeze_rotation(Entity ent, bool freeze)
         cpBodySetMoment(info->body, INFINITY);
     else
         _recalculate_moment(info);
+}
+bool physics_get_freeze_rotation(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+
+    /* TODO: do this a better way? maybe store separate flag */
+    return cpBodyGetMoment(info->body) == INFINITY;
 }
 
 void physics_set_velocity(Entity ent, Vec2 vel)
@@ -263,7 +306,7 @@ void physics_update_all(Scalar dt)
 
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
             info != end; ++info)
-        if (info->body)
+        if (!cpBodyIsStatic(info->body))
         {
             transform_set_position(info->pool_elem.ent,
                     vec2_of_cpv(cpBodyGetPos(info->body)));

@@ -16,8 +16,7 @@ SCRIPT(physics,
 
         /* add/remove body */
 
-        EXPORT void physics_add_static(Entity ent);
-        EXPORT void physics_add_dynamic(Entity ent, Scalar mass);
+        EXPORT void physics_add(Entity ent);
         EXPORT void physics_remove(Entity ent);
 
 
@@ -38,7 +37,14 @@ SCRIPT(physics,
 
         /* dynamics */
 
+        EXPORT void physics_set_static(Entity ent, bool stat);
+        EXPORT bool physics_get_static(Entity ent);
+
+        EXPORT void physics_set_mass(Entity ent, Scalar mass);
+        EXPORT Scalar physics_get_mass(Entity ent);
+
         EXPORT void physics_set_freeze_rotation(Entity ent, bool freeze);
+        EXPORT bool physics_get_freeze_rotation(Entity ent);
 
         EXPORT void physics_set_velocity(Entity ent, Vec2 vel);
 
