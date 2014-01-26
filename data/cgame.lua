@@ -66,15 +66,22 @@ cgame.Mat3 = ffi.metatype('Mat3',
 -- C functions of the form sys_add()/sys_remove(),
 -- sys_get_prop(ent)/sys_set_prop(ent, val)
 
-function cgame.adder(sys) return cgame[sys .. '_add'] end
-function cgame.remover(sys) return cgame[sys .. '_remove'] end
-function cgame.add(sys, ent) cgame.adder(sys)(ent) end
-function cgame.remove(sys, ent) cgame.remover(sys)(ent) end
-
 function cgame.getter(sys, prop) return cgame[sys .. '_get_' .. prop] end
 function cgame.setter(sys, prop) return cgame[sys .. '_set_' .. prop] end
 function cgame.get(sys, prop, ent) return cgame.getter(sys, prop)(ent) end
 function cgame.set(sys, prop, ent, val) cgame.setter(sys, prop)(ent, val) end
+
+function cgame.adder(sys) return cgame[sys .. '_add'] end
+function cgame.remover(sys) return cgame[sys .. '_remove'] end
+function cgame.add(sys, ent, props)
+    cgame.adder(sys)(ent)
+    if (props) then
+        for k, v in pairs(props) do
+            cgame.set(sys, k, ent, v)
+        end
+    end
+end
+function cgame.remove(sys, ent) cgame.remover(sys)(ent) end
 
 
 --- lua systems ---------------------------------------------------------------
