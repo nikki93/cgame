@@ -23,23 +23,25 @@ cgame.keyboard_controlled_add(camera)
 
 -- add floor
 
-local D = 20
+local D = 16
 
 local floor = cgame.entity_create()
-cgame.physics_add_static(floor)
-cgame.physics_add_box_shape(floor, -D, -D, D, -(D - 1))
 
-local floor = cgame.entity_create()
-cgame.physics_add_static(floor)
-cgame.physics_add_box_shape(floor, -D, D - 1, D, D)
+cgame.transform_add(floor)
+cgame.transform_set_position(floor, cgame.vec2_zero)
 
-local floor = cgame.entity_create()
-cgame.physics_add_static(floor)
-cgame.physics_add_box_shape(floor, -D, -D, -(D - 1), D)
+cgame.sprite_add(floor)
+cgame.sprite_set_cell(floor, cgame.vec2(0.0, 0.0))
+cgame.sprite_set_size(floor, cgame.vec2(32.0, 32.0))
+cgame.transform_set_scale(floor, cgame.vec2(32, 32))
 
-local floor = cgame.entity_create()
-cgame.physics_add_static(floor)
-cgame.physics_add_box_shape(floor, D - 1, -D, D, D)
+cgame.physics_add(floor)
+cgame.physics_set_static(floor, true)
+
+print(cgame.physics_add_box_shape(floor, -D, -D, D, -(D - 1)))
+print(cgame.physics_add_box_shape(floor, -D, D - 1, D, D))
+print(cgame.physics_add_box_shape(floor, -D, -D, -(D - 1), D))
+print(cgame.physics_add_box_shape(floor, D - 1, -D, D, D))
 
 -- add some boxes
 
@@ -53,7 +55,9 @@ function make_box(pos, vel)
     cgame.sprite_set_cell(box, cgame.vec2(32.0, 32.0))
     cgame.sprite_set_size(box, cgame.vec2(32.0, 32.0))
 
-    cgame.physics_add_dynamic(box, 5.0)
+    cgame.physics_add(box)
+    cgame.physics_set_static(box, false)
+    cgame.physics_set_mass(box, 5.0)
     cgame.physics_add_box_shape(box, -0.5, -0.5, 0.5, 0.5)
     cgame.physics_set_velocity(box, vel)
 end
@@ -112,7 +116,8 @@ cgame.add_system('destroyer',
     update_all = function (dt)
         for i = 1, 9 do
             if (cgame.input_key_down('KC_' .. i)) then
-                cgame.entity_destroy(i)
+                cgame.physics_set_static(i,
+                    cgame.input_key_down('KC_LEFT_SHIFT'))
             end
         end
     end
