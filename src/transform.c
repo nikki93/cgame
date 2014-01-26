@@ -158,7 +158,6 @@ void transform_load_all(Deserializer *s)
 {
     unsigned int n;
     Transform *transform;
-    Entity ent;
 
     entitypool_clear(pool);
 
