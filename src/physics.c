@@ -69,32 +69,24 @@ Scalar physics_get_simulation_frequency()
     return period;
 }
 
-static inline PhysicsInfo *_add(Entity ent)
+void physics_add(Entity ent)
 {
     PhysicsInfo *info;
 
     if (entitypool_get(pool, ent))
-        return NULL; /* already has physics */
+        return; /* already has physics */
+
+    transform_add(ent);
 
     info = entitypool_add(pool, ent);
+    info->mass = 1.0;
+    info->body = cpSpaceAddBody(space, cpBodyNew(info->mass, 1.0));
     info->shapes = array_new(ShapeInfo);
 
-    return info;
-}
-void physics_add(Entity ent)
-{
-    PhysicsInfo *info = _add(ent);
+    cpBodySetUserData(info->body, ent);
 
-    if (info)
-    {
-        info->mass = 1.0;
-        info->body = cpSpaceAddBody(space, cpBodyNew(1.0, 1.0));
-
-        cpBodySetUserData(info->body, ent);
-
-        cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
-        cpBodySetAngle(info->body, transform_get_rotation(ent));
-    }
+    cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
+    cpBodySetAngle(info->body, transform_get_rotation(ent));
 }
 
 /* remove chipmunk stuff (doesn't remove from pool) */
