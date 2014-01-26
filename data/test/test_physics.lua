@@ -11,6 +11,8 @@ function symrand()
     return 2 * math.random() - 1
 end
 
+cgame.physics_set_simulation_frequency(300)
+
 -- add camera
 
 local camera = cgame.entity_create()
