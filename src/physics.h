@@ -12,6 +12,9 @@ SCRIPT(physics,
         /* global */
 
         EXPORT void physics_set_gravity(Vec2 g);
+        EXPORT Vec2 physics_get_gravity();
+        EXPORT void physics_set_simulation_frequency(Scalar freq);
+        EXPORT Scalar physics_get_simulation_frequency();
 
 
         /* add/remove body */

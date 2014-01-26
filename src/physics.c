@@ -27,6 +27,7 @@ struct ShapeInfo
 };
 
 static cpSpace *space;
+static Scalar period = 1.0 / 60.0; /* simulation step period */
 static EntityPool *pool;
 
 /* ------------------------------------------------------------------------- */
@@ -53,6 +54,19 @@ static inline void _remove_shape(cpShape *shape)
 void physics_set_gravity(Vec2 g)
 {
     cpSpaceSetGravity(space, cpv_of_vec2(g));
+}
+Vec2 physics_get_gravity()
+{
+    return vec2_of_cpv(cpSpaceGetGravity(space));
+}
+
+void physics_set_simulation_frequency(Scalar freq)
+{
+    period = 1.0 / freq;
+}
+Scalar physics_get_simulation_frequency()
+{
+    return period;
 }
 
 static inline PhysicsInfo *_add(Entity ent)
@@ -292,6 +306,19 @@ void physics_deinit()
     entitypool_free(pool);
 }
 
+/* step the space with fixed time steps */
+static void _step(Scalar dt)
+{
+    static Scalar remain = 0.0;
+
+    remain += dt;
+    while (remain >= period)
+    {
+        cpSpaceStep(space, period);
+        remain -= period;
+    }
+}
+
 void physics_update_all(Scalar dt)
 {
     PhysicsInfo *info, *end;
@@ -302,7 +329,7 @@ void physics_update_all(Scalar dt)
         else
             ++info;
 
-    cpSpaceStep(space, dt);
+    _step(dt);
 
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
             info != end; ++info)
