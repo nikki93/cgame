@@ -1,6 +1,8 @@
 #ifndef PHYSICS_H_QZ7KUPT1
 #define PHYSICS_H_QZ7KUPT1
 
+#include <stdbool.h>
+
 #include "scalar.h"
 #include "entity.h"
 #include "vec2.h"
@@ -19,15 +21,24 @@ SCRIPT(physics,
         EXPORT void physics_remove(Entity ent);
 
 
-        /* add/remove shape */
+        /* add/remove shape -- add functions return shape index */
 
-        EXPORT void physics_add_box_shape(Entity ent, Scalar l, Scalar b,
-            Scalar r, Scalar t);
+        typedef enum ShapeType ShapeType;
+        enum ShapeType
+        {
+            ST_CIRCLE,
+            ST_POLYGON,
+        };
+
+        EXPORT unsigned int physics_add_circle_shape(Entity ent, Scalar r,
+                Vec2 offset);
+        EXPORT unsigned int physics_add_box_shape(Entity ent, Scalar l,
+                Scalar b, Scalar r, Scalar t);
 
 
         /* dynamics */
 
-        EXPORT void physics_freeze_rotation(Entity ent);
+        EXPORT void physics_set_freeze_rotation(Entity ent, bool freeze);
 
         EXPORT void physics_set_velocity(Entity ent, Vec2 vel);
 
