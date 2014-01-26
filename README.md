@@ -38,3 +38,8 @@ after running the commands in the previous section, you'd do,
     cd ..
     ./build/cgame
 
+By default it runs test/test.lua under the data directory. If you want to run a
+different test, supply it as the first command-line parameter. For example,
+
+    ./build/cgame test/test_physics.lua
+
