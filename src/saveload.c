@@ -176,6 +176,15 @@ void uint_load(unsigned int *u, Deserializer *s)
     _deserializer_scanf(s, "%u\n", u);
 }
 
+void int_save(const int *i, Serializer *s)
+{
+    _serializer_printf(s, "%d\n", *i);
+}
+void int_load(int *i, Deserializer *s)
+{
+    _deserializer_scanf(s, "%d\n", i);
+}
+
 void bool_save(const bool *b, Serializer *s)
 {
     _serializer_printf(s, "%d\n", *b ? 1 : 0);

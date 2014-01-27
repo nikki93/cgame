@@ -29,6 +29,14 @@ void scalar_load(Scalar *f, Deserializer *s);
 void uint_save(const unsigned int *u, Serializer *s);
 void uint_load(unsigned int *u, Deserializer *s);
 
+void int_save(const int *i, Serializer *s);
+void int_load(int *i, Deserializer *s);
+
+#define enum_save(val, s) \
+    do { int e__; e__ = *(val); int_save(&e__, (s)); } while (0)
+#define enum_load(val, s) \
+    do { int e__; int_load(&e__, (s)); *(val) = e__; } while (0)
+
 void bool_save(const bool *b, Serializer *s);
 void bool_load(bool *b, Deserializer *s);
 
