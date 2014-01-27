@@ -37,7 +37,7 @@ cgame.sprite_set_size(floor, cgame.vec2(32.0, 32.0))
 cgame.transform_set_scale(floor, cgame.vec2(32, 32))
 
 cgame.physics_add(floor)
-cgame.physics_set_static(floor, true)
+cgame.physics_set_type(floor, cgame.PB_KINEMATIC)
 
 print(cgame.physics_add_box_shape(floor, -D, -D, D, -(D - 1)))
 print(cgame.physics_add_box_shape(floor, -D, D - 1, D, D))
@@ -59,7 +59,7 @@ function make_box(pos, vel)
     cgame.sprite_set_size(box, cgame.vec2(32.0, 32.0))
 
     cgame.physics_add(box)
-    cgame.physics_set_static(box, false)
+    cgame.physics_set_type(box, cgame.PB_DYNAMIC)
     cgame.physics_set_mass(box, 5.0)
     cgame.physics_add_box_shape(box, -0.5, -0.5, 0.5, 0.5)
     cgame.physics_set_velocity(box, vel)
@@ -112,15 +112,22 @@ cgame.add_system('camera_gravity',
     end
 })
 
--- entity destruction
+-- keys
 
-cgame.add_system('destroyer',
+cgame.add_system('test_physics_keys',
 {
     update_all = function (dt)
+        -- press a number to make it dynamic, hold right shift for static,
+        -- left shift for kinematic
         for i = 1, 9 do
             if (cgame.input_key_down('KC_' .. i)) then
-                cgame.physics_set_static(i,
-                    cgame.input_key_down('KC_LEFT_SHIFT'))
+                if cgame.input_key_down(cgame.KC_LEFT_SHIFT) then
+                    cgame.physics_set_type(i, cgame.PB_KINEMATIC)
+                elseif cgame.input_key_down(cgame.KC_RIGHT_SHIFT) then
+                    cgame.physics_set_type(i, cgame.PB_STATIC)
+                else
+                    cgame.physics_set_type(i, cgame.PB_DYNAMIC)
+                end
             end
         end
     end
