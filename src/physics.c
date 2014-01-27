@@ -253,6 +253,7 @@ void physics_set_mass(Entity ent, Scalar mass)
     assert(info);
 
     cpBodySetMass(info->body, info->mass = mass);
+    _recalculate_moment(info);
 }
 Scalar physics_get_mass(Entity ent)
 {
