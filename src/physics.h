@@ -19,17 +19,25 @@ SCRIPT(physics,
 
         /* add/remove body */
 
-        EXPORT void physics_add(Entity ent);
+        typedef enum PhysicsBody PhysicsBody;
+        enum PhysicsBody
+        {
+            PB_STATIC,      /* never (or rarely) moves -- eg. wall */
+            PB_KINEMATIC,   /* moves but not dynamic -- eg. moving platform */
+            PB_DYNAMIC,     /* moves subject to forces -- eg. bowling pin */
+        };
+
+        EXPORT void physics_add(Entity ent); /* PB_DYNAMIC by default */
         EXPORT void physics_remove(Entity ent);
 
 
         /* add/remove shape -- add functions return shape index */
 
-        typedef enum ShapeType ShapeType;
-        enum ShapeType
+        typedef enum PhysicsShape PhysicsShape;
+        enum PhysicsShape
         {
-            ST_CIRCLE,
-            ST_POLYGON,
+            PS_CIRCLE,
+            PS_POLYGON,
         };
 
         EXPORT unsigned int physics_add_circle_shape(Entity ent, Scalar r,
@@ -40,8 +48,8 @@ SCRIPT(physics,
 
         /* dynamics */
 
-        EXPORT void physics_set_static(Entity ent, bool stat);
-        EXPORT bool physics_get_static(Entity ent);
+        EXPORT void physics_set_type(Entity ent, PhysicsBody type);
+        EXPORT PhysicsBody physics_get_type(Entity ent);
 
         EXPORT void physics_set_mass(Entity ent, Scalar mass);
         EXPORT Scalar physics_get_mass(Entity ent);
@@ -61,8 +69,8 @@ SCRIPT(physics,
 void physics_init();
 void physics_deinit();
 void physics_update_all(Scalar dt);
-void physics_save_all();
-void physics_load_all();
+void physics_save_all(Serializer *s);
+void physics_load_all(Deserializer *s);
 
 #endif
 

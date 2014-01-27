@@ -12,21 +12,24 @@ typedef struct PhysicsInfo PhysicsInfo;
 struct PhysicsInfo
 {
     EntityPoolElem pool_elem;
-    Scalar mass; /* store mass ourselves so we can convert to/from static */
 
-    /* used to compute velocity of user-controlled static bodies */
-    cpVect last_pos;
-    cpFloat last_ang;
-
+    PhysicsBody type;
     cpBody *body;
     Array *shapes;
+
+    /* store mass separately to convert to/from PB_DYNAMIC */
+    Scalar mass;
+
+    /* used to compute (angular) velocitiy for PB_KINEMATIC */
+    cpVect last_pos;
+    cpFloat last_ang;
 };
 
 /* per-shape info for each shape attached to a physics entity */
 typedef struct ShapeInfo ShapeInfo;
 struct ShapeInfo
 {
-    ShapeType type;
+    PhysicsShape type;
     cpShape *shape;
 };
 
@@ -86,6 +89,7 @@ void physics_add(Entity ent)
     info->mass = 1.0;
     info->body = cpSpaceAddBody(space, cpBodyNew(info->mass, 1.0));
     info->shapes = array_new(ShapeInfo);
+    info->type = PB_DYNAMIC;
 
     cpBodySetUserData(info->body, ent);
 
@@ -126,12 +130,12 @@ static Scalar _moment(cpBody *body, ShapeInfo *shapeInfo)
     Scalar mass = cpBodyGetMass(body);
     switch (shapeInfo->type)
     {
-        case ST_CIRCLE:
+        case PS_CIRCLE:
             return cpMomentForCircle(mass, 0,
                     cpCircleShapeGetRadius(shapeInfo->shape),
                     cpCircleShapeGetOffset(shapeInfo->shape));
 
-        case ST_POLYGON:
+        case PS_POLYGON:
             return cpMomentForPoly(mass,
                     cpPolyShapeGetNumVerts(shapeInfo->shape),
                     ((cpPolyShape *) shapeInfo->shape)->verts,
@@ -156,7 +160,7 @@ static void _recalculate_moment(PhysicsInfo *info)
     cpBodySetMoment(info->body, moment);
 }
 
-static unsigned int _add_shape(Entity ent, ShapeType type, cpShape *shape)
+static unsigned int _add_shape(Entity ent, PhysicsShape type, cpShape *shape)
 {
     PhysicsInfo *info;
     ShapeInfo *shapeInfo;
@@ -170,59 +174,72 @@ static unsigned int _add_shape(Entity ent, ShapeType type, cpShape *shape)
     shapeInfo->shape = shape;
 
     /* init cpShape */
-    cpShapeSetBody(shape, info->body ? info->body : space->staticBody);
+    cpShapeSetBody(shape, info->body);
     cpSpaceAddShape(space, shape);
     cpShapeSetFriction(shapeInfo->shape, 1);
     cpShapeSetUserData(shapeInfo->shape, ent);
 
     /* update moment */
-    if (array_length(info->shapes) > 1)
-        cpBodySetMoment(info->body, _moment(info->body, shapeInfo)
-                + cpBodyGetMoment(info->body));
-    else
-        cpBodySetMoment(info->body, _moment(info->body, shapeInfo));
+    if (!cpBodyIsStatic(info->body))
+    {
+        if (array_length(info->shapes) > 1)
+            cpBodySetMoment(info->body, _moment(info->body, shapeInfo)
+                    + cpBodyGetMoment(info->body));
+        else
+            cpBodySetMoment(info->body, _moment(info->body, shapeInfo));
+    }
 
     return array_length(info->shapes) - 1;
 }
 unsigned int physics_add_circle_shape(Entity ent, Scalar r,
         Vec2 offset)
 {
-    return _add_shape(ent, ST_CIRCLE, cpCircleShapeNew(NULL, r,
+    return _add_shape(ent, PS_CIRCLE, cpCircleShapeNew(NULL, r,
                 cpv_of_vec2(offset)));
 }
 unsigned int physics_add_box_shape(Entity ent, Scalar l, Scalar b, Scalar r,
         Scalar t)
 {
-    return _add_shape(ent, ST_POLYGON, cpBoxShapeNew2(NULL,
+    return _add_shape(ent, PS_POLYGON, cpBoxShapeNew2(NULL,
                 cpBBNew(l, b, r, t)));
 }
 
-void physics_set_static(Entity ent, bool stat)
+void physics_set_type(Entity ent, PhysicsBody type)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
     assert(info);
 
-    if (cpBodyIsStatic(info->body) == stat)
+    if (info->type == type)
         return; /* already set */
+    info->type = type;
 
-    if (stat)
+    switch (type)
     {
-        cpSpaceRemoveBody(space, info->body);
-        cpSpaceConvertBodyToStatic(space, info->body);
-    }
-    else
-    {
-        cpSpaceConvertBodyToDynamic(space, info->body, info->mass, 1.0);
-        cpSpaceAddBody(space, info->body);
-        _recalculate_moment(info);
+        case PB_KINEMATIC:
+            info->last_pos = cpBodyGetPos(info->body);
+            info->last_ang = cpBodyGetAngle(info->body);
+            /* fall through */
+
+        case PB_STATIC:
+            if (!cpBodyIsStatic(info->body))
+            {
+                cpSpaceRemoveBody(space, info->body);
+                cpSpaceConvertBodyToStatic(space, info->body);
+            }
+            break;
+
+        case PB_DYNAMIC:
+            cpSpaceConvertBodyToDynamic(space, info->body, info->mass, 1.0);
+            cpSpaceAddBody(space, info->body);
+            _recalculate_moment(info);
+            break;
     }
 }
-bool physics_get_static(Entity ent)
+PhysicsBody physics_get_type(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
     assert(info);
-
-    return cpBodyIsStatic(info->body);
+    return info->type;
 }
 
 void physics_set_mass(Entity ent, Scalar mass)
@@ -318,7 +335,7 @@ static void _step(Scalar dt)
     }
 }
 
-static void _update_statics(Scalar dt)
+static void _update_kinematics(Scalar dt)
 {
     PhysicsInfo *info, *end;
     cpVect pos;
@@ -327,7 +344,7 @@ static void _update_statics(Scalar dt)
 
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
             info != end; ++info)
-        if (cpBodyIsStatic(info->body))
+        if (info->type == PB_KINEMATIC)
         {
             pos = cpv_of_vec2(transform_get_position(info->pool_elem.ent));
             ang = transform_get_rotation(info->pool_elem.ent);
@@ -353,25 +370,72 @@ void physics_update_all(Scalar dt)
         else
             ++info;
 
-    _update_statics(dt);
+    _update_kinematics(dt);
 
     _step(dt);
 
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
             info != end; ++info)
-        if (!cpBodyIsStatic(info->body))
-        {
-            transform_set_position(info->pool_elem.ent,
-                    vec2_of_cpv(cpBodyGetPos(info->body)));
-            transform_set_rotation(info->pool_elem.ent,
-                    cpBodyGetAngle(info->body));
-        }
+    {
+        transform_set_position(info->pool_elem.ent,
+                vec2_of_cpv(cpBodyGetPos(info->body)));
+        transform_set_rotation(info->pool_elem.ent,
+                cpBodyGetAngle(info->body));
+    }
 }
 
-void physics_save_all()
+static void _body_save(PhysicsInfo *info, Serializer *s)
 {
 }
-void physics_load_all()
+static void _body_load(PhysicsInfo *info, Deserializer *s)
 {
+}
+
+static void _shapes_save(PhysicsInfo *info, Serializer *s)
+{
+}
+static void _shapes_load(PhysicsInfo *info, Deserializer *s)
+{
+}
+
+void physics_save_all(Serializer *s)
+{
+    unsigned int n;
+    PhysicsInfo *info, *end;
+
+    n = entitypool_size(pool);
+    uint_save(&n, s);
+
+    printf("physics saving\n");
+
+    for (info = entitypool_begin(pool), end = entitypool_end(pool);
+            info != end; ++info)
+    {
+        entitypool_elem_save(pool, &info, s);
+        scalar_save(&info->mass, s);
+
+        _body_save(info, s);
+        _shapes_save(info, s);
+    }
+}
+void physics_load_all(Deserializer *s)
+{
+    unsigned int n;
+    PhysicsInfo *info;
+
+    entitypool_clear(pool);
+
+    uint_load(&n, s);
+
+    printf("physics loading\n");
+
+    while (n--)
+    {
+        entitypool_elem_load(pool, &info, s);
+        scalar_load(&info->mass, s);
+
+        _body_load(info, s);
+        _shapes_load(info, s);
+    }
 }
 
