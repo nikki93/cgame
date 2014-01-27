@@ -14,6 +14,10 @@ struct PhysicsInfo
     EntityPoolElem pool_elem;
     Scalar mass; /* store mass ourselves so we can convert to/from static */
 
+    /* used to compute velocity of user-controlled static bodies */
+    cpVect last_pos;
+    cpFloat last_ang;
+
     cpBody *body;
     Array *shapes;
 };
@@ -87,6 +91,9 @@ void physics_add(Entity ent)
 
     cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
     cpBodySetAngle(info->body, transform_get_rotation(ent));
+
+    info->last_pos = cpBodyGetPos(info->body);
+    info->last_ang = cpBodyGetAngle(info->body);
 }
 
 /* remove chipmunk stuff (doesn't remove from pool) */
@@ -311,6 +318,31 @@ static void _step(Scalar dt)
     }
 }
 
+static void _update_statics(Scalar dt)
+{
+    PhysicsInfo *info, *end;
+    cpVect pos;
+    cpFloat ang;
+    Scalar invdt = 1.0 / dt;
+
+    for (info = entitypool_begin(pool), end = entitypool_end(pool);
+            info != end; ++info)
+        if (cpBodyIsStatic(info->body))
+        {
+            pos = cpv_of_vec2(transform_get_position(info->pool_elem.ent));
+            ang = transform_get_rotation(info->pool_elem.ent);
+
+            cpBodySetPos(info->body, pos);
+            cpBodySetAngle(info->body, ang);
+            cpBodySetVel(info->body,
+                    cpvmult(cpvsub(pos, info->last_pos), invdt));
+            cpBodySetAngVel(info->body, (ang - info->last_ang) * invdt);
+            cpSpaceReindexShapesForBody(space, info->body);
+
+            info->last_pos = pos;
+            info->last_ang = ang;
+        }
+}
 void physics_update_all(Scalar dt)
 {
     PhysicsInfo *info, *end;
@@ -320,6 +352,8 @@ void physics_update_all(Scalar dt)
             physics_remove(info->pool_elem.ent);
         else
             ++info;
+
+    _update_statics(dt);
 
     _step(dt);
 

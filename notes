@@ -36,6 +36,9 @@ todo
 
 - implement physics serialization, expose more physics functions (force etc.)
 
+- add separate 'kinematic' body type so we don't calculate velocity for all
+  static bodies
+
 - add sprite animation
 
 - make Entity type a struct to allow reallocation on deserialize etc.

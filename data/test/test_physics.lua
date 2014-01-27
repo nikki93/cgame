@@ -21,7 +21,6 @@ cgame.transform_add(camera)
 cgame.camera_add(camera)
 cgame.camera_set_viewport_size(
     cgame.vec2(3 * WIN_WIDTH / GRID_SIZE, 3 * WIN_HEIGHT / GRID_SIZE))
-cgame.keyboard_controlled_add(camera)
 
 -- add floor
 
@@ -44,6 +43,8 @@ print(cgame.physics_add_box_shape(floor, -D, -D, D, -(D - 1)))
 print(cgame.physics_add_box_shape(floor, -D, D - 1, D, D))
 print(cgame.physics_add_box_shape(floor, -D, -D, -(D - 1), D))
 print(cgame.physics_add_box_shape(floor, D - 1, -D, D, D))
+
+cgame.keyboard_controlled_add(floor)
 
 -- add some boxes
 
