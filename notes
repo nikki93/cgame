@@ -34,8 +34,7 @@ todo
 
 - c99 cleanup
 
-- serialize more physics properties (shape properties, gravity, simulation
-  frequency, ...), expose more physics functions (force etc.)
+- serialize global physics properties, expose more physics functions
 
 - add sprite animation
 
