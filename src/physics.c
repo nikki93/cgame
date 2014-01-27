@@ -153,6 +153,8 @@ static void _recalculate_moment(PhysicsInfo *info)
 
     if (!info->body)
         return;
+    if (array_length(info->shapes) == 0)
+        return; /* can't set moment to zero, just leave it alone */
 
     moment = 0.0;
     for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
