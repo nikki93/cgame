@@ -61,6 +61,7 @@ systems
 -------
 
 - entity
+- pause
 - transform
 - camera
 - sprite

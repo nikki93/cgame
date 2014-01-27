@@ -5,6 +5,7 @@
 
 #include "entity.h"
 #include "script.h"
+#include "pause.h"
 #include "transform.h"
 #include "camera.h"
 #include "sprite.h"
@@ -59,6 +60,7 @@ static void _saveload_all(void *s, bool save)
 
     saveload(entity);
 
+    saveload(pause);
     saveload(transform);
     saveload(camera);
     saveload(sprite);
