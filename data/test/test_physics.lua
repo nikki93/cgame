@@ -120,7 +120,7 @@ cgame.add_system('test_physics_keys',
         -- press a number to make it dynamic, hold right shift for static,
         -- left shift for kinematic
         for i = 1, 9 do
-            if (cgame.input_key_down('KC_' .. i)) then
+            if cgame.input_key_down('KC_' .. i) then
                 if cgame.input_key_down(cgame.KC_LEFT_SHIFT) then
                     cgame.physics_set_type(i, cgame.PB_KINEMATIC)
                 elseif cgame.input_key_down(cgame.KC_RIGHT_SHIFT) then
@@ -129,6 +129,13 @@ cgame.add_system('test_physics_keys',
                     cgame.physics_set_type(i, cgame.PB_DYNAMIC)
                 end
             end
+        end
+
+        -- R to pause, T to resume
+        if cgame.input_key_down(cgame.KC_R) then
+            cgame.pause_set(true)
+        elseif cgame.input_key_down(cgame.KC_T) then
+            cgame.pause_set(false)
         end
     end
 })
