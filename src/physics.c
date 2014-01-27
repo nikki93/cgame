@@ -14,8 +14,6 @@ struct PhysicsInfo
     EntityPoolElem pool_elem;
 
     PhysicsBody type;
-    cpBody *body;
-    Array *shapes;
 
     /* store mass separately to convert to/from PB_DYNAMIC */
     Scalar mass;
@@ -23,6 +21,9 @@ struct PhysicsInfo
     /* used to compute (angular) velocitiy for PB_KINEMATIC */
     cpVect last_pos;
     cpFloat last_ang;
+
+    cpBody *body;
+    Array *shapes;
 };
 
 /* per-shape info for each shape attached to a physics entity */
@@ -204,22 +205,19 @@ unsigned int physics_add_box_shape(Entity ent, Scalar l, Scalar b, Scalar r,
                 cpBBNew(l, b, r, t)));
 }
 
-void physics_set_type(Entity ent, PhysicsBody type)
+static void _set_type(PhysicsInfo *info, PhysicsBody type)
 {
-    PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
-
     if (info->type == type)
         return; /* already set */
-    info->type = type;
 
+    info->type = type;
     switch (type)
     {
         case PB_KINEMATIC:
             info->last_pos = cpBodyGetPos(info->body);
             info->last_ang = cpBodyGetAngle(info->body);
             /* fall through */
-
+            
         case PB_STATIC:
             if (!cpBodyIsStatic(info->body))
             {
@@ -234,6 +232,12 @@ void physics_set_type(Entity ent, PhysicsBody type)
             _recalculate_moment(info);
             break;
     }
+}
+void physics_set_type(Entity ent, PhysicsBody type)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    _set_type(info, type);
 }
 PhysicsBody physics_get_type(Entity ent)
 {
@@ -384,18 +388,184 @@ void physics_update_all(Scalar dt)
     }
 }
 
+static void _cpv_save(cpVect *cv, Serializer *s)
+{
+    Vec2 v = vec2_of_cpv(*cv);
+    vec2_save(&v, s);
+}
+static void _cpv_load(cpVect *cv, Deserializer *s)
+{
+    Vec2 v;
+    vec2_load(&v, s);
+    *cv = cpv_of_vec2(v);
+}
+static void _cpf_save(cpFloat *cf, Serializer *s)
+{
+    Scalar f = *cf;
+    scalar_save(&f, s);
+}
+static void _cpf_load(cpFloat *cf, Deserializer *s)
+{
+    Scalar f;
+    scalar_load(&f, s);
+    *cf = f;
+}
+
+#define body_props() \
+    cpf_prop(Mass); \
+    cpf_prop(Moment); \
+    cpv_prop(Pos); \
+    cpv_prop(Vel); \
+    cpv_prop(Force); \
+    cpf_prop(Angle); \
+    cpf_prop(AngVel); \
+    cpf_prop(Torque); \
+    cpf_prop(VelLimit); \
+    cpf_prop(AngVelLimit);
 static void _body_save(PhysicsInfo *info, Serializer *s)
 {
+#define cpf_prop(prop) \
+    { cpFloat f; f = cpBodyGet##prop(info->body); _cpf_save(&f, s); }
+#define cpv_prop(prop) \
+    { cpVect v; v = cpBodyGet##prop(info->body); _cpv_save(&v, s); }
+
+    body_props();
+
+#undef cpf_prop
+#undef cpv_prop
 }
 static void _body_load(PhysicsInfo *info, Deserializer *s)
 {
+    PhysicsBody type;
+
+    info->body = cpSpaceAddBody(space, cpBodyNew(info->mass, 1.0));
+
+#define cpf_prop(prop) \
+    { cpFloat f; _cpf_load(&f, s); cpBodySet##prop(info->body, f); }
+#define cpv_prop(prop) \
+    { cpVect f; _cpv_load(&f, s); cpBodySet##prop(info->body, f); }
+
+    body_props();
+
+#undef cpf_prop
+#undef cpv_prop
+
+    cpBodySetUserData(info->body, info->pool_elem.ent);
+
+    /* force change if non-default type */
+    type = info->type;
+    info->type = PB_DYNAMIC;
+    _set_type(info, type);
+}
+
+
+static void _circle_save(PhysicsInfo *info, ShapeInfo *shapeInfo,
+        Serializer *s)
+{
+    cpFloat radius;
+    cpVect offset;
+
+    radius = cpCircleShapeGetRadius(shapeInfo->shape);
+    _cpf_save(&radius, s);
+    offset = cpCircleShapeGetOffset(shapeInfo->shape);
+    _cpv_save(&offset, s);
+}
+static void _circle_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
+        Deserializer *s)
+{
+    cpFloat radius;
+    cpVect offset;
+
+    _cpf_load(&radius, s);
+    _cpv_load(&offset, s);
+
+    shapeInfo->shape = cpSpaceAddShape(space,
+            cpCircleShapeNew(info->body, radius, offset));
+}
+
+static void _polygon_save(PhysicsInfo *info, ShapeInfo *shapeInfo,
+        Serializer *s)
+{
+    unsigned int n, i;
+    cpVect v;
+
+    n = cpPolyShapeGetNumVerts(shapeInfo->shape);
+    uint_save(&n, s);
+
+    for (i = 0; i < n; ++i)
+    {
+        v = cpPolyShapeGetVert(shapeInfo->shape, i);
+        _cpv_save(&v, s);
+    }
+}
+static void _polygon_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
+        Deserializer *s)
+{
+    unsigned int n, i;
+    cpVect *vs;
+
+    uint_load(&n, s);
+
+    vs = malloc(n * sizeof(cpVect));
+    for (i = 0; i < n; ++i)
+        _cpv_load(&vs[i], s);
+    shapeInfo->shape = cpSpaceAddShape(space,
+            cpPolyShapeNew(info->body, n, vs, cpvzero));
+    free(vs);
 }
 
 static void _shapes_save(PhysicsInfo *info, Serializer *s)
 {
+    unsigned int n;
+    ShapeInfo *shapeInfo, *end;
+
+    n = array_length(info->shapes);
+    uint_save(&n, s);
+
+    for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
+            shapeInfo != end; ++shapeInfo)
+    {
+        enum_save(&shapeInfo->type, s);
+        switch (shapeInfo->type)
+        {
+            case PS_CIRCLE:
+                _circle_save(info, shapeInfo, s);
+                break;
+
+            case PS_POLYGON:
+                _polygon_save(info, shapeInfo, s);
+                break;
+        }
+    }
 }
 static void _shapes_load(PhysicsInfo *info, Deserializer *s)
 {
+    unsigned int n;
+    ShapeInfo *shapeInfo, *end;
+
+    uint_load(&n, s);
+    info->shapes = array_new(ShapeInfo);
+    array_reset(info->shapes, n);
+
+    for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
+            shapeInfo != end; ++shapeInfo)
+    {
+        enum_load(&shapeInfo->type, s);
+        switch (shapeInfo->type)
+        {
+            case PS_CIRCLE:
+                _circle_load(info, shapeInfo, s);
+                break;
+
+            case PS_POLYGON:
+                _polygon_load(info, shapeInfo, s);
+                break;
+        }
+
+        cpShapeSetFriction(shapeInfo->shape, 1); /* TODO: save/load shape
+                                                    properties */
+        cpShapeSetUserData(shapeInfo->shape, info->pool_elem.ent);
+    }
 }
 
 void physics_save_all(Serializer *s)
@@ -406,13 +576,15 @@ void physics_save_all(Serializer *s)
     n = entitypool_size(pool);
     uint_save(&n, s);
 
-    printf("physics saving\n");
-
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
             info != end; ++info)
     {
         entitypool_elem_save(pool, &info, s);
+
+        enum_save(&info->type, s);
         scalar_save(&info->mass, s);
+        _cpv_save(&info->last_pos, s);
+        _cpf_save(&info->last_ang, s);
 
         _body_save(info, s);
         _shapes_save(info, s);
@@ -421,18 +593,24 @@ void physics_save_all(Serializer *s)
 void physics_load_all(Deserializer *s)
 {
     unsigned int n;
-    PhysicsInfo *info;
+    PhysicsInfo *info, *end;
 
+    /* remove old stuff */
+    for (info = entitypool_begin(pool), end = entitypool_end(pool);
+            info != end; ++info)
+        _remove(info);
     entitypool_clear(pool);
 
+    /* load new stuff */
     uint_load(&n, s);
-
-    printf("physics loading\n");
-
     while (n--)
     {
         entitypool_elem_load(pool, &info, s);
+
+        enum_load(&info->type, s);
         scalar_load(&info->mass, s);
+        _cpv_load(&info->last_pos, s);
+        _cpf_load(&info->last_ang, s);
 
         _body_load(info, s);
         _shapes_load(info, s);

@@ -34,10 +34,8 @@ todo
 
 - c99 cleanup
 
-- implement physics serialization, expose more physics functions (force etc.)
-
-- add separate 'kinematic' body type so we don't calculate velocity for all
-  static bodies
+- serialize more physics properties (shape properties, gravity, simulation
+  frequency, ...), expose more physics functions (force etc.)
 
 - add sprite animation
 
