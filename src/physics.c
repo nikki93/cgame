@@ -6,6 +6,7 @@
 #include "array.h"
 #include "entitypool.h"
 #include "transform.h"
+#include "pause.h"
 
 /* per-entity info */
 typedef struct PhysicsInfo PhysicsInfo;
@@ -376,7 +377,8 @@ void physics_update_all(Scalar dt)
 
     _update_kinematics(dt);
 
-    _step(dt);
+    if (!pause_get())
+        _step(dt);
 
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
             info != end; ++info)
