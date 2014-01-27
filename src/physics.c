@@ -35,7 +35,7 @@ struct ShapeInfo
 };
 
 static cpSpace *space;
-static Scalar period = 1.0 / 60.0; /* simulation step period */
+static Scalar period = 1.0 / 60.0; /* 1.0 / simulation_frequency */
 static EntityPool *pool;
 
 /* ------------------------------------------------------------------------- */
@@ -326,7 +326,7 @@ void physics_deinit()
     entitypool_free(pool);
 }
 
-/* step the space with fixed time steps */
+/* step the space with fixed time step */
 static void _step(Scalar dt)
 {
     static Scalar remain = 0.0;
@@ -388,6 +388,7 @@ void physics_update_all(Scalar dt)
     }
 }
 
+/* chipmunk data save/load helpers */
 static void _cpv_save(cpVect *cv, Serializer *s)
 {
     Vec2 v = vec2_of_cpv(*cv);
@@ -411,53 +412,43 @@ static void _cpf_load(cpFloat *cf, Deserializer *s)
     *cf = f;
 }
 
-#define body_props() \
-    cpf_prop(Mass); \
-    cpf_prop(Moment); \
-    cpv_prop(Pos); \
-    cpv_prop(Vel); \
-    cpv_prop(Force); \
-    cpf_prop(Angle); \
-    cpf_prop(AngVel); \
-    cpf_prop(Torque); \
-    cpf_prop(VelLimit); \
-    cpf_prop(AngVelLimit);
+/* some hax to reduce typing for body properties save/load */
+#define body_prop_save(type, f, prop) \
+    { type v; v = (type) cpBodyGet##prop(info->body); f##_save(&v, s); }
+#define body_prop_load(type, f, prop) \
+    { type v; f##_load(&v, s); cpBodySet##prop(info->body, v); }
+#define body_props_saveload(saveload) \
+    body_prop_##saveload(cpFloat, _cpf, Mass); \
+    body_prop_##saveload(cpFloat, _cpf, Moment); \
+    body_prop_##saveload(cpVect, _cpv, Pos); \
+    body_prop_##saveload(cpVect, _cpv, Vel); \
+    body_prop_##saveload(cpVect, _cpv, Force); \
+    body_prop_##saveload(cpFloat, _cpf, Angle); \
+    body_prop_##saveload(cpFloat, _cpf, AngVel); \
+    body_prop_##saveload(cpFloat, _cpf, Torque); \
+    body_prop_##saveload(cpFloat, _cpf, VelLimit); \
+    body_prop_##saveload(cpFloat, _cpf, AngVelLimit); \
+
+/* save/load for just the body in a PhysicsInfo */
 static void _body_save(PhysicsInfo *info, Serializer *s)
 {
-#define cpf_prop(prop) \
-    { cpFloat f; f = cpBodyGet##prop(info->body); _cpf_save(&f, s); }
-#define cpv_prop(prop) \
-    { cpVect v; v = cpBodyGet##prop(info->body); _cpv_save(&v, s); }
-
-    body_props();
-
-#undef cpf_prop
-#undef cpv_prop
+    body_props_saveload(save);
 }
 static void _body_load(PhysicsInfo *info, Deserializer *s)
 {
     PhysicsBody type;
 
     info->body = cpSpaceAddBody(space, cpBodyNew(info->mass, 1.0));
-
-#define cpf_prop(prop) \
-    { cpFloat f; _cpf_load(&f, s); cpBodySet##prop(info->body, f); }
-#define cpv_prop(prop) \
-    { cpVect f; _cpv_load(&f, s); cpBodySet##prop(info->body, f); }
-
-    body_props();
-
-#undef cpf_prop
-#undef cpv_prop
-
+    body_props_saveload(load);
     cpBodySetUserData(info->body, info->pool_elem.ent);
 
-    /* force change if non-default type */
+    /* force type change if non-default */
     type = info->type;
     info->type = PB_DYNAMIC;
     _set_type(info, type);
 }
 
+/* save/load for special properties of each shape type */
 
 static void _circle_save(PhysicsInfo *info, ShapeInfo *shapeInfo,
         Serializer *s)
@@ -514,6 +505,21 @@ static void _polygon_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
     free(vs);
 }
 
+/* some hax to reduce typing for shape properties save/load */
+#define shape_prop_save(type, f, prop) \
+    { type v; v = (type) cpShapeGet##prop(shapeInfo->shape); f##_save(&v, s); }
+#define shape_prop_load(type, f, prop) \
+    { type v; f##_load(&v, s); cpShapeSet##prop(shapeInfo->shape, v); }
+#define shape_props_saveload(saveload) \
+    shape_prop_##saveload(bool, bool, Sensor); \
+    shape_prop_##saveload(cpFloat, _cpf, Elasticity); \
+    shape_prop_##saveload(cpFloat, _cpf, Friction); \
+    shape_prop_##saveload(cpVect, _cpv, SurfaceVelocity); \
+    shape_prop_##saveload(unsigned int, uint, CollisionType); \
+    shape_prop_##saveload(unsigned int, uint, Group); \
+    shape_prop_##saveload(unsigned int, uint, Layers); \
+
+/* save/load for all shapes in a PhysicsInfo */
 static void _shapes_save(PhysicsInfo *info, Serializer *s)
 {
     unsigned int n;
@@ -536,7 +542,10 @@ static void _shapes_save(PhysicsInfo *info, Serializer *s)
                 _polygon_save(info, shapeInfo, s);
                 break;
         }
+
+        shape_props_saveload(save);
     }
+
 }
 static void _shapes_load(PhysicsInfo *info, Deserializer *s)
 {
@@ -562,12 +571,16 @@ static void _shapes_load(PhysicsInfo *info, Deserializer *s)
                 break;
         }
 
-        cpShapeSetFriction(shapeInfo->shape, 1); /* TODO: save/load shape
-                                                    properties */
+        shape_props_saveload(load);
+
         cpShapeSetUserData(shapeInfo->shape, info->pool_elem.ent);
     }
 }
 
+/* 
+ * save/load for all data in a PhysicsInfo other than the the actual body,
+ * shapes is handled here, the rest is done in functions above
+ */
 void physics_save_all(Serializer *s)
 {
     unsigned int n;
@@ -600,6 +613,7 @@ void physics_load_all(Deserializer *s)
             info != end; ++info)
         _remove(info);
     entitypool_clear(pool);
+    cpResetShapeIdCounter();
 
     /* load new stuff */
     uint_load(&n, s);
