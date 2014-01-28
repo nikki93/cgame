@@ -100,6 +100,23 @@ static void _deserializer_scanf_(Deserializer *s, const char *fmt, int *n, ...)
         _deserializer_scanf_(s, fmt, &n_read__, ##__VA_ARGS__, &n_read__); \
     } while (0)
 
+/* return next character in stream but don't move ahead */
+static char _deserializer_peek(Deserializer *s)
+{
+    int c;
+
+    switch (s->type)
+    {
+        case SER_STRING:
+            return *s->ptr;
+
+        case SER_FILE:
+            c = fgetc(s->file);
+            ungetc(c, s->file);
+            return c;
+    }
+}
+
 Serializer *serializer_open_str()
 {
     Serializer *s = malloc(sizeof(Serializer));
@@ -158,13 +175,23 @@ void deserializer_close(Deserializer *s)
     free(s);
 }
 
+/* printf/scanf for INFINITY doesn't work out on MSVC */
 void scalar_save(const Scalar *f, Serializer *s)
 {
-    _serializer_printf(s, "%f\n", *f);
+    if (*f == INFINITY)
+        _serializer_printf(s, "inf\n");
+    else
+        _serializer_printf(s, "%f\n", *f);
 }
 void scalar_load(Scalar *f, Deserializer *s)
 {
-    _deserializer_scanf(s, "%f\n", f);
+    if (_deserializer_peek(s) == 'i')
+    {
+        *f = INFINITY;
+        _deserializer_scanf(s, "inf\n");
+    }
+    else
+        _deserializer_scanf(s, "%f\n", f);
 }
 
 void uint_save(const unsigned int *u, Serializer *s)
