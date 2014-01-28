@@ -202,7 +202,22 @@ void string_save(const char **c, Serializer *s)
 
     len = strlen(*c);
     uint_save(&len, s);
-    _serializer_printf(s, "%s\n", *c);
+
+    switch (s->type)
+    {
+        case SER_STRING:
+            s->strbuf.buf = realloc(s->strbuf.buf, s->strbuf.pos + len + 1);
+            strncpy(s->strbuf.buf + s->strbuf.pos, *c, len);
+            s->strbuf.pos += len;
+            s->strbuf.buf[s->strbuf.pos] = '\0';
+            break;
+
+        case SER_FILE:
+            fwrite(*c, sizeof(char), len, s->file);
+            fflush(s->file);
+            fprintf(s->file, "\n");
+            break;
+    }
 }
 void string_load(char **c, Deserializer *s)
 {
@@ -211,9 +226,20 @@ void string_load(char **c, Deserializer *s)
 
     uint_load(&len, s);
     *c = malloc(len + 1);
-    sprintf(fmt, "%%%u[^]", len);
-    _deserializer_scanf(s, fmt, *c);
-    _deserializer_scanf(s, "\n");
+
+    switch (s->type)
+    {
+        case SER_STRING:
+            strncpy(*c, s->ptr, len);
+            s->ptr += len;
+            break;
+
+        case SER_FILE:
+            fread(*c, sizeof(char), len, s->file);
+            fscanf(s->file, "\n");
+            break;
+    }
+    (*c)[len] = '\0';
 }
 
 #ifdef SERIALIZER_TEST
