@@ -1,5 +1,6 @@
 #include "physics.h"
 
+#include <assert.h>
 #define CP_DATA_POINTER_TYPE Entity
 #include <chipmunk.h>
 
@@ -419,7 +420,7 @@ static void _cpf_load(cpFloat *cf, Deserializer *s)
 
 /* some hax to reduce typing for body properties save/load */
 #define body_prop_save(type, f, prop) \
-    { type v; v = (type) cpBodyGet##prop(info->body); f##_save(&v, s); }
+    { type v; v = cpBodyGet##prop(info->body); f##_save(&v, s); }
 #define body_prop_load(type, f, prop) \
     { type v; f##_load(&v, s); cpBodySet##prop(info->body, v); }
 #define body_props_saveload(saveload) \
@@ -512,7 +513,7 @@ static void _polygon_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
 
 /* some hax to reduce typing for shape properties save/load */
 #define shape_prop_save(type, f, prop) \
-    { type v; v = (type) cpShapeGet##prop(shapeInfo->shape); f##_save(&v, s); }
+    { type v; v = cpShapeGet##prop(shapeInfo->shape); f##_save(&v, s); }
 #define shape_prop_load(type, f, prop) \
     { type v; f##_load(&v, s); cpShapeSet##prop(shapeInfo->shape, v); }
 #define shape_props_saveload(saveload) \

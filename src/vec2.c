@@ -2,7 +2,7 @@
 
 #include "saveload.h"
 
-Vec2 vec2_zero = vec2(0.0, 0.0);
+Vec2 vec2_zero = { 0.0, 0.0 };
 
 Vec2 vec2_add(Vec2 u, Vec2 v)
 {
