@@ -476,8 +476,8 @@ static void _circle_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
     _cpf_load(&radius, s);
     _cpv_load(&offset, s);
 
-    shapeInfo->shape = cpSpaceAddShape(space,
-            cpCircleShapeNew(info->body, radius, offset));
+    shapeInfo->shape = cpCircleShapeNew(info->body, radius, offset);
+    cpSpaceAddShape(space, shapeInfo->shape);
 }
 
 static void _polygon_save(PhysicsInfo *info, ShapeInfo *shapeInfo,
@@ -506,8 +506,8 @@ static void _polygon_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
     vs = malloc(n * sizeof(cpVect));
     for (i = 0; i < n; ++i)
         _cpv_load(&vs[i], s);
-    shapeInfo->shape = cpSpaceAddShape(space,
-            cpPolyShapeNew(info->body, n, vs, cpvzero));
+    shapeInfo->shape = cpPolyShapeNew(info->body, n, vs, cpvzero);
+    cpSpaceAddShape(space, shapeInfo->shape);
     free(vs);
 }
 

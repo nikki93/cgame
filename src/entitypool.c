@@ -34,13 +34,16 @@ void *entitypool_add(EntityPool *pool, Entity ent)
 void entitypool_remove(EntityPool *pool, Entity ent)
 {
     int i;
+    EntityPoolElem *elem;
 
     i = entitymap_get(pool->emap, ent);
     if (i >= 0)
     {
         if (array_quick_remove(pool->array, i))
-            entitymap_set(pool->emap,
-                    ((EntityPoolElem *) array_get(pool->array, i))->ent, i);
+        {
+            elem = array_get(pool->array, i);
+            entitymap_set(pool->emap, elem->ent, i);
+        }
         entitymap_set(pool->emap, ent, -1);
     }
 }

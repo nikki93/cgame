@@ -108,13 +108,16 @@ static char _deserializer_peek(Deserializer *s)
     switch (s->type)
     {
         case SER_STRING:
-            return *s->ptr;
+            c = *s->ptr;
+            break;
 
         case SER_FILE:
             c = fgetc(s->file);
             ungetc(c, s->file);
-            return c;
+            break;
     }
+
+    return c;
 }
 
 Serializer *serializer_open_str()
