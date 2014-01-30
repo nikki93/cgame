@@ -26,10 +26,10 @@ static EntityPool *pool;
 static void _update_cache(Transform *transform)
 {
     transform->worldmat_cache = mat3_scaling_rotation_translation(
-            transform->scale,
-            transform->rotation,
-            transform->position
-            );
+        transform->scale,
+        transform->rotation,
+        transform->position
+        );
 }
 
 void transform_add(Entity ent)
@@ -129,7 +129,7 @@ void transform_update_all()
 
     /* don't precalculate end pointer here because it changes as we remove */
     for (transform = entitypool_begin(pool);
-            transform != entitypool_end(pool); )
+         transform != entitypool_end(pool); )
         if (entity_destroyed(transform->pool_elem.ent))
             transform_remove(transform->pool_elem.ent);
         else
@@ -145,7 +145,7 @@ void transform_save_all(Serializer *s)
     uint_save(&n, s);
 
     for (transform = entitypool_begin(pool), end = entitypool_end(pool);
-            transform != end; ++transform)
+         transform != end; ++transform)
     {
         entitypool_elem_save(pool, &transform, s);
         vec2_save(&transform->position, s);

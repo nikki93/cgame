@@ -14,23 +14,23 @@
 
 SCRIPT(transform,
 
-        EXPORT void transform_add(Entity ent);
-        EXPORT void transform_remove(Entity ent);
+       EXPORT void transform_add(Entity ent);
+       EXPORT void transform_remove(Entity ent);
 
-        EXPORT void transform_set_position(Entity ent, Vec2 pos);
-        EXPORT Vec2 transform_get_position(Entity ent);
-        EXPORT void transform_translate(Entity ent, Vec2 trans);
+       EXPORT void transform_set_position(Entity ent, Vec2 pos);
+       EXPORT Vec2 transform_get_position(Entity ent);
+       EXPORT void transform_translate(Entity ent, Vec2 trans);
 
-        EXPORT void transform_set_rotation(Entity ent, Scalar rot);
-        EXPORT Scalar transform_get_rotation(Entity ent);
-        EXPORT void transform_rotate(Entity ent, Scalar rot);
+       EXPORT void transform_set_rotation(Entity ent, Scalar rot);
+       EXPORT Scalar transform_get_rotation(Entity ent);
+       EXPORT void transform_rotate(Entity ent, Scalar rot);
 
-        EXPORT void transform_set_scale(Entity ent, Vec2 scale);
-        EXPORT Vec2 transform_get_scale(Entity ent);
+       EXPORT void transform_set_scale(Entity ent, Vec2 scale);
+       EXPORT Vec2 transform_get_scale(Entity ent);
 
-        EXPORT Mat3 transform_get_world_matrix(Entity ent);
+       EXPORT Mat3 transform_get_world_matrix(Entity ent);
 
-      )
+    )
 
 void transform_init();
 void transform_deinit();

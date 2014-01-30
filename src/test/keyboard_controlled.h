@@ -8,10 +8,10 @@
 
 SCRIPT(keyboard_controlled,
 
-        EXPORT void keyboard_controlled_add(Entity ent);
-        EXPORT void keyboard_controlled_remove(Entity ent);
+       EXPORT void keyboard_controlled_add(Entity ent);
+       EXPORT void keyboard_controlled_remove(Entity ent);
 
-      )
+    )
 
 void keyboard_controlled_update_all(Scalar dt);
 void keyboard_controlled_save_all(Serializer *s);

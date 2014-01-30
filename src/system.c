@@ -55,7 +55,7 @@ void system_draw_all()
 /* do it this way so we save/load in the same order */
 static void _saveload_all(void *s, bool save)
 {
-#define saveload(sys) \
+#define saveload(sys)                                   \
     if (save) sys##_save_all(s); else sys##_load_all(s)
 
     saveload(entity);

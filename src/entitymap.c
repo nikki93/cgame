@@ -53,7 +53,7 @@ static void _grow(EntityMap *emap)
     /* find next power of 2 (TODO: use log?) */
     bound = emap->bound;
     for (new_capacity = emap->capacity; new_capacity < bound;
-            new_capacity <<= 1);
+         new_capacity <<= 1);
 
     /* grow, clear new */
     emap->arr = realloc(emap->arr, new_capacity * sizeof(*emap->arr));
@@ -73,8 +73,8 @@ static void _shrink(EntityMap *emap)
     if (bound_times_4 >= emap->capacity)
         return;
     for (new_capacity = emap->capacity;
-            new_capacity > MIN_CAPACITY && bound_times_4 < new_capacity;
-            new_capacity >>= 1);
+         new_capacity > MIN_CAPACITY && bound_times_4 < new_capacity;
+         new_capacity >>= 1);
     if (new_capacity < MIN_CAPACITY)
         new_capacity = MIN_CAPACITY;
 

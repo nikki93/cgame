@@ -93,10 +93,10 @@ static void _deserializer_scanf_(Deserializer *s, const char *fmt, int *n, ...)
 
     free(newfmt);
 }
-#define _deserializer_scanf(s, fmt, ...) \
-    do \
-    { \
-        int n_read__; \
+#define _deserializer_scanf(s, fmt, ...)                                \
+    do                                                                  \
+    {                                                                   \
+        int n_read__;                                                   \
         _deserializer_scanf_(s, fmt, &n_read__, ##__VA_ARGS__, &n_read__); \
     } while (0)
 

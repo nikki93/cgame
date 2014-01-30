@@ -5,8 +5,8 @@
 Mat3 mat3_scaling_rotation_translation(Vec2 scale, Scalar rot, Vec2 trans)
 {
     return mat3(scale.x * scalar_cos(rot), scale.x * scalar_sin(rot), 0.0f,
-            scale.y * -scalar_sin(rot), scale.y * scalar_cos(rot), 0.0f,
-            trans.x, trans.y, 1.0f);
+                scale.y * -scalar_sin(rot), scale.y * scalar_cos(rot), 0.0f,
+                trans.x, trans.y, 1.0f);
 }
 
 Mat3 mat3_inverse(Mat3 m)
@@ -65,16 +65,16 @@ void mat3_load(Mat3 *m, Deserializer *s)
 Mat3 mat3_identity()
 {
     return mat3(
-            1.0f, 0.0f, 0.0f,
-            0.0f, 1.0f, 0.0f,
-            0.0f, 0.0f, 1.0f
-            );
+        1.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f
+        );
 }
 
 #undef mat3
 Mat3 mat3(Scalar m00, Scalar m01, Scalar m02,
-        Scalar m10, Scalar m11, Scalar m12,
-        Scalar m20, Scalar m21, Scalar m22)
+          Scalar m10, Scalar m11, Scalar m12,
+          Scalar m20, Scalar m21, Scalar m22)
 {
     return (Mat3)
     {

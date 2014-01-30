@@ -109,7 +109,7 @@ static void _remove(PhysicsInfo *info)
     ShapeInfo *shapeInfo, *end;
 
     for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
-            shapeInfo != end; ++shapeInfo)
+         shapeInfo != end; ++shapeInfo)
         _remove_shape(shapeInfo->shape);
 
     array_free(info->shapes);
@@ -135,14 +135,14 @@ static Scalar _moment(cpBody *body, ShapeInfo *shapeInfo)
     {
         case PS_CIRCLE:
             return cpMomentForCircle(mass, 0,
-                    cpCircleShapeGetRadius(shapeInfo->shape),
-                    cpCircleShapeGetOffset(shapeInfo->shape));
+                                     cpCircleShapeGetRadius(shapeInfo->shape),
+                                     cpCircleShapeGetOffset(shapeInfo->shape));
 
         case PS_POLYGON:
             return cpMomentForPoly(mass,
-                    cpPolyShapeGetNumVerts(shapeInfo->shape),
-                    ((cpPolyShape *) shapeInfo->shape)->verts,
-                    cpvzero);
+                                   cpPolyShapeGetNumVerts(shapeInfo->shape),
+                                   ((cpPolyShape *) shapeInfo->shape)->verts,
+                                   cpvzero);
     }
 }
 
@@ -159,7 +159,7 @@ static void _recalculate_moment(PhysicsInfo *info)
 
     moment = 0.0;
     for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
-            shapeInfo != end; ++shapeInfo)
+         shapeInfo != end; ++shapeInfo)
         moment += _moment(info->body, shapeInfo);
 
     cpBodySetMoment(info->body, moment);
@@ -189,7 +189,7 @@ static unsigned int _add_shape(Entity ent, PhysicsShape type, cpShape *shape)
     {
         if (array_length(info->shapes) > 1)
             cpBodySetMoment(info->body, _moment(info->body, shapeInfo)
-                    + cpBodyGetMoment(info->body));
+                            + cpBodyGetMoment(info->body));
         else
             cpBodySetMoment(info->body, _moment(info->body, shapeInfo));
     }
@@ -197,16 +197,16 @@ static unsigned int _add_shape(Entity ent, PhysicsShape type, cpShape *shape)
     return array_length(info->shapes) - 1;
 }
 unsigned int physics_add_circle_shape(Entity ent, Scalar r,
-        Vec2 offset)
+                                      Vec2 offset)
 {
-    return _add_shape(ent, PS_CIRCLE, cpCircleShapeNew(NULL, r,
-                cpv_of_vec2(offset)));
+    cpShape *shape = cpCircleShapeNew(NULL, r, cpv_of_vec2(offset));
+    return _add_shape(ent, PS_CIRCLE, shape);
 }
 unsigned int physics_add_box_shape(Entity ent, Scalar l, Scalar b, Scalar r,
-        Scalar t)
+                                   Scalar t)
 {
-    return _add_shape(ent, PS_POLYGON, cpBoxShapeNew2(NULL,
-                cpBBNew(l, b, r, t)));
+    cpShape *shape = cpBoxShapeNew2(NULL, cpBBNew(l, b, r, t));
+    return _add_shape(ent, PS_CIRCLE, shape);
 }
 
 static void _set_type(PhysicsInfo *info, PhysicsBody type)
@@ -323,7 +323,7 @@ void physics_deinit()
     PhysicsInfo *info, *end;
 
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
-            info != end; ++info)
+         info != end; ++info)
         _remove(info);
 
     cpSpaceFree(space);
@@ -352,7 +352,7 @@ static void _update_kinematics(Scalar dt)
     Scalar invdt = 1.0 / dt;
 
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
-            info != end; ++info)
+         info != end; ++info)
         if (info->type == PB_KINEMATIC)
         {
             pos = cpv_of_vec2(transform_get_position(info->pool_elem.ent));
@@ -361,7 +361,7 @@ static void _update_kinematics(Scalar dt)
             cpBodySetPos(info->body, pos);
             cpBodySetAngle(info->body, ang);
             cpBodySetVel(info->body,
-                    cpvmult(cpvsub(pos, info->last_pos), invdt));
+                         cpvmult(cpvsub(pos, info->last_pos), invdt));
             cpBodySetAngVel(info->body, (ang - info->last_ang) * invdt);
             cpSpaceReindexShapesForBody(space, info->body);
 
@@ -385,12 +385,12 @@ void physics_update_all(Scalar dt)
         _step(dt);
 
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
-            info != end; ++info)
+         info != end; ++info)
     {
         transform_set_position(info->pool_elem.ent,
-                vec2_of_cpv(cpBodyGetPos(info->body)));
+                               vec2_of_cpv(cpBodyGetPos(info->body)));
         transform_set_rotation(info->pool_elem.ent,
-                cpBodyGetAngle(info->body));
+                               cpBodyGetAngle(info->body));
     }
 }
 
@@ -419,21 +419,21 @@ static void _cpf_load(cpFloat *cf, Deserializer *s)
 }
 
 /* some hax to reduce typing for body properties save/load */
-#define body_prop_save(type, f, prop) \
+#define body_prop_save(type, f, prop)                                   \
     { type v; v = cpBodyGet##prop(info->body); f##_save(&v, s); }
-#define body_prop_load(type, f, prop) \
+#define body_prop_load(type, f, prop)                                   \
     { type v; f##_load(&v, s); cpBodySet##prop(info->body, v); }
-#define body_props_saveload(saveload) \
-    body_prop_##saveload(cpFloat, _cpf, Mass); \
-    body_prop_##saveload(cpFloat, _cpf, Moment); \
-    body_prop_##saveload(cpVect, _cpv, Pos); \
-    body_prop_##saveload(cpVect, _cpv, Vel); \
-    body_prop_##saveload(cpVect, _cpv, Force); \
-    body_prop_##saveload(cpFloat, _cpf, Angle); \
-    body_prop_##saveload(cpFloat, _cpf, AngVel); \
-    body_prop_##saveload(cpFloat, _cpf, Torque); \
-    body_prop_##saveload(cpFloat, _cpf, VelLimit); \
-    body_prop_##saveload(cpFloat, _cpf, AngVelLimit); \
+#define body_props_saveload(saveload)                   \
+    body_prop_##saveload(cpFloat, _cpf, Mass);          \
+    body_prop_##saveload(cpFloat, _cpf, Moment);        \
+    body_prop_##saveload(cpVect, _cpv, Pos);            \
+    body_prop_##saveload(cpVect, _cpv, Vel);            \
+    body_prop_##saveload(cpVect, _cpv, Force);          \
+    body_prop_##saveload(cpFloat, _cpf, Angle);         \
+    body_prop_##saveload(cpFloat, _cpf, AngVel);        \
+    body_prop_##saveload(cpFloat, _cpf, Torque);        \
+    body_prop_##saveload(cpFloat, _cpf, VelLimit);      \
+    body_prop_##saveload(cpFloat, _cpf, AngVelLimit);   \
 
 /* save/load for just the body in a PhysicsInfo */
 static void _body_save(PhysicsInfo *info, Serializer *s)
@@ -457,7 +457,7 @@ static void _body_load(PhysicsInfo *info, Deserializer *s)
 /* save/load for special properties of each shape type */
 
 static void _circle_save(PhysicsInfo *info, ShapeInfo *shapeInfo,
-        Serializer *s)
+                         Serializer *s)
 {
     cpFloat radius;
     cpVect offset;
@@ -468,7 +468,7 @@ static void _circle_save(PhysicsInfo *info, ShapeInfo *shapeInfo,
     _cpv_save(&offset, s);
 }
 static void _circle_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
-        Deserializer *s)
+                         Deserializer *s)
 {
     cpFloat radius;
     cpVect offset;
@@ -481,7 +481,7 @@ static void _circle_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
 }
 
 static void _polygon_save(PhysicsInfo *info, ShapeInfo *shapeInfo,
-        Serializer *s)
+                          Serializer *s)
 {
     unsigned int n, i;
     cpVect v;
@@ -496,7 +496,7 @@ static void _polygon_save(PhysicsInfo *info, ShapeInfo *shapeInfo,
     }
 }
 static void _polygon_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
-        Deserializer *s)
+                          Deserializer *s)
 {
     unsigned int n, i;
     cpVect *vs;
@@ -512,18 +512,18 @@ static void _polygon_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
 }
 
 /* some hax to reduce typing for shape properties save/load */
-#define shape_prop_save(type, f, prop) \
+#define shape_prop_save(type, f, prop)                                  \
     { type v; v = cpShapeGet##prop(shapeInfo->shape); f##_save(&v, s); }
-#define shape_prop_load(type, f, prop) \
+#define shape_prop_load(type, f, prop)                                  \
     { type v; f##_load(&v, s); cpShapeSet##prop(shapeInfo->shape, v); }
-#define shape_props_saveload(saveload) \
-    shape_prop_##saveload(bool, bool, Sensor); \
-    shape_prop_##saveload(cpFloat, _cpf, Elasticity); \
-    shape_prop_##saveload(cpFloat, _cpf, Friction); \
-    shape_prop_##saveload(cpVect, _cpv, SurfaceVelocity); \
-    shape_prop_##saveload(unsigned int, uint, CollisionType); \
-    shape_prop_##saveload(unsigned int, uint, Group); \
-    shape_prop_##saveload(unsigned int, uint, Layers); \
+#define shape_props_saveload(saveload)                          \
+    shape_prop_##saveload(bool, bool, Sensor);                  \
+    shape_prop_##saveload(cpFloat, _cpf, Elasticity);           \
+    shape_prop_##saveload(cpFloat, _cpf, Friction);             \
+    shape_prop_##saveload(cpVect, _cpv, SurfaceVelocity);       \
+    shape_prop_##saveload(unsigned int, uint, CollisionType);   \
+    shape_prop_##saveload(unsigned int, uint, Group);           \
+    shape_prop_##saveload(unsigned int, uint, Layers);          \
 
 /* save/load for all shapes in a PhysicsInfo */
 static void _shapes_save(PhysicsInfo *info, Serializer *s)
@@ -535,7 +535,7 @@ static void _shapes_save(PhysicsInfo *info, Serializer *s)
     uint_save(&n, s);
 
     for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
-            shapeInfo != end; ++shapeInfo)
+         shapeInfo != end; ++shapeInfo)
     {
         enum_save(&shapeInfo->type, s);
         switch (shapeInfo->type)
@@ -563,7 +563,7 @@ static void _shapes_load(PhysicsInfo *info, Deserializer *s)
     array_reset(info->shapes, n);
 
     for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
-            shapeInfo != end; ++shapeInfo)
+         shapeInfo != end; ++shapeInfo)
     {
         enum_load(&shapeInfo->type, s);
         switch (shapeInfo->type)
@@ -596,7 +596,7 @@ void physics_save_all(Serializer *s)
     uint_save(&n, s);
 
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
-            info != end; ++info)
+         info != end; ++info)
     {
         entitypool_elem_save(pool, &info, s);
 
@@ -616,7 +616,7 @@ void physics_load_all(Deserializer *s)
 
     /* remove old stuff */
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
-            info != end; ++info)
+         info != end; ++info)
         _remove(info);
     entitypool_clear(pool);
     cpResetShapeIdCounter();

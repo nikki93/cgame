@@ -33,7 +33,7 @@ void test_c()
 
         transform_add(block);
         transform_set_position(block,
-                vec2((rand() % 25) - 12, (rand() % 9) - 4));
+                               vec2((rand() % 25) - 12, (rand() % 9) - 4));
 
         sprite_add(block);
         sprite_set_cell(block, vec2(32.0f, 32.0f));

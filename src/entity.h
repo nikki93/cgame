@@ -9,13 +9,13 @@
 
 SCRIPT(entity,
 
-        typedef unsigned int Entity;
+       typedef unsigned int Entity;
 
-        EXPORT Entity entity_create();
-        EXPORT void entity_destroy(Entity ent);
-        EXPORT bool entity_destroyed(Entity ent);
+       EXPORT Entity entity_create();
+       EXPORT void entity_destroy(Entity ent);
+       EXPORT bool entity_destroyed(Entity ent);
 
-      )
+    )
 
 void entity_save(Entity *ent, Serializer *s);  /* save/load just the id */
 void entity_load(Entity *ent, Deserializer *s);

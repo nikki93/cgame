@@ -101,7 +101,7 @@ static void _compile_shader(GLuint shader, const char *filename)
 }
 
 /* get pointer offset of 'field' in struct 'type' */
-#define poffsetof(type, field) \
+#define poffsetof(type, field)                  \
     ((void *) (&((type *) 0)->field))
 
 static void _bind_attributes()
@@ -111,30 +111,30 @@ static void _bind_attributes()
 
     transform1 = glGetAttribLocation(program, "transform1");
     glVertexAttribPointer(transform1, 3, GL_FLOAT, GL_FALSE,
-            sizeof(Sprite), poffsetof(Sprite, transform.m[0]));
+                          sizeof(Sprite), poffsetof(Sprite, transform.m[0]));
     glEnableVertexAttribArray(transform1);
     transform2 = glGetAttribLocation(program, "transform2");
     glVertexAttribPointer(transform2, 3, GL_FLOAT, GL_FALSE,
-            sizeof(Sprite), poffsetof(Sprite, transform.m[1]));
+                          sizeof(Sprite), poffsetof(Sprite, transform.m[1]));
     glEnableVertexAttribArray(transform2);
     transform3 = glGetAttribLocation(program, "transform3");
     glVertexAttribPointer(transform3, 3, GL_FLOAT, GL_FALSE,
-            sizeof(Sprite), poffsetof(Sprite, transform.m[2]));
+                          sizeof(Sprite), poffsetof(Sprite, transform.m[2]));
     glEnableVertexAttribArray(transform3);
 
     cell = glGetAttribLocation(program, "cell");
     glVertexAttribPointer(cell, 2, GL_FLOAT, GL_FALSE,
-            sizeof(Sprite), poffsetof(Sprite, cell));
+                          sizeof(Sprite), poffsetof(Sprite, cell));
     glEnableVertexAttribArray(cell);
 
     size = glGetAttribLocation(program, "size");
     glVertexAttribPointer(size, 2, GL_FLOAT, GL_FALSE,
-            sizeof(Sprite), poffsetof(Sprite, size));
+                          sizeof(Sprite), poffsetof(Sprite, size));
     glEnableVertexAttribArray(size);
 }
 
 static void _flip_image_vertical(unsigned char *data,
-        unsigned int width, unsigned int height)
+                                 unsigned int width, unsigned int height)
 {
     unsigned int size, stride, i, j;
     unsigned char *new_data;
@@ -168,7 +168,7 @@ static void _load_atlases()
     data = stbi_load(data_path("test/atlas.png"), &width, &height, &n, 0);
     _flip_image_vertical(data, width, height);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA,
-            GL_UNSIGNED_BYTE, data);
+                 GL_UNSIGNED_BYTE, data);
     stbi_image_free(data);
 
     glUniform1i(glGetUniformLocation(program, "tex0"), 0);
@@ -205,7 +205,7 @@ void sprite_init()
     glGenBuffers(1, &sprite_buf_object);
     glBindBuffer(GL_ARRAY_BUFFER, sprite_buf_object);
     glBufferData(GL_ARRAY_BUFFER, entitypool_size(pool) * sizeof(Sprite),
-            entitypool_begin(pool), GL_STREAM_DRAW);
+                 entitypool_begin(pool), GL_STREAM_DRAW);
     _bind_attributes();
 
     /* load atlas textures */
@@ -231,14 +231,14 @@ void sprite_update_all()
     Sprite *sprite, *end;
 
     for (sprite = entitypool_begin(pool);
-            sprite != entitypool_end(pool); )
+         sprite != entitypool_end(pool); )
         if (entity_destroyed(sprite->pool_elem.ent))
             sprite_remove(sprite->pool_elem.ent);
         else
             ++sprite;
 
     for (sprite = entitypool_begin(pool), end = entitypool_end(pool);
-            sprite != end; ++sprite)
+         sprite != end; ++sprite)
         sprite->transform = transform_get_world_matrix(sprite->pool_elem.ent);
 }
 
@@ -247,12 +247,12 @@ void sprite_draw_all()
     glBindVertexArray(vao);
 
     glUniformMatrix3fv(glGetUniformLocation(program, "inverse_view_matrix"),
-            1, GL_FALSE,
-            (const GLfloat *) camera_get_inverse_view_matrix_ptr());
+                       1, GL_FALSE,
+                       (const GLfloat *) camera_get_inverse_view_matrix_ptr());
 
     glBindBuffer(GL_ARRAY_BUFFER, sprite_buf_object);
     glBufferData(GL_ARRAY_BUFFER, entitypool_size(pool) * sizeof(Sprite),
-            entitypool_begin(pool), GL_STREAM_DRAW);
+                 entitypool_begin(pool), GL_STREAM_DRAW);
     glDrawArrays(GL_POINTS, 0, entitypool_size(pool));
 }
 
@@ -265,7 +265,7 @@ void sprite_save_all(Serializer *s)
     uint_save(&n, s);
 
     for (sprite = entitypool_begin(pool), end = entitypool_end(pool);
-            sprite != end; ++sprite)
+         sprite != end; ++sprite)
     {
         entitypool_elem_save(pool, &sprite, s);
         mat3_save(&sprite->transform, s);

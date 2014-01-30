@@ -8,13 +8,13 @@
 
 SCRIPT(sprite,
 
-        EXPORT void sprite_add(Entity ent);
-        EXPORT void sprite_remove(Entity ent);
+       EXPORT void sprite_add(Entity ent);
+       EXPORT void sprite_remove(Entity ent);
 
-        EXPORT void sprite_set_cell(Entity ent, Vec2 cell);
-        EXPORT void sprite_set_size(Entity ent, Vec2 size);
+       EXPORT void sprite_set_cell(Entity ent, Vec2 cell);
+       EXPORT void sprite_set_size(Entity ent, Vec2 size);
 
-      )
+    )
 
 void sprite_init();
 void sprite_deinit();

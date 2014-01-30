@@ -55,7 +55,7 @@ void *array_add(Array *arr)
 {
     if (++arr->length > arr->capacity)
         arr->buf = realloc(arr->buf, arr->object_size *
-                (arr->capacity = arr->capacity << 1));
+                           (arr->capacity = arr->capacity << 1));
     return arr->buf + arr->object_size * (arr->length - 1);
 }
 void array_reset(Array *arr, unsigned int num)
@@ -70,7 +70,7 @@ void array_pop(Array *arr)
 {
     if (--arr->length << 2 < arr->capacity && arr->capacity > 2)
         arr->buf = realloc(arr->buf, arr->object_size *
-                (arr->capacity = arr->capacity >> 1));
+                           (arr->capacity = arr->capacity >> 1));
 }
 
 bool array_quick_remove(Array *arr, unsigned int i)
@@ -80,8 +80,8 @@ bool array_quick_remove(Array *arr, unsigned int i)
     if (i + 1 < arr->length)
     {
         memcpy(arr->buf + arr->object_size * i,
-                arr->buf + arr->object_size * (arr->length - 1),
-                arr->object_size);
+               arr->buf + arr->object_size * (arr->length - 1),
+               arr->object_size);
         ret = true;
     }
 

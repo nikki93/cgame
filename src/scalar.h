@@ -7,9 +7,9 @@
 
 SCRIPT(scalar,
 
-        typedef float Scalar;
+       typedef float Scalar;
 
-      )
+    )
 
 #ifdef M_PI
 #define SCALAR_PI M_PI

@@ -13,9 +13,9 @@ char **game_get_argv();
 
 SCRIPT(game,
 
-        EXPORT void game_quit();
+       EXPORT void game_quit();
 
-      )
+    )
 
 #endif
 
