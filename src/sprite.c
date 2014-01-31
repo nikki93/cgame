@@ -11,6 +11,7 @@
 #include "saveload.h"
 #include "transform.h"
 #include "camera.h"
+#include "texture.h"
 
 typedef struct Sprite Sprite;
 struct Sprite
@@ -155,24 +156,11 @@ static void _flip_image_vertical(unsigned char *data,
 
 static void _load_atlases()
 {
-    int width, height, n; /* n is number of components as returned by
-                             stbi_load() -- we don't really care */
-    unsigned char *data;
-
-    glGenTextures(1, &atlas_tex);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, atlas_tex);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-    data = stbi_load(data_path("test/atlas.png"), &width, &height, &n, 0);
-    _flip_image_vertical(data, width, height);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA,
-                 GL_UNSIGNED_BYTE, data);
-    stbi_image_free(data);
-
+    texture_load(data_path("test/atlas.png"));
     glUniform1i(glGetUniformLocation(program, "tex0"), 0);
-    glUniform2f(glGetUniformLocation(program, "atlas_size"), width, height);
+    glUniform2f(glGetUniformLocation(program, "atlas_size"),
+                texture_get_width(data_path("test/atlas.png")),
+                texture_get_height(data_path("test/atlas.png")));
 }
 
 void sprite_init()
@@ -249,6 +237,9 @@ void sprite_draw_all()
     glUniformMatrix3fv(glGetUniformLocation(program, "inverse_view_matrix"),
                        1, GL_FALSE,
                        (const GLfloat *) camera_get_inverse_view_matrix_ptr());
+
+    glActiveTexture(GL_TEXTURE0);
+    texture_bind(data_path("test/atlas.png"));
 
     glBindBuffer(GL_ARRAY_BUFFER, sprite_buf_object);
     glBufferData(GL_ARRAY_BUFFER, entitypool_size(pool) * sizeof(Sprite),
