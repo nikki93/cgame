@@ -206,7 +206,7 @@ unsigned int physics_add_box_shape(Entity ent, Scalar l, Scalar b, Scalar r,
                                    Scalar t)
 {
     cpShape *shape = cpBoxShapeNew2(NULL, cpBBNew(l, b, r, t));
-    return _add_shape(ent, PS_CIRCLE, shape);
+    return _add_shape(ent, PS_POLYGON, shape);
 }
 
 static void _set_type(PhysicsInfo *info, PhysicsBody type)
