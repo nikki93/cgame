@@ -149,6 +149,11 @@ void game_run(int argc, char **argv)
     _game_deinit();
 }
 
+void game_set_bg_color(Scalar r, Scalar g, Scalar b)
+{
+    glClearColor(r, g, b, 1.0);
+}
+
 void game_quit()
 {
     quit = true;
