@@ -8,6 +8,7 @@
 #include "pause.h"
 #include "transform.h"
 #include "camera.h"
+#include "texture.h"
 #include "sprite.h"
 #include "physics.h"
 
@@ -18,6 +19,7 @@ void system_init()
     entity_init();
     transform_init();
     camera_init();
+    texture_init();
     sprite_init();
     physics_init();
     script_init();
@@ -27,6 +29,7 @@ void system_deinit()
 {
     script_deinit();
     physics_deinit();
+    texture_deinit();
     sprite_deinit();
     transform_deinit();
     entity_deinit();
