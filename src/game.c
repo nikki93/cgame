@@ -153,6 +153,10 @@ void game_set_bg_color(Scalar r, Scalar g, Scalar b)
 {
     glClearColor(r, g, b, 1.0);
 }
+void game_get_window_size(int *w, int *h)
+{
+    glfwGetWindowSize(game_window, w, h);
+}
 
 void game_quit()
 {
