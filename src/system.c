@@ -10,6 +10,7 @@
 #include "camera.h"
 #include "texture.h"
 #include "sprite.h"
+#include "text.h"
 #include "physics.h"
 
 #include "test/keyboard_controlled.h"
@@ -20,6 +21,7 @@ void system_init()
     transform_init();
     camera_init();
     texture_init();
+    text_init();
     sprite_init();
     physics_init();
     script_init();
@@ -29,8 +31,9 @@ void system_deinit()
 {
     script_deinit();
     physics_deinit();
-    texture_deinit();
     sprite_deinit();
+    text_deinit();
+    texture_deinit();
     transform_deinit();
     entity_deinit();
 }
@@ -53,6 +56,7 @@ void system_draw_all()
 {
     script_draw_all();
     sprite_draw_all();
+    text_draw_all();
 }
 
 /* do it this way so we save/load in the same order */
