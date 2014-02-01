@@ -232,8 +232,7 @@ void sprite_update_all()
 
 void sprite_draw_all()
 {
-    glBindVertexArray(vao);
-
+    glUseProgram(program);
     glUniformMatrix3fv(glGetUniformLocation(program, "inverse_view_matrix"),
                        1, GL_FALSE,
                        (const GLfloat *) camera_get_inverse_view_matrix_ptr());
@@ -241,6 +240,7 @@ void sprite_draw_all()
     glActiveTexture(GL_TEXTURE0);
     texture_bind(data_path("test/atlas.png"));
 
+    glBindVertexArray(vao);
     glBindBuffer(GL_ARRAY_BUFFER, sprite_buf_object);
     glBufferData(GL_ARRAY_BUFFER, entitypool_size(pool) * sizeof(Sprite),
                  entitypool_begin(pool), GL_STREAM_DRAW);
