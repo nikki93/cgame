@@ -69,8 +69,6 @@ static GLuint program;
 static GLuint vao;
 static GLuint sprite_buf_object;
 
-static GLuint atlas_tex;
-
 static void _compile_shader(GLuint shader, const char *filename)
 {
     char *file_contents, log[512];
@@ -132,26 +130,6 @@ static void _bind_attributes()
     glVertexAttribPointer(size, 2, GL_FLOAT, GL_FALSE,
                           sizeof(Sprite), poffsetof(Sprite, size));
     glEnableVertexAttribArray(size);
-}
-
-static void _flip_image_vertical(unsigned char *data,
-                                 unsigned int width, unsigned int height)
-{
-    unsigned int size, stride, i, j;
-    unsigned char *new_data;
-
-    size = width * height * 4;
-    stride = sizeof(char) * width * 4;
-
-    new_data = malloc(sizeof(char) * size);
-    for (i = 0; i < height; i++)
-    {
-        j = height - i - 1;
-        memcpy(new_data + j * stride, data + i * stride, stride);
-    }
-
-    memcpy(data, new_data, size);
-    free(new_data);
 }
 
 static void _load_atlases()
