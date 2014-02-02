@@ -1,5 +1,5 @@
-#ifndef SYSTEM_H_JM82NXDP
-#define SYSTEM_H_JM82NXDP
+#ifndef SYSTEM_H
+#define SYSTEM_H
 
 #include <saveload.h>
 #include <stdio.h>

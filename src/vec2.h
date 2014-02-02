@@ -1,5 +1,5 @@
-#ifndef VEC2_H_OWWB2FND
-#define VEC2_H_OWWB2FND
+#ifndef VEC2_H
+#define VEC2_H
 
 #include "scalar.h"
 #include "saveload.h"

@@ -1,5 +1,5 @@
-#ifndef SPRITE_H_L45BNMPA
-#define SPRITE_H_L45BNMPA
+#ifndef SPRITE_H
+#define SPRITE_H
 
 #include "saveload.h"
 #include "entity.h"

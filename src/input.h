@@ -1,5 +1,5 @@
-#ifndef INPUT_H_F6GC1XRU
-#define INPUT_H_F6GC1XRU
+#ifndef INPUT_H
+#define INPUT_H
 
 #include <stdbool.h>
 

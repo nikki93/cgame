@@ -1,5 +1,5 @@
-#ifndef MAT3_H_YVET8M7D
-#define MAT3_H_YVET8M7D
+#ifndef MAT3_H
+#define MAT3_H
 
 #include "scalar.h"
 #include "script_export.h"

@@ -1,5 +1,5 @@
-#ifndef TEXT_H_RZDC6BGS
-#define TEXT_H_RZDC6BGS
+#ifndef TEXT_H
+#define TEXT_H
 
 #include "vec2.h"
 

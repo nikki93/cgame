@@ -1,5 +1,5 @@
-#ifndef ENTITYPOOL_H_3UYEFMSH
-#define ENTITYPOOL_H_3UYEFMSH
+#ifndef ENTITYPOOL_H
+#define ENTITYPOOL_H
 
 #include "entitymap.h"
 #include "array.h"

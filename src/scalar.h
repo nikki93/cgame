@@ -1,5 +1,5 @@
-#ifndef SCALAR_H_WBZWRG0U
-#define SCALAR_H_WBZWRG0U
+#ifndef SCALAR_H
+#define SCALAR_H
 
 #include <math.h>
 

@@ -1,5 +1,5 @@
-#ifndef ENTITYMAP_H_YGLNG310
-#define ENTITYMAP_H_YGLNG310
+#ifndef ENTITYMAP_H
+#define ENTITYMAP_H
 
 #include <stdbool.h>
 

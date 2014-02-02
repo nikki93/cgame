@@ -1,5 +1,5 @@
-#ifndef TRANSFORM_H_SKXSVJO1
-#define TRANSFORM_H_SKXSVJO1
+#ifndef TRANSFORM_H
+#define TRANSFORM_H
 
 #include "scalar.h"
 #include "vec2.h"

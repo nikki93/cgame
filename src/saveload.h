@@ -1,5 +1,5 @@
-#ifndef SAVELOAD_H_8VFZRR65
-#define SAVELOAD_H_8VFZRR65
+#ifndef SAVELOAD_H
+#define SAVELOAD_H
 
 #include <stdio.h>
 #include <stdbool.h>

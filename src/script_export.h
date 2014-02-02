@@ -1,5 +1,5 @@
-#ifndef SCRIPT_EXPORT_H_OXLKH5DG
-#define SCRIPT_EXPORT_H_OXLKH5DG
+#ifndef SCRIPT_EXPORT_H
+#define SCRIPT_EXPORT_H
 
 /*
  * surround declarations with SCRIPT(modulename, ...) (check transform.h for

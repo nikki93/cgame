@@ -1,5 +1,5 @@
-#ifndef GLEW_GLFW_H_UBS5QO2F
-#define GLEW_GLFW_H_UBS5QO2F
+#ifndef GLEW_GLFW_H
+#define GLEW_GLFW_H
 
 /* make sure to include GLEW headers before GLFW ones */
 #include <GL/glew.h>

@@ -1,5 +1,5 @@
-#ifndef ARRAY_H_AQI0MFOG
-#define ARRAY_H_AQI0MFOG
+#ifndef ARRAY_H
+#define ARRAY_H
 
 #include <stddef.h>
 #include <stdbool.h>

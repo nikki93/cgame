@@ -1,5 +1,5 @@
-#ifndef PHYSICS_H_QZ7KUPT1
-#define PHYSICS_H_QZ7KUPT1
+#ifndef PHYSICS_H
+#define PHYSICS_H
 
 #include <stdbool.h>
 

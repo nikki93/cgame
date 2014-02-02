@@ -1,5 +1,5 @@
-#ifndef CAMERA_H_3PIJHFMW
-#define CAMERA_H_3PIJHFMW
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #include "saveload.h"
 #include "entity.h"

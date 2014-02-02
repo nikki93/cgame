@@ -1,5 +1,5 @@
-#ifndef DIRS_H_WNT3ZAMB
-#define DIRS_H_WNT3ZAMB
+#ifndef DIRS_H
+#define DIRS_H
 
 #ifndef DATA_DIR
 #define DATA_DIR "./data/"

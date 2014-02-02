@@ -1,5 +1,5 @@
-#ifndef KEYBOARD_CONTROLLED_H_B4CPIANU
-#define KEYBOARD_CONTROLLED_H_B4CPIANU
+#ifndef KEYBOARD_CONTROLLED_H
+#define KEYBOARD_CONTROLLED_H
 
 #include "scalar.h"
 #include "saveload.h"

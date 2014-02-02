@@ -1,5 +1,5 @@
-#ifndef SCRIPT_H_GYSDQCZ0
-#define SCRIPT_H_GYSDQCZ0
+#ifndef SCRIPT_H
+#define SCRIPT_H
 
 #include "scalar.h"
 #include "script_export.h"

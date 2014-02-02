@@ -1,5 +1,5 @@
-#ifndef GAME_H_W59MMXDF
-#define GAME_H_W59MMXDF
+#ifndef GAME_H
+#define GAME_H
 
 #include "glew_glfw.h"
 #include "script_export.h"

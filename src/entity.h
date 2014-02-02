@@ -1,5 +1,5 @@
-#ifndef ENTITY_H_GUOK04WE
-#define ENTITY_H_GUOK04WE
+#ifndef ENTITY_H
+#define ENTITY_H
 
 #include <stdlib.h>
 #include <stdbool.h>

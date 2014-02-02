@@ -1,5 +1,5 @@
-#ifndef PAUSE_H_MDBVBEY2
-#define PAUSE_H_MDBVBEY2
+#ifndef PAUSE_H
+#define PAUSE_H
 
 #include <stdbool.h>
 

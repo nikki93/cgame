@@ -1,5 +1,5 @@
-#ifndef TEST_H_TVPAFTFQ
-#define TEST_H_TVPAFTFQ
+#ifndef TEST_H
+#define TEST_H
 
 void test_init();
 

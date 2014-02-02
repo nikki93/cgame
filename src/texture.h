@@ -1,5 +1,5 @@
-#ifndef TEXTURE_H_QIELURFK
-#define TEXTURE_H_QIELURFK
+#ifndef TEXTURE_H
+#define TEXTURE_H
 
 void texture_load(const char *filename);
 void texture_bind(const char *filename);
