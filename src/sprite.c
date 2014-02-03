@@ -10,6 +10,7 @@
 #include "dirs.h"
 #include "saveload.h"
 #include "transform.h"
+#include "gfx.h"
 #include "camera.h"
 #include "texture.h"
 
@@ -61,131 +62,46 @@ void sprite_set_size(Entity ent, Vec2 size)
 
 /* ------------------------------------------------------------------------- */
 
-static GLuint vertex_shader;
-static GLuint geometry_shader;
-static GLuint fragment_shader;
 static GLuint program;
-
 static GLuint vao;
-static GLuint sprite_buf_object;
-
-static void _compile_shader(GLuint shader, const char *filename)
-{
-    char *file_contents, log[512];
-    long input_file_size;
-    FILE *input_file;
-    GLint status;
-
-    input_file = fopen(filename, "rb");
-    fseek(input_file, 0, SEEK_END);
-    input_file_size = ftell(input_file);
-    rewind(input_file);
-    file_contents = malloc((input_file_size + 1) * (sizeof(char)));
-    fread(file_contents, sizeof(char), input_file_size, input_file);
-    fclose(input_file);
-    file_contents[input_file_size] = '\0';
-
-    printf("sprite: compiling shader '%s' ...", filename);
-
-    glShaderSource(shader, 1, (const GLchar **) &file_contents, NULL);
-    glCompileShader(shader);
-
-    free(file_contents);
-
-    /* log */
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
-    printf(status ? " successful\n" : " unsuccessful\n");
-    glGetShaderInfoLog(shader, 512, NULL, log);
-    printf("%s", log);
-}
-
-/* get pointer offset of 'field' in struct 'type' */
-#define poffsetof(type, field)                  \
-    ((void *) (&((type *) 0)->field))
-
-static void _bind_attributes()
-{
-    /* attribute locations */
-    GLuint transform1, transform2, transform3, cell, size;
-
-    transform1 = glGetAttribLocation(program, "transform1");
-    glVertexAttribPointer(transform1, 3, GL_FLOAT, GL_FALSE,
-                          sizeof(Sprite), poffsetof(Sprite, transform.m[0]));
-    glEnableVertexAttribArray(transform1);
-    transform2 = glGetAttribLocation(program, "transform2");
-    glVertexAttribPointer(transform2, 3, GL_FLOAT, GL_FALSE,
-                          sizeof(Sprite), poffsetof(Sprite, transform.m[1]));
-    glEnableVertexAttribArray(transform2);
-    transform3 = glGetAttribLocation(program, "transform3");
-    glVertexAttribPointer(transform3, 3, GL_FLOAT, GL_FALSE,
-                          sizeof(Sprite), poffsetof(Sprite, transform.m[2]));
-    glEnableVertexAttribArray(transform3);
-
-    cell = glGetAttribLocation(program, "cell");
-    glVertexAttribPointer(cell, 2, GL_FLOAT, GL_FALSE,
-                          sizeof(Sprite), poffsetof(Sprite, cell));
-    glEnableVertexAttribArray(cell);
-
-    size = glGetAttribLocation(program, "size");
-    glVertexAttribPointer(size, 2, GL_FLOAT, GL_FALSE,
-                          sizeof(Sprite), poffsetof(Sprite, size));
-    glEnableVertexAttribArray(size);
-}
-
-static void _load_atlases()
-{
-    texture_load(data_path("test/atlas.png"));
-    glUniform1i(glGetUniformLocation(program, "tex0"), 0);
-    glUniform2f(glGetUniformLocation(program, "atlas_size"),
-                texture_get_width(data_path("test/atlas.png")),
-                texture_get_height(data_path("test/atlas.png")));
-}
+static GLuint vbo;
 
 void sprite_init()
 {
     /* initialize pool */
     pool = entitypool_new(Sprite);
 
-    /* compile shaders */
-    vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-    _compile_shader(vertex_shader, data_path("sprite.vert"));
-    geometry_shader = glCreateShader(GL_GEOMETRY_SHADER);
-    _compile_shader(geometry_shader, data_path("sprite.geom"));
-    fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-    _compile_shader(fragment_shader, data_path("sprite.frag"));
-
-    /* link program */
-    program = glCreateProgram();
-    glAttachShader(program, vertex_shader);
-    glAttachShader(program, geometry_shader);
-    glAttachShader(program, fragment_shader);
-    glBindFragDataLocation(program, 0, "outColor");
-    glLinkProgram(program);
+    /* create shader program, load atlas, bind parameters */
+    program = gfx_create_program(data_path("sprite.vert"),
+                                 data_path("sprite.geom"),
+                                 data_path("sprite.frag"));
     glUseProgram(program);
+    texture_load(data_path("test/atlas.png"));
+    glUniform1i(glGetUniformLocation(program, "tex0"), 0);
+    glUniform2f(glGetUniformLocation(program, "atlas_size"),
+                texture_get_width(data_path("test/atlas.png")),
+                texture_get_height(data_path("test/atlas.png")));
 
-    /* make vao */
+    /* make vao, vbo, bind attributes */
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
-
-    /* make buffer object and bind attributes */
-    glGenBuffers(1, &sprite_buf_object);
-    glBindBuffer(GL_ARRAY_BUFFER, sprite_buf_object);
-    glBufferData(GL_ARRAY_BUFFER, entitypool_size(pool) * sizeof(Sprite),
-                 entitypool_begin(pool), GL_STREAM_DRAW);
-    _bind_attributes();
-
-    /* load atlas textures */
-    _load_atlases();
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 3, "transform1", Sprite,
+                           transform.m[0]);
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 3, "transform2", Sprite,
+                           transform.m[1]);
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 3, "transform3", Sprite,
+                           transform.m[2]);
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "cell", Sprite, cell);
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "size", Sprite, size);
 }
 
 void sprite_deinit()
 {
-    /* clean up OpenGL stuff */
+    /* clean up GL stuff */
     glDeleteProgram(program);
-    glDeleteShader(fragment_shader);
-    glDeleteShader(geometry_shader);
-    glDeleteShader(vertex_shader);
-    glDeleteBuffers(1, &sprite_buf_object);
+    glDeleteBuffers(1, &vbo);
     glDeleteVertexArrays(1, &vao);
 
     /* deinit pool */
@@ -210,19 +126,25 @@ void sprite_update_all()
 
 void sprite_draw_all()
 {
+    unsigned int nsprites;
+
+    /* bind program, update uniforms */
     glUseProgram(program);
     glUniformMatrix3fv(glGetUniformLocation(program, "inverse_view_matrix"),
                        1, GL_FALSE,
                        (const GLfloat *) camera_get_inverse_view_matrix_ptr());
 
+    /* bind atlas */
     glActiveTexture(GL_TEXTURE0);
     texture_bind(data_path("test/atlas.png"));
 
+    /* draw! */
     glBindVertexArray(vao);
-    glBindBuffer(GL_ARRAY_BUFFER, sprite_buf_object);
-    glBufferData(GL_ARRAY_BUFFER, entitypool_size(pool) * sizeof(Sprite),
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    nsprites = entitypool_size(pool);
+    glBufferData(GL_ARRAY_BUFFER, nsprites * sizeof(Sprite),
                  entitypool_begin(pool), GL_STREAM_DRAW);
-    glDrawArrays(GL_POINTS, 0, entitypool_size(pool));
+    glDrawArrays(GL_POINTS, 0, nsprites);
 }
 
 void sprite_save_all(Serializer *s)
