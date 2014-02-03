@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <GL/glew.h>
 
+#include "gfx.h"
 #include "texture.h"
 #include "dirs.h"
 #include "array.h"
@@ -106,105 +107,36 @@ void text_set_str(Text text, const char *str)
     /* TODO: implement this */
 }
 
-static GLuint vertex_shader;
-static GLuint geometry_shader;
-static GLuint fragment_shader;
 static GLuint program;
-
 static GLuint vao;
 static GLuint buf_obj;
 
-static void _compile_shader(GLuint shader, const char *filename)
-{
-    char *file_contents, log[512];
-    long input_file_size;
-    FILE *input_file;
-    GLint status;
-
-    input_file = fopen(filename, "rb");
-    fseek(input_file, 0, SEEK_END);
-    input_file_size = ftell(input_file);
-    rewind(input_file);
-    file_contents = malloc((input_file_size + 1) * (sizeof(char)));
-    fread(file_contents, sizeof(char), input_file_size, input_file);
-    fclose(input_file);
-    file_contents[input_file_size] = '\0';
-
-    printf("text: compiling shader '%s' ...", filename);
-
-    glShaderSource(shader, 1, (const GLchar **) &file_contents, NULL);
-    glCompileShader(shader);
-
-    free(file_contents);
-
-    /* log */
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
-    printf(status ? " successful\n" : " unsuccessful\n");
-    glGetShaderInfoLog(shader, 512, NULL, log);
-    printf("%s", log);
-}
-
-/* get pointer offset of 'field' in struct 'type' */
-#define poffsetof(type, field)                  \
-    ((void *) (&((type *) 0)->field))
-
-static void _bind_attributes()
-{
-    /* attribute locations */
-    GLuint pos, cell;
-
-    pos = glGetAttribLocation(program, "pos");
-    glVertexAttribPointer(pos, 2, GL_FLOAT, GL_FALSE,
-                          sizeof(TextChar), poffsetof(TextChar, pos));
-    glEnableVertexAttribArray(pos);
-
-    cell = glGetAttribLocation(program, "cell");
-    glVertexAttribPointer(cell, 2, GL_FLOAT, GL_FALSE,
-                          sizeof(TextChar), poffsetof(TextChar, cell));
-    glEnableVertexAttribArray(cell);
-}
-
 static void _init_gl()
 {
-    /* compile shaders */
-    vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-    _compile_shader(vertex_shader, data_path("text.vert"));
-    geometry_shader = glCreateShader(GL_GEOMETRY_SHADER);
-    _compile_shader(geometry_shader, data_path("text.geom"));
-    fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-    _compile_shader(fragment_shader, data_path("text.frag"));
-
-    /* link program */
-    program = glCreateProgram();
-    glAttachShader(program, vertex_shader);
-    glAttachShader(program, geometry_shader);
-    glAttachShader(program, fragment_shader);
-    glBindFragDataLocation(program, 0, "outColor");
-    glLinkProgram(program);
+    /* create shader program, bind parameters */
+    program = gfx_create_program(data_path("text.vert"),
+                                 data_path("text.geom"),
+                                 data_path("text.frag"));
     glUseProgram(program);
-
-    /* make vao */
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-
-    /* make buffer object and bind attributes */
-    glGenBuffers(1, &buf_obj);
-    glBindBuffer(GL_ARRAY_BUFFER, buf_obj);
-    glBufferData(GL_ARRAY_BUFFER, 0, NULL, GL_STREAM_DRAW);
-    _bind_attributes();
-
-    /* load font texture */
-    texture_load(data_path("font1.png"));
     glUniform1i(glGetUniformLocation(program, "tex0"), 0);
     glUniform2f(glGetUniformLocation(program, "inv_grid_size"),
                 1.0 / GRID_W, 1.0 / GRID_H);
+
+    /* make vao, buffer object, bind attributes */
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+    glGenBuffers(1, &buf_obj);
+    glBindBuffer(GL_ARRAY_BUFFER, buf_obj);
+    //glBufferData(GL_ARRAY_BUFFER, 0, NULL, GL_STREAM_DRAW);
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "pos", TextChar, pos);
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "cell", TextChar, cell);
+
+    /* load font texture */
+    texture_load(data_path("font1.png"));
 }
 static void _deinit_gl()
 {
     glDeleteProgram(program);
-    glDeleteShader(fragment_shader);
-    glDeleteShader(geometry_shader);
-    glDeleteShader(vertex_shader);
     glDeleteBuffers(1, &buf_obj);
     glDeleteVertexArrays(1, &vao);
 }
