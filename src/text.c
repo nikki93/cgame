@@ -228,32 +228,29 @@ void text_deinit()
 
 void text_draw_all()
 {
-    int half_win_h, half_win_w;
+    Vec2 hwin;
     TextInfo *info, *end;
     unsigned int nchars;
 
-    game_get_window_size(&half_win_w, &half_win_h);
-    half_win_h /= 2;
-    half_win_w /= 2;
+    hwin = vec2_scalar_mul(game_get_window_size(), 0.5);
 
     glUseProgram(program);
     glUniform2f(glGetUniformLocation(program, "size"),
-                FONT_W / ((Scalar) half_win_w),
-                FONT_H / ((Scalar) half_win_h));
+                FONT_W / hwin.x, FONT_H / hwin.y);
 
     glActiveTexture(GL_TEXTURE0);
     texture_bind(data_path("font1.png"));
 
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, buf_obj);
     for (info = array_begin(infos), end = array_end(infos);
          info != end; ++info)
     {
         glUniform2f(glGetUniformLocation(program, "base_pos"),
-                    info->pos.x / ((Scalar) half_win_w) - 1,
-                    info->pos.y / ((Scalar) half_win_h) + 1);
+                    info->pos.x / hwin.x - 1,
+                    info->pos.y / hwin.y + 1);
 
         nchars = array_length(info->chars);
-        glBindVertexArray(vao);
-        glBindBuffer(GL_ARRAY_BUFFER, buf_obj);
         glBufferData(GL_ARRAY_BUFFER, nchars * sizeof(TextChar),
                      array_begin(info->chars), GL_STREAM_DRAW);
         glDrawArrays(GL_POINTS, 0, nchars);
