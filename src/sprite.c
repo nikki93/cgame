@@ -19,7 +19,7 @@ struct Sprite
 {
     EntityPoolElem pool_elem;
 
-    Mat3 transform;
+    Mat3 wmat; /* world transform matrix to send to shader */
 
     Vec2 cell;
     Vec2 size;
@@ -87,12 +87,9 @@ void sprite_init()
     glBindVertexArray(vao);
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    gfx_bind_vertex_attrib(program, GL_FLOAT, 3, "transform1", Sprite,
-                           transform.m[0]);
-    gfx_bind_vertex_attrib(program, GL_FLOAT, 3, "transform2", Sprite,
-                           transform.m[1]);
-    gfx_bind_vertex_attrib(program, GL_FLOAT, 3, "transform3", Sprite,
-                           transform.m[2]);
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 3, "wmat1", Sprite, wmat.m[0]);
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 3, "wmat2", Sprite, wmat.m[1]);
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 3, "wmat3", Sprite, wmat.m[2]);
     gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "cell", Sprite, cell);
     gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "size", Sprite, size);
 }
@@ -121,7 +118,7 @@ void sprite_update_all()
 
     for (sprite = entitypool_begin(pool), end = entitypool_end(pool);
          sprite != end; ++sprite)
-        sprite->transform = transform_get_world_matrix(sprite->pool_elem.ent);
+        sprite->wmat = transform_get_world_matrix(sprite->pool_elem.ent);
 }
 
 void sprite_draw_all()
@@ -159,7 +156,7 @@ void sprite_save_all(Serializer *s)
          sprite != end; ++sprite)
     {
         entitypool_elem_save(pool, &sprite, s);
-        mat3_save(&sprite->transform, s);
+        mat3_save(&sprite->wmat, s);
         vec2_save(&sprite->cell, s);
         vec2_save(&sprite->size, s);
     }
@@ -176,7 +173,7 @@ void sprite_load_all(Deserializer *s)
     while (n--)
     {
         entitypool_elem_load(pool, &sprite, s);
-        mat3_load(&sprite->transform, s);
+        mat3_load(&sprite->wmat, s);
         vec2_load(&sprite->cell, s);
         vec2_load(&sprite->size, s);
     }
