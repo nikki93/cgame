@@ -34,9 +34,6 @@ todo
 
 - c99 cleanup
 
-- move shader loading, attribute binding, array drawing etc. into a
-  common gfx system
-
 - move window stuff from game into a new window system (bg_color, size)
 
 - serialize global physics properties, expose more physics functions
