@@ -109,35 +109,32 @@ void text_set_str(Text text, const char *str)
 
 static GLuint program;
 static GLuint vao;
-static GLuint buf_obj;
+static GLuint vbo;
 
 static void _init_gl()
 {
-    /* create shader program, bind parameters */
+    /* create shader program, load texture, bind parameters */
     program = gfx_create_program(data_path("text.vert"),
                                  data_path("text.geom"),
                                  data_path("text.frag"));
     glUseProgram(program);
+    texture_load(data_path("font1.png"));
     glUniform1i(glGetUniformLocation(program, "tex0"), 0);
     glUniform2f(glGetUniformLocation(program, "inv_grid_size"),
                 1.0 / GRID_W, 1.0 / GRID_H);
 
-    /* make vao, buffer object, bind attributes */
+    /* make vao, vbo, bind attributes */
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
-    glGenBuffers(1, &buf_obj);
-    glBindBuffer(GL_ARRAY_BUFFER, buf_obj);
-    //glBufferData(GL_ARRAY_BUFFER, 0, NULL, GL_STREAM_DRAW);
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "pos", TextChar, pos);
     gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "cell", TextChar, cell);
-
-    /* load font texture */
-    texture_load(data_path("font1.png"));
 }
 static void _deinit_gl()
 {
     glDeleteProgram(program);
-    glDeleteBuffers(1, &buf_obj);
+    glDeleteBuffers(1, &vbo);
     glDeleteVertexArrays(1, &vao);
 }
 
@@ -166,15 +163,18 @@ void text_draw_all()
 
     hwin = vec2_scalar_mul(game_get_window_size(), 0.5);
 
+    /* bind shader program */
     glUseProgram(program);
     glUniform2f(glGetUniformLocation(program, "size"),
                 FONT_W / hwin.x, FONT_H / hwin.y);
 
+    /* bind texture */
     glActiveTexture(GL_TEXTURE0);
     texture_bind(data_path("font1.png"));
 
+    /* draw! */
     glBindVertexArray(vao);
-    glBindBuffer(GL_ARRAY_BUFFER, buf_obj);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     for (info = array_begin(infos), end = array_end(infos);
          info != end; ++info)
     {
