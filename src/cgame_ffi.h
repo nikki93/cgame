@@ -31,9 +31,9 @@
 static const char **cgame_ffi[] =
 {
     &cgame_ffi_scalar,
-    &cgame_ffi_game,
     &cgame_ffi_saveload,
     &cgame_ffi_vec2,
+    &cgame_ffi_game,
     &cgame_ffi_mat3,
     &cgame_ffi_input,
     &cgame_ffi_entity,

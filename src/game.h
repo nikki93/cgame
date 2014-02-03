@@ -16,11 +16,11 @@ char **game_get_argv();
 SCRIPT(game,
 
        EXPORT void game_set_bg_color(Scalar a, Scalar g, Scalar b);
+       EXPORT Vec2 game_get_window_size(); /* width, height in pixels */
+
        EXPORT void game_quit();
 
     )
-
-EXPORT Vec2 game_get_window_size();
 
 #endif
 
