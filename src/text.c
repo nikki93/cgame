@@ -1,6 +1,7 @@
 #include "text.h"
 
 #include <stdlib.h>
+#include <assert.h>
 #include <GL/glew.h>
 
 #include "gfx.h"
@@ -65,6 +66,10 @@ static void _gen_chars(Array *chars, const char *str)
     }
 }
 
+/*
+ * do a simple linear search for now, will use better data structure later
+ * if needed
+ */
 static TextInfo *_find(Text text)
 {
     TextInfo *info, *end;
@@ -100,11 +105,15 @@ void text_remove(Text text)
 
 void text_set_pos(Text text, Vec2 pos)
 {
-    /* TODO: implement this */
+    TextInfo *info = _find(text);
+    assert(info);
+    info->pos = pos;
 }
 void text_set_str(Text text, const char *str)
 {
-    /* TODO: implement this */
+    TextInfo *info = _find(text);
+    assert(info);
+    _gen_chars(info->chars, str);
 }
 
 static GLuint program;
