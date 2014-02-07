@@ -128,5 +128,11 @@ SCRIPT(input,
 
     )
 
+typedef void (*KeyCallback) (KeyCode key);
+void input_add_key_down_callback(KeyCallback f);
+
+void input_init();
+void input_deinit();
+
 #endif
 

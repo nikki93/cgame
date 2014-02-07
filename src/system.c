@@ -6,6 +6,7 @@
 #include "entity.h"
 #include "script.h"
 #include "pause.h"
+#include "input.h"
 #include "transform.h"
 #include "camera.h"
 #include "texture.h"
@@ -17,6 +18,7 @@
 
 void system_init()
 {
+    input_init();
     entity_init();
     transform_init();
     camera_init();
@@ -36,6 +38,7 @@ void system_deinit()
     texture_deinit();
     transform_deinit();
     entity_deinit();
+    input_deinit();
 }
 
 void system_update_all(Scalar dt)
