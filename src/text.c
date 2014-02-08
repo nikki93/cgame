@@ -22,6 +22,7 @@ struct TextInfo
     Text id;
     Vec2 pos; /* position of text in pixels */
     Array *chars;
+    bool visible;
 };
 
 typedef struct TextChar TextChar;
@@ -88,6 +89,7 @@ Text text_add(Vec2 pos, const char *str)
     TextInfo *info = array_add(infos);
     info->id = curr++;
     info->pos = pos;
+    info->visible = true;
     info->chars = array_new(TextChar);
     _gen_chars(info->chars, str);
 
@@ -109,11 +111,25 @@ void text_set_pos(Text text, Vec2 pos)
     assert(info);
     info->pos = pos;
 }
+
 void text_set_str(Text text, const char *str)
 {
     TextInfo *info = _find(text);
     assert(info);
     _gen_chars(info->chars, str);
+}
+
+void text_set_visible(Text text, bool visible)
+{
+    TextInfo *info = _find(text);
+    assert(info);
+    info->visible = visible;
+}
+bool text_get_visible(Text text)
+{
+    TextInfo *info = _find(text);
+    assert(info);
+    return info->visible;
 }
 
 static GLuint program;
@@ -187,6 +203,9 @@ void text_draw_all()
     for (info = array_begin(infos), end = array_end(infos);
          info != end; ++info)
     {
+        if (!info->visible)
+            continue;
+
         glUniform2f(glGetUniformLocation(program, "base_pos"),
                     info->pos.x / hwin.x - 1,
                     info->pos.y / hwin.y + 1);
