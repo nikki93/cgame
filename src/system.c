@@ -12,6 +12,7 @@
 #include "texture.h"
 #include "sprite.h"
 #include "text.h"
+#include "console.h"
 #include "physics.h"
 
 #include "test/keyboard_controlled.h"
@@ -25,6 +26,7 @@ void system_init()
     texture_init();
     text_init();
     sprite_init();
+    console_init();
     physics_init();
     script_init();
 }
