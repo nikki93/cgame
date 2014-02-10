@@ -35,6 +35,7 @@ void system_deinit()
 {
     script_deinit();
     physics_deinit();
+    console_deinit();
     sprite_deinit();
     text_deinit();
     texture_deinit();

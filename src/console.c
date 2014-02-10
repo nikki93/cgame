@@ -33,4 +33,8 @@ void console_init()
 
     text_add(vec2_zero, init_buf);
 }
+void console_deinit()
+{
+    free(buf);
+}
 
