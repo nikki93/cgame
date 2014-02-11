@@ -1,5 +1,6 @@
 #include "console.h"
 
+#include <stdarg.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -22,34 +23,56 @@ static void _update_text()
 
     /* accumulate non-empty lines */
     buf = malloc(NUM_LINES * LINE_LEN);
-    for (i = 0, c = buf; i < NUM_LINES; ++i)
+    for (i = 1, c = buf; i <= NUM_LINES; ++i)
         c = stpcpy(c, lines[(top + i) % NUM_LINES]);
 
     /* set Text string */
     text_set_str(text, buf);
 }
 
-void console_puts(const char *s)
+static void _print(const char *s)
 {
-    unsigned int i;
+    static unsigned int curs = 0;
 
-    for (;;)
+    while (*s)
     {
-        /* copy, leaving space for newline and null */
-        for (i = 0; i < LINE_LEN - 2 && *s && *s != '\n'; ++i)
-            lines[top][i] = *s++;
-        lines[top][i]     = '\n';
-        lines[top][i + 1] = '\0';
-        top = (top + 1) % NUM_LINES;
+        /* print any char, but prioritise newline space */
+        if (curs < LINE_LEN - 2 || (*s == '\n' && curs < LINE_LEN - 1))
+        {
+            lines[top][curs++] = *s;
+            lines[top][curs] = '\0';
+        }
 
-        /* skip to next line if exists, else stop */
-        if ((s = strchr(s, '\n')))
-            ++s;
-        else
-            break;
+        /* if newline go to next line */
+        if (*s == '\n')
+        {
+            top = (top + 1) % NUM_LINES;
+            curs = 0;
+            lines[top][curs] = '\0';
+        }
+
+        ++s;
     }
 
     _update_text();
+}
+
+void console_puts(const char *s)
+{
+    _print(s);
+    _print("\n");
+}
+
+void console_printf(const char *fmt, ...)
+{
+    va_list ap;
+    char s[LINE_LEN];
+
+    va_start(ap, fmt);
+    vsnprintf(s, LINE_LEN, fmt, ap);
+    va_end(ap);
+
+    _print(s);
 }
 
 void console_init()
