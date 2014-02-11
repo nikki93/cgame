@@ -96,6 +96,7 @@ cgame.add_system('box_force',
     update_all = function (dt)
         if cgame.input_key_down('KC_F') then
             cgame.physics_apply_force(10, cgame.vec2(0, 20))
+            cgame.console_puts('applying force...')
         else
             cgame.physics_reset_forces(10)
         end
@@ -139,4 +140,7 @@ cgame.add_system('test_physics_keys',
         end
     end
 })
+
+
+cgame.console_puts('this is the physics test')
 
