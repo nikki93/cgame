@@ -33,27 +33,28 @@ static void _update_text()
 
 static void _print(const char *s)
 {
-    static unsigned int curs = 0;
+    static unsigned int curs = 0; /* cursor position */
 
     while (*s)
     {
         /* print any char, but prioritise newline space */
         if (curs < LINE_LEN - 2 || (*s == '\n' && curs < LINE_LEN - 1))
-        {
             lines[top][curs++] = *s;
-            lines[top][curs] = '\0';
-        }
 
-        /* if newline go to next line */
+        /* if newline, close this line and go to next */
         if (*s == '\n')
         {
+            lines[top][curs] = '\0';
+
             top = (top + 1) % NUM_LINES;
             curs = 0;
-            lines[top][curs] = '\0';
         }
 
         ++s;
     }
+
+    /* close this line */
+    lines[top][curs] = '\0';
 
     _update_text();
 }
