@@ -8,6 +8,7 @@
 #include "glew_glfw.h"
 #include "dirs.h"
 #include "system.h"
+#include "console.h"
 
 #include "test/test.h"
 
