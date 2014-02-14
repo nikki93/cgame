@@ -115,7 +115,7 @@ static void _fps_display()
     interval = curr_time - last_time;
     if (interval > display_period)
     {
-        printf("fps: %f\n", nframes / interval);
+        console_printf("fps: %.2f\n", nframes / interval);
 
         nframes = 0;
         last_time = curr_time;
