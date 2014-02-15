@@ -44,7 +44,8 @@ end
 
 cgame.Vec2 = ffi.metatype('Vec2',
 {
-    __add = function (u, v) return cgame.vec2_add(u, v) end,
+    __add = cgame.vec2_add,
+    __div = cgame.vec2_div,
     __index =
     {
         __serialize = cgame.c_save_load('cgame.Vec2', 'cgame.vec2_save',
