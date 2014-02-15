@@ -147,7 +147,7 @@ SCRIPT(input,
            MC_MIDDLE = MC_3,
        };
 
-       EXPORT Vec2 input_mouse_pos();
+       EXPORT Vec2 input_get_mouse_pos();
        EXPORT bool input_mouse_down(MouseCode mouse);
 
     )

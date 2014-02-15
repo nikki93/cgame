@@ -18,7 +18,7 @@ bool input_key_down(KeyCode key)
     return glfwGetKey(game_window, glfwkey) == GLFW_PRESS;
 }
 
-Vec2 input_mouse_pos()
+Vec2 input_get_mouse_pos()
 {
     double x, y;
     glfwGetCursorPos(game_window, &x, &y);
