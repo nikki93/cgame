@@ -30,6 +30,8 @@ SCRIPT(transform,
 
        EXPORT Mat3 transform_get_world_matrix(Entity ent);
 
+       EXPORT Vec2 transform_local_to_world(Entity ent, Vec2 v);
+
     )
 
 void transform_init();

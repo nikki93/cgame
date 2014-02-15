@@ -112,6 +112,13 @@ Mat3 transform_get_world_matrix(Entity ent)
     return transform->worldmat_cache;
 }
 
+Vec2 transform_local_to_world(Entity ent, Vec2 v)
+{
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
+    return mat3_transform(transform->worldmat_cache, v);
+}
+
 /* ------------------------------------------------------------------------- */
 
 void transform_init()
