@@ -29,12 +29,12 @@ end
 
 cgame.add_system('oscillator',
 {
-    update_all = function (dt)
+    update_all = function ()
         for ent, _ in pairs(tbl) do
             if cgame.entity_destroyed(ent) then tbl[ent] = nil end
         end
 
-        time = time + dt
+        time = time + cgame.timing_dt
 
         for ent, osc in pairs(tbl) do
             pos = cgame.transform_get_position(ent)

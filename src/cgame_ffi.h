@@ -12,6 +12,7 @@
 #include "mat3.h"
 #include "input.h"
 #include "entity.h"
+#include "timing.h"
 #include "pause.h"
 #include "transform.h"
 #include "camera.h"
@@ -38,6 +39,7 @@ static const char **cgame_ffi[] =
     &cgame_ffi_mat3,
     &cgame_ffi_input,
     &cgame_ffi_entity,
+    &cgame_ffi_timing,
     &cgame_ffi_pause,
     &cgame_ffi_transform,
     &cgame_ffi_camera,

@@ -83,7 +83,7 @@ end
 
 cgame.add_system('box_gen',
 {
-    update_all = function (dt)
+    update_all = function ()
         if cgame.input_key_down('KC_B') then
             make_box(cgame.vec2(5 * symrand(), 5 * symrand()),
             cgame.vec2(5 * symrand(), 5 * symrand()))
@@ -93,7 +93,7 @@ cgame.add_system('box_gen',
 
 cgame.add_system('box_force',
 {
-    update_all = function (dt)
+    update_all = function ()
         if cgame.input_key_down('KC_F') then
             cgame.physics_apply_force(10, cgame.vec2(0, 20))
             cgame.console_puts('applying force...')
@@ -107,7 +107,7 @@ cgame.add_system('box_force',
 
 cgame.add_system('camera_gravity',
 {
-    update_all = function (dt)
+    update_all = function ()
         rot = cgame.transform_get_rotation(camera)
         cgame.physics_set_gravity(cgame.vec2_rot(cgame.vec2(0, -9.8), rot))
     end
@@ -117,7 +117,7 @@ cgame.add_system('camera_gravity',
 
 cgame.add_system('test_physics_keys',
 {
-    update_all = function (dt)
+    update_all = function ()
         -- press a number to make it dynamic, hold right shift for static,
         -- left shift for kinematic
         for i = 1, 9 do

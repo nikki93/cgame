@@ -65,7 +65,7 @@ cgame.keyboard_controlled_add(camera)
 
 cgame.add_system('destroyer',
 {
-    update_all = function (dt)
+    update_all = function ()
         for i = 1, 9 do
             if (cgame.input_key_down('KC_' .. i)) then
                 cgame.entity_destroy(i)

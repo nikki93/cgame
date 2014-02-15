@@ -129,8 +129,7 @@ void script_deinit()
 void script_update_all()
 {
     _push_event("update_all");
-    lua_pushnumber(L, timing_dt);
-    errcheck(lua_pcall(L, 2, 0, 0));
+    errcheck(lua_pcall(L, 1, 0, 0));
 }
 
 void script_draw_all()

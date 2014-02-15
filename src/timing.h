@@ -4,7 +4,7 @@
 #include "scalar.h"
 #include "script_export.h"
 
-SCRIPT(time,
+SCRIPT(timing,
 
        extern Scalar timing_dt;
 
