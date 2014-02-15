@@ -1,8 +1,9 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include <saveload.h>
 #include <stdio.h>
+
+#include "saveload.h"
 
 void system_init();
 void system_deinit();
