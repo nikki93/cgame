@@ -9,6 +9,7 @@
 
 #include "dirs.h"
 #include "saveload.h"
+#include "timing.h"
 
 #include "cgame_ffi.h"
 
@@ -125,10 +126,10 @@ void script_deinit()
     lua_close(L);
 }
 
-void script_update_all(Scalar dt)
+void script_update_all()
 {
     _push_event("update_all");
-    lua_pushnumber(L, dt);
+    lua_pushnumber(L, timing_dt);
     errcheck(lua_pcall(L, 2, 0, 0));
 }
 

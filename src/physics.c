@@ -6,6 +6,7 @@
 
 #include "array.h"
 #include "entitypool.h"
+#include "timing.h"
 #include "transform.h"
 #include "pause.h"
 
@@ -332,11 +333,11 @@ void physics_deinit()
 }
 
 /* step the space with fixed time step */
-static void _step(Scalar dt)
+static void _step()
 {
     static Scalar remain = 0.0;
 
-    remain += dt;
+    remain += timing_dt;
     while (remain >= period)
     {
         cpSpaceStep(space, period);
@@ -344,12 +345,12 @@ static void _step(Scalar dt)
     }
 }
 
-static void _update_kinematics(Scalar dt)
+static void _update_kinematics()
 {
     PhysicsInfo *info, *end;
     cpVect pos;
     cpFloat ang;
-    Scalar invdt = 1.0 / dt;
+    Scalar invdt = 1.0 / timing_dt;
 
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
          info != end; ++info)
@@ -369,7 +370,7 @@ static void _update_kinematics(Scalar dt)
             info->last_ang = ang;
         }
 }
-void physics_update_all(Scalar dt)
+void physics_update_all()
 {
     PhysicsInfo *info, *end;
 
@@ -379,10 +380,10 @@ void physics_update_all(Scalar dt)
         else
             ++info;
 
-    _update_kinematics(dt);
+    _update_kinematics();
 
     if (!pause_get())
-        _step(dt);
+        _step();
 
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
          info != end; ++info)

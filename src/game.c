@@ -89,9 +89,9 @@ static void _game_events()
     }
 }
 
-static void _game_update(Scalar dt)
+static void _game_update()
 {
-    system_update_all(dt);
+    system_update_all();
 }
 
 static void _game_draw()
@@ -125,23 +125,15 @@ static void _fps_display()
 
 void game_run(int argc, char **argv)
 {
-    double last_time, curr_time, dt;
-
     sargc = argc;
     sargv = argv;
 
     _game_init();
 
-    last_time = glfwGetTime();
     while (!quit && !glfwWindowShouldClose(game_window))
     {
         _game_events();
-
-        curr_time = glfwGetTime();
-        dt = curr_time - last_time;
-        last_time = curr_time;
-        _game_update(dt);
-
+        _game_update();
         _game_draw();
 
         _fps_display();

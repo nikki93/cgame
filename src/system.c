@@ -5,6 +5,7 @@
 
 #include "entity.h"
 #include "script.h"
+#include "timing.h"
 #include "pause.h"
 #include "input.h"
 #include "transform.h"
@@ -44,13 +45,15 @@ void system_deinit()
     input_deinit();
 }
 
-void system_update_all(Scalar dt)
+void system_update_all()
 {
-    script_update_all(dt);
+    timing_update();
 
-    keyboard_controlled_update_all(dt);
+    script_update_all();
 
-    physics_update_all(dt);
+    keyboard_controlled_update_all();
+
+    physics_update_all();
     transform_update_all();
     camera_update_all();
     sprite_update_all();

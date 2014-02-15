@@ -2,6 +2,7 @@
 
 #include <stdbool.h>
 
+#include "timing.h"
 #include "input.h"
 #include "saveload.h"
 #include "transform.h"
@@ -22,7 +23,7 @@ void keyboard_controlled_remove(Entity ent)
         kc_exists = false;
 }
 
-void keyboard_controlled_update_all(Scalar dt)
+void keyboard_controlled_update_all()
 {
     Vec2 dpos = vec2(0, 0), sca;
     Scalar rot, aspect;
@@ -40,27 +41,27 @@ void keyboard_controlled_update_all(Scalar dt)
         aspect = sca.y / sca.x;
 
         if (input_key_down(KC_LEFT))
-            dpos = vec2_add(dpos, vec2(-5 * dt, 0));
+            dpos = vec2_add(dpos, vec2(-5 * timing_dt, 0));
         if (input_key_down(KC_RIGHT))
-            dpos = vec2_add(dpos, vec2( 5 * dt, 0));
+            dpos = vec2_add(dpos, vec2( 5 * timing_dt, 0));
         if (input_key_down(KC_UP))
-            dpos = vec2_add(dpos, vec2(0,  5 * dt));
+            dpos = vec2_add(dpos, vec2(0,  5 * timing_dt));
         if (input_key_down(KC_DOWN))
-            dpos = vec2_add(dpos, vec2(0, -5 * dt));
+            dpos = vec2_add(dpos, vec2(0, -5 * timing_dt));
 
         if (input_key_down(KC_N))
-            rot += 0.35 * SCALAR_PI * dt;
+            rot += 0.35 * SCALAR_PI * timing_dt;
         if (input_key_down(KC_M))
-            rot -= 0.35 * SCALAR_PI * dt;
+            rot -= 0.35 * SCALAR_PI * timing_dt;
 
         if (input_key_down(KC_K))
         {
-            sca.x += 12 * dt;
+            sca.x += 12 * timing_dt;
             sca.y = aspect * sca.x;
         }
-        if (sca.x > 12 * dt && input_key_down(KC_I))
+        if (sca.x > 12 * timing_dt && input_key_down(KC_I))
         {
-            sca.x -= 12 * dt;
+            sca.x -= 12 * timing_dt;
             sca.y = aspect * sca.x;
         }
 

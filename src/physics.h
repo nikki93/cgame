@@ -68,7 +68,7 @@ SCRIPT(physics,
 
 void physics_init();
 void physics_deinit();
-void physics_update_all(Scalar dt);
+void physics_update_all();
 void physics_save_all(Serializer *s);
 void physics_load_all(Deserializer *s);
 

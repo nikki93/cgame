@@ -1,7 +1,6 @@
 #include "test/test.h"
 
 #include <stdlib.h>
-#include <time.h>
 
 #include "entity.h"
 #include "transform.h"
@@ -25,7 +24,6 @@ void test_c()
 
     /* add some blocks */
 
-    srand(time(NULL));
     n_blocks = rand() % 50;
     for (i = 0; i < n_blocks; ++i)
     {
@@ -57,6 +55,5 @@ void test_c()
 
 void test_init()
 {
-    /* everything happens through lua now! check main.lua */
 }
 
