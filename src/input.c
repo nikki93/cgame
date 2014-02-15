@@ -18,11 +18,20 @@ bool input_key_down(KeyCode key)
     return glfwGetKey(game_window, glfwkey) == GLFW_PRESS;
 }
 
-Vec2 input_get_mouse_pos()
+Vec2 input_get_mouse_pos_pixels()
 {
     double x, y;
     glfwGetCursorPos(game_window, &x, &y);
     return vec2(x, y);
+}
+Vec2 input_get_mouse_pos_unit()
+{
+    Vec2 p, hw;
+
+    hw = vec2_scalar_mul(game_get_window_size(), 0.5f);
+    p = vec2_div(vec2_sub(input_get_mouse_pos_pixels(), hw), hw);
+    p.y *= -1.0f;
+    return p;
 }
 
 bool input_mouse_down(MouseCode mouse)
