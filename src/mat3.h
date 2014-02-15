@@ -23,6 +23,8 @@ SCRIPT(mat3,
 
        EXPORT Mat3 mat3_inverse(Mat3 m);
 
+       EXPORT Vec2 mat3_transform(Mat3 m, Vec2 v);
+
        EXPORT void mat3_save(Mat3 *m, Serializer *s);
        EXPORT void mat3_load(Mat3 *m, Deserializer *s);
 
