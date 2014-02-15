@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 #include "script_export.h"
+#include "vec2.h"
 
 SCRIPT(input,
 
@@ -125,6 +126,29 @@ SCRIPT(input,
        };
 
        EXPORT bool input_key_down(KeyCode key);
+
+       typedef enum MouseCode MouseCode;
+       enum MouseCode
+       {
+           MC_1,
+           MC_2,
+           MC_3,
+           MC_4,
+           MC_5,
+           MC_6,
+           MC_7,
+           MC_8,
+
+           MC_NUM_MOUSECODES,
+
+           /* aliases for common buttons */
+           MC_LEFT = MC_1,
+           MC_RIGHT = MC_2,
+           MC_MIDDLE = MC_3,
+       };
+
+       EXPORT Vec2 input_mouse_pos();
+       EXPORT bool input_mouse_down(MouseCode mouse);
 
     )
 

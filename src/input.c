@@ -7,11 +7,28 @@
 static Array *key_down_cbs;
 
 static int _keycode_to_glfw(KeyCode key);
-static KeyCode _glfw_to_keycode(int key); /* XXX: not implemented yet */
+static KeyCode _glfw_to_keycode(int key);
+
+static int _mousecode_to_glfw(MouseCode mouse);
+static MouseCode _glfw_to_mousecode(int mouse);
 
 bool input_key_down(KeyCode key)
 {
-    return glfwGetKey(game_window, _keycode_to_glfw(key)) == GLFW_PRESS;
+    int glfwkey = _keycode_to_glfw(key);
+    return glfwGetKey(game_window, glfwkey) == GLFW_PRESS;
+}
+
+Vec2 input_mouse_pos()
+{
+    double x, y;
+    glfwGetCursorPos(game_window, &x, &y);
+    return vec2(x, y);
+}
+
+bool input_mouse_down(MouseCode mouse)
+{
+    int glfwmouse = _mousecode_to_glfw(mouse);
+    return glfwGetMouseButton(game_window, glfwmouse) == GLFW_PRESS;
 }
 
 void input_add_key_down_callback(void (*f) (KeyCode key))
@@ -45,8 +62,9 @@ void input_deinit()
     array_free(key_down_cbs);
 }
 
-/* glfw-keycode associations */
-#define assoc_keys()                                        \
+/* GLFW-KeyCode associations */
+
+#define assoc_key_all()                                     \
     assoc_key(KC_UNKNOWN, GLFW_KEY_UNKNOWN),                \
                                                             \
     assoc_key(KC_SPACE, GLFW_KEY_SPACE),                    \
@@ -163,7 +181,7 @@ static int _keycode_to_glfw(KeyCode key)
     static const int arr[KC_NUM_KEYCODES] =
         {
 #define assoc_key(keycode, glfwkey) [keycode] = glfwkey
-            assoc_keys()
+            assoc_key_all()
 #undef assoc_key
         };
 
@@ -172,12 +190,51 @@ static int _keycode_to_glfw(KeyCode key)
 
 static KeyCode _glfw_to_keycode(int key)
 {
+    /* + 1 so we have non-negative array indices */
     static const KeyCode arr[GLFW_KEY_LAST + 2] =
         {
 #define assoc_key(keycode, glfwkey) [glfwkey + 1] = keycode
-            assoc_keys()
+            assoc_key_all()
 #undef assoc_key
         };
 
     return arr[key + 1];
 }
+
+/* GLFW-MouseCode associations */
+
+#define assoc_mouse_all()                       \
+    assoc_mouse(MC_1, GLFW_MOUSE_BUTTON_1),     \
+    assoc_mouse(MC_2, GLFW_MOUSE_BUTTON_2),     \
+    assoc_mouse(MC_3, GLFW_MOUSE_BUTTON_3),     \
+    assoc_mouse(MC_4, GLFW_MOUSE_BUTTON_4),     \
+    assoc_mouse(MC_5, GLFW_MOUSE_BUTTON_5),     \
+    assoc_mouse(MC_6, GLFW_MOUSE_BUTTON_6),     \
+    assoc_mouse(MC_7, GLFW_MOUSE_BUTTON_7),     \
+    assoc_mouse(MC_8, GLFW_MOUSE_BUTTON_8),     \
+
+static int _mousecode_to_glfw(MouseCode mouse)
+{
+    static const int arr[MC_NUM_MOUSECODES] =
+        {
+#define assoc_mouse(mousecode, glfwmouse) [mousecode] = glfwmouse
+            assoc_mouse_all()
+#undef assoc_mouse
+        };
+
+    return arr[mouse];
+}
+
+static MouseCode _glfw_to_mousecode(int mouse)
+{
+    /* + 1 so we have non-negative array indices */
+    static const MouseCode arr[GLFW_MOUSE_BUTTON_LAST + 1] =
+        {
+#define assoc_mouse(mousecode, glfwmouse) [glfwmouse] = mousecode
+            assoc_mouse_all()
+#undef assoc_key
+        };
+
+    return arr[mouse];
+}
+
