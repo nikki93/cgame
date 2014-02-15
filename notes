@@ -32,9 +32,6 @@ ideas
 todo
 ----
 
-- remove dt as an _update() parameter, and just have a time_ system instead
-  that returns the data, or a global time_dt extern
-
 - add _clear() functions for all systems
 
 - add real-time Lua running (like a command console) -- bind with editor for
