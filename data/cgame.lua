@@ -45,6 +45,7 @@ end
 cgame.Vec2 = ffi.metatype('Vec2',
 {
     __add = cgame.vec2_add,
+    __sub = cgame.vec2_sub,
     __div = cgame.vec2_div,
     __index =
     {
