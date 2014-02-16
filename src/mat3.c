@@ -47,8 +47,8 @@ Mat3 mat3_inverse(Mat3 m)
 Vec2 mat3_transform(Mat3 m, Vec2 v)
 {
     return vec2(
-        m.m[0][0] * v.x + m.m[0][1] * v.y + m.m[0][2],
-        m.m[1][0] * v.x + m.m[1][1] * v.y + m.m[1][2]
+        m.m[0][0] * v.x + m.m[1][0] * v.y + m.m[2][0],
+        m.m[0][1] * v.x + m.m[1][1] * v.y + m.m[2][1]
         );
 }
 
