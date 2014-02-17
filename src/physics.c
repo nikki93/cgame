@@ -310,6 +310,26 @@ void physics_apply_force_at(Entity ent, Vec2 force, Vec2 at)
     cpBodyApplyForce(info->body, cpv_of_vec2(force), cpv_of_vec2(at));
 }
 
+NearestResult physics_nearest(Vec2 point, Scalar max_dist)
+{
+    cpNearestPointQueryInfo info;
+    NearestResult res;
+
+    if (!cpSpaceNearestPointQueryNearest(space, cpv_of_vec2(point), max_dist,
+                                         CP_ALL_LAYERS, CP_NO_GROUP, &info))
+    {
+        /* no result */
+        res.ent = entity_nil;
+        return res;
+    }
+
+    res.ent = cpShapeGetUserData(info.shape);
+    res.p = vec2_of_cpv(info.p);
+    res.d = info.d;
+    res.g = vec2_of_cpv(info.g);
+    return res;
+}
+
 /* ------------------------------------------------------------------------- */
 
 void physics_init()

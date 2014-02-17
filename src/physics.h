@@ -64,6 +64,20 @@ SCRIPT(physics,
        EXPORT void physics_apply_force_at(Entity ent, Vec2 force, Vec2 at);
 
 
+       /* nearest query */
+
+       typedef struct NearestResult NearestResult;
+       struct NearestResult
+       {
+           Entity ent; /* closest entity or entity_nil if none in range */
+           Vec2 p; /* closest point on shape surface */
+           Scalar d; /* distance to point, negative if inside */
+           Vec2 g; /* gradient of distance function */
+       };
+
+       EXPORT NearestResult physics_nearest(Vec2 point, Scalar max_dist);
+
+
     )
 
 void physics_init();
