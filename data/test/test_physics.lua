@@ -91,18 +91,6 @@ cgame.add_system('box_gen',
     end
 })
 
-cgame.add_system('box_force',
-{
-    update_all = function ()
-        if cgame.input_key_down('KC_F') then
-            cgame.physics_apply_force(10, cgame.vec2(0, 20))
-            cgame.console_puts('applying force...')
-        else
-            cgame.physics_reset_forces(10)
-        end
-    end
-})
-
 -- rotate gravity with the camera for kicks
 
 cgame.add_system('camera_gravity',
@@ -137,6 +125,23 @@ cgame.add_system('test_physics_keys',
             cgame.pause_set(true)
         elseif cgame.input_key_down(cgame.KC_T) then
             cgame.pause_set(false)
+        end
+    end
+})
+
+cgame.add_system('destroyer',
+{
+    update_all = function ()
+        if cgame.input_mouse_down(cgame.MC_LEFT) then
+            p = cgame.input_get_mouse_pos_unit()
+            p = cgame.transform_local_to_world(camera, p)
+
+            r = cgame.physics_nearest(p, 1)
+            if r.ent == cgame.entity_nil then
+                print('nothing!')
+            elseif r.ent ~= floor and r.d <= 0 then
+                cgame.entity_destroy(r.ent)
+            end
         end
     end
 })
