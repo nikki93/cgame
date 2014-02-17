@@ -10,6 +10,7 @@
 SCRIPT(entity,
 
        typedef unsigned int Entity;
+       EXPORT extern Entity entity_nil; /* no valid Entity has this value */
 
        EXPORT Entity entity_create();
        EXPORT void entity_destroy(Entity ent);

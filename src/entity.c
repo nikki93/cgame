@@ -15,7 +15,8 @@ struct DestroyEntry
     unsigned int pass;
 };
 
-static unsigned int counter = 0;
+Entity entity_nil = 0;
+static unsigned int counter = 1;
 static EntityMap *destroyed_map; /* whether entity is destroyed */
 static Array *destroyed; /* array of DestroyEntry for destroyed objects */
 static EntityMap *unused_map; /* whether has entry in unused array */
@@ -59,6 +60,7 @@ Entity entity_create()
     else
         ent = counter++;
 
+    assert(ent != entity_nil);
     return ent;
 }
 
