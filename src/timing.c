@@ -4,6 +4,7 @@
 
 Scalar timing_dt;
 static Scalar scale = 1.0f;
+static bool paused = false;
 
 void timing_set_scale(Scalar s)
 {
@@ -12,6 +13,15 @@ void timing_set_scale(Scalar s)
 Scalar timing_get_scale()
 {
     return scale;
+}
+
+void timing_set_paused(bool p)
+{
+    paused = p;
+}
+bool timing_get_paused()
+{
+    return paused;
 }
 
 static void _dt_update()
@@ -24,7 +34,7 @@ static void _dt_update()
         last_time = glfwGetTime();
 
     curr_time = glfwGetTime();
-    timing_dt = scale * (curr_time - last_time);
+    timing_dt = paused ? 0.0f : scale * (curr_time - last_time);
     last_time = curr_time;
 }
 
@@ -36,9 +46,11 @@ void timing_update()
 void timing_save_all(Serializer *s)
 {
     scalar_save(&scale, s);
+    bool_save(&paused, s);
 }
 void timing_load_all(Deserializer *s)
 {
     scalar_load(&scale, s);
+    bool_load(&paused, s);
 }
 
