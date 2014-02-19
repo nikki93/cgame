@@ -77,6 +77,7 @@ static void _saveload_all(void *s, bool save)
     saveload(entity);
 
     saveload(pause);
+    saveload(timing);
     saveload(transform);
     saveload(camera);
     saveload(sprite);
