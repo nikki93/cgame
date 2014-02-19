@@ -370,7 +370,11 @@ static void _update_kinematics()
     PhysicsInfo *info, *end;
     cpVect pos;
     cpFloat ang;
-    Scalar invdt = 1.0 / timing_dt;
+    Scalar invdt;
+
+    if (timing_dt <= FLT_EPSILON)
+        return;
+    invdt = 1 / timing_dt;
 
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
          info != end; ++info)
