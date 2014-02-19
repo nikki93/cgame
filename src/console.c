@@ -22,13 +22,15 @@ static void _update_text()
     unsigned int i;
     char *buf, *c;
 
-    /* accumulate non-empty lines */
+    /* accumulate non-empty lines and set text string */
+
     buf = malloc(NUM_LINES * LINE_LEN);
     for (i = 1, c = buf; i <= NUM_LINES; ++i)
         c = stpcpy(c, lines[(top + i) % NUM_LINES]);
 
-    /* set Text string */
     text_set_str(text, buf);
+
+    free(buf);
 }
 
 static void _print(const char *s)

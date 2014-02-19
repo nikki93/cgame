@@ -22,6 +22,7 @@ void entitypool_free(EntityPool *pool)
 {
     array_free(pool->array);
     entitymap_free(pool->emap);
+    free(pool);
 }
 
 void *entitypool_add(EntityPool *pool, Entity ent)
