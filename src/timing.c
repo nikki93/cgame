@@ -3,7 +3,7 @@
 #include <glew_glfw.h>
 
 Scalar timing_dt;
-static Scalar scale;
+static Scalar scale = 1.0f;
 
 void timing_set_scale(Scalar s)
 {
