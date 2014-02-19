@@ -6,7 +6,6 @@
 #include "entity.h"
 #include "script.h"
 #include "timing.h"
-#include "pause.h"
 #include "input.h"
 #include "transform.h"
 #include "camera.h"
@@ -76,7 +75,6 @@ static void _saveload_all(void *s, bool save)
 
     saveload(entity);
 
-    saveload(pause);
     saveload(timing);
     saveload(transform);
     saveload(camera);

@@ -6,9 +6,8 @@ project(cgame)
 add_executable(cgame src/main.c src/vec2.c src/mat3.c src/game.c
     src/entity.c src/system.c src/entitymap.c src/array.c
     src/entitypool.c src/saveload.c src/script.c src/input.c
-    src/pause.c src/timing.c src/transform.c src/camera.c
-    src/texture.c src/gfx.c src/text.c src/console.c src/sprite.c
-    src/physics.c
+    src/timing.c src/transform.c src/camera.c src/texture.c src/gfx.c
+    src/text.c src/console.c src/sprite.c src/physics.c
 
     src/test/keyboard_controlled.c src/test/test.c
     

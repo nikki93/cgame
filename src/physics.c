@@ -8,7 +8,6 @@
 #include "entitypool.h"
 #include "timing.h"
 #include "transform.h"
-#include "pause.h"
 
 /* per-entity info */
 typedef struct PhysicsInfo PhysicsInfo;
@@ -404,10 +403,11 @@ void physics_update_all()
         else
             ++info;
 
-    _update_kinematics();
-
-    if (!pause_get())
+    if (!timing_get_paused())
+    {
+        _update_kinematics();
         _step();
+    }
 
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
          info != end; ++info)
