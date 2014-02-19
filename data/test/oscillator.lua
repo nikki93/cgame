@@ -27,8 +27,10 @@ function oscillator_reset_all()
     time = 0
 end
 
-cgame.add_system('oscillator',
+cgame.add_system
 {
+    name = 'oscillator',
+
     update_all = function ()
         for ent, _ in pairs(tbl) do
             if cgame.entity_destroyed(ent) then tbl[ent] = nil end
@@ -40,7 +42,7 @@ cgame.add_system('oscillator',
             pos = cgame.transform_get_position(ent)
             pos.x = osc.initx
                 + osc.amp * math.sin(2 * math.pi
-                    * (osc.phase + osc.freq * time))
+                                         * (osc.phase + osc.freq * time))
             cgame.transform_set_position(ent, pos)
         end
     end,
@@ -55,5 +57,5 @@ cgame.add_system('oscillator',
         tbl = dump.tbl
         time = dump.time
     end,
-})
+}
 

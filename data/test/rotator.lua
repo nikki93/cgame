@@ -11,13 +11,15 @@ function rotator_set(ent, speed)
     tbl[ent] = speed
 end
 
-cgame.add_system('rotator',
+cgame.add_system
 {
+    name = 'rotator',
+
     update_all = function ()
         for ent, _ in pairs(tbl) do
             if cgame.entity_destroyed(ent) then tbl[ent] = nil end
         end
-            
+
         for ent, speed in pairs(tbl) do
             cgame.transform_rotate(ent, speed * cgame.timing_dt)
         end
@@ -30,5 +32,5 @@ cgame.add_system('rotator',
     load_all = function (str)
         tbl = loadstring(str)()
     end,
-})
+}
 

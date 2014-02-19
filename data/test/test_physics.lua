@@ -44,7 +44,7 @@ print(cgame.physics_add_box_shape(floor, -D, D - 1, D, D))
 print(cgame.physics_add_box_shape(floor, -D, -D, -(D - 1), D))
 print(cgame.physics_add_box_shape(floor, D - 1, -D, D, D))
 
-cgame.keyboard_controlled_add(floor)
+--cgame.keyboard_controlled_add(floor)
 oscillator_set(floor, { amp = 8, freq = 0.5 })
 rotator_set(floor, 0.1 * math.pi)
 
@@ -83,7 +83,7 @@ end
 
 -- add more boxes with 'B', apply force with 'F'
 
-cgame.add_system('box_gen',
+cgame.add_system
 {
     update_all = function ()
         if cgame.input_key_down('KC_B') then
@@ -91,21 +91,21 @@ cgame.add_system('box_gen',
             cgame.vec2(5 * symrand(), 5 * symrand()))
         end
     end
-})
+}
 
 -- rotate gravity with the camera for kicks
 
-cgame.add_system('camera_gravity',
+cgame.add_system
 {
     update_all = function ()
         rot = cgame.transform_get_rotation(camera)
         cgame.physics_set_gravity(cgame.vec2_rot(cgame.vec2(0, -9.8), rot))
     end
-})
+}
 
 -- keys
 
-cgame.add_system('test_physics_keys',
+cgame.add_system
 {
     update_all = function ()
         -- press a number to make it dynamic, hold right shift for static,
@@ -124,14 +124,14 @@ cgame.add_system('test_physics_keys',
 
         -- R to pause, T to resume
         if cgame.input_key_down(cgame.KC_R) then
-            cgame.pause_set(true)
+            cgame.timing_set_paused(true)
         elseif cgame.input_key_down(cgame.KC_T) then
-            cgame.pause_set(false)
+            cgame.timing_set_paused(false)
         end
     end
-})
+}
 
-cgame.add_system('destroyer',
+cgame.add_system
 {
     update_all = function ()
         if cgame.input_mouse_down(cgame.MC_LEFT) then
@@ -146,7 +146,7 @@ cgame.add_system('destroyer',
             end
         end
     end
-})
+}
 
 
 cgame.console_puts('this is the physics test')

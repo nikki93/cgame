@@ -32,9 +32,6 @@ ideas
 todo
 ----
 
-- make cgame.add_system take only one argument which is a table, and specify
-  name as 'name = ...' in that table
-
 - add _clear() functions for all systems
 
 - add real-time Lua running (like a command console) -- bind with editor for

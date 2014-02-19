@@ -119,8 +119,14 @@ function cgame.__load_all(str)
     end
 end
 
-function cgame.add_system(name, handlers)
-    systems[name] = handlers
+local sys_counter = 0
+function cgame.add_system(t)
+    if not t.name then
+        t.name = 'sys_' .. sys_counter
+        sys_counter = sys_counter + 1
+    end
+
+    systems[t.name] = t
 end
 
 

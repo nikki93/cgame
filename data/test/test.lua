@@ -63,14 +63,21 @@ cgame.keyboard_controlled_add(camera)
 
 -- entity destruction
 
-cgame.add_system('destroyer',
+cgame.add_system
 {
+    name = 'destroyer',
+
     update_all = function ()
         for i = 1, 9 do
-            if (cgame.input_key_down('KC_' .. i)) then
+            if cgame.input_key_down('KC_' .. i) then
                 cgame.entity_destroy(i)
             end
         end
-    end
-})
 
+        if cgame.input_mouse_down(cgame.MC_LEFT) then
+            p = cgame.input_get_mouse_pos_unit()
+            p = cgame.transform_local_to_world(camera, p)
+            print(p.x .. ', ' .. p.y)
+        end
+    end
+}
