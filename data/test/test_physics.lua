@@ -44,9 +44,9 @@ print(cgame.physics_add_box_shape(floor, -D, D - 1, D, D))
 print(cgame.physics_add_box_shape(floor, -D, -D, -(D - 1), D))
 print(cgame.physics_add_box_shape(floor, D - 1, -D, D, D))
 
---cgame.keyboard_controlled_add(floor)
-oscillator_set(floor, { amp = 8, freq = 0.5 })
-rotator_set(floor, 0.1 * math.pi)
+cgame.keyboard_controlled_add(floor)
+--oscillator_set(floor, { amp = 8, freq = 0.5 })
+--rotator_set(floor, 0.1 * math.pi)
 
 -- add some boxes
 
@@ -81,7 +81,7 @@ while y < ymax do
     y = y + 1.2
 end
 
--- add more boxes with 'B', apply force with 'F'
+-- add more boxes with 'B'
 
 cgame.add_system
 {
@@ -90,16 +90,6 @@ cgame.add_system
             make_box(cgame.vec2(5 * symrand(), 5 * symrand()),
             cgame.vec2(5 * symrand(), 5 * symrand()))
         end
-    end
-}
-
--- rotate gravity with the camera for kicks
-
-cgame.add_system
-{
-    update_all = function ()
-        rot = cgame.transform_get_rotation(camera)
-        cgame.physics_set_gravity(cgame.vec2_rot(cgame.vec2(0, -9.8), rot))
     end
 }
 
