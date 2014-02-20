@@ -32,9 +32,10 @@ ideas
 todo
 ----
 
-- easy: forward _clear() event to Lua systems
-
 - easy: make game.c use input system for key handling
+
+- easy: add _key_down(...) system event (or _key(...) event with
+  various states?)
 
 - medium: add real-time Lua running (like a command console) -- bind
   with editor for REPL?
