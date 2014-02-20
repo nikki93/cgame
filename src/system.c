@@ -48,6 +48,8 @@ void system_clear()
 {
     keyboard_controlled_clear();
 
+    script_clear();
+
     physics_clear();
     sprite_clear();
     camera_clear();

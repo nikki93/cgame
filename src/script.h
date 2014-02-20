@@ -7,6 +7,7 @@
 
 void script_init();
 void script_deinit();
+void script_clear();
 void script_update_all();
 void script_draw_all();
 void script_save_all(Serializer *s);
