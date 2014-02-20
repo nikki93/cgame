@@ -31,6 +31,10 @@ cgame.add_system
 {
     name = 'oscillator',
 
+    clear = function ()
+        tbl = {}
+    end,
+
     update_all = function ()
         for ent, _ in pairs(tbl) do
             if cgame.entity_destroyed(ent) then tbl[ent] = nil end
