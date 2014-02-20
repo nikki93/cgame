@@ -32,18 +32,22 @@ ideas
 todo
 ----
 
-- add _clear() functions for all systems
+- easy: forward _clear() event to Lua systems
 
-- add real-time Lua running (like a command console) -- bind with editor for
-  REPL?
+- easy: make game.c use input system for key handling
 
-- move window stuff from game into a new window system (bg_color, size)
+- medium: add real-time Lua running (like a command console) -- bind
+  with editor for REPL?
 
-- serialize global physics properties, expose more physics functions
+- easy: move window stuff from game into a new window system
+  (bg_color, size)
 
-- add sprite animation
+- easy: serialize global physics properties, expose more physics
+  functions
 
-- make Entity type a struct to allow reallocation on deserialize etc.
+- hard: add sprite animation
+
+- hard: handle merging (load without clear) for prefabs etc.
 
 
 files
@@ -64,8 +68,14 @@ files
 systems
 -------
 
+- script
+- timing
+- input
+- texture
+- text
+- console
+
 - entity
-- pause
 - transform
 - camera
 - sprite
