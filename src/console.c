@@ -105,7 +105,7 @@ void console_init()
     /* initially all empty */
     for (i = 0; i < NUM_LINES; ++i)
         lines[i][0] = '\0';
-    text_add(vec2_zero, "");
+    text = text_add(vec2_zero, "");
     _update_text();
 
     /* listen to keys */
