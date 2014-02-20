@@ -41,7 +41,7 @@ static void _gen_chars(Array *chars, const char *str)
     char c;
     TextChar *tc;
     Vec2 pos;
-    
+
     pos = vec2(0, -1);
     array_reset(chars, 0);
     while (*str)

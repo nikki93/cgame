@@ -221,7 +221,7 @@ static void _set_type(PhysicsInfo *info, PhysicsBody type)
             info->last_pos = cpBodyGetPos(info->body);
             info->last_ang = cpBodyGetAngle(info->body);
             /* fall through */
-            
+
         case PB_STATIC:
             if (!cpBodyIsStatic(info->body))
             {
