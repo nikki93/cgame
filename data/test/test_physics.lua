@@ -45,8 +45,8 @@ print(cgame.physics_add_box_shape(floor, -D, -D, -(D - 1), D))
 print(cgame.physics_add_box_shape(floor, D - 1, -D, D, D))
 
 cgame.keyboard_controlled_add(floor)
---oscillator_set(floor, { amp = 8, freq = 0.5 })
---rotator_set(floor, 0.1 * math.pi)
+oscillator_set(floor, { amp = 8, freq = 0.5 })
+rotator_set(floor, 0.1 * math.pi)
 
 -- add some boxes
 
