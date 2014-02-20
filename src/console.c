@@ -37,6 +37,10 @@ static void _print(const char *s)
 {
     static unsigned int curs = 0; /* cursor position */
 
+    /* copy to stdout */
+    printf("%s", s);
+    fflush(stdout);
+
     while (*s)
     {
         /* print any char, but prioritise newline space */
