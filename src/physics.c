@@ -351,6 +351,18 @@ void physics_deinit()
     entitypool_free(pool);
 }
 
+void physics_clear()
+{
+    PhysicsInfo *info, *end;
+
+    /* remove old stuff */
+    for (info = entitypool_begin(pool), end = entitypool_end(pool);
+         info != end; ++info)
+        _remove(info);
+    entitypool_clear(pool);
+    cpResetShapeIdCounter();
+}
+
 /* step the space with fixed time step */
 static void _step()
 {
@@ -637,17 +649,10 @@ void physics_save_all(Serializer *s)
 void physics_load_all(Deserializer *s)
 {
     unsigned int n;
-    PhysicsInfo *info, *end;
+    PhysicsInfo *info;
 
-    /* remove old stuff */
-    for (info = entitypool_begin(pool), end = entitypool_end(pool);
-         info != end; ++info)
-        _remove(info);
-    entitypool_clear(pool);
-    cpResetShapeIdCounter();
-
-    /* load new stuff */
     uint_load(&n, s);
+
     while (n--)
     {
         entitypool_elem_load(pool, &info, s);

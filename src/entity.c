@@ -105,6 +105,15 @@ void entity_deinit()
     entitymap_free(destroyed_map);
 }
 
+void entity_clear()
+{
+    counter = 1;
+    array_reset(destroyed, 0);
+    entitymap_clear(destroyed_map);
+    array_reset(unused, 0);
+    entitymap_clear(unused_map);
+}
+
 void entity_update_all()
 {
     DestroyEntry *entry;
@@ -162,11 +171,12 @@ void entity_load_all(Deserializer *s)
     DestroyEntry *entry;
     Entity ent;
 
+    /* TODO: handle merging */
+
     uint_load(&counter, s);
 
     uint_load(&n, s);
     array_reset(destroyed, n);
-    entitymap_clear(destroyed_map);
     for (i = 0; i < n; ++i)
     {
         entry = array_get(destroyed, i);
@@ -178,7 +188,6 @@ void entity_load_all(Deserializer *s)
 
     uint_load(&n, s);
     array_reset(unused, n);
-    entitymap_clear(unused_map);
     for (i = 0; i < n; ++i)
     {
         entity_load(&ent, s);

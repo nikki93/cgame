@@ -23,6 +23,7 @@ void entity_load(Entity *ent, Deserializer *s);
 
 void entity_init();
 void entity_deinit();
+void entity_clear();
 void entity_update_all();
 void entity_save_all(Serializer *s);
 void entity_load_all(Deserializer *s);

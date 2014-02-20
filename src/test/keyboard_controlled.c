@@ -23,6 +23,11 @@ void keyboard_controlled_remove(Entity ent)
         kc_exists = false;
 }
 
+void keyboard_controlled_clear()
+{
+    kc_exists = false;
+}
+
 void keyboard_controlled_update_all()
 {
     Vec2 dpos = vec2(0, 0), sca;

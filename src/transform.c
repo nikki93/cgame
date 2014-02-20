@@ -130,6 +130,11 @@ void transform_deinit()
     entitypool_free(pool);
 }
 
+void transform_clear()
+{
+    entitypool_clear(pool);
+}
+
 void transform_update_all()
 {
     Transform *transform;
@@ -165,8 +170,6 @@ void transform_load_all(Deserializer *s)
 {
     unsigned int n;
     Transform *transform;
-
-    entitypool_clear(pool);
 
     uint_load(&n, s);
 

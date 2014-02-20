@@ -105,6 +105,11 @@ void sprite_deinit()
     entitypool_free(pool);
 }
 
+void sprite_clear()
+{
+    entitypool_clear(pool);
+}
+
 void sprite_update_all()
 {
     Sprite *sprite, *end;
@@ -165,8 +170,6 @@ void sprite_load_all(Deserializer *s)
 {
     unsigned int n;
     Sprite *sprite;
-
-    entitypool_clear(pool);
 
     uint_load(&n, s);
 

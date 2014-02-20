@@ -36,6 +36,7 @@ SCRIPT(transform,
 
 void transform_init();
 void transform_deinit();
+void transform_clear();
 void transform_update_all();
 void transform_save_all(Serializer *s);
 void transform_load_all(Deserializer *s);

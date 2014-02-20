@@ -51,6 +51,11 @@ void camera_init()
     inverse_view_matrix = mat3_identity();
 }
 
+void camera_clear()
+{
+    camera_remove();
+}
+
 void camera_update_all()
 {
     if (camera_exists)

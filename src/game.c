@@ -74,6 +74,10 @@ static void _game_events()
     if (glfwGetKey(game_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         game_quit();
 
+    /* clear */
+    if (glfwGetKey(game_window, GLFW_KEY_C) == GLFW_PRESS)
+        system_clear();
+
     /* save/load */
     if (glfwGetKey(game_window, GLFW_KEY_O) == GLFW_PRESS)
     {
