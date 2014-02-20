@@ -23,6 +23,7 @@ struct TextInfo
     Vec2 pos; /* position of text in pixels */
     Array *chars;
     bool visible;
+    Color color;
 };
 
 typedef struct TextChar TextChar;
@@ -90,6 +91,7 @@ Text text_add(Vec2 pos, const char *str)
     info->id = curr++;
     info->pos = pos;
     info->visible = true;
+    info->color = color_black;
     info->chars = array_new(TextChar);
     _gen_chars(info->chars, str);
 
@@ -117,6 +119,19 @@ void text_set_str(Text text, const char *str)
     TextInfo *info = _find(text);
     assert(info);
     _gen_chars(info->chars, str);
+}
+
+void text_set_color(Text text, Color color)
+{
+    TextInfo *info = _find(text);
+    assert(info);
+    info->color = color;
+}
+Color text_get_color(Text text)
+{
+    TextInfo *info = _find(text);
+    assert(info);
+    return info->color;
 }
 
 void text_set_visible(Text text, bool visible)
@@ -209,6 +224,8 @@ void text_draw_all()
         glUniform2f(glGetUniformLocation(program, "base_pos"),
                     info->pos.x / hwin.x - 1,
                     info->pos.y / hwin.y + 1);
+        glUniform4fv(glGetUniformLocation(program, "base_color"), 1,
+                     (const GLfloat *) &info->color);
 
         nchars = array_length(info->chars);
         glBufferData(GL_ARRAY_BUFFER, nchars * sizeof(TextChar),

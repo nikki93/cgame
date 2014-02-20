@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 #include "vec2.h"
+#include "color.h"
 
 typedef unsigned int Text;
 
@@ -13,6 +14,9 @@ void text_remove(Text text);
 void text_set_pos(Text text, Vec2 pos);
 
 void text_set_str(Text text, const char *str);
+
+void text_set_color(Text text, Color color);
+Color text_get_color();
 
 void text_set_visible(Text text, bool visible);
 bool text_get_visible(Text text);
