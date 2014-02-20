@@ -87,6 +87,8 @@ static void _game_events()
     }
     if (glfwGetKey(game_window, GLFW_KEY_P) == GLFW_PRESS)
     {
+        system_clear();
+
         Deserializer *s = deserializer_open_file(usr_path("test.sav"));
         system_load_all(s);
         deserializer_close(s);
