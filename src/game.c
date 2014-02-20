@@ -25,8 +25,9 @@ static Text fps_text;
 
 static void _fps_init()
 {
-    Vec2 p = vec2(5, -game_get_window_size().y + 12 + 5);
-    fps_text = text_add(p, "fps: ...");
+    fps_text = text_add(vec2(5, -game_get_window_size().y + 12 + 5),
+                        "fps: ...");
+    text_set_color(fps_text, color(0.0f, 0.4f, 0.1f, 1.0f));
 }
 
 static void _fps_update()
