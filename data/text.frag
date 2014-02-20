@@ -3,11 +3,11 @@
 in vec2 texcoord;
 
 uniform sampler2D tex0;
+uniform vec4 base_color;
 
 out vec4 outColor;
 
 void main()
 {
-    outColor = texture(tex0, texcoord);
-    outColor.xyz = 1 - outColor.xyz;
+    outColor = base_color * texture(tex0, texcoord);
 }
