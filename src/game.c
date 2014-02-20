@@ -9,6 +9,7 @@
 #include "dirs.h"
 #include "system.h"
 #include "console.h"
+#include "text.h"
 
 #include "test/test.h"
 
@@ -17,6 +18,38 @@ GLFWwindow *game_window;
 static bool quit = false; /* exit main loop if true */
 static int sargc = 0;
 static char **sargv;
+
+/* ------------------------------------------------------------------------- */
+
+static Text fps_text;
+
+static void _fps_init()
+{
+    Vec2 p = vec2(5, -game_get_window_size().y + 12 + 5);
+    fps_text = text_add(p, "fps: ...");
+}
+
+static void _fps_update()
+{
+    static char buf[32];
+    static const double display_period = 5.0f; /* fps display update period */
+    static unsigned int nframes = 0;
+    static double last_time = 0.0, curr_time;
+    double interval;
+
+    ++nframes;
+
+    curr_time = glfwGetTime();
+    interval = curr_time - last_time;
+    if (interval > display_period)
+    {
+        snprintf(buf, 32, "fps: %.2f", nframes / interval);
+        text_set_str(fps_text, buf);
+
+        nframes = 0;
+        last_time = curr_time;
+    }
+}
 
 /* ------------------------------------------------------------------------- */
 
@@ -52,6 +85,7 @@ static void _game_init()
 
     /* init systems */
     system_init();
+    _fps_init();
 
     /* init test */
     test_init();
@@ -109,26 +143,6 @@ static void _game_draw()
     glfwSwapBuffers(game_window);
 }
 
-static void _fps_display()
-{
-    static const double display_period = 5.0f; /* fps display update period */
-    static unsigned int nframes = 0;
-    static double last_time = 0.0, curr_time;
-    double interval;
-
-    ++nframes;
-
-    curr_time = glfwGetTime();
-    interval = curr_time - last_time;
-    if (interval > display_period)
-    {
-        console_printf("fps: %.2f\n", nframes / interval);
-
-        nframes = 0;
-        last_time = curr_time;
-    }
-}
-
 void game_run(int argc, char **argv)
 {
     sargc = argc;
@@ -142,7 +156,7 @@ void game_run(int argc, char **argv)
         _game_update();
         _game_draw();
 
-        _fps_display();
+        _fps_update();
     }
 
     _game_deinit();
