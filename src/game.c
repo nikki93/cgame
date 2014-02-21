@@ -10,6 +10,7 @@
 #include "system.h"
 #include "console.h"
 #include "text.h"
+#include "input.h"
 
 #include "test/test.h"
 
@@ -54,6 +55,40 @@ static void _fps_update()
 
 /* ------------------------------------------------------------------------- */
 
+static void _game_key_down(KeyCode key)
+{
+    switch (key)
+    {
+        case KC_ESCAPE:
+            game_quit();
+            break;
+
+        case KC_C:
+            system_clear();
+            console_puts("cleared");
+            break;
+
+        case KC_O:
+            console_printf("saving to '%s'\n", usr_path("test.sav"));
+            Serializer *s = serializer_open_file(usr_path("test.sav"));
+            system_save_all(s);
+            serializer_close(s);
+            break;
+
+        case KC_P:
+            system_clear();
+
+            console_printf("loading from '%s'\n", usr_path("test.sav"));
+            Deserializer *d = deserializer_open_file(usr_path("test.sav"));
+            system_load_all(d);
+            deserializer_close(d);
+            break;
+
+        default:
+            break;
+    }
+}
+
 static void _game_init()
 {
     /* initialize glfw */
@@ -88,6 +123,9 @@ static void _game_init()
     system_init();
     _fps_init();
 
+    /* bind event callbacks */
+    input_add_key_down_callback(_game_key_down);
+
     /* init test */
     test_init();
 }
@@ -104,30 +142,6 @@ static void _game_deinit()
 static void _game_events()
 {
     glfwPollEvents();
-
-    /* quit on escape key */
-    if (glfwGetKey(game_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        game_quit();
-
-    /* clear */
-    if (glfwGetKey(game_window, GLFW_KEY_C) == GLFW_PRESS)
-        system_clear();
-
-    /* save/load */
-    if (glfwGetKey(game_window, GLFW_KEY_O) == GLFW_PRESS)
-    {
-        Serializer *s = serializer_open_file(usr_path("test.sav"));
-        system_save_all(s);
-        serializer_close(s);
-    }
-    if (glfwGetKey(game_window, GLFW_KEY_P) == GLFW_PRESS)
-    {
-        system_clear();
-
-        Deserializer *s = deserializer_open_file(usr_path("test.sav"));
-        system_load_all(s);
-        deserializer_close(s);
-    }
 }
 
 static void _game_update()
