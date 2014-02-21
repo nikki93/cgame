@@ -213,8 +213,6 @@ void text_draw_all()
     texture_bind(data_path("font1.png"));
 
     /* draw! */
-    glBindVertexArray(vao);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     for (info = array_begin(infos), end = array_end(infos);
          info != end; ++info)
     {
@@ -227,6 +225,8 @@ void text_draw_all()
         glUniform4fv(glGetUniformLocation(program, "base_color"), 1,
                      (const GLfloat *) &info->color);
 
+        glBindVertexArray(vao);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
         nchars = array_length(info->chars);
         glBufferData(GL_ARRAY_BUFFER, nchars * sizeof(TextChar),
                      array_begin(info->chars), GL_STREAM_DRAW);
