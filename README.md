@@ -23,19 +23,22 @@ CMake should make it easy to set up. [GLFW](http://www.glfw.org/),
 [chipmunk](http://chipmunk-physics.net/) are dependencies and are included in
 ext/. From the repository root,
 
-    mkdir build
-    cd build
-    cmake ..
-    make
+    cmake -E make_directory build
+    cmake -E chdir build cmake ..
+    cmake --build build
+
+The above instructions have been tested under OSX with clang+make and Windows
+with Visual Studio 2013.
 
 Running
 ---
 
-After building just run the 'cgame' executable, making sure your working
-directory is the root of the project (cgame looks for data in './data'). So
-after running the commands in the previous section, you'd do,
+After building just run the 'cgame' executable. This is put in the build
+directory by clang+make, and under build/Debug or build/Release by Visual
+Studio 2013. Make sure your working directory is the root of the project (cgame
+looks for data in './data'). So after running the commands in the previous
+section, you'd do,
 
-    cd ..
     ./build/cgame
 
 By default it runs test/test.lua under the data directory. If you want to run a
