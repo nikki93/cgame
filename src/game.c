@@ -44,7 +44,7 @@ static void _fps_update()
     interval = curr_time - last_time;
     if (interval > display_period)
     {
-        snprintf(buf, 32, "fps: %.2f", nframes / interval);
+        sprintf(buf, "fps: %.2f", nframes / interval);
         text_set_str(fps_text, buf);
 
         nframes = 0;

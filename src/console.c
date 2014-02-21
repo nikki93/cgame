@@ -20,13 +20,15 @@ static Text text;
 static void _update_text()
 {
     unsigned int i;
-    char *buf, *c;
+    char *buf, *c, *r;
 
     /* accumulate non-empty lines and set text string */
 
     buf = malloc(NUM_LINES * LINE_LEN);
     for (i = 1, c = buf; i <= NUM_LINES; ++i)
-        c = stpcpy(c, lines[(top + i) % NUM_LINES]);
+        for (r = lines[(top + i) % NUM_LINES]; *r; ++r)
+            *c++ = *r;
+    *c = '\0';
 
     text_set_str(text, buf);
 
