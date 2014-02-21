@@ -32,8 +32,6 @@ ideas
 todo
 ----
 
-- easy: make game.c use input system for key handling
-
 - easy: add _key_down(...) system event (or _key(...) event with
   various states?)
 
