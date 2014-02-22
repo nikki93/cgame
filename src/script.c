@@ -10,6 +10,7 @@
 #include "dirs.h"
 #include "saveload.h"
 #include "timing.h"
+#include "console.h"
 
 #include "cgame_ffi.h"
 
@@ -19,7 +20,7 @@ static lua_State *L;
     do                                                          \
         if (__VA_ARGS__)                                        \
         {                                                       \
-            fprintf(stderr, "lua: %s\n", lua_tostring(L, -1));  \
+            console_printf("lua: %s\n", lua_tostring(L, -1));   \
             lua_pop(L, 1);                                      \
         }                                                       \
     while (0)
