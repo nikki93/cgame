@@ -32,9 +32,6 @@ ideas
 todo
 ----
 
-- easy: add _key_down(...) system event (or _key(...) event with
-  various states?)
-
 - medium: add real-time Lua running (like a command console) -- bind
   with editor for REPL?
 

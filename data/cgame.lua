@@ -10,6 +10,11 @@ local cgame = setmetatable({}, { __index = ffi.C })
 
 --- lua utils/wrappers --------------------------------------------------------
 
+-- dereference a cdata from a pointer
+function cgame.__deref_cdata(ct, p)
+    return ffi.cast(ct, p)[0]
+end
+
 -- return serialized string for cdata, func must be of form
 -- void (typeof(cdata) *, Serializer *)
 function cgame.c_serialize(func, cdata)

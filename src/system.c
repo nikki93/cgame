@@ -17,6 +17,11 @@
 
 #include "test/keyboard_controlled.h"
 
+static void _key_down(KeyCode key)
+{
+    script_key_down(key);
+}
+
 void system_init()
 {
     input_init();
@@ -29,6 +34,8 @@ void system_init()
     console_init();
     physics_init();
     script_init();
+
+    input_add_key_down_callback(_key_down);
 }
 
 void system_deinit()

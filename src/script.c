@@ -24,6 +24,20 @@ static lua_State *L;
         }                                                       \
     while (0)
 
+/*
+ * push an object as cdata, t must be the FFI type specifier as a string -- so to
+ * push a Vec2 you'd do _push_cdata("Vec2 *", &v), and the result is a Vec2 cdata
+ * on stack (NOT a pointer)
+ */
+static void _push_cdata(const char *t, void *p)
+{
+    lua_getglobal(L, "cgame");
+    lua_getfield(L, -1, "__deref_cdata");
+    lua_remove(L, -2);
+    lua_pushstring(L, t);
+    lua_pushlightuserdata(L, p);
+    errcheck(lua_pcall(L, 2, 1, 0));
+}
 
 static void _push_event(const char *event)
 {
@@ -142,6 +156,13 @@ void script_draw_all()
 {
     _push_event("draw_all");
     errcheck(lua_pcall(L, 1, 0, 0));
+}
+
+void script_key_down(KeyCode key)
+{
+    _push_event("key_down");
+    _push_cdata("KeyCode *", &key);
+    errcheck(lua_pcall(L, 2, 0, 0));
 }
 
 void script_save_all(Serializer *s)
