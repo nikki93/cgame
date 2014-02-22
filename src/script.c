@@ -66,11 +66,13 @@ static void _forward_args()
     lua_setglobal(L, "cgame_args");
 }
 
-/* set cgame_data_path global to data path */
-static void _set_data_path()
+/* let Lua know about paths */
+static void _set_paths()
 {
     lua_pushstring(L, data_path(""));
     lua_setglobal(L, "cgame_data_path");
+    lua_pushstring(L, usr_path(""));
+    lua_setglobal(L, "cgame_usr_path");
 }
 
 /* LuaJIT parser doesn't like 'EXPORT' -- make it whitespace */
@@ -124,7 +126,7 @@ void script_init()
 
     _load_cgame_ffi();
     _forward_args();
-    _set_data_path();
+    _set_paths();
 
     /* run main.lua and fire init event */
     errcheck(luaL_loadfile(L, data_path("main.lua")));
