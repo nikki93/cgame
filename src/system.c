@@ -13,6 +13,7 @@
 #include "sprite.h"
 #include "text.h"
 #include "console.h"
+#include "scratch.h"
 #include "physics.h"
 
 #include "test/keyboard_controlled.h"
@@ -68,6 +69,7 @@ void system_update_all()
 {
     timing_update();
 
+    scratch_update();
     script_update_all();
 
     keyboard_controlled_update_all();
