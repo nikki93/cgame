@@ -26,7 +26,8 @@ bool _modified()
     if (stat(filename, &st) != 0)
         return false; /* doesn't exist or error */
 
-    modified = !first && (st.st_mtimespec.tv_sec != prev_time.tv_sec);
+    modified = !first && !(st.st_mtimespec.tv_sec == prev_time.tv_sec
+                           && st.st_mtimespec.tv_nsec == prev_time.tv_nsec);
     prev_time = st.st_mtimespec;
     first = false;
     return modified;
@@ -34,7 +35,6 @@ bool _modified()
 
 void scratch_run()
 {
-    console_puts("running scratch buffer");
     script_run_file(filename);
 }
 
