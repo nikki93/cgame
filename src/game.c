@@ -87,10 +87,7 @@ static void _game_key_down(KeyCode key)
 
         case KC_R:
             if (input_key_down(KC_LEFT_SHIFT))
-            {
-                console_puts("running scratch buffer");
                 scratch_run();
-            }
             break;
 
         default:
