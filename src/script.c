@@ -25,6 +25,15 @@ static lua_State *L;
         }                                                       \
     while (0)
 
+void script_run_string(const char *s)
+{
+    errcheck(luaL_dostring(L, s));
+}
+void script_run_file(const char *filename)
+{
+    errcheck(luaL_dofile(L, filename));
+}
+
 /*
  * push an object as cdata, t must be the FFI type specifier as a string -- so to
  * push a Vec2 you'd do _push_cdata("Vec2 *", &v), and the result is a Vec2 cdata

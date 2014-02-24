@@ -6,6 +6,9 @@
 #include "saveload.h"
 #include "input.h"
 
+void script_run_string(const char *s);
+void script_run_file(const char *filename);
+
 void script_init();
 void script_deinit();
 void script_clear();
