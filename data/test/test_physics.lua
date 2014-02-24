@@ -15,7 +15,7 @@ cgame.physics_set_simulation_frequency(300)
 
 -- add camera
 
-local camera = cgame.entity_create()
+camera = cgame.entity_create()
 
 cgame.transform_add(camera)
 cgame.camera_add(camera)
@@ -26,7 +26,7 @@ cgame.camera_set_viewport_size(
 
 local D = 16
 
-local floor = cgame.entity_create()
+floor = cgame.entity_create()
 
 cgame.transform_add(floor)
 cgame.transform_set_position(floor, cgame.vec2_zero)
@@ -45,8 +45,8 @@ print(cgame.physics_add_box_shape(floor, -D, -D, -(D - 1), D))
 print(cgame.physics_add_box_shape(floor, D - 1, -D, D, D))
 
 cgame.keyboard_controlled_add(floor)
-oscillator_set(floor, { amp = 8, freq = 0.5 })
-rotator_set(floor, 0.1 * math.pi)
+-- oscillator_set(floor, { amp = 8, freq = 0.5 })
+-- rotator_set(floor, 0.1 * math.pi)
 
 -- add some boxes
 
@@ -112,10 +112,10 @@ cgame.add_system
             end
         end
 
-        -- R to pause, T to resume
-        if cgame.input_key_down(cgame.KC_R) then
+        -- pause/resume
+        if cgame.input_key_down(cgame.KC_U) then
             cgame.timing_set_paused(true)
-        elseif cgame.input_key_down(cgame.KC_T) then
+        elseif cgame.input_key_down(cgame.KC_I) then
             cgame.timing_set_paused(false)
         end
     end
