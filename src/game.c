@@ -11,6 +11,7 @@
 #include "console.h"
 #include "text.h"
 #include "input.h"
+#include "scratch.h"
 
 #include "test/test.h"
 
@@ -82,6 +83,14 @@ static void _game_key_down(KeyCode key)
             Deserializer *d = deserializer_open_file(usr_path("test.sav"));
             system_load_all(d);
             deserializer_close(d);
+            break;
+
+        case KC_R:
+            if (input_key_down(KC_LEFT_SHIFT))
+            {
+                console_puts("running scratch buffer");
+                scratch_run();
+            }
             break;
 
         default:
