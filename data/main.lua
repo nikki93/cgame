@@ -7,5 +7,6 @@ cgame = require 'cgame'
 -- print to console
 print = function (k) cgame.console_puts(tostring(k)) end
 
-dofile(cgame_data_path .. (cgame_args[1] or 'test/test.lua'))
+-- got startup script argument?
+if cgame_args[1] then dofile(cgame_args[1]) end
 
