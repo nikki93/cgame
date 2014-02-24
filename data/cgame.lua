@@ -134,6 +134,10 @@ function cgame.add_system(t)
     systems[t.name] = t
 end
 
+function cgame.remove_system(name)
+    systems[name] = nil
+end
+
 
 -------------------------------------------------------------------------------
 
