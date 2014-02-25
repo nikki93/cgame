@@ -19,6 +19,7 @@ SCRIPT(scalar,
 
 #define scalar_cos cosf
 #define scalar_sin sinf
+#define scalar_sqrt sqrtf
 
 #endif
 
