@@ -10,6 +10,7 @@
 #include "saveload.h"
 #include "vec2.h"
 #include "mat3.h"
+#include "system.h"
 #include "input.h"
 #include "entity.h"
 #include "timing.h"
@@ -36,6 +37,7 @@ static const char **cgame_ffi[] =
     &cgame_ffi_vec2,
     &cgame_ffi_game,
     &cgame_ffi_mat3,
+    &cgame_ffi_system,
     &cgame_ffi_input,
     &cgame_ffi_entity,
     &cgame_ffi_timing,
