@@ -27,10 +27,12 @@ Vec2 vec2_scalar_div(Vec2 v, Scalar f)
 
 Scalar vec2_len(Vec2 v)
 {
-    return scalar_sqrt(v.x * v.x + v.y + v.y);
+    return scalar_sqrt(v.x * v.x + v.y * v.y);
 }
 Vec2 vec2_normalize(Vec2 v)
 {
+    if (v.x == 0 && v.y == 0)
+        return v;
     return vec2_scalar_div(v, vec2_len(v));
 }
 
