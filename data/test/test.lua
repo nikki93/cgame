@@ -63,7 +63,7 @@ cgame.keyboard_controlled_add(camera)
 
 -- entity destruction
 
-cgame.add_system
+cgame.system_add
 {
     name = 'destroyer',
 

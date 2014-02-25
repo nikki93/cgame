@@ -27,7 +27,7 @@ function oscillator_reset_all()
     time = 0
 end
 
-cgame.add_system
+cgame.system_add
 {
     name = 'oscillator',
 

@@ -125,7 +125,7 @@ function cgame.__load_all(str)
 end
 
 local sys_counter = 0
-function cgame.add_system(t)
+function cgame.system_add(t)
     if not t.name then
         t.name = 'sys_' .. sys_counter
         sys_counter = sys_counter + 1
@@ -134,7 +134,7 @@ function cgame.add_system(t)
     systems[t.name] = t
 end
 
-function cgame.remove_system(name)
+function cgame.system_remove(name)
     systems[name] = nil
 end
 

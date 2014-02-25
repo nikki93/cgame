@@ -11,7 +11,7 @@ function rotator_set(ent, speed)
     tbl[ent] = speed
 end
 
-cgame.add_system
+cgame.system_add
 {
     name = 'rotator',
 

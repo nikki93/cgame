@@ -83,7 +83,7 @@ end
 
 -- add more boxes with 'B'
 
-cgame.add_system
+cgame.system_add
 {
     update_all = function ()
         if cgame.input_key_down('KC_B') then
@@ -95,7 +95,7 @@ cgame.add_system
 
 -- keys
 
-cgame.add_system
+cgame.system_add
 {
     update_all = function ()
         -- press a number to make it dynamic, hold right shift for static,
@@ -121,7 +121,7 @@ cgame.add_system
     end
 }
 
-cgame.add_system
+cgame.system_add
 {
     update_all = function ()
         if cgame.input_mouse_down(cgame.MC_LEFT) then
