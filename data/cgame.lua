@@ -51,7 +51,15 @@ cgame.Vec2 = ffi.metatype('Vec2',
 {
     __add = cgame.vec2_add,
     __sub = cgame.vec2_sub,
-    __div = cgame.vec2_div,
+    __mul = function (a, b)
+        if type(a) == 'number' then return cgame.vec2_scalar_mul(b, a)
+        elseif type(b) == 'number' then return cgame.vec2_scalar_mul(a, b)
+        else return cgame.vec2_mul(a, b) end
+    end,
+    __div = function (a, b)
+        if type(b) == 'number' then return cgame.vec2_scalar_div(a, b)
+        else return cgame.vec2_div(a, b) end
+    end,
     __index =
     {
         __serialize = cgame.c_save_load('cgame.Vec2', 'cgame.vec2_save',
