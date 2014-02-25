@@ -18,7 +18,20 @@ Vec2 vec2_div(Vec2 u, Vec2 v)
 }
 Vec2 vec2_scalar_mul(Vec2 v, Scalar f)
 {
-    return vec2(f * v.x, f * v.y);
+    return vec2(v.x * f, v.y * f);
+}
+Vec2 vec2_scalar_div(Vec2 v, Scalar f)
+{
+    return vec2(v.x / f, v.y / f);
+}
+
+Scalar vec2_len(Vec2 v)
+{
+    return scalar_sqrt(v.x * v.x + v.y + v.y);
+}
+Vec2 vec2_normalize(Vec2 v)
+{
+    return vec2_scalar_div(v, vec2_len(v));
 }
 
 Vec2 vec2_rot(Vec2 v, Scalar rot)
