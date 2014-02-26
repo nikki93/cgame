@@ -8,6 +8,15 @@
 
 SCRIPT(mat3,
 
+       /*
+        * stored in column-major order, so that,
+        *
+        *     m = /                                 \
+        *         | m.m[0][0]  m.m[1][0]  m.m[2][0] |
+        *         | m.m[0][1]  m.m[1][1]  m.m[2][1] |
+        *         | m.m[0][2]  m.m[1][2]  m.m[2][2] |
+        *         \                                 /
+        */
        typedef struct Mat3 Mat3;
        struct Mat3 { Scalar m[3][3]; };
 
@@ -16,6 +25,8 @@ SCRIPT(mat3,
                         Scalar m20, Scalar m21, Scalar m22);
 
        EXPORT Mat3 mat3_identity(); /* returns identity matrix */
+
+       EXPORT Mat3 mat3_mul(Mat3 m, Mat3 n);
 
        /* matrix that applies scale, rot and trans in order */
        EXPORT Mat3 mat3_scaling_rotation_translation(Vec2 scale, Scalar rot,
