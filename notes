@@ -32,6 +32,8 @@ ideas
 todo
 ----
 
+- easy: detach transform parent-child relationship on removing an entity
+
 - medium: add real-time Lua running (like a command console) -- bind
   with editor for REPL?
 

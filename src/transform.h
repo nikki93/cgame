@@ -17,6 +17,8 @@ SCRIPT(transform,
        EXPORT void transform_add(Entity ent);
        EXPORT void transform_remove(Entity ent);
 
+       EXPORT void transform_attach(Entity parent, Entity child);
+
        EXPORT void transform_set_position(Entity ent, Vec2 pos);
        EXPORT Vec2 transform_get_position(Entity ent);
        EXPORT void transform_translate(Entity ent, Vec2 trans);
