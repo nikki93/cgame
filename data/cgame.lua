@@ -89,6 +89,13 @@ function cgame.set(sys, prop, ent, val) cgame.setter(sys, prop)(ent, val) end
 function cgame.adder(sys) return cgame[sys .. '_add'] end
 function cgame.remover(sys) return cgame[sys .. '_remove'] end
 function cgame.add(sys, ent, props)
+    -- multi-add?
+    if type(sys) == 'table' then
+        ent = ent or cgame.entity_create()
+        for k, v in pairs(sys) do cgame.add(k, ent, v) end
+        return ent
+    end
+
     cgame.adder(sys)(ent)
     if (props) then
         for k, v in pairs(props) do
