@@ -11,10 +11,10 @@
 SCRIPT(camera,
 
        EXPORT void camera_add(Entity ent);
-       EXPORT void camera_remove();
+       EXPORT void camera_remove(Entity ent);
        EXPORT Entity camera_get();
 
-       EXPORT void camera_set_viewport_size(Vec2 dim);
+       EXPORT void camera_set_viewport_size(Entity ent, Vec2 dim);
        EXPORT Mat3 camera_get_inverse_view_matrix();
 
     )

@@ -19,18 +19,19 @@ void camera_add(Entity ent)
     camera_exists = true;
     camera_entity = ent;
 }
-void camera_remove()
+void camera_remove(Entity ent)
 {
-    camera_exists = false;
+    if (camera_entity == ent)
+        camera_exists = false;
 }
 Entity camera_get()
 {
     return camera_entity;
 }
 
-void camera_set_viewport_size(Vec2 dim)
+void camera_set_viewport_size(Entity ent, Vec2 dim)
 {
-    if (camera_exists)
+    if (camera_exists && camera_entity == ent)
         transform_set_scale(camera_entity, vec2_scalar_mul(dim, 0.5f));
 }
 
@@ -53,7 +54,7 @@ void camera_init()
 
 void camera_clear()
 {
-    camera_remove();
+    camera_remove(camera_entity);
 }
 
 void camera_update_all()
@@ -62,7 +63,7 @@ void camera_update_all()
     {
         if (entity_destroyed(camera_entity))
         {
-            camera_remove();
+            camera_remove(camera_entity);
             return;
         }
 
