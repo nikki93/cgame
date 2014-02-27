@@ -17,8 +17,11 @@ SCRIPT(transform,
        EXPORT void transform_add(Entity ent);
        EXPORT void transform_remove(Entity ent);
 
-       /* set parent to entity_nil to detach */
+       /* root transforms have parent = entity_nil */
        EXPORT void transform_set_parent(Entity ent, Entity parent);
+       EXPORT Entity transform_get_parent(Entity ent);
+       EXPORT unsigned int transform_get_num_children(Entity ent);
+       EXPORT Entity *transform_get_children(Entity ent);
        /* detach from parent and all children */
        EXPORT void transform_detach_all(Entity ent);
 
