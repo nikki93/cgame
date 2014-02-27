@@ -30,14 +30,17 @@ static EntityPool *pool;
 
 static void _detach(Transform *p, Transform *c)
 {
-    unsigned int i, n;
+    Entity *child, *end;
 
     c->parent = entity_nil;
-    for (i = 0, n = array_length(p->children); i < n; )
-        if (array_get_val(Entity, p->children, i) == c->pool_elem.ent)
-            array_quick_remove(p->children, i);
-        else
-            ++i;
+    for (child = array_begin(p->children), end = array_end(p->children);
+         child != end; ++child)
+        if (*child == c->pool_elem.ent)
+        {
+            array_quick_remove(p->children,
+                               child - (Entity *) array_begin(p->children));
+            return;
+        }
 }
 
 static void _detach_all(Transform *t)
@@ -96,45 +99,39 @@ void transform_add(Entity ent)
 void transform_remove(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
-    _detach_all(transform);
-    if (transform && transform->children)
-        array_free(transform->children);
+    if (transform)
+        _detach_all(transform);
     entitypool_remove(pool, ent);
 }
 
-void transform_attach(Entity parent, Entity child)
+void transform_set_parent(Entity ent, Entity parent)
 {
-    Transform *p, *c;
+    Transform *t, *oldp, *newp;
 
-    p = entitypool_get(pool, parent);
-    assert(p);
-    c = entitypool_get(pool, child);
-    assert(c);
+    t = entitypool_get(pool, ent);
+    assert(t);
 
-    /* TODO: detach from previous parent */
-    c->parent = parent;
+    if (t->parent == parent)
+        return; /* already set */
 
-    /* TODO: avoid duplicate entries */
-    if (!p->children)
-        p->children = array_new(Entity);
-    array_add_val(Entity, p->children) = child;
-}
-void transform_detach(Entity parent, Entity child)
-{
-    Transform *p, *c;
+    /* detach from old */
+    if (t->parent != entity_nil)
+    {
+        oldp = entitypool_get(pool, t->parent);
+        assert(oldp);
+        _detach(oldp, t);
+    }
 
-    p = entitypool_get(pool, parent);
-    assert(p);
-    c = entitypool_get(pool, child);
-    assert(c);
-
-    /* attached? */
-    if (c->parent != parent)
-        return;
-
-    /* detach */
-    _detach(p, c);
+    /* attach to new */
+    t->parent = parent;
+    if (parent != entity_nil)
+    {
+        newp = entitypool_get(pool, parent);
+        assert(newp);
+        if (!newp->children)
+            newp->children = array_new(Entity);
+        array_add_val(Entity, newp->children) = ent;
+    }
 }
 void transform_detach_all(Entity ent)
 {

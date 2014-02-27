@@ -17,10 +17,10 @@ SCRIPT(transform,
        EXPORT void transform_add(Entity ent);
        EXPORT void transform_remove(Entity ent);
 
-       EXPORT void transform_attach(Entity parent, Entity child);
-       EXPORT void transform_detach(Entity parent, Entity child);
-       EXPORT void transform_detach_all(Entity ent); /* remove all parent/child
-                                                        connections */
+       /* set parent to entity_nil to detach */
+       EXPORT void transform_set_parent(Entity ent, Entity parent);
+       /* detach from parent and all children */
+       EXPORT void transform_detach_all(Entity ent);
 
        EXPORT void transform_set_position(Entity ent, Vec2 pos);
        EXPORT Vec2 transform_get_position(Entity ent);
