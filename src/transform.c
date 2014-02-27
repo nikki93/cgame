@@ -28,6 +28,47 @@ static EntityPool *pool;
 
 /* ------------------------------------------------------------------------- */
 
+static void _detach(Transform *p, Transform *c)
+{
+    unsigned int i, n;
+
+    c->parent = entity_nil;
+    for (i = 0, n = array_length(p->children); i < n; )
+        if (array_get_val(Entity, p->children, i) == c->pool_elem.ent)
+            array_quick_remove(p->children, i);
+        else
+            ++i;
+}
+
+static void _detach_all(Transform *t)
+{
+    Entity *child, *end;
+    Transform *p, *c;
+    assert(t);
+
+    /* our parent */
+    if (t->parent != entity_nil)
+    {
+        p = entitypool_get(pool, t->parent);
+        assert(p);
+        _detach(p, t);
+    }
+
+    /* our children */
+    if (t->children)
+    {
+        for (child = array_begin(t->children), end = array_end(t->children);
+             child != end; ++child)
+        {
+            c = entitypool_get(pool, *child);
+            assert(c);
+            c->parent = entity_nil;
+        }
+        array_free(t->children);
+        t->children = NULL;
+    }
+}
+
 static void _update_cache(Transform *transform)
 {
     transform->mat_cache = mat3_scaling_rotation_translation(
@@ -56,6 +97,7 @@ void transform_remove(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
     assert(transform);
+    _detach_all(transform);
     if (transform && transform->children)
         array_free(transform->children);
     entitypool_remove(pool, ent);
@@ -70,11 +112,35 @@ void transform_attach(Entity parent, Entity child)
     c = entitypool_get(pool, child);
     assert(c);
 
+    /* TODO: detach from previous parent */
     c->parent = parent;
 
+    /* TODO: avoid duplicate entries */
     if (!p->children)
         p->children = array_new(Entity);
     array_add_val(Entity, p->children) = child;
+}
+void transform_detach(Entity parent, Entity child)
+{
+    Transform *p, *c;
+
+    p = entitypool_get(pool, parent);
+    assert(p);
+    c = entitypool_get(pool, child);
+    assert(c);
+
+    /* attached? */
+    if (c->parent != parent)
+        return;
+
+    /* detach */
+    _detach(p, c);
+}
+void transform_detach_all(Entity ent)
+{
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
+    _detach_all(transform);
 }
 
 void transform_set_position(Entity ent, Vec2 pos)
@@ -215,6 +281,44 @@ void transform_update_all()
         _update(transform);
 }
 
+static void _children_save(Transform *t, Serializer *s)
+{
+    int n;
+    Entity *child, *end;
+
+    if (t->children)
+    {
+        n = array_length(t->children);
+        int_save(&n, s);
+        for (child = array_begin(t->children), end = array_end(t->children);
+             child != end; ++child)
+            entity_save(child, s);
+    }
+    else
+    {
+        n = -1;
+        int_save(&n, s);
+    }
+}
+static void _children_load(Transform *t, Deserializer *s)
+{
+    int n;
+    Entity *child;
+
+    int_load(&n, s);
+    if (n >= 0)
+    {
+        t->children = array_new(Entity);
+        while (n--)
+        {
+            child = array_add(t->children);
+            entity_load(child, s);
+        }
+    }
+    else
+        t->children = NULL;
+}
+
 void transform_save_all(Serializer *s)
 {
     unsigned int n;
@@ -230,7 +334,11 @@ void transform_save_all(Serializer *s)
         vec2_save(&transform->position, s);
         scalar_save(&transform->rotation, s);
         vec2_save(&transform->scale, s);
-        mat3_save(&transform->worldmat_cache, s);
+
+        entity_save(&transform->parent, s);
+        _children_save(transform, s);
+
+        mat3_save(&transform->mat_cache, s);
     }
 }
 void transform_load_all(Deserializer *s)
@@ -246,7 +354,11 @@ void transform_load_all(Deserializer *s)
         vec2_load(&transform->position, s);
         scalar_load(&transform->rotation, s);
         vec2_load(&transform->scale, s);
-        mat3_load(&transform->worldmat_cache, s);
+
+        entity_load(&transform->parent, s);
+        _children_load(transform, s);
+
+        mat3_load(&transform->mat_cache, s);
     }
 }
 
