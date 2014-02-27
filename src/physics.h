@@ -58,6 +58,7 @@ SCRIPT(physics,
        EXPORT bool physics_get_freeze_rotation(Entity ent);
 
        EXPORT void physics_set_velocity(Entity ent, Vec2 vel);
+       EXPORT Vec2 physics_get_velocity(Entity ent);
 
        EXPORT void physics_reset_forces(Entity ent);
        EXPORT void physics_apply_force(Entity ent, Vec2 force);

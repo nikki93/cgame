@@ -291,6 +291,13 @@ void physics_set_velocity(Entity ent, Vec2 vel)
     assert(info);
     cpBodySetVel(info->body, cpv_of_vec2(vel));
 }
+Vec2 physics_get_velocity(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    return vec2_of_cpv(cpBodyGetVel(info->body));
+}
+
 
 void physics_reset_forces(Entity ent)
 {
