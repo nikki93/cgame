@@ -5,6 +5,8 @@
 #include <string.h>
 #include <assert.h>
 
+#include "entitymap.h"
+
 enum Type
 {
     SER_STRING,
@@ -29,6 +31,7 @@ struct Serializer
 struct Deserializer
 {
     int type;
+    EntityMap *emap; /* map of saved id --> new id to allow merging */
 
     union
     {
@@ -160,6 +163,7 @@ void serializer_close(Serializer *s)
 Deserializer *deserializer_open_str(const char *str)
 {
     Deserializer *s = malloc(sizeof(Deserializer));
+    s->emap = entitymap_new(entity_nil);
     s->type = SER_STRING;
     s->ptr = str;
     return s;
@@ -167,6 +171,7 @@ Deserializer *deserializer_open_str(const char *str)
 Deserializer *deserializer_open_file(const char *filename)
 {
     Deserializer *s = malloc(sizeof(Deserializer));
+    s->emap = entitymap_new(entity_nil);
     s->type = SER_FILE;
     s->file = fopen(filename, "r");
     return s;
@@ -175,7 +180,13 @@ void deserializer_close(Deserializer *s)
 {
     if (s->type == SER_FILE)
         fclose(s->file);
+    entitymap_free(s->emap);
     free(s);
+}
+
+EntityMap *deserializer_get_emap(Deserializer *s)
+{
+    return s->emap;
 }
 
 /* printf/scanf for INFINITY doesn't work out on MSVC */

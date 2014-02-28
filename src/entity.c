@@ -61,6 +61,7 @@ Entity entity_create()
         ent = counter++;
 
     assert(ent != entity_nil);
+    printf("%u\n", ent);
     return ent;
 }
 
@@ -141,58 +142,30 @@ void entity_save(Entity *ent, Serializer *s)
 }
 void entity_load(Entity *ent, Deserializer *s)
 {
-    uint_load(ent, s);
+    Entity sav;
+    EntityMap *emap;
+
+    uint_load(&sav, s);
+    if (sav == entity_nil)
+    {
+        *ent = entity_nil;
+        return;
+    }
+
+    /* build a map of saved id --> new id to allow merging */
+    emap = deserializer_get_emap(s);
+    *ent = entitymap_get(emap, sav);
+    if (*ent == entity_nil)
+    {
+        *ent = entity_create(); /* new sav */
+        entitymap_set(emap, sav, *ent);
+    }
 }
 
 void entity_save_all(Serializer *s)
 {
-    unsigned int n, i;
-    DestroyEntry *entry;
-
-    uint_save(&counter, s);
-
-    n = array_length(destroyed);
-    uint_save(&n, s);
-    for (i = 0; i < n; ++i)
-    {
-        entry = array_get(destroyed, i);
-        entity_save(&entry->ent, s);
-        uint_save(&entry->pass, s);
-    }
-
-    n = array_length(unused);
-    uint_save(&n, s);
-    for (i = 0; i < n; ++i)
-        entity_save(array_get(unused, i), s);
 }
 void entity_load_all(Deserializer *s)
 {
-    unsigned int n, i;
-    DestroyEntry *entry;
-    Entity ent;
-
-    /* TODO: handle merging */
-
-    uint_load(&counter, s);
-
-    uint_load(&n, s);
-    array_reset(destroyed, n);
-    for (i = 0; i < n; ++i)
-    {
-        entry = array_get(destroyed, i);
-        entity_load(&entry->ent, s);
-        uint_load(&entry->pass, s);
-
-        entitymap_set(destroyed_map, entry->ent, true);
-    }
-
-    uint_load(&n, s);
-    array_reset(unused, n);
-    for (i = 0; i < n; ++i)
-    {
-        entity_load(&ent, s);
-        array_get_val(Entity, unused, i) = ent;
-        entitymap_set(unused_map, ent, true);
-    }
 }
 
