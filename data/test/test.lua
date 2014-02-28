@@ -7,12 +7,14 @@ WIN_HEIGHT = 600
 
 -- add camera
 
-local camera = cgame.entity_create()
+camera = cgame.entity_create()
 
 cgame.transform_add(camera)
 cgame.camera_add(camera)
 cgame.camera_set_viewport_size(
-    cgame.vec2(WIN_WIDTH / GRID_SIZE, WIN_HEIGHT / GRID_SIZE))
+    camera,
+    cgame.vec2(WIN_WIDTH / GRID_SIZE, WIN_HEIGHT / GRID_SIZE)
+)
 
 -- add some blocks
 
@@ -45,21 +47,40 @@ end
 
 -- add player
 
-local player = cgame.entity_create()
+player = cgame.add
+{
+    transform = {
+        position = cgame.vec2(0, 0),
+        scale = cgame.vec2(2, 2),
+        rotation = math.pi / 16,
+    },
+    sprite = { cell = cgame.vec2(0, 32), size = cgame.vec2(32, 32) },
+}
 
-cgame.transform_add(player)
-cgame.transform_set_position(player, cgame.vec2(0.0, 0.0))
+rchild = cgame.add
+{
+    transform = {
+        parent = player,
+        position = cgame.vec2(1, 0),
+        scale = cgame.vec2(0.5, 0.5),
+    },
+    sprite = { cell = cgame.vec2(32, 32), size = cgame.vec2(32, 32) },
+}
 
-cgame.sprite_add(player)
-cgame.sprite_set_cell(player, cgame.vec2( 0.0, 32.0))
-cgame.sprite_set_size(player, cgame.vec2(32.0, 32.0))
-
-cgame.transform_set_scale(player, cgame.vec2(2, 2))
+lchild = cgame.add
+{
+    transform = {
+        parent = player,
+        position = cgame.vec2(-1, 0),
+        scale = cgame.vec2(0.5, 0.5),
+    },
+    sprite = { cell = cgame.vec2(32, 32), size = cgame.vec2(32, 32) },
+}
 
 -- who gets keyboard?
 
-cgame.keyboard_controlled_add(camera)
---cgame.keyboard_controlled_add(player)
+--cgame.keyboard_controlled_add(camera)
+cgame.keyboard_controlled_add(player)
 
 -- entity destruction
 
