@@ -61,7 +61,6 @@ Entity entity_create()
         ent = counter++;
 
     assert(ent != entity_nil);
-    printf("%u\n", ent);
     return ent;
 }
 
