@@ -133,7 +133,7 @@ function cgame.__load_all(str)
     local tbl = loadstring(str)()
     for name, dump in pairs(tbl) do
         local system = systems[name]
-        if system.load_all then
+        if system and system.load_all then
             systems[name].load_all(dump)
         end
     end
