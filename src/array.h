@@ -22,6 +22,7 @@ void *array_top(Array *arr);
 #define array_top_val(type, arr) (*((type *) array_top(arr)))
 unsigned int array_length(Array *arr); /* number of objects in array */
 
+/* NOTE: add/remove may change begin/end, so be careful while iterating */
 void *array_begin(Array *arr); /* pointer to first element */
 void *array_end(Array *arr);   /* pointer to 'one past last' element */
 
