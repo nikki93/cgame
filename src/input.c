@@ -4,11 +4,15 @@
 #include "glew_glfw.h"
 #include "game.h"
 
+/* callback lists */
 static Array *key_down_cbs;
+static Array *key_up_cbs;
+static Array *mouse_down_cbs;
+static Array *mouse_up_cbs;
 
+/* glfw <-> input conversions */
 static int _keycode_to_glfw(KeyCode key);
 static KeyCode _glfw_to_keycode(int key);
-
 static int _mousecode_to_glfw(MouseCode mouse);
 static MouseCode _glfw_to_mousecode(int mouse);
 
@@ -40,13 +44,26 @@ bool input_mouse_down(MouseCode mouse)
     return glfwGetMouseButton(game_window, glfwmouse) == GLFW_PRESS;
 }
 
-void input_add_key_down_callback(void (*f) (KeyCode key))
+void input_add_key_down_callback(KeyCallback f)
 {
     array_add_val(KeyCallback, key_down_cbs) = f;
 }
+void input_add_key_up_callback(KeyCallback f)
+{
+    array_add_val(KeyCallback, key_up_cbs) = f;
+}
 
-void _key_callback(GLFWwindow *window, int key, int scancode,
-                   int action, int mods)
+void input_add_mouse_down_callback(MouseCallback f)
+{
+    array_add_val(MouseCallback, mouse_down_cbs) = f;
+}
+void input_add_mouse_up_callback(MouseCallback f)
+{
+    array_add_val(MouseCallback, mouse_up_cbs) = f;
+}
+
+static void _key_callback(GLFWwindow *window, int key, int scancode,
+                          int action, int mods)
 {
     KeyCallback *f, *end;
 
@@ -57,17 +74,53 @@ void _key_callback(GLFWwindow *window, int key, int scancode,
                  f != end; ++f)
                 (*f)(_glfw_to_keycode(key));
             break;
+
+        case GLFW_RELEASE:
+            for (f = array_begin(key_up_cbs), end = array_end(key_up_cbs);
+                 f != end; ++f)
+                (*f)(_glfw_to_keycode(key));
+            break;
+    }
+}
+
+static void _mouse_callback(GLFWwindow *window, int mouse, int action,
+                            int mods)
+{
+    MouseCallback *f, *end;
+
+    switch (action)
+    {
+        case GLFW_PRESS:
+            for (f = array_begin(mouse_down_cbs), end = array_end(mouse_down_cbs);
+                 f != end; ++f)
+                (*f)(_glfw_to_mousecode(mouse));
+            break;
+
+        case GLFW_RELEASE:
+            for (f = array_begin(mouse_up_cbs), end = array_end(mouse_up_cbs);
+                 f != end; ++f)
+                (*f)(_glfw_to_mousecode(mouse));
+            break;
     }
 }
 
 void input_init()
 {
     key_down_cbs = array_new(KeyCallback);
+    key_up_cbs = array_new(KeyCallback);
     glfwSetKeyCallback(game_window, _key_callback);
+
+    mouse_down_cbs = array_new(MouseCallback);
+    mouse_up_cbs = array_new(MouseCallback);
+    glfwSetMouseButtonCallback(game_window, _mouse_callback);
 }
 
 void input_deinit()
 {
+    array_free(mouse_up_cbs);
+    array_free(mouse_down_cbs);
+
+    array_free(key_up_cbs);
     array_free(key_down_cbs);
 }
 

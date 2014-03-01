@@ -156,6 +156,12 @@ SCRIPT(input,
 
 typedef void (*KeyCallback) (KeyCode key);
 void input_add_key_down_callback(KeyCallback f);
+void input_add_key_up_callback(KeyCallback f);
+
+typedef void (*MouseCallback) (MouseCode mouse);
+void input_add_mouse_down_callback(MouseCallback f);
+void input_add_mouse_up_callback(MouseCallback f);
+
 
 void input_init();
 void input_deinit();
