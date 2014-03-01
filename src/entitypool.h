@@ -43,9 +43,11 @@ void *entitypool_get(EntityPool *pool, Entity ent);
  *             ptr != end; ++ptr)
  *         ... use ptr ...
  *
+ * NOTE: if you add/remove during iteration the pointers are invalidated
  */
 void *entitypool_begin(EntityPool *pool);
 void *entitypool_end(EntityPool *pool); /* one-past-end */
+void *entitypool_nth(EntityPool *pool, unsigned int n); /* 0-indexed */
 
 unsigned int entitypool_size(EntityPool *pool);
 

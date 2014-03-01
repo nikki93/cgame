@@ -66,6 +66,11 @@ void *entitypool_end(EntityPool *pool)
 {
     return array_end(pool->array);
 }
+void *entitypool_nth(EntityPool *pool, unsigned int n)
+{
+    return array_get(pool->array, n);
+}
+
 unsigned int entitypool_size(EntityPool *pool)
 {
     return array_length(pool->array);
