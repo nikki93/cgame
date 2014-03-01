@@ -22,6 +22,19 @@ static void _key_down(KeyCode key)
 {
     script_key_down(key);
 }
+static void _key_up(KeyCode key)
+{
+    script_key_up(key);
+}
+
+static void _mouse_down(MouseCode mouse)
+{
+    script_mouse_down(mouse);
+}
+static void _mouse_up(MouseCode mouse)
+{
+    script_mouse_up(mouse);
+}
 
 void system_init()
 {
@@ -37,6 +50,10 @@ void system_init()
     script_init();
 
     input_add_key_down_callback(_key_down);
+    input_add_key_up_callback(_key_up);
+
+    input_add_mouse_down_callback(_mouse_down);
+    input_add_mouse_up_callback(_mouse_up);
 }
 
 void system_deinit()

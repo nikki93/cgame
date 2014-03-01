@@ -176,6 +176,25 @@ void script_key_down(KeyCode key)
     _push_cdata("KeyCode *", &key);
     errcheck(lua_pcall(L, 2, 0, 0));
 }
+void script_key_up(KeyCode key)
+{
+    _push_event("key_up");
+    _push_cdata("KeyCode *", &key);
+    errcheck(lua_pcall(L, 2, 0, 0));
+}
+
+void script_mouse_down(MouseCode mouse)
+{
+    _push_event("mouse_down");
+    _push_cdata("MouseCode *", &mouse);
+    errcheck(lua_pcall(L, 2, 0, 0));
+}
+void script_mouse_up(MouseCode mouse)
+{
+    _push_event("mouse_up");
+    _push_cdata("MouseCode *", &mouse);
+    errcheck(lua_pcall(L, 2, 0, 0));
+}
 
 void script_save_all(Serializer *s)
 {

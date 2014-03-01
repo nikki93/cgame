@@ -15,6 +15,9 @@ void script_clear();
 void script_update_all();
 void script_draw_all();
 void script_key_down(KeyCode key);
+void script_key_up(KeyCode key);
+void script_mouse_down(MouseCode mouse);
+void script_mouse_up(MouseCode mouse);
 void script_save_all(Serializer *s);
 void script_load_all(Deserializer *s);
 
