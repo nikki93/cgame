@@ -272,18 +272,20 @@ static void _update(Transform *transform)
 
 void transform_update_all()
 {
+    unsigned int i;
     Transform *transform, *end;
 
-    /* don't precalculate end pointer here because it changes as we remove */
-    for (transform = entitypool_begin(pool);
-         transform != entitypool_end(pool); )
+    for (i = 0; i < entitypool_size(pool); )
+    {
+        transform = entitypool_nth(pool, i);
         if (entity_destroyed(transform->pool_elem.ent))
             transform_remove(transform->pool_elem.ent);
         else
         {
             transform->updated = false;
-            ++transform;
+            ++i;
         }
+    }
 
     for (transform = entitypool_begin(pool), end = entitypool_end(pool);
          transform != end; ++transform)

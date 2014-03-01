@@ -112,14 +112,17 @@ void sprite_clear()
 
 void sprite_update_all()
 {
+    unsigned int i;
     Sprite *sprite, *end;
 
-    for (sprite = entitypool_begin(pool);
-         sprite != entitypool_end(pool); )
+    for (i = 0; i < entitypool_size(pool); )
+    {
+        sprite = entitypool_nth(pool, i);
         if (entity_destroyed(sprite->pool_elem.ent))
             sprite_remove(sprite->pool_elem.ent);
         else
-            ++sprite;
+            ++i;
+    }
 
     for (sprite = entitypool_begin(pool), end = entitypool_end(pool);
          sprite != end; ++sprite)
