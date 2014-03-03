@@ -112,7 +112,7 @@ static void _saveload_all(void *s, bool save)
 #define saveload(sys)                                   \
     if (save) sys##_save_all(s); else sys##_load_all(s)
 
-    saveload(entity);
+    entity_load_all_begin();
 
     saveload(timing);
     saveload(transform);
@@ -123,6 +123,8 @@ static void _saveload_all(void *s, bool save)
     saveload(keyboard_controlled);
 
     saveload(script);
+
+    entity_load_all_end();
 }
 
 void system_save_all(Serializer *s)

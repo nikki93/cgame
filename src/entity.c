@@ -21,6 +21,7 @@ static EntityMap *destroyed_map; /* whether entity is destroyed */
 static Array *destroyed; /* array of DestroyEntry for destroyed objects */
 static EntityMap *unused_map; /* whether has entry in unused array */
 static Array *unused; /* id put here after _remove(), can reuse */
+static EntityMap *load_map; /* map of saved ids --> real ids */
 
 /*
  * life cycle
@@ -142,7 +143,6 @@ void entity_save(Entity *ent, Serializer *s)
 void entity_load(Entity *ent, Deserializer *s)
 {
     Entity sav;
-    EntityMap *emap;
 
     uint_load(&sav, s);
     if (sav == entity_nil)
@@ -152,19 +152,20 @@ void entity_load(Entity *ent, Deserializer *s)
     }
 
     /* build a map of saved id --> new id to allow merging */
-    emap = deserializer_get_emap(s);
-    *ent = entitymap_get(emap, sav);
+    *ent = entitymap_get(load_map, sav);
     if (*ent == entity_nil)
     {
         *ent = entity_create(); /* new sav */
-        entitymap_set(emap, sav, *ent);
+        entitymap_set(load_map, sav, *ent);
     }
 }
 
-void entity_save_all(Serializer *s)
+void entity_load_all_begin()
 {
+    load_map = entitymap_new(entity_nil);
 }
-void entity_load_all(Deserializer *s)
+void entity_load_all_end()
 {
+    entitymap_free(load_map);
 }
 

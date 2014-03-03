@@ -21,9 +21,6 @@ SCRIPT(saveload,
        EXPORT Deserializer *deserializer_open_file(const char *filename);
        EXPORT void deserializer_close(Deserializer *s);
 
-       struct EntityMap;
-       EXPORT struct EntityMap *deserializer_get_emap(Deserializer *s);
-
     )
 
 void scalar_save(const Scalar *f, Serializer *s);
