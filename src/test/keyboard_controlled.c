@@ -19,7 +19,7 @@ void keyboard_controlled_add(Entity ent)
 }
 void keyboard_controlled_remove(Entity ent)
 {
-    if (ent == kc_entity)
+    if (entity_eq(ent, kc_entity))
         kc_exists = false;
 }
 

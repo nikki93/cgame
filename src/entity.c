@@ -15,7 +15,7 @@ struct DestroyEntry
     unsigned int pass;
 };
 
-Entity entity_nil = 0;
+Entity entity_nil = { 0 };
 static unsigned int counter = 1;
 static EntityMap *destroyed_map; /* whether entity is destroyed */
 static Array *destroyed; /* array of DestroyEntry for destroyed objects */
@@ -59,9 +59,9 @@ Entity entity_create()
         array_pop(unused);
     }
     else
-        ent = counter++;
+        ent.id = counter++;
 
-    assert(ent != entity_nil);
+    assert(!entity_eq(ent, entity_nil));
     return ent;
 }
 
@@ -138,34 +138,39 @@ void entity_update_all()
 
 void entity_save(Entity *ent, Serializer *s)
 {
-    uint_save(ent, s);
+    uint_save(&ent->id, s);
 }
 void entity_load(Entity *ent, Deserializer *s)
 {
     Entity sav;
 
-    uint_load(&sav, s);
-    if (sav == entity_nil)
+    uint_load(&sav.id, s);
+    if (entity_eq(sav, entity_nil))
     {
         *ent = entity_nil;
         return;
     }
 
     /* build a map of saved id --> new id to allow merging */
-    *ent = entitymap_get(load_map, sav);
-    if (*ent == entity_nil)
+    ent->id = entitymap_get(load_map, sav);
+    if (entity_eq(*ent, entity_nil))
     {
         *ent = entity_create(); /* new sav */
-        entitymap_set(load_map, sav, *ent);
+        entitymap_set(load_map, sav, ent->id);
     }
 }
 
 void entity_load_all_begin()
 {
-    load_map = entitymap_new(entity_nil);
+    load_map = entitymap_new(entity_nil.id);
 }
 void entity_load_all_end()
 {
     entitymap_free(load_map);
 }
 
+#undef entity_eq
+bool entity_eq(Entity e, Entity f)
+{
+    return e.id == f.id;
+}

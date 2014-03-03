@@ -86,10 +86,10 @@ void entitymap_set(EntityMap *emap, Entity ent, int val)
 {
     if (val == emap->def) /* deleting? */
     {
-        emap->arr[ent] = val;
+        emap->arr[ent.id] = val;
 
         /* possibly move bound down and shrink */
-        if (emap->bound == ent + 1)
+        if (emap->bound == ent.id + 1)
         {
             while (emap->bound > 0 && emap->arr[emap->bound - 1] == emap->def)
                 --emap->bound;
@@ -99,20 +99,20 @@ void entitymap_set(EntityMap *emap, Entity ent, int val)
     else
     {
         /* possibly move bound up and grow */
-        if (ent + 1 > emap->bound)
+        if (ent.id + 1 > emap->bound)
         {
-            emap->bound = ent + 1;
-            if (ent >= emap->capacity)
+            emap->bound = ent.id + 1;
+            if (ent.id >= emap->capacity)
                 _grow(emap);
         }
 
-        emap->arr[ent] = val;
+        emap->arr[ent.id] = val;
     }
 }
 int entitymap_get(EntityMap *emap, Entity ent)
 {
-    if (ent >= emap->capacity)
+    if (ent.id >= emap->capacity)
         return emap->def;
-    return emap->arr[ent];
+    return emap->arr[ent.id];
 }
 

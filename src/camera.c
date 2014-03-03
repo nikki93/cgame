@@ -21,7 +21,7 @@ void camera_add(Entity ent)
 }
 void camera_remove(Entity ent)
 {
-    if (camera_entity == ent)
+    if (entity_eq(camera_entity, ent))
         camera_exists = false;
 }
 Entity camera_get()
@@ -31,7 +31,7 @@ Entity camera_get()
 
 void camera_set_viewport_size(Entity ent, Vec2 dim)
 {
-    if (camera_exists && camera_entity == ent)
+    if (camera_exists && entity_eq(camera_entity, ent))
         transform_set_scale(camera_entity, vec2_scalar_mul(dim, 0.5f));
 }
 
