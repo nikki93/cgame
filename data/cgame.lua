@@ -47,6 +47,20 @@ function cgame.c_save_load(ctype, c_save, c_load)
 end
 
 
+cgame.Entity = ffi.metatype('Entity',
+{
+    __eq = function (a, b)
+        return type(a) == 'cdata' and type(b) == 'cdata'
+            and ffi.istype('Entity', a) and ffi.istype('Entity', b)
+            and cgame.entity_eq(a, b)
+    end,
+    __index =
+    {
+        __serialize = cgame.c_save_load('cgame.Entity', 'cgame.entity_save',
+            'cgame.entity_load')
+    },
+})
+
 cgame.Vec2 = ffi.metatype('Vec2',
 {
     __add = cgame.vec2_add,
