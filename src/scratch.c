@@ -19,12 +19,15 @@ bool _exists()
 bool _modified()
 {
     struct stat st;
-    static struct timespec prev_time;
+    static struct timespec prev_time = { 0, 0 };
     bool modified;
     static bool first = true;
 
     if (stat(filename, &st) != 0)
+    {
+        first = false;
         return false; /* doesn't exist or error */
+    }
 
     modified = !first && !(st.st_mtimespec.tv_sec == prev_time.tv_sec
                            && st.st_mtimespec.tv_nsec == prev_time.tv_nsec);
