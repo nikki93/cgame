@@ -77,8 +77,6 @@ static void _game_key_down(KeyCode key)
             break;
 
         case KC_P:
-            system_clear();
-
             console_printf("loading from '%s'\n", usr_path("test.sav"));
             Deserializer *d = deserializer_open_file(usr_path("test.sav"));
             system_load_all(d);
