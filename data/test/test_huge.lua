@@ -12,7 +12,9 @@ local camera = cgame.entity_create()
 cgame.transform_add(camera)
 cgame.camera_add(camera)
 cgame.camera_set_viewport_size(
-    cgame.vec2(WIN_WIDTH / GRID_SIZE, WIN_HEIGHT / GRID_SIZE))
+    camera,
+    cgame.vec2(WIN_WIDTH / GRID_SIZE, WIN_HEIGHT / GRID_SIZE)
+)
 
 -- add some blocks
 
