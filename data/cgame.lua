@@ -168,6 +168,71 @@ function cgame.system_remove(name)
 end
 
 
+---- entity_table (for Entity-keyed Lua tables) -------------------------------
+
+local entity_table_mt =
+{
+    __newindex = function (t, k, v)
+        map = rawget(t, 'map')
+
+        -- remove
+        if v == nil then
+            if map == nil then return end
+            map[k.id] = nil
+            return
+        end
+
+        -- add
+        if not map then
+            map = {}
+            rawset(t, 'map', map)
+        end
+        map[k.id] = { ['k'] = k, ['v'] = v }
+    end,
+
+    __index = function (t, k)
+        map = rawget(t, 'map')
+
+        -- no map => empty
+        if not map then return nil end
+
+        -- find slot, return value in it
+        slot = map[k.id]
+        if not slot then return nil end
+        return slot.v
+    end,
+
+    __serialize = function (t)
+        return rawget(t, 'map') or {}
+    end,
+
+    -- allows iteration using pairs(...)
+    __pairs = function (t)
+        map = rawget(t, 'map')
+
+        return function (_, k)
+            -- no map => empty
+            if not map then return nil, nil end
+
+            -- get next in map
+            id, slot = next(map, k and k.id or nil)
+            if not id then return nil, nil end -- end
+            return cg.Entity { id }, slot.v
+        end, nil, nil
+    end,
+}
+
+function cgame.entity_table()
+    return setmetatable({}, entity_table_mt)
+end
+
+function cgame.entity_table_merge(t, d)
+    for _, slot in pairs(d) do
+        t[slot.k] = slot.v
+    end
+end
+
+
 -------------------------------------------------------------------------------
 
 print('lua: loaded cgame')
