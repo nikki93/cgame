@@ -15,6 +15,7 @@ SCRIPT(vec2,
 
        EXPORT Vec2 vec2_add(Vec2 u, Vec2 v);
        EXPORT Vec2 vec2_sub(Vec2 u, Vec2 v);
+       EXPORT Vec2 vec2_mul(Vec2 u, Vec2 v); /* u * v componentwise */
        EXPORT Vec2 vec2_div(Vec2 u, Vec2 v); /* u / v componentwise */
        EXPORT Vec2 vec2_scalar_mul(Vec2 v, Scalar f);
        EXPORT Vec2 vec2_scalar_div(Vec2 v, Scalar f);

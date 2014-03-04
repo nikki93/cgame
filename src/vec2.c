@@ -12,6 +12,10 @@ Vec2 vec2_sub(Vec2 u, Vec2 v)
 {
     return vec2(u.x - v.x, u.y - v.y);
 }
+Vec2 vec2_mul(Vec2 u, Vec2 v)
+{
+    return vec2(u.x * v.x, u.y * v.y);
+}
 Vec2 vec2_div(Vec2 u, Vec2 v)
 {
     return vec2(u.x / v.x, u.y / v.y);
