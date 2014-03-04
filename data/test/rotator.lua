@@ -4,7 +4,7 @@
 
 local serpent = require 'serpent'
 
-local tbl = {}   -- tbl[ent] contains data for ent -- right now just speed
+local tbl = cgame.entity_table()
 
 function rotator_set(ent, speed)
     if not speed then speed = 2 * math.pi end
@@ -30,11 +30,11 @@ cgame.system_add
     end,
 
     save_all = function ()
-        return serpent.dump(tbl)
+        return tbl
     end,
 
-    load_all = function (str)
-        tbl = loadstring(str)()
+    load_all = function (d)
+        cgame.entity_table_merge(tbl, d)
     end,
 }
 
