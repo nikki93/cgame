@@ -7,7 +7,9 @@
 #include "script_export.h"
 
 SCRIPT(system,
+
        EXPORT void system_clear();
+
     )
 
 void system_init();
