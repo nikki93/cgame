@@ -236,6 +236,7 @@ static void _free_children_arrays()
 void transform_init()
 {
     pool = entitypool_new(Transform);
+    transform_offset_reset();
 }
 void transform_deinit()
 {
@@ -330,6 +331,29 @@ static void _children_load(Transform *t, Deserializer *s)
         t->children = NULL;
 }
 
+static Vec2 offset_pos;
+static Scalar offset_rot;
+static Vec2 offset_scale;
+
+void transform_offset_position(Vec2 pos)
+{
+    offset_pos = pos;
+}
+void transform_offset_rotation(Scalar rot)
+{
+    offset_rot = rot;
+}
+void transform_offset_scale(Vec2 scale)
+{
+    offset_scale = scale;
+}
+void transform_offset_reset()
+{
+    offset_pos = vec2(0.0f, 0.0f);
+    offset_rot = 0.0f;
+    offset_scale = vec2(1.0f, 1.0f);
+}
+
 void transform_save_all(Serializer *s)
 {
     unsigned int n;
@@ -368,6 +392,21 @@ void transform_load_all(Deserializer *s)
 
         entity_load(&transform->parent, s);
         _children_load(transform, s);
+
+        /* offset root transforms */
+        if (entity_eq(transform->parent, entity_nil))
+        {
+            /* scale */
+            transform->position = vec2_mul(transform->position, offset_scale);
+            transform->scale = vec2_mul(transform->scale, offset_scale);
+
+            /* rot */
+            transform->position = vec2_rot(transform->position, offset_rot);
+            transform->rotation += offset_rot;
+
+            /* pos */
+            transform->position = vec2_add(transform->position, offset_pos);
+        }
 
         mat3_load(&transform->mat_cache, s);
     }
