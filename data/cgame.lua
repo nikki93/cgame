@@ -217,7 +217,7 @@ local entity_table_mt =
             -- get next in map
             id, slot = next(map, k and k.id or nil)
             if not id then return nil, nil end -- end
-            return cg.Entity { id }, slot.v
+            return slot.k, slot.v
         end, nil, nil
     end,
 }
