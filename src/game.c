@@ -13,6 +13,10 @@
 #include "input.h"
 #include "scratch.h"
 
+#ifdef CGAME_DEBUG_WINDOW
+#include "debugwin.h"
+#endif
+
 #include "test/test.h"
 
 GLFWwindow *game_window;
@@ -105,6 +109,9 @@ static void _game_init()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     game_window = glfwCreateWindow(800, 600, "cgame", NULL, NULL);
+#ifdef CGAME_DEBUG_WINDOW
+    debugwin_init();
+#endif
 
     /* activate OpenGL context */
     glfwMakeContextCurrent(game_window);
