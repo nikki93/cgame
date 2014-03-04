@@ -132,20 +132,29 @@ function cgame.__fire_event(event, args)
 end
 
 function cgame.__save_all()
+    local data = {}
+
+    -- save system table
+    -- data.systems = systems
+
     -- make table of all system dumps
-    local tbl = {}
+    data.tbl = {}
     for name, system in pairs(systems) do
         if system.save_all then
-            tbl[name] = system.save_all()
+            data.tbl[name] = system.save_all()
         end
     end
-    return serpent.dump(tbl)
+    return serpent.dump(data)
 end
 
 function cgame.__load_all(str)
-    -- load table and tell systems
-    local tbl = loadstring(str)()
-    for name, dump in pairs(tbl) do
+    local data = loadstring(str)()
+
+    -- restore system table
+    -- systems = data.systems
+
+    -- forward system dumps
+    for name, dump in pairs(data.tbl) do
         local system = systems[name]
         if system and system.load_all then
             systems[name].load_all(dump)
