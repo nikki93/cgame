@@ -29,7 +29,7 @@ endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
-set(LUAJIT_ENABLE_LUA52COMPAT true)
+add_definitions(-DLUAJIT_ENABLE_LUA52COMPAT)
 add_subdirectory(ext/glfw)
 add_subdirectory(ext/luajit)
 add_subdirectory(ext/chipmunk)
