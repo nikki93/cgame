@@ -16,7 +16,7 @@ cgame.system_add
     name = 'rotator',
 
     clear = function ()
-        tbl = {}
+        tbl = cgame.entity_table()
     end,
 
     update_all = function ()

@@ -32,7 +32,7 @@ cgame.system_add
     name = 'oscillator',
 
     clear = function ()
-        tbl = {}
+        tbl = cgame.entity_table()
     end,
 
     update_all = function ()
