@@ -474,10 +474,10 @@ static void _cpf_load(cpFloat *cf, Deserializer *s)
 #define body_props_saveload(saveload)                   \
     body_prop_##saveload(cpFloat, _cpf, Mass);          \
     body_prop_##saveload(cpFloat, _cpf, Moment);        \
-    body_prop_##saveload(cpVect, _cpv, Pos);            \
+    /* body_prop_##saveload(cpVect, _cpv, Pos); */      \
     body_prop_##saveload(cpVect, _cpv, Vel);            \
     body_prop_##saveload(cpVect, _cpv, Force);          \
-    body_prop_##saveload(cpFloat, _cpf, Angle);         \
+    /* body_prop_##saveload(cpFloat, _cpf, Angle); */   \
     body_prop_##saveload(cpFloat, _cpf, AngVel);        \
     body_prop_##saveload(cpFloat, _cpf, Torque);        \
     body_prop_##saveload(cpFloat, _cpf, VelLimit);      \
@@ -490,16 +490,24 @@ static void _body_save(PhysicsInfo *info, Serializer *s)
 }
 static void _body_load(PhysicsInfo *info, Deserializer *s)
 {
+    Entity ent;
     PhysicsBody type;
 
+    ent = info->pool_elem.ent;
     info->body = cpSpaceAddBody(space, cpBodyNew(info->mass, 1.0));
     body_props_saveload(load);
-    cpBodySetUserData(info->body, info->pool_elem.ent);
+    cpBodySetUserData(info->body, ent);
 
     /* force type change if non-default */
     type = info->type;
     info->type = PB_DYNAMIC;
     _set_type(info, type);
+
+    cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
+    cpBodySetAngle(info->body, transform_get_rotation(ent));
+
+    info->last_pos = cpBodyGetPos(info->body);
+    info->last_ang = cpBodyGetAngle(info->body);
 }
 
 /* save/load for special properties of each shape type */
@@ -650,8 +658,8 @@ void physics_save_all(Serializer *s)
 
         enum_save(&info->type, s);
         scalar_save(&info->mass, s);
-        _cpv_save(&info->last_pos, s);
-        _cpf_save(&info->last_ang, s);
+        /* _cpv_save(&info->last_pos, s); */
+        /* _cpf_save(&info->last_ang, s); */
 
         _body_save(info, s);
         _shapes_save(info, s);
@@ -670,8 +678,8 @@ void physics_load_all(Deserializer *s)
 
         enum_load(&info->type, s);
         scalar_load(&info->mass, s);
-        _cpv_load(&info->last_pos, s);
-        _cpf_load(&info->last_ang, s);
+        /* _cpv_load(&info->last_pos, s); */
+        /* _cpf_load(&info->last_ang, s); */
 
         _body_load(info, s);
         _shapes_load(info, s);
