@@ -7,8 +7,6 @@
 --     oscillator_reset_all() to reset time
 --
 
-local serpent = require 'serpent'
-
 local tbl = cgame.entity_table()
 
 function oscillator_set(ent, osc)

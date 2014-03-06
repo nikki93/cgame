@@ -2,8 +2,6 @@
 -- another silly test system
 --
 
-local serpent = require 'serpent'
-
 local tbl = cgame.entity_table()
 
 function rotator_set(ent, speed)
