@@ -153,8 +153,8 @@ local entity_table_mt = {
         return slot.v
     end,
 
-    __serialize = function (t)
-        return rawget(t, 'map') or {}
+    __serialize_f = function (t)
+        return 'cgame.__entity_table_load', (rawget(t, 'map') or {})
     end,
 
     -- allows iteration using pairs(...)
@@ -177,8 +177,16 @@ function cgame.entity_table()
     return setmetatable({}, entity_table_mt)
 end
 
+function cgame.__entity_table_load(t)
+    e = cgame.entity_table()
+    for _, slot in pairs(t) do
+        e[slot.k] = slot.v
+    end
+    return e
+end
+
 function cgame.entity_table_merge(t, d)
-    for _, slot in pairs(d) do
+    for _, slot in pairs(rawget(d, 'map')) do
         t[slot.k] = slot.v
     end
 end
