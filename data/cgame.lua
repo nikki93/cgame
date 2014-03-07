@@ -141,7 +141,7 @@ local entity_table_mt = {
             map = {}
             rawset(t, 'map', map)
         end
-        map[k.id] = { ['k'] = k, ['v'] = v }
+        map[k.id] = { ['k'] = cg.Entity { id = k.id }, ['v'] = v }
     end,
 
     __index = function (t, k)
