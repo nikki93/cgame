@@ -1,4 +1,4 @@
-local n, v = "serpent", 0.26 -- (C) 2012-13 Paul Kulchenko; MIT License
+local n, v = "serpent", 0.272 -- (C) 2012-13 Paul Kulchenko; MIT License
 local c, d = "Paul Kulchenko", "Lua serializer and pretty printer"
 local snum = {[tostring(1/0)]='1/0 --[[math.huge]]',[tostring(-1/0)]='-1/0 --[[-math.huge]]',[tostring(0/0)]='0/0'}
 local badtype = {thread = true, userdata = true, cdata = true}
@@ -8,7 +8,7 @@ for _,k in ipairs({'and', 'break', 'do', 'else', 'elseif', 'end', 'false',
   'return', 'then', 'true', 'until', 'while'}) do keyword[k] = true end
 for k,v in pairs(G) do globals[v] = k end -- build func to name mapping
 for _,g in ipairs({'coroutine', 'debug', 'io', 'math', 'string', 'table', 'os'}) do
-  for k,v in pairs(G[g]) do globals[v] = g..'.'..k end end
+  for k,v in pairs(G[g] or {}) do globals[v] = g..'.'..k end end
 
 local function s(t, opts)
   local name, indent, fatal, maxnum = opts.name, opts.indent, opts.fatal, opts.maxnum
@@ -30,13 +30,13 @@ local function s(t, opts)
     local plain = type(n) == "string" and n:match("^[%l%u_][%w_]*$") and not keyword[n]
     local safe = plain and n or '['..safestr(n)..']'
     return (path or '')..(plain and path and '.' or '')..safe, safe end
-  local alphanumsort = type(opts.sortkeys) == 'function' and opts.sortkeys or function(k, o, n)  -- k=keys, o=originaltable, n=padding
+  local alphanumsort = type(opts.sortkeys) == 'function' and opts.sortkeys or function(k, o, n) -- k=keys, o=originaltable, n=padding
     local maxn, to = tonumber(n) or 12, {number = 'a', string = 'b'}
     local function padnum(d) return ("%0"..maxn.."d"):format(d) end
     table.sort(k, function(a,b)
-      -- sort numeric keys first: k[key] is non-nil for numeric keys
-      return (k[a] and 0 or to[type(a)] or 'z')..(tostring(a):gsub("%d+",padnum))
-           < (k[b] and 0 or to[type(b)] or 'z')..(tostring(b):gsub("%d+",padnum)) end) end
+      -- sort numeric keys first: k[key] is not nil for numerical keys
+      return (k[a] ~= nil and 0 or to[type(a)] or 'z')..(tostring(a):gsub("%d+",padnum))
+           < (k[b] ~= nil and 0 or to[type(b)] or 'z')..(tostring(b):gsub("%d+",padnum)) end) end
   local function val2str(t, name, indent, insref, path, plainindex, level)
     local ttype, level, mt = type(t), (level or 0), getmetatable(t)
     local spath, sname = safename(path, name)
@@ -94,7 +94,7 @@ local function s(t, opts)
       seen[t] = insref or spath
       local ok, res = pcall(string.dump, t)
       local func = ok and ((opts.nocode and "function() --[[..skipped..]] end" or
-        "loadstring("..safestr(res)..",'@serialized')")..comment(t, level))
+        "((loadstring or load)("..safestr(res)..",'@serialized'))")..comment(t, level))
       return tag..(func or globerr(t, level))
     else return tag..safestr(t) end -- handle all other types
   end
