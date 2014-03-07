@@ -122,10 +122,25 @@ function cgame.remove(sys, ent) cgame.remover(sys)(ent) end
 
 --- lua systems ---------------------------------------------------------------
 
-local systems = {}
+local systems_mt = {
+    __index = function (t, k)
+        v = rawget(t, k)
+
+        if v == nil then
+            local mt = {
+                __index = function (_, k2)
+                    return cgame[k .. '_' .. k2]
+                end,
+            }
+            return setmetatable({}, mt)
+        end
+        return v
+    end,
+}
+cgame.systems = setmetatable({}, systems_mt)
 
 function cgame.__fire_event(event, args)
-    for _, system in pairs(systems) do
+    for _, system in pairs(cgame.systems) do
         func = system[event]
         if func then func(args) end
     end
@@ -139,7 +154,7 @@ function cgame.__save_all()
 
     -- make table of all system dumps
     data.tbl = {}
-    for name, system in pairs(systems) do
+    for name, system in pairs(cgame.systems) do
         if system.save_all then
             data.tbl[name] = system.save_all()
         end
@@ -155,32 +170,17 @@ function cgame.__load_all(str)
 
     -- forward system dumps
     for name, dump in pairs(data.tbl) do
-        local system = systems[name]
+        local system = cgame.systems[name]
         if system and system.load_all then
-            systems[name].load_all(dump)
+            cgame.systems[name].load_all(dump)
         end
     end
-end
-
-local sys_counter = 0
-function cgame.system_add(t)
-    if not t.name then
-        t.name = 'sys_' .. sys_counter
-        sys_counter = sys_counter + 1
-    end
-
-    systems[t.name] = t
-end
-
-function cgame.system_remove(name)
-    systems[name] = nil
 end
 
 
 ---- entity_table (for Entity-keyed Lua tables) -------------------------------
 
-local entity_table_mt =
-{
+local entity_table_mt = {
     __newindex = function (t, k, v)
         map = rawget(t, 'map')
 
