@@ -46,6 +46,10 @@ local function s(t, opts)
     if seen[t] then -- already seen this element
       sref[#sref+1] = spath..space..'='..space..seen[t]
       return tag..'nil'..comment('ref', level) end
+    if type(mt) == 'table' and mt.__serialize_f then
+      local f, v = mt.__serialize_f(t)
+      local vs = seen[v] or val2str(v,nil,indent,insref,seen[t],plainindex,level+1)
+      return tag..f..'('..vs..')' end
     if type(mt) == 'table' and (mt.__serialize or mt.__tostring) then -- knows how to serialize itself
       seen[t] = insref or spath
       if mt.__serialize then t = mt.__serialize(t) else t = tostring(t) end
