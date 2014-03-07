@@ -25,12 +25,3 @@ function cs.rotator.update_all()
         cs.transform.rotate(ent, speed * cs.timing.dt)
     end
 end
-
-function cs.rotator.save_all()
-    return cs.rotator.tbl
-end
-
-function cs.rotator.load_all(d)
-    -- merge the loaded data in
-    cg.entity_table_merge(cs.rotator.tbl, d)
-end

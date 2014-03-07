@@ -44,12 +44,3 @@ function cs.oscillator.update_all()
         osc.t = osc.t + cs.timing.dt
     end
 end
-
-function cs.oscillator.save_all()
-    return cs.oscillator.tbl
-end
-
-function cs.oscillator.load_all(d)
-    cg.entity_table_merge(cs.oscillator.tbl, d)
-end
-
