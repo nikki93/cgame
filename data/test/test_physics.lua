@@ -52,6 +52,7 @@ cgame.keyboard_controlled_add(floor)
 
 -- add some boxes
 
+boxes = {}
 function make_box(pos, vel)
     local box = cgame.entity_create()
 
@@ -67,6 +68,13 @@ function make_box(pos, vel)
     cgame.physics_set_mass(box, 5.0)
     cgame.physics_add_box_shape(box, -0.5, -0.5, 0.5, 0.5)
     cgame.physics_set_velocity(box, vel)
+    
+    boxes[box] = true
+end
+
+function clear_boxes()
+    for e, _ in pairs(boxes) do cg.entity_destroy(e) end
+    boxes = {}
 end
 
 local ymin = -3.0
@@ -109,7 +117,8 @@ cgame.system_add
                 elseif cgame.input_key_down(cgame.KC_RIGHT_SHIFT) then
                     cgame.physics_set_type(i, cgame.PB_STATIC)
                 else
-                    cgame.physics_set_type(i, cgame.PB_DYNAMIC)
+                    cgame.entity_destroy(i)
+                    -- cgame.physics_set_type(i, cgame.PB_DYNAMIC)
                 end
             end
         end
@@ -143,3 +152,29 @@ cgame.system_add
 
 cgame.console_puts('this is the physics test')
 
+
+cg.system_add
+{
+    key_down = function (key)
+        if key == cg.KC_A then
+            print('A down!')
+            clear_boxes()
+        end
+    end,
+    key_up = function (key)
+        if key == cg.KC_A then
+            print('A up!')
+        end
+    end,
+    
+    mouse_down = function (mouse)
+        if mouse == cg.MC_LEFT then
+            print('LEFT down!')
+        end
+    end,
+    mouse_up = function (mouse)
+        if mouse == cg.MC_LEFT then
+            print('LEFT up!')
+        end
+    end,
+}

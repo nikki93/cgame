@@ -33,16 +33,16 @@ with Visual Studio 2013.
 Running
 ---
 
-After building just run the 'cgame' executable. This is put in the build
-directory by clang+make, and under build/Debug or build/Release by Visual
-Studio 2013. Make sure your working directory is the root of the project (cgame
-looks for data in './data'). So after running the commands in the previous
-section, you'd do,
+After building just run the 'cgame' executable. This is put in the
+build directory by clang+make, and under build/Debug or build/Release
+by Visual Studio 2013. Make sure your working directory is the root of
+the project (cgame looks for data in './data'). It takes a startup
+script as the first argument. So after running the commands in the
+previous section, you'd do,
 
-    ./build/cgame
+    ./build/cgame data/test/test.lua
 
-By default it runs test/test.lua under the data directory. If you want to run a
-different test, supply it as the first command-line parameter. For example,
-
-    ./build/cgame test/test_physics.lua
-
+There some other tests in data/test. Try data/test/test_physics.lua!
+You could also just fire up cgame with no startup script and write
+stuff in usr/scratch.lua to code live! It'll run the contents of that
+file whenever it is modified.
