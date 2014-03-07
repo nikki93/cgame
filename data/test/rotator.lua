@@ -2,37 +2,35 @@
 -- another silly test system
 --
 
-local tbl = cgame.entity_table()
+cs.rotator = {}
 
-function rotator_set(ent, speed)
-    if not speed then speed = 2 * math.pi end
-    tbl[ent] = speed
+cs.rotator.tbl = cg.entity_table()
+
+function cs.rotator.add(ent, speed)
+    cs.rotator.tbl[ent] = speed or 2 * math.pi
 end
 
-cgame.system_add
-{
-    name = 'rotator',
+function cs.rotator.clear()
+    cs.rotator.tbl = cg.entity_table()
+end
 
-    clear = function ()
-        tbl = cgame.entity_table()
-    end,
-
-    update_all = function ()
-        for ent, _ in pairs(tbl) do
-            if cgame.entity_destroyed(ent) then tbl[ent] = nil end
+function cs.rotator.update_all()
+    for ent, _ in pairs(cs.rotator.tbl) do
+        if cs.entity.destroyed(ent) then
+            cs.rotator.tbl[ent] = nil
         end
+    end
 
-        for ent, speed in pairs(tbl) do
-            cgame.transform_rotate(ent, speed * cgame.timing_dt)
-        end
-    end,
+    for ent, speed in pairs(cs.rotator.tbl) do
+        cs.transform.rotate(ent, speed * cs.timing.dt)
+    end
+end
 
-    save_all = function ()
-        return tbl
-    end,
+function cs.rotator.save_all()
+    return cs.rotator.tbl
+end
 
-    load_all = function (d)
-        cgame.entity_table_merge(tbl, d)
-    end,
-}
-
+function cs.rotator.load_all(d)
+    -- merge the loaded data in
+    cg.entity_table_merge(cs.rotator.tbl, d)
+end
