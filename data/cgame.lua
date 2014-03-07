@@ -10,6 +10,10 @@ local cgame = setmetatable({}, { __index = ffi.C })
 
 --- lua utils/wrappers --------------------------------------------------------
 
+function cgame.safestr(s)
+    return ("%q"):format(s):gsub("\010", "n"):gsub("\026", "\\026")
+end
+
 -- dereference a cdata from a pointer
 function cgame.__deref_cdata(ct, p)
     return ffi.cast(ct, p)[0]
@@ -40,9 +44,8 @@ end
 function cgame.c_save_load(ctype, c_save, c_load)
     return function (cdata)
         cdump = cgame.c_serialize(loadstring('return ' .. c_save)(), cdata)
-        cdumpe = ("%q"):format(cdump):gsub("\010", "n"):gsub("\026", "\\026")
         return 'cgame.c_deserialize(' .. ctype .. ', ' .. c_load .. ', '
-                .. cdumpe .. ')'
+            .. cgame.safestr(cdump) .. ')'
     end
 end
 
