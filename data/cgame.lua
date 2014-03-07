@@ -225,12 +225,11 @@ function cgame.__save_all()
     local data = {}
 
     for name, system in pairs(cgame.systems) do
-        if system.save_all then
+        if system.auto_saveload then
+            data[name] = system
+        elseif system.save_all then
             -- has special load_all() event
             data[name] = system.save_all()
-        else
-            -- no special load_all() event, just dump it
-            data[name] = system
         end
     end
 
@@ -243,11 +242,8 @@ function cgame.__load_all(str)
     for name, dump in pairs(data) do
         local system = rawget(cgame.systems, name)
         if system then
-            if system.load_all then
-                system.load_all(dump)
-            else
-                -- doesn't have a special load_all() event, just
-                -- load it back, but merge entity_tables
+            -- system currently exists, must merge
+            if system.auto_saveload then
                 for k, v in pairs(dump) do
                     if type(system[k]) == 'table'
                     and getmetatable(system[k]) == entity_table_mt then
@@ -256,7 +252,12 @@ function cgame.__load_all(str)
                         system[k] = v
                     end
                 end
+            elseif system.load_all then
+                system.load_all(dump)
             end
+        elseif dump.auto_saveload then
+            -- system doesn't exist currently, just dump it in
+            rawset(cgame.systems, name, dump)
         end
     end
 end
