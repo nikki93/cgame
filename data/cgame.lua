@@ -120,64 +120,6 @@ end
 function cgame.remove(sys, ent) cgame.remover(sys)(ent) end
 
 
---- lua systems ---------------------------------------------------------------
-
-local systems_mt = {
-    __index = function (t, k)
-        v = rawget(t, k)
-
-        if v == nil then
-            local mt = {
-                __index = function (_, k2)
-                    return cgame[k .. '_' .. k2]
-                end,
-            }
-            return setmetatable({}, mt)
-        end
-        return v
-    end,
-}
-cgame.systems = setmetatable({}, systems_mt)
-
-function cgame.__fire_event(event, args)
-    for _, system in pairs(cgame.systems) do
-        func = system[event]
-        if func then func(args) end
-    end
-end
-
-function cgame.__save_all()
-    local data = {}
-
-    -- save system table
-    -- data.systems = systems
-
-    -- make table of all system dumps
-    data.tbl = {}
-    for name, system in pairs(cgame.systems) do
-        if system.save_all then
-            data.tbl[name] = system.save_all()
-        end
-    end
-    return serpent.dump(data)
-end
-
-function cgame.__load_all(str)
-    local data = loadstring(str)()
-
-    -- restore system table
-    -- systems = data.systems
-
-    -- forward system dumps
-    for name, dump in pairs(data.tbl) do
-        local system = cgame.systems[name]
-        if system and system.load_all then
-            cgame.systems[name].load_all(dump)
-        end
-    end
-end
-
-
 ---- entity_table (for Entity-keyed Lua tables) -------------------------------
 
 local entity_table_mt = {
@@ -238,6 +180,73 @@ end
 function cgame.entity_table_merge(t, d)
     for _, slot in pairs(d) do
         t[slot.k] = slot.v
+    end
+end
+
+
+--- lua systems ---------------------------------------------------------------
+
+local systems_mt = {
+    __index = function (t, k)
+        v = rawget(t, k)
+
+        if v == nil then
+            local mt = {
+                __index = function (_, k2)
+                    return cgame[k .. '_' .. k2]
+                end,
+            }
+            return setmetatable({}, mt)
+        end
+        return v
+    end,
+}
+cgame.systems = setmetatable({}, systems_mt)
+
+function cgame.__fire_event(event, args)
+    for _, system in pairs(cgame.systems) do
+        func = system[event]
+        if func then func(args) end
+    end
+end
+
+function cgame.__save_all()
+    local data = {}
+
+    for name, system in pairs(cgame.systems) do
+        if system.save_all then
+            -- has special load_all() event
+            data[name] = system.save_all()
+        else
+            -- no special load_all() event, just dump it
+            data[name] = system
+        end
+    end
+
+    return serpent.dump(data)
+end
+
+function cgame.__load_all(str)
+    local data = loadstring(str)()
+
+    for name, dump in pairs(data) do
+        local system = rawget(cgame.systems, name)
+        if system then
+            if system.load_all then
+                system.load_all(dump)
+            else
+                -- doesn't have a special load_all() event, just
+                -- load it back, but merge entity_tables
+                for k, v in pairs(dump) do
+                    if type(system[k]) == 'table'
+                    and getmetatable(system[k]) == entity_table_mt then
+                        cgame.entity_table_merge(system[k], v)
+                    else
+                        system[k] = v
+                    end
+                end
+            end
+        end
     end
 end
 
