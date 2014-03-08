@@ -5,7 +5,6 @@
 #include "saveload.h"
 #include "transform.h"
 
-static bool camera_exists = false;
 static Entity camera_entity;
 
 static Mat3 inverse_view_matrix;
@@ -16,24 +15,21 @@ void camera_add(Entity ent)
 {
     transform_add(ent);
 
-    camera_exists = true;
     camera_entity = ent;
 }
 void camera_remove(Entity ent)
 {
     if (entity_eq(camera_entity, ent))
-        camera_exists = false;
+        camera_entity = entity_nil;
 }
 Entity camera_get()
 {
-    if (!camera_exists)
-        return entity_nil;
     return camera_entity;
 }
 
 void camera_set_viewport_size(Entity ent, Vec2 dim)
 {
-    if (camera_exists && entity_eq(camera_entity, ent))
+    if (entity_eq(camera_entity, ent))
         transform_set_scale(camera_entity, vec2_scalar_mul(dim, 0.5f));
 }
 
@@ -51,6 +47,7 @@ const Mat3 *camera_get_inverse_view_matrix_ptr()
 
 void camera_init()
 {
+    camera_entity = entity_nil;
     inverse_view_matrix = mat3_identity();
 }
 
@@ -61,7 +58,7 @@ void camera_clear()
 
 void camera_update_all()
 {
-    if (camera_exists)
+    if (!entity_eq(camera_entity, entity_nil))
     {
         if (entity_destroyed(camera_entity))
         {
@@ -76,13 +73,11 @@ void camera_update_all()
 
 void camera_save_all(Serializer *s)
 {
-    bool_save(&camera_exists, s);
     entity_save(&camera_entity, s);
     mat3_save(&inverse_view_matrix, s);
 }
 void camera_load_all(Deserializer *s)
 {
-    bool_load(&camera_exists, s);
     entity_load(&camera_entity, s);
     mat3_load(&inverse_view_matrix, s);
 }
