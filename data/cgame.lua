@@ -94,35 +94,6 @@ cgame.Mat3 = ffi.metatype('Mat3',
 })
 
 
--- generic add/remove, get/set for any system, property -- needs corresponding
--- C functions of the form sys_add()/sys_remove(),
--- sys_get_prop(ent)/sys_set_prop(ent, val)
-
-function cgame.getter(sys, prop) return cgame[sys .. '_get_' .. prop] end
-function cgame.setter(sys, prop) return cgame[sys .. '_set_' .. prop] end
-function cgame.get(sys, prop, ent) return cgame.getter(sys, prop)(ent) end
-function cgame.set(sys, prop, ent, val) cgame.setter(sys, prop)(ent, val) end
-
-function cgame.adder(sys) return cgame[sys .. '_add'] end
-function cgame.remover(sys) return cgame[sys .. '_remove'] end
-function cgame.add(sys, ent, props)
-    -- multi-add?
-    if type(sys) == 'table' then
-        ent = ent or cgame.entity_create()
-        for k, v in pairs(sys) do cgame.add(k, ent, v) end
-        return ent
-    end
-
-    cgame.adder(sys)(ent)
-    if (props) then
-        for k, v in pairs(props) do
-            cgame.set(sys, k, ent, v)
-        end
-    end
-end
-function cgame.remove(sys, ent) cgame.remover(sys)(ent) end
-
-
 ---- entity_table (for Entity-keyed Lua tables) -------------------------------
 
 local entity_table_mt = {
@@ -261,6 +232,35 @@ function cgame.__load_all(str)
         end
     end
 end
+
+
+-- generic add/remove, get/set for any system, property -- needs corresponding
+-- C functions of the form sys_add()/sys_remove(),
+-- sys_get_prop(ent)/sys_set_prop(ent, val)
+
+function cgame.getter(sys, prop) return cgame.systems[sys]['get_' .. prop] end
+function cgame.setter(sys, prop) return cgame.systems[sys]['set_' .. prop] end
+function cgame.get(sys, prop, ...) return cgame.getter(sys, prop)(unpack({...})) end
+function cgame.set(sys, prop, ...) cgame.setter(sys, prop)(unpack({...})) end
+
+function cgame.adder(sys) return cgame.systems[sys]['add'] end
+function cgame.remover(sys) return cgame.systems[sys]['remove'] end
+function cgame.add(sys, ent, props)
+    -- multi-add?
+    if type(sys) == 'table' then
+        ent = ent or cgame.entity_create()
+        for k, v in pairs(sys) do cgame.add(k, ent, v) end
+        return ent
+    end
+
+    cgame.adder(sys)(ent)
+    if (props) then
+        for k, v in pairs(props) do
+            cgame.set(sys, k, ent, v)
+        end
+    end
+end
+function cgame.remove(sys, ...) cgame.remover(sys)(unpack({...})) end
 
 
 -------------------------------------------------------------------------------
