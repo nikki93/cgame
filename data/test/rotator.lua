@@ -2,7 +2,7 @@
 -- another silly test system
 --
 
-cs.rotator = {}
+cs.rotator = { auto_saveload = true }
 
 cs.rotator.tbl = cg.entity_table()
 

@@ -1,6 +1,3 @@
-require 'test.oscillator'
-require 'test.rotator'
-
 GRID_SIZE = 32.0
 WIN_WIDTH = 800
 WIN_HEIGHT = 600

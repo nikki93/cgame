@@ -7,9 +7,7 @@
 --     oscillator_reset_all() to reset time
 --
 
-local tbl = cg.entity_table()
-
-cs.oscillator = {}
+cs.oscillator = { auto_saveload = true }
 
 cs.oscillator.tbl = cg.entity_table()
 

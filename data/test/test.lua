@@ -11,28 +11,16 @@ cs.camera.set_viewport_size(camera, cs.game.get_window_size() / 32.0)
 
 -- add some blocks
 
-math.randomseed(os.time())
-
-function symrand()
-    return 2 * math.random() - 1
-end
-
 local n_blocks = 20
 for i = 0, n_blocks do
-    local block = cs.entity.create()
-
-    local pos = cg.vec2(i - 8, i - 8)
-
-    cs.transform.add(block)
-    cs.transform.set_position(block, pos)
-
-    cs.sprite.add(block)
-    if i / 2 == math.floor(i / 2) then
-        cs.sprite.set_cell(block, cg.vec2( 0.0, 32.0))
-    else
-        cs.sprite.set_cell(block, cg.vec2(32.0, 32.0))
-    end
-    cs.sprite.set_size(block, cg.vec2(32.0, 32.0))
+    local block = cg.add
+    {
+        transform = { position = cg.vec2(i - 8, i - 8) },
+        sprite = {
+            cell = cg.vec2(i / 2 == math.floor(i / 2) and 0 or 32, 32),
+            size = cg.vec2(32, 32)
+        },
+    }
 
     cs.oscillator.add(block, { amp = 1, freq = 1, phase = 5 * i / n_blocks })
     cs.rotator.add(block, 2 * math.pi)
