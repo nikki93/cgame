@@ -26,6 +26,8 @@ void camera_remove(Entity ent)
 }
 Entity camera_get()
 {
+    if (!camera_exists)
+        return entity_nil;
     return camera_entity;
 }
 
