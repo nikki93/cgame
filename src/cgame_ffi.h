@@ -5,6 +5,8 @@
  * available under 'cgame.' in Lua
  */
 
+#define __CGAME_FFI__
+
 #include "scalar.h"
 #include "game.h"
 #include "saveload.h"

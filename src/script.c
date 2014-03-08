@@ -1,4 +1,4 @@
-#define __CGAME_FFI__
+#include "cgame_ffi.h"
 
 #include "script.h"
 
@@ -11,8 +11,6 @@
 #include "saveload.h"
 #include "timing.h"
 #include "console.h"
-
-#include "cgame_ffi.h"
 
 static lua_State *L;
 
