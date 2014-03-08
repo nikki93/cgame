@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "game.h"
 #include "text.h"
 #include "input.h"
 
@@ -35,22 +36,29 @@ static void _update_text()
     free(buf);
 }
 
-static void _print(const char *s)
+/* write a string to console with wrapping */
+static void _write(const char *s)
 {
     static unsigned int curs = 0; /* cursor position */
+    static const char wrap_prefix[] = { 26, ' ', '\0' };
+    unsigned int width;
+    char c;
+    bool wrap;
 
-    /* copy to stdout */
-    printf("%s", s);
-    fflush(stdout);
+    /* wrap at window width, but max out at alloc'd size */
+    width = game_get_window_size().x / 10;
+    if (width > LINE_LEN - 2)
+        width = LINE_LEN - 2;
 
     while (*s)
     {
-        /* print any char, but prioritise newline space */
-        if (curs < LINE_LEN - 2 || (*s == '\n' && curs < LINE_LEN - 1))
-            lines[top][curs++] = *s;
+        /* write char */
+        wrap = curs >= width && *s != '\n';
+        c = wrap ? '\n' : *s++;
+        lines[top][curs++] = c;
 
         /* if newline, close this line and go to next */
-        if (*s == '\n')
+        if (c == '\n')
         {
             lines[top][curs] = '\0';
 
@@ -58,13 +66,26 @@ static void _print(const char *s)
             curs = 0;
         }
 
-        ++s;
+        /* add a prefix to wrapped lines */
+        if (wrap)
+            _write(wrap_prefix);
     }
 
     /* close this line */
     lines[top][curs] = '\0';
 
     _update_text();
+}
+
+/* write a string to both stdout and the console */
+static void _print(const char *s)
+{
+    /* copy to stdout */
+    printf("%s", s);
+    fflush(stdout);
+
+    /* write it */
+    _write(s);
 }
 
 void console_puts(const char *s)
