@@ -3,12 +3,14 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define MIN_CAPACITY 2
+
 struct Array
 {
     char *buf;               /* this is a char * for pointer arithmetic */
     unsigned int capacity;   /* alloc'd size of buf */
     unsigned int length;     /* number of objects */
-    size_t object_size;      /* size of each object */
+    size_t object_size;      /* size of each element */
 };
 
 Array *array_new_(size_t object_size)
@@ -17,7 +19,7 @@ Array *array_new_(size_t object_size)
 
     arr = malloc(sizeof(Array));
     arr->object_size = object_size;
-    arr->capacity = 2;
+    arr->capacity = MIN_CAPACITY;
     arr->buf = malloc(arr->object_size * arr->capacity);
     arr->length = 0;
 
@@ -53,6 +55,7 @@ void *array_end(Array *arr)
 
 void *array_add(Array *arr)
 {
+    /* too small? double it */
     if (++arr->length > arr->capacity)
         arr->buf = realloc(arr->buf, arr->object_size *
                            (arr->capacity = arr->capacity << 1));
@@ -63,12 +66,13 @@ void array_reset(Array *arr, unsigned int num)
     free(arr->buf);
 
     arr->length = num;
-    arr->capacity = num < 2 ? 2 : num;
+    arr->capacity = num < MIN_CAPACITY ? MIN_CAPACITY : num;
     arr->buf = malloc(arr->object_size * arr->capacity);
 }
 void array_pop(Array *arr)
 {
-    if (--arr->length << 2 < arr->capacity && arr->capacity > 2)
+    /* too big (> four times as is needed)? halve it */
+    if (--arr->length << 2 < arr->capacity && arr->capacity > MIN_CAPACITY)
         arr->buf = realloc(arr->buf, arr->object_size *
                            (arr->capacity = arr->capacity >> 1));
 }

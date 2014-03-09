@@ -8,21 +8,25 @@ struct EntityMap
 {
     int *arr;
     unsigned int bound;      /* 1 + maximum key */
-    unsigned int capacity; /* heap size of arr / sizeof(*arr) */
-    int def;
+    unsigned int capacity;   /* number of elements we have heap space for */
+    int def;                 /* value for unset keys */
 
-    /* invariant: bound <= capacity && MIN_CAPACITY <= capacity */
+    /*
+     * invariants:
+     *    bound <= capacity (so that maximum key < capacity)
+     *    MIN_CAPACITY <= capacity
+     */
 };
 
 static void _init(EntityMap *emap)
 {
     unsigned int i;
 
-    emap->arr = malloc(MIN_CAPACITY * sizeof(*emap->arr));
     emap->bound = 0;
     emap->capacity = MIN_CAPACITY;
+    emap->arr = malloc(emap->capacity * sizeof(*emap->arr));
 
-    for (i = 0; i < MIN_CAPACITY; ++i)
+    for (i = 0; i < emap->capacity; ++i)
         emap->arr[i] = emap->def;
 }
 

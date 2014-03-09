@@ -64,30 +64,30 @@ static void _game_key_down(KeyCode key)
 {
     switch (key)
     {
-        case KC_ESCAPE:
+        case KC_ESCAPE: /* escape: quit */
             game_quit();
             break;
 
-        case KC_C:
+        case KC_C: /* c: clear */
             system_clear();
             console_puts("cleared");
             break;
 
-        case KC_O:
+        case KC_O: /* o: save */
             console_printf("saving to '%s'\n", usr_path("test.sav"));
             Serializer *s = serializer_open_file(usr_path("test.sav"));
             system_save_all(s);
             serializer_close(s);
             break;
 
-        case KC_P:
+        case KC_P: /* p: load */
             console_printf("loading from '%s'\n", usr_path("test.sav"));
             Deserializer *d = deserializer_open_file(usr_path("test.sav"));
             system_load_all(d);
             deserializer_close(d);
             break;
 
-        case KC_R:
+        case KC_R: /* shift+r: run scratch buffer */
             if (input_key_down(KC_LEFT_SHIFT))
                 scratch_run();
             break;
@@ -153,6 +153,9 @@ static void _game_deinit()
 static void _game_events()
 {
     glfwPollEvents();
+
+    if (glfwWindowShouldClose(game_window))
+        game_quit();
 }
 
 static void _game_update()
@@ -176,7 +179,7 @@ void game_run(int argc, char **argv)
 
     _game_init();
 
-    while (!quit && !glfwWindowShouldClose(game_window))
+    while (!quit)
     {
         _game_events();
         _game_update();

@@ -67,6 +67,7 @@ static void _key_callback(GLFWwindow *window, int key, int scancode,
 {
     KeyCallback *f, *end;
 
+    /* call all registered callbacks */
     switch (action)
     {
         case GLFW_PRESS:
@@ -88,6 +89,7 @@ static void _mouse_callback(GLFWwindow *window, int mouse, int action,
 {
     MouseCallback *f, *end;
 
+    /* call all registered callbacks */
     switch (action)
     {
         case GLFW_PRESS:

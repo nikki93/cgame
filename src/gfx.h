@@ -18,9 +18,11 @@ void gfx_free_program(GLuint program);
 
 /*
  * bind vertex attribute data to 'field' in struct 'type' -- gl_type
- * is the type of the parameter (GL_FLOAT etc.), components is the
+ * is the GL_* type of the parameter (GL_FLOAT etc.), components is the
  * number of components, param_name is a string containing the name of
  * the parameter as it appears in the program
+ *
+ * check sprite.c, text.c for some examples
  */
 #define gfx_bind_vertex_attrib(program, gl_type, components,            \
                                param_name, type, field)                 \

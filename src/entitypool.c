@@ -5,6 +5,7 @@
 
 struct EntityPool
 {
+    /* just a map of indices into an array, -1 if doesn't exist */
     EntityMap *emap;
     Array *array;
 };
@@ -27,6 +28,7 @@ void entitypool_free(EntityPool *pool)
 
 void *entitypool_add(EntityPool *pool, Entity ent)
 {
+    /* add element to array and set id in map */
     EntityPoolElem *elem = array_add(pool->array);
     elem->ent = ent;
     entitymap_set(pool->emap, ent, array_length(pool->array) - 1);
@@ -40,11 +42,14 @@ void entitypool_remove(EntityPool *pool, Entity ent)
     i = entitymap_get(pool->emap, ent);
     if (i >= 0)
     {
+        /* remove may swap with last element, so fix that mapping */
         if (array_quick_remove(pool->array, i))
         {
             elem = array_get(pool->array, i);
             entitymap_set(pool->emap, elem->ent, i);
         }
+
+        /* remove mapping */
         entitymap_set(pool->emap, ent, -1);
     }
 }
@@ -84,13 +89,18 @@ void entitypool_clear(EntityPool *pool)
 
 void entitypool_elem_save(EntityPool *pool, void *elem, Serializer *s)
 {
-    EntityPoolElem **p = elem;
+    EntityPoolElem **p;
+
+    /* save Entity id */
+    p = elem;
     entity_save(&(*p)->ent, s);
 }
 void entitypool_elem_load(EntityPool *pool, void *elem, Deserializer *s)
 {
     Entity ent;
-    EntityPoolElem **p = elem;
+    EntityPoolElem **p;
+
+    /* load Entity id, add element with that key */
     entity_load(&ent, s);
     p = elem;
     *p = entitypool_add(pool, ent);

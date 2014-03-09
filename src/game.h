@@ -5,11 +5,14 @@
 #include "script_export.h"
 #include "scalar.h"
 #include "vec2.h"
+#include "color.h"
 
 extern GLFWwindow *game_window;
 
+/* top-level cgame entry point */
 void game_run(int argc, char **argv);
 
+/* get argc, argv as passed to game_run(...) */
 int game_get_argc();
 char **game_get_argv();
 

@@ -12,7 +12,7 @@
 
 typedef struct Array Array;
 
-Array *array_new_(size_t object_size);
+Array *array_new_(size_t object_size); /* object_size is size per element */
 #define array_new(type) array_new_(sizeof(type))
 void array_free(Array *arr);
 

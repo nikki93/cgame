@@ -12,7 +12,8 @@ SCRIPT(camera,
 
        EXPORT void camera_add(Entity ent);
        EXPORT void camera_remove(Entity ent);
-       EXPORT Entity camera_get();
+       EXPORT Entity camera_get(); /* return current camera, or
+                                      entity_nil if doesn't exist */
 
        EXPORT void camera_set_viewport_size(Entity ent, Vec2 dim);
        EXPORT Mat3 camera_get_inverse_view_matrix();

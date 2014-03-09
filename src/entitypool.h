@@ -22,6 +22,8 @@ typedef struct EntityPool EntityPool;
  *     }
  *
  * values in it are metadata managed by EntityPool
+ *
+ * look at transform.c, sprite.c, etc. for examples
  */
 typedef struct EntityPoolElem EntityPoolElem;
 struct EntityPoolElem
@@ -29,13 +31,14 @@ struct EntityPoolElem
     Entity ent; /* key for this element */
 };
 
+/* object_size is size per element */
 EntityPool *entitypool_new_(size_t object_size);
 #define entitypool_new(type) entitypool_new_(sizeof(type))
 void entitypool_free(EntityPool *pool);
 
 void *entitypool_add(EntityPool *pool, Entity ent);
 void entitypool_remove(EntityPool *pool, Entity ent);
-void *entitypool_get(EntityPool *pool, Entity ent);
+void *entitypool_get(EntityPool *pool, Entity ent); /* NULL if not mapped */
 
 /* since elements are contiguoous, can iterate with pointers:
  *

@@ -54,6 +54,7 @@ Entity entity_create()
 
     if (array_length(unused) > 0)
     {
+        /* have an unused id -- claim it */
         ent = array_top_val(Entity, unused);
         entitymap_set(unused_map, ent, false);
         array_pop(unused);
@@ -68,6 +69,7 @@ Entity entity_create()
 /* actually remove an entity entirely */
 static void _remove(Entity ent)
 {
+    /* move it from destroyed to unused list */
     entitymap_set(destroyed_map, ent, false);
     array_add_val(Entity, unused) = ent;
     entitymap_set(unused_map, ent, true);
@@ -80,6 +82,7 @@ void entity_destroy(Entity ent)
     if (entitymap_get(destroyed_map, ent))
         return; /* already noted */
 
+    /* mark it as destroyed but don't 'remove' it yet */
     entitymap_set(destroyed_map, ent, true);
     array_add_val(DestroyEntry, destroyed) = (DestroyEntry) { ent, 0 };
 }
@@ -117,10 +120,11 @@ void entity_clear()
 
 void entity_update_all()
 {
+    unsigned int i;
     DestroyEntry *entry;
 
     /* check destroyeds -- first pass we let go, second pass we remove */
-    for (unsigned int i = 0; i < array_length(destroyed); )
+    for (i = 0; i < array_length(destroyed); )
     {
         entry = array_get(destroyed, i);
         if (entry->pass == 0)

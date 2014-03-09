@@ -252,7 +252,6 @@ void string_save(const char **c, Serializer *s)
 void string_load(char **c, Deserializer *s)
 {
     unsigned int len;
-    char fmt[32];
 
     uint_load(&len, s);
     *c = malloc(len + 1);

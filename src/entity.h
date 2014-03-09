@@ -13,8 +13,8 @@ SCRIPT(entity,
        struct Entity { unsigned int id; };
        EXPORT extern Entity entity_nil; /* no valid Entity has this value */
 
-       EXPORT Entity entity_create();
-       EXPORT void entity_destroy(Entity ent);
+       EXPORT Entity entity_create(); /* claim an unused Entity id */
+       EXPORT void entity_destroy(Entity ent); /* release an Entity id */
        EXPORT bool entity_destroyed(Entity ent);
 
        EXPORT bool entity_eq(Entity e, Entity f);
@@ -32,6 +32,8 @@ void entity_update_all();
 
 void entity_load_all_begin();
 void entity_load_all_end();
+
+/* C inline stuff */
 
 #define entity_eq(e, f) ((e).id == (f).id)
 
