@@ -3,10 +3,14 @@
 
 #include "scalar.h"
 
-typedef struct Color Color;
-struct Color { Scalar r, g, b, a; };
+SCRIPT(color,
 
-extern Color color_black;
+       typedef struct Color Color;
+       struct Color { Scalar r, g, b, a; };
+
+       EXPORT extern Color color_black;
+
+    )
 
 #define color(r, g, b, a) ((Color) { (r), (g), (b), (a) })
 
