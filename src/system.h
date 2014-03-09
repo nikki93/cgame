@@ -8,7 +8,7 @@
 
 SCRIPT(system,
 
-       EXPORT void system_clear();
+       EXPORT void system_clear(); /* remove all Entities */
 
     )
 

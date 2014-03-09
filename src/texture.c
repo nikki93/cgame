@@ -13,7 +13,7 @@ typedef struct Texture Texture;
 struct Texture
 {
     char *filename;
-    GLuint name;
+    GLuint gl_name;
     int width;
     int height;
     int components;
@@ -51,12 +51,14 @@ void texture_load(const char *filename)
     tex->filename = malloc(strlen(filename) + 1);
     strcpy(tex->filename, filename);
 
-    glGenTextures(1, &tex->name);
+    /* generate GL texture */
+    glGenTextures(1, &tex->gl_name);
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, tex->name);
+    glBindTexture(GL_TEXTURE_2D, tex->gl_name);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
+    /* read in texture data */
     data = stbi_load(filename, &tex->width, &tex->height,
                      &tex->components, 0);
     _flip_image_vertical(data, tex->width, tex->height);
@@ -81,7 +83,7 @@ void texture_bind(const char *filename)
 
     tex = _find(filename);
     if (tex)
-        glBindTexture(GL_TEXTURE_2D, tex->name);
+        glBindTexture(GL_TEXTURE_2D, tex->gl_name);
 }
 
 int texture_get_width(const char *filename)

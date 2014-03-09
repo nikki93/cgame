@@ -135,9 +135,11 @@ void script_init()
     _forward_args();
     _set_paths();
 
-    /* run main.lua and fire init event */
+    /* run main.lua */
     errcheck(luaL_loadfile(L, data_path("main.lua")));
     errcheck(lua_pcall(L, 0, 0, 0));
+
+    /* fire init event */
     _push_event("init");
     errcheck(lua_pcall(L, 1, 0, 0));
 }

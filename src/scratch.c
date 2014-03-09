@@ -7,7 +7,7 @@
 #include "dirs.h"
 #include "script.h"
 
-const char *filename = usr_path("scratch.lua");
+static const char *filename = usr_path("scratch.lua");
 
 bool _exists()
 {

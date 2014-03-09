@@ -6,7 +6,7 @@
  * an example) to make them visible from Lua -- you'll also need to edit
  * cgame_ffi.h as explained in the comments there
  *
- * each SCRIPT(...) mention must have a different modulename
+ * each SCRIPT(...) mention must have a different 'name' parameter
  *
  * the declarations will continue to function as usual C declarations too
  * so you can #include into other files and use them normally

@@ -23,8 +23,13 @@ SCRIPT(physics,
        enum PhysicsBody
        {
            PB_STATIC,      /* never (or rarely) moves -- eg. wall */
-           PB_KINEMATIC,   /* moves but not dynamic -- eg. moving platform */
-           PB_DYNAMIC,     /* moves subject to forces -- eg. bowling pin */
+
+           PB_KINEMATIC,   /* moves but not dynamic -- eg. moving platform,
+                              can be moved through transform system */
+
+           PB_DYNAMIC,     /* moves subject to dynamics -- eg. bowling pin,
+                              avoid moving through transform system
+                              use forces, velocities, etc. instead */
        };
 
        EXPORT void physics_add(Entity ent); /* PB_DYNAMIC by default */

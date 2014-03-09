@@ -65,23 +65,32 @@ static void _serializer_printf(Serializer *s, const char *fmt, ...)
     va_end(ap1);
 }
 
-/* *n will store number of characters read, needs to also come after ... */
+/*
+ * scanf is tricky because we need to move forward by number of
+ * scanned characters for string stream deserializer -- *n will store
+ * number of characters read, needs to also be put at end of
+ * parameter list (see _deserializer_scanf(...) macro)
+ */
 static void _deserializer_scanf_(Deserializer *s, const char *fmt, int *n, ...)
 {
     va_list ap;
     char *newfmt;
 
-    newfmt = malloc(strlen(fmt) + strlen("%n") + 1);
-    strcpy(newfmt, fmt);
-    strcat(newfmt, "%n");
 
     va_start(ap, n);
 
     switch (s->type)
     {
         case SER_STRING:
+            /* add %n at end of fmt to write number of characters to *n */
+            newfmt = malloc(strlen(fmt) + strlen("%n") + 1);
+            strcpy(newfmt, fmt);
+            strcat(newfmt, "%n");
+
             vsscanf(s->ptr, newfmt, ap);
             s->ptr += *n;
+
+            free(newfmt);
             break;
 
         case SER_FILE:
@@ -90,8 +99,6 @@ static void _deserializer_scanf_(Deserializer *s, const char *fmt, int *n, ...)
     }
 
     va_end(ap);
-
-    free(newfmt);
 }
 #define _deserializer_scanf(s, fmt, ...)                                \
     do                                                                  \
@@ -124,8 +131,8 @@ Serializer *serializer_open_str()
 {
     Serializer *s = malloc(sizeof(Serializer));
     s->type = SER_STRING;
-    s->strbuf.buf = malloc(1);
     s->strbuf.pos = 0;
+    s->strbuf.buf = malloc(1);
     s->strbuf.buf[s->strbuf.pos] = '\0'; /* empty to begin */
     return s;
 }
@@ -236,6 +243,7 @@ void string_save(const char **c, Serializer *s)
     switch (s->type)
     {
         case SER_STRING:
+            /* just concatenate the string */
             s->strbuf.buf = realloc(s->strbuf.buf, s->strbuf.pos + len + 1);
             strncpy(s->strbuf.buf + s->strbuf.pos, *c, len);
             s->strbuf.pos += len;
@@ -243,6 +251,7 @@ void string_save(const char **c, Serializer *s)
             break;
 
         case SER_FILE:
+            /* write the string as a buffer */
             fwrite(*c, sizeof(char), len, s->file);
             fflush(s->file);
             fprintf(s->file, "\n");
@@ -259,11 +268,13 @@ void string_load(char **c, Deserializer *s)
     switch (s->type)
     {
         case SER_STRING:
+            /* just copy */
             strncpy(*c, s->ptr, len);
             s->ptr += len;
             break;
 
         case SER_FILE:
+            /* read as a buffer */
             fread(*c, sizeof(char), len, s->file);
             fscanf(s->file, "\n");
             break;

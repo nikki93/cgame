@@ -124,6 +124,7 @@ void sprite_update_all()
             ++i;
     }
 
+    /* update world transform matrices */
     for (sprite = entitypool_begin(pool), end = entitypool_end(pool);
          sprite != end; ++sprite)
         sprite->wmat = transform_get_world_matrix(sprite->pool_elem.ent);

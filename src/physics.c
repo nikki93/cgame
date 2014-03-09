@@ -55,7 +55,8 @@ static inline void _remove_body(cpBody *body)
 }
 static inline void _remove_shape(cpShape *shape)
 {
-    cpSpaceRemoveShape(space, shape);
+    if (cpSpaceContainsShape(space, shape))
+        cpSpaceRemoveShape(space, shape);
     cpShapeFree(shape);
 }
 
@@ -89,16 +90,20 @@ void physics_add(Entity ent)
     transform_add(ent);
 
     info = entitypool_add(pool, ent);
+
     info->mass = 1.0;
-    info->body = cpSpaceAddBody(space, cpBodyNew(info->mass, 1.0));
-    info->shapes = array_new(ShapeInfo);
     info->type = PB_DYNAMIC;
 
-    cpBodySetUserData(info->body, ent);
-
+    /* create, init cpBody */
+    info->body = cpSpaceAddBody(space, cpBodyNew(info->mass, 1.0));
+    cpBodySetUserData(info->body, ent); /* for cpBody -> Entity mapping */
     cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
     cpBodySetAngle(info->body, transform_get_rotation(ent));
 
+    /* initially no shapes */
+    info->shapes = array_new(ShapeInfo);
+
+    /* initialize last_pos/last_ang info for kinematic bodies */
     info->last_pos = cpBodyGetPos(info->body);
     info->last_ang = cpBodyGetAngle(info->body);
 }
@@ -111,10 +116,11 @@ static void _remove(PhysicsInfo *info)
     for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
          shapeInfo != end; ++shapeInfo)
         _remove_shape(shapeInfo->shape);
-
     array_free(info->shapes);
+
     _remove_body(info->body);
 }
+
 void physics_remove(Entity ent)
 {
     PhysicsInfo *info;
@@ -161,7 +167,6 @@ static void _recalculate_moment(PhysicsInfo *info)
     for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
          shapeInfo != end; ++shapeInfo)
         moment += _moment(info->body, shapeInfo);
-
     cpBodySetMoment(info->body, moment);
 }
 
@@ -262,7 +267,6 @@ Scalar physics_get_mass(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
     assert(info);
-
     return info->mass;
 }
 
@@ -340,8 +344,10 @@ NearestResult physics_nearest(Vec2 point, Scalar max_dist)
 
 void physics_init()
 {
+    /* init pool */
     pool = entitypool_new(PhysicsInfo);
 
+    /* init cpSpace */
     space = cpSpaceNew();
     cpSpaceSetGravity(space, cpv(0, -9.8));
 }
@@ -349,12 +355,15 @@ void physics_deinit()
 {
     PhysicsInfo *info, *end;
 
+    /* remove all bodies, shapes */
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
          info != end; ++info)
         _remove(info);
 
+    /* deinit cpSpace */
     cpSpaceFree(space);
 
+    /* deinit pool */
     entitypool_free(pool);
 }
 
@@ -362,7 +371,6 @@ void physics_clear()
 {
     PhysicsInfo *info, *end;
 
-    /* remove old stuff */
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
          info != end; ++info)
         _remove(info);
@@ -398,16 +406,19 @@ static void _update_kinematics()
          info != end; ++info)
         if (info->type == PB_KINEMATIC)
         {
+            /* move to transform */
             pos = cpv_of_vec2(transform_get_position(info->pool_elem.ent));
             ang = transform_get_rotation(info->pool_elem.ent);
-
             cpBodySetPos(info->body, pos);
             cpBodySetAngle(info->body, ang);
+
+            /* update linear, angular velocities based on delta */
             cpBodySetVel(info->body,
                          cpvmult(cpvsub(pos, info->last_pos), invdt));
             cpBodySetAngVel(info->body, (ang - info->last_ang) * invdt);
             cpSpaceReindexShapesForBody(space, info->body);
 
+            /* save current state for next computation */
             info->last_pos = pos;
             info->last_ang = ang;
         }
@@ -426,12 +437,14 @@ void physics_update_all()
             ++i;
     }
 
+    /* simulate */
     if (!timing_get_paused())
     {
         _update_kinematics();
         _step();
     }
 
+    /* update transform to reflect physics state */
     for (info = entitypool_begin(pool), end = entitypool_end(pool);
          info != end; ++info)
     {
@@ -466,6 +479,11 @@ static void _cpf_load(cpFloat *cf, Deserializer *s)
     *cf = f;
 }
 
+/*
+ * note that UserData isn't directly save/load'd -- it is restored to
+ * the Entity value on load separately
+ */
+
 /* some hax to reduce typing for body properties save/load */
 #define body_prop_save(type, f, prop)                                   \
     { type v; v = cpBodyGet##prop(info->body); f##_save(&v, s); }
@@ -493,6 +511,7 @@ static void _body_load(PhysicsInfo *info, Deserializer *s)
     Entity ent;
     PhysicsBody type;
 
+    /* create, restore properties */
     ent = info->pool_elem.ent;
     info->body = cpSpaceAddBody(space, cpBodyNew(info->mass, 1.0));
     body_props_saveload(load);
@@ -503,11 +522,9 @@ static void _body_load(PhysicsInfo *info, Deserializer *s)
     info->type = PB_DYNAMIC;
     _set_type(info, type);
 
+    /* restore position, angle based on transform */
     cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
     cpBodySetAngle(info->body, transform_get_rotation(ent));
-
-    info->last_pos = cpBodyGetPos(info->body);
-    info->last_ang = cpBodyGetAngle(info->body);
 }
 
 /* save/load for special properties of each shape type */
@@ -593,6 +610,7 @@ static void _shapes_save(PhysicsInfo *info, Serializer *s)
     for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
          shapeInfo != end; ++shapeInfo)
     {
+        /* type-specific properties */
         enum_save(&shapeInfo->type, s);
         switch (shapeInfo->type)
         {
@@ -605,6 +623,7 @@ static void _shapes_save(PhysicsInfo *info, Serializer *s)
                 break;
         }
 
+        /* common properties */
         shape_props_saveload(save);
     }
 
@@ -621,6 +640,7 @@ static void _shapes_load(PhysicsInfo *info, Deserializer *s)
     for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
          shapeInfo != end; ++shapeInfo)
     {
+        /* type-specific properties */
         enum_load(&shapeInfo->type, s);
         switch (shapeInfo->type)
         {
@@ -633,8 +653,8 @@ static void _shapes_load(PhysicsInfo *info, Deserializer *s)
                 break;
         }
 
+        /* common properties */
         shape_props_saveload(load);
-
         cpShapeSetUserData(shapeInfo->shape, info->pool_elem.ent);
     }
 }
@@ -658,8 +678,6 @@ void physics_save_all(Serializer *s)
 
         enum_save(&info->type, s);
         scalar_save(&info->mass, s);
-        /* _cpv_save(&info->last_pos, s); */
-        /* _cpf_save(&info->last_ang, s); */
 
         _body_save(info, s);
         _shapes_save(info, s);
@@ -678,11 +696,13 @@ void physics_load_all(Deserializer *s)
 
         enum_load(&info->type, s);
         scalar_load(&info->mass, s);
-        /* _cpv_load(&info->last_pos, s); */
-        /* _cpf_load(&info->last_ang, s); */
 
         _body_load(info, s);
         _shapes_load(info, s);
+
+        /* set last_pos/last_ang info for kinematic bodies */
+        info->last_pos = cpBodyGetPos(info->body);
+        info->last_ang = cpBodyGetAngle(info->body);
     }
 }
 
