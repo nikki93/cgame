@@ -25,8 +25,8 @@ SCRIPT(vec2,
 
        EXPORT Vec2 vec2_rot(Vec2 v, Scalar rot);
 
-       void vec2_save(Vec2 *v, Serializer *s);
-       void vec2_load(Vec2 *v, Deserializer *s);
+       EXPORT void vec2_save(Vec2 *v, Serializer *s);
+       EXPORT void vec2_load(Vec2 *v, Deserializer *s);
     )
 
 /* C inline stuff */
