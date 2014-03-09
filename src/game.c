@@ -188,9 +188,9 @@ void game_run(int argc, char **argv)
     _game_deinit();
 }
 
-void game_set_bg_color(Scalar r, Scalar g, Scalar b)
+void game_set_bg_color(Color c)
 {
-    glClearColor(r, g, b, 1.0);
+    glClearColor(c.r, c.g, c.b, 1.0);
 }
 Vec2 game_get_window_size()
 {
