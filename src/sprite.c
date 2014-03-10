@@ -112,13 +112,12 @@ void sprite_clear()
 
 void sprite_update_all()
 {
-    Sprite *sprite, *end;
+    Sprite *sprite;
 
     entitypool_remove_destroyed(pool, sprite_remove);
 
     /* update world transform matrices */
-    for (sprite = entitypool_begin(pool), end = entitypool_end(pool);
-         sprite != end; ++sprite)
+    entitypool_foreach(sprite, pool)
         sprite->wmat = transform_get_world_matrix(sprite->pool_elem.ent);
 }
 
@@ -148,13 +147,12 @@ void sprite_draw_all()
 void sprite_save_all(Serializer *s)
 {
     unsigned int n;
-    Sprite *sprite, *end;
+    Sprite *sprite;
 
     n = entitypool_size(pool);
     uint_save(&n, s);
 
-    for (sprite = entitypool_begin(pool), end = entitypool_end(pool);
-         sprite != end; ++sprite)
+    entitypool_foreach(sprite, pool)
     {
         entitypool_elem_save(pool, &sprite, s);
         mat3_save(&sprite->wmat, s);

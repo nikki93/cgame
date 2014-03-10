@@ -111,10 +111,9 @@ void physics_add(Entity ent)
 /* remove chipmunk stuff (doesn't remove from pool) */
 static void _remove(PhysicsInfo *info)
 {
-    ShapeInfo *shapeInfo, *end;
+    ShapeInfo *shapeInfo;
 
-    for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
-         shapeInfo != end; ++shapeInfo)
+    array_foreach(shapeInfo, info->shapes)
         _remove_shape(shapeInfo->shape);
     array_free(info->shapes);
 
@@ -156,7 +155,7 @@ static Scalar _moment(cpBody *body, ShapeInfo *shapeInfo)
 static void _recalculate_moment(PhysicsInfo *info)
 {
     Scalar moment;
-    ShapeInfo *shapeInfo, *end;
+    ShapeInfo *shapeInfo;
 
     if (!info->body)
         return;
@@ -164,8 +163,7 @@ static void _recalculate_moment(PhysicsInfo *info)
         return; /* can't set moment to zero, just leave it alone */
 
     moment = 0.0;
-    for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
-         shapeInfo != end; ++shapeInfo)
+    array_foreach(shapeInfo, info->shapes)
         moment += _moment(info->body, shapeInfo);
     cpBodySetMoment(info->body, moment);
 }
@@ -353,11 +351,10 @@ void physics_init()
 }
 void physics_deinit()
 {
-    PhysicsInfo *info, *end;
+    PhysicsInfo *info;
 
     /* remove all bodies, shapes */
-    for (info = entitypool_begin(pool), end = entitypool_end(pool);
-         info != end; ++info)
+    entitypool_foreach(info, pool)
         _remove(info);
 
     /* deinit cpSpace */
@@ -369,10 +366,9 @@ void physics_deinit()
 
 void physics_clear()
 {
-    PhysicsInfo *info, *end;
+    PhysicsInfo *info;
 
-    for (info = entitypool_begin(pool), end = entitypool_end(pool);
-         info != end; ++info)
+    entitypool_foreach(info, pool)
         _remove(info);
     entitypool_clear(pool);
     cpResetShapeIdCounter();
@@ -393,7 +389,7 @@ static void _step()
 
 static void _update_kinematics()
 {
-    PhysicsInfo *info, *end;
+    PhysicsInfo *info;
     cpVect pos;
     cpFloat ang;
     Scalar invdt;
@@ -402,8 +398,7 @@ static void _update_kinematics()
         return;
     invdt = 1 / timing_dt;
 
-    for (info = entitypool_begin(pool), end = entitypool_end(pool);
-         info != end; ++info)
+    entitypool_foreach(info, pool)
         if (info->type == PB_KINEMATIC)
         {
             /* move to transform */
@@ -425,7 +420,7 @@ static void _update_kinematics()
 }
 void physics_update_all()
 {
-    PhysicsInfo *info, *end;
+    PhysicsInfo *info;
 
     entitypool_remove_destroyed(pool, physics_remove);
 
@@ -437,8 +432,7 @@ void physics_update_all()
     }
 
     /* update transform to reflect physics state */
-    for (info = entitypool_begin(pool), end = entitypool_end(pool);
-         info != end; ++info)
+    entitypool_foreach(info, pool)
     {
         transform_set_position(info->pool_elem.ent,
                                vec2_of_cpv(cpBodyGetPos(info->body)));
@@ -594,13 +588,12 @@ static void _polygon_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
 static void _shapes_save(PhysicsInfo *info, Serializer *s)
 {
     unsigned int n;
-    ShapeInfo *shapeInfo, *end;
+    ShapeInfo *shapeInfo;
 
     n = array_length(info->shapes);
     uint_save(&n, s);
 
-    for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
-         shapeInfo != end; ++shapeInfo)
+    array_foreach(shapeInfo, info->shapes)
     {
         /* type-specific properties */
         enum_save(&shapeInfo->type, s);
@@ -623,14 +616,13 @@ static void _shapes_save(PhysicsInfo *info, Serializer *s)
 static void _shapes_load(PhysicsInfo *info, Deserializer *s)
 {
     unsigned int n;
-    ShapeInfo *shapeInfo, *end;
+    ShapeInfo *shapeInfo;
 
     uint_load(&n, s);
     info->shapes = array_new(ShapeInfo);
     array_reset(info->shapes, n);
 
-    for (shapeInfo = array_begin(info->shapes), end = array_end(info->shapes);
-         shapeInfo != end; ++shapeInfo)
+    array_foreach(shapeInfo, info->shapes)
     {
         /* type-specific properties */
         enum_load(&shapeInfo->type, s);
@@ -658,13 +650,12 @@ static void _shapes_load(PhysicsInfo *info, Deserializer *s)
 void physics_save_all(Serializer *s)
 {
     unsigned int n;
-    PhysicsInfo *info, *end;
+    PhysicsInfo *info;
 
     n = entitypool_size(pool);
     uint_save(&n, s);
 
-    for (info = entitypool_begin(pool), end = entitypool_end(pool);
-         info != end; ++info)
+    entitypool_foreach(info, pool)
     {
         entitypool_elem_save(pool, &info, s);
 

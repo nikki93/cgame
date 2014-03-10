@@ -70,10 +70,9 @@ void texture_load(const char *filename)
 
 Texture *_find(const char *filename)
 {
-    Texture *tex, *end;
+    Texture *tex;
 
-    for (tex = array_begin(textures), end = array_end(textures);
-         tex != end; ++tex)
+    array_foreach(tex, textures)
         if (!strcmp(tex->filename, filename))
             return tex;
     return NULL;
@@ -113,9 +112,8 @@ void texture_init()
 }
 void texture_deinit()
 {
-    Texture *tex, *end;
-    for (tex = array_begin(textures), end = array_end(textures);
-         tex != end; ++tex)
+    Texture *tex;
+    array_foreach(tex, textures)
         free(tex->filename);
     array_free(textures);
 }

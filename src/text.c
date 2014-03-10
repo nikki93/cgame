@@ -74,10 +74,9 @@ static void _gen_chars(Array *chars, const char *str)
  */
 static TextInfo *_find(Text text)
 {
-    TextInfo *info, *end;
+    TextInfo *info;
 
-    for (info = array_begin(infos), end = array_end(infos);
-         info != end; ++info)
+    array_foreach(info, infos)
         if (info->id == text)
             return info;
     return NULL;
@@ -185,12 +184,11 @@ void text_init()
 }
 void text_deinit()
 {
-    TextInfo *info, *end;
+    TextInfo *info;
 
     _deinit_gl();
 
-    for (info = array_begin(infos), end = array_end(infos);
-         info != end; ++info)
+    array_foreach(info, infos)
         array_free(info->chars);
     array_free(infos);
 }
@@ -198,7 +196,7 @@ void text_deinit()
 void text_draw_all()
 {
     Vec2 hwin;
-    TextInfo *info, *end;
+    TextInfo *info;
     unsigned int nchars;
 
     hwin = vec2_scalar_mul(game_get_window_size(), 0.5);
@@ -213,8 +211,7 @@ void text_draw_all()
     texture_bind(data_path("font1.png"));
 
     /* draw! */
-    for (info = array_begin(infos), end = array_end(infos);
-         info != end; ++info)
+    array_foreach(info, infos)
     {
         if (!info->visible)
             continue;

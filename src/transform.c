@@ -30,14 +30,13 @@ static EntityPool *pool;
 
 static void _detach(Transform *p, Transform *c)
 {
-    Entity *child, *end;
+    Entity *child;
 
     /* remove child -> parent link */
     c->parent = entity_nil;
 
     /* search for parent -> child link and remove it */
-    for (child = array_begin(p->children), end = array_end(p->children);
-         child != end; ++child)
+    array_foreach(child, p->children)
         if (entity_eq(*child, c->pool_elem.ent))
         {
             array_quick_remove(p->children,
@@ -48,7 +47,7 @@ static void _detach(Transform *p, Transform *c)
 
 static void _detach_all(Transform *t)
 {
-    Entity *child, *end;
+    Entity *child;
     Transform *p, *c;
     assert(t);
 
@@ -63,8 +62,7 @@ static void _detach_all(Transform *t)
     /* our children -- unset each child's parent then clear children array */
     if (t->children)
     {
-        for (child = array_begin(t->children), end = array_end(t->children);
-             child != end; ++child)
+        array_foreach(child, t->children)
         {
             c = entitypool_get(pool, *child);
             assert(c);
@@ -229,9 +227,9 @@ Vec2 transform_local_to_world(Entity ent, Vec2 v)
 
 static void _free_children_arrays()
 {
-    Transform *transform, *end;
-    for (transform = entitypool_begin(pool), end = entitypool_end(pool);
-         transform != end; ++transform)
+    Transform *transform;
+
+    entitypool_foreach(transform, pool)
         if (transform->children)
             array_free(transform->children);
 }
@@ -282,16 +280,14 @@ static void _update(Transform *transform)
 
 void transform_update_all()
 {
-    Transform *transform, *end;
+    Transform *transform;
 
     entitypool_remove_destroyed(pool, transform_remove);
 
     /* update all */
-    for (transform = entitypool_begin(pool), end = entitypool_end(pool);
-         transform != end; ++transform)
+    entitypool_foreach(transform, pool)
         transform->updated = false;
-    for (transform = entitypool_begin(pool), end = entitypool_end(pool);
-         transform != end; ++transform)
+    entitypool_foreach(transform, pool)
         _update(transform);
 }
 
@@ -299,14 +295,13 @@ void transform_update_all()
 static void _children_save(Transform *t, Serializer *s)
 {
     int n; /* -1 if t->children is NULL */
-    Entity *child, *end;
+    Entity *child;
 
     if (t->children)
     {
         n = array_length(t->children);
         int_save(&n, s);
-        for (child = array_begin(t->children), end = array_end(t->children);
-             child != end; ++child)
+        array_foreach(child, t->children)
             entity_save(child, s);
     }
     else
@@ -375,13 +370,12 @@ static void _apply_offset(Transform *t)
 void transform_save_all(Serializer *s)
 {
     unsigned int n;
-    Transform *transform, *end;
+    Transform *transform;
 
     n = entitypool_size(pool);
     uint_save(&n, s);
 
-    for (transform = entitypool_begin(pool), end = entitypool_end(pool);
-         transform != end; ++transform)
+    entitypool_foreach(transform, pool)
     {
         entitypool_elem_save(pool, &transform, s);
         vec2_save(&transform->position, s);

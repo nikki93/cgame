@@ -65,20 +65,18 @@ void input_add_mouse_up_callback(MouseCallback f)
 static void _key_callback(GLFWwindow *window, int key, int scancode,
                           int action, int mods)
 {
-    KeyCallback *f, *end;
+    KeyCallback *f;
 
     /* call all registered callbacks */
     switch (action)
     {
         case GLFW_PRESS:
-            for (f = array_begin(key_down_cbs), end = array_end(key_down_cbs);
-                 f != end; ++f)
+            array_foreach(f, key_down_cbs)
                 (*f)(_glfw_to_keycode(key));
             break;
 
         case GLFW_RELEASE:
-            for (f = array_begin(key_up_cbs), end = array_end(key_up_cbs);
-                 f != end; ++f)
+            array_foreach(f, key_up_cbs)
                 (*f)(_glfw_to_keycode(key));
             break;
     }
@@ -87,20 +85,18 @@ static void _key_callback(GLFWwindow *window, int key, int scancode,
 static void _mouse_callback(GLFWwindow *window, int mouse, int action,
                             int mods)
 {
-    MouseCallback *f, *end;
+    MouseCallback *f;
 
     /* call all registered callbacks */
     switch (action)
     {
         case GLFW_PRESS:
-            for (f = array_begin(mouse_down_cbs), end = array_end(mouse_down_cbs);
-                 f != end; ++f)
+            array_foreach(f, mouse_down_cbs)
                 (*f)(_glfw_to_mousecode(mouse));
             break;
 
         case GLFW_RELEASE:
-            for (f = array_begin(mouse_up_cbs), end = array_end(mouse_up_cbs);
-                 f != end; ++f)
+            array_foreach(f, mouse_up_cbs)
                 (*f)(_glfw_to_mousecode(mouse));
             break;
     }
