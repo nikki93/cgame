@@ -1,8 +1,6 @@
 #ifndef ENTITYMAP_H
 #define ENTITYMAP_H
 
-#include <stdbool.h>
-
 #include "entity.h"
 
 /*

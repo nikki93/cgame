@@ -1,7 +1,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <stdlib.h>
 #include <stdbool.h>
 
 #include "saveload.h"

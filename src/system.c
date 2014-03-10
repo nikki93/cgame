@@ -1,7 +1,6 @@
 #include "system.h"
 
 #include <stdbool.h>
-#include <stdio.h>
 
 #include "entity.h"
 #include "script.h"

@@ -3,7 +3,6 @@
 
 #include "glew_glfw.h"
 #include "script_export.h"
-#include "scalar.h"
 #include "vec2.h"
 #include "color.h"
 

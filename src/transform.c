@@ -1,10 +1,11 @@
 #include "transform.h"
 
 #include <assert.h>
+#include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "entitypool.h"
+#include "array.h"
 #include "saveload.h"
 
 typedef struct Transform Transform;

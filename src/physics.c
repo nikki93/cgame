@@ -1,6 +1,7 @@
 #include "physics.h"
 
 #include <assert.h>
+#include <stdlib.h>
 #define CP_DATA_POINTER_TYPE Entity
 #include <chipmunk.h>
 
@@ -274,7 +275,7 @@ void physics_set_freeze_rotation(Entity ent, bool freeze)
     assert(info);
 
     if (freeze)
-        cpBodySetMoment(info->body, INFINITY);
+        cpBodySetMoment(info->body, SCALAR_INFINITY);
     else
         _recalculate_moment(info);
 }
@@ -284,7 +285,7 @@ bool physics_get_freeze_rotation(Entity ent)
     assert(info);
 
     /* TODO: do this a better way? maybe store separate flag */
-    return cpBodyGetMoment(info->body) == INFINITY;
+    return cpBodyGetMoment(info->body) == SCALAR_INFINITY;
 }
 
 void physics_set_velocity(Entity ent, Vec2 vel)

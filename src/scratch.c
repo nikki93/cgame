@@ -1,6 +1,5 @@
 #include "scratch.h"
 
-#include <console.h>
 #include <stdbool.h>
 #include <sys/stat.h>
 #include <time.h>

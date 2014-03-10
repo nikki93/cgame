@@ -1,8 +1,6 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include <stdio.h>
-
 #include "saveload.h"
 #include "script_export.h"
 

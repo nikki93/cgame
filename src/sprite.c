@@ -1,13 +1,11 @@
 #include "sprite.h"
 
 #include <assert.h>
-#include <stdio.h>
-#include <string.h>
 #include <GL/glew.h>
-#include <stb_image.h>
 
 #include "entitypool.h"
 #include "dirs.h"
+#include "mat3.h"
 #include "saveload.h"
 #include "transform.h"
 #include "gfx.h"

@@ -1,7 +1,6 @@
 #include "entity.h"
 
 #include <assert.h>
-#include <stdlib.h>
 #include <stdbool.h>
 
 #include "saveload.h"

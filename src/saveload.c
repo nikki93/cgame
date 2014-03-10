@@ -1,8 +1,10 @@
 #include "saveload.h"
 
 #include <stdarg.h>
-#include <stdlib.h>
+#include <stddef.h>
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <assert.h>
 
 enum Type
@@ -185,10 +187,10 @@ void deserializer_close(Deserializer *s)
     free(s);
 }
 
-/* printf/scanf for INFINITY doesn't work out on MSVC */
+/* printf/scanf for SCALAR_INFINITY doesn't work out on MSVC */
 void scalar_save(const Scalar *f, Serializer *s)
 {
-    if (*f == INFINITY)
+    if (*f == SCALAR_INFINITY)
         _serializer_printf(s, "inf\n");
     else
         _serializer_printf(s, "%f\n", *f);
@@ -197,7 +199,7 @@ void scalar_load(Scalar *f, Deserializer *s)
 {
     if (_deserializer_peek(s) == 'i')
     {
-        *f = INFINITY;
+        *f = SCALAR_INFINITY;
         _deserializer_scanf(s, "inf\n");
     }
     else

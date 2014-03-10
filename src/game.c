@@ -1,12 +1,13 @@
 #include "game.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
 
-#include "scalar.h"
 #include "glew_glfw.h"
 #include "dirs.h"
+#include "saveload.h"
 #include "system.h"
 #include "console.h"
 #include "text.h"

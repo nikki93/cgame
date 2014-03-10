@@ -1,7 +1,6 @@
 #ifndef SAVELOAD_H
 #define SAVELOAD_H
 
-#include <stdio.h>
 #include <stdbool.h>
 
 #include "scalar.h"

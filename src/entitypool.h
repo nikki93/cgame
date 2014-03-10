@@ -1,8 +1,9 @@
 #ifndef ENTITYPOOL_H
 #define ENTITYPOOL_H
 
-#include "entitymap.h"
-#include "array.h"
+#include <stddef.h>
+
+#include "entity.h"
 #include "saveload.h"
 
 /*

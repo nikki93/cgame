@@ -17,6 +17,8 @@ SCRIPT(scalar,
 #define SCALAR_PI 3.14159265358979323846264338327950288
 #endif
 
+#define SCALAR_INFINITY INFINITY
+
 #define scalar_cos cosf
 #define scalar_sin sinf
 #define scalar_sqrt sqrtf

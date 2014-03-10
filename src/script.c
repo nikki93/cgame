@@ -2,6 +2,7 @@
 
 #include "script.h"
 
+#include <stdlib.h>
 #include <string.h>
 #include <lua.h>
 #include <lauxlib.h>
@@ -9,7 +10,8 @@
 
 #include "dirs.h"
 #include "saveload.h"
-#include "timing.h"
+#include "game.h"
+#include "input.h"
 #include "console.h"
 
 static lua_State *L;

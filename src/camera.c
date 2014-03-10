@@ -1,7 +1,5 @@
 #include "camera.h"
 
-#include <stdbool.h>
-
 #include "saveload.h"
 #include "transform.h"
 

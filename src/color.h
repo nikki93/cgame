@@ -2,6 +2,7 @@
 #define COLOR_H
 
 #include "scalar.h"
+#include "script_export.h"
 
 SCRIPT(color,
 

@@ -1,9 +1,12 @@
 #include "console.h"
 
 #include <stdarg.h>
+#include <stdbool.h>
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 
+#include "vec2.h"
 #include "game.h"
 #include "text.h"
 #include "input.h"

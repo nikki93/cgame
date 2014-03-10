@@ -3,6 +3,8 @@
 
 #include <stdbool.h>
 
+#include "saveload.h"
+#include "script_export.h"
 #include "scalar.h"
 #include "entity.h"
 #include "vec2.h"

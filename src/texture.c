@@ -6,7 +6,6 @@
 #include <GL/glew.h>
 #include <stb_image.h>
 
-#include "dirs.h"
 #include "array.h"
 
 typedef struct Texture Texture;
