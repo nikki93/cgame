@@ -35,5 +35,30 @@ void array_pop(Array *arr); /* remove object with highest index */
 /* remove fast, may swap some other element into arr[i], returns true if so */
 bool array_quick_remove(Array *arr, unsigned int i);
 
+/*
+ * can be used as:
+ *
+ *     array_foreach(var, arr)
+ *         ... use var ...
+ *
+ * here var must name a variable of type 'pointer to element' declared
+ * before -- do not use this if adding/removing from arr while
+ * iterating
+ *
+ * elements are visited in order of increasing index
+ */
+#define array_foreach(var, arr)                 \
+    array_foreach_(var, arr, __LINE__)
+#define make_label(line) __label_ ## line
+#define array_foreach_(var, arr, line)                          \
+    if (1)                                                      \
+    {                                                           \
+        var = array_begin(arr);                                 \
+        goto make_label(line);                                  \
+    }                                                           \
+    else                                                        \
+    make_label(line):                                           \
+        for (void *__end = array_end(arr); var != __end; ++var)
+
 #endif
 
