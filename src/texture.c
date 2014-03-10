@@ -21,6 +21,8 @@ struct Texture
 
 Array *textures;
 
+/* ------------------------------------------------------------------------- */
+
 static void _flip_image_vertical(unsigned char *data,
                                  unsigned int width, unsigned int height)
 {
@@ -102,6 +104,8 @@ int texture_get_height(const char *filename)
     assert(tex);
     return tex->height;
 }
+
+/* ------------------------------------------------------------------------- */
 
 void texture_init()
 {

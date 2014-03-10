@@ -32,7 +32,10 @@ static void _detach(Transform *p, Transform *c)
 {
     Entity *child, *end;
 
+    /* remove child -> parent link */
     c->parent = entity_nil;
+
+    /* search for parent -> child link and remove it */
     for (child = array_begin(p->children), end = array_end(p->children);
          child != end; ++child)
         if (entity_eq(*child, c->pool_elem.ent))
@@ -57,7 +60,7 @@ static void _detach_all(Transform *t)
         _detach(p, t);
     }
 
-    /* our children */
+    /* our children -- unset each child's parent then clear children array */
     if (t->children)
     {
         for (child = array_begin(t->children), end = array_end(t->children);
@@ -70,15 +73,6 @@ static void _detach_all(Transform *t)
         array_free(t->children);
         t->children = NULL;
     }
-}
-
-static void _update_cache(Transform *transform)
-{
-    transform->mat_cache = mat3_scaling_rotation_translation(
-        transform->scale,
-        transform->rotation,
-        transform->position
-        );
 }
 
 void transform_add(Entity ent)
@@ -150,6 +144,15 @@ void transform_detach_all(Entity ent)
     Transform *transform = entitypool_get(pool, ent);
     assert(transform);
     _detach_all(transform);
+}
+
+static void _update_cache(Transform *transform)
+{
+    transform->mat_cache = mat3_scaling_rotation_translation(
+        transform->scale,
+        transform->rotation,
+        transform->position
+        );
 }
 
 void transform_set_position(Entity ent, Vec2 pos)
@@ -250,10 +253,16 @@ void transform_clear()
     entitypool_clear(pool);
 }
 
+/*
+ * update worldmat_cache to reflect hierarchy
+ *
+ * use recursion -- transform hierarchies should generally be shallow
+ */
 static void _update(Transform *transform)
 {
     Transform *parent;
 
+    /* already updated? */
     if (transform->updated)
         return;
 
@@ -276,6 +285,7 @@ void transform_update_all()
     unsigned int i;
     Transform *transform, *end;
 
+    /* remove destroyed transforms, reset 'updated' flag */
     for (i = 0; i < entitypool_size(pool); )
     {
         transform = entitypool_nth(pool, i);
@@ -288,14 +298,16 @@ void transform_update_all()
         }
     }
 
+    /* update all */
     for (transform = entitypool_begin(pool), end = entitypool_end(pool);
          transform != end; ++transform)
         _update(transform);
 }
 
+/* save/load for just the children array */
 static void _children_save(Transform *t, Serializer *s)
 {
-    int n;
+    int n; /* -1 if t->children is NULL */
     Entity *child, *end;
 
     if (t->children)
@@ -314,7 +326,7 @@ static void _children_save(Transform *t, Serializer *s)
 }
 static void _children_load(Transform *t, Deserializer *s)
 {
-    int n;
+    int n; /* -1 if t->children should be NULL */
     Entity *child;
 
     int_load(&n, s);
@@ -354,6 +366,21 @@ void transform_offset_reset()
     offset_scale = vec2(1.0f, 1.0f);
 }
 
+/* apply above offsets to given transform */
+static void _apply_offset(Transform *t)
+{
+    /* scale */
+    t->position = vec2_mul(t->position, offset_scale);
+    t->scale = vec2_mul(t->scale, offset_scale);
+
+    /* rot */
+    t->position = vec2_rot(t->position, offset_rot);
+    t->rotation += offset_rot;
+
+    /* pos */
+    t->position = vec2_add(t->position, offset_pos);
+}
+
 void transform_save_all(Serializer *s)
 {
     unsigned int n;
@@ -372,8 +399,6 @@ void transform_save_all(Serializer *s)
 
         entity_save(&transform->parent, s);
         _children_save(transform, s);
-
-        mat3_save(&transform->mat_cache, s);
     }
 }
 void transform_load_all(Deserializer *s)
@@ -393,22 +418,9 @@ void transform_load_all(Deserializer *s)
         entity_load(&transform->parent, s);
         _children_load(transform, s);
 
-        /* offset root transforms */
         if (entity_eq(transform->parent, entity_nil))
-        {
-            /* scale */
-            transform->position = vec2_mul(transform->position, offset_scale);
-            transform->scale = vec2_mul(transform->scale, offset_scale);
-
-            /* rot */
-            transform->position = vec2_rot(transform->position, offset_rot);
-            transform->rotation += offset_rot;
-
-            /* pos */
-            transform->position = vec2_add(transform->position, offset_pos);
-        }
-
-        mat3_load(&transform->mat_cache, s);
+            _apply_offset(transform); /* offset root transforms */
+        _update_cache(transform);
     }
 }
 

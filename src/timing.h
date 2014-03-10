@@ -14,8 +14,8 @@ SCRIPT(timing,
        EXPORT void timing_set_scale(Scalar s);
        EXPORT Scalar timing_get_scale();
 
-       /* pausing is like setting scale to 0 but scale is restored on resume */
-       EXPORT void timing_set_paused(bool p);
+       EXPORT void timing_set_paused(bool p); /* pause sets scale to 0 and
+                                                 restores it on resume */
        EXPORT bool timing_get_paused();
 
     )
