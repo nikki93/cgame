@@ -112,17 +112,9 @@ void sprite_clear()
 
 void sprite_update_all()
 {
-    unsigned int i;
     Sprite *sprite, *end;
 
-    for (i = 0; i < entitypool_size(pool); )
-    {
-        sprite = entitypool_nth(pool, i);
-        if (entity_destroyed(sprite->pool_elem.ent))
-            sprite_remove(sprite->pool_elem.ent);
-        else
-            ++i;
-    }
+    entitypool_cleanup(pool, sprite_remove);
 
     /* update world transform matrices */
     for (sprite = entitypool_begin(pool), end = entitypool_end(pool);

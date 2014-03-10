@@ -282,23 +282,14 @@ static void _update(Transform *transform)
 
 void transform_update_all()
 {
-    unsigned int i;
     Transform *transform, *end;
 
-    /* remove destroyed transforms, reset 'updated' flag */
-    for (i = 0; i < entitypool_size(pool); )
-    {
-        transform = entitypool_nth(pool, i);
-        if (entity_destroyed(transform->pool_elem.ent))
-            transform_remove(transform->pool_elem.ent);
-        else
-        {
-            transform->updated = false;
-            ++i;
-        }
-    }
+    entitypool_cleanup(pool, transform_remove);
 
     /* update all */
+    for (transform = entitypool_begin(pool), end = entitypool_end(pool);
+         transform != end; ++transform)
+        transform->updated = false;
     for (transform = entitypool_begin(pool), end = entitypool_end(pool);
          transform != end; ++transform)
         _update(transform);

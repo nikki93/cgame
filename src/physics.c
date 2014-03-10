@@ -425,17 +425,9 @@ static void _update_kinematics()
 }
 void physics_update_all()
 {
-    unsigned int i;
     PhysicsInfo *info, *end;
 
-    for (i = 0; i < entitypool_size(pool); )
-    {
-        info = entitypool_nth(pool, i);
-        if (entity_destroyed(info->pool_elem.ent))
-            physics_remove(info->pool_elem.ent);
-        else
-            ++i;
-    }
+    entitypool_cleanup(pool, physics_remove);
 
     /* simulate */
     if (!timing_get_paused())
