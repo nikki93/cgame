@@ -32,8 +32,13 @@ ideas
 todo
 ----
 
-- medium: add real-time Lua running (like a command console) -- bind
-  with editor for REPL?
+- easy: merge texture_get_width()/texture_get_height() into a single
+  texture_get_size() that returns a Vec2
+
+- easy: test string stream serializer/deserializer 
+
+- easy: make entity_destroyed(ent) be true iff. on 2nd pass of
+  destroyed map?
 
 - easy: move window stuff from game into a new window system
   (bg_color, size)
@@ -42,8 +47,6 @@ todo
   functions
 
 - hard: add sprite animation
-
-- hard: handle merging (load without clear) for prefabs etc.
 
 
 files
