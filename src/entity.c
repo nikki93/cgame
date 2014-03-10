@@ -84,7 +84,7 @@ void entity_destroy(Entity ent)
 
     /* mark it as destroyed but don't 'remove' it yet */
     entitymap_set(destroyed_map, ent, true);
-    array_add_val(DestroyEntry, destroyed) = (DestroyEntry) { ent, 0 };
+    array_add_val(DestroyEntry, destroyed) = (DestroyEntry) { { ent.id }, 0 };
 }
 
 bool entity_destroyed(Entity ent)

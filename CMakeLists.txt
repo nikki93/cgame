@@ -13,6 +13,14 @@ set(CGAME_SOURCES src/main.c src/vec2.c src/mat3.c src/color.c
 
   ext/glew/src/glew.c ext/stb/stb_image.c)
 
+if(APPLE)
+  add_definitions(-DCGAME_OSX)
+elseif(UNIX)
+  add_definitions(-DCGAME_LINUX)
+else()
+  add_definitions(-DCGAME_WINDOWS)
+endif()
+
 if(CGAME_DEBUG_WINDOW)
   add_definitions(-DCGAME_DEBUG_WINDOW)
   list(APPEND CGAME_SOURCES src/debugwin.m)

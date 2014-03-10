@@ -19,7 +19,11 @@ bool _exists()
 bool _modified()
 {
     struct stat st;
+#ifdef CGAME_OSX
     static struct timespec prev_time = { 0, 0 };
+#else
+    static time_t prev_time = 0;
+#endif
     bool modified;
     static bool first = true;
 
@@ -29,9 +33,15 @@ bool _modified()
         return false; /* doesn't exist or error */
     }
 
+#ifdef CGAME_OSX
     modified = !first && !(st.st_mtimespec.tv_sec == prev_time.tv_sec
                            && st.st_mtimespec.tv_nsec == prev_time.tv_nsec);
     prev_time = st.st_mtimespec;
+#else
+    modified = !first && st.st_mtime != prev_time;
+    prev_time = st.st_mtime;
+#endif
+
     first = false;
     return modified;
 }
