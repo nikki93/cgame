@@ -284,7 +284,7 @@ void transform_update_all()
 {
     Transform *transform, *end;
 
-    entitypool_cleanup(pool, transform_remove);
+    entitypool_remove_destroyed(pool, transform_remove);
 
     /* update all */
     for (transform = entitypool_begin(pool), end = entitypool_end(pool);

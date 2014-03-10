@@ -427,7 +427,7 @@ void physics_update_all()
 {
     PhysicsInfo *info, *end;
 
-    entitypool_cleanup(pool, physics_remove);
+    entitypool_remove_destroyed(pool, physics_remove);
 
     /* simulate */
     if (!timing_get_paused())

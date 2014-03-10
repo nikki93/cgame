@@ -114,7 +114,7 @@ void sprite_update_all()
 {
     Sprite *sprite, *end;
 
-    entitypool_cleanup(pool, sprite_remove);
+    entitypool_remove_destroyed(pool, sprite_remove);
 
     /* update world transform matrices */
     for (sprite = entitypool_begin(pool), end = entitypool_end(pool);

@@ -61,22 +61,22 @@ void entitypool_elem_save(EntityPool *pool, void *elem, Serializer *s);
 void entitypool_elem_load(EntityPool *pool, void *elem, Deserializer *s);
 
 /*
- * call 'func' on each destroyed Entity -- generally done in
- * *_update_all(), check transform.c, sprite.c, etc. for examples
+ * call 'func' on each destroyed Entity, generally done in
+ * *_update_all() -- check transform.c, sprite.c, etc. for examples
  */
-#define entitypool_cleanup(pool, func)                          \
-    do                                                          \
-    {                                                           \
-        unsigned int __i;                                       \
-        EntityPoolElem *__e;                                    \
-        for (__i = 0; __i < entitypool_size(pool); ++__i)       \
-        {                                                       \
-            __e = entitypool_nth(pool, __i);                    \
-            if (entity_destroyed(__e->ent))                     \
-                func(__e->ent);                                 \
-            else                                                \
-                ++__i;                                          \
-        }                                                       \
+#define entitypool_remove_destroyed(pool, func)         \
+    do                                                  \
+    {                                                   \
+        unsigned int __i;                               \
+        EntityPoolElem *__e;                            \
+        for (__i = 0; __i < entitypool_size(pool); )    \
+        {                                               \
+            __e = entitypool_nth(pool, __i);            \
+            if (entity_destroyed(__e->ent))             \
+                func(__e->ent);                         \
+            else                                        \
+                ++__i;                                  \
+        }                                               \
     } while (0)
 
 #endif
