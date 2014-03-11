@@ -239,8 +239,10 @@ end
 -- sys_get_prop(ent)/sys_set_prop(ent, val)
 
 function cgame.getter(sys, prop) return cgame.systems[sys]['get_' .. prop] end
-function cgame.setter(sys, prop) return cgame.systems[sys]['set_' .. prop] end
-function cgame.get(sys, prop, ...) return cgame.getter(sys, prop)(unpack({...})) end
+function cgame.setter(sys, prop)return cgame.systems[sys]['set_' .. prop] end
+function cgame.get(sys, prop, ...)
+    return cgame.getter(sys, prop)(unpack({...}))
+end
 function cgame.set(sys, prop, ...) cgame.setter(sys, prop)(unpack({...})) end
 
 function cgame.adder(sys) return cgame.systems[sys]['add'] end

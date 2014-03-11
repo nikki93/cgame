@@ -35,9 +35,9 @@ void script_run_file(const char *filename)
 }
 
 /*
- * push an object as cdata, t must be the FFI type specifier as a string -- so to
- * push a Vec2 you'd do _push_cdata("Vec2 *", &v), and the result is a Vec2 cdata
- * on stack (NOT a pointer)
+ * push an object as cdata, t must be the FFI type specifier as a string -- so
+ * to push a Vec2 you'd do _push_cdata("Vec2 *", &v), and the result is a Vec2
+ * cdata on stack (NOT a pointer)
  */
 static void _push_cdata(const char *t, void *p)
 {
