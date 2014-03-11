@@ -204,7 +204,7 @@ function cgame.__save_all()
         end
     end
 
-    return serpent.dump(data)
+    return serpent.dump(data, { indent = '  ' })
 end
 
 function cgame.__load_all(str)
