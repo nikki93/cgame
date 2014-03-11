@@ -41,6 +41,7 @@ void script_run_file(const char *filename)
  */
 static void _push_cdata(const char *t, void *p)
 {
+    /* just call __deref_cdata(t, p) */
     lua_getglobal(L, "cgame");
     lua_getfield(L, -1, "__deref_cdata");
     lua_remove(L, -2);
@@ -51,13 +52,14 @@ static void _push_cdata(const char *t, void *p)
 
 static void _push_event(const char *event)
 {
+    /* call cgame.__fire_event(event, ...) */
     lua_getglobal(L, "cgame");
     lua_getfield(L, -1, "__fire_event");
     lua_remove(L, -2);
     lua_pushstring(L, event);
 }
 
-/* args are available as cgame_args[0], cgame_args[1], ... */
+/* forward commandline args as cgame_args[0], cgame_args[1], ... */
 static void _forward_args()
 {
     int i, argc;
@@ -84,7 +86,7 @@ static void _set_paths()
     lua_setglobal(L, "cgame_usr_path");
 }
 
-/* LuaJIT parser doesn't like 'EXPORT' -- make it whitespace */
+/* LuaJIT FFI parser doesn't like 'EXPORT' -- make it whitespace */
 static void _fix_exports(char *s)
 {
     static const char keyword[] = "EXPORT";
@@ -101,7 +103,7 @@ static void _fix_exports(char *s)
  *     ffi = require 'ffi'
  *     ffi.cdef(cgame_ffi[0] .. cgame_ffi[1] .. ...)
  *
- * with 'EXPORT's fixed -- after this cgame.lua can bind the ffi
+ * with 'EXPORT's fixed -- after this cgame.lua can bind the FFI
  */
 static void _load_cgame_ffi()
 {
@@ -109,11 +111,13 @@ static void _load_cgame_ffi()
     char *fixed;
     luaL_Buffer buf; /* will accumulate cgame_ffi cdefs onto here */
 
+    /* get ffi.cdef */
     lua_getglobal(L, "require");
     lua_pushstring(L, "ffi");
     errcheck(lua_pcall(L, 1, 0, 0));
     lua_getfield(L, lua_gettop(L), "cdef");
 
+    /* accumulate cgame_ffi cdefs */
     luaL_buffinit(L, &buf);
     for (i = 0; i < n_cgame_ffi; ++i)
     {
@@ -125,6 +129,7 @@ static void _load_cgame_ffi()
     }
     luaL_pushresult(&buf);
 
+    /* call it */
     errcheck(lua_pcall(L, 1, 0, 0));
 }
 
@@ -202,14 +207,17 @@ void script_save_all(Serializer *s)
 {
     const char *str;
 
+    /* get string from Lua */
     lua_getglobal(L, "cgame");
     lua_getfield(L, -1, "__save_all");
     lua_remove(L, -2);
     errcheck(lua_pcall(L, 0, 1, 0));
     str = lua_tostring(L, -1);
 
+    /* save it */
     string_save(&str, s);
 
+    /* release */
     lua_pop(L, 1);
 }
 
@@ -217,14 +225,17 @@ void script_load_all(Deserializer *s)
 {
     char *str;
 
+    /* load the string */
     string_load(&str, s);
 
+    /* send it to Lua */
     lua_getglobal(L, "cgame");
     lua_getfield(L, -1, "__load_all");
     lua_remove(L, -2);
     lua_pushstring(L, str);
     errcheck(lua_pcall(L, 1, 0, 0));
 
+    /* release */
     free(str);
 }
 
