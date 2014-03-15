@@ -2,6 +2,8 @@
 
 #include "saveload.h"
 #include "transform.h"
+#include "game.h"
+#include "assert.h"
 
 static Entity camera_entity;
 
@@ -39,6 +41,25 @@ Mat3 camera_get_inverse_view_matrix()
 const Mat3 *camera_get_inverse_view_matrix_ptr()
 {
     return &inverse_view_matrix;
+}
+
+Vec2 camera_world_to_pixels(Vec2 p)
+{
+    return game_unit_to_pixels(camera_world_to_unit(p));
+}
+Vec2 camera_world_to_unit(Vec2 p)
+{
+    /* use cached inverse view matrix */
+    return mat3_transform(inverse_view_matrix, p);
+}
+Vec2 camera_pixels_to_world(Vec2 p)
+{
+    return camera_unit_to_world(game_pixels_to_unit(p));
+}
+Vec2 camera_unit_to_world(Vec2 p)
+{
+    assert(!entity_eq(camera_entity, entity_nil));
+    return transform_local_to_world(camera_entity, p);
 }
 
 /* ------------------------------------------------------------------------- */

@@ -19,6 +19,12 @@ SCRIPT(camera,
        EXPORT void camera_set_viewport_size(Entity ent, Vec2 dim);
        EXPORT Mat3 camera_get_inverse_view_matrix();
 
+       /* screen-space coordinates <-> world coordinates transformations */
+       EXPORT Vec2 camera_world_to_pixels(Vec2 p);
+       EXPORT Vec2 camera_world_to_unit(Vec2 p);
+       EXPORT Vec2 camera_pixels_to_world(Vec2 p);
+       EXPORT Vec2 camera_unit_to_world(Vec2 p);
+
     )
 
 const Mat3 *camera_get_inverse_view_matrix_ptr(); /* for quick GLSL binding */
