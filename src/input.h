@@ -59,9 +59,9 @@ SCRIPT(input,
            MC_LEFT = MC_1, MC_RIGHT = MC_2, MC_MIDDLE = MC_3,
        };
 
-       EXPORT Vec2 input_get_mouse_pos_pixels(); /* pixels from top left */
-       EXPORT Vec2 input_get_mouse_pos_unit();   /* center is (0, 0), left edge
-                                                    has x = -1 */
+       EXPORT Vec2 input_get_mouse_pos_pixels();
+       EXPORT Vec2 input_get_mouse_pos_unit();
+
        EXPORT bool input_mouse_down(MouseCode mouse);
 
     )

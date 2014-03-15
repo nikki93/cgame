@@ -30,12 +30,7 @@ Vec2 input_get_mouse_pos_pixels()
 }
 Vec2 input_get_mouse_pos_unit()
 {
-    Vec2 p, hw;
-
-    hw = vec2_scalar_mul(game_get_window_size(), 0.5f);
-    p = vec2_div(vec2_sub(input_get_mouse_pos_pixels(), hw), hw);
-    p.y *= -1.0f;
-    return p;
+    return game_pixels_to_unit(input_get_mouse_pos_pixels());
 }
 
 bool input_mouse_down(MouseCode mouse)
