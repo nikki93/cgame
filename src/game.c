@@ -202,11 +202,26 @@ void game_set_bg_color(Color c)
 {
     glClearColor(c.r, c.g, c.b, 1.0);
 }
+
 Vec2 game_get_window_size()
 {
     int w, h;
     glfwGetWindowSize(game_window, &w, &h);
     return vec2(w, h);
+}
+Vec2 game_unit_to_pixels(Vec2 p)
+{
+    Vec2 hw = vec2_scalar_mul(game_get_window_size(), 0.5f);
+    p.y *= -1.0f;
+    p = vec2_add(vec2_mul(p, hw), hw);
+    return p;
+}
+Vec2 game_pixels_to_unit(Vec2 p)
+{
+    Vec2 hw = vec2_scalar_mul(game_get_window_size(), 0.5f);
+    p = vec2_div(vec2_sub(p, hw), hw);
+    p.y *= -1.0f;
+    return p;
 }
 
 void game_quit()

@@ -18,7 +18,17 @@ char **game_get_argv();
 SCRIPT(game,
 
        EXPORT void game_set_bg_color(Color c);
+
+       /*
+        * screen-space coordinate systems:
+        *
+        *    unit: (0, 0) middle, (1, 1) top-right
+        *    pixels: (0, 0) top-left, game_get_window_size() bottom right
+        *
+        */
        EXPORT Vec2 game_get_window_size(); /* width, height in pixels */
+       EXPORT Vec2 game_unit_to_pixels(Vec2 p);
+       EXPORT Vec2 game_pixels_to_unit(Vec2 p);
 
        EXPORT void game_quit();
 
