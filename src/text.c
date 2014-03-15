@@ -218,7 +218,7 @@ void text_draw_all()
 
         glUniform2f(glGetUniformLocation(program, "base_pos"),
                     info->pos.x / hwin.x - 1,
-                    info->pos.y / hwin.y + 1);
+                    -info->pos.y / hwin.y + 1);
         glUniform4fv(glGetUniformLocation(program, "base_color"), 1,
                      (const GLfloat *) &info->color);
 
