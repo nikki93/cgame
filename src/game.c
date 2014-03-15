@@ -61,6 +61,11 @@ static void _fps_update()
 
 /* ------------------------------------------------------------------------- */
 
+static void _glfw_error_callback(int error, const char *desc)
+{
+    fprintf(stderr, "glfw: %s\n", desc);
+}
+
 static void _game_key_down(KeyCode key)
 {
     switch (key)
@@ -101,6 +106,7 @@ static void _game_key_down(KeyCode key)
 static void _game_init()
 {
     /* initialize glfw */
+    glfwSetErrorCallback(_glfw_error_callback);
     glfwInit();
 
     /* create glfw window */
