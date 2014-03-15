@@ -108,8 +108,7 @@ end
 cs.click_destroy = {}
 function cs.click_destroy.update_all()
     if cs.input.mouse_down(cs.MC.LEFT) then
-        p = cs.input.get_mouse_pos_unit()
-        p = cs.transform.local_to_world(camera, p)
+        p = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
 
         r = cs.physics.nearest(p, 1)
         if r.ent == cg.entity_nil then
