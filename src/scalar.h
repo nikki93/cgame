@@ -23,5 +23,8 @@ SCRIPT(scalar,
 #define scalar_sin sinf
 #define scalar_sqrt sqrtf
 
+#define scalar_min fminf
+#define scalar_max fmaxf
+
 #endif
 
