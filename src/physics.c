@@ -289,6 +289,20 @@ bool physics_get_freeze_rotation(Entity ent)
     return cpBodyGetMoment(info->body) == SCALAR_INFINITY;
 }
 
+void physics_set_position(Entity ent, Vec2 pos)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    cpBodySetPos(info->body, cpv_of_vec2(pos));
+    cpSpaceReindexShapesForBody(space, info->body);
+}
+Vec2 physics_get_position(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    return vec2_of_cpv(cpBodyGetPos(info->body));
+}
+
 void physics_set_velocity(Entity ent, Vec2 vel)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
