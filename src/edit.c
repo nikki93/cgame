@@ -15,6 +15,7 @@ enum Mode
     MD_NORMAL,
 
     MD_GRAB,
+    MD_ROTATE,
 };
 
 Mode mode = MD_DISABLED;
@@ -155,15 +156,9 @@ static void _keydown(KeyCode key)
                     mode = MD_GRAB;
                     break;
 
-                default:
-                    break;
-            }
-
-        case MD_GRAB:
-            switch (key)
-            {
-                case KC_ENTER:
-                    mode = MD_NORMAL;
+                case KC_R:
+                    mouse_prev = input_get_mouse_pos_unit();
+                    mode = MD_ROTATE;
                     break;
 
                 default:
@@ -192,6 +187,17 @@ static void _mousedown(MouseCode mouse)
             break;
 
         case MD_GRAB:
+            switch (mouse)
+            {
+                case MC_LEFT:
+                    mode = MD_NORMAL;
+                    break;
+
+                default:
+                    break;
+            }
+
+        case MD_ROTATE:
             switch (mouse)
             {
                 case MC_LEFT:
@@ -287,6 +293,39 @@ static void _update_grab()
     mouse_prev = mouse_curr;
 }
 
+static void _update_rotate()
+{
+    SelectPoolElem *elem;
+    Vec2 mc, mp, world_pos;
+    Scalar rot;
+    Entity ent, anc;
+
+    mc = camera_unit_to_world(mouse_curr);
+    mp = camera_unit_to_world(mouse_prev);
+
+    entitypool_foreach(elem, select_pool)
+    {
+        ent = elem->pool_elem.ent;
+
+        /* if an ancestor has been or will be moved, ignore */
+        for (anc = transform_get_parent(ent); !entity_eq(anc, entity_nil);
+             anc = transform_get_parent(anc))
+            if (edit_select_has(anc))
+                goto ignore;
+
+        /* rotate around entity origin */
+        world_pos = mat3_transform(transform_get_world_matrix(ent),
+                                   vec2_zero);
+        rot = vec2_atan2(vec2_sub(mp, world_pos))
+            - vec2_atan2(vec2_sub(mc, world_pos));
+        transform_rotate(ent, rot);
+
+    ignore: ;
+    }
+
+    mouse_prev = mouse_curr;
+}
+
 void edit_update_all()
 {
     BBoxPoolElem *elem;
@@ -297,9 +336,20 @@ void edit_update_all()
 
     mouse_curr = input_get_mouse_pos_unit();
 
-    /* grabbing? */
-    if (mode == MD_GRAB)
-        _update_grab();
+    /* mode-specific update */
+    switch (mode)
+    {
+        case MD_GRAB:
+            _update_grab();
+            break;
+
+        case MD_ROTATE:
+            _update_rotate();
+            break;
+
+        default:
+            break;
+    }
 
     /* update bbox world matrices */
     entitypool_foreach(elem, bbox_pool)
