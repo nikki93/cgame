@@ -8,7 +8,16 @@
 #include "dirs.h"
 #include "input.h"
 
-static bool enabled = false;
+typedef enum Mode Mode;
+enum Mode
+{
+    MD_DISABLED,
+    MD_NORMAL,
+
+    MD_GRAB,
+};
+
+Mode mode = MD_DISABLED;
 
 typedef struct BBoxPoolElem BBoxPoolElem;
 struct BBoxPoolElem
@@ -30,15 +39,18 @@ struct SelectPoolElem
 
 static EntityPool *select_pool;
 
+Vec2 mouse_prev;
+Vec2 mouse_curr;
+
 /* ------------------------------------------------------------------------- */
 
 void edit_set_enabled(bool e)
 {
-    enabled = e;
+    mode = e ? MD_NORMAL : MD_DISABLED;
 }
 bool edit_get_enabled()
 {
-    return enabled;
+    return mode != MD_DISABLED;
 }
 
 void edit_clear_bboxes()
@@ -81,11 +93,126 @@ static GLuint program;
 static GLuint vao;
 static GLuint vbo;
 
+static void _select_click()
+{
+    BBoxPoolElem *elem;
+    Entity ent;
+    Mat3 t;
+    Vec2 m, p;
+
+    m = camera_unit_to_world(mouse_curr);
+
+    /* look for entities whose bbox contains m */
+    entitypool_foreach(elem, bbox_pool)
+    {
+        ent = elem->pool_elem.ent;
+
+        /* transform m into entity space */
+        t = transform_get_world_matrix(ent);
+        t = mat3_inverse(t);
+        p = mat3_transform(t, m);
+
+        /* either add to or replace select */
+        if (bbox_contains(elem->bbox, p))
+        {
+            if (input_key_down(KC_LEFT_CONTROL)
+                || input_key_down(KC_RIGHT_CONTROL))
+                edit_select_add(ent);
+            else
+            {
+                edit_select_clear();
+                edit_select_add(ent);
+                break;
+            }
+        }
+    }
+}
+
+static void _destroy_selected()
+{
+    SelectPoolElem *elem;
+    entitypool_foreach(elem, select_pool)
+        entity_destroy(elem->pool_elem.ent);
+    edit_select_clear();
+}
+
+static void _keydown(KeyCode key)
+{
+    switch (mode)
+    {
+        case MD_NORMAL:
+            switch (key)
+            {
+                case KC_D:
+                    _destroy_selected();
+                    break;
+
+                case KC_G:
+                    mouse_prev = input_get_mouse_pos_unit();
+                    mode = MD_GRAB;
+                    break;
+
+                default:
+                    break;
+            }
+
+        case MD_GRAB:
+            switch (key)
+            {
+                case KC_ENTER:
+                    mode = MD_NORMAL;
+                    break;
+
+                default:
+                    break;
+            }
+
+        default:
+            break;
+    };
+}
+
+static void _mousedown(MouseCode mouse)
+{
+    switch (mode)
+    {
+        case MD_NORMAL:
+            switch (mouse)
+            {
+                case MC_LEFT:
+                    _select_click();
+                    break;
+
+                default:
+                    break;
+            }
+            break;
+
+        case MD_GRAB:
+            switch (mouse)
+            {
+                case MC_LEFT:
+                    mode = MD_NORMAL;
+                    break;
+
+                default:
+                    break;
+            }
+
+        default:
+            break;
+    }
+}
+
 void edit_init()
 {
     /* init pools */
     bbox_pool = entitypool_new(BBoxPoolElem);
     select_pool = entitypool_new(SelectPoolElem);
+
+    /* bind callbacks */
+    input_add_key_down_callback(_keydown);
+    input_add_mouse_down_callback(_mousedown);
 
     /* create shader program, load atlas, bind parameters */
     program = gfx_create_program(data_path("bbox.vert"),
@@ -123,58 +250,33 @@ void edit_deinit()
     entitypool_free(bbox_pool);
 }
 
-static void _check_delete()
+static void _update_grab()
 {
     SelectPoolElem *elem;
-    if (input_key_down(KC_D))
-    {
-        entitypool_foreach(elem, select_pool)
-            entity_destroy(elem->pool_elem.ent);
-        edit_select_clear();
-    }
+    Vec2 trans;
+
+    trans = vec2_sub(camera_unit_to_world(mouse_curr),
+                     camera_unit_to_world(mouse_prev));
+
+    entitypool_foreach(elem, select_pool)
+        transform_translate(elem->pool_elem.ent, trans);
+
+    mouse_prev = mouse_curr;
 }
 
 void edit_update_all()
 {
     BBoxPoolElem *elem;
+    Entity ent;
 
-    if (!enabled)
+    if (mode == MD_DISABLED)
         return;
 
-    /* select on left click */
-    Entity ent;
-    Mat3 t;
-    Vec2 m, p;
-    if (input_mouse_down(MC_LEFT))
-    {
-        m = camera_unit_to_world(input_get_mouse_pos_unit());
-        
-        entitypool_foreach(elem, bbox_pool)
-        {
-            ent = elem->pool_elem.ent;
-            t = transform_get_world_matrix(ent);
-            t = mat3_inverse(t);
+    mouse_curr = input_get_mouse_pos_unit();
 
-            p = mat3_transform(t, m);
-            if (bbox_contains(elem->bbox, p))
-            {
-                if (input_key_down(KC_LEFT_CONTROL)
-                    || input_key_down(KC_RIGHT_CONTROL))
-                {
-                    edit_select_add(ent);
-                }
-                else
-                {
-                    edit_select_clear();
-                    edit_select_add(ent);
-                    break;
-                }
-            }
-        }
-    }
-
-    /* delete? */
-    _check_delete();
+    /* grabbing? */
+    if (mode == MD_GRAB)
+        _update_grab();
 
     /* update bbox world matrices */
     entitypool_foreach(elem, bbox_pool)
@@ -189,8 +291,10 @@ void edit_draw_all()
 {
     unsigned int nbboxes;
 
-    if (!enabled)
+    if (mode == MD_DISABLED)
         return;
+
+    /* update bbox world matrices */
 
     /* bind program, update uniforms */
     glUseProgram(program);
