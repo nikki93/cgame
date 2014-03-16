@@ -126,6 +126,12 @@ void transform_set_parent(Entity ent, Entity parent)
         array_add_val(Entity, newp->children) = ent;
     }
 }
+Entity transform_get_parent(Entity ent)
+{
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
+    return transform->parent;
+}
 unsigned int transform_get_num_children(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
