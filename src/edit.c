@@ -253,13 +253,33 @@ void edit_deinit()
 static void _update_grab()
 {
     SelectPoolElem *elem;
-    Vec2 trans;
+    Vec2 trans, mc, mp;
+    Mat3 m;
+    Entity ent, parent, anc;
 
-    trans = vec2_sub(camera_unit_to_world(mouse_curr),
-                     camera_unit_to_world(mouse_prev));
+    mc = camera_unit_to_world(mouse_curr);
+    mp = camera_unit_to_world(mouse_prev);
 
     entitypool_foreach(elem, select_pool)
-        transform_translate(elem->pool_elem.ent, trans);
+    {
+        ent = elem->pool_elem.ent;
+
+        /* if an ancestor has been or will be moved, ignore */
+        for (anc = transform_get_parent(ent); !entity_eq(anc, entity_nil);
+             anc = transform_get_parent(anc))
+            if (entitypool_get(select_pool, anc))
+                goto ignore;
+
+        /* account for parent-space coords -- grab must be world-space */
+        if (!entity_eq(parent = transform_get_parent(ent), entity_nil))
+            m = mat3_inverse(transform_get_world_matrix(parent));
+        else
+            m = mat3_identity();
+        trans = vec2_sub(mat3_transform(m, mc), mat3_transform(m, mp));
+        transform_translate(ent, trans);
+
+    ignore: ;
+    }
 
     mouse_prev = mouse_curr;
 }
