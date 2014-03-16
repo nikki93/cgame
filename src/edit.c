@@ -146,6 +146,7 @@ static void _select_click()
         }
     }
 
+    /* single-select */
     if (!input_key_down(KC_LEFT_CONTROL)
         && !input_key_down(KC_RIGHT_CONTROL))
     {
