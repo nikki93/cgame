@@ -21,6 +21,8 @@ SCRIPT(scalar,
 
 #define scalar_cos cosf
 #define scalar_sin sinf
+#define scalar_atan2 atan2f
+
 #define scalar_sqrt sqrtf
 
 #define scalar_min fminf
