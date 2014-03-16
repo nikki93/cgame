@@ -9,6 +9,7 @@
 #include "entitypool.h"
 #include "timing.h"
 #include "transform.h"
+#include "edit.h"
 
 /* per-entity info */
 typedef struct PhysicsInfo PhysicsInfo;
@@ -422,6 +423,7 @@ static void _update_kinematics()
 void physics_update_all()
 {
     PhysicsInfo *info;
+    Entity ent;
 
     entitypool_remove_destroyed(pool, physics_remove);
 
@@ -432,13 +434,25 @@ void physics_update_all()
         _step();
     }
 
-    /* update transform to reflect physics state */
+    /* synchronize transform <-> physics */
     entitypool_foreach(info, pool)
     {
-        transform_set_position(info->pool_elem.ent,
-                               vec2_of_cpv(cpBodyGetPos(info->body)));
-        transform_set_rotation(info->pool_elem.ent,
-                               cpBodyGetAngle(info->body));
+        ent = info->pool_elem.ent;
+
+        /* if edit has moved it, jump */
+        if (edit_get_enabled() && edit_moved(info->pool_elem.ent))
+        {
+            cpBodySetVel(info->body, cpvzero);
+            cpBodySetAngVel(info->body, 0.0f);
+            cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
+            cpBodySetAngle(info->body, transform_get_rotation(ent));
+            cpSpaceReindexShapesForBody(space, info->body);
+        }
+        else
+        {
+            transform_set_position(ent, vec2_of_cpv(cpBodyGetPos(info->body)));
+            transform_set_rotation(ent, cpBodyGetAngle(info->body));
+        }
     }
 }
 
