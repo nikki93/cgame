@@ -7,6 +7,7 @@
 #include "camera.h"
 #include "dirs.h"
 #include "input.h"
+#include "game.h"
 
 typedef enum Mode Mode;
 enum Mode
@@ -388,6 +389,7 @@ void edit_update_all()
 void edit_draw_all()
 {
     unsigned int nbboxes;
+    Vec2 win;
 
     if (mode == MD_DISABLED)
         return;
@@ -399,6 +401,9 @@ void edit_draw_all()
     glUniformMatrix3fv(glGetUniformLocation(program, "inverse_view_matrix"),
                        1, GL_FALSE,
                        (const GLfloat *) camera_get_inverse_view_matrix_ptr());
+    win = game_get_window_size();
+    glUniform1f(glGetUniformLocation(program, "aspect"),
+                win.x / win.y);
 
     /* draw! */
     glBindVertexArray(vao);

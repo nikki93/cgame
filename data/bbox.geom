@@ -9,6 +9,7 @@ in vec2 bbmax_[];
 in float selected_[];
 
 uniform mat3 inverse_view_matrix;
+uniform float aspect;
 
 out float selected;
 
