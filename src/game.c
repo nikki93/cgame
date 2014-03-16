@@ -1,5 +1,6 @@
 #include "game.h"
 
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -34,8 +35,10 @@ static Text fps_text;
 
 static void _fps_init()
 {
-    fps_text = text_add(vec2(5, game_get_window_size().y - 12 - 5),
-                        "fps: ...");
+    static const char *s = "fps: ...";
+    fps_text = text_add(vec2_sub(game_get_window_size(),
+                                 vec2(10 * strlen(s), 12)),
+                        s);
     text_set_color(fps_text, color(0.0f, 0.4f, 0.1f, 1.0f));
 }
 
@@ -45,6 +48,7 @@ static void _fps_update()
     static const double display_period = 5.0f; /* fps display update period */
     static unsigned int nframes = 0;
     static double last_time = 0.0, curr_time;
+    int nchars;
     double interval;
 
     ++nframes;
@@ -53,8 +57,10 @@ static void _fps_update()
     interval = curr_time - last_time;
     if (interval > display_period)
     {
-        sprintf(buf, "fps: %.2f", nframes / interval);
+        nchars = sprintf(buf, "fps: %.2f", nframes / interval);
         text_set_str(fps_text, buf);
+        text_set_pos(fps_text, vec2_sub(game_get_window_size(),
+                                        vec2(10 * nchars, 12)));
 
         nframes = 0;
         last_time = curr_time;
