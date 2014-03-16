@@ -11,6 +11,7 @@
 #include "gfx.h"
 #include "camera.h"
 #include "texture.h"
+#include "edit.h"
 
 typedef struct Sprite Sprite;
 struct Sprite
@@ -111,12 +112,18 @@ void sprite_clear()
 void sprite_update_all()
 {
     Sprite *sprite;
+    static BBox bbox = { { -0.5, -0.5 }, { 0.5, 0.5 } };
 
     entitypool_remove_destroyed(pool, sprite_remove);
 
     /* update world transform matrices */
     entitypool_foreach(sprite, pool)
         sprite->wmat = transform_get_world_matrix(sprite->pool_elem.ent);
+
+    /* update edit bbox */
+    if (edit_get_enabled())
+        entitypool_foreach(sprite, pool)
+            edit_update_bbox(sprite->pool_elem.ent, bbox);
 }
 
 void sprite_draw_all()
