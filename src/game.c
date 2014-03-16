@@ -12,7 +12,9 @@
 #include "console.h"
 #include "text.h"
 #include "input.h"
+#include "timing.h"
 #include "scratch.h"
+#include "edit.h"
 
 #ifdef CGAME_DEBUG_WINDOW
 #include "debugwin.h"
@@ -74,19 +76,28 @@ static void _game_key_down(KeyCode key)
             game_quit();
             break;
 
+        case KC_E: /* e: toggle edit */
+            timing_set_paused(!edit_get_enabled());
+            edit_set_enabled(!edit_get_enabled());
+            break;
+
+        case KC_P: /* p: toggle pause */
+            timing_set_paused(!timing_get_paused());
+            break;
+
         case KC_C: /* c: clear */
             system_clear();
             console_puts("cleared");
             break;
 
-        case KC_O: /* o: save */
+        case KC_S: /* s: save */
             console_printf("saving to '%s'\n", usr_path("test.sav"));
             Serializer *s = serializer_open_file(usr_path("test.sav"));
             system_save_all(s);
             serializer_close(s);
             break;
 
-        case KC_P: /* p: load */
+        case KC_L: /* l: load */
             console_printf("loading from '%s'\n", usr_path("test.sav"));
             Deserializer *d = deserializer_open_file(usr_path("test.sav"));
             system_load_all(d);
