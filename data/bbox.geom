@@ -10,8 +10,11 @@ in float selected_[];
 
 uniform mat3 inverse_view_matrix;
 
+out float selected;
+
 void main()
 {
+    selected = selected_[0];
     mat3 m = inverse_view_matrix * wmat[0];
 
     gl_Position = vec4(m * vec3(bbmin_[0].x, bbmax_[0].y, 1.0), 1.0);

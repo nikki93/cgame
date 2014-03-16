@@ -6,6 +6,7 @@
 #include "transform.h"
 #include "camera.h"
 #include "dirs.h"
+#include "input.h"
 
 static bool enabled = false;
 
@@ -16,10 +17,18 @@ struct BBoxPoolElem
 
     Mat3 wmat;
     BBox bbox;
-    Scalar selected; /* >= 0.5 if and only if selected */
+    Scalar selected; /* > 0.5 if and only if selected */
 };
 
 static EntityPool *bbox_pool;
+
+typedef struct SelectPoolElem SelectPoolElem;
+struct SelectPoolElem
+{
+    EntityPoolElem pool_elem;
+};
+
+static EntityPool *select_pool;
 
 /* ------------------------------------------------------------------------- */
 
@@ -52,6 +61,20 @@ void edit_update_bbox(Entity ent, BBox bbox)
     }
 }
 
+void edit_select_clear()
+{
+    entitypool_clear(select_pool);
+}
+void edit_select_add(Entity ent)
+{
+    if (!entitypool_get(select_pool, ent))
+        entitypool_add(select_pool, ent);
+}
+void edit_select_remove(Entity ent)
+{
+    entitypool_remove(select_pool, ent);
+}
+
 /* ------------------------------------------------------------------------- */
 
 static GLuint program;
@@ -60,8 +83,9 @@ static GLuint vbo;
 
 void edit_init()
 {
-    /* init pool */
+    /* init pools */
     bbox_pool = entitypool_new(BBoxPoolElem);
+    select_pool = entitypool_new(SelectPoolElem);
 
     /* create shader program, load atlas, bind parameters */
     program = gfx_create_program(data_path("bbox.vert"),
@@ -84,7 +108,7 @@ void edit_init()
                            BBoxPoolElem, bbox.min);
     gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "bbmax",
                            BBoxPoolElem, bbox.max);
-    gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "selected",
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 1, "selected",
                            BBoxPoolElem, selected);
 }
 void edit_deinit()
@@ -94,21 +118,34 @@ void edit_deinit()
     glDeleteBuffers(1, &vbo);
     glDeleteVertexArrays(1, &vao);
 
-    /* deinit pool */
+    /* deinit pools */
+    entitypool_free(select_pool);
     entitypool_free(bbox_pool);
 }
 
-#include "input.h"
+static void _check_delete()
+{
+    SelectPoolElem *elem;
+    if (input_key_down(KC_D))
+    {
+        entitypool_foreach(elem, select_pool)
+            entity_destroy(elem->pool_elem.ent);
+        edit_select_clear();
+    }
+}
 
 void edit_update_all()
 {
     BBoxPoolElem *elem;
 
-    /* testing: delete on right click */
+    if (!enabled)
+        return;
+
+    /* select on left click */
     Entity ent;
     Mat3 t;
     Vec2 m, p;
-    if (input_mouse_down(MC_RIGHT))
+    if (input_mouse_down(MC_LEFT))
     {
         m = camera_unit_to_world(input_get_mouse_pos_unit());
         
@@ -120,13 +157,32 @@ void edit_update_all()
 
             p = mat3_transform(t, m);
             if (bbox_contains(elem->bbox, p))
-                entity_destroy(ent);
+            {
+                if (input_key_down(KC_LEFT_CONTROL)
+                    || input_key_down(KC_RIGHT_CONTROL))
+                {
+                    edit_select_add(ent);
+                }
+                else
+                {
+                    edit_select_clear();
+                    edit_select_add(ent);
+                    break;
+                }
+            }
         }
     }
 
+    /* delete? */
+    _check_delete();
+
     /* update bbox world matrices */
     entitypool_foreach(elem, bbox_pool)
-        elem->wmat = transform_get_world_matrix(elem->pool_elem.ent);
+    {
+        ent = elem->pool_elem.ent;
+        elem->wmat = transform_get_world_matrix(ent);
+        elem->selected = entitypool_get(select_pool, ent) ? 1 : 0;
+    }
 }
 
 void edit_draw_all()
