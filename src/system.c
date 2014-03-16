@@ -14,6 +14,7 @@
 #include "console.h"
 #include "scratch.h"
 #include "physics.h"
+#include "edit.h"
 
 #include "test/keyboard_controlled.h"
 
@@ -47,6 +48,7 @@ void system_init()
     console_init();
     physics_init();
     script_init();
+    edit_init();
 
     input_add_key_down_callback(_key_down);
     input_add_key_up_callback(_key_up);
@@ -57,6 +59,7 @@ void system_init()
 
 void system_deinit()
 {
+    edit_deinit();
     script_deinit();
     physics_deinit();
     console_deinit();
@@ -83,6 +86,8 @@ void system_clear()
 
 void system_update_all()
 {
+    edit_clear_bboxes();
+
     timing_update();
 
     scratch_update();
@@ -95,6 +100,8 @@ void system_update_all()
     camera_update_all();
     sprite_update_all();
 
+    edit_update_all();
+
     entity_update_all();
 }
 
@@ -102,6 +109,7 @@ void system_draw_all()
 {
     script_draw_all();
     sprite_draw_all();
+    edit_draw_all();
     text_draw_all();
 }
 
