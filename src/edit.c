@@ -102,6 +102,10 @@ static void _select_click()
 
     m = camera_unit_to_world(mouse_curr);
 
+    if (!input_key_down(KC_LEFT_CONTROL)
+        && !input_key_down(KC_RIGHT_CONTROL))
+        edit_select_clear();
+
     /* look for entities whose bbox contains m */
     entitypool_foreach(elem, bbox_pool)
     {
@@ -115,15 +119,10 @@ static void _select_click()
         /* either add to or replace select */
         if (bbox_contains(elem->bbox, p))
         {
-            if (input_key_down(KC_LEFT_CONTROL)
-                || input_key_down(KC_RIGHT_CONTROL))
-                edit_select_add(ent);
-            else
-            {
-                edit_select_clear();
-                edit_select_add(ent);
+            edit_select_add(ent);
+            if (!input_key_down(KC_LEFT_CONTROL)
+                && !input_key_down(KC_RIGHT_CONTROL))
                 break;
-            }
         }
     }
 }
