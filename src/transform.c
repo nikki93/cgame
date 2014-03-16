@@ -7,6 +7,8 @@
 #include "entitypool.h"
 #include "array.h"
 #include "saveload.h"
+#include "bbox.h"
+#include "edit.h"
 
 typedef struct Transform Transform;
 struct Transform
@@ -288,6 +290,7 @@ static void _update(Transform *transform)
 void transform_update_all()
 {
     Transform *transform;
+    static BBox bbox = { { -0.25, -0.25 }, { 0.25, 0.25 } };
 
     entitypool_remove_destroyed(pool, transform_remove);
 
@@ -296,6 +299,11 @@ void transform_update_all()
         transform->updated = false;
     entitypool_foreach(transform, pool)
         _update(transform);
+
+    /* update edit bbox */
+    if (edit_get_enabled())
+        entitypool_foreach(transform, pool)
+            edit_update_bbox(transform->pool_elem.ent, bbox);
 }
 
 /* save/load for just the children array */
