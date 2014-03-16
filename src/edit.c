@@ -101,15 +101,12 @@ static GLuint vbo;
 static void _select_click()
 {
     BBoxPoolElem *elem;
-    Entity ent;
+    Entity ent, first = entity_nil, last = entity_nil;
     Mat3 t;
     Vec2 m, p;
+    bool prev_select = false;
 
     m = camera_unit_to_world(mouse_curr);
-
-    if (!input_key_down(KC_LEFT_CONTROL)
-        && !input_key_down(KC_RIGHT_CONTROL))
-        edit_select_clear();
 
     /* look for entities whose bbox contains m */
     entitypool_foreach(elem, bbox_pool)
@@ -121,14 +118,42 @@ static void _select_click()
         t = mat3_inverse(t);
         p = mat3_transform(t, m);
 
-        /* either add to or replace select */
+        /* if clicked, select */
         if (bbox_contains(elem->bbox, p))
         {
-            edit_select_add(ent);
+            if (entity_eq(first, entity_nil))
+                first = ent;
+            last = ent;
+
             if (!input_key_down(KC_LEFT_CONTROL)
                 && !input_key_down(KC_RIGHT_CONTROL))
-                break;
+            {
+                if (prev_select)
+                {
+                    prev_select = false;
+                    break; /* previous was selected, single-select mode,
+                              stop here */
+                }
+
+                prev_select = edit_select_has(ent);
+                edit_select_add(ent);
+            }
+            else if (edit_select_has(ent))
+                edit_select_remove(ent);
+            else
+                edit_select_add(ent);
         }
+    }
+
+    if (!input_key_down(KC_LEFT_CONTROL)
+        && !input_key_down(KC_RIGHT_CONTROL))
+    {
+        edit_select_clear();
+
+        if (prev_select)
+            last = first; /* last was selected, loop to first */
+        if (!entity_eq(last, entity_nil))
+            edit_select_add(last);
     }
 }
 
