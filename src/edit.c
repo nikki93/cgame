@@ -1,5 +1,7 @@
 #include "edit.h"
 
+#include <stdio.h>
+
 #include "gfx.h"
 #include "entitypool.h"
 #include "mat3.h"
@@ -8,19 +10,23 @@
 #include "dirs.h"
 #include "input.h"
 #include "game.h"
+#include "text.h"
 
+/* modes */
 typedef enum Mode Mode;
 enum Mode
 {
     MD_DISABLED,
     MD_NORMAL,
 
+    MD_BOX_SELECT,
+
     MD_GRAB,
     MD_ROTATE,
 };
-
 Mode mode = MD_DISABLED;
 
+/* bbox pool */
 typedef struct BBoxPoolElem BBoxPoolElem;
 struct BBoxPoolElem
 {
@@ -30,19 +36,27 @@ struct BBoxPoolElem
     BBox bbox;
     Scalar selected; /* > 0.5 if and only if selected */
 };
-
 static EntityPool *bbox_pool;
 
+/* select pool */
 typedef struct SelectPoolElem SelectPoolElem;
 struct SelectPoolElem
 {
     EntityPoolElem pool_elem;
 };
-
 static EntityPool *select_pool;
 
+/* mouse position */
 Vec2 mouse_prev;
 Vec2 mouse_curr;
+
+/* box select */
+bool boxsel_started;
+Vec2 boxsel_start;
+
+/* status line */
+char mode_status[256];
+Text status;
 
 /* ------------------------------------------------------------------------- */
 
@@ -172,6 +186,29 @@ static void _destroy_selected()
     edit_select_clear();
 }
 
+static void _boxsel()
+{
+    BBoxPoolElem *elem;
+    Entity ent;
+    Vec2 o, m;
+    BBox box;
+
+    if (!input_key_down(KC_LEFT_CONTROL)
+        && !input_key_down(KC_RIGHT_CONTROL))
+        edit_select_clear();
+
+    m = camera_unit_to_world(input_get_mouse_pos_unit());
+    box = bbox_merge(bbox(boxsel_start, boxsel_start), bbox(m, m));
+
+    entitypool_foreach(elem, bbox_pool)
+    {
+        ent = elem->pool_elem.ent;
+        o = mat3_transform(transform_get_world_matrix(ent), vec2_zero);
+        if (bbox_contains(box, o))
+            edit_select_add(ent);
+    }
+}
+
 static void _keydown(KeyCode key)
 {
     switch (mode)
@@ -191,6 +228,11 @@ static void _keydown(KeyCode key)
                 case KC_R:
                     mouse_prev = input_get_mouse_pos_unit();
                     mode = MD_ROTATE;
+                    break;
+
+                case KC_B:
+                    mode = MD_BOX_SELECT;
+                    boxsel_started = false;
                     break;
 
                 default:
@@ -240,6 +282,27 @@ static void _mousedown(MouseCode mouse)
                     break;
             }
 
+        case MD_BOX_SELECT:
+            if (boxsel_started)
+                break;
+            boxsel_start = camera_unit_to_world(input_get_mouse_pos_unit());
+            boxsel_started = true;
+            break;
+
+        default:
+            break;
+    }
+}
+
+static void _mouseup(MouseCode mouse)
+{
+    switch (mode)
+    {
+        case MD_BOX_SELECT:
+            _boxsel();
+            mode = MD_NORMAL;
+            break;
+
         default:
             break;
     }
@@ -254,6 +317,12 @@ void edit_init()
     /* bind callbacks */
     input_add_key_down_callback(_keydown);
     input_add_mouse_down_callback(_mousedown);
+    input_add_mouse_up_callback(_mouseup);
+
+    /* create status text */
+    status = text_add(vec2(0, game_get_window_size().y - 12), "edit");
+    text_set_color(status, color(1, 0, 0, 1));
+    text_set_visible(status, false);
 
     /* create shader program, load atlas, bind parameters */
     program = gfx_create_program(data_path("bbox.vert"),
@@ -285,6 +354,9 @@ void edit_deinit()
     glDeleteProgram(program);
     glDeleteBuffers(1, &vbo);
     glDeleteVertexArrays(1, &vao);
+
+    /* deinite status text */
+    text_remove(status);
 
     /* deinit pools */
     entitypool_free(select_pool);
@@ -323,6 +395,8 @@ static void _update_grab()
     }
 
     mouse_prev = mouse_curr;
+
+    sprintf(mode_status, "grab");
 }
 
 static void _update_rotate()
@@ -356,6 +430,27 @@ static void _update_rotate()
     }
 
     mouse_prev = mouse_curr;
+
+    sprintf(mode_status, "rotate");
+}
+
+static void _update_status()
+{
+    char buf[256], *p = buf;
+    unsigned int nselected;
+
+    p += sprintf(p, "edit");
+
+    /* select count */
+    if ((nselected = entitypool_size(select_pool)) > 0)
+        p += sprintf(p, " \xe9 select %u", nselected);
+
+    /* mode */
+    if (mode_status[0])
+        p += sprintf(p, " \xe9 %s", mode_status);
+
+    text_set_str(status, buf);
+    text_set_visible(status, true);
 }
 
 void edit_update_all()
@@ -364,7 +459,13 @@ void edit_update_all()
     Entity ent;
 
     if (mode == MD_DISABLED)
+    {
+        text_set_visible(status, false);
         return;
+    }
+
+    /* clear mode status */
+    mode_status[0] = '\0';
 
     mouse_curr = input_get_mouse_pos_unit();
 
@@ -379,6 +480,10 @@ void edit_update_all()
             _update_rotate();
             break;
 
+        case MD_BOX_SELECT:
+            sprintf(mode_status, "select box");
+            break;
+
         default:
             break;
     }
@@ -390,19 +495,15 @@ void edit_update_all()
         elem->wmat = transform_get_world_matrix(ent);
         elem->selected = edit_select_has(ent) ? 1 : 0;
     }
+
+    /* update status text */
+    _update_status();
 }
 
-void edit_draw_all()
+static void _bind_bbox_program()
 {
-    unsigned int nbboxes;
     Vec2 win;
 
-    if (mode == MD_DISABLED)
-        return;
-
-    /* update bbox world matrices */
-
-    /* bind program, update uniforms */
     glUseProgram(program);
     glUniformMatrix3fv(glGetUniformLocation(program, "inverse_view_matrix"),
                        1, GL_FALSE,
@@ -410,12 +511,51 @@ void edit_draw_all()
     win = game_get_window_size();
     glUniform1f(glGetUniformLocation(program, "aspect"),
                 win.x / win.y);
+}
 
-    /* draw! */
+/* needs bbox shader program to be bound */
+static void _draw_bboxes()
+{
+    unsigned int nbboxes;
+
     glBindVertexArray(vao);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     nbboxes = entitypool_size(bbox_pool);
     glBufferData(GL_ARRAY_BUFFER, nbboxes * sizeof(BBoxPoolElem),
                  entitypool_begin(bbox_pool), GL_STREAM_DRAW);
     glDrawArrays(GL_POINTS, 0, nbboxes);
+}
+
+/* needs bbox shader program to be bound */
+static void _draw_boxsel()
+{
+    Vec2 m;
+    BBoxPoolElem elem;
+
+    if (!boxsel_started)
+        return;
+
+    /* piggyback off of bbox drawing */
+
+    elem.wmat = mat3_identity();
+
+    m = camera_unit_to_world(input_get_mouse_pos_unit());
+    elem.bbox = bbox_merge(bbox(boxsel_start, boxsel_start), bbox(m, m));
+    elem.selected = false;
+
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(elem), &elem, GL_STREAM_DRAW);
+    glDrawArrays(GL_POINTS, 0, 1);
+}
+
+void edit_draw_all()
+{
+    if (mode == MD_DISABLED)
+        return;
+
+    _bind_bbox_program();
+    _draw_bboxes();
+    if (mode == MD_BOX_SELECT)
+        _draw_boxsel();
 }
