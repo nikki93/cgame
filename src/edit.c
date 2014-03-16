@@ -93,6 +93,11 @@ bool edit_select_has(Entity ent)
     return entitypool_get(select_pool, ent) != NULL;
 }
 
+bool edit_moved(Entity ent)
+{
+    return (mode == MD_GRAB || mode == MD_ROTATE) && edit_select_has(ent);
+}
+
 /* ------------------------------------------------------------------------- */
 
 static GLuint program;

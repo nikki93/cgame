@@ -18,6 +18,8 @@ void edit_select_add(Entity ent);
 void edit_select_remove(Entity ent);
 bool edit_select_has(Entity ent);
 
+bool edit_moved(Entity ent);
+
 void edit_init();
 void edit_deinit();
 void edit_update_all();
