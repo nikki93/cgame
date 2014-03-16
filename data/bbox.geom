@@ -36,38 +36,39 @@ void main()
     /* draw more stuff if selected */
     if (selected > 0.5)
     {
-        /* draw local axes at origin */
-        vec2 o = (m * vec3(0, 0, 1)).xy;
-        vec2 up = 0.06 * normalize((m * vec3(0, 1, 1)).xy - o);
-        vec2 right = 0.06 * normalize((m * vec3(1, 0, 1)).xy - o);
+        /* screen-space coordinates */
+        vec2 o = (m * vec3(0, 0, 1)).xy;       /* origin */
+        vec2 u = (m * vec3(0, 1, 1)).xy - o;   /* up */
+        vec2 r = (m * vec3(1, 0, 1)).xy - o;   /* right */
+
+        /* normalize using aspect-corrected metric */
+        u /= sqrt(aspect * aspect * u.x * u.x + u.y * u.y);
+        r /= sqrt(aspect * aspect * r.x * r.x + r.y * r.y);
+
+        /* draw axes */
         gl_Position = vec4(o, 0, 1);
         EmitVertex();
-        gl_Position = vec4(o + up, 0, 1);
+        gl_Position = vec4(o + 0.06 * u, 0, 1);
         EmitVertex();
         EndPrimitive();
         gl_Position = vec4(o, 0, 1);
         EmitVertex();
-        gl_Position = vec4(o + right, 0, 1);
+        gl_Position = vec4(o + 0.06 * r, 0, 1);
         EmitVertex();
         EndPrimitive();
 
-        /* grow bbox in screen-space */
-        vec4 grow = vec4(
-            (m * vec3( 1, 1, 1) - m * vec3(0, 0, 1)).xy,
-            (m * vec3(-1, 1, 1) - m * vec3(0, 0, 1)).xy
-            );
-        grow.xy = normalize(grow.xy);
-        grow.zw = normalize(grow.zw);
-        grow *= 0.012;
-        gl_Position = vec4(m * vec3(bbmin.x, bbmax.y, 1) + vec3( grow.zw, 0), 1);
+        /* draw grown bbox */
+        vec2 g1 = 0.012 * (u + r);
+        vec2 g2 = 0.012 * (u - r);
+        gl_Position = vec4(m * vec3(bbmin.x, bbmax.y, 1) + vec3( g2, 0), 1);
         EmitVertex();
-        gl_Position = vec4(m * vec3(bbmin.x, bbmin.y, 1) + vec3(-grow.xy, 0), 1);
+        gl_Position = vec4(m * vec3(bbmin.x, bbmin.y, 1) + vec3(-g1, 0), 1);
         EmitVertex();
-        gl_Position = vec4(m * vec3(bbmax.x, bbmin.y, 1) + vec3(-grow.zw, 0), 1);
+        gl_Position = vec4(m * vec3(bbmax.x, bbmin.y, 1) + vec3(-g2, 0), 1);
         EmitVertex();
-        gl_Position = vec4(m * vec3(bbmax.x, bbmax.y, 1) + vec3( grow.xy, 0), 1);
+        gl_Position = vec4(m * vec3(bbmax.x, bbmax.y, 1) + vec3( g1, 0), 1);
         EmitVertex();
-        gl_Position = vec4(m * vec3(bbmin.x, bbmax.y, 1) + vec3( grow.zw, 0), 1);
+        gl_Position = vec4(m * vec3(bbmin.x, bbmax.y, 1) + vec3( g2, 0), 1);
         EmitVertex();
         EndPrimitive();
     }
