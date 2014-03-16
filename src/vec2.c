@@ -45,6 +45,10 @@ Vec2 vec2_rot(Vec2 v, Scalar rot)
     return vec2(v.x * scalar_cos(rot) - v.y * scalar_sin(rot),
                 v.x * scalar_sin(rot) + v.y * scalar_cos(rot));
 }
+Scalar vec2_atan2(Vec2 v)
+{
+    return scalar_atan2(v.x, v.y);
+}
 
 void vec2_save(Vec2 *v, Serializer *s)
 {

@@ -24,6 +24,7 @@ SCRIPT(vec2,
        EXPORT Vec2 vec2_normalize(Vec2 v);
 
        EXPORT Vec2 vec2_rot(Vec2 v, Scalar rot);
+       EXPORT Scalar vec2_atan2(Vec2 v);
 
        EXPORT void vec2_save(Vec2 *v, Serializer *s);
        EXPORT void vec2_load(Vec2 *v, Deserializer *s);
