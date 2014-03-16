@@ -79,12 +79,16 @@ void edit_select_clear()
 }
 void edit_select_add(Entity ent)
 {
-    if (!entitypool_get(select_pool, ent))
+    if (!edit_select_has(ent))
         entitypool_add(select_pool, ent);
 }
 void edit_select_remove(Entity ent)
 {
     entitypool_remove(select_pool, ent);
+}
+bool edit_select_has(Entity ent)
+{
+    return entitypool_get(select_pool, ent) != NULL;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -266,7 +270,7 @@ static void _update_grab()
         /* if an ancestor has been or will be moved, ignore */
         for (anc = transform_get_parent(ent); !entity_eq(anc, entity_nil);
              anc = transform_get_parent(anc))
-            if (entitypool_get(select_pool, anc))
+            if (edit_select_has(anc))
                 goto ignore;
 
         /* account for parent-space coords -- grab must be world-space */
@@ -302,7 +306,7 @@ void edit_update_all()
     {
         ent = elem->pool_elem.ent;
         elem->wmat = transform_get_world_matrix(ent);
-        elem->selected = entitypool_get(select_pool, ent) ? 1 : 0;
+        elem->selected = edit_select_has(ent) ? 1 : 0;
     }
 }
 

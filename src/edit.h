@@ -16,6 +16,7 @@ void edit_update_bbox(Entity ent, BBox bbox); /* merge bbox */
 void edit_select_clear();
 void edit_select_add(Entity ent);
 void edit_select_remove(Entity ent);
+bool edit_select_has(Entity ent);
 
 void edit_init();
 void edit_deinit();
