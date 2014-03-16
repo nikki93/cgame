@@ -456,8 +456,6 @@ void physics_update_all()
         /* if edit has moved it, jump */
         if (edit_get_enabled() && edit_moved(info->pool_elem.ent))
         {
-            cpBodySetVel(info->body, cpvzero);
-            cpBodySetAngVel(info->body, 0.0f);
             cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
             cpBodySetAngle(info->body, transform_get_rotation(ent));
             cpSpaceReindexShapesForBody(space, info->body);
