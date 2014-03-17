@@ -143,7 +143,7 @@ void script_init()
     _set_paths();
 
     /* run main.lua */
-    errcheck(luaL_loadfile(L, data_path("main.lua")));
+    errcheck(luaL_loadfile(L, data_path("script/main.lua")));
     errcheck(lua_pcall(L, 0, 0, 0));
 
     /* fire init event */

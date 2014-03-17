@@ -13,7 +13,7 @@ cs.physics.set_simulation_frequency(300)
 -- add camera
 
 camera = cg.add {
-    camera = { viewport_size = cs.game.get_window_size() / GRID_SIZE }
+    camera = { viewport_size = cs.game.get_window_size() / GRID_SIZE },
 }
 
 -- add floor
@@ -68,54 +68,13 @@ while y < ymax do
     y = y + 1.2
 end
 
--- add more boxes with 'B'
+-- add more boxes with space
 
 cs.box_add = {}
 function cs.box_add.update_all()
-    if cs.input.key_down('KC_B') then
+    if cs.input.key_down(cg.KC_SPACE) then
         make_box(cg.vec2(5 * symrand(), 5 * symrand()),
                  cg.vec2(5 * symrand(), 5 * symrand()))
-    end
-end
-
--- keys
-
-cs.keys = {}
-function cs.keys.update_all()
-    -- press a number to make it dynamic, hold right shift for static,
-    -- left shift for kinematic
-    for i = 1, 9 do
-        if cs.input.key_down('KC_' .. i) then
-            if cs.input.key_down(cs.KC.LEFT_SHIFT) then
-                cs.physics.set_type(i, cs.PB.KINEMATIC)
-            elseif cs.input.key_down(cs.KC.RIGHT_SHIFT) then
-                cs.physics.set_type(i, cs.PB.STATIC)
-            else
-                cs.entity.destroy(i)
-                -- cs.physics.set_type(i, cs.PB.DYNAMIC)
-            end
-        end
-    end
-
-    -- pause/resume
-    if cs.input.key_down(cs.KC.U) then
-        cs.timing.set_paused(true)
-    elseif cs.input.key_down(cs.KC.I) then
-        cs.timing.set_paused(false)
-    end
-end
-
-cs.click_destroy = {}
-function cs.click_destroy.update_all()
-    if cs.input.mouse_down(cs.MC.LEFT) then
-        p = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
-
-        r = cs.physics.nearest(p, 1)
-        if r.ent == cg.entity_nil then
-            print('nothing!')
-        elseif r.d <= 0 then
-            cs.entity.destroy(r.ent)
-        end
     end
 end
 

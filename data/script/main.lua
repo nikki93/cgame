@@ -1,5 +1,5 @@
 -- add cgame require path
-package.path = package.path .. ';' .. cgame_data_path .. '/?.lua'
+package.path = package.path .. ';' .. cgame_data_path .. '/script/?.lua'
 
 -- load 'cgame' module as global
 cgame = require 'cgame'
