@@ -8,14 +8,15 @@ SCRIPT(system,
 
        EXPORT void system_clear(); /* remove all Entities */
 
+       EXPORT void system_load_all(Deserializer *f);
+       EXPORT void system_save_all(Serializer *f);
+
     )
 
 void system_init();
 void system_deinit();
 void system_update_all();
 void system_draw_all();
-void system_load_all(Deserializer *f);
-void system_save_all(Serializer *f);
 
 #endif
 
