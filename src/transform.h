@@ -36,6 +36,10 @@ SCRIPT(transform,
        EXPORT void transform_set_scale(Entity ent, Vec2 scale);
        EXPORT Vec2 transform_get_scale(Entity ent);
 
+       /*
+        * returns mat3_identity() for entity_nil, so that root-transforms
+        * parent-space is identity
+        */
        EXPORT Mat3 transform_get_world_matrix(Entity ent);
 
        EXPORT Vec2 transform_local_to_world(Entity ent, Vec2 v);

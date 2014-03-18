@@ -225,7 +225,12 @@ Vec2 transform_get_scale(Entity ent)
 
 Mat3 transform_get_world_matrix(Entity ent)
 {
-    Transform *transform = entitypool_get(pool, ent);
+    Transform *transform;
+
+    if (entity_eq(ent, entity_nil))
+        return mat3_identity();
+
+    transform = entitypool_get(pool, ent);
     assert(transform);
     return transform->worldmat_cache;
 }
@@ -315,7 +320,7 @@ void transform_update_all()
     /* update edit bbox */
     if (edit_get_enabled())
         entitypool_foreach(transform, pool)
-            edit_update_bbox(transform->pool_elem.ent, bbox);
+            edit_bboxes_update(transform->pool_elem.ent, bbox);
 }
 
 /* save/load for just the children array */
@@ -411,6 +416,8 @@ void transform_save_all(Serializer *s)
 
         entity_save(&transform->parent, s);
         _children_save(transform, s);
+
+        uint_save(&transform->dirty_count, s);
     }
 }
 void transform_load_all(Deserializer *s)
@@ -429,6 +436,8 @@ void transform_load_all(Deserializer *s)
 
         entity_load(&transform->parent, s);
         _children_load(transform, s);
+
+        uint_load(&transform->dirty_count, s);
 
         if (entity_eq(transform->parent, entity_nil))
             _apply_offset(transform); /* offset root transforms */
