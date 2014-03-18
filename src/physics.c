@@ -413,6 +413,7 @@ static void _update_kinematics()
     cpVect pos;
     cpFloat ang;
     Scalar invdt;
+    Entity ent;
 
     if (timing_dt <= FLT_EPSILON)
         return;
@@ -421,11 +422,14 @@ static void _update_kinematics()
     entitypool_foreach(info, pool)
         if (info->type == PB_KINEMATIC)
         {
+            ent = info->pool_elem.ent;
+
             /* move to transform */
-            pos = cpv_of_vec2(transform_get_position(info->pool_elem.ent));
-            ang = transform_get_rotation(info->pool_elem.ent);
+            pos = cpv_of_vec2(transform_get_position(ent));
+            ang = transform_get_rotation(ent);
             cpBodySetPos(info->body, pos);
             cpBodySetAngle(info->body, ang);
+            info->last_dirty_count = transform_get_dirty_count(ent);
 
             /* update linear, angular velocities based on delta */
             cpBodySetVel(info->body,
@@ -546,6 +550,7 @@ static void _body_load(PhysicsInfo *info, Deserializer *s)
     /* restore position, angle based on transform */
     cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
     cpBodySetAngle(info->body, transform_get_rotation(ent));
+    info->last_dirty_count = transform_get_dirty_count(info->pool_elem.ent);
 }
 
 /* save/load for special properties of each shape type */
