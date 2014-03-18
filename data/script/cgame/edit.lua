@@ -1,3 +1,5 @@
+local ffi = require 'ffi'
+
 cs.edit = {}
 
 cs.edit.set_enabled = cg.edit_set_enabled
@@ -44,6 +46,28 @@ function cs.edit.mode_switch(mode)
 end
 
 
+--- undo -----------------------------------------------------------------------
+
+cs.edit.history = {}
+
+function cs.edit.undo_save()
+    local s = cs.serializer.open_str()
+    cs.system.save_all(s)
+    table.insert(cs.edit.history, ffi.string(cs.serializer.get_str(s)))
+    cs.serializer.close(s)
+end
+
+function cs.edit.undo()
+    if #cs.edit.history == 0 then print('undo: empty history') end
+
+    cs.system.clear()
+    local str = table.remove(cs.edit.history)
+    local d = cs.deserializer.open_str(str)
+    cs.system.load_all(d)
+    cs.deserializer.close(d)
+end
+
+
 --- bbox -----------------------------------------------------------------------
 
 cs.edit.bboxes_clear = cg.edit_bboxes_clear
@@ -66,6 +90,8 @@ function cs.edit.select_toggle(ent)
 end
 
 function cs.edit.select_click()
+    cs.edit.undo_save()
+
     -- anything under mouse?
     local ents = cs.edit._get_entities_under_mouse()
     if #ents == 0 then
@@ -90,6 +116,8 @@ end
 --- destroy --------------------------------------------------------------------
 
 function cs.edit.destroy()
+    cs.edit.undo_save()
+
     for ent, _ in pairs(cs.edit.select) do
         cs.entity.destroy(ent)
     end
@@ -109,6 +137,8 @@ local grab_old_pos = cg.entity_table()
 local grab_mouse_start = cg.vec2_zero
 
 function cs.edit.grab_start()
+    cs.edit.undo_save()
+
     cs.edit.mode_switch('grab')
 end
 function cs.edit.grab_end()
@@ -150,6 +180,7 @@ cs.edit.modes.grab = {
 --- bindings -------------------------------------------------------------------
 
 -- normal mode
+cs.edit.modes.normal[cg.KC_U] = cs.edit.undo
 cs.edit.modes.normal[cg.MC_LEFT] = cs.edit.select_click
 cs.edit.modes.normal[cg.KC_D] = cs.edit.destroy
 cs.edit.modes.normal[cg.KC_G] = cs.edit.grab_start
