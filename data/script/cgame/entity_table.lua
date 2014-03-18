@@ -56,6 +56,10 @@ local entity_table_mt = {
     end,
 }
 
+function cgame.is_entity_table(t)
+    return type(t) == 'table' and getmetatable(t) == entity_table_mt
+end
+
 function cgame.entity_table()
     return setmetatable({}, entity_table_mt)
 end

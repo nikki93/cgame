@@ -49,8 +49,7 @@ function cgame.__load_all(str)
             -- system currently exists, must merge
             if system.auto_saveload then
                 for k, v in pairs(dump) do
-                    if type(system[k]) == 'table'
-                    and getmetatable(system[k]) == entity_table_mt then
+                    if cgame.is_entity_table(system[k]) then
                         cgame.entity_table_merge(system[k], v)
                     else
                         system[k] = v
