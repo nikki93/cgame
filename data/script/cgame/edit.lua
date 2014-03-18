@@ -58,7 +58,10 @@ function cs.edit.undo_save()
 end
 
 function cs.edit.undo()
-    if #cs.edit.history == 0 then print('undo: empty history') end
+    if #cs.edit.history == 0 then
+        print('nothing to undo')
+        return
+    end
 
     cs.system.clear()
     local str = table.remove(cs.edit.history)
