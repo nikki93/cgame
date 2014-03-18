@@ -223,6 +223,13 @@ Vec2 transform_get_scale(Entity ent)
     return transform->scale;
 }
 
+Vec2 transform_get_world_position(Entity ent)
+{
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
+    return mat3_transform(transform->worldmat_cache, vec2_zero);
+}
+
 Mat3 transform_get_world_matrix(Entity ent)
 {
     Transform *transform;
