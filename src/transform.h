@@ -40,6 +40,8 @@ SCRIPT(transform,
 
        EXPORT Vec2 transform_local_to_world(Entity ent, Vec2 v);
 
+       EXPORT unsigned int transform_get_dirty_count(Entity ent);
+
        EXPORT void transform_offset_position(Vec2 pos);
        EXPORT void transform_offset_rotation(Scalar rot);
        EXPORT void transform_offset_scale(Vec2 scale);

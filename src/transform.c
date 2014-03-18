@@ -25,6 +25,8 @@ struct Transform
     Mat3 mat_cache; /* remember to update this! */
     Mat3 worldmat_cache; /* cached on parent-child update */
     bool updated; /* used in parent-child update to avoid repeats */
+
+    unsigned int dirty_count;
 };
 
 static EntityPool *pool;
@@ -90,6 +92,8 @@ void transform_add(Entity ent)
 
     transform->parent = entity_nil;
     transform->children = NULL;
+
+    transform->dirty_count = 0;
 }
 void transform_remove(Entity ent)
 {
@@ -153,13 +157,14 @@ void transform_detach_all(Entity ent)
     _detach_all(transform);
 }
 
-static void _update_cache(Transform *transform)
+static void _modified(Transform *transform)
 {
     transform->mat_cache = mat3_scaling_rotation_translation(
         transform->scale,
         transform->rotation,
         transform->position
         );
+    ++transform->dirty_count;
 }
 
 void transform_set_position(Entity ent, Vec2 pos)
@@ -167,7 +172,7 @@ void transform_set_position(Entity ent, Vec2 pos)
     Transform *transform = entitypool_get(pool, ent);
     assert(transform);
     transform->position = pos;
-    _update_cache(transform);
+    _modified(transform);
 }
 Vec2 transform_get_position(Entity ent)
 {
@@ -180,7 +185,7 @@ void transform_translate(Entity ent, Vec2 trans)
     Transform *transform = entitypool_get(pool, ent);
     assert(transform);
     transform->position = vec2_add(transform->position, trans);
-    _update_cache(transform);
+    _modified(transform);
 }
 
 void transform_set_rotation(Entity ent, Scalar rot)
@@ -188,7 +193,7 @@ void transform_set_rotation(Entity ent, Scalar rot)
     Transform *transform = entitypool_get(pool, ent);
     assert(transform);
     transform->rotation = rot;
-    _update_cache(transform);
+    _modified(transform);
 }
 Scalar transform_get_rotation(Entity ent)
 {
@@ -201,7 +206,7 @@ void transform_rotate(Entity ent, Scalar rot)
     Transform *transform = entitypool_get(pool, ent);
     assert(transform);
     transform->rotation += rot;
-    _update_cache(transform);
+    _modified(transform);
 }
 
 void transform_set_scale(Entity ent, Vec2 scale)
@@ -209,7 +214,7 @@ void transform_set_scale(Entity ent, Vec2 scale)
     Transform *transform = entitypool_get(pool, ent);
     assert(transform);
     transform->scale = scale;
-    _update_cache(transform);
+    _modified(transform);
 }
 Vec2 transform_get_scale(Entity ent)
 {
@@ -230,6 +235,13 @@ Vec2 transform_local_to_world(Entity ent, Vec2 v)
     Transform *transform = entitypool_get(pool, ent);
     assert(transform);
     return mat3_transform(transform->worldmat_cache, v);
+}
+
+unsigned int transform_get_dirty_count(Entity ent)
+{
+    Transform *transform = entitypool_get(pool, ent);
+    assert(transform);
+    return transform->dirty_count;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -420,7 +432,7 @@ void transform_load_all(Deserializer *s)
 
         if (entity_eq(transform->parent, entity_nil))
             _apply_offset(transform); /* offset root transforms */
-        _update_cache(transform);
+        _modified(transform);
     }
 }
 
