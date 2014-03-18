@@ -39,7 +39,7 @@ function cs.edit.mode_event(evt)
     if e then e() end
 end
 
-function cs.edit.mode_switch(mode)
+function cs.edit.set_mode(mode)
     cs.edit.mode_event('exit')
     cs.edit.mode = mode
     cs.edit.mode_event('enter')
@@ -102,7 +102,7 @@ function cs.edit.select_click()
         return
     end
 
-    -- if something's selected, select the next thing
+    -- if something's already selected, select the next thing
     ents[#ents + 1] = ents[1]    -- duplicate first at end to wrap-around
     local sel = 0
     for i = 1, #ents - 1 do
@@ -141,17 +141,16 @@ local grab_mouse_start = cg.vec2_zero
 
 function cs.edit.grab_start()
     cs.edit.undo_save()
-
-    cs.edit.mode_switch('grab')
+    cs.edit.set_mode('grab')
 end
 function cs.edit.grab_end()
-    cs.edit.mode_switch('normal')
+    cs.edit.set_mode('normal')
 end
 function cs.edit.grab_cancel()
     for ent, _ in pairs(cs.edit.select) do
-        cs.transform.set_position(ent, old_pos[ent])
+        cs.transform.set_position(ent, grab_old_pos[ent])
     end
-    cs.edit.mode_switch('normal')
+    cs.edit.set_mode('normal')
 end
 
 cs.edit.modes.grab = {
@@ -159,22 +158,69 @@ cs.edit.modes.grab = {
         grab_mouse_start = cs.input.get_mouse_pos_unit()
 
         -- store old positions
-        old_pos = cg.entity_table()
+        grab_old_pos = cg.entity_table()
         for ent, _ in pairs(cs.edit.select) do
-            old_pos[ent] = cs.transform.get_position(ent)
+            grab_old_pos[ent] = cs.transform.get_position(ent)
         end
     end,
 
     post_update_all = function ()
         local ms = cs.camera.unit_to_world(grab_mouse_start)
         local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
-        
+
         for ent, _ in pairs(cs.edit.select) do
             -- find translation in parent space
             local parent = cs.transform.get_parent(ent)
             local m = cg.mat3_inverse(cs.transform.get_world_matrix(parent))
             local d = cg.mat3_transform(m, mc) - cg.mat3_transform(m, ms)
-            cs.transform.set_position(ent, old_pos[ent] + d)
+            cs.transform.set_position(ent, grab_old_pos[ent] + d)
+        end
+    end,
+}
+
+
+--- rotate mode ----------------------------------------------------------------
+
+local rotate_old_posrot = cg.entity_table()
+local rotate_mouse_start = cg.vec2_zero
+
+function cs.edit.rotate_start()
+    cs.edit.undo_save()
+    cs.edit.set_mode('rotate')
+end
+function cs.edit.rotate_end()
+    cs.edit.set_mode('normal')
+end
+function cs.edit.rotate_cancel()
+    for ent, _ in pairs(cs.edit.select) do
+        cs.transform.set_position(ent, rotate_old_posrot[ent].pos)
+        cs.transform.set_rotation(ent, rotate_old_posrot[ent].rot)
+    end
+    cs.edit.set_mode('normal')
+end
+
+cs.edit.modes.rotate = {
+    enter = function ()
+        rotate_mouse_start = cs.input.get_mouse_pos_unit()
+
+        -- store old positions, rotations
+        rotate_old_posrot = cg.entity_table()
+        for ent, _ in pairs(cs.edit.select) do
+            rotate_old_posrot[ent] = {
+                pos = cs.transform.get_position(ent),
+                rot = cs.transform.get_rotation(ent),
+            }
+        end
+    end,
+
+    post_update_all = function()
+        local ms = cs.camera.unit_to_world(rotate_mouse_start)
+        local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
+
+        for ent, _ in pairs(cs.edit.select) do
+            local wpos = cs.transform.get_world_position(ent)
+            local rot = cg.vec2_atan2(ms - wpos) - cg.vec2_atan2(mc - wpos)
+            cs.transform.set_rotation(ent, rotate_old_posrot[ent].rot + rot)
         end
     end,
 }
@@ -187,12 +233,19 @@ cs.edit.modes.normal[cg.KC_U] = cs.edit.undo
 cs.edit.modes.normal[cg.MC_LEFT] = cs.edit.select_click
 cs.edit.modes.normal[cg.KC_D] = cs.edit.destroy
 cs.edit.modes.normal[cg.KC_G] = cs.edit.grab_start
+cs.edit.modes.normal[cg.KC_R] = cs.edit.rotate_start
 
 -- grab mode
 cs.edit.modes.grab[cg.MC_LEFT] = cs.edit.grab_end
 cs.edit.modes.grab[cg.KC_ENTER] = cs.edit.grab_end
 cs.edit.modes.grab[cg.MC_RIGHT] = cs.edit.grab_cancel
 cs.edit.modes.grab[cg.KC_ESCAPE] = cs.edit.grab_cancel
+
+-- rotate mode
+cs.edit.modes.rotate[cg.MC_LEFT] = cs.edit.rotate_end
+cs.edit.modes.rotate[cg.KC_ENTER] = cs.edit.rotate_end
+cs.edit.modes.rotate[cg.MC_RIGHT] = cs.edit.rotate_cancel
+cs.edit.modes.rotate[cg.KC_ESCAPE] = cs.edit.rotate_cancel
 
 
 --- main events ----------------------------------------------------------------
