@@ -26,6 +26,9 @@ struct PhysicsInfo
     cpVect last_pos;
     cpFloat last_ang;
 
+    /* used to keep track of transform <-> physics update */
+    unsigned int last_dirty_count;
+
     cpBody *body;
     Array *shapes;
 };
@@ -101,6 +104,7 @@ void physics_add(Entity ent)
     cpBodySetUserData(info->body, ent); /* for cpBody -> Entity mapping */
     cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
     cpBodySetAngle(info->body, transform_get_rotation(ent));
+    info->last_dirty_count = transform_get_dirty_count(ent);
 
     /* initially no shapes */
     info->shapes = array_new(ShapeInfo);
@@ -453,8 +457,8 @@ void physics_update_all()
     {
         ent = info->pool_elem.ent;
 
-        /* if edit has moved it, jump */
-        if (edit_get_enabled() && edit_moved(info->pool_elem.ent))
+        /* if transform is dirtier, move to it, else overwrite it */
+        if (transform_get_dirty_count(ent) != info->last_dirty_count)
         {
             cpBodySetVel(info->body, cpvzero);
             cpBodySetAngVel(info->body, 0.0f);
@@ -467,6 +471,8 @@ void physics_update_all()
             transform_set_position(ent, vec2_of_cpv(cpBodyGetPos(info->body)));
             transform_set_rotation(ent, cpBodyGetAngle(info->body));
         }
+
+        info->last_dirty_count = transform_get_dirty_count(ent);
     }
 }
 
