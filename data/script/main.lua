@@ -4,11 +4,6 @@ package.path = package.path .. ';' .. cgame_data_path .. '/script/?.lua'
 -- load 'cgame' module -- it makes itself available globally
 require 'cgame'
 
--- some aliases
-cg = cgame
-cs = cgame.systems
-cg.args = cgame_args
-
 -- print to console
 print = function (k) cs.console.puts(tostring(k)) end
 

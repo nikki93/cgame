@@ -16,6 +16,7 @@ local systems_mt = {
     end,
 }
 cgame.systems = setmetatable({}, systems_mt)
+cs = cgame.systems
 
 function cgame.__fire_event(event, args)
     for _, system in pairs(cgame.systems) do
