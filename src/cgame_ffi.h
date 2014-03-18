@@ -24,6 +24,7 @@
 #include "sprite.h"
 #include "console.h"
 #include "physics.h"
+#include "edit.h"
 
 #include "test/keyboard_controlled.h"
 
@@ -54,6 +55,7 @@ static const char **cgame_ffi[] =
     &cgame_ffi_text,
     &cgame_ffi_console,
     &cgame_ffi_physics,
+    &cgame_ffi_edit,
 
     &cgame_ffi_keyboard_controlled,
 };
