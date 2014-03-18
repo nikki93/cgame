@@ -13,6 +13,7 @@ void script_init();
 void script_deinit();
 void script_clear();
 void script_update_all();
+void script_post_update_all();
 void script_draw_all();
 void script_key_down(KeyCode key);
 void script_key_up(KeyCode key);

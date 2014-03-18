@@ -123,7 +123,7 @@ void sprite_update_all()
     /* update edit bbox */
     if (edit_get_enabled())
         entitypool_foreach(sprite, pool)
-            edit_update_bbox(sprite->pool_elem.ent, bbox);
+            edit_bboxes_update(sprite->pool_elem.ent, bbox);
 }
 
 void sprite_draw_all()

@@ -12,8 +12,13 @@ SCRIPT(edit,
        void edit_set_enabled(bool e);
        bool edit_get_enabled();
 
-       void edit_clear_bboxes();
-       void edit_update_bbox(Entity ent, BBox bbox); /* merge bbox */
+       void edit_bboxes_clear();
+       void edit_bboxes_update(Entity ent, BBox bbox); /* merge bbox */
+       unsigned int edit_bboxes_get_num();
+       typedef struct EntityBBoxPair EntityBBoxPair;
+       struct EntityBBoxPair { Entity ent; BBox bbox; };
+       EntityBBoxPair edit_bboxes_get_nth(unsigned int n);
+       void edit_bboxes_set_selected(Entity ent, bool selected);
 
        void edit_select_clear();
        void edit_select_add(Entity ent);

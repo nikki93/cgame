@@ -86,7 +86,7 @@ void system_clear()
 
 void system_update_all()
 {
-    edit_clear_bboxes();
+    edit_bboxes_clear();
 
     timing_update();
 
@@ -101,6 +101,7 @@ void system_update_all()
     sprite_update_all();
 
     edit_update_all();
+    script_post_update_all();
 
     entity_update_all();
 }

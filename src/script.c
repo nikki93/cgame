@@ -165,6 +165,13 @@ void script_update_all()
     errcheck(lua_pcall(L, 1, 0, 0));
 }
 
+void script_post_update_all()
+{
+    _push_event("post_update_all");
+    errcheck(lua_pcall(L, 1, 0, 0));
+}
+
+
 void script_clear()
 {
     _push_event("clear");

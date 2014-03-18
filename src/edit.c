@@ -1,5 +1,6 @@
 #include "edit.h"
 
+#include <assert.h>
 #include <stdio.h>
 
 #include "gfx.h"
@@ -69,11 +70,11 @@ bool edit_get_enabled()
     return mode != MD_DISABLED;
 }
 
-void edit_clear_bboxes()
+void edit_bboxes_clear()
 {
     entitypool_clear(bbox_pool);
 }
-void edit_update_bbox(Entity ent, BBox bbox)
+void edit_bboxes_update(Entity ent, BBox bbox)
 {
     BBoxPoolElem *elem;
 
@@ -87,6 +88,25 @@ void edit_update_bbox(Entity ent, BBox bbox)
         elem = entitypool_add(bbox_pool, ent);
         elem->bbox = bbox;
     }
+}
+
+unsigned int edit_bboxes_get_num()
+{
+    return entitypool_size(bbox_pool);
+}
+EntityBBoxPair edit_bboxes_get_nth(unsigned int n)
+{
+    BBoxPoolElem *elem;
+    assert(n < entitypool_size(bbox_pool));
+    elem = entitypool_nth(bbox_pool, n);
+    return (EntityBBoxPair) { elem->pool_elem.ent, elem->bbox };
+}
+
+void edit_bboxes_set_selected(Entity ent, bool selected)
+{
+    BBoxPoolElem *elem = entitypool_get(bbox_pool, ent);
+    assert(elem);
+    elem->selected = selected;
 }
 
 void edit_select_clear()
@@ -206,6 +226,8 @@ static void _boxsel()
 
 static void _keydown(KeyCode key)
 {
+    return;
+    
     switch (mode)
     {
         case MD_NORMAL:
@@ -241,6 +263,8 @@ static void _keydown(KeyCode key)
 
 static void _mousedown(MouseCode mouse)
 {
+    return;
+    
     switch (mode)
     {
         case MD_NORMAL:
@@ -291,6 +315,8 @@ static void _mousedown(MouseCode mouse)
 
 static void _mouseup(MouseCode mouse)
 {
+    return;
+    
     switch (mode)
     {
         case MD_BOX_SELECT:
@@ -465,7 +491,7 @@ void edit_update_all()
     mouse_curr = input_get_mouse_pos_unit();
 
     /* mode-specific update */
-    switch (mode)
+    switch (22)
     {
         case MD_GRAB:
             _update_grab();
@@ -488,7 +514,6 @@ void edit_update_all()
     {
         ent = elem->pool_elem.ent;
         elem->wmat = transform_get_world_matrix(ent);
-        elem->selected = edit_select_has(ent) ? 1 : 0;
     }
 
     /* update status text */
