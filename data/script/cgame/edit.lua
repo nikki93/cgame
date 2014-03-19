@@ -281,7 +281,7 @@ end
 
 --- rotate mode ----------------------------------------------------------------
 
-local rotate_old_posrot, rotate_mouse_start
+local rotate_old_posrot, rotate_mouse_start, rotate_pivot
 
 function cs.edit.rotate_start()
     cs.edit.undo_save()
@@ -301,26 +301,48 @@ end
 cs.edit.modes.rotate = {}
 
 function cs.edit.modes.rotate.enter()
-        rotate_mouse_start = cs.input.get_mouse_pos_unit()
+    rotate_mouse_start = cs.input.get_mouse_pos_unit()
 
-        -- store old positions, rotations
-        rotate_old_posrot = cg.entity_table()
-        for ent, _ in pairs(cs.edit.select) do
-            rotate_old_posrot[ent] = {
-                pos = cs.transform.get_position(ent),
-                rot = cs.transform.get_rotation(ent),
-            }
-        end
+    -- store old positions, rotations
+    rotate_old_posrot = cg.entity_table()
+    for ent, _ in pairs(cs.edit.select) do
+        rotate_old_posrot[ent] = {
+            pos = cs.transform.get_position(ent),
+            rot = cs.transform.get_rotation(ent),
+        }
+    end
+
+    -- compute pivot (currently just the median)
+    local n = 0
+    rotate_pivot = cg.vec2_zero
+    for ent, _ in pairs(cs.edit.select) do
+        rotate_pivot = rotate_pivot + cs.transform.get_world_position(ent)
+        n = n + 1
+    end
+    rotate_pivot = rotate_pivot / n
 end
 
 function cs.edit.modes.rotate.post_update_all()
     local ms = cs.camera.unit_to_world(rotate_mouse_start)
     local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
+    local ang = cg.vec2_atan2(ms - rotate_pivot)
+        - cg.vec2_atan2(mc - rotate_pivot)
 
     for ent, _ in pairs(cs.edit.select) do
-        local wpos = cs.transform.get_world_position(ent)
-        local rot = cg.vec2_atan2(ms - wpos) - cg.vec2_atan2(mc - wpos)
-        cs.transform.set_rotation(ent, rotate_old_posrot[ent].rot + rot)
+        -- set new rotation
+        cs.transform.set_rotation(ent, rotate_old_posrot[ent].rot + ang)
+
+        -- compute new position
+        local parent = cs.transform.get_parent(ent)
+        local m = cs.transform.get_world_matrix(parent)
+        local wpos = cg.mat3_transform(m, rotate_old_posrot[ent].pos)
+        local d = wpos - rotate_pivot
+        d = cg.vec2_rot(d, ang)
+        wpos = rotate_pivot + d
+
+        -- set new position
+        local im = cg.mat3_inverse(m)
+        cs.transform.set_position(ent, cg.mat3_transform(im, wpos))
     end
 end
 
