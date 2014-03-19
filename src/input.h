@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 
+#include "glew_glfw.h"
 #include "script_export.h"
 #include "vec2.h"
 
@@ -11,52 +12,155 @@ SCRIPT(input,
        typedef enum KeyCode KeyCode;
        enum KeyCode
        {
-           KC_UNKNOWN,
+           KC_UNKNOWN =             -1,
 
-           KC_SPACE,
+           /* ascii */
+           KC_SPACE =               32,
+           KC_APOSTROPHE =          39,
+           KC_COMMA =               44,
+           KC_MINUS =               45,
+           KC_PERIOD =              46,
+           KC_SLASH =               47,
+           KC_0 =                   48,
+           KC_1 =                   49,
+           KC_2 =                   50,
+           KC_3 =                   51,
+           KC_4 =                   52,
+           KC_5 =                   53,
+           KC_6 =                   54,
+           KC_7 =                   55,
+           KC_8 =                   56,
+           KC_9 =                   57,
+           KC_SEMICOLON =           59,
+           KC_EQUAL =               61,
+           KC_A =                   65,
+           KC_B =                   66,
+           KC_C =                   67,
+           KC_D =                   68,
+           KC_E =                   69,
+           KC_F =                   70,
+           KC_G =                   71,
+           KC_H =                   72,
+           KC_I =                   73,
+           KC_J =                   74,
+           KC_K =                   75,
+           KC_L =                   76,
+           KC_M =                   77,
+           KC_N =                   78,
+           KC_O =                   79,
+           KC_P =                   80,
+           KC_Q =                   81,
+           KC_R =                   82,
+           KC_S =                   83,
+           KC_T =                   84,
+           KC_U =                   85,
+           KC_V =                   86,
+           KC_W =                   87,
+           KC_X =                   88,
+           KC_Y =                   89,
+           KC_Z =                   90,
+           KC_LEFT_BRACKET =        91,
+           KC_BACKSLASH =           92,
+           KC_RIGHT_BRACKET =       93,
+           KC_GRAVE_ACCENT =        96,
+           KC_WORLD_1 =             161,
+           KC_WORLD_2 =             162,
+           KC_ASCII_BEGIN =         KC_SPACE,
+           KC_ASCII_END =           KC_WORLD_2,
 
-           KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9,
-
-           KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_J,
-           KC_K, KC_L, KC_M, KC_N, KC_O, KC_P, KC_Q, KC_R, KC_S, KC_T,
-           KC_U, KC_V, KC_W, KC_X, KC_Y, KC_Z,
-
-           KC_ESCAPE, KC_ENTER, KC_TAB, KC_BACKSPACE, KC_INSERT,
-           KC_DELETE,
-
-           KC_RIGHT, KC_LEFT, KC_DOWN, KC_UP,
-
-           KC_PAGE_UP, KC_PAGE_DOWN, KC_HOME, KC_END, KC_CAPS_LOCK,
-           KC_SCROLL_LOCK, KC_NUM_LOCK, KC_PRINT_SCREEN, KC_PAUSE,
-
-           KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,
-           KC_F9, KC_F10, KC_F11, KC_F12, KC_F13, KC_F14, KC_F15,
-           KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, KC_F21, KC_F22,
-           KC_F23, KC_F24, KC_F25,
-
-           KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_4, KC_KP_5,
-           KC_KP_6, KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_DECIMAL,
-           KC_KP_DIVIDE, KC_KP_MULTIPLY, KC_KP_SUBTRACT, KC_KP_ADD,
-           KC_KP_ENTER, KC_KP_EQUAL,
-
-           KC_LEFT_SHIFT, KC_LEFT_CONTROL, KC_LEFT_ALT, KC_LEFT_SUPER,
-           KC_RIGHT_SHIFT, KC_RIGHT_CONTROL, KC_RIGHT_ALT,
-           KC_RIGHT_SUPER, KC_MENU,
-
-           KC_NUM_KEYCODES
+           /* function keys */
+           KC_ESCAPE =              256,
+           KC_ENTER =               257,
+           KC_TAB =                 258,
+           KC_BACKSPACE =           259,
+           KC_INSERT =              260,
+           KC_DELETE =              261,
+           KC_RIGHT =               262,
+           KC_LEFT =                263,
+           KC_DOWN =                264,
+           KC_UP =                  265,
+           KC_PAGE_UP =             266,
+           KC_PAGE_DOWN =           267,
+           KC_HOME =                268,
+           KC_END =                 269,
+           KC_CAPS_LOCK =           280,
+           KC_SCROLL_LOCK =         281,
+           KC_NUM_LOCK =            282,
+           KC_PRINT_SCREEN =        283,
+           KC_PAUSE =               284,
+           KC_F1 =                  290,
+           KC_F2 =                  291,
+           KC_F3 =                  292,
+           KC_F4 =                  293,
+           KC_F5 =                  294,
+           KC_F6 =                  295,
+           KC_F7 =                  296,
+           KC_F8 =                  297,
+           KC_F9 =                  298,
+           KC_F10 =                 299,
+           KC_F11 =                 300,
+           KC_F12 =                 301,
+           KC_F13 =                 302,
+           KC_F14 =                 303,
+           KC_F15 =                 304,
+           KC_F16 =                 305,
+           KC_F17 =                 306,
+           KC_F18 =                 307,
+           KC_F19 =                 308,
+           KC_F20 =                 309,
+           KC_F21 =                 310,
+           KC_F22 =                 311,
+           KC_F23 =                 312,
+           KC_F24 =                 313,
+           KC_F25 =                 314,
+           KC_KP_0 =                320,
+           KC_KP_1 =                321,
+           KC_KP_2 =                322,
+           KC_KP_3 =                323,
+           KC_KP_4 =                324,
+           KC_KP_5 =                325,
+           KC_KP_6 =                326,
+           KC_KP_7 =                327,
+           KC_KP_8 =                328,
+           KC_KP_9 =                329,
+           KC_KP_DECIMAL =          330,
+           KC_KP_DIVIDE =           331,
+           KC_KP_MULTIPLY =         332,
+           KC_KP_SUBTRACT =         333,
+           KC_KP_ADD =              334,
+           KC_KP_ENTER =            335,
+           KC_KP_EQUAL =            336,
+           KC_LEFT_SHIFT =          340,
+           KC_LEFT_CONTROL =        341,
+           KC_LEFT_ALT =            342,
+           KC_LEFT_SUPER =          343,
+           KC_RIGHT_SHIFT =         344,
+           KC_RIGHT_CONTROL =       345,
+           KC_RIGHT_ALT =           346,
+           KC_RIGHT_SUPER =         347,
+           KC_MENU =                348,
        };
+
+       EXPORT char input_keycode_to_char(KeyCode key);
+       EXPORT KeyCode input_char_to_keycode(char c);
 
        EXPORT bool input_key_down(KeyCode key);
 
        typedef enum MouseCode MouseCode;
        enum MouseCode
        {
-           MC_1, MC_2, MC_3, MC_4, MC_5, MC_6, MC_7, MC_8,
+           MC_1 =          0,
+           MC_2 =          1,
+           MC_3 =          2,
+           MC_4 =          3,
+           MC_5 =          4,
+           MC_6 =          5,
+           MC_7 =          6,
+           MC_8 =          7,
 
-           MC_NUM_MOUSECODES,
-
-           /* aliases for common buttons */
-           MC_LEFT = MC_1, MC_RIGHT = MC_2, MC_MIDDLE = MC_3,
+           MC_LEFT =       MC_1,
+           MC_RIGHT =      MC_2,
+           MC_MIDDLE =     MC_3,
        };
 
        EXPORT Vec2 input_get_mouse_pos_pixels();
