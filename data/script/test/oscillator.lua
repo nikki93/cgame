@@ -34,7 +34,7 @@ function cs.oscillator.update_all()
     end
 
     for ent, osc in pairs(cs.oscillator.tbl) do
-        pos = cs.transform.get_position(ent)
+        local pos = cs.transform.get_position(ent)
         pos.x = osc.initx
             + osc.amp * math.sin(2 * math.pi
                                      * (osc.phase + osc.freq * osc.t))

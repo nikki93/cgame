@@ -8,9 +8,9 @@ end
 -- return serialized string for cdata, func must be of form
 -- void (typeof(cdata) *, Serializer *)
 function cgame.c_serialize(func, cdata)
-    s = cgame.serializer_open_str()
+    local s = cgame.serializer_open_str()
     func(cdata, s)
-    dump = ffi.string(cgame.serializer_get_str(s))
+    local dump = ffi.string(cgame.serializer_get_str(s))
     cgame.serializer_close(s)
     return dump
 end
@@ -18,8 +18,8 @@ end
 -- return struct deserialized from string 'str', func must be of form
 -- void (ctype *, Deserializer *)
 function cgame.c_deserialize(ctype, func, str)
-    cdata = ctype { }
-    s = cgame.deserializer_open_str(str)
+    local cdata = ctype { }
+    local s = cgame.deserializer_open_str(str)
     func(cdata, s)
     cgame.deserializer_close(s)
     return cdata
@@ -29,7 +29,8 @@ end
 -- as string names
 function cgame.c_save_load(ctype, c_save, c_load)
     return function (cdata)
-        cdump = cgame.c_serialize(loadstring('return ' .. c_save)(), cdata)
+        local cdump = cgame.c_serialize(loadstring('return ' .. c_save)(),
+                                        cdata)
         return 'cgame.c_deserialize(' .. ctype .. ', ' .. c_load .. ', '
             .. cgame.safestr(cdump) .. ')'
     end

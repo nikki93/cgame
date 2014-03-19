@@ -7,7 +7,7 @@
 
 local entity_table_mt = {
     __newindex = function (t, k, v)
-        map = rawget(t, 'map')
+        local map = rawget(t, 'map')
 
         -- remove
         if v == nil then
@@ -25,13 +25,13 @@ local entity_table_mt = {
     end,
 
     __index = function (t, k)
-        map = rawget(t, 'map')
+        local map = rawget(t, 'map')
 
         -- no map => empty
         if not map then return nil end
 
         -- find slot, return value in it
-        slot = map[k.id]
+        local slot = map[k.id]
         if not slot then return nil end
         return slot.v
     end,
@@ -42,14 +42,14 @@ local entity_table_mt = {
 
     -- allows iteration using pairs(...)
     __pairs = function (t)
-        map = rawget(t, 'map')
+        local map = rawget(t, 'map')
 
         return function (_, k)
             -- no map => empty
             if not map then return nil, nil end
 
             -- get next in map
-            id, slot = next(map, k and k.id or nil)
+            local id, slot = next(map, k and k.id or nil)
             if not id then return nil, nil end -- end
             return slot.k, slot.v
         end, nil, nil
@@ -65,7 +65,7 @@ function cgame.entity_table()
 end
 
 function cgame.__entity_table_load(t)
-    e = cgame.entity_table()
+    local e = cgame.entity_table()
     for _, slot in pairs(t) do
         e[slot.k] = slot.v
     end

@@ -194,8 +194,7 @@ cs.edit.modes.normal = {
 
 --- grab mode ------------------------------------------------------------------
 
-local grab_old_pos = cg.entity_table()
-local grab_mouse_start = cg.vec2_zero
+local grab_old_pos, grab_mouse_start
 
 function cs.edit.grab_start()
     cs.edit.undo_save()
@@ -239,8 +238,7 @@ cs.edit.modes.grab = {
 
 --- rotate mode ----------------------------------------------------------------
 
-local rotate_old_posrot = cg.entity_table()
-local rotate_mouse_start = cg.vec2_zero
+local rotate_old_posrot, rotate_mouse_start
 
 function cs.edit.rotate_start()
     cs.edit.undo_save()

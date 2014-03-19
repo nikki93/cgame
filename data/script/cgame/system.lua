@@ -2,7 +2,7 @@ local serpent = require 'serpent'
 
 local systems_mt = {
     __index = function (t, k)
-        v = rawget(t, k)
+        local v = rawget(t, k)
 
         if v == nil then
             local mt = {
@@ -21,7 +21,7 @@ cs = cgame.systems
 function cgame.__fire_event(event, args)
     for _, system in pairs(cgame.systems) do
         if system.enabled == nil or system.enabled then
-            func = system[event]
+            local func = system[event]
             if func then func(args) end
         end
     end
