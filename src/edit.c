@@ -55,10 +55,6 @@ Vec2 mouse_curr;
 bool boxsel_started;
 Vec2 boxsel_start;
 
-/* status line */
-char mode_status[256];
-Text status;
-
 /* ------------------------------------------------------------------------- */
 
 void edit_set_enabled(bool e)
@@ -340,11 +336,6 @@ void edit_init()
     input_add_mouse_down_callback(_mousedown);
     input_add_mouse_up_callback(_mouseup);
 
-    /* create status text */
-    status = text_add(vec2(0, game_get_window_size().y - 12), "edit");
-    text_set_color(status, color(1, 0, 0, 1));
-    text_set_visible(status, false);
-
     /* create shader program, load atlas, bind parameters */
     program = gfx_create_program(data_path("bbox.vert"),
                                  data_path("bbox.geom"),
@@ -375,9 +366,6 @@ void edit_deinit()
     glDeleteProgram(program);
     glDeleteBuffers(1, &vbo);
     glDeleteVertexArrays(1, &vao);
-
-    /* deinite status text */
-    text_remove(status);
 
     /* deinit pools */
     entitypool_free(select_pool);
@@ -416,8 +404,6 @@ static void _update_grab()
     }
 
     mouse_prev = mouse_curr;
-
-    sprintf(mode_status, "grab");
 }
 
 static void _update_rotate()
@@ -451,27 +437,6 @@ static void _update_rotate()
     }
 
     mouse_prev = mouse_curr;
-
-    sprintf(mode_status, "rotate");
-}
-
-static void _update_status()
-{
-    char buf[256], *p = buf;
-    unsigned int nselected;
-
-    p += sprintf(p, "edit");
-
-    /* select count */
-    if ((nselected = entitypool_size(select_pool)) > 0)
-        p += sprintf(p, " \xe9 select %u", nselected);
-
-    /* mode */
-    if (mode_status[0])
-        p += sprintf(p, " \xe9 %s", mode_status);
-
-    text_set_str(status, buf);
-    text_set_visible(status, true);
 }
 
 void edit_update_all()
@@ -480,15 +445,7 @@ void edit_update_all()
     Entity ent;
 
     if (mode == MD_DISABLED)
-    {
-        text_set_visible(status, false);
         return;
-    }
-
-    /* clear mode status */
-    mode_status[0] = '\0';
-
-    mouse_curr = input_get_mouse_pos_unit();
 
     /* mode-specific update */
     switch (22)
@@ -501,10 +458,6 @@ void edit_update_all()
             _update_rotate();
             break;
 
-        case MD_BOX_SELECT:
-            sprintf(mode_status, "select box");
-            break;
-
         default:
             break;
     }
@@ -515,9 +468,6 @@ void edit_update_all()
         ent = elem->pool_elem.ent;
         elem->wmat = transform_get_world_matrix(ent);
     }
-
-    /* update status text */
-    _update_status();
 }
 
 static void _bind_bbox_program()

@@ -83,6 +83,14 @@ function cs.edit.set_mode(mode)
 end
 
 
+--- status text ----------------------------------------------------------------
+
+cs.edit.status_text = cs.text.add(cg.vec2(0, cs.game.get_window_size().y - 12),
+                                  'edit')
+cs.text.set_color(cs.edit.status_text, cg.color_red)
+cs.text.set_visible(cs.edit.status_text, false)
+
+
 --- undo -----------------------------------------------------------------------
 
 cs.edit.history = {}
@@ -210,30 +218,30 @@ function cs.edit.grab_cancel()
     cs.edit.set_mode('normal')
 end
 
-cs.edit.modes.grab = {
-    enter = function ()
-        grab_mouse_start = cs.input.get_mouse_pos_unit()
+cs.edit.modes.grab = {}
 
-        -- store old positions
-        grab_old_pos = cg.entity_table()
-        for ent, _ in pairs(cs.edit.select) do
-            grab_old_pos[ent] = cs.transform.get_position(ent)
-        end
-    end,
+function cs.edit.modes.grab.enter()
+    grab_mouse_start = cs.input.get_mouse_pos_unit()
 
-    post_update_all = function ()
-        local ms = cs.camera.unit_to_world(grab_mouse_start)
-        local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
+    -- store old positions
+    grab_old_pos = cg.entity_table()
+    for ent, _ in pairs(cs.edit.select) do
+        grab_old_pos[ent] = cs.transform.get_position(ent)
+    end
+end
 
-        for ent, _ in pairs(cs.edit.select) do
-            -- find translation in parent space
-            local parent = cs.transform.get_parent(ent)
-            local m = cg.mat3_inverse(cs.transform.get_world_matrix(parent))
-            local d = cg.mat3_transform(m, mc) - cg.mat3_transform(m, ms)
-            cs.transform.set_position(ent, grab_old_pos[ent] + d)
-        end
-    end,
-}
+function cs.edit.modes.grab.post_update_all()
+    local ms = cs.camera.unit_to_world(grab_mouse_start)
+    local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
+
+    for ent, _ in pairs(cs.edit.select) do
+        -- find translation in parent space
+        local parent = cs.transform.get_parent(ent)
+        local m = cg.mat3_inverse(cs.transform.get_world_matrix(parent))
+        local d = cg.mat3_transform(m, mc) - cg.mat3_transform(m, ms)
+        cs.transform.set_position(ent, grab_old_pos[ent] + d)
+    end
+end
 
 
 --- rotate mode ----------------------------------------------------------------
@@ -255,8 +263,9 @@ function cs.edit.rotate_cancel()
     cs.edit.set_mode('normal')
 end
 
-cs.edit.modes.rotate = {
-    enter = function ()
+cs.edit.modes.rotate = {}
+
+function cs.edit.modes.rotate.enter()
         rotate_mouse_start = cs.input.get_mouse_pos_unit()
 
         -- store old positions, rotations
@@ -267,19 +276,18 @@ cs.edit.modes.rotate = {
                 rot = cs.transform.get_rotation(ent),
             }
         end
-    end,
+end
 
-    post_update_all = function()
-        local ms = cs.camera.unit_to_world(rotate_mouse_start)
-        local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
+function cs.edit.modes.rotate.post_update_all()
+    local ms = cs.camera.unit_to_world(rotate_mouse_start)
+    local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
 
-        for ent, _ in pairs(cs.edit.select) do
-            local wpos = cs.transform.get_world_position(ent)
-            local rot = cg.vec2_atan2(ms - wpos) - cg.vec2_atan2(mc - wpos)
-            cs.transform.set_rotation(ent, rotate_old_posrot[ent].rot + rot)
-        end
-    end,
-}
+    for ent, _ in pairs(cs.edit.select) do
+        local wpos = cs.transform.get_world_position(ent)
+        local rot = cg.vec2_atan2(ms - wpos) - cg.vec2_atan2(mc - wpos)
+        cs.transform.set_rotation(ent, rotate_old_posrot[ent].rot + rot)
+    end
+end
 
 
 --- bindings -------------------------------------------------------------------
@@ -323,7 +331,11 @@ function cs.edit.mouse_up(mouse)
 end
 
 function cs.edit.post_update_all()
-    if not cs.edit.get_enabled() then return end
+    if not cs.edit.get_enabled() then
+        cs.text.set_visible(cs.edit.status_text, false)
+        return
+    end
+    cs.text.set_visible(cs.edit.status_text, true)
 
     cs.edit.mode_event('post_update_all')
 
