@@ -111,9 +111,9 @@ void entity_deinit()
 void entity_clear()
 {
     counter = 1;
-    array_reset(destroyed, 0);
+    array_clear(destroyed);
     entitymap_clear(destroyed_map);
-    array_reset(unused, 0);
+    array_clear(unused);
     entitymap_clear(unused_map);
 }
 

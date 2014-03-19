@@ -84,7 +84,7 @@ unsigned int entitypool_size(EntityPool *pool)
 void entitypool_clear(EntityPool *pool)
 {
     entitymap_clear(pool->emap);
-    array_reset(pool->array, 0);
+    array_clear(pool->array);
 }
 
 void entitypool_elem_save(EntityPool *pool, void *elem, Serializer *s)

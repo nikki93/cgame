@@ -30,6 +30,7 @@ void *array_add(Array *arr); /* add new object, index is length - 1 */
 #define array_add_val(type, arr) (*((type *) array_add(arr)))
 void array_reset(Array *arr, unsigned int num); /* resize to 'num 'objects
                                                    whose data is undefined */
+#define array_clear(arr) array_reset(arr, 0)
 void array_pop(Array *arr); /* remove object with highest index */
 
 /* remove fast, may swap some other element into arr[i], returns true if so */

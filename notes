@@ -32,9 +32,6 @@ ideas
 todo
 ----
 
-- easy: have _clear(), _reset() for both EntityPool and Array, where
-  _clear() is _reset(x, 0)
-
 - easy: merge texture_get_width()/texture_get_height() into a single
   texture_get_size() that returns a Vec2
 

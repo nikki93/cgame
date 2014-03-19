@@ -44,7 +44,7 @@ static void _gen_chars(Array *chars, const char *str)
     Vec2 pos;
 
     pos = vec2(0, -1);
-    array_reset(chars, 0);
+    array_clear(chars);
     while (*str)
     {
         c = *str++;
