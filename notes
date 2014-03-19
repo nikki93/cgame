@@ -32,11 +32,6 @@ ideas
 todo
 ----
 
-- easy: merge texture_get_width()/texture_get_height() into a single
-  texture_get_size() that returns a Vec2
-
-- easy: test string stream serializer/deserializer 
-
 - easy: make entity_destroyed(ent) be true iff. on 2nd pass of
   destroyed map?
 

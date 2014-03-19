@@ -86,21 +86,13 @@ void texture_bind(const char *filename)
         glBindTexture(GL_TEXTURE_2D, tex->gl_name);
 }
 
-int texture_get_width(const char *filename)
+Vec2 texture_get_size(const char *filename)
 {
     Texture *tex;
 
     tex = _find(filename);
     assert(tex);
-    return tex->width;
-}
-int texture_get_height(const char *filename)
-{
-    Texture *tex;
-
-    tex = _find(filename);
-    assert(tex);
-    return tex->height;
+    return vec2(tex->width, tex->height);
 }
 
 /* ------------------------------------------------------------------------- */

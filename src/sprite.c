@@ -67,6 +67,8 @@ static GLuint vbo;
 
 void sprite_init()
 {
+    Vec2 atlas_size;
+
     /* initialize pool */
     pool = entitypool_new(Sprite);
 
@@ -77,9 +79,9 @@ void sprite_init()
     glUseProgram(program);
     texture_load(data_path("test/atlas.png"));
     glUniform1i(glGetUniformLocation(program, "tex0"), 0);
-    glUniform2f(glGetUniformLocation(program, "atlas_size"),
-                texture_get_width(data_path("test/atlas.png")),
-                texture_get_height(data_path("test/atlas.png")));
+    atlas_size = texture_get_size(data_path("test/atlas.png"));
+    glUniform2fv(glGetUniformLocation(program, "atlas_size"), 1,
+                 (const GLfloat *) &atlas_size);
 
     /* make vao, vbo, bind attributes */
     glGenVertexArrays(1, &vao);
