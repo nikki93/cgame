@@ -202,7 +202,7 @@ cs.edit.modes.normal = {
 
 --- grab mode ------------------------------------------------------------------
 
-local grab_old_pos, grab_mouse_start
+local grab_old_pos, grab_mouse_prev
 
 function cs.edit.grab_start()
     cs.edit.undo_save()
@@ -218,22 +218,8 @@ function cs.edit.grab_cancel()
     cs.edit.set_mode('normal')
 end
 
-cs.edit.modes.grab = {}
-
-function cs.edit.modes.grab.enter()
-    grab_mouse_start = cs.input.get_mouse_pos_unit()
-
-    -- store old positions
-    grab_old_pos = cg.entity_table()
-    for ent, _ in pairs(cs.edit.select) do
-        grab_old_pos[ent] = cs.transform.get_position(ent)
-    end
-end
-
-function cs.edit.modes.grab.post_update_all()
-    local ms = cs.camera.unit_to_world(grab_mouse_start)
-    local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
-
+-- move all selected by d in world space
+function cs.edit.grab_move(d)
     for ent, _ in pairs(cs.edit.select) do
         -- move only if no ancestor is being moved (avoid double-move)
         local anc = cs.transform.get_parent(ent)
@@ -244,10 +230,44 @@ function cs.edit.modes.grab.post_update_all()
             -- find translation in parent space
             local parent = cs.transform.get_parent(ent)
             local m = cg.mat3_inverse(cs.transform.get_world_matrix(parent))
-            local d = cg.mat3_transform(m, mc) - cg.mat3_transform(m, ms)
-            cs.transform.set_position(ent, grab_old_pos[ent] + d)
+            cs.transform.translate(ent, cg.mat3_transform(m, d)
+                                       - cg.mat3_transform(m, cg.vec2_zero))
         end
     end
+end
+
+-- move all selected grid size times mult in a direction
+function cs.edit.grab_move_left(mult)
+    print(mult)
+    cs.edit.grab_move(cg.vec2(-1, 0) * (mult or 1))
+end
+function cs.edit.grab_move_right(mult)
+    cs.edit.grab_move(cg.vec2(1, 0) * (mult or 1))
+end
+function cs.edit.grab_move_up(mult)
+    cs.edit.grab_move(cg.vec2(0, 1) * (mult or 1))
+end
+function cs.edit.grab_move_down(mult)
+    cs.edit.grab_move(cg.vec2(0, -1) * (mult or 1))
+end
+
+cs.edit.modes.grab = {}
+
+function cs.edit.modes.grab.enter()
+    grab_mouse_prev = cs.input.get_mouse_pos_unit()
+
+    -- store old positions
+    grab_old_pos = cg.entity_table()
+    for ent, _ in pairs(cs.edit.select) do
+        grab_old_pos[ent] = cs.transform.get_position(ent)
+    end
+end
+
+function cs.edit.modes.grab.post_update_all()
+    local mp = cs.camera.unit_to_world(grab_mouse_prev)
+    local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
+    cs.edit.grab_move(mc - mp)
+    grab_mouse_prev = cs.input.get_mouse_pos_unit()
 end
 
 
@@ -310,6 +330,14 @@ cs.edit.modes.normal['r'] = cs.edit.rotate_start
 -- grab mode
 cs.edit.modes.grab['<mouse_1>'] = cs.edit.grab_end
 cs.edit.modes.grab['<mouse_2>'] = cs.edit.grab_cancel
+cs.edit.modes.grab['<left>'] = cs.edit.grab_move_left
+cs.edit.modes.grab['<right>'] = cs.edit.grab_move_right
+cs.edit.modes.grab['<up>'] = cs.edit.grab_move_up
+cs.edit.modes.grab['<down>'] = cs.edit.grab_move_down
+cs.edit.modes.grab['S-<left>'] = function () cs.edit.grab_move_left(10) end
+cs.edit.modes.grab['S-<right>'] = function () cs.edit.grab_move_right(10) end
+cs.edit.modes.grab['S-<up>'] = function () cs.edit.grab_move_up(10) end
+cs.edit.modes.grab['S-<down>'] = function () cs.edit.grab_move_down(10) end
 
 -- rotate mode
 cs.edit.modes.rotate['<mouse_1>'] = cs.edit.rotate_end
