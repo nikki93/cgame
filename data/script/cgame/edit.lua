@@ -235,11 +235,18 @@ function cs.edit.modes.grab.post_update_all()
     local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
 
     for ent, _ in pairs(cs.edit.select) do
-        -- find translation in parent space
-        local parent = cs.transform.get_parent(ent)
-        local m = cg.mat3_inverse(cs.transform.get_world_matrix(parent))
-        local d = cg.mat3_transform(m, mc) - cg.mat3_transform(m, ms)
-        cs.transform.set_position(ent, grab_old_pos[ent] + d)
+        -- move only if no ancestor is being moved (avoid double-move)
+        local anc = cs.transform.get_parent(ent)
+        while anc ~= cg.entity_nil and not cs.edit.select[anc] do
+            anc = cs.transform.get_parent(anc)
+        end
+        if anc == cg.entity_nil then
+            -- find translation in parent space
+            local parent = cs.transform.get_parent(ent)
+            local m = cg.mat3_inverse(cs.transform.get_world_matrix(parent))
+            local d = cg.mat3_transform(m, mc) - cg.mat3_transform(m, ms)
+            cs.transform.set_position(ent, grab_old_pos[ent] + d)
+        end
     end
 end
 
