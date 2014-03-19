@@ -19,6 +19,14 @@ function cs.edit._get_entities_under_mouse()
         end
     end
 
+    -- sort by distance to mouse
+    local distcomp = function (e1, e2)
+        local p1 = cs.transform.get_world_position(e1)
+        local p2 = cs.transform.get_world_position(e2)
+        return cg.vec2_dist(p1, m) < cg.vec2_dist(p2, m)
+    end
+    table.sort(ents, distcomp)
+
     return ents
 end
 
