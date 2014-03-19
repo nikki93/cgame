@@ -10,6 +10,10 @@ SCRIPT(color,
        struct Color { Scalar r, g, b, a; };
 
        EXPORT extern Color color_black;
+       EXPORT extern Color color_white;
+       EXPORT extern Color color_red;
+       EXPORT extern Color color_green;
+       EXPORT extern Color color_blue;
 
     )
 
