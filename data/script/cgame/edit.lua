@@ -39,6 +39,43 @@ function cs.edit.mode_event(evt)
     if e then e() end
 end
 
+-- codestr is 'a', 'b', 'c', '<tab>' etc. as returned by input.*_to_string(...)
+function cs.edit._mode_exec_bind(up, codestr)
+    -- modifier prefixes
+    local mods = {
+        [cg.KC_LEFT_CONTROL] = 'C-',
+        [cg.KC_RIGHT_CONTROL] = 'C-',
+        [cg.KC_LEFT_ALT] = 'M-',
+        [cg.KC_RIGHT_ALT] = 'M-',
+        [cg.KC_LEFT_SHIFT] = 'S-',
+        [cg.KC_RIGHT_SHIFT] = 'S-',
+    }
+    for mod, prefix in pairs(mods) do
+        if cs.input.key_down(mod) then
+            codestr = prefix .. codestr
+        end
+    end
+
+    -- up prefix
+    codestr = up and ('^' .. codestr) or codestr
+
+    -- execute!
+    cs.edit.mode_event(codestr)
+end
+
+function cs.edit.mode_key_down(key)
+    cs.edit._mode_exec_bind(false, cs.input.keycode_to_string(key))
+end
+function cs.edit.mode_key_up(key)
+    cs.edit._mode_exec_bind(true, cs.input.keycode_to_string(key))
+end
+function cs.edit.mode_mouse_down(mouse)
+    cs.edit._mode_exec_bind(false, cs.input.mousecode_to_string(mouse))
+end
+function cs.edit.mode_mouse_up(mouse)
+    cs.edit._mode_exec_bind(true, cs.input.mousecode_to_string(mouse))
+end
+
 function cs.edit.set_mode(mode)
     cs.edit.mode_event('exit')
     cs.edit.mode = mode
@@ -85,14 +122,14 @@ cs.edit.bboxes_set_selected = cg.edit_bboxes_set_selected
 cs.edit.select = cg.entity_table()
 
 function cs.edit.select_toggle(ent)
-    if cs.edit.select[ent] ~= nil then
+    if cs.edit.select[ent] then
         cs.edit.select[ent] = nil
     else
         cs.edit.select[ent] = true
     end
 end
 
-function cs.edit.select_click()
+function cs.edit.select_click_single()
     cs.edit.undo_save()
 
     -- anything under mouse?
@@ -107,12 +144,33 @@ function cs.edit.select_click()
     local sel = 0
     for i = 1, #ents - 1 do
         sel = i
-        if cs.edit.select[ents[i]] ~= nil then
+        if cs.edit.select[ents[i]] then
             break
         end
     end
     cs.edit.select = cg.entity_table()
     cs.edit.select[ents[sel + 1]] = true
+end
+
+function cs.edit.select_click_multi()
+    cs.edit.undo_save()
+
+    -- anything under mouse?
+    local ents = cs.edit._get_entities_under_mouse()
+    if #ents == 0 then
+        return
+    end
+
+    -- if something isn't selected, select it
+    for i = 1, #ents do
+        if not cs.edit.select[ents[i]] then
+            cs.edit.select[ents[i]] = true
+            return
+        end
+    end
+
+    -- otherwise deselect the first
+    cs.edit.select[ents[1]] = nil
 end
 
 
@@ -229,39 +287,41 @@ cs.edit.modes.rotate = {
 --- bindings -------------------------------------------------------------------
 
 -- normal mode
-cs.edit.modes.normal[cg.KC_U] = cs.edit.undo
-cs.edit.modes.normal[cg.MC_LEFT] = cs.edit.select_click
-cs.edit.modes.normal[cg.KC_D] = cs.edit.destroy
-cs.edit.modes.normal[cg.KC_G] = cs.edit.grab_start
-cs.edit.modes.normal[cg.KC_R] = cs.edit.rotate_start
+cs.edit.modes.normal['u'] = cs.edit.undo
+cs.edit.modes.normal['<mouse_1>'] = cs.edit.select_click_single
+cs.edit.modes.normal['C-<mouse_1>'] = cs.edit.select_click_multi
+cs.edit.modes.normal['d'] = cs.edit.destroy
+cs.edit.modes.normal['g'] = cs.edit.grab_start
+cs.edit.modes.normal['r'] = cs.edit.rotate_start
 
 -- grab mode
-cs.edit.modes.grab[cg.MC_LEFT] = cs.edit.grab_end
-cs.edit.modes.grab[cg.KC_ENTER] = cs.edit.grab_end
-cs.edit.modes.grab[cg.MC_RIGHT] = cs.edit.grab_cancel
-cs.edit.modes.grab[cg.KC_ESCAPE] = cs.edit.grab_cancel
+cs.edit.modes.grab['<mouse_1>'] = cs.edit.grab_end
+cs.edit.modes.grab['<mouse_2>'] = cs.edit.grab_cancel
 
 -- rotate mode
-cs.edit.modes.rotate[cg.MC_LEFT] = cs.edit.rotate_end
-cs.edit.modes.rotate[cg.KC_ENTER] = cs.edit.rotate_end
-cs.edit.modes.rotate[cg.MC_RIGHT] = cs.edit.rotate_cancel
-cs.edit.modes.rotate[cg.KC_ESCAPE] = cs.edit.rotate_cancel
+cs.edit.modes.rotate['<mouse_1>'] = cs.edit.rotate_end
+cs.edit.modes.rotate['<mouse_2>'] = cs.edit.rotate_cancel
 
 
 --- main events ----------------------------------------------------------------
 
 cs.edit.mode = 'normal'
 
-function cs.edit.mouse_down(mouse)
+function cs.edit.key_up(key)
     if not cs.edit.get_enabled() then return end
-
-    cs.edit.mode_event(mouse)
+    cs.edit.mode_key_up(key)
 end
-
 function cs.edit.key_down(key)
     if not cs.edit.get_enabled() then return end
-
-    cs.edit.mode_event(key)
+    cs.edit.mode_key_down(key)
+end
+function cs.edit.mouse_down(mouse)
+    if not cs.edit.get_enabled() then return end
+    cs.edit.mode_mouse_down(mouse)
+end
+function cs.edit.mouse_up(mouse)
+    if not cs.edit.get_enabled() then return end
+    cs.edit.mode_mouse_up(mouse)
 end
 
 function cs.edit.post_update_all()
