@@ -20,8 +20,10 @@ cs = cgame.systems
 
 function cgame.__fire_event(event, args)
     for _, system in pairs(cgame.systems) do
-        func = system[event]
-        if func then func(args) end
+        if system.enabled == nil or system.enabled then
+            func = system[event]
+            if func then func(args) end
+        end
     end
 end
 
