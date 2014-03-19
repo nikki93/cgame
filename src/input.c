@@ -12,6 +12,7 @@ static Array *key_down_cbs;
 static Array *key_up_cbs;
 static Array *mouse_down_cbs;
 static Array *mouse_up_cbs;
+static Array *mouse_move_cbs;
 
 /* glfw <-> input conversions */
 static int _keycode_to_glfw(KeyCode key) { return key; }
@@ -72,6 +73,11 @@ void input_add_mouse_up_callback(MouseCallback f)
     array_add_val(MouseCallback, mouse_up_cbs) = f;
 }
 
+void input_add_mouse_move_callback(MouseMoveCallback f)
+{
+    array_add_val(MouseMoveCallback, mouse_move_cbs) = f;
+}
+
 static void _key_callback(GLFWwindow *window, int key, int scancode,
                           int action, int mods)
 {
@@ -112,6 +118,14 @@ static void _mouse_callback(GLFWwindow *window, int mouse, int action,
     }
 }
 
+static void _cursor_pos_callback(GLFWwindow *window, double x, double y)
+{
+    MouseMoveCallback *f;
+
+    array_foreach(f, mouse_move_cbs)
+        (*f)(vec2(x, y));
+}
+
 void input_init()
 {
     key_down_cbs = array_new(KeyCallback);
@@ -121,10 +135,15 @@ void input_init()
     mouse_down_cbs = array_new(MouseCallback);
     mouse_up_cbs = array_new(MouseCallback);
     glfwSetMouseButtonCallback(game_window, _mouse_callback);
+
+    mouse_move_cbs = array_new(MouseMoveCallback);
+    glfwSetCursorPosCallback(game_window, _cursor_pos_callback);
 }
 
 void input_deinit()
 {
+    array_free(mouse_move_cbs);
+
     array_free(mouse_up_cbs);
     array_free(mouse_down_cbs);
 

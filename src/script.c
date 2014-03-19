@@ -210,6 +210,13 @@ void script_mouse_up(MouseCode mouse)
     errcheck(lua_pcall(L, 2, 0, 0));
 }
 
+void script_mouse_move(Vec2 pos)
+{
+    _push_event("mouse_move");
+    _push_cdata("Vec2 *", &pos);
+    errcheck(lua_pcall(L, 2, 0, 0));
+}
+
 void script_save_all(Serializer *s)
 {
     const char *str;

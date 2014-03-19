@@ -178,6 +178,9 @@ typedef void (*MouseCallback) (MouseCode mouse);
 void input_add_mouse_down_callback(MouseCallback f);
 void input_add_mouse_up_callback(MouseCallback f);
 
+typedef void (*MouseMoveCallback) (Vec2 pos);
+void input_add_mouse_move_callback(MouseMoveCallback f);
+
 void input_init();
 void input_deinit();
 
