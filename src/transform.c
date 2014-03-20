@@ -102,6 +102,10 @@ void transform_remove(Entity ent)
         _detach_all(transform);
     entitypool_remove(pool, ent);
 }
+bool transform_has(Entity ent)
+{
+    return entitypool_get(pool, ent) != NULL;
+}
 
 void transform_set_parent(Entity ent, Entity parent)
 {

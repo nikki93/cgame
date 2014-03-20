@@ -16,6 +16,7 @@ SCRIPT(transform,
 
        EXPORT void transform_add(Entity ent);
        EXPORT void transform_remove(Entity ent);
+       EXPORT bool transform_has(Entity ent);
 
        /* root transforms have parent = entity_nil */
        EXPORT void transform_set_parent(Entity ent, Entity parent);
