@@ -422,6 +422,8 @@ static void _apply_offset(Transform *t)
 
     /* pos */
     t->position = vec2_add(t->position, offset_pos);
+
+    ++t->dirty_count;
 }
 
 void transform_save_all(Serializer *s)
