@@ -137,6 +137,14 @@ cs.edit.bboxes_set_selected = cg.edit_bboxes_set_selected
 
 cs.edit.select = cg.entity_table()
 
+-- get some selected entity, or nil if none selected
+function cs.edit.select_get_first()
+    for ent, _ in pairs(cs.edit.select) do
+        return ent
+    end
+    return nil
+end
+
 function cs.edit.select_toggle(ent)
     if cs.edit.select[ent] then
         cs.edit.select[ent] = nil
