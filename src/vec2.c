@@ -28,6 +28,10 @@ Vec2 vec2_scalar_div(Vec2 v, Scalar f)
 {
     return vec2(v.x / f, v.y / f);
 }
+Vec2 scalar_vec2_div(Scalar f, Vec2 v)
+{
+    return vec2(f / v.x, f / v.y);
+}
 
 Scalar vec2_len(Vec2 v)
 {

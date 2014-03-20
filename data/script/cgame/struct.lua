@@ -67,6 +67,7 @@ cgame.Vec2 = ffi.metatype('Vec2',
     end,
     __div = function (a, b)
         if type(b) == 'number' then return cgame.vec2_scalar_div(a, b)
+        elseif type(a) == 'number' then return cgame.scalar_vec2_div(a, b)
         else return cgame.vec2_div(a, b) end
     end,
     __index =
