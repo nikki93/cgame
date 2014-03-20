@@ -189,8 +189,12 @@ function cs.edit.select_click_multi()
     cs.edit.select[ents[1]] = nil
 end
 
+function cs.edit.select_clear()
+    cs.edit.select = cg.entity_table()
+end
 
---- destroy --------------------------------------------------------------------
+
+--- entity management ----------------------------------------------------------
 
 function cs.edit.destroy()
     cs.edit.undo_save()
@@ -198,7 +202,31 @@ function cs.edit.destroy()
     for ent, _ in pairs(cs.edit.select) do
         cs.entity.destroy(ent)
     end
-    cs.edit.select = cg.entity_table()
+    cs.edit.select_clear()
+end
+
+function cs.edit.duplicate()
+    -- save just current selection to a string
+    for ent, _ in pairs(cs.edit.select) do
+        if cs.transform.has(ent) then
+            cs.transform.set_save_filter_rec(ent, true)
+        else
+            cs.entity.set_save_filter(ent, true)
+        end
+    end
+    local s = cs.serializer.open_str()
+    cs.system.save_all(s)
+    local str = ffi.string(cs.serializer.get_str(s))
+    cs.serializer.close(s)
+
+    -- clear selection
+    cs.edit.select_clear()
+
+    -- load from the string -- they were selected on save and so will be
+    -- selected when loaded
+    local d = cs.deserializer.open_str(str)
+    cs.system.load_all(d)
+    cs.deserializer.close(d)
 end
 
 
@@ -246,7 +274,6 @@ end
 
 -- move all selected grid size times mult in a direction
 function cs.edit.grab_move_left(mult)
-    print(mult)
     cs.edit.grab_move(cg.vec2(-1, 0) * (mult or 1))
 end
 function cs.edit.grab_move_right(mult)
@@ -354,10 +381,12 @@ cs.edit.modes.normal['u'] = cs.edit.undo
 cs.edit.modes.normal['<mouse_1>'] = cs.edit.select_click_single
 cs.edit.modes.normal['C-<mouse_1>'] = cs.edit.select_click_multi
 cs.edit.modes.normal['d'] = cs.edit.destroy
+cs.edit.modes.normal['S-d'] = cs.edit.duplicate
 cs.edit.modes.normal['g'] = cs.edit.grab_start
 cs.edit.modes.normal['r'] = cs.edit.rotate_start
 
 -- grab mode
+cs.edit.modes.grab['<enter>'] = cs.edit.grab_end
 cs.edit.modes.grab['<mouse_1>'] = cs.edit.grab_end
 cs.edit.modes.grab['<mouse_2>'] = cs.edit.grab_cancel
 cs.edit.modes.grab['<left>'] = cs.edit.grab_move_left
@@ -370,6 +399,7 @@ cs.edit.modes.grab['S-<up>'] = function () cs.edit.grab_move_up(10) end
 cs.edit.modes.grab['S-<down>'] = function () cs.edit.grab_move_down(10) end
 
 -- rotate mode
+cs.edit.modes.rotate['<enter>'] = cs.edit.rotate_end
 cs.edit.modes.rotate['<mouse_1>'] = cs.edit.rotate_end
 cs.edit.modes.rotate['<mouse_2>'] = cs.edit.rotate_cancel
 
@@ -417,5 +447,5 @@ function cs.edit.save_all()
     }
 end
 function cs.edit.load_all(d)
-    cs.edit.select = d.sel
+    cg.entity_table_merge(cs.edit.select, d.sel)
 end
