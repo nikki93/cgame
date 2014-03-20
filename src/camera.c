@@ -92,15 +92,29 @@ void camera_update_all()
 
 void camera_save_all(Serializer *s)
 {
-    if (entity_get_save_filter(camera_entity))
+    bool exists;
+
+    /* check if we're actually saving something */
+    exists = !entity_eq(camera_entity, entity_nil)
+        && entity_get_save_filter(camera_entity);
+    bool_save(&exists, s);
+
+    if (exists)
+    {
         entity_save(&camera_entity, s);
-    else
-        entity_save(&entity_nil, s);
-    mat3_save(&inverse_view_matrix, s);
+        mat3_save(&inverse_view_matrix, s);
+    }
 }
 void camera_load_all(Deserializer *s)
 {
-    entity_load(&camera_entity, s);
-    mat3_load(&inverse_view_matrix, s);
+    bool exists;
+
+    /* check if we have to actually load anything */
+    bool_load(&exists, s);
+    if (exists)
+    {
+        entity_load(&camera_entity, s);
+        mat3_load(&inverse_view_matrix, s);
+    }
 }
 

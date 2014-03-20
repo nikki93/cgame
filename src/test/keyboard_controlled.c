@@ -79,22 +79,28 @@ void keyboard_controlled_update_all()
 
 void keyboard_controlled_save_all(Serializer *s)
 {
-    static const bool f = false;
+    bool exists;
 
-    if (entity_get_save_filter(kc_entity))
+    /* check if we're actually saving something */
+    exists = kc_exists && entity_get_save_filter(kc_entity);
+    bool_save(&exists, s);
+
+    if (exists)
     {
         bool_save(&kc_exists, s);
         entity_save(&kc_entity, s);
     }
-    else
-    {
-        bool_save(&f, s);
-        entity_save(&entity_nil, s);
-    }
 }
 void keyboard_controlled_load_all(Deserializer *s)
 {
-    bool_load(&kc_exists, s);
-    entity_load(&kc_entity, s);
+    bool exists;
+
+    /* check if we have to actually load anything */
+    bool_load(&exists, s);
+    if (exists)
+    {
+        bool_load(&kc_exists, s);
+        entity_load(&kc_entity, s);
+    }
 }
 
