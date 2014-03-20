@@ -156,11 +156,17 @@ void sprite_save_all(Serializer *s)
     unsigned int n;
     Sprite *sprite;
 
-    n = entitypool_size(pool);
+    n = 0;
+    entitypool_foreach(sprite, pool)
+        if (entity_get_save_filter(sprite->pool_elem.ent))
+            ++n;
     uint_save(&n, s);
 
     entitypool_foreach(sprite, pool)
     {
+        if (!entity_get_save_filter(sprite->pool_elem.ent))
+            continue;
+
         entitypool_elem_save(pool, &sprite, s);
         mat3_save(&sprite->wmat, s);
         vec2_save(&sprite->cell, s);

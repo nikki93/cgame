@@ -79,8 +79,18 @@ void keyboard_controlled_update_all()
 
 void keyboard_controlled_save_all(Serializer *s)
 {
-    bool_save(&kc_exists, s);
-    entity_save(&kc_entity, s);
+    static const bool f = false;
+
+    if (entity_get_save_filter(kc_entity))
+    {
+        bool_save(&kc_exists, s);
+        entity_save(&kc_entity, s);
+    }
+    else
+    {
+        bool_save(&f, s);
+        entity_save(&entity_nil, s);
+    }
 }
 void keyboard_controlled_load_all(Deserializer *s)
 {

@@ -692,11 +692,17 @@ void physics_save_all(Serializer *s)
     unsigned int n;
     PhysicsInfo *info;
 
-    n = entitypool_size(pool);
+    n = 0;
+    entitypool_foreach(info, pool)
+        if (entity_get_save_filter(info->pool_elem.ent))
+            ++n;
     uint_save(&n, s);
 
     entitypool_foreach(info, pool)
     {
+        if (!entity_get_save_filter(info->pool_elem.ent))
+            continue;
+
         entitypool_elem_save(pool, &info, s);
 
         enum_save(&info->type, s);

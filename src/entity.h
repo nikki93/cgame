@@ -22,6 +22,16 @@ SCRIPT(entity,
        EXPORT void entity_save(Entity *ent, Serializer *s);
        EXPORT void entity_load(Entity *ent, Deserializer *s);
 
+       /*
+        * if set true for any entity, only those entities will be
+        * saved for which it is set true
+        *
+        * entities for which this is set false will not be saved
+        */
+       EXPORT void entity_set_save_filter(Entity ent, bool filter);
+       EXPORT bool entity_get_save_filter(Entity ent);
+       EXPORT void entity_clear_save_filters();
+
     )
 
 void entity_init();

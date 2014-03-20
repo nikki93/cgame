@@ -92,7 +92,10 @@ void camera_update_all()
 
 void camera_save_all(Serializer *s)
 {
-    entity_save(&camera_entity, s);
+    if (entity_get_save_filter(camera_entity))
+        entity_save(&camera_entity, s);
+    else
+        entity_save(&entity_nil, s);
     mat3_save(&inverse_view_matrix, s);
 }
 void camera_load_all(Deserializer *s)

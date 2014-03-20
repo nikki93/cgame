@@ -22,6 +22,16 @@ static EntityMap *unused_map; /* whether has entry in unused array */
 static Array *unused; /* id put here after _remove(), can reuse */
 static EntityMap *load_map; /* map of saved ids --> real ids */
 
+typedef enum SaveFilter SaveFilter;
+enum SaveFilter
+{
+    SF_SAVE,    /* save this Entity */
+    SF_NO_SAVE, /* do not save this Entity */
+    SF_UNSET,   /* filter wasn't set -- use default */
+};
+static EntityMap *save_filter_map;
+static SaveFilter save_filter_default = SF_SAVE;
+
 /*
  * life cycle
  * ----------
@@ -91,6 +101,29 @@ bool entity_destroyed(Entity ent)
     return entitymap_get(destroyed_map, ent);
 }
 
+void entity_set_save_filter(Entity ent, bool filter)
+{
+    if (filter)
+    {
+        entitymap_set(save_filter_map, ent, SF_SAVE);
+        save_filter_default = SF_NO_SAVE;
+    }
+    else
+        entitymap_set(save_filter_map, ent, SF_NO_SAVE);
+}
+bool entity_get_save_filter(Entity ent)
+{
+    SaveFilter filter = entitymap_get(save_filter_map, ent);
+    if (filter == SF_UNSET)
+        filter = save_filter_default; /* not set, use default */
+    return filter == SF_SAVE;
+}
+void entity_clear_save_filters()
+{
+    entitymap_clear(save_filter_map);
+    save_filter_default = SF_SAVE;
+}
+
 /* ------------------------------------------------------------------------- */
 
 void entity_init()
@@ -99,6 +132,7 @@ void entity_init()
     destroyed = array_new(DestroyEntry);
     unused_map = entitymap_new(false);
     unused = array_new(Entity);
+    save_filter_map = entitymap_new(SF_UNSET);
 }
 void entity_deinit()
 {
@@ -115,6 +149,7 @@ void entity_clear()
     entitymap_clear(destroyed_map);
     array_clear(unused);
     entitymap_clear(unused_map);
+    entitymap_clear(save_filter_map);
 }
 
 void entity_update_all()
@@ -141,6 +176,8 @@ void entity_update_all()
 
 void entity_save(Entity *ent, Serializer *s)
 {
+    if (!entity_eq(*ent, entity_nil))
+        assert("filtered-out entity referenced" && entity_get_save_filter(*ent));
     uint_save(&ent->id, s);
 }
 void entity_load(Entity *ent, Deserializer *s)
@@ -170,6 +207,7 @@ void entity_load_all_begin()
 void entity_load_all_end()
 {
     entitymap_free(load_map);
+    entity_clear_save_filters();
 }
 
 #undef entity_eq

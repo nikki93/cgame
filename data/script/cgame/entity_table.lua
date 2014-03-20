@@ -37,7 +37,16 @@ local entity_table_mt = {
     end,
 
     __serialize_f = function (t)
-        return 'cgame.__entity_table_load', (rawget(t, 'map') or {})
+        local map = rawget(t, 'map') or {}
+
+        -- don't save filtered-out entities
+        local filtered = {}
+        for k, slot in pairs(map) do
+            if cgame.entity_get_save_filter(slot.k) then
+                filtered[k] = slot
+            end
+        end
+        return 'cgame.__entity_table_load', filtered
     end,
 
     -- allows iteration using pairs(...)
@@ -73,7 +82,7 @@ function cgame.__entity_table_load(t)
 end
 
 function cgame.entity_table_merge(t, d)
-    for _, slot in pairs(rawget(d, 'map')) do
+    for _, slot in pairs(rawget(d, 'map') or {}) do
         t[slot.k] = slot.v
     end
 end
