@@ -89,7 +89,10 @@ function cgame.add(sys, ent, props)
         return ent
     end
 
-    cgame.adder(sys)(ent)
+    -- all entities are already in 'entity' system
+    if sys ~= 'entity' then
+        cgame.adder(sys)(ent)
+    end
     if (props) then
         for k, v in pairs(props) do
             cgame.set(sys, k, ent, v)
