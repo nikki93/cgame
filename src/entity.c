@@ -141,7 +141,12 @@ void entity_set_persistent(Entity ent, bool persistent)
 }
 bool entity_get_persistent(Entity ent)
 {
-    ExistsPoolElem *exists = entitypool_get(exists_pool, ent);
+    ExistsPoolElem *exists;
+
+    if (entity_eq(ent, entity_nil))
+        return true;
+
+    exists = entitypool_get(exists_pool, ent);
     assert(exists);
     return exists->persistent;
 }
