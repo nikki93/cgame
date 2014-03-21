@@ -172,12 +172,18 @@ static void _text_update_all()
 {
     Text *text;
     BBox bbox;
+    Entity ent;
     static Vec2 size = { TEXT_FONT_W, TEXT_FONT_H };
 
     entitypool_remove_destroyed(text_pool, gui_text_remove);
 
     entitypool_foreach(text, text_pool)
-        text->wmat = transform_get_world_matrix(text->pool_elem.ent);
+    {
+        ent = text->pool_elem.ent;
+        if (entity_eq(transform_get_parent(ent), entity_nil))
+            transform_set_parent(ent, gui_root);
+        text->wmat = transform_get_world_matrix(ent);
+    }
 
     if (edit_get_enabled())
         entitypool_foreach(text, text_pool)
@@ -224,6 +230,59 @@ static void _text_draw_all()
     }
 }
 
+static void _text_save_all(Serializer *s)
+{
+    Text *text;
+    TextChar *tc;
+    unsigned int nchars;
+
+    entitypool_foreach(text, text_pool)
+    {
+        if (!entity_get_save_filter(text->pool_elem.ent))
+            continue;
+        loop_continue_save(s);
+
+        entitypool_elem_save(text_pool, &text, s);
+        color_save(&text->color, s);
+        mat3_save(&text->wmat, s);
+
+        nchars = array_length(text->chars);
+        uint_save(&nchars, s);
+        array_foreach(tc, text->chars)
+        {
+            vec2_save(&tc->pos, s);
+            vec2_save(&tc->cell, s);
+        }
+
+        vec2_save(&text->bounds, s);
+    }
+    loop_end_save(s);
+}
+static void _text_load_all(Deserializer *s)
+{
+    Text *text;
+    TextChar *tc;
+    unsigned int nchars;
+
+    while(loop_continue_load(s))
+    {
+        entitypool_elem_load(text_pool, &text, s);
+        color_load(&text->color, s);
+        mat3_load(&text->wmat, s);
+
+        uint_load(&nchars, s);
+        text->chars = array_new(TextChar);
+        array_reset(text->chars, nchars);
+        array_foreach(tc, text->chars)
+        {
+            vec2_load(&tc->pos, s);
+            vec2_load(&tc->cell, s);
+        }
+
+        vec2_load(&text->bounds, s);
+    }
+}
+
 /* ------------------------------------------------------------------------- */
 
 static void _create_root()
@@ -262,4 +321,13 @@ void gui_update_all()
 void gui_draw_all()
 {
     _text_draw_all();
+}
+
+void gui_save_all(Serializer *s)
+{
+    _text_save_all(s);
+}
+void gui_load_all(Deserializer *s)
+{
+    _text_load_all(s);
 }

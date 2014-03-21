@@ -19,5 +19,7 @@ void gui_init();
 void gui_deinit();
 void gui_update_all();
 void gui_draw_all();
+void gui_save_all(Serializer *s);
+void gui_load_all(Deserializer *s);
 
 #endif
