@@ -3,7 +3,7 @@ require 'test.rotator'
 
 -- add camera: 32 pixels is one unit
 
-local camera = cs.entity.create()
+camera = cs.entity.create()
 cs.transform.add(camera)
 cs.camera.add(camera)
 cs.camera.set_viewport_size(camera, cs.game.get_window_size() / 32.0)
@@ -44,7 +44,7 @@ end
 
 -- add player
 
-local player = cs.entity.create()
+player = cs.entity.create()
 
 cs.transform.add(player)
 cs.transform.set_position(player, cg.vec2(0.0, 0.0))
