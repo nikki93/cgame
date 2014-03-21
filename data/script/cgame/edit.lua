@@ -389,8 +389,9 @@ end
 -- normal mode
 cs.edit.modes.normal['u'] = cs.edit.undo
 cs.edit.modes.normal['<mouse_1>'] = cs.edit.select_click_single
+cs.edit.modes.normal['S-<mouse_1>'] = cs.edit.select_click_multi
 cs.edit.modes.normal['C-<mouse_1>'] = cs.edit.select_click_multi
-cs.edit.modes.normal['d'] = cs.edit.destroy
+cs.edit.modes.normal['x'] = cs.edit.destroy
 cs.edit.modes.normal['S-d'] = cs.edit.duplicate
 cs.edit.modes.normal['g'] = cs.edit.grab_start
 cs.edit.modes.normal['r'] = cs.edit.rotate_start
