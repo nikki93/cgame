@@ -113,6 +113,7 @@ static void _saveload_all(void *s, bool save)
 
     entity_load_all_begin();
 
+    saveload(entity);
     saveload(timing);
     saveload(transform);
     saveload(camera);

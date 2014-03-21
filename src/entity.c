@@ -71,10 +71,9 @@ static SaveFilter save_filter_default = SF_SAVE;
 
 /* ------------------------------------------------------------------------- */
 
-Entity entity_create()
+static Entity _generate_id()
 {
     Entity ent;
-    ExistsPoolElem *exists;
 
     /* compute new id */
     if (array_length(unused) > 0)
@@ -87,6 +86,16 @@ Entity entity_create()
     else
         ent.id = counter++;
     assert(!entity_eq(ent, entity_nil));
+
+    return ent;
+}
+
+Entity entity_create()
+{
+    Entity ent;
+    ExistsPoolElem *exists;
+
+    ent = _generate_id();
 
     /* add to exists pool */
     exists = entitypool_add(exists_pool, ent);
@@ -166,7 +175,7 @@ bool entity_get_save_filter(Entity ent)
     SaveFilter filter = entitymap_get(save_filter_map, ent);
     if (filter == SF_UNSET)
         filter = save_filter_default; /* not set, use default */
-    return filter == SF_SAVE;
+    return !entity_get_persistent(ent) && filter == SF_SAVE;
 }
 void entity_clear_save_filters()
 {
@@ -237,7 +246,7 @@ void entity_load(Entity *ent, Deserializer *s)
     ent->id = entitymap_get(load_map, sav);
     if (entity_eq(*ent, entity_nil))
     {
-        *ent = entity_create(); /* new sav */
+        *ent = _generate_id(); /* new sav */
         entitymap_set(load_map, sav, ent->id);
     }
 }
@@ -256,4 +265,30 @@ void entity_load_all_end()
 bool entity_eq(Entity e, Entity f)
 {
     return e.id == f.id;
+}
+
+void entity_save_all(Serializer *s)
+{
+    ExistsPoolElem *exists;
+
+    entitypool_foreach(exists, exists_pool)
+    {
+        if (!entity_get_save_filter(exists->pool_elem.ent))
+            continue;
+        loop_continue_save(s);
+
+        entitypool_elem_save(exists_pool, &exists, s);
+        bool_save(&exists->persistent, s);
+    }
+    loop_end_save(s);
+}
+void entity_load_all(Deserializer *s)
+{
+    ExistsPoolElem *exists;
+
+    while (loop_continue_load(s))
+    {
+        entitypool_elem_load(exists_pool, &exists, s);
+        bool_load(&exists->persistent, s);
+    }
 }
