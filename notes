@@ -32,6 +32,8 @@ ideas
 todo
 ----
 
+- easy: add 'never save' and 'always save' filters, for console text etc.
+
 - easy: make entity_destroyed(ent) be true iff. on 2nd pass of
   destroyed map?
 
