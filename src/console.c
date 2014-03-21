@@ -8,8 +8,9 @@
 
 #include "vec2.h"
 #include "game.h"
-#include "text.h"
 #include "input.h"
+#include "gui.h"
+#include "transform.h"
 
 #define LINE_LEN 128 /* including newline, null char */
 #define NUM_LINES 20
@@ -18,8 +19,8 @@
 static char lines[NUM_LINES][LINE_LEN];
 static int top = 0;
 
-/* Text that displays console contents */
-static Text text;
+/* text that displays console contents */
+static Entity text;
 
 static void _update_text()
 {
@@ -34,7 +35,7 @@ static void _update_text()
             *c++ = *r;
     *c = '\0';
 
-    text_set_str(text, buf);
+    gui_text_set_str(text, buf);
 
     free(buf);
 }
@@ -120,18 +121,23 @@ void console_printf(const char *fmt, ...)
 
 static void _keydown(KeyCode key)
 {
-    if (key == KC_ENTER && input_key_down(KC_LEFT_SHIFT))
-        text_set_visible(text, !text_get_visible(text));
+    /* if (key == KC_ENTER && input_key_down(KC_LEFT_SHIFT)) */
+    /*     text_set_visible(text, !text_get_visible(text)); */
 }
 
 void console_init()
 {
     unsigned int i;
 
+    /* create text entity */
+    text = entity_create();
+    transform_add(text);
+    transform_set_position(text, vec2_zero);
+    gui_text_add(text);
+
     /* initially all empty */
     for (i = 0; i < NUM_LINES; ++i)
         lines[i][0] = '\0';
-    text = text_add(vec2_zero, "");
     _update_text();
 
     /* listen to keys */

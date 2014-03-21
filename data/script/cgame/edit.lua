@@ -93,10 +93,12 @@ end
 
 --- status text ----------------------------------------------------------------
 
-cs.edit.status_text = cs.text.add(cg.vec2(0, cs.game.get_window_size().y - 12),
-                                  'edit')
-cs.text.set_color(cs.edit.status_text, cg.color_red)
-cs.text.set_visible(cs.edit.status_text, false)
+cs.edit.status_text = cg.add {
+    transform = { position = cg.vec2(0, -cs.game.get_window_size().y + 12) },
+    gui_text = { str = 'edit', color = cg.color_red },
+}
+
+-- cs.text.set_visible(cs.edit.status_text, false)
 
 
 --- undo -----------------------------------------------------------------------
@@ -434,11 +436,11 @@ function cs.edit.mouse_up(mouse)
 end
 
 function cs.edit.post_update_all()
-    if not cs.edit.get_enabled() then
-        cs.text.set_visible(cs.edit.status_text, false)
-        return
-    end
-    cs.text.set_visible(cs.edit.status_text, true)
+    -- if not cs.edit.get_enabled() then
+    --     cs.text.set_visible(cs.edit.status_text, false)
+    --     return
+    -- end
+    -- cs.text.set_visible(cs.edit.status_text, true)
 
     cs.edit.mode_event('post_update_all')
 

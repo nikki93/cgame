@@ -11,7 +11,6 @@
 #include "dirs.h"
 #include "input.h"
 #include "game.h"
-#include "text.h"
 
 /* modes */
 typedef enum Mode Mode;
