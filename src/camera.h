@@ -9,6 +9,11 @@
 
 /* for now there's just one camera */
 
+/*
+ * if no camera exists, the (inverse) view matrix is identity, which means
+ * the view is a 2x2 unit box at the center of the world
+ */
+
 SCRIPT(camera,
 
        EXPORT void camera_add(Entity ent);

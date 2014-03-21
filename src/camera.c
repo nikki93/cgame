@@ -58,8 +58,9 @@ Vec2 camera_pixels_to_world(Vec2 p)
 }
 Vec2 camera_unit_to_world(Vec2 p)
 {
-    assert(!entity_eq(camera_entity, entity_nil));
-    return transform_local_to_world(camera_entity, p);
+    if (!entity_eq(camera_entity, entity_nil))
+        return transform_local_to_world(camera_entity, p);
+    return p;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -72,7 +73,11 @@ void camera_init()
 
 void camera_update_all()
 {
-    if (!entity_eq(camera_entity, entity_nil))
+    if (entity_eq(camera_entity, entity_nil))
+    {
+        inverse_view_matrix = mat3_identity();
+    }
+    else
     {
         if (entity_destroyed(camera_entity))
         {
