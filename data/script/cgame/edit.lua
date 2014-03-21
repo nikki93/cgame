@@ -439,6 +439,12 @@ function cs.edit.mouse_up(mouse)
     cs.edit.mode_mouse_up(mouse)
 end
 
+function cs.edit.update_all()
+    for ent, _ in pairs(cs.edit.select) do
+        if cs.entity.destroyed(ent) then cs.edit.select[ent] = nil end
+    end
+end
+
 function cs.edit.post_update_all()
     -- if not cs.edit.get_enabled() then
     --     cs.text.set_visible(cs.edit.status_text, false)
