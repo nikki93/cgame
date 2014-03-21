@@ -19,7 +19,7 @@ static GLint _compile_shader(GLuint shader, const char *filename)
     fclose(input_file);
     file_contents[input_file_size] = '\0';
 
-    printf("text: compiling shader '%s' ...", filename);
+    printf("gfx: compiling shader '%s' ...", filename);
 
     glShaderSource(shader, 1, (const GLchar **) &file_contents, NULL);
     glCompileShader(shader);
