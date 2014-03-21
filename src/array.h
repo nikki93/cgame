@@ -48,18 +48,9 @@ bool array_quick_remove(Array *arr, unsigned int i);
  *
  * elements are visited in order of increasing index
  */
-#define array_foreach(var, arr)                 \
-    array_foreach_(var, arr, __LINE__)
-#define make_label(line) __label_ ## line
-#define array_foreach_(var, arr, line)                          \
-    if (1)                                                      \
-    {                                                           \
-        var = array_begin(arr);                                 \
-        goto make_label(line);                                  \
-    }                                                           \
-    else                                                        \
-    make_label(line):                                           \
-        for (void *__end = array_end(arr); var != __end; ++var)
+#define array_foreach(var, arr)                                 \
+    for (void *__end = (var = array_begin(arr),                 \
+                        array_end(arr)); var != __end; ++var)
 
 #endif
 

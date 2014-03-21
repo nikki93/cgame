@@ -92,18 +92,9 @@ void entitypool_elem_load(EntityPool *pool, void *elem, Deserializer *s);
  *
  * elements are visited in order of increasing index
  */
-#define entitypool_foreach(var, pool)           \
-    entitypool_foreach_(var, pool, __LINE__)
-#define make_label(line) __label_ ## line
-#define entitypool_foreach_(var, pool, line)                            \
-    if (1)                                                              \
-    {                                                                   \
-        var = entitypool_begin(pool);                                   \
-        goto make_label(line);                                          \
-    }                                                                   \
-    else                                                                \
-    make_label(line):                                                   \
-        for (void *__end = entitypool_end(pool); var != __end; ++var)
+#define entitypool_foreach(var, pool)                                   \
+    for (void *__end = (var = entitypool_begin(pool),                   \
+                        entitypool_end(pool)); var != __end; ++var)
 
 #endif
 
