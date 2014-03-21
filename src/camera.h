@@ -30,7 +30,6 @@ SCRIPT(camera,
 const Mat3 *camera_get_inverse_view_matrix_ptr(); /* for quick GLSL binding */
 
 void camera_init();
-void camera_clear();
 void camera_update_all();
 void camera_save_all(Serializer *s);
 void camera_load_all(Deserializer *s);

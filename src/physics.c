@@ -384,16 +384,6 @@ void physics_deinit()
     entitypool_free(pool);
 }
 
-void physics_clear()
-{
-    PhysicsInfo *info;
-
-    entitypool_foreach(info, pool)
-        _remove(info);
-    entitypool_clear(pool);
-    cpResetShapeIdCounter();
-}
-
 /* step the space with fixed time step */
 static void _step()
 {

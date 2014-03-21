@@ -24,10 +24,6 @@ function cs.oscillator.add(ent, osc)
     cs.oscillator.tbl[ent] = osc
 end
 
-function cs.oscillator.clear()
-    cs.oscillator.tbl = cg.entity_table()
-end
-
 function cs.oscillator.update_all()
     for ent, _ in pairs(cs.oscillator.tbl) do
         if cs.entity.destroyed(ent) then cs.oscillator.tbl[ent] = nil end

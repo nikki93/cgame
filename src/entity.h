@@ -14,13 +14,14 @@ SCRIPT(entity,
 
        EXPORT Entity entity_create(); /* claim an unused Entity id */
        EXPORT void entity_destroy(Entity ent); /* release an Entity id */
+       EXPORT void entity_destroy_all(); /* destroy all non-persistent entities */
        EXPORT bool entity_destroyed(Entity ent);
 
        EXPORT bool entity_eq(Entity e, Entity f);
 
-       /* save/load is just for ids */
-       EXPORT void entity_save(Entity *ent, Serializer *s);
-       EXPORT void entity_load(Entity *ent, Deserializer *s);
+       /* persistent entities aren't destroyed on entity_destroy_all() */
+       EXPORT void entity_set_persistent(Entity ent, bool persistent);
+       EXPORT bool entity_get_persistent(Entity ent);
 
        /*
         * if set true for any entity, only those entities will be
@@ -32,11 +33,14 @@ SCRIPT(entity,
        EXPORT bool entity_get_save_filter(Entity ent);
        EXPORT void entity_clear_save_filters();
 
+       /* save/load is just for ids */
+       EXPORT void entity_save(Entity *ent, Serializer *s);
+       EXPORT void entity_load(Entity *ent, Deserializer *s);
+
     )
 
 void entity_init();
 void entity_deinit();
-void entity_clear();
 void entity_update_all();
 
 void entity_load_all_begin();

@@ -226,12 +226,17 @@ static void _text_draw_all()
 
 /* ------------------------------------------------------------------------- */
 
-void gui_init()
+static void _create_root()
 {
     gui_root = entity_create();
+    entity_set_persistent(gui_root, true);
     transform_add(gui_root);
     transform_set_position(gui_root, vec2(-1, 1)); /* origin at top-left */
+}
 
+void gui_init()
+{
+    _create_root();
     _text_init();
 }
 void gui_deinit()
@@ -241,21 +246,11 @@ void gui_deinit()
 
 static void _update_gui_root()
 {
-    Vec2 win_size;
-    Entity camera;
-
     /* child of camera so GUI stays on screen */
-    camera = camera_get();
-    transform_set_parent(gui_root, camera);
+    transform_set_parent(gui_root, camera_get());
 
     /* use pixel coordinates */
-    if (!entity_eq(camera, entity_nil))
-    {
-        /* screen width/height is 2 units in camera space */
-        win_size = game_get_window_size();
-        transform_set_scale(gui_root,
-                            scalar_vec2_div(2, win_size));
-    }
+    transform_set_scale(gui_root, scalar_vec2_div(2, game_get_window_size()));
 }
 
 void gui_update_all()

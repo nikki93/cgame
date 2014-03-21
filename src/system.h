@@ -6,8 +6,6 @@
 
 SCRIPT(system,
 
-       EXPORT void system_clear(); /* remove all Entities */
-
        EXPORT void system_load_all(Deserializer *f);
        EXPORT void system_save_all(Serializer *f);
 

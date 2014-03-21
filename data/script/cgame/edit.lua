@@ -94,6 +94,7 @@ end
 --- status text ----------------------------------------------------------------
 
 cs.edit.status_text = cg.add {
+    entity = { persistent = true },
     transform = { position = cg.vec2(0, -cs.game.get_window_size().y + 12) },
     gui_text = { str = 'edit', color = cg.color_red },
 }
@@ -118,7 +119,9 @@ function cs.edit.undo()
         return
     end
 
-    cs.system.clear()
+    -- TODO: make 'edit' entity group and destroy all except that?
+    cs.entity.destroy_all()
+
     local str = table.remove(cs.edit.history)
     local d = cs.deserializer.open_str(str)
     cs.system.load_all(d)

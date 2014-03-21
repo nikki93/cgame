@@ -12,7 +12,6 @@ SCRIPT(keyboard_controlled,
 
     )
 
-void keyboard_controlled_clear();
 void keyboard_controlled_update_all();
 void keyboard_controlled_save_all(Serializer *s);
 void keyboard_controlled_load_all(Deserializer *s);

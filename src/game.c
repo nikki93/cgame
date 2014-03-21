@@ -37,6 +37,7 @@ static Entity fps_text;
 static void _fps_init()
 {
     fps_text = entity_create();
+    entity_set_persistent(fps_text, true);
     transform_add(fps_text);
     gui_text_add(fps_text);
     gui_text_set_str(fps_text, "fps: ...");
@@ -100,7 +101,7 @@ static void _game_key_down(KeyCode key)
             break;
 
         case KC_C: /* c: clear */
-            system_clear();
+            entity_destroy_all();
             console_puts("cleared");
             break;
 

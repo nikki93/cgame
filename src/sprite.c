@@ -106,11 +106,6 @@ void sprite_deinit()
     entitypool_free(pool);
 }
 
-void sprite_clear()
-{
-    entitypool_clear(pool);
-}
-
 void sprite_update_all()
 {
     Sprite *sprite;

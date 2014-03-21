@@ -74,19 +74,6 @@ void system_deinit()
     input_deinit();
 }
 
-void system_clear()
-{
-    keyboard_controlled_clear();
-
-    script_clear();
-
-    physics_clear();
-    sprite_clear();
-    camera_clear();
-    transform_clear();
-    entity_clear();
-}
-
 void system_update_all()
 {
     edit_bboxes_clear();

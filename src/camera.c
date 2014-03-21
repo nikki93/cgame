@@ -70,11 +70,6 @@ void camera_init()
     inverse_view_matrix = mat3_identity();
 }
 
-void camera_clear()
-{
-    camera_remove(camera_entity);
-}
-
 void camera_update_all()
 {
     if (!entity_eq(camera_entity, entity_nil))

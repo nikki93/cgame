@@ -6,6 +6,7 @@
 #include "saveload.h"
 #include "entitymap.h"
 #include "array.h"
+#include "entitypool.h"
 
 typedef struct DestroyEntry DestroyEntry;
 struct DestroyEntry
@@ -16,10 +17,23 @@ struct DestroyEntry
 
 Entity entity_nil = { 0 };
 static unsigned int counter = 1;
+
+typedef struct ExistsPoolElem ExistsPoolElem;
+struct ExistsPoolElem
+{
+    EntityPoolElem pool_elem;
+
+    bool persistent;
+};
+
+static EntityPool *exists_pool; /* all existing entities */
+
 static EntityMap *destroyed_map; /* whether entity is destroyed */
 static Array *destroyed; /* array of DestroyEntry for destroyed objects */
+
 static EntityMap *unused_map; /* whether has entry in unused array */
 static Array *unused; /* id put here after _remove(), can reuse */
+
 static EntityMap *load_map; /* map of saved ids --> real ids */
 
 typedef enum SaveFilter SaveFilter;
@@ -60,7 +74,9 @@ static SaveFilter save_filter_default = SF_SAVE;
 Entity entity_create()
 {
     Entity ent;
+    ExistsPoolElem *exists;
 
+    /* compute new id */
     if (array_length(unused) > 0)
     {
         /* have an unused id -- claim it */
@@ -70,8 +86,12 @@ Entity entity_create()
     }
     else
         ent.id = counter++;
-
     assert(!entity_eq(ent, entity_nil));
+
+    /* add to exists pool */
+    exists = entitypool_add(exists_pool, ent);
+    exists->persistent = false;
+
     return ent;
 }
 
@@ -86,19 +106,44 @@ static void _remove(Entity ent)
 
 void entity_destroy(Entity ent)
 {
+    if (!entitypool_get(exists_pool, ent))
+        return;
     if (entitymap_get(unused_map, ent))
         return;
     if (entitymap_get(destroyed_map, ent))
         return; /* already noted */
+
+    entitypool_remove(exists_pool, ent);
 
     /* mark it as destroyed but don't 'remove' it yet */
     entitymap_set(destroyed_map, ent, true);
     array_add_val(DestroyEntry, destroyed) = (DestroyEntry) { { ent.id }, 0 };
 }
 
+void entity_destroy_all()
+{
+    ExistsPoolElem *exists;
+    entitypool_foreach(exists, exists_pool)
+        if (!exists->persistent)
+            entity_destroy(exists->pool_elem.ent);
+}
+
 bool entity_destroyed(Entity ent)
 {
     return entitymap_get(destroyed_map, ent);
+}
+
+void entity_set_persistent(Entity ent, bool persistent)
+{
+    ExistsPoolElem *exists = entitypool_get(exists_pool, ent);
+    assert(exists);
+    exists->persistent = persistent;
+}
+bool entity_get_persistent(Entity ent)
+{
+    ExistsPoolElem *exists = entitypool_get(exists_pool, ent);
+    assert(exists);
+    return exists->persistent;
 }
 
 void entity_set_save_filter(Entity ent, bool filter)
@@ -128,6 +173,7 @@ void entity_clear_save_filters()
 
 void entity_init()
 {
+    exists_pool = entitypool_new(ExistsPoolElem);
     destroyed_map = entitymap_new(false);
     destroyed = array_new(DestroyEntry);
     unused_map = entitymap_new(false);
@@ -140,16 +186,7 @@ void entity_deinit()
     entitymap_free(unused_map);
     array_free(destroyed);
     entitymap_free(destroyed_map);
-}
-
-void entity_clear()
-{
-    counter = 1;
-    array_clear(destroyed);
-    entitymap_clear(destroyed_map);
-    array_clear(unused);
-    entitymap_clear(unused_map);
-    entitymap_clear(save_filter_map);
+    entitypool_free(exists_pool);
 }
 
 void entity_update_all()

@@ -131,6 +131,7 @@ void console_init()
 
     /* create text entity */
     text = entity_create();
+    entity_set_persistent(text, true);
     transform_add(text);
     transform_set_position(text, vec2_zero);
     gui_text_add(text);

@@ -321,12 +321,6 @@ void transform_deinit()
     entitypool_free(pool);
 }
 
-void transform_clear()
-{
-    _free_children_arrays();
-    entitypool_clear(pool);
-}
-
 /*
  * update worldmat_cache to reflect hierarchy
  *
