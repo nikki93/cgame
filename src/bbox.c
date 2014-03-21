@@ -7,6 +7,13 @@ BBox bbox_merge(BBox a, BBox b)
                 vec2(scalar_max(a.max.x, b.max.x),
                      scalar_max(a.max.y, b.max.y)));
 }
+BBox bbox_bound(Vec2 a, Vec2 b)
+{
+    return bbox(vec2(scalar_min(a.x, b.x),
+                     scalar_min(a.y, b.y)),
+                vec2(scalar_max(a.x, b.x),
+                     scalar_max(a.y, b.y)));
+}
 bool bbox_contains(BBox b, Vec2 p)
 {
     return b.min.x <= p.x && p.x <= b.max.x

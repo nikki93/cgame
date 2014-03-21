@@ -11,6 +11,7 @@ SCRIPT(bbox,
        struct BBox { Vec2 min; Vec2 max; };
 
        BBox bbox(Vec2 min, Vec2 max);
+       BBox bbox_bound(Vec2 a, Vec2 b);
        BBox bbox_merge(BBox a, BBox b);
        bool bbox_contains(BBox b, Vec2 p);
 
