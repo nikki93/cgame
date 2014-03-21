@@ -1,5 +1,7 @@
 #include "entitypool.h"
 
+#include <stdlib.h>
+
 #include "entitymap.h"
 #include "array.h"
 
