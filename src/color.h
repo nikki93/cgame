@@ -3,6 +3,7 @@
 
 #include "scalar.h"
 #include "script_export.h"
+#include "saveload.h"
 
 SCRIPT(color,
 
@@ -14,6 +15,9 @@ SCRIPT(color,
        EXPORT extern Color color_red;
        EXPORT extern Color color_green;
        EXPORT extern Color color_blue;
+
+       EXPORT void color_save(Color *c, Serializer *s);
+       EXPORT void color_load(Color *c, Deserializer *s);
 
     )
 
