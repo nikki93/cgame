@@ -22,6 +22,14 @@ SCRIPT(saveload,
 
     )
 
+/*
+ * can be used to simplify the save/load loop of a collection -- check
+ * transform.c, sprite.c etc. for examples
+ */
+void loop_continue_save(Serializer *s);
+void loop_end_save(Serializer *s);
+bool loop_continue_load(Deserializer *s);
+
 void scalar_save(const Scalar *f, Serializer *s);
 void scalar_load(Scalar *f, Deserializer *s);
 

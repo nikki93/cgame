@@ -148,34 +148,26 @@ void sprite_draw_all()
 
 void sprite_save_all(Serializer *s)
 {
-    unsigned int n;
     Sprite *sprite;
-
-    n = 0;
-    entitypool_foreach(sprite, pool)
-        if (entity_get_save_filter(sprite->pool_elem.ent))
-            ++n;
-    uint_save(&n, s);
 
     entitypool_foreach(sprite, pool)
     {
         if (!entity_get_save_filter(sprite->pool_elem.ent))
             continue;
+        loop_continue_save(s);
 
         entitypool_elem_save(pool, &sprite, s);
         mat3_save(&sprite->wmat, s);
         vec2_save(&sprite->cell, s);
         vec2_save(&sprite->size, s);
     }
+    loop_end_save(s);
 }
 void sprite_load_all(Deserializer *s)
 {
-    unsigned int n;
     Sprite *sprite;
 
-    uint_load(&n, s);
-
-    while (n--)
+    while (loop_continue_load(s))
     {
         entitypool_elem_load(pool, &sprite, s);
         mat3_load(&sprite->wmat, s);

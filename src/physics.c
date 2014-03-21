@@ -679,19 +679,13 @@ static void _shapes_load(PhysicsInfo *info, Deserializer *s)
  */
 void physics_save_all(Serializer *s)
 {
-    unsigned int n;
     PhysicsInfo *info;
-
-    n = 0;
-    entitypool_foreach(info, pool)
-        if (entity_get_save_filter(info->pool_elem.ent))
-            ++n;
-    uint_save(&n, s);
 
     entitypool_foreach(info, pool)
     {
         if (!entity_get_save_filter(info->pool_elem.ent))
             continue;
+        loop_continue_save(s);
 
         entitypool_elem_save(pool, &info, s);
 
@@ -701,15 +695,13 @@ void physics_save_all(Serializer *s)
         _body_save(info, s);
         _shapes_save(info, s);
     }
+    loop_end_save(s);
 }
 void physics_load_all(Deserializer *s)
 {
-    unsigned int n;
     PhysicsInfo *info;
 
-    uint_load(&n, s);
-
-    while (n--)
+    while (loop_continue_load(s))
     {
         entitypool_elem_load(pool, &info, s);
 

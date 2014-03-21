@@ -370,40 +370,30 @@ void transform_update_all()
 /* save/load for just the children array */
 static void _children_save(Transform *t, Serializer *s)
 {
-    int n; /* -1 if t->children is NULL */
     Entity *child;
 
     if (t->children)
-    {
-        n = 0;
         array_foreach(child, t->children)
             if (entity_get_save_filter(*child))
-                ++n;
-        int_save(&n, s);
-        array_foreach(child, t->children)
-            if (entity_get_save_filter(*child))
+            {
+                loop_continue_save(s);
                 entity_save(child, s);
-    }
-    else
-    {
-        n = -1;
-        int_save(&n, s);
-    }
+            }
+    loop_end_save(s);
 }
 static void _children_load(Transform *t, Deserializer *s)
 {
-    int n; /* -1 if t->children should be NULL */
     Entity *child;
 
-    int_load(&n, s);
-    if (n >= 0)
+    /* this is a little weird because we want NULL array when no children */
+    if (loop_continue_load(s))
     {
         t->children = array_new(Entity);
-        while (n--)
+        do
         {
             child = array_add(t->children);
             entity_load(child, s);
-        }
+        } while (loop_continue_load(s));
     }
     else
         t->children = NULL;
@@ -428,19 +418,13 @@ static void _apply_offset(Transform *t)
 
 void transform_save_all(Serializer *s)
 {
-    unsigned int n;
     Transform *transform;
-
-    n = 0;
-    entitypool_foreach(transform, pool)
-        if (entity_get_save_filter(transform->pool_elem.ent))
-            ++n;
-    uint_save(&n, s);
 
     entitypool_foreach(transform, pool)
     {
         if (!entity_get_save_filter(transform->pool_elem.ent))
             continue;
+        loop_continue_save(s);
 
         entitypool_elem_save(pool, &transform, s);
         vec2_save(&transform->position, s);
@@ -455,15 +439,13 @@ void transform_save_all(Serializer *s)
 
         uint_save(&transform->dirty_count, s);
     }
+    loop_end_save(s);
 }
 void transform_load_all(Deserializer *s)
 {
-    unsigned int n;
     Transform *transform;
 
-    uint_load(&n, s);
-
-    while (n--)
+    while (loop_continue_load(s))
     {
         entitypool_elem_load(pool, &transform, s);
         vec2_load(&transform->position, s);

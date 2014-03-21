@@ -187,6 +187,23 @@ void deserializer_close(Deserializer *s)
     free(s);
 }
 
+void loop_continue_save(Serializer *s)
+{
+    static bool yes = true;
+    bool_save(&yes, s);
+}
+void loop_end_save(Serializer *s)
+{
+    static bool no = false;
+    bool_save(&no, s);
+}
+bool loop_continue_load(Deserializer *s)
+{
+    bool cont;
+    bool_load(&cont, s);
+    return cont;
+}
+
 /* printf/scanf for SCALAR_INFINITY doesn't work out on MSVC */
 void scalar_save(const Scalar *f, Serializer *s)
 {
