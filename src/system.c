@@ -11,6 +11,7 @@
 #include "texture.h"
 #include "sprite.h"
 #include "text.h"
+#include "gui.h"
 #include "console.h"
 #include "scratch.h"
 #include "physics.h"
@@ -48,6 +49,7 @@ void system_init()
     texture_init();
     text_init();
     sprite_init();
+    gui_init();
     console_init();
     physics_init();
     script_init();
@@ -67,6 +69,7 @@ void system_deinit()
     physics_deinit();
     console_deinit();
     sprite_deinit();
+    gui_deinit();
     text_deinit();
     texture_deinit();
     transform_deinit();
@@ -101,6 +104,7 @@ void system_update_all()
     physics_update_all();
     transform_update_all();
     camera_update_all();
+    gui_update_all();
     sprite_update_all();
 
     edit_update_all();
@@ -114,6 +118,7 @@ void system_draw_all()
     script_draw_all();
     sprite_draw_all();
     edit_draw_all();
+    gui_draw_all();
     text_draw_all();
 }
 

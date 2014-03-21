@@ -21,6 +21,7 @@
 #include "transform.h"
 #include "camera.h"
 #include "text.h"
+#include "gui.h"
 #include "sprite.h"
 #include "console.h"
 #include "physics.h"
@@ -53,6 +54,7 @@ static const char **cgame_ffi[] =
     &cgame_ffi_camera,
     &cgame_ffi_sprite,
     &cgame_ffi_text,
+    &cgame_ffi_gui,
     &cgame_ffi_console,
     &cgame_ffi_physics,
     &cgame_ffi_edit,
