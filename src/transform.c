@@ -78,6 +78,16 @@ static void _detach_all(Transform *t)
     }
 }
 
+static void _modified(Transform *transform)
+{
+    transform->mat_cache = mat3_scaling_rotation_translation(
+        transform->scale,
+        transform->rotation,
+        transform->position
+        );
+    ++transform->dirty_count;
+}
+
 void transform_add(Entity ent)
 {
     Transform *transform;
@@ -94,6 +104,8 @@ void transform_add(Entity ent)
     transform->children = NULL;
 
     transform->dirty_count = 0;
+
+    _modified(transform);
 }
 void transform_remove(Entity ent)
 {
@@ -159,16 +171,6 @@ void transform_detach_all(Entity ent)
     Transform *transform = entitypool_get(pool, ent);
     assert(transform);
     _detach_all(transform);
-}
-
-static void _modified(Transform *transform)
-{
-    transform->mat_cache = mat3_scaling_rotation_translation(
-        transform->scale,
-        transform->rotation,
-        transform->position
-        );
-    ++transform->dirty_count;
 }
 
 void transform_set_position(Entity ent, Vec2 pos)
