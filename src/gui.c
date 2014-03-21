@@ -115,6 +115,19 @@ void gui_text_set_str(Entity ent, const char *str)
     _text_update_str(text, str);
 }
 
+void gui_text_set_color(Entity ent, Color color)
+{
+    Text *text = entitypool_get(text_pool, ent);
+    assert(text);
+    text->color = color;
+}
+Color gui_text_get_color(Entity ent)
+{
+    Text *text = entitypool_get(text_pool, ent);
+    assert(text);
+    return text->color;
+}
+
 static GLuint text_program;
 static GLuint text_vao;
 static GLuint text_vbo;
