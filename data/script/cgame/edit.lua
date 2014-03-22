@@ -15,7 +15,7 @@ function cs.edit._get_entities_under_mouse()
         -- transform m to local space
         local t = cg.mat3_inverse(cs.transform.get_world_matrix(pair.ent))
         if cg.bbox_contains(pair.bbox, cg.mat3_transform(t, m)) then
-            table.insert(ents, pair.ent)
+            table.insert(ents, cg.Entity { pair.ent.id })
         end
     end
 
