@@ -50,8 +50,8 @@ void system_init()
     gui_init();
     console_init();
     physics_init();
-    script_init();
     edit_init();
+    script_init();
 
     input_add_key_down_callback(_key_down);
     input_add_key_up_callback(_key_up);
