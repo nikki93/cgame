@@ -10,6 +10,13 @@ function cs.rotator.add(ent, speed)
     cs.rotator.tbl[ent] = speed or 2 * math.pi
 end
 
+function cs.rotator.set_speed(ent, speed)
+    cs.rotator.tbl[ent] = speed or 2 * math.pi
+end
+function cs.rotator.get_speed(ent)
+    return cs.rotator.tbl[ent].speed
+end
+
 function cs.rotator.update_all()
     for ent, _ in pairs(cs.rotator.tbl) do
         if cs.entity.destroyed(ent) then
