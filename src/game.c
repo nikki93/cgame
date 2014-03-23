@@ -41,7 +41,7 @@ static void _fps_init()
     transform_add(fps_text);
     gui_text_add(fps_text);
     gui_text_set_str(fps_text, "fps: ...");
-    gui_text_set_color(fps_text, color(0.0f, 0.4f, 0.1f, 1.0f));
+    gui_set_color(fps_text, color(0.0f, 0.4f, 0.1f, 1.0f));
 }
 
 static void _fps_update()

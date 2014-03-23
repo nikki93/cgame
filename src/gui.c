@@ -16,6 +16,116 @@
 
 static Entity gui_root; /* all gui should be descendants of this to move with screen */
 
+/* --- common -------------------------------------------------------------- */
+
+/*
+ * general functionality/data common to all GUI systems
+ */
+
+typedef struct Gui Gui;
+struct Gui
+{
+    EntityPoolElem pool_elem;
+
+    Color color;
+
+    Mat3 wmat;
+    BBox bbox; /* in entity space */
+};
+
+static EntityPool *gui_pool;
+
+void gui_add(Entity ent)
+{
+    Gui *gui;
+
+    if (entitypool_get(gui_pool, ent))
+        return; /* already has gui */
+
+    transform_add(ent);
+
+    gui = entitypool_add(gui_pool, ent);
+    gui->color = color(0.5, 0.5, 0.5, 1.0);
+    gui->bbox = bbox(vec2_zero, vec2(32, 32));
+}
+
+void gui_remove(Entity ent)
+{
+    entitypool_remove(gui_pool, ent);
+}
+
+void gui_set_color(Entity ent, Color color)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    gui->color = color;
+}
+Color gui_get_color(Entity ent)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    return gui->color;
+}
+
+static void _common_init()
+{
+    gui_pool = entitypool_new(Gui);
+}
+static void _common_deinit()
+{
+    entitypool_free(gui_pool);
+}
+
+static void _common_update_all()
+{
+    Gui *gui;
+    Entity ent;
+
+    entitypool_remove_destroyed(gui_pool, gui_remove);
+
+    /* attach root GUI entities to gui_root */
+    entitypool_foreach(gui, gui_pool)
+    {
+        ent = gui->pool_elem.ent;
+        if (entity_eq(transform_get_parent(ent), entity_nil))
+            transform_set_parent(ent, gui_root);
+        gui->wmat = transform_get_world_matrix(ent);
+    }
+
+    /* update edit bboxes */
+    if (edit_get_enabled())
+        entitypool_foreach(gui, gui_pool)
+            edit_bboxes_update(gui->pool_elem.ent, gui->bbox);
+}
+
+static void _common_save_all(Serializer *s)
+{
+    Gui *gui;
+
+    entitypool_foreach(gui, gui_pool)
+    {
+        if (!entity_get_save_filter(gui->pool_elem.ent))
+            continue;
+        loop_continue_save(s);
+
+        entitypool_elem_save(gui_pool, &gui, s);
+        color_save(&gui->color, s);
+        mat3_save(&gui->wmat, s);
+    }
+    loop_end_save(s);
+}
+static void _common_load_all(Deserializer *s)
+{
+    Gui *gui;
+
+    while (loop_continue_load(s))
+    {
+        entitypool_elem_load(gui_pool, &gui, s);
+        color_load(&gui->color, s);
+        mat3_load(&gui->wmat, s);
+    }
+}
+
 /* --- text ---------------------------------------------------------------- */
 
 #define TEXT_GRID_W 16
@@ -38,12 +148,8 @@ struct Text
 {
     EntityPoolElem pool_elem;
 
-    Color color;
-
-    Mat3 wmat;
     Array *chars;  /* per-character info buffered to shader */
-
-    Vec2 bounds; /* max x, min y of text region in size-less units */
+    Vec2 bounds;   /* max x, min y in size-less units */
 };
 
 static EntityPool *text_pool;
@@ -55,12 +161,10 @@ void gui_text_add(Entity ent)
     if (entitypool_get(text_pool, ent))
         return; /* already has text */
 
-    transform_add(ent);
-    transform_set_parent(ent, gui_root);
+    gui_add(ent);
 
     text = entitypool_add(text_pool, ent);
     text->chars = array_new(TextChar);
-    text->color = color_black;
 }
 void gui_text_remove(Entity ent)
 {
@@ -115,19 +219,6 @@ void gui_text_set_str(Entity ent, const char *str)
     _text_update_str(text, str);
 }
 
-void gui_text_set_color(Entity ent, Color color)
-{
-    Text *text = entitypool_get(text_pool, ent);
-    assert(text);
-    text->color = color;
-}
-Color gui_text_get_color(Entity ent)
-{
-    Text *text = entitypool_get(text_pool, ent);
-    assert(text);
-    return text->color;
-}
-
 static GLuint text_program;
 static GLuint text_vao;
 static GLuint text_vbo;
@@ -171,25 +262,18 @@ static void _text_deinit()
 static void _text_update_all()
 {
     Text *text;
-    BBox bbox;
-    Entity ent;
+    Gui *gui;
     static Vec2 size = { TEXT_FONT_W, TEXT_FONT_H };
 
     entitypool_remove_destroyed(text_pool, gui_text_remove);
 
-    entitypool_foreach(text, text_pool)
-    {
-        ent = text->pool_elem.ent;
-        if (entity_eq(transform_get_parent(ent), entity_nil))
-            transform_set_parent(ent, gui_root);
-        text->wmat = transform_get_world_matrix(ent);
-    }
-
+    /* update GUI bboxes */
     if (edit_get_enabled())
         entitypool_foreach(text, text_pool)
         {
-            bbox = bbox_bound(vec2_zero, vec2_mul(size, text->bounds));
-            edit_bboxes_update(text->pool_elem.ent, bbox);
+            gui = entitypool_get(gui_pool, text->pool_elem.ent);
+            assert(gui);
+            gui->bbox = bbox_bound(vec2_zero, vec2_mul(size, text->bounds));
         }
 }
 
@@ -197,6 +281,7 @@ static void _text_draw_all()
 {
     Vec2 hwin;
     Text *text;
+    Gui *gui;
     unsigned int nchars;
 
     hwin = vec2_scalar_mul(game_get_window_size(), 0.5);
@@ -216,10 +301,13 @@ static void _text_draw_all()
     /* draw! */
     entitypool_foreach(text, text_pool)
     {
+        gui = entitypool_get(gui_pool, text->pool_elem.ent);
+        assert(gui);
+
         glUniformMatrix3fv(glGetUniformLocation(text_program, "wmat"),
-                           1, GL_FALSE, (const GLfloat *) &text->wmat);
+                           1, GL_FALSE, (const GLfloat *) &gui->wmat);
         glUniform4fv(glGetUniformLocation(text_program, "base_color"), 1,
-                     (const GLfloat *) &text->color);
+                     (const GLfloat *) &gui->color);
 
         glBindVertexArray(text_vao);
         glBindBuffer(GL_ARRAY_BUFFER, text_vbo);
@@ -243,8 +331,6 @@ static void _text_save_all(Serializer *s)
         loop_continue_save(s);
 
         entitypool_elem_save(text_pool, &text, s);
-        color_save(&text->color, s);
-        mat3_save(&text->wmat, s);
 
         nchars = array_length(text->chars);
         uint_save(&nchars, s);
@@ -267,8 +353,6 @@ static void _text_load_all(Deserializer *s)
     while(loop_continue_load(s))
     {
         entitypool_elem_load(text_pool, &text, s);
-        color_load(&text->color, s);
-        mat3_load(&text->wmat, s);
 
         uint_load(&nchars, s);
         text->chars = array_new(TextChar);
@@ -296,11 +380,13 @@ static void _create_root()
 void gui_init()
 {
     _create_root();
+    _common_init();
     _text_init();
 }
 void gui_deinit()
 {
     _text_deinit();
+    _common_deinit();
 }
 
 static void _update_gui_root()
@@ -316,6 +402,7 @@ void gui_update_all()
 {
     _update_gui_root();
     _text_update_all();
+    _common_update_all();
 }
 
 void gui_draw_all()
@@ -325,9 +412,11 @@ void gui_draw_all()
 
 void gui_save_all(Serializer *s)
 {
+    _common_save_all(s);
     _text_save_all(s);
 }
 void gui_load_all(Deserializer *s)
 {
+    _common_load_all(s);
     _text_load_all(s);
 }

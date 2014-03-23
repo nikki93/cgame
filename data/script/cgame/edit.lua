@@ -96,7 +96,8 @@ end
 cs.edit.status_text = cg.add {
     entity = { persistent = true },
     transform = { position = cg.vec2(0, -cs.game.get_window_size().y + 12) },
-    gui_text = { str = 'edit', color = cg.color_red },
+    gui_text = { str = 'edit' },
+    gui = { color = cg.color_red },
 }
 
 -- cs.text.set_visible(cs.edit.status_text, false)
