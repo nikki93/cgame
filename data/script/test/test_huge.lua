@@ -33,6 +33,7 @@ for i = 0, n_blocks do
     cs.sprite.add(block)
     if symrand() < 0 then
         cs.sprite.set_cell(block, cg.vec2( 0.0, 32.0))
+        cs.edit.select[block] = true
     else
         cs.sprite.set_cell(block, cg.vec2(32.0, 32.0))
     end
