@@ -5,13 +5,16 @@ in vec3 wmat2;
 in vec3 wmat3;
 
 in vec2 size;
+in vec4 color;
 
 out mat3 wmat;
 out vec2 size_;
+out vec4 color_;
 
 void main()
 {
     wmat = mat3(wmat1, wmat2, wmat3);
     size_ = size;
+    color_ = color;
 }
 

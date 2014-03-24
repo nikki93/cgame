@@ -130,7 +130,9 @@ struct Rect
     EntityPoolElem pool_elem;
 
     Mat3 wmat;
+
     Vec2 size;
+    Color color;
 };
 
 static EntityPool *rect_pool;
@@ -189,6 +191,7 @@ static void _rect_init()
     gfx_bind_vertex_attrib(rect_program, GL_FLOAT, 3, "wmat2", Rect, wmat.m[1]);
     gfx_bind_vertex_attrib(rect_program, GL_FLOAT, 3, "wmat3", Rect, wmat.m[2]);
     gfx_bind_vertex_attrib(rect_program, GL_FLOAT, 2, "size", Rect, size);
+    gfx_bind_vertex_attrib(rect_program, GL_FLOAT, 4, "color", Rect, color);
 }
 static void _rect_deinit()
 {
@@ -210,13 +213,17 @@ static void _rect_update_all()
 
     entitypool_foreach(rect, rect_pool)
     {
+        gui = entitypool_get(gui_pool, rect->pool_elem.ent);
+        assert(gui);
+
         /* world matrix */
         rect->wmat = transform_get_world_matrix(rect->pool_elem.ent);
 
-        /* gui bbox */
-        gui = entitypool_get(gui_pool, rect->pool_elem.ent);
-        assert(gui);
-        gui->bbox = bbox_bound(vec2_zero, rect->size);
+        /* write gui bbox */
+        gui->bbox = bbox_bound(vec2_zero, vec2(rect->size.x, -rect->size.y));
+
+        /* read gui properties */
+        rect->color = gui->color;
     }
 }
 
