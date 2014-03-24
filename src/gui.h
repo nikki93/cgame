@@ -4,6 +4,7 @@
 #include "entity.h"
 #include "color.h"
 #include "script_export.h"
+#include "vec2.h"
 
 SCRIPT(gui,
 
@@ -11,6 +12,11 @@ SCRIPT(gui,
        EXPORT void gui_remove(Entity ent);
        EXPORT void gui_set_color(Entity ent, Color color);
        EXPORT Color gui_gui_color(Entity ent);
+
+       EXPORT void gui_rect_add(Entity ent);
+       EXPORT void gui_rect_remove(Entity ent);
+       EXPORT void gui_rect_set_size(Entity ent, Vec2 size);
+       EXPORT Vec2 gui_rect_get_size(Entity ent);
 
        EXPORT void gui_text_add(Entity ent);
        EXPORT void gui_text_remove(Entity ent);

@@ -29,7 +29,6 @@ struct Gui
 
     Color color;
 
-    Mat3 wmat;
     BBox bbox; /* in entity space */
 };
 
@@ -89,7 +88,6 @@ static void _common_update_all()
         ent = gui->pool_elem.ent;
         if (entity_eq(transform_get_parent(ent), entity_nil))
             transform_set_parent(ent, gui_root);
-        gui->wmat = transform_get_world_matrix(ent);
     }
 
     /* update edit bboxes */
@@ -110,7 +108,6 @@ static void _common_save_all(Serializer *s)
 
         entitypool_elem_save(gui_pool, &gui, s);
         color_save(&gui->color, s);
-        mat3_save(&gui->wmat, s);
     }
     loop_end_save(s);
 }
@@ -122,8 +119,132 @@ static void _common_load_all(Deserializer *s)
     {
         entitypool_elem_load(gui_pool, &gui, s);
         color_load(&gui->color, s);
-        mat3_load(&gui->wmat, s);
     }
+}
+
+/* --- rect ---------------------------------------------------------------- */
+
+typedef struct Rect Rect;
+struct Rect
+{
+    EntityPoolElem pool_elem;
+
+    Mat3 wmat;
+    Vec2 size;
+};
+
+static EntityPool *rect_pool;
+
+void gui_rect_add(Entity ent)
+{
+    Rect *rect;
+
+    if (entitypool_get(rect_pool, ent))
+        return;
+
+    gui_add(ent);
+
+    rect = entitypool_add(rect_pool, ent);
+    rect->size = vec2(64, 64);
+}
+void gui_rect_remove(Entity ent)
+{
+    entitypool_remove(rect_pool, ent);
+}
+
+void gui_rect_set_size(Entity ent, Vec2 size)
+{
+    Rect *rect = entitypool_get(rect_pool, ent);
+    assert(rect);
+    rect->size = size;
+}
+Vec2 gui_rect_get_size(Entity ent)
+{
+    Rect *rect = entitypool_get(rect_pool, ent);
+    assert(rect);
+    return rect->size;
+}
+
+static GLuint rect_program;
+static GLuint rect_vao;
+static GLuint rect_vbo;
+
+static void _rect_init()
+{
+    /* init pool */
+    rect_pool = entitypool_new(Rect);
+
+    /* create shader program, load texture, bind parameters */
+    rect_program = gfx_create_program(data_path("rect.vert"),
+                                      data_path("rect.geom"),
+                                      data_path("rect.frag"));
+    glUseProgram(rect_program);
+
+    /* make vao, vbo, bind attributes */
+    glGenVertexArrays(1, &rect_vao);
+    glBindVertexArray(rect_vao);
+    glGenBuffers(1, &rect_vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, rect_vbo);
+    gfx_bind_vertex_attrib(rect_program, GL_FLOAT, 3, "wmat1", Rect, wmat.m[0]);
+    gfx_bind_vertex_attrib(rect_program, GL_FLOAT, 3, "wmat2", Rect, wmat.m[1]);
+    gfx_bind_vertex_attrib(rect_program, GL_FLOAT, 3, "wmat3", Rect, wmat.m[2]);
+    gfx_bind_vertex_attrib(rect_program, GL_FLOAT, 2, "size", Rect, size);
+}
+static void _rect_deinit()
+{
+    /* deinit gl stuff */
+    glDeleteProgram(rect_program);
+    glDeleteBuffers(1, &rect_vbo);
+    glDeleteVertexArrays(1, &rect_vao);
+
+    /* deinit pool */
+    entitypool_free(rect_pool);
+}
+
+static void _rect_update_all()
+{
+    Rect *rect;
+    Gui *gui;
+
+    entitypool_remove_destroyed(rect_pool, gui_rect_remove);
+
+    entitypool_foreach(rect, rect_pool)
+    {
+        /* world matrix */
+        rect->wmat = transform_get_world_matrix(rect->pool_elem.ent);
+
+        /* gui bbox */
+        gui = entitypool_get(gui_pool, rect->pool_elem.ent);
+        assert(gui);
+        gui->bbox = bbox_bound(vec2_zero, rect->size);
+    }
+}
+
+static void _rect_draw_all()
+{
+    unsigned int nrects;
+
+    /* bind shader program */
+    glUseProgram(rect_program);
+    glUniformMatrix3fv(glGetUniformLocation(rect_program,
+                                            "inverse_view_matrix"),
+                       1, GL_FALSE,
+                       (const GLfloat *) camera_get_inverse_view_matrix_ptr());
+
+    /* draw! */
+    glBindVertexArray(rect_vao);
+    glBindBuffer(GL_ARRAY_BUFFER, rect_vbo);
+    nrects = entitypool_size(rect_pool);
+    glBufferData(GL_ARRAY_BUFFER, nrects * sizeof(Rect),
+                 entitypool_begin(rect_pool), GL_STREAM_DRAW);
+    glDrawArrays(GL_POINTS, 0, nrects);
+}
+
+static void _rect_save_all(Serializer *s)
+{
+}
+static void _rect_load_all(Deserializer *s)
+{
 }
 
 /* --- text ---------------------------------------------------------------- */
@@ -230,8 +351,8 @@ static void _text_init()
 
     /* create shader program, load texture, bind parameters */
     text_program = gfx_create_program(data_path("text.vert"),
-                                 data_path("text.geom"),
-                                 data_path("text.frag"));
+                                      data_path("text.geom"),
+                                      data_path("text.frag"));
     glUseProgram(text_program);
     texture_load(data_path("font1.png"));
     glUniform1i(glGetUniformLocation(text_program, "tex0"), 0);
@@ -267,14 +388,13 @@ static void _text_update_all()
 
     entitypool_remove_destroyed(text_pool, gui_text_remove);
 
-    /* update GUI bboxes */
-    if (edit_get_enabled())
-        entitypool_foreach(text, text_pool)
-        {
-            gui = entitypool_get(gui_pool, text->pool_elem.ent);
-            assert(gui);
-            gui->bbox = bbox_bound(vec2_zero, vec2_mul(size, text->bounds));
-        }
+    entitypool_foreach(text, text_pool)
+    {
+        /* gui bbox */
+        gui = entitypool_get(gui_pool, text->pool_elem.ent);
+        assert(gui);
+        gui->bbox = bbox_bound(vec2_zero, vec2_mul(size, text->bounds));
+    }
 }
 
 static void _text_draw_all()
@@ -282,6 +402,7 @@ static void _text_draw_all()
     Vec2 hwin;
     Text *text;
     Gui *gui;
+    Mat3 wmat;
     unsigned int nchars;
 
     hwin = vec2_scalar_mul(game_get_window_size(), 0.5);
@@ -301,11 +422,12 @@ static void _text_draw_all()
     /* draw! */
     entitypool_foreach(text, text_pool)
     {
+        wmat = transform_get_world_matrix(text->pool_elem.ent);
+        glUniformMatrix3fv(glGetUniformLocation(text_program, "wmat"),
+                           1, GL_FALSE, (const GLfloat *) &wmat);
+
         gui = entitypool_get(gui_pool, text->pool_elem.ent);
         assert(gui);
-
-        glUniformMatrix3fv(glGetUniformLocation(text_program, "wmat"),
-                           1, GL_FALSE, (const GLfloat *) &gui->wmat);
         glUniform4fv(glGetUniformLocation(text_program, "base_color"), 1,
                      (const GLfloat *) &gui->color);
 
@@ -381,11 +503,13 @@ void gui_init()
 {
     _create_root();
     _common_init();
+    _rect_init();
     _text_init();
 }
 void gui_deinit()
 {
     _text_deinit();
+    _rect_deinit();
     _common_deinit();
 }
 
@@ -401,22 +525,26 @@ static void _update_gui_root()
 void gui_update_all()
 {
     _update_gui_root();
+    _rect_update_all();
     _text_update_all();
     _common_update_all();
 }
 
 void gui_draw_all()
 {
+    _rect_draw_all();
     _text_draw_all();
 }
 
 void gui_save_all(Serializer *s)
 {
     _common_save_all(s);
+    _rect_save_all(s);
     _text_save_all(s);
 }
 void gui_load_all(Deserializer *s)
 {
     _common_load_all(s);
+    _rect_load_all(s);
     _text_load_all(s);
 }
