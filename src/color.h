@@ -10,6 +10,7 @@ SCRIPT(color,
        typedef struct Color Color;
        struct Color { Scalar r, g, b, a; };
 
+       EXPORT Color color(Scalar r, Scalar g, Scalar b, Scalar a);
        EXPORT extern Color color_black;
        EXPORT extern Color color_white;
        EXPORT extern Color color_red;

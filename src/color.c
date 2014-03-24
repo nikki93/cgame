@@ -20,3 +20,9 @@ void color_load(Color *c, Deserializer *s)
     scalar_load(&c->b, s);
     scalar_load(&c->a, s);
 }
+
+#undef color
+Color color(Scalar r, Scalar g, Scalar b, Scalar a)
+{
+    return (Color) { r, g, b, a };
+}
