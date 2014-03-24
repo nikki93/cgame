@@ -196,6 +196,7 @@ void entity_init()
 }
 void entity_deinit()
 {
+    entitymap_free(save_filter_map);
     array_free(unused);
     entitymap_free(unused_map);
     array_free(destroyed);
