@@ -9,26 +9,26 @@
 
 SCRIPT(edit,
 
-       void edit_set_enabled(bool e);
-       bool edit_get_enabled();
+       EXPORT void edit_set_enabled(bool e);
+       EXPORT bool edit_get_enabled();
 
-       void edit_bboxes_clear();
-       void edit_bboxes_update(Entity ent, BBox bbox); /* merge bbox */
-       unsigned int edit_bboxes_get_num();
+       EXPORT void edit_bboxes_clear();
+       EXPORT void edit_bboxes_update(Entity ent, BBox bbox); /* merge bbox */
+       EXPORT unsigned int edit_bboxes_get_num();
        typedef struct EntityBBoxPair EntityBBoxPair;
        struct EntityBBoxPair { Entity ent; BBox bbox; };
-       EntityBBoxPair edit_bboxes_get_nth(unsigned int n);
-       void edit_bboxes_set_selected(Entity ent, bool selected);
+       EXPORT EntityBBoxPair edit_bboxes_get_nth(unsigned int n);
+       EXPORT void edit_bboxes_set_selected(Entity ent, bool selected);
 
-       void edit_select_clear();
-       void edit_select_add(Entity ent);
-       void edit_select_remove(Entity ent);
-       bool edit_select_has(Entity ent);
+       EXPORT void edit_select_clear();
+       EXPORT void edit_select_add(Entity ent);
+       EXPORT void edit_select_remove(Entity ent);
+       EXPORT bool edit_select_has(Entity ent);
 
-       void edit_init();
-       void edit_deinit();
-       void edit_update_all();
-       void edit_draw_all();
+       EXPORT void edit_init();
+       EXPORT void edit_deinit();
+       EXPORT void edit_update_all();
+       EXPORT void edit_draw_all();
 
     )
 

@@ -65,6 +65,7 @@ void texture_load(const char *filename)
     _flip_image_vertical(data, tex->width, tex->height);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex->width, tex->height,
                  0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    stbi_image_free(data);
 }
 
 Texture *_find(const char *filename)

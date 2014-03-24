@@ -20,9 +20,11 @@ bool bbox_contains(BBox b, Vec2 p)
         && b.min.y <= p.y && p.y <= b.max.y;
 }
 
-#undef bbox
 BBox bbox(Vec2 min, Vec2 max)
 {
-    return (BBox) { min, max };
+    BBox bb;
+    bb.min = min;
+    bb.max = max;
+    return bb;
 }
 

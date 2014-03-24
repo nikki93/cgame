@@ -92,9 +92,14 @@ unsigned int edit_bboxes_get_num()
 EntityBBoxPair edit_bboxes_get_nth(unsigned int n)
 {
     BBoxPoolElem *elem;
+    EntityBBoxPair pair;
+
     assert(n < entitypool_size(bbox_pool));
     elem = entitypool_nth(bbox_pool, n);
-    return (EntityBBoxPair) { elem->pool_elem.ent, elem->bbox };
+
+    pair.ent = elem->pool_elem.ent;
+    pair.bbox = elem->bbox;
+    return pair;
 }
 
 void edit_bboxes_set_selected(Entity ent, bool selected)

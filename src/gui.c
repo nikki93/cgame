@@ -371,12 +371,16 @@ static void _text_init()
 }
 static void _text_deinit()
 {
+    Text *text;
+    
     /* deinit gl stuff */
     glDeleteProgram(text_program);
     glDeleteBuffers(1, &text_vbo);
     glDeleteVertexArrays(1, &text_vao);
 
     /* deinit pool */
+    entitypool_foreach(text, text_pool)
+        array_free(text->chars);
     entitypool_free(text_pool);
 }
 

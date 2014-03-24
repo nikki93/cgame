@@ -27,8 +27,8 @@ ext/. From the repository root,
     cmake -E chdir build cmake ..
     cmake --build build
 
-The above instructions have been tested under OSX with clang+make and Windows
-with Visual Studio 2013.
+The above instructions have been tested under OSX with clang+make, and
+less recently on Linux with gcc+make and Windows with Visual Studio 2013.
 
 Running
 ---
