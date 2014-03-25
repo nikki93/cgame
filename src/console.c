@@ -27,6 +27,10 @@ static void _update_text()
     unsigned int i;
     char *buf, *c, *r;
 
+    /* entity exists? */
+    if (entity_eq(text, entity_nil))
+        return;
+
     /* accumulate non-empty lines and set text string */
 
     buf = malloc(NUM_LINES * LINE_LEN);
@@ -38,6 +42,13 @@ static void _update_text()
     gui_text_set_str(text, buf);
 
     free(buf);
+}
+
+void console_set_entity(Entity ent)
+{
+    text = ent;
+    gui_text_add(text);
+    _update_text();
 }
 
 /* write a string to console with wrapping */
@@ -129,17 +140,11 @@ void console_init()
 {
     unsigned int i;
 
-    /* create text entity */
-    text = entity_create();
-    entity_set_persistent(text, true);
-    transform_add(text);
-    transform_set_position(text, vec2_zero);
-    gui_text_add(text);
+    text = entity_nil;
 
     /* initially all empty */
     for (i = 0; i < NUM_LINES; ++i)
         lines[i][0] = '\0';
-    _update_text();
 
     /* listen to keys */
     input_add_key_down_callback(_keydown);
