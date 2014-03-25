@@ -6,6 +6,7 @@ usr/*
 .clang_complete
 .gdbinit
 .lldbinit
+*.trace/
 
 *.swp
 *~
