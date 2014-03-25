@@ -70,11 +70,13 @@ systems
 - texture
 - text
 - console
+- edit
 
 - entity
 - transform
 - camera
 - sprite
 - physics
+- gui
 
 
