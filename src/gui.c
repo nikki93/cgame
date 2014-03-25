@@ -249,9 +249,32 @@ static void _rect_draw_all()
 
 static void _rect_save_all(Serializer *s)
 {
+    Rect *rect;
+
+    entitypool_foreach(rect, rect_pool)
+    {
+        if (!entity_get_save_filter(rect->pool_elem.ent))
+            continue;
+        loop_continue_save(s);
+
+        entitypool_elem_save(rect_pool, &rect, s);
+        mat3_save(&rect->wmat, s);
+        vec2_save(&rect->size, s);
+        color_save(&rect->color, s);
+    }
+    loop_end_save(s);
 }
 static void _rect_load_all(Deserializer *s)
 {
+    Rect *rect;
+
+    while (loop_continue_load(s))
+    {
+        entitypool_elem_load(rect_pool, &rect, s);
+        mat3_load(&rect->wmat, s);
+        vec2_load(&rect->size, s);
+        color_load(&rect->color, s);
+    }
 }
 
 /* --- text ---------------------------------------------------------------- */
