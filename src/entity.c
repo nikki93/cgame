@@ -22,8 +22,6 @@ typedef struct ExistsPoolElem ExistsPoolElem;
 struct ExistsPoolElem
 {
     EntityPoolElem pool_elem;
-
-    bool persistent;
 };
 
 static EntityPool *exists_pool; /* all existing entities */
@@ -99,7 +97,6 @@ Entity entity_create()
 
     /* add to exists pool */
     exists = entitypool_add(exists_pool, ent);
-    exists->persistent = false;
 
     return ent;
 }
@@ -133,31 +130,12 @@ void entity_destroy_all()
 {
     ExistsPoolElem *exists;
     entitypool_foreach(exists, exists_pool)
-        if (!exists->persistent)
-            entity_destroy(exists->pool_elem.ent);
+        entity_destroy(exists->pool_elem.ent);
 }
 
 bool entity_destroyed(Entity ent)
 {
     return entitymap_get(destroyed_map, ent);
-}
-
-void entity_set_persistent(Entity ent, bool persistent)
-{
-    ExistsPoolElem *exists = entitypool_get(exists_pool, ent);
-    assert(exists);
-    exists->persistent = persistent;
-}
-bool entity_get_persistent(Entity ent)
-{
-    ExistsPoolElem *exists;
-
-    if (entity_eq(ent, entity_nil))
-        return true;
-
-    exists = entitypool_get(exists_pool, ent);
-    assert(exists);
-    return exists->persistent;
 }
 
 void entity_set_save_filter(Entity ent, bool filter)
@@ -175,7 +153,7 @@ bool entity_get_save_filter(Entity ent)
     SaveFilter filter = entitymap_get(save_filter_map, ent);
     if (filter == SF_UNSET)
         filter = save_filter_default; /* not set, use default */
-    return !entity_get_persistent(ent) && filter == SF_SAVE;
+    return filter == SF_SAVE;
 }
 void entity_clear_save_filters()
 {
@@ -279,7 +257,6 @@ void entity_save_all(Serializer *s)
         loop_continue_save(s);
 
         entitypool_elem_save(exists_pool, &exists, s);
-        bool_save(&exists->persistent, s);
     }
     loop_end_save(s);
 }
@@ -288,8 +265,5 @@ void entity_load_all(Deserializer *s)
     ExistsPoolElem *exists;
 
     while (loop_continue_load(s))
-    {
         entitypool_elem_load(exists_pool, &exists, s);
-        bool_load(&exists->persistent, s);
-    }
 }

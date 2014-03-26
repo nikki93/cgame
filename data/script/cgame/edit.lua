@@ -94,7 +94,6 @@ end
 --- status text ----------------------------------------------------------------
 
 cs.edit.status_text = cg.add {
-    entity = { persistent = true },
     group = { groups = 'builtin' },
     transform = { position = cg.vec2(0, -cs.game.get_window_size().y + 12) },
     gui_text = { str = 'edit' },

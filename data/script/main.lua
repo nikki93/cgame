@@ -6,7 +6,6 @@ require 'cgame'
 
 -- set up console text and rebind Lua 'print'
 local console_text = cg.add {
-    entity = { persistent = true },
     group = { groups = 'builtin' },
     transform = { position = cg.vec2_zero },
     gui = { color = cg.color_black },

@@ -14,14 +14,10 @@ SCRIPT(entity,
 
        EXPORT Entity entity_create(); /* claim an unused Entity id */
        EXPORT void entity_destroy(Entity ent); /* release an Entity id */
-       EXPORT void entity_destroy_all(); /* destroy all non-persistent entities */
+       EXPORT void entity_destroy_all();
        EXPORT bool entity_destroyed(Entity ent);
 
        EXPORT bool entity_eq(Entity e, Entity f);
-
-       /* persistent entities aren't destroyed on entity_destroy_all() */
-       EXPORT void entity_set_persistent(Entity ent, bool persistent);
-       EXPORT bool entity_get_persistent(Entity ent);
 
        /*
         * if set true for any entity, only those entities will be

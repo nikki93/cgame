@@ -553,7 +553,6 @@ static void _text_load_all(Deserializer *s)
 static void _create_root()
 {
     gui_root = entity_create();
-    entity_set_persistent(gui_root, true);
     transform_add(gui_root);
     transform_set_position(gui_root, vec2(-1, 1)); /* origin at top-left */
 }
