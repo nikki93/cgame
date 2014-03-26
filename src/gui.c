@@ -1,6 +1,8 @@
 #include "gui.h"
 
 #include <assert.h>
+#include <stdlib.h>
+#include <string.h>
 #include <GL/glew.h>
 
 #include "entitypool.h"
@@ -299,11 +301,58 @@ struct Text
 {
     EntityPoolElem pool_elem;
 
+    char *str;
     Array *chars;  /* per-character info buffered to shader */
     Vec2 bounds;   /* max x, min y in size-less units */
 };
 
 static EntityPool *text_pool;
+
+static void _text_set_str(Text *text, const char *str)
+{
+    char c;
+    TextChar *tc;
+    Vec2 pos;
+
+    /* copy to struct */
+    free(text->str);
+    text->str = malloc(strlen(str) + 1);
+    strcpy(text->str, str);
+
+    /* create TextChar array and update bounds */
+    pos = vec2(0, -1);
+    text->bounds = vec2(1, -1);
+    array_clear(text->chars);
+    while (*str)
+    {
+        c = *str++;
+        switch (c)
+        {
+            case '\n':
+                /* next line */
+                pos.x = 0;
+                pos.y -= 1;
+                continue;
+
+            case ' ':
+                /* just skip ahead */
+                pos.x += 1;
+                text->bounds.x = scalar_max(text->bounds.x, pos.x);
+                continue;
+        }
+
+        /* compute position in font grid */
+        tc = array_add(text->chars);
+        tc->pos = pos;
+        tc->cell = vec2(c % TEXT_GRID_W, TEXT_GRID_H - 1 - (c / TEXT_GRID_W));
+
+        /* move ahead */
+        pos.x += 1;
+        text->bounds.x = scalar_max(text->bounds.x, pos.x);
+    }
+
+    text->bounds.y = pos.y;
+}
 
 void gui_text_add(Entity ent)
 {
@@ -316,58 +365,31 @@ void gui_text_add(Entity ent)
 
     text = entitypool_add(text_pool, ent);
     text->chars = array_new(TextChar);
+    text->str = NULL; /* _text_set_str(...) calls free(text->str) */
+    _text_set_str(text, "");
 }
 void gui_text_remove(Entity ent)
 {
     Text *text = entitypool_get(text_pool, ent);
     if (text)
-        array_free(text->chars);
-    entitypool_remove(text_pool, ent);
-}
-
-/* update char array and bounds */
-static void _text_update_str(Text *text, const char *str)
-{
-    char c;
-    TextChar *tc;
-    Vec2 pos;
-
-    pos = vec2(0, -1);
-
-    text->bounds = vec2(1, -1);
-    array_clear(text->chars);
-    while (*str)
     {
-        c = *str++;
-        switch (c)
-        {
-            case '\n':
-                pos.x = 0;
-                pos.y -= 1;
-                continue;
-
-            case ' ':
-                pos.x += 1;
-                text->bounds.x = scalar_max(text->bounds.x, pos.x);
-                continue;
-        }
-
-        tc = array_add(text->chars);
-        tc->pos = pos;
-        tc->cell = vec2(c % TEXT_GRID_W, TEXT_GRID_H - 1 - (c / TEXT_GRID_W));
-
-        pos.x += 1;
-        text->bounds.x = scalar_max(text->bounds.x, pos.x);
+        free(text->str);
+        array_free(text->chars);
     }
-
-    text->bounds.y = pos.y;
+    entitypool_remove(text_pool, ent);
 }
 
 void gui_text_set_str(Entity ent, const char *str)
 {
     Text *text = entitypool_get(text_pool, ent);
     assert(text);
-    _text_update_str(text, str);
+    _text_set_str(text, str);
+}
+const char *gui_text_get_str(Entity ent)
+{
+    Text *text = entitypool_get(text_pool, ent);
+    assert(text);
+    return text->str;
 }
 
 static GLuint text_program;
@@ -410,7 +432,10 @@ static void _text_deinit()
 
     /* deinit pool */
     entitypool_foreach(text, text_pool)
+    {
+        free(text->str);
         array_free(text->chars);
+    }
     entitypool_free(text_pool);
 }
 
