@@ -32,52 +32,6 @@ static char **sargv;
 
 /* ------------------------------------------------------------------------- */
 
-static Entity fps_text;
-
-static void _fps_init()
-{
-    fps_text = entity_create();
-    entity_set_persistent(fps_text, true);
-    transform_add(fps_text);
-    gui_text_add(fps_text);
-    gui_text_set_str(fps_text, "fps: ...");
-    gui_set_color(fps_text, color(0.0f, 0.4f, 0.1f, 1.0f));
-}
-
-static void _fps_update()
-{
-    static char buf[32];
-    static const double display_period = 2.5f; /* fps display update period */
-    static unsigned int nframes = 0;
-    static double last_time = 0.0, curr_time;
-    static bool first = true;
-    int nchars;
-    double interval;
-    Vec2 win_size;
-
-    ++nframes;
-
-    curr_time = glfwGetTime();
-    interval = curr_time - last_time;
-    if (first || interval > display_period)
-    {
-        nchars = !first ? sprintf(buf, "fps: %.2f", nframes / interval)
-            : sprintf(buf, "fps: ...");
-        gui_text_set_str(fps_text, buf);
-
-        win_size = game_get_window_size();
-        transform_set_position(fps_text, vec2(win_size.x - 10 * nchars,
-                                              -win_size.y + 12));
-
-        nframes = 0;
-        last_time = curr_time;
-    }
-
-    first = false;
-}
-
-/* ------------------------------------------------------------------------- */
-
 static void _glfw_error_callback(int error, const char *desc)
 {
     fprintf(stderr, "glfw: %s\n", desc);
@@ -165,7 +119,6 @@ static void _game_init()
 
     /* init systems */
     system_init();
-    _fps_init();
 
     /* bind event callbacks */
     input_add_key_down_callback(_game_key_down);
@@ -217,8 +170,6 @@ void game_run(int argc, char **argv)
         _game_events();
         _game_update();
         _game_draw();
-
-        _fps_update();
     }
 
     _game_deinit();
