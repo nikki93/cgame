@@ -7,6 +7,7 @@ local timer = 0;
 -- display gui entity
 local display = cg.add {
     entity = { persistent = true },
+    group = { groups = 'builtin' },
     gui_text = { str = 'fps: ...' },
     gui = { color = cg.color(0, 0.4, 0.1, 1) },
 }
