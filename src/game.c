@@ -37,52 +37,6 @@ static void _glfw_error_callback(int error, const char *desc)
     fprintf(stderr, "glfw: %s\n", desc);
 }
 
-static void _game_key_down(KeyCode key)
-{
-    switch (key)
-    {
-        case KC_ESCAPE: /* escape: quit */
-            game_quit();
-            break;
-
-        case KC_E: /* e: toggle edit */
-            timing_set_paused(!edit_get_enabled());
-            edit_set_enabled(!edit_get_enabled());
-            break;
-
-        case KC_P: /* p: toggle pause */
-            timing_set_paused(!timing_get_paused());
-            break;
-
-        case KC_C: /* c: clear */
-            entity_destroy_all();
-            console_puts("cleared");
-            break;
-
-        case KC_S: /* s: save */
-            console_printf("saving to '%s'\n", usr_path("test.sav"));
-            Serializer *s = serializer_open_file(usr_path("test.sav"));
-            system_save_all(s);
-            serializer_close(s);
-            break;
-
-        case KC_L: /* l: load */
-            console_printf("loading from '%s'\n", usr_path("test.sav"));
-            Deserializer *d = deserializer_open_file(usr_path("test.sav"));
-            system_load_all(d);
-            deserializer_close(d);
-            break;
-
-        case KC_R: /* shift+r: run scratch buffer */
-            if (input_key_down(KC_LEFT_SHIFT))
-                scratch_run();
-            break;
-
-        default:
-            break;
-    }
-}
-
 static void _game_init()
 {
     /* initialize glfw */
@@ -119,9 +73,6 @@ static void _game_init()
 
     /* init systems */
     system_init();
-
-    /* bind event callbacks */
-    input_add_key_down_callback(_game_key_down);
 
     /* init test */
     test_init();
