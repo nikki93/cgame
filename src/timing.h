@@ -10,6 +10,8 @@
 SCRIPT(timing,
 
        EXPORT extern Scalar timing_dt;
+       EXPORT extern Scalar timing_true_dt; /* actual delta time,
+                                               unaffected by scale/pause */
 
        EXPORT void timing_set_scale(Scalar s);
        EXPORT Scalar timing_get_scale();

@@ -3,6 +3,7 @@
 #include <glew_glfw.h>
 
 Scalar timing_dt;
+Scalar timing_true_dt;
 static Scalar scale = 1.0f;
 static bool paused = false;
 
@@ -34,7 +35,8 @@ static void _dt_update()
         last_time = glfwGetTime();
 
     curr_time = glfwGetTime();
-    timing_dt = paused ? 0.0f : scale * (curr_time - last_time);
+    timing_true_dt = curr_time - last_time;
+    timing_dt = paused ? 0.0f : scale * timing_true_dt;
     last_time = curr_time;
 }
 
