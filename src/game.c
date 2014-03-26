@@ -158,6 +158,8 @@ static void _game_draw()
     glfwSwapBuffers(game_window);
 }
 
+/* ------------------------------------------------------------------------- */
+
 void game_run(int argc, char **argv)
 {
     sargc = argc;
