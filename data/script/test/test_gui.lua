@@ -7,6 +7,10 @@ win = cg.add {
 text = cg.add {
     transform = { position = cg.vec2(10, -10), parent = win },
     gui_text = { str = 'hello, world!' },
-    gui = { color = cg.color_white },
+    gui = {
+        color = cg.color_white,
+        halign = cg.GA_MIN,
+        valign = cg.GA_MAX,
+    },
 }
 
