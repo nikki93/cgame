@@ -13,7 +13,7 @@ local function _groups(groups)
 end
 
 function cs.group.add(ent, groups)
-    -- if no groups listed, nothing to do
+    -- if no groups parameter, nothing to do
     if not groups then return end
 
     for group in _groups(groups) do

@@ -16,8 +16,8 @@ function cs.app.key_down(key)
         cs.timing.set_paused(not cs.timing.get_paused())
 
     elseif key == cg.KC_C then
+        print("destroying group 'default'")
         cs.group.destroy('default')
-        print("destroyed group 'default'")
 
     elseif key == cg.KC_S then
         print("saving group 'default' to file '"
