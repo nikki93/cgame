@@ -88,3 +88,7 @@ cgame.Mat3 = ffi.metatype('Mat3',
             'cgame.mat3_load')
     },
 })
+
+--- BBox -----------------------------------------------------------------------
+
+cgame.BBox = ffi.metatype('BBox', {})
