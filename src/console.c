@@ -50,6 +50,10 @@ void console_set_entity(Entity ent)
     gui_text_add(text);
     _update_text();
 }
+Entity console_get_entity()
+{
+    return text;
+}
 
 /* write a string to console with wrapping */
 static void _write(const char *s)
