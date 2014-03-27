@@ -102,10 +102,17 @@ static void _game_update()
 
 static void _game_draw()
 {
+    static bool first = true;
+
+    /* don't draw first frame -- allow a full update */
+    if (first)
+    {
+        first = false;
+        return;
+    }
+
     glClear(GL_COLOR_BUFFER_BIT);
-
     system_draw_all();
-
     glfwSwapBuffers(game_window);
 }
 
