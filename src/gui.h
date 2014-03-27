@@ -16,15 +16,37 @@ SCRIPT(gui,
         */
        EXPORT Entity gui_get_root();
 
+       /* gui */
+
        EXPORT void gui_add(Entity ent);
        EXPORT void gui_remove(Entity ent);
        EXPORT void gui_set_color(Entity ent, Color color);
-       EXPORT Color gui_gui_color(Entity ent);
+       EXPORT Color gui_get_color(Entity ent);
+
+       typedef enum GuiAlign GuiAlign;
+       enum GuiAlign
+       {
+           GA_MIN,   /* h: left, v: bottom */
+           GA_MID,   /* h: center, v: center */
+           GA_MAX,   /* h: right, v: top */
+           GA_NONE,  /* manual position */
+       };
+
+       EXPORT void gui_set_halign(Entity ent, GuiAlign align);
+       EXPORT GuiAlign gui_get_halign(Entity ent);
+       EXPORT void gui_set_valign(Entity ent, GuiAlign align);
+       EXPORT GuiAlign gui_get_valign(Entity ent);
+       EXPORT void gui_set_padding(Entity ent, Vec2 padding); /* h, v */
+       EXPORT Vec2 gui_get_padding(Entity ent); /* h, v */
+
+       /* gui_rect */
 
        EXPORT void gui_rect_add(Entity ent);
        EXPORT void gui_rect_remove(Entity ent);
        EXPORT void gui_rect_set_size(Entity ent, Vec2 size);
        EXPORT Vec2 gui_rect_get_size(Entity ent);
+
+       /* gui_text */
 
        EXPORT void gui_text_add(Entity ent);
        EXPORT void gui_text_remove(Entity ent);

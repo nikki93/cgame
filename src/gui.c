@@ -32,6 +32,9 @@ struct Gui
     Color color;
 
     BBox bbox; /* in entity space */
+    GuiAlign halign;
+    GuiAlign valign;
+    Vec2 padding;
 };
 
 static EntityPool *gui_pool;
@@ -53,6 +56,9 @@ void gui_add(Entity ent)
     gui = entitypool_add(gui_pool, ent);
     gui->color = color(0.5, 0.5, 0.5, 1.0);
     gui->bbox = bbox(vec2_zero, vec2(32, 32));
+    gui->halign = GA_NONE;
+    gui->valign = GA_NONE;
+    gui->padding = vec2(6, 6);
 }
 
 void gui_remove(Entity ent)
@@ -73,6 +79,43 @@ Color gui_get_color(Entity ent)
     return gui->color;
 }
 
+void gui_set_halign(Entity ent, GuiAlign align)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    gui->halign = align;
+}
+GuiAlign gui_get_halign(Entity ent)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    return gui->halign;
+}
+void gui_set_valign(Entity ent, GuiAlign align)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    gui->valign = align;
+}
+GuiAlign gui_get_valign(Entity ent)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    return gui->valign;
+}
+void gui_set_padding(Entity ent, Vec2 padding)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    gui->padding = padding;
+}
+Vec2 gui_get_padding(Entity ent)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    return gui->padding;
+}
+
 static void _common_init()
 {
     gui_pool = entitypool_new(Gui);
@@ -80,6 +123,55 @@ static void _common_init()
 static void _common_deinit()
 {
     entitypool_free(gui_pool);
+}
+
+static void _common_update_align()
+{
+    Gui *gui, *pgui;
+    BBox b, pb;
+    Vec2 pos;
+    Entity ent;
+    Scalar mid, pmid;
+
+    entitypool_foreach(gui, gui_pool)
+    {
+        if (gui->halign == GA_NONE && gui->valign == GA_NONE)
+            continue;
+
+        ent = gui->pool_elem.ent;
+
+        /* get parent-space bounding box and position */
+        b = bbox_transform(transform_get_matrix(ent), gui->bbox);
+        pos = transform_get_position(ent);
+
+        /* get parent gui and its bounding box */
+        pgui = entitypool_get(gui_pool, transform_get_parent(ent));
+        pb = pgui->bbox;
+        assert(pgui);
+
+        /* macro to avoid repetition -- 'z' is Vec2 axis member (x or y) */
+#define axis_align(align, z)                                            \
+        switch (align)                                                  \
+        {                                                               \
+            case GA_MIN:                                                \
+                pos.z = pb.min.z + gui->padding.z + pos.z - b.min.z;    \
+                break;                                                  \
+            case GA_MAX:                                                \
+                pos.z = pb.max.z - gui->padding.z - (b.max.z - pos.z);  \
+                break;                                                  \
+            case GA_MID:                                                \
+                mid = 0.5 * (b.min.z + b.max.z);                        \
+                pmid = 0.5 * (pb.min.z + pb.max.z);                     \
+                pos.z = pmid - (mid - pos.z);                           \
+                break;                                                  \
+            case GA_NONE:                                               \
+                break;                                                  \
+        }                                                               \
+
+        axis_align(gui->halign, x);
+        axis_align(gui->valign, y);
+        transform_set_position(ent, pos);
+    }
 }
 
 static void _common_update_all()
@@ -116,6 +208,9 @@ static void _common_save_all(Serializer *s)
 
         entitypool_elem_save(gui_pool, &gui, s);
         color_save(&gui->color, s);
+        enum_save(&gui->halign, s);
+        enum_save(&gui->valign, s);
+        vec2_save(&gui->padding, s);
     }
     loop_end_save(s);
 }
@@ -127,6 +222,9 @@ static void _common_load_all(Deserializer *s)
     {
         entitypool_elem_load(gui_pool, &gui, s);
         color_load(&gui->color, s);
+        enum_load(&gui->halign, s);
+        enum_load(&gui->valign, s);
+        vec2_load(&gui->padding, s);
     }
 }
 
@@ -603,6 +701,7 @@ static void _update_root()
 void gui_update_all()
 {
     _update_root();
+    _common_update_align();
     _rect_update_all();
     _text_update_all();
     _common_update_all();
