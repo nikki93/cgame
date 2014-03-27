@@ -318,32 +318,42 @@ static void _rect_update_table_align()
     Rect *rect;
     Gui *child;
     unsigned int nchildren, i;
-    Scalar y, delta;
+    Scalar delta;
     BBox b;
-    Vec2 pos;
+    Vec2 pos, curr;
 
     /* for each parent */
     entitypool_foreach(rect, rect_pool)
     {
         rect_ent = rect->pool_elem.ent;
 
-        y = 0;
+        curr = vec2_zero;
         children = transform_get_children(rect_ent);
         nchildren = transform_get_num_children(rect_ent);
         for (i = 0; i < nchildren; ++i)
         {
             child = entitypool_get(gui_pool, children[i]);
-            if (!child || child->valign != GA_TABLE)
+            if (!(child
+                  && (child->halign == GA_TABLE || child->valign == GA_TABLE)))
                 continue;
 
             b = bbox_transform(transform_get_matrix(children[i]), child->bbox);
-            delta = y - child->padding.y - b.max.y;
-
             pos = transform_get_position(children[i]);
-            pos.y += delta;
-            transform_set_position(children[i], pos);
 
-            y = b.min.y + delta;
+            if (child->halign == GA_TABLE)
+            {
+                delta = curr.x + child->padding.x - b.min.x;
+                pos.x += delta;
+                curr.x = b.max.x + delta;
+            }
+            if (child->valign == GA_TABLE)
+            {
+                delta = curr.y - child->padding.y - b.max.y;
+                pos.y += delta;
+                curr.y = b.min.y + delta;
+            }
+
+            transform_set_position(children[i], pos);
         }
     }
 }
