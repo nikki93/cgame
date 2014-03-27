@@ -12,10 +12,13 @@ cg.string = ffi.string
 require 'cgame.util'
 require 'cgame.struct'
 require 'cgame.entity_table'
+
 require 'cgame.system'
 require 'cgame.entity'
 require 'cgame.group'
 require 'cgame.input'
 require 'cgame.gui'
+
+require 'cgame.console'
 require 'cgame.edit'
 require 'cgame.fps'
