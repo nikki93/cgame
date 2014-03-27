@@ -146,8 +146,9 @@ static void _common_update_align()
 
         /* get parent gui and its bounding box */
         pgui = entitypool_get(gui_pool, transform_get_parent(ent));
+        if (!pgui)
+            continue;
         pb = pgui->bbox;
-        assert(pgui);
 
         /* macro to avoid repetition -- 'z' is Vec2 axis member (x or y) */
 #define axis_align(align, z)                                            \
