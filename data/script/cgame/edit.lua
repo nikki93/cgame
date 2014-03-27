@@ -436,7 +436,7 @@ end
 cs.edit.boxsel_box = cg.add {
     group = { groups = 'builtin' },
     edit = { editable = false },
-    transform = { position = cg.vec2(20, -20) },
+    transform = { position = cg.vec2(-20, -20) },
     gui_rect = { size = cg.vec2(10, 10) },
     gui = { color = cg.color(0.8, 0.5, 0.1, 0.3) },
 }
