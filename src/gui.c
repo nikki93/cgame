@@ -513,6 +513,8 @@ static void _text_save_all(Serializer *s)
 
         entitypool_elem_save(text_pool, &text, s);
 
+        string_save((const char **) &text->str, s);
+
         nchars = array_length(text->chars);
         uint_save(&nchars, s);
         array_foreach(tc, text->chars)
@@ -534,6 +536,8 @@ static void _text_load_all(Deserializer *s)
     while(loop_continue_load(s))
     {
         entitypool_elem_load(text_pool, &text, s);
+
+        string_load(&text->str, s);
 
         uint_load(&nchars, s);
         text->chars = array_new(TextChar);
