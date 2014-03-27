@@ -29,6 +29,8 @@ function cs.group.add(ent, groups)
     end
 end
 
+cs.group.add_groups = cs.group.add
+
 function cs.group.remove(ent, groups)
     if type(groups) == 'nil' then
         -- no groups given, remove from all
@@ -96,3 +98,12 @@ function cs.group.set_save_filter(groups, val)
     end
 end
 
+function cs.group.save_all()
+    return entity_groups
+end
+
+function cs.group.load_all(d)
+    for ent, groups in pairs(d) do
+        cs.group.set_groups(ent, groups)
+    end
+end
