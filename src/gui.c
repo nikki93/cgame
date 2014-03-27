@@ -166,7 +166,7 @@ static void _common_update_align()
                 pmid = 0.5 * (pb.min.z + pb.max.z);                     \
                 pos.z = pmid - (mid - pos.z);                           \
                 break;                                                  \
-            case GA_NONE:                                               \
+            default:                                                    \
                 break;                                                  \
         }                                                               \
 
@@ -312,12 +312,50 @@ static void _rect_deinit()
     entitypool_free(rect_pool);
 }
 
+static void _rect_update_table_align()
+{
+    Entity rect_ent, *children;
+    Rect *rect;
+    Gui *child;
+    unsigned int nchildren, i;
+    Scalar y, delta;
+    BBox b;
+    Vec2 pos;
+
+    /* for each parent */
+    entitypool_foreach(rect, rect_pool)
+    {
+        rect_ent = rect->pool_elem.ent;
+
+        y = 0;
+        children = transform_get_children(rect_ent);
+        nchildren = transform_get_num_children(rect_ent);
+        for (i = 0; i < nchildren; ++i)
+        {
+            child = entitypool_get(gui_pool, children[i]);
+            if (!child || child->valign != GA_TABLE)
+                continue;
+
+            b = bbox_transform(transform_get_matrix(children[i]), child->bbox);
+            delta = y - child->padding.y - b.max.y;
+
+            pos = transform_get_position(children[i]);
+            pos.y += delta;
+            transform_set_position(children[i], pos);
+
+            y = b.min.y + delta;
+        }
+    }
+}
+
 static void _rect_update_all()
 {
     Rect *rect;
     Gui *gui;
 
     entitypool_remove_destroyed(rect_pool, gui_rect_remove);
+
+    _rect_update_table_align();
 
     entitypool_foreach(rect, rect_pool)
     {

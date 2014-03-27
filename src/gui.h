@@ -29,6 +29,7 @@ SCRIPT(gui,
            GA_MIN,   /* h: left, v: bottom */
            GA_MID,   /* h: center, v: center */
            GA_MAX,   /* h: right, v: top */
+           GA_TABLE, /* h: ?, v: tabular */
            GA_NONE,  /* manual position */
        };
 
