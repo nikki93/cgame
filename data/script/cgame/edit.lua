@@ -397,6 +397,64 @@ function cs.edit.modes.rotate.post_update_all()
 end
 
 
+--- boxsel mode ----------------------------------------------------------------
+
+local boxsel_has_begun, boxsel_init_mouse_pos
+
+function cs.edit.boxsel_start()
+    cs.edit.undo_save()
+    cs.edit.set_mode('boxsel')
+end
+function cs.edit.boxsel_begin()
+    boxsel_has_begun = true
+    boxsel_init_mouse_pos = cs.input.get_mouse_pos_pixels()
+end
+function cs.edit.boxsel_end()
+    if boxsel_has_begun then
+        b = cs.camera.pixels_to_world(boxsel_init_mouse_pos)
+        e = cs.camera.pixels_to_world(cs.input.get_mouse_pos_pixels())
+        bb = cg.BBox(cg.bbox_bound(b, e))
+
+        for i = 0, cs.edit.bboxes_get_num() - 1 do
+            local ent = cg.Entity(cs.edit.bboxes_get_nth(i).ent)
+            if cg.bbox_contains(bb, cs.transform.get_world_position(ent)) then
+                cs.edit.select[ent] = true
+            end
+        end
+    end
+
+    cs.edit.set_mode('normal')
+end
+
+cs.edit.boxsel_box = cg.add {
+    group = { groups = 'builtin' },
+    edit = { editable = false },
+    transform = { position = cg.vec2(20, -20) },
+    gui_rect = { size = cg.vec2(10, 10) },
+    gui = { color = cg.color(0.8, 0.5, 0.1, 0.3) },
+}
+
+cs.edit.modes.boxsel = {}
+
+function cs.edit.modes.boxsel.enter()
+    boxsel_has_begun = false
+end
+
+function cs.edit.modes.boxsel.exit()
+    cs.transform.set_position(cs.edit.boxsel_box, cg.vec2(-20, -20))
+    cs.gui_rect.set_size(cs.edit.boxsel_box, cg.vec2(10, 10))
+end
+
+function cs.edit.modes.boxsel.update_all()
+    if not boxsel_has_begun then return end
+
+    m = cs.input.get_mouse_pos_pixels()
+    b = cg.BBox(cg.bbox_bound(m, boxsel_init_mouse_pos))
+    cs.transform.set_position(cs.edit.boxsel_box, cg.vec2(b.min.x, b.max.y))
+    cs.gui_rect.set_size(cs.edit.boxsel_box, b.max - b.min)
+end
+
+
 --- bindings -------------------------------------------------------------------
 
 -- normal mode
@@ -408,6 +466,7 @@ cs.edit.modes.normal['x'] = cs.edit.destroy
 cs.edit.modes.normal['S-d'] = cs.edit.duplicate
 cs.edit.modes.normal['g'] = cs.edit.grab_start
 cs.edit.modes.normal['r'] = cs.edit.rotate_start
+cs.edit.modes.normal['b'] = cs.edit.boxsel_start
 
 -- grab mode
 cs.edit.modes.grab['<enter>'] = cs.edit.grab_end
@@ -426,6 +485,10 @@ cs.edit.modes.grab['S-<down>'] = function () cs.edit.grab_move_down(10) end
 cs.edit.modes.rotate['<enter>'] = cs.edit.rotate_end
 cs.edit.modes.rotate['<mouse_1>'] = cs.edit.rotate_end
 cs.edit.modes.rotate['<mouse_2>'] = cs.edit.rotate_cancel
+
+-- boxsel mode
+cs.edit.modes.boxsel['<mouse_1>'] = cs.edit.boxsel_begin
+cs.edit.modes.boxsel['^<mouse_1>'] = cs.edit.boxsel_end
 
 
 --- main events ----------------------------------------------------------------
@@ -453,6 +516,8 @@ function cs.edit.update_all()
     for ent, _ in pairs(cs.edit.select) do
         if cs.entity.destroyed(ent) then cs.edit.select[ent] = nil end
     end
+
+    cs.edit.mode_event('update_all')
 end
 
 function cs.edit.post_update_all()
