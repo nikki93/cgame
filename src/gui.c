@@ -93,7 +93,8 @@ static void _common_update_all()
     entitypool_foreach(gui, gui_pool)
     {
         ent = gui->pool_elem.ent;
-        if (entity_eq(transform_get_parent(ent), entity_nil))
+        if (!entity_eq(ent, gui_root)
+            && entity_eq(transform_get_parent(ent), entity_nil))
             transform_set_parent(ent, gui_root);
     }
 
@@ -564,14 +565,15 @@ static void _create_root()
     gui_root = entity_create();
     transform_add(gui_root);
     transform_set_position(gui_root, vec2(-1, 1)); /* origin at top-left */
+    gui_add(gui_root);
 }
 
 void gui_init()
 {
-    _create_root();
     _common_init();
     _rect_init();
     _text_init();
+    _create_root();
 }
 void gui_deinit()
 {
@@ -582,11 +584,20 @@ void gui_deinit()
 
 static void _update_root()
 {
+    Gui *gui;
+    Vec2 win_size;
+
+    win_size = game_get_window_size();
+
+    edit_set_editable(gui_root, false);
+
     /* child of camera so GUI stays on screen */
     transform_set_parent(gui_root, camera_get());
 
     /* use pixel coordinates */
-    transform_set_scale(gui_root, scalar_vec2_div(2, game_get_window_size()));
+    transform_set_scale(gui_root, scalar_vec2_div(2, win_size));
+    gui = entitypool_get(gui_pool, gui_root);
+    gui->bbox = bbox_bound(vec2_zero, vec2(win_size.x, -win_size.y));
 }
 
 void gui_update_all()
