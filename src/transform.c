@@ -164,7 +164,7 @@ Entity *transform_get_children(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
     assert(transform);
-    return array_begin(transform->children);
+    return transform->children ? array_begin(transform->children) : NULL;
 }
 void transform_detach_all(Entity ent)
 {
