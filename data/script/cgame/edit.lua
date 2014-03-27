@@ -12,7 +12,7 @@ cs.edit.get_editable = cg.edit_get_editable
 function cs.edit.add()
 end
 
-function cs.edit._get_entities_under_mouse()
+local function _get_entities_under_mouse()
     local ents = {}
 
     local m = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
@@ -172,7 +172,7 @@ function cs.edit.select_click_single()
     cs.edit.undo_save()
 
     -- anything under mouse?
-    local ents = cs.edit._get_entities_under_mouse()
+    local ents = _get_entities_under_mouse()
     if #ents == 0 then
         cs.edit.select = cg.entity_table()
         return
@@ -195,7 +195,7 @@ function cs.edit.select_click_multi()
     cs.edit.undo_save()
 
     -- anything under mouse?
-    local ents = cs.edit._get_entities_under_mouse()
+    local ents = _get_entities_under_mouse()
     if #ents == 0 then
         return
     end
@@ -401,6 +401,9 @@ end
 
 local boxsel_has_begun, boxsel_init_mouse_pos
 
+local function _boxsel_select()
+end
+
 function cs.edit.boxsel_start()
     cs.edit.undo_save()
     cs.edit.set_mode('boxsel')
@@ -410,6 +413,10 @@ function cs.edit.boxsel_begin()
     boxsel_init_mouse_pos = cs.input.get_mouse_pos_pixels()
 end
 function cs.edit.boxsel_end()
+    cs.edit.select = cg.entity_table()
+    cs.edit.boxsel_end_add()
+end
+function cs.edit.boxsel_end_add()
     if boxsel_has_begun then
         b = cs.camera.pixels_to_world(boxsel_init_mouse_pos)
         e = cs.camera.pixels_to_world(cs.input.get_mouse_pos_pixels())
@@ -488,7 +495,9 @@ cs.edit.modes.rotate['<mouse_2>'] = cs.edit.rotate_cancel
 
 -- boxsel mode
 cs.edit.modes.boxsel['<mouse_1>'] = cs.edit.boxsel_begin
+cs.edit.modes.boxsel['C-<mouse_1>'] = cs.edit.boxsel_begin
 cs.edit.modes.boxsel['^<mouse_1>'] = cs.edit.boxsel_end
+cs.edit.modes.boxsel['^C-<mouse_1>'] = cs.edit.boxsel_end_add
 
 
 --- main events ----------------------------------------------------------------
