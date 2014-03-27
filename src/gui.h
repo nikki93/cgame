@@ -8,6 +8,14 @@
 
 SCRIPT(gui,
 
+       /*
+        * get root entity of which all gui entites are descendants
+        *
+        * this entity's transform is set up so that all its children
+        * have screen pixel coordinates and stay in the camera's view
+        */
+       EXPORT Entity gui_get_root();
+
        EXPORT void gui_add(Entity ent);
        EXPORT void gui_remove(Entity ent);
        EXPORT void gui_set_color(Entity ent, Color color);

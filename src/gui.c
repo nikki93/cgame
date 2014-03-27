@@ -36,6 +36,11 @@ struct Gui
 
 static EntityPool *gui_pool;
 
+Entity gui_get_root()
+{
+    return gui_root;
+}
+
 void gui_add(Entity ent)
 {
     Gui *gui;
@@ -575,7 +580,7 @@ void gui_deinit()
     _common_deinit();
 }
 
-static void _update_gui_root()
+static void _update_root()
 {
     /* child of camera so GUI stays on screen */
     transform_set_parent(gui_root, camera_get());
@@ -586,7 +591,7 @@ static void _update_gui_root()
 
 void gui_update_all()
 {
-    _update_gui_root();
+    _update_root();
     _rect_update_all();
     _text_update_all();
     _common_update_all();
