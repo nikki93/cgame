@@ -2,7 +2,7 @@
 #define BBOX_H
 
 #include "vec2.h"
-#include "bbox.h"
+#include "mat3.h"
 #include "script_export.h"
 
 SCRIPT(bbox,
@@ -14,6 +14,9 @@ SCRIPT(bbox,
        EXPORT BBox bbox_bound(Vec2 a, Vec2 b);
        EXPORT BBox bbox_merge(BBox a, BBox b);
        EXPORT bool bbox_contains(BBox b, Vec2 p);
+
+       /* return bbox around transformed box */
+       EXPORT BBox bbox_transform(Mat3 m, BBox b);
 
     )
 

@@ -28,3 +28,14 @@ BBox bbox(Vec2 min, Vec2 max)
     return bb;
 }
 
+BBox bbox_transform(Mat3 m, BBox b)
+{
+    Vec2 v1, v2, v3, v4;
+
+    v1 = mat3_transform(m, vec2(b.min.x, b.min.y));
+    v2 = mat3_transform(m, vec2(b.max.x, b.min.y));
+    v3 = mat3_transform(m, vec2(b.max.x, b.max.y));
+    v4 = mat3_transform(m, vec2(b.min.x, b.max.y));
+
+    return bbox_merge(bbox_bound(v1, v2), bbox_bound(v3, v4));
+}
