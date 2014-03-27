@@ -43,7 +43,8 @@ SCRIPT(transform,
         * returns mat3_identity() for entity_nil, so that root-transforms
         * parent-space is identity
         */
-       EXPORT Mat3 transform_get_world_matrix(Entity ent);
+       EXPORT Mat3 transform_get_world_matrix(Entity ent); /* world-space */
+       EXPORT Mat3 transform_get_matrix(Entity ent); /* parent-space */
 
        EXPORT Vec2 transform_local_to_world(Entity ent, Vec2 v);
 
