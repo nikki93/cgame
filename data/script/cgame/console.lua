@@ -1,6 +1,7 @@
 -- create console text entity in top-left corner
 local console_text = cg.add {
     group = { groups = 'builtin' },
+    edit = { editable = false },
     transform = { position = cg.vec2_zero },
     gui = { color = cg.color_black },
 }

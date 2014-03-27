@@ -12,6 +12,10 @@ SCRIPT(edit,
        EXPORT void edit_set_enabled(bool e);
        EXPORT bool edit_get_enabled();
 
+       /* non-editable entities cannot be selected */
+       EXPORT void edit_set_editable(Entity ent, bool editable);
+       EXPORT bool edit_get_editable(Entity ent);
+
        EXPORT void edit_bboxes_clear();
        EXPORT void edit_bboxes_update(Entity ent, BBox bbox); /* merge bbox */
        EXPORT unsigned int edit_bboxes_get_num();

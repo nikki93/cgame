@@ -5,6 +5,13 @@ cs.edit = {}
 cs.edit.set_enabled = cg.edit_set_enabled
 cs.edit.get_enabled = cg.edit_get_enabled
 
+cs.edit.set_editable = cg.edit_set_editable
+cs.edit.get_editable = cg.edit_get_editable
+
+-- called when using cg.add { ... }, just do nothing
+function cs.edit.add()
+end
+
 function cs.edit._get_entities_under_mouse()
     local ents = {}
 
@@ -95,6 +102,7 @@ end
 
 cs.edit.status_text = cg.add {
     group = { groups = 'builtin' },
+    edit = { editable = false },
     transform = { position = cg.vec2(0, -cs.game.get_window_size().y + 12) },
     gui_text = { str = 'edit' },
     gui = { color = cg.color_red },
@@ -108,6 +116,7 @@ cs.edit.status_text = cg.add {
 cs.edit.history = {}
 
 function cs.edit.undo_save()
+    cs.group.set_save_filter('default', true)
     local s = cs.serializer.open_str()
     cs.system.save_all(s)
     table.insert(cs.edit.history, ffi.string(cs.serializer.get_str(s)))
@@ -121,7 +130,7 @@ function cs.edit.undo()
     end
 
     -- TODO: make 'edit' entity group and destroy all except that?
-    cs.entity.destroy_all()
+    cs.group.destroy('default')
 
     local str = table.remove(cs.edit.history)
     local d = cs.deserializer.open_str(str)
