@@ -149,15 +149,15 @@ Vec2 game_get_window_size()
 Vec2 game_unit_to_pixels(Vec2 p)
 {
     Vec2 hw = vec2_scalar_mul(game_get_window_size(), 0.5f);
-    p.y *= -1.0f;
-    p = vec2_add(vec2_mul(p, hw), hw);
+    p = vec2_mul(p, hw);
+    p = vec2(p.x + hw.x, p.y - hw.y);
     return p;
 }
 Vec2 game_pixels_to_unit(Vec2 p)
 {
     Vec2 hw = vec2_scalar_mul(game_get_window_size(), 0.5f);
-    p = vec2_div(vec2_sub(p, hw), hw);
-    p.y *= -1.0f;
+    p = vec2(p.x - hw.x ,p.y + hw.y);
+    p = vec2_div(p, hw);
     return p;
 }
 

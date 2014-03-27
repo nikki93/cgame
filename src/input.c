@@ -42,7 +42,7 @@ Vec2 input_get_mouse_pos_pixels()
 {
     double x, y;
     glfwGetCursorPos(game_window, &x, &y);
-    return vec2(x, y);
+    return vec2(x, -y);
 }
 Vec2 input_get_mouse_pos_unit()
 {
