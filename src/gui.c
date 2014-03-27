@@ -16,7 +16,8 @@
 #include "camera.h"
 #include "edit.h"
 
-static Entity gui_root; /* all gui should be descendants of this to move with screen */
+static Entity gui_root; /* all gui should be descendants of this to move
+                           with screen */
 
 /* --- common -------------------------------------------------------------- */
 
