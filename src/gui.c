@@ -126,6 +126,11 @@ static void _common_deinit()
     entitypool_free(gui_pool);
 }
 
+static void _common_update_destroyed()
+{
+    entitypool_remove_destroyed(gui_pool, gui_remove);
+}
+
 static void _common_update_align()
 {
     Gui *gui, *pgui;
@@ -180,8 +185,6 @@ static void _common_update_all()
 {
     Gui *gui;
     Entity ent;
-
-    entitypool_remove_destroyed(gui_pool, gui_remove);
 
     /* attach root GUI entities to gui_root */
     entitypool_foreach(gui, gui_pool)
@@ -244,6 +247,8 @@ struct Rect
 
     bool hfit;
     bool vfit;
+
+    bool updated;
 };
 
 static EntityPool *rect_pool;
@@ -342,88 +347,92 @@ static void _rect_deinit()
     entitypool_free(rect_pool);
 }
 
-static void _rect_update_table_align()
+static void _rect_update(Entity ent);
+
+static void _rect_update_table_align(Rect *rect)
 {
     Entity rect_ent, *children;
-    Rect *rect;
     Gui *child;
     unsigned int nchildren, i;
     Scalar delta;
     BBox b;
     Vec2 pos, curr;
 
-    /* for each parent */
-    entitypool_foreach(rect, rect_pool)
+    rect_ent = rect->pool_elem.ent;
+
+    curr = vec2_zero;
+    children = transform_get_children(rect_ent);
+    nchildren = transform_get_num_children(rect_ent);
+    for (i = 0; i < nchildren; ++i)
     {
-        rect_ent = rect->pool_elem.ent;
+        child = entitypool_get(gui_pool, children[i]);
+        if (!(child
+              && (child->halign == GA_TABLE || child->valign == GA_TABLE)))
+            continue;
+        _rect_update(children[i]);
 
-        curr = vec2_zero;
-        children = transform_get_children(rect_ent);
-        nchildren = transform_get_num_children(rect_ent);
-        for (i = 0; i < nchildren; ++i)
+        b = bbox_transform(transform_get_matrix(children[i]), child->bbox);
+        pos = transform_get_position(children[i]);
+
+        if (child->halign == GA_TABLE)
         {
-            child = entitypool_get(gui_pool, children[i]);
-            if (!(child
-                  && (child->halign == GA_TABLE || child->valign == GA_TABLE)))
-                continue;
-
-            b = bbox_transform(transform_get_matrix(children[i]), child->bbox);
-            pos = transform_get_position(children[i]);
-
-            if (child->halign == GA_TABLE)
-            {
-                delta = curr.x + child->padding.x - b.min.x;
-                pos.x += delta;
-                curr.x = b.max.x + delta;
-            }
-            if (child->valign == GA_TABLE)
-            {
-                delta = curr.y - child->padding.y - b.max.y;
-                pos.y += delta;
-                curr.y = b.min.y + delta;
-            }
-
-            transform_set_position(children[i], pos);
+            delta = curr.x + child->padding.x - b.min.x;
+            pos.x += delta;
+            curr.x = b.max.x + delta;
         }
+        if (child->valign == GA_TABLE)
+        {
+            delta = curr.y - child->padding.y - b.max.y;
+            pos.y += delta;
+            curr.y = b.min.y + delta;
+        }
+
+        transform_set_position(children[i], pos);
     }
 }
 
-static void _rect_update_fit()
+static void _rect_update_fit(Rect *rect)
 {
     Entity rect_ent, *children;
-    Rect *rect;
     Gui *child;
     unsigned int nchildren, i;
     Scalar miny, maxx;
     BBox b;
 
-    entitypool_foreach(rect, rect_pool)
+    rect_ent = rect->pool_elem.ent;
+
+    miny = 0;
+    maxx = 0;
+
+    children = transform_get_children(rect_ent);
+    nchildren = transform_get_num_children(rect_ent);
+    for (i = 0; i < nchildren; ++i)
     {
-        rect_ent = rect->pool_elem.ent;
+        child = entitypool_get(gui_pool, children[i]);
+        if (!child)
+            continue;
+        _rect_update(children[i]);
 
-        miny = 0;
-        maxx = 0;
-
-        children = transform_get_children(rect_ent);
-        nchildren = transform_get_num_children(rect_ent);
-        for (i = 0; i < nchildren; ++i)
-        {
-            child = entitypool_get(gui_pool, children[i]);
-            if (!child)
-                continue;
-
-            b = bbox_transform(transform_get_matrix(children[i]), child->bbox);
-            if (rect->hfit)
-                maxx = scalar_max(maxx, b.max.x + child->padding.x);
-            if (rect->vfit)
-                miny = scalar_min(miny, b.min.y - child->padding.y);
-        }
-
+        b = bbox_transform(transform_get_matrix(children[i]), child->bbox);
         if (rect->hfit)
-            rect->size.x = maxx;
+            maxx = scalar_max(maxx, b.max.x + child->padding.x);
         if (rect->vfit)
-            rect->size.y = -miny;
+            miny = scalar_min(miny, b.min.y - child->padding.y);
     }
+
+    if (rect->hfit)
+        rect->size.x = maxx;
+    if (rect->vfit)
+        rect->size.y = -miny;
+}
+
+static void _rect_update(Entity ent)
+{
+    Rect *rect = entitypool_get(rect_pool, ent);
+    if (!rect || rect->updated)
+        return;
+    _rect_update_table_align(rect);
+    _rect_update_fit(rect);
 }
 
 static void _rect_update_all()
@@ -433,7 +442,10 @@ static void _rect_update_all()
 
     entitypool_remove_destroyed(rect_pool, gui_rect_remove);
 
-    _rect_update_table_align();
+    entitypool_foreach(rect, rect_pool)
+        rect->updated = false;
+    entitypool_foreach(rect, rect_pool)
+        _rect_update(rect->pool_elem.ent);
 
     entitypool_foreach(rect, rect_pool)
     {
@@ -785,7 +797,10 @@ static void _create_root()
     gui_root = entity_create();
     transform_add(gui_root);
     transform_set_position(gui_root, vec2(-1, 1)); /* origin at top-left */
-    gui_add(gui_root);
+    gui_rect_add(gui_root);
+    gui_rect_set_hfit(gui_root, false);
+    gui_rect_set_vfit(gui_root, false);
+    gui_set_color(gui_root, color(0, 0, 0, 0));
 }
 
 void gui_init()
@@ -804,7 +819,6 @@ void gui_deinit()
 
 static void _update_root()
 {
-    Gui *gui;
     Vec2 win_size;
 
     win_size = game_get_window_size();
@@ -816,17 +830,16 @@ static void _update_root()
 
     /* use pixel coordinates */
     transform_set_scale(gui_root, scalar_vec2_div(2, win_size));
-    gui = entitypool_get(gui_pool, gui_root);
-    gui->bbox = bbox_bound(vec2_zero, vec2(win_size.x, -win_size.y));
+    gui_rect_set_size(gui_root, win_size);
 }
 
 void gui_update_all()
 {
     _update_root();
+    _common_update_destroyed();
     _common_update_align();
-    _rect_update_all();
     _text_update_all();
-    _rect_update_fit();
+    _rect_update_all();
     _common_update_all();
 }
 
