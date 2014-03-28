@@ -241,6 +241,9 @@ struct Rect
 
     Vec2 size;
     Color color;
+
+    bool hfit;
+    bool vfit;
 };
 
 static EntityPool *rect_pool;
@@ -256,6 +259,8 @@ void gui_rect_add(Entity ent)
 
     rect = entitypool_add(rect_pool, ent);
     rect->size = vec2(64, 64);
+    rect->hfit = true;
+    rect->vfit = true;
 }
 void gui_rect_remove(Entity ent)
 {
@@ -273,6 +278,31 @@ Vec2 gui_rect_get_size(Entity ent)
     Rect *rect = entitypool_get(rect_pool, ent);
     assert(rect);
     return rect->size;
+}
+
+void gui_rect_set_hfit(Entity ent, bool fit)
+{
+    Rect *rect = entitypool_get(rect_pool, ent);
+    assert(rect);
+    rect->hfit = fit;
+}
+bool gui_rect_get_hfit(Entity ent)
+{
+    Rect *rect = entitypool_get(rect_pool, ent);
+    assert(rect);
+    return rect->hfit;
+}
+void gui_rect_set_vfit(Entity ent, bool fit)
+{
+    Rect *rect = entitypool_get(rect_pool, ent);
+    assert(rect);
+    rect->vfit = fit;
+}
+bool gui_rect_get_vfit(Entity ent)
+{
+    Rect *rect = entitypool_get(rect_pool, ent);
+    assert(rect);
+    return rect->vfit;
 }
 
 static GLuint rect_program;
@@ -358,6 +388,44 @@ static void _rect_update_table_align()
     }
 }
 
+static void _rect_update_fit()
+{
+    Entity rect_ent, *children;
+    Rect *rect;
+    Gui *child;
+    unsigned int nchildren, i;
+    Scalar miny, maxx;
+    BBox b;
+
+    entitypool_foreach(rect, rect_pool)
+    {
+        rect_ent = rect->pool_elem.ent;
+
+        miny = 0;
+        maxx = 0;
+
+        children = transform_get_children(rect_ent);
+        nchildren = transform_get_num_children(rect_ent);
+        for (i = 0; i < nchildren; ++i)
+        {
+            child = entitypool_get(gui_pool, children[i]);
+            if (!child)
+                continue;
+
+            b = bbox_transform(transform_get_matrix(children[i]), child->bbox);
+            if (rect->hfit)
+                maxx = scalar_max(maxx, b.max.x + child->padding.x);
+            if (rect->vfit)
+                miny = scalar_min(miny, b.min.y - child->padding.y);
+        }
+
+        if (rect->hfit)
+            rect->size.x = maxx;
+        if (rect->vfit)
+            rect->size.y = -miny;
+    }
+}
+
 static void _rect_update_all()
 {
     Rect *rect;
@@ -417,6 +485,8 @@ static void _rect_save_all(Serializer *s)
         mat3_save(&rect->wmat, s);
         vec2_save(&rect->size, s);
         color_save(&rect->color, s);
+        bool_save(&rect->hfit, s);
+        bool_save(&rect->vfit, s);
     }
     loop_end_save(s);
 }
@@ -430,6 +500,8 @@ static void _rect_load_all(Deserializer *s)
         mat3_load(&rect->wmat, s);
         vec2_load(&rect->size, s);
         color_load(&rect->color, s);
+        bool_load(&rect->hfit, s);
+        bool_load(&rect->vfit, s);
     }
 }
 
@@ -754,6 +826,7 @@ void gui_update_all()
     _common_update_align();
     _rect_update_all();
     _text_update_all();
+    _rect_update_fit();
     _common_update_all();
 }
 

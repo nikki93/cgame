@@ -47,6 +47,11 @@ SCRIPT(gui,
        EXPORT void gui_rect_set_size(Entity ent, Vec2 size);
        EXPORT Vec2 gui_rect_get_size(Entity ent);
 
+       EXPORT void gui_rect_set_hfit(Entity ent, bool fit);
+       EXPORT bool gui_rect_get_hfit(Entity ent);
+       EXPORT void gui_rect_set_vfit(Entity ent, bool fit);
+       EXPORT bool gui_rect_get_vfit(Entity ent);
+
        /* gui_text */
 
        EXPORT void gui_text_add(Entity ent);
