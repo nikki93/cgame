@@ -2,8 +2,11 @@
 local console_text = cg.add {
     group = { groups = 'builtin' },
     edit = { editable = false },
-    transform = { position = cg.vec2_zero },
-    gui = { color = cg.color_black },
+    gui = {
+        color = cg.color_black,
+        halign = cg.GA_MIN, valign = cg.GA_MAX,
+        padding = cg.vec2_zero,
+    },
 }
 cs.console.set_entity(console_text)
 

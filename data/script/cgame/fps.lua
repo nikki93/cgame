@@ -9,7 +9,11 @@ local display = cg.add {
     group = { groups = 'builtin' },
     edit = { editable = false },
     gui_text = { str = 'fps: ...' },
-    gui = { color = cg.color(0, 0.4, 0.1, 1) },
+    gui = {
+        color = cg.color(0, 0.4, 0.1, 1),
+        halign = cg.GA_MAX, valign = cg.GA_MIN,
+        padding = cg.vec2_zero,
+    },
 }
 
 function cs.fps.update_all()
@@ -22,10 +26,4 @@ function cs.fps.update_all()
         timer = 0
         nframes = 0
     end
-    
-    -- update display position
-    local winsize = cs.game.get_window_size()
-    local len = #cg.string(cs.gui_text.get_str(display))
-    cs.transform.set_position(display, cg.vec2(winsize.x - 10 * len,
-                                                   -winsize.y + 12))
 end

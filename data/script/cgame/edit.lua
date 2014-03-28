@@ -103,9 +103,12 @@ end
 cs.edit.status_text = cg.add {
     group = { groups = 'builtin' },
     edit = { editable = false },
-    transform = { position = cg.vec2(0, -cs.game.get_window_size().y + 12) },
     gui_text = { str = 'edit' },
-    gui = { color = cg.color_red },
+    gui = {
+        color = cg.color_red,
+        halign = cg.GA_MIN, valign = cg.GA_MIN,
+        padding = cg.vec2_zero,
+    },
 }
 
 -- cs.text.set_visible(cs.edit.status_text, false)
