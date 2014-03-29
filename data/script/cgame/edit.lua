@@ -313,7 +313,7 @@ function cs.edit.modes.grab.exit()
     cs.edit.hide_mode_text()
 end
 
-function cs.edit.modes.grab.post_update_all()
+function cs.edit.modes.grab.update_all()
     local mp = cs.camera.unit_to_world(grab_mouse_prev)
     local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
     cs.edit.grab_move(mc - mp)
@@ -369,7 +369,7 @@ function cs.edit.modes.rotate.exit()
     cs.edit.hide_mode_text()
 end
 
-function cs.edit.modes.rotate.post_update_all()
+function cs.edit.modes.rotate.update_all()
     local ms = cs.camera.unit_to_world(rotate_mouse_start)
     local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
     local ang = cg.vec2_atan2(ms - rotate_pivot)
@@ -472,6 +472,7 @@ require 'cgame.edit_bottom_gui'
 
 -- normal mode
 cs.edit.modes.normal['u'] = cs.edit.undo
+cs.edit.modes.normal['a'] = cs.edit.select_clear
 cs.edit.modes.normal['<mouse_1>'] = cs.edit.select_click_single
 cs.edit.modes.normal['S-<mouse_1>'] = cs.edit.select_click_multi
 cs.edit.modes.normal['C-<mouse_1>'] = cs.edit.select_click_multi
@@ -539,10 +540,6 @@ function cs.edit.update_all()
         cs.gui.set_visible(cs.edit.bottom_rect, true)
 
     cs.edit.mode_event('update_all')
-end
-
-function cs.edit.post_update_all()
-    cs.edit.mode_event('post_update_all')
 
     -- update select text
     local nselect = 0
@@ -554,6 +551,10 @@ function cs.edit.post_update_all()
         cs.gui.set_visible(cs.edit.select_text, false)
         cs.gui_text.set_str(cs.edit.select_text, '')
     end
+end
+
+function cs.edit.post_update_all()
+    cs.edit.mode_event('post_update_all')
 
     -- update bbox highlight
     for i = 0, cs.edit.bboxes_get_num() - 1 do
