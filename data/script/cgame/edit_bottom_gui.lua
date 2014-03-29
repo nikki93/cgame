@@ -5,6 +5,7 @@ cs.edit.bottom_rect = cg.add {
     edit = { editable = false },
     gui_rect = { hfit = false, size = cg.vec2(cs.game.get_window_size().x, 0) },
     gui = {
+        visible = false,
         color = cg.color(0, 0, 0, 0), -- invisible
         halign = cg.GA_MIN, valign = cg.GA_MIN,
         padding = cg.vec2_zero,
@@ -17,7 +18,7 @@ cs.edit.status_bar = cg.add {
     edit = { editable = false },
     gui_rect = { hfit = false, size = cg.vec2(cs.game.get_window_size().x, 0) },
     gui = {
-        color = cg.color(0.2, 0.2, 0.7, 1.0),
+        color = cg.color(0.7, 0.2, 0.2, 1.0),
         halign = cg.GA_MIN, valign = cg.GA_TABLE,
         padding = cg.vec2_zero,
     }
