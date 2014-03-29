@@ -86,9 +86,9 @@ void system_update_all()
     keyboard_controlled_update_all();
 
     physics_update_all();
+    gui_update_all();
     transform_update_all();
     camera_update_all();
-    gui_update_all();
     sprite_update_all();
 
     edit_update_all();

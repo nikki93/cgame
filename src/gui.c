@@ -31,6 +31,7 @@ struct Gui
     EntityPoolElem pool_elem;
 
     bool visible;
+    bool setvisible;
     Color color;
 
     BBox bbox; /* in entity space */
@@ -57,6 +58,7 @@ void gui_add(Entity ent)
 
     gui = entitypool_add(gui_pool, ent);
     gui->visible = true;
+    gui->setvisible = true;
     gui->color = color(0.5, 0.5, 0.5, 1.0);
     gui->bbox = bbox(vec2_zero, vec2(32, 32));
     gui->halign = GA_NONE;
@@ -86,7 +88,7 @@ void gui_set_visible(Entity ent, bool visible)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
     assert(gui);
-    gui->visible = visible;
+    gui->setvisible = visible;
 }
 bool gui_get_visible(Entity ent)
 {
@@ -144,6 +146,13 @@ static void _common_deinit()
 static void _common_update_destroyed()
 {
     entitypool_remove_destroyed(gui_pool, gui_remove);
+}
+
+static void _common_update_visible()
+{
+    Gui *gui;
+    entitypool_foreach(gui, gui_pool)
+        gui->visible = gui->setvisible;
 }
 
 static void _common_update_align()
@@ -228,6 +237,8 @@ static void _common_save_all(Serializer *s)
 
         entitypool_elem_save(gui_pool, &gui, s);
         color_save(&gui->color, s);
+        bool_save(&gui->visible, s);
+        bool_save(&gui->setvisible, s);
         enum_save(&gui->halign, s);
         enum_save(&gui->valign, s);
         vec2_save(&gui->padding, s);
@@ -242,6 +253,8 @@ static void _common_load_all(Deserializer *s)
     {
         entitypool_elem_load(gui_pool, &gui, s);
         color_load(&gui->color, s);
+        bool_load(&gui->visible, s);
+        bool_load(&gui->setvisible, s);
         enum_load(&gui->halign, s);
         enum_load(&gui->valign, s);
         vec2_load(&gui->padding, s);
@@ -857,6 +870,7 @@ void gui_update_all()
 {
     _update_root();
     _common_update_destroyed();
+    _common_update_visible();
     _text_update_all();
     _rect_update_all();
     _common_update_align();
