@@ -22,6 +22,8 @@ SCRIPT(gui,
        EXPORT void gui_remove(Entity ent);
        EXPORT void gui_set_color(Entity ent, Color color);
        EXPORT Color gui_get_color(Entity ent);
+       EXPORT void gui_set_visible(Entity ent, bool visible);
+       EXPORT bool gui_get_visible(Entity ent);
 
        typedef enum GuiAlign GuiAlign;
        enum GuiAlign

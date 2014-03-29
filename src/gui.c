@@ -30,6 +30,7 @@ struct Gui
 {
     EntityPoolElem pool_elem;
 
+    bool visible;
     Color color;
 
     BBox bbox; /* in entity space */
@@ -55,6 +56,7 @@ void gui_add(Entity ent)
     transform_add(ent);
 
     gui = entitypool_add(gui_pool, ent);
+    gui->visible = true;
     gui->color = color(0.5, 0.5, 0.5, 1.0);
     gui->bbox = bbox(vec2_zero, vec2(32, 32));
     gui->halign = GA_NONE;
@@ -78,6 +80,19 @@ Color gui_get_color(Entity ent)
     Gui *gui = entitypool_get(gui_pool, ent);
     assert(gui);
     return gui->color;
+}
+
+void gui_set_visible(Entity ent, bool visible)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    gui->visible = visible;
+}
+bool gui_get_visible(Entity ent)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    return gui->visible;
 }
 
 void gui_set_halign(Entity ent, GuiAlign align)
@@ -243,6 +258,7 @@ struct Rect
     Mat3 wmat;
 
     Vec2 size;
+    bool visible;
     Color color;
 
     bool hfit;
@@ -334,6 +350,7 @@ static void _rect_init()
     gfx_bind_vertex_attrib(rect_program, GL_FLOAT, 3, "wmat2", Rect, wmat.m[1]);
     gfx_bind_vertex_attrib(rect_program, GL_FLOAT, 3, "wmat3", Rect, wmat.m[2]);
     gfx_bind_vertex_attrib(rect_program, GL_FLOAT, 2, "size", Rect, size);
+    gfx_bind_vertex_attrib(rect_program, GL_INT, 1, "visible", Rect, visible);
     gfx_bind_vertex_attrib(rect_program, GL_FLOAT, 4, "color", Rect, color);
 }
 static void _rect_deinit()
@@ -366,7 +383,7 @@ static void _rect_update_table_align(Rect *rect)
     for (i = 0; i < nchildren; ++i)
     {
         child = entitypool_get(gui_pool, children[i]);
-        if (!(child
+        if (!(child && child->visible
               && (child->halign == GA_TABLE || child->valign == GA_TABLE)))
             continue;
         _rect_update(children[i]);
@@ -409,7 +426,7 @@ static void _rect_update_fit(Rect *rect)
     for (i = 0; i < nchildren; ++i)
     {
         child = entitypool_get(gui_pool, children[i]);
-        if (!child)
+        if (!child || !child->visible)
             continue;
         _rect_update(children[i]);
 
@@ -459,6 +476,7 @@ static void _rect_update_all()
         gui->bbox = bbox_bound(vec2_zero, vec2(rect->size.x, -rect->size.y));
 
         /* read gui properties */
+        rect->visible = gui->visible;
         rect->color = gui->color;
     }
 }
@@ -719,14 +737,16 @@ static void _text_draw_all()
     /* draw! */
     entitypool_foreach(text, text_pool)
     {
+        gui = entitypool_get(gui_pool, text->pool_elem.ent);
+        assert(gui);
+        if (!gui->visible)
+            continue;
+        glUniform4fv(glGetUniformLocation(text_program, "base_color"), 1,
+                     (const GLfloat *) &gui->color);
+
         wmat = transform_get_world_matrix(text->pool_elem.ent);
         glUniformMatrix3fv(glGetUniformLocation(text_program, "wmat"),
                            1, GL_FALSE, (const GLfloat *) &wmat);
-
-        gui = entitypool_get(gui_pool, text->pool_elem.ent);
-        assert(gui);
-        glUniform4fv(glGetUniformLocation(text_program, "base_color"), 1,
-                     (const GLfloat *) &gui->color);
 
         glBindVertexArray(text_vao);
         glBindBuffer(GL_ARRAY_BUFFER, text_vbo);
@@ -837,9 +857,9 @@ void gui_update_all()
 {
     _update_root();
     _common_update_destroyed();
-    _common_update_align();
     _text_update_all();
     _rect_update_all();
+    _common_update_align();
     _common_update_all();
 }
 
