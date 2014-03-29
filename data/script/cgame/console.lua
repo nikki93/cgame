@@ -5,7 +5,7 @@ local console_text = cg.add {
     gui = {
         color = cg.color_black,
         halign = cg.GA_MIN, valign = cg.GA_MAX,
-        padding = cg.vec2_zero,
+        padding = cg.vec2(1, 1),
     },
 }
 cs.console.set_entity(console_text)

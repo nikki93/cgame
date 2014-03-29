@@ -12,7 +12,7 @@ local display = cg.add {
     gui = {
         color = cg.color(0, 0.4, 0.1, 1),
         halign = cg.GA_MAX, valign = cg.GA_MIN,
-        padding = cg.vec2_zero,
+        padding = cg.vec2(1, 1),
     },
 }
 
