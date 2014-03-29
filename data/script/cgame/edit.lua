@@ -98,22 +98,6 @@ function cs.edit.set_mode(mode)
 end
 
 
---- status text ----------------------------------------------------------------
-
-cs.edit.status_text = cg.add {
-    group = { groups = 'builtin' },
-    edit = { editable = false },
-    gui_text = { str = 'edit' },
-    gui = {
-        color = cg.color_red,
-        halign = cg.GA_MIN, valign = cg.GA_MIN,
-        padding = cg.vec2_zero,
-    },
-}
-
--- cs.text.set_visible(cs.edit.status_text, false)
-
-
 --- undo -----------------------------------------------------------------------
 
 cs.edit.history = {}
@@ -315,6 +299,8 @@ end
 cs.edit.modes.grab = {}
 
 function cs.edit.modes.grab.enter()
+    cs.edit.set_mode_text('grab')
+
     grab_mouse_prev = cs.input.get_mouse_pos_unit()
 
     -- store old positions
@@ -322,6 +308,9 @@ function cs.edit.modes.grab.enter()
     for ent, _ in pairs(cs.edit.select) do
         grab_old_pos[ent] = cs.transform.get_position(ent)
     end
+end
+function cs.edit.modes.grab.exit()
+    cs.edit.hide_mode_text()
 end
 
 function cs.edit.modes.grab.post_update_all()
@@ -354,6 +343,8 @@ end
 cs.edit.modes.rotate = {}
 
 function cs.edit.modes.rotate.enter()
+    cs.edit.set_mode_text('rotate')
+
     rotate_mouse_start = cs.input.get_mouse_pos_unit()
 
     -- store old positions, rotations
@@ -373,6 +364,9 @@ function cs.edit.modes.rotate.enter()
         n = n + 1
     end
     rotate_pivot = rotate_pivot / n
+end
+function cs.edit.modes.rotate.exit()
+    cs.edit.hide_mode_text()
 end
 
 function cs.edit.modes.rotate.post_update_all()
@@ -447,10 +441,14 @@ cs.edit.boxsel_box = cg.add {
 cs.edit.modes.boxsel = {}
 
 function cs.edit.modes.boxsel.enter()
+    cs.edit.set_mode_text('boxsel')
+
     boxsel_has_begun = false
 end
 
 function cs.edit.modes.boxsel.exit()
+    cs.edit.hide_mode_text()
+
     cs.transform.set_position(cs.edit.boxsel_box, cg.vec2(-20, -20))
     cs.gui_rect.set_size(cs.edit.boxsel_box, cg.vec2(10, 10))
 end
@@ -463,6 +461,11 @@ function cs.edit.modes.boxsel.update_all()
     cs.transform.set_position(cs.edit.boxsel_box, cg.vec2(b.min.x, b.max.y))
     cs.gui_rect.set_size(cs.edit.boxsel_box, b.max - b.min)
 end
+
+
+--- bottom gui -----------------------------------------------------------------
+
+require 'cgame.edit_bottom_gui'
 
 
 --- bindings -------------------------------------------------------------------
@@ -533,13 +536,18 @@ function cs.edit.update_all()
 end
 
 function cs.edit.post_update_all()
-    -- if not cs.edit.get_enabled() then
-    --     cs.text.set_visible(cs.edit.status_text, false)
-    --     return
-    -- end
-    -- cs.text.set_visible(cs.edit.status_text, true)
-
     cs.edit.mode_event('post_update_all')
+
+    -- update select text
+    local nselect = 0
+    for _ in pairs(cs.edit.select) do nselect = nselect + 1 end
+    if nselect > 0 then
+        cs.gui.set_visible(cs.edit.select_text, true)
+        cs.gui_text.set_str(cs.edit.select_text, nselect .. ' selected')
+    else
+        cs.gui.set_visible(cs.edit.select_text, false)
+        cs.gui_text.set_str(cs.edit.select_text, '')
+    end
 
     -- update bbox highlight
     for i = 0, cs.edit.bboxes_get_num() - 1 do
