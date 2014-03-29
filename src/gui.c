@@ -30,8 +30,10 @@ struct Gui
 {
     EntityPoolElem pool_elem;
 
-    bool visible;
-    bool setvisible;
+    bool setvisible;      /* externally-set visibility */
+    bool visible;         /* internal recursively computed visibility */
+    bool updated_visible; /* for recursive visibility computation */
+
     Color color;
 
     BBox bbox; /* in entity space */
@@ -148,11 +150,43 @@ static void _common_update_destroyed()
     entitypool_remove_destroyed(gui_pool, gui_remove);
 }
 
+static void _common_update_visible_rec(Gui *gui)
+{
+    Gui *pgui;
+
+    if (gui->updated_visible)
+        return;
+
+    /* false visibility takes priority */
+    if (!gui->setvisible)
+    {
+        gui->visible = false;
+        gui->updated_visible = true;
+        return;
+    }
+
+    /* if has parent, inherit */
+    pgui = entitypool_get(gui_pool, transform_get_parent(gui->pool_elem.ent));
+    if (pgui)
+    {
+        _common_update_visible_rec(pgui);
+        gui->visible = pgui->visible;
+        gui->updated_visible = true;
+        return;
+    }
+
+    /* else just set */
+    gui->visible = true;
+    gui->updated_visible = true;
+}
 static void _common_update_visible()
 {
     Gui *gui;
+
     entitypool_foreach(gui, gui_pool)
-        gui->visible = gui->setvisible;
+        gui->updated_visible = false;
+    entitypool_foreach(gui, gui_pool)
+        _common_update_visible_rec(gui);
 }
 
 static void _common_update_align()
