@@ -45,6 +45,7 @@ function make_box(pos, vel)
         physics = { type = cg.PB_DYNAMIC, mass = 5, velocity = vel },
     }
     cs.physics.add_box_shape(box, -0.5, -0.5, 0.5, 0.5)
+    cs.group.add_groups(box, 'box')
 
     boxes[box] = true
 end

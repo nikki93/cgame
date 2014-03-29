@@ -532,6 +532,12 @@ function cs.edit.update_all()
         if cs.entity.destroyed(ent) then cs.edit.select[ent] = nil end
     end
 
+    if not cs.edit.get_enabled() then
+        cs.gui.set_visible(cs.edit.bottom_rect, false)
+        return
+    end
+        cs.gui.set_visible(cs.edit.bottom_rect, true)
+
     cs.edit.mode_event('update_all')
 end
 
