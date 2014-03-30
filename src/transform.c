@@ -24,7 +24,6 @@ struct Transform
 
     Mat3 mat_cache; /* remember to update this! */
     Mat3 worldmat_cache; /* cached on parent-child update */
-    bool updated; /* used in parent-child update to avoid repeats */
 
     unsigned int dirty_count;
 };
@@ -32,6 +31,46 @@ struct Transform
 static EntityPool *pool;
 
 /* ------------------------------------------------------------------------- */
+
+static void _update_child(Transform *parent, Entity ent)
+{
+    Transform *transform;
+    Entity *child;
+
+    transform = entitypool_get(pool, ent);
+    assert(transform);
+    transform->worldmat_cache = mat3_mul(parent->worldmat_cache,
+                                         transform->mat_cache);
+    if (transform->children)
+        array_foreach(child, transform->children)
+            _update_child(transform, *child);
+}
+static void _modified(Transform *transform)
+{
+    Transform *parent;
+    Entity *child;
+    
+    ++transform->dirty_count;
+
+    transform->mat_cache = mat3_scaling_rotation_translation(
+        transform->scale,
+        transform->rotation,
+        transform->position
+        );
+
+    /* update our world matrix */
+    parent = entitypool_get(pool, transform->parent);
+    if (parent)
+        transform->worldmat_cache = mat3_mul(parent->worldmat_cache,
+                                             transform->mat_cache);
+    else
+        transform->worldmat_cache = transform->mat_cache;
+
+    /* update children world matrices */
+    if (transform->children)
+        array_foreach(child, transform->children)
+            _update_child(transform, *child);
+}
 
 static void _detach(Transform *p, Transform *c)
 {
@@ -48,6 +87,8 @@ static void _detach(Transform *p, Transform *c)
                                child - (Entity *) array_begin(p->children));
             return;
         }
+
+    _modified(c);
 }
 
 static void _detach_all(Transform *t)
@@ -72,20 +113,13 @@ static void _detach_all(Transform *t)
             c = entitypool_get(pool, *child);
             assert(c);
             c->parent = entity_nil;
+            _modified(c);
         }
         array_free(t->children);
         t->children = NULL;
     }
-}
 
-static void _modified(Transform *transform)
-{
-    transform->mat_cache = mat3_scaling_rotation_translation(
-        transform->scale,
-        transform->rotation,
-        transform->position
-        );
-    ++transform->dirty_count;
+    _modified(t);
 }
 
 void transform_add(Entity ent)
@@ -147,6 +181,8 @@ void transform_set_parent(Entity ent, Entity parent)
             newp->children = array_new(Entity);
         array_add_val(Entity, newp->children) = ent;
     }
+
+    _modified(t);
 }
 Entity transform_get_parent(Entity ent)
 {
@@ -333,45 +369,12 @@ void transform_deinit()
     entitypool_free(pool);
 }
 
-/*
- * update worldmat_cache to reflect hierarchy
- *
- * use recursion -- transform hierarchies should generally be shallow
- */
-static void _update(Transform *transform)
-{
-    Transform *parent;
-
-    /* already updated? */
-    if (transform->updated)
-        return;
-
-    if (!entity_eq(transform->parent, entity_nil)) /* child */
-    {
-        parent = entitypool_get(pool, transform->parent);
-        assert(parent);
-        _update(parent);
-        transform->worldmat_cache = mat3_mul(parent->worldmat_cache,
-                                             transform->mat_cache);
-    }
-    else /* root */
-        transform->worldmat_cache = transform->mat_cache;
-
-    transform->updated = true;
-}
-
 void transform_update_all()
 {
     Transform *transform;
     static BBox bbox = { { -0.25, -0.25 }, { 0.25, 0.25 } };
 
     entitypool_remove_destroyed(pool, transform_remove);
-
-    /* update all */
-    entitypool_foreach(transform, pool)
-        transform->updated = false;
-    entitypool_foreach(transform, pool)
-        _update(transform);
 
     /* update edit bbox */
     if (edit_get_enabled())
@@ -449,6 +452,9 @@ void transform_save_all(Serializer *s)
             entity_save(&entity_nil, s);
         _children_save(transform, s);
 
+        mat3_save(&transform->mat_cache, s);
+        mat3_save(&transform->worldmat_cache, s);
+
         uint_save(&transform->dirty_count, s);
     }
     loop_end_save(s);
@@ -467,11 +473,14 @@ void transform_load_all(Deserializer *s)
         entity_load(&transform->parent, s);
         _children_load(transform, s);
 
+        mat3_load(&transform->mat_cache, s);
+        mat3_load(&transform->worldmat_cache, s);
+
         uint_load(&transform->dirty_count, s);
 
-        if (entity_eq(transform->parent, entity_nil))
-            _apply_offset(transform); /* offset root transforms */
-        _modified(transform);
+        /* if (entity_eq(transform->parent, entity_nil)) */
+        /*     _apply_offset(transform); /\* offset root transforms *\/ */
+        /* _modified(transform); */
     }
 }
 
