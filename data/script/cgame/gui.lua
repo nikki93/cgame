@@ -40,3 +40,124 @@ function cs.gui_event.update_all()
         end
     end
 end
+
+
+--- window ---------------------------------------------------------------------
+
+cs.gui_window = {}
+
+cs.gui_window.tbl = cg.entity_table()
+
+function cs.gui_window.add(ent)
+    if cs.gui_window.tbl[ent] then return end
+    cs.gui_window.tbl[ent] = {}
+    local window = cs.gui_window.tbl[ent]
+
+    window.minimized = false
+
+    -- add ent to gui_rect as container
+    cg.add {
+        ent = ent,
+        gui_rect = {},
+        gui = { color = cg.color(0.2, 0.2, 0.9, 0.5) },
+    }
+
+    -- titlebar containing text, minimize button
+    window.titlebar = cg.add {
+        transform = { parent = ent },
+        gui_rect = { hfill = true },
+        gui = {
+            padding = cg.vec2_zero,
+            color = cg.color(0.2, 0.9, 0.2, 0.5),
+            valign = cg.GA_TABLE,
+            halign = cg.GA_MIN,
+        },
+    }
+    window.minmax_text = cg.add {
+        transform = { parent = window.titlebar },
+        gui = {
+            color = cg.color_white,
+            valign = cg.GA_MAX,
+            halign = cg.GA_TABLE,
+        },
+        gui_text = { str = '- ' },
+    }
+    window.title_text = cg.add {
+        transform = { parent = window.titlebar },
+        gui = {
+            color = cg.color_white,
+            valign = cg.GA_MAX,
+            halign = cg.GA_TABLE,
+        },
+        gui_text = { str = 'new window' },
+    }
+
+    -- body containing contents
+    window.body = cg.add {
+        transform = { parent = ent },
+        gui_rect = {},
+        gui = {
+            padding = cg.vec2_zero,
+            color = cg.color(0.0, 0.0, 0.0, 0.0),
+            valign = cg.GA_TABLE,
+            halign = cg.GA_MIN
+        },
+    }
+    window.body_text = cg.add {
+        transform = { parent = window.body },
+        gui = {
+            color = cg.color_white,
+            valign = cg.GA_TABLE,
+            halign = cg.GA_MIN
+        },
+        gui_text = { str = 'body is a very very long text\nof many lines!' },
+    }
+end
+
+function cs.gui_window.set_minimized(ent, minimized)
+    local window = cs.gui_window.tbl[ent]
+    if window then window.minimized = minimized end
+end
+
+-- window that is being dragged
+local drag_window
+local mouse_prev = nil, mouse_curr
+
+function cs.gui_window.mouse_up(mouse)
+    if mouse == cg.MC_LEFT then
+        drag_window = nil
+    end
+end
+
+function cs.gui_window.update_all()
+    -- get mouse position
+    mouse_curr = cs.input.get_mouse_pos_pixels()
+    if not mouse_prev then mouse_prev = mouse_curr end
+
+    -- clear destroyed
+    for ent, _ in pairs(cs.gui_window.tbl) do
+        if cs.entity.destroyed(ent) then cs.gui_window.tbl[ent] = nil end
+    end
+
+    -- update all
+    for ent, window in pairs(cs.gui_window.tbl) do
+        -- new drag motion?
+        if cs.gui.event_mouse_down(window.titlebar) == cg.MC_LEFT then
+            drag_window = ent
+        end
+
+        -- update maximize/minimize
+        if cs.gui.event_mouse_down(window.minmax_text) == cg.MC_LEFT then
+            window.minimized = not window.minimized
+        end
+        cs.gui.set_visible(window.body, not window.minimized)
+        cs.gui_text.set_str(window.minmax_text, window.minimized and '+' or '-')
+    end
+
+    -- move dragged window
+    if drag_window then
+        cs.transform.translate(drag_window, mouse_curr - mouse_prev)
+    end
+
+    mouse_prev = mouse_curr
+end
