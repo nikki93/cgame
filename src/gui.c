@@ -600,7 +600,7 @@ static void _rect_update_fill(Entity ent)
         return;
 
     rect = entitypool_get(rect_pool, ent);
-    if (!rect || rect->updated || !(rect->hfill || rect->vfill))
+    if (!rect || !rect->visible || rect->updated || !(rect->hfill || rect->vfill))
         return;
 
     parent = transform_get_parent(ent);
@@ -615,6 +615,8 @@ static void _rect_update_fill(Entity ent)
         rect->size.x = b.max.x - gui->padding.x;
     if (rect->vfill)
         rect->size.y = -b.min.y + gui->padding.y;
+
+    gui->bbox = bbox_bound(vec2_zero, vec2(rect->size.x, -rect->size.y));
 }
 
 static void _rect_update_all()
