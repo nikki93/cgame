@@ -84,7 +84,8 @@ function cgame.remover(sys) return cgame.systems[sys]['remove'] end
 function cgame.add(sys, ent, props)
     -- multi-add?
     if type(sys) == 'table' then
-        ent = ent or cgame.entity_create()
+        ent = ent or sys.ent or cgame.entity_create()
+        sys.ent = nil
         for k, v in pairs(sys) do cgame.add(k, ent, v) end
         return ent
     end
