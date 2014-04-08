@@ -1,6 +1,10 @@
 local root = cs.gui.get_root()
 cs.group.set_groups(root, 'builtin')
 
+local old_gui_text_get_str = cg.gui_text_get_str
+function cg.gui_text_get_str(ent)
+    return cg.string(old_gui_text_get_str(ent))
+end
 
 --- event ----------------------------------------------------------------------
 
@@ -59,7 +63,7 @@ function cs.gui_window.add(ent)
     cg.add {
         ent = ent,
         gui_rect = {},
-        gui = { color = cg.color(0.2, 0.2, 0.9, 0.5) },
+        gui = { color = cg.color(0.4, 0.4, 0.6, 0.9) },
     }
 
     -- titlebar containing text, minimize button
@@ -68,7 +72,7 @@ function cs.gui_window.add(ent)
         gui_rect = { hfill = true },
         gui = {
             padding = cg.vec2_zero,
-            color = cg.color(0.2, 0.9, 0.2, 0.5),
+            color = cg.color(0.1, 0.1, 0.4, 0.9),
             valign = cg.GA_TABLE,
             halign = cg.GA_MIN,
         },
@@ -103,20 +107,29 @@ function cs.gui_window.add(ent)
             halign = cg.GA_MIN
         },
     }
-    window.body_text = cg.add {
-        transform = { parent = window.body },
-        gui = {
-            color = cg.color_white,
-            valign = cg.GA_TABLE,
-            halign = cg.GA_MIN
-        },
-        gui_text = { str = 'body is a very very long text\nof many lines!' },
-    }
 end
 
 function cs.gui_window.set_minimized(ent, minimized)
     local window = cs.gui_window.tbl[ent]
     if window then window.minimized = minimized end
+end
+function cs.gui_window.get_minimized(ent)
+    local window = cs.gui_window.tbl[ent]
+    if window then return window.minimized end
+end
+
+function cs.gui_window.set_title(ent, str)
+    local window = cs.gui_window.tbl[ent]
+    if window then cs.gui_text.set_str(window.title_text, str) end
+end
+function cs.gui_window.get_title(ent)
+    local window = cs.gui_window.tbl[ent]
+    if window then return cs.gui_text.get_str(window.title_text) end
+end
+
+function cs.gui_window.get_body(ent)
+    local window = cs.gui_window.tbl[ent]
+    if window then return window.body end
 end
 
 -- window that is being dragged
@@ -142,7 +155,9 @@ function cs.gui_window.update_all()
     -- update all
     for ent, window in pairs(cs.gui_window.tbl) do
         -- new drag motion?
-        if cs.gui.event_mouse_down(window.titlebar) == cg.MC_LEFT then
+        if cs.gui.event_mouse_down(window.titlebar) == cg.MC_LEFT
+        and cs.gui.get_halign(ent) == cg.GA_NONE
+        and cs.gui.get_valign(ent) == cg.GA_NONE then
             drag_window = ent
         end
 
@@ -160,4 +175,13 @@ function cs.gui_window.update_all()
     end
 
     mouse_prev = mouse_curr
+end
+
+function cs.gui_window.save_all()
+    return {
+        tbl = cs.gui_window.tbl,
+    }
+end
+function cs.gui_window.load_all(d)
+    cg.entity_table_merge(cs.gui_window.tbl, d.tbl)
 end
