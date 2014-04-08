@@ -357,6 +357,8 @@ struct Rect
 
     bool hfit;
     bool vfit;
+    bool hfill;
+    bool vfill;
 
     bool updated;
 };
@@ -376,6 +378,8 @@ void gui_rect_add(Entity ent)
     rect->size = vec2(64, 64);
     rect->hfit = true;
     rect->vfit = true;
+    rect->hfill = false;
+    rect->vfill = false;
 }
 void gui_rect_remove(Entity ent)
 {
@@ -418,6 +422,31 @@ bool gui_rect_get_vfit(Entity ent)
     Rect *rect = entitypool_get(rect_pool, ent);
     assert(rect);
     return rect->vfit;
+}
+
+void gui_rect_set_hfill(Entity ent, bool fill)
+{
+    Rect *rect = entitypool_get(rect_pool, ent);
+    assert(rect);
+    rect->hfill = fill;
+}
+bool gui_rect_get_hfill(Entity ent)
+{
+    Rect *rect = entitypool_get(rect_pool, ent);
+    assert(rect);
+    return rect->hfill;
+}
+void gui_rect_set_vfill(Entity ent, bool fill)
+{
+    Rect *rect = entitypool_get(rect_pool, ent);
+    assert(rect);
+    rect->vfill = fill;
+}
+bool gui_rect_get_vfill(Entity ent)
+{
+    Rect *rect = entitypool_get(rect_pool, ent);
+    assert(rect);
+    return rect->vfill;
 }
 
 static GLuint rect_program;
@@ -510,6 +539,8 @@ static void _rect_update_fit(Rect *rect)
     Scalar miny, maxx;
     BBox b;
 
+    /* we also fit hfill/vfill rects, then fill them after we're all done */
+
     rect_ent = rect->pool_elem.ent;
 
     miny = 0;
@@ -525,15 +556,15 @@ static void _rect_update_fit(Rect *rect)
         _rect_update(children[i]);
 
         b = bbox_transform(transform_get_matrix(children[i]), child->bbox);
-        if (rect->hfit)
+        if (rect->hfit || rect->hfill)
             maxx = scalar_max(maxx, b.max.x + child->padding.x);
-        if (rect->vfit)
+        if (rect->vfit || rect->vfill)
             miny = scalar_min(miny, b.min.y - child->padding.y);
     }
 
-    if (rect->hfit)
+    if (rect->hfit || rect->hfill)
         rect->size.x = maxx;
-    if (rect->vfit)
+    if (rect->vfit || rect->vfill)
         rect->size.y = -miny;
 }
 
@@ -544,6 +575,35 @@ static void _rect_update(Entity ent)
         return;
     _rect_update_table_align(rect);
     _rect_update_fit(rect);
+}
+
+static void _rect_update_fill(Entity ent)
+{
+    Rect *rect;
+    Gui *pgui, *gui;
+    BBox b;
+    Entity parent;
+
+    gui = entitypool_get(gui_pool, ent);
+    if (!gui)
+        return;
+
+    rect = entitypool_get(rect_pool, ent);
+    if (!rect || rect->updated || !(rect->hfill || rect->vfill))
+        return;
+
+    parent = transform_get_parent(ent);
+    pgui = entitypool_get(gui_pool, parent);
+    if (!pgui)
+        return; /* no parent to fill to */
+
+    _rect_update_fill(parent);
+    b = bbox_transform(mat3_inverse(transform_get_matrix(ent)), pgui->bbox);
+
+    if (rect->hfill)
+        rect->size.x = b.max.x - gui->padding.x;
+    if (rect->vfill)
+        rect->size.y = -b.min.y + gui->padding.y;
 }
 
 static void _rect_update_all()
@@ -557,6 +617,10 @@ static void _rect_update_all()
         rect->updated = false;
     entitypool_foreach(rect, rect_pool)
         _rect_update(rect->pool_elem.ent);
+    entitypool_foreach(rect, rect_pool)
+        rect->updated = false;
+    entitypool_foreach(rect, rect_pool)
+        _rect_update_fill(rect->pool_elem.ent);
 
     entitypool_foreach(rect, rect_pool)
     {

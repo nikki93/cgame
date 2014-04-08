@@ -58,6 +58,11 @@ SCRIPT(gui,
        EXPORT void gui_rect_set_vfit(Entity ent, bool fit);
        EXPORT bool gui_rect_get_vfit(Entity ent);
 
+       EXPORT void gui_rect_set_hfill(Entity ent, bool fill);
+       EXPORT bool gui_rect_get_hfill(Entity ent);
+       EXPORT void gui_rect_set_vfill(Entity ent, bool fill);
+       EXPORT bool gui_rect_get_vfill(Entity ent);
+
        /* gui_text */
 
        EXPORT void gui_text_add(Entity ent);
