@@ -1,95 +1,37 @@
-win1 = cg.add {
-    gui_rect = {},
+win = cg.add {
+    gui_window = { title = 'parent window!' },
     gui = {
-        color = cg.color(0.2, 0.2, 0.9, 0.5),
-        valign = cg.GA_TABLE,
-        halign = cg.GA_MAX,
-    },
-}
-
-win2 = cg.add {
-    gui_rect = {},
-    gui = {
-        color = cg.color(0.2, 0.2, 0.9, 0.5),
         valign = cg.GA_TABLE,
         halign = cg.GA_MAX,
     },
 }
 
 text1 = cg.add {
-    transform = { parent = win1 },
-    gui = { color = cg.color_white, valign = cg.GA_TABLE, halign = cg.GA_MIN },
-    gui_text = { str = 'transform' },
+    transform = { parent = cs.gui_window.get_body(win) },
+    gui = {
+        color = cg.color_white,
+        valign = cg.GA_TABLE,
+        halign = cg.GA_MIN
+    },
+    gui_text = { str = 'body is a very very long text\nof many lines!' },
+}
+
+win2 = cg.add {
+    gui_window = { title = 'child window!' },
+    gui_rect = { hfill = true },
+    transform = { parent = cs.gui_window.get_body(win) },
+    gui = {
+        valign = cg.GA_TABLE,
+        halign = cg.GA_MIN,
+    },
 }
 
 text2 = cg.add {
-    transform = { parent = win2 },
-    gui = { color = cg.color_white, valign = cg.GA_TABLE, halign = cg.GA_MIN },
-    gui_text = { str = 'sprite' },
-}
-
-win3 = cg.add {
-    transform = { parent = win2 },
-    gui_rect = {},
+    transform = { parent = cs.gui_window.get_body(win2) },
     gui = {
-        color = cg.color(0.2, 0.9, 0.2, 0.5),
+        color = cg.color_white,
         valign = cg.GA_TABLE,
-        halign = cg.GA_MIN,
+        halign = cg.GA_MIN
     },
+    gui_text = { str = 'prop1: x, y, z' },
 }
-text3 = cg.add {
-    transform = { parent = win3 },
-    gui = { color = cg.color_white, valign = cg.GA_TABLE, halign = cg.GA_MIN },
-    gui_text = { str = 'size: (?, ?)' },
-}
-
-win4 = cg.add {
-    transform = { parent = win2 },
-    gui_rect = {},
-    gui = {
-        color = cg.color(0.2, 0.9, 0.2, 0.5),
-        valign = cg.GA_TABLE,
-        halign = cg.GA_MIN,
-    },
-}
-
-win5 = cg.add {
-    transform = { parent = win4 },
-    gui_rect = {},
-    gui = {
-        color = cg.color(0.9, 0.5, 0.2, 0.5),
-        valign = cg.GA_MAX,
-        halign = cg.GA_TABLE,
-    },
-}
-text4 = cg.add {
-    transform = { parent = win5 },
-    gui = { color = cg.color_white, valign = cg.GA_TABLE, halign = cg.GA_MIN },
-    gui_text = { str = 'prop1' },
-}
-text4 = cg.add {
-    transform = { parent = win5 },
-    gui = { color = cg.color_white, valign = cg.GA_TABLE, halign = cg.GA_MIN },
-    gui_text = { str = 'prop2' },
-}
-
-
-win6 = cg.add {
-    transform = { parent = win4 },
-    gui_rect = {},
-    gui = {
-        color = cg.color(0.9, 0.5, 0.2, 0.5),
-        valign = cg.GA_MAX,
-        halign = cg.GA_TABLE,
-    },
-}
-text5 = cg.add {
-    transform = { parent = win6 },
-    gui = { color = cg.color_white, valign = cg.GA_TABLE, halign = cg.GA_MIN },
-    gui_text = { str = 'prop3' },
-    gui_event = {
-        mouse_down = function (e, m) print('down: ' .. tostring(m)) end,
-        mouse_up = function (e, m) print('up: ' .. tostring(m)) end,
-    },
-}
-
