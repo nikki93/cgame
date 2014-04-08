@@ -13,6 +13,7 @@ SCRIPT(input,
        enum KeyCode
        {
            KC_UNKNOWN =             -1,
+           KC_NONE =                0,
 
            /* ascii */
            KC_SPACE =               32,
@@ -157,6 +158,8 @@ SCRIPT(input,
            MC_6 =          5,
            MC_7 =          6,
            MC_8 =          7,
+
+           MC_NONE =       32,
 
            MC_LEFT =       MC_1,
            MC_RIGHT =      MC_2,
