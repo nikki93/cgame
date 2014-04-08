@@ -20,18 +20,22 @@
 
 static void _key_down(KeyCode key)
 {
+    gui_key_down(key);
     script_key_down(key);
 }
 static void _key_up(KeyCode key)
 {
+    gui_key_up(key);
     script_key_up(key);
 }
 static void _mouse_down(MouseCode mouse)
 {
+    gui_mouse_down(mouse);
     script_mouse_down(mouse);
 }
 static void _mouse_up(MouseCode mouse)
 {
+    gui_mouse_up(mouse);
     script_mouse_up(mouse);
 }
 static void _mouse_move(Vec2 pos)
@@ -95,6 +99,8 @@ void system_update_all()
     script_post_update_all();
 
     entity_update_all();
+
+    gui_event_clear();
 }
 
 void system_draw_all()

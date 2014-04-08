@@ -15,6 +15,7 @@
 #include "game.h"
 #include "camera.h"
 #include "edit.h"
+#include "entitymap.h"
 
 static Entity gui_root; /* all gui should be descendants of this to move
                            with screen */
@@ -43,6 +44,9 @@ struct Gui
 };
 
 static EntityPool *gui_pool;
+
+static EntityMap *mouse_down_map;
+static EntityMap *mouse_up_map;
 
 Entity gui_get_root()
 {
@@ -136,12 +140,25 @@ Vec2 gui_get_padding(Entity ent)
     return gui->padding;
 }
 
+MouseCode gui_event_mouse_down(Entity ent)
+{
+    return entitymap_get(mouse_down_map, ent);
+}
+MouseCode gui_event_mouse_up(Entity ent)
+{
+    return entitymap_get(mouse_up_map, ent);
+}
+
 static void _common_init()
 {
     gui_pool = entitypool_new(Gui);
+    mouse_down_map = entitymap_new(MC_NONE);
+    mouse_up_map = entitymap_new(MC_NONE);
 }
 static void _common_deinit()
 {
+    entitymap_free(mouse_up_map);
+    entitymap_free(mouse_down_map);
     entitypool_free(gui_pool);
 }
 
@@ -257,6 +274,36 @@ static void _common_update_all()
     if (edit_get_enabled())
         entitypool_foreach(gui, gui_pool)
             edit_bboxes_update(gui->pool_elem.ent, gui->bbox);
+}
+
+static void _common_mouse_event(EntityMap *emap, MouseCode mouse)
+{
+    Gui *gui;
+    Vec2 m;
+    Mat3 t;
+    Entity ent;
+
+    m = camera_unit_to_world(input_get_mouse_pos_unit());
+    entitypool_foreach(gui, gui_pool)
+    {
+        ent = gui->pool_elem.ent;
+        t = mat3_inverse(transform_get_world_matrix(ent));
+        if (bbox_contains(gui->bbox, mat3_transform(t, m)))
+            entitymap_set(emap, ent, mouse);
+    }
+}
+static void _common_mouse_down(MouseCode mouse)
+{
+    _common_mouse_event(mouse_down_map, mouse);
+}
+static void _common_mouse_up(MouseCode mouse)
+{
+    _common_mouse_event(mouse_up_map, mouse);
+}
+static void _common_event_clear()
+{
+    entitymap_clear(mouse_down_map);
+    entitymap_clear(mouse_up_map);
 }
 
 static void _common_save_all(Serializer *s)
@@ -859,6 +906,11 @@ static void _text_load_all(Deserializer *s)
 
 /* ------------------------------------------------------------------------- */
 
+void gui_event_clear()
+{
+    _common_event_clear();
+}
+
 static void _create_root()
 {
     gui_root = entity_create();
@@ -915,6 +967,21 @@ void gui_draw_all()
 {
     _rect_draw_all();
     _text_draw_all();
+}
+
+void gui_key_down(KeyCode key)
+{
+}
+void gui_key_up(KeyCode key)
+{
+}
+void gui_mouse_down(MouseCode mouse)
+{
+    _common_mouse_down(mouse);
+}
+void gui_mouse_up(MouseCode mouse)
+{
+    _common_mouse_up(mouse);
 }
 
 void gui_save_all(Serializer *s)

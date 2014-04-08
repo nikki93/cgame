@@ -5,6 +5,7 @@
 #include "color.h"
 #include "script_export.h"
 #include "vec2.h"
+#include "input.h"
 
 SCRIPT(gui,
 
@@ -42,6 +43,9 @@ SCRIPT(gui,
        EXPORT void gui_set_padding(Entity ent, Vec2 padding); /* h, v */
        EXPORT Vec2 gui_get_padding(Entity ent); /* h, v */
 
+       EXPORT MouseCode gui_event_mouse_down(Entity ent);
+       EXPORT MouseCode gui_event_mouse_up(Entity ent);
+
        /* gui_rect */
 
        EXPORT void gui_rect_add(Entity ent);
@@ -63,10 +67,16 @@ SCRIPT(gui,
 
     )
 
+void gui_event_clear();
+
 void gui_init();
 void gui_deinit();
 void gui_update_all();
 void gui_draw_all();
+void gui_key_down(KeyCode key);
+void gui_key_up(KeyCode key);
+void gui_mouse_down(MouseCode mouse);
+void gui_mouse_up(MouseCode mouse);
 void gui_save_all(Serializer *s);
 void gui_load_all(Deserializer *s);
 
