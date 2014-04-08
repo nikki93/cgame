@@ -69,7 +69,7 @@ void gui_add(Entity ent)
     gui->bbox = bbox(vec2_zero, vec2(32, 32));
     gui->halign = GA_NONE;
     gui->valign = GA_NONE;
-    gui->padding = vec2(6, 6);
+    gui->padding = vec2(5, 5);
 }
 
 void gui_remove(Entity ent)
@@ -285,12 +285,13 @@ static void _common_mouse_event(EntityMap *emap, MouseCode mouse)
 
     m = camera_unit_to_world(input_get_mouse_pos_unit());
     entitypool_foreach(gui, gui_pool)
-    {
-        ent = gui->pool_elem.ent;
-        t = mat3_inverse(transform_get_world_matrix(ent));
-        if (bbox_contains(gui->bbox, mat3_transform(t, m)))
-            entitymap_set(emap, ent, mouse);
-    }
+        if (gui->visible)
+        {
+            ent = gui->pool_elem.ent;
+            t = mat3_inverse(transform_get_world_matrix(ent));
+            if (bbox_contains(gui->bbox, mat3_transform(t, m)))
+                entitymap_set(emap, ent, mouse);
+        }
 }
 static void _common_mouse_down(MouseCode mouse)
 {
@@ -570,11 +571,21 @@ static void _rect_update_fit(Rect *rect)
 
 static void _rect_update(Entity ent)
 {
-    Rect *rect = entitypool_get(rect_pool, ent);
+    Rect *rect;
+    Gui *gui;
+
+    gui = entitypool_get(gui_pool, ent);
+    if (!gui)
+        return;
+
+    rect = entitypool_get(rect_pool, ent);
     if (!rect || rect->updated)
         return;
     _rect_update_table_align(rect);
     _rect_update_fit(rect);
+
+    /* update this since it will be used by _rect_update_fill(...) */
+    gui->bbox = bbox_bound(vec2_zero, vec2(rect->size.x, -rect->size.y));
 }
 
 static void _rect_update_fill(Entity ent)
