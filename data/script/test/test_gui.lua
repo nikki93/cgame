@@ -87,4 +87,9 @@ text5 = cg.add {
     transform = { parent = win6 },
     gui = { color = cg.color_white, valign = cg.GA_TABLE, halign = cg.GA_MIN },
     gui_text = { str = 'prop3' },
+    gui_event = {
+        mouse_down = function (e, m) print('down: ' .. tostring(m)) end,
+        mouse_up = function (e, m) print('up: ' .. tostring(m)) end,
+    },
 }
+
