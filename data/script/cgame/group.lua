@@ -98,6 +98,12 @@ function cs.group.set_save_filter(groups, val)
     end
 end
 
+function cs.group.update_all()
+    for ent, _ in pairs(entity_groups) do
+        if cs.entity.destroyed(ent) then cs.group.remove(ent) end
+    end
+end
+
 function cs.group.save_all()
     return entity_groups
 end
