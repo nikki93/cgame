@@ -686,6 +686,8 @@ static void _rect_save_all(Serializer *s)
         color_save(&rect->color, s);
         bool_save(&rect->hfit, s);
         bool_save(&rect->vfit, s);
+        bool_save(&rect->hfill, s);
+        bool_save(&rect->vfill, s);
     }
     loop_end_save(s);
 }
@@ -701,6 +703,8 @@ static void _rect_load_all(Deserializer *s)
         color_load(&rect->color, s);
         bool_load(&rect->hfit, s);
         bool_load(&rect->vfit, s);
+        bool_load(&rect->hfill, s);
+        bool_load(&rect->vfill, s);
     }
 }
 
