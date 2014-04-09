@@ -57,6 +57,9 @@ unsigned int entitypool_size(EntityPool *pool);
 
 void entitypool_clear(EntityPool *pool);
 
+void entitypool_sort(EntityPool *pool,
+                     int (*compar)(const void *, const void *));
+
 /* elem must be /pointer to/ pointer to element */
 void entitypool_elem_save(EntityPool *pool, void *elem, Serializer *s);
 void entitypool_elem_load(EntityPool *pool, void *elem, Deserializer *s);

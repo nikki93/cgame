@@ -89,6 +89,23 @@ void entitypool_clear(EntityPool *pool)
     array_clear(pool->array);
 }
 
+void entitypool_sort(EntityPool *pool,
+                     int (*compar)(const void *, const void *))
+{
+    unsigned int i, n;
+    EntityPoolElem *elem;
+
+    array_sort(pool->array, compar);
+
+    /* remap Entity -> index */
+    n = array_length(pool->array);
+    for (i = 0; i < n; ++i)
+    {
+        elem = array_get(pool->array, i);
+        entitymap_set(pool->emap, elem->ent, i);
+    }
+}
+
 void entitypool_elem_save(EntityPool *pool, void *elem, Serializer *s)
 {
     EntityPoolElem **p;
