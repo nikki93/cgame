@@ -208,6 +208,18 @@ void transform_detach_all(Entity ent)
     assert(transform);
     _detach_all(transform);
 }
+void transform_destroy_rec(Entity ent)
+{
+    Transform *transform;
+    Entity *child;
+
+    transform = entitypool_get(pool, ent);
+    if (transform && transform->children)
+        array_foreach(child, transform->children)
+            transform_destroy_rec(*child);
+
+    entity_destroy(ent);
+}
 
 void transform_set_position(Entity ent, Vec2 pos)
 {

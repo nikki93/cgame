@@ -25,6 +25,8 @@ SCRIPT(transform,
        EXPORT Entity *transform_get_children(Entity ent);
        /* detach from parent and all children */
        EXPORT void transform_detach_all(Entity ent);
+       /* destroy ent and all children */
+       EXPORT void transform_destroy_rec(Entity ent);
 
        EXPORT void transform_set_position(Entity ent, Vec2 pos);
        EXPORT Vec2 transform_get_position(Entity ent);
