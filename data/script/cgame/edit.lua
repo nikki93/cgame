@@ -206,13 +206,36 @@ end
 
 --- entity management ----------------------------------------------------------
 
+function cs.edit.destroy_rec()
+    cs.edit.undo_save()
+
+    -- collect all
+    local ents = cg.entity_table()
+    local function add_rec(ent)
+        ents[ent] = true
+        if cs.transform.has(ent) then
+            local children = cs.transform.get_children(ent)
+            for i = 0, cs.transform.get_num_children(ent) - 1 do
+                add_rec(children[i])
+            end
+        end
+    end
+    for ent, _ in pairs(cs.edit.select) do
+        add_rec(ent)
+    end
+
+    -- destroy
+    for ent, _ in pairs(ents) do
+        cs.entity.destroy(ent)
+    end
+end
+
 function cs.edit.destroy()
     cs.edit.undo_save()
 
     for ent, _ in pairs(cs.edit.select) do
         cs.entity.destroy(ent)
     end
-    cs.edit.select_clear()
 end
 
 function cs.edit.duplicate()
@@ -477,6 +500,7 @@ cs.edit.modes.normal['<mouse_1>'] = cs.edit.select_click_single
 cs.edit.modes.normal['S-<mouse_1>'] = cs.edit.select_click_multi
 cs.edit.modes.normal['C-<mouse_1>'] = cs.edit.select_click_multi
 cs.edit.modes.normal['x'] = cs.edit.destroy
+cs.edit.modes.normal['S-x'] = cs.edit.destroy_rec
 cs.edit.modes.normal['S-d'] = cs.edit.duplicate
 cs.edit.modes.normal['g'] = cs.edit.grab_start
 cs.edit.modes.normal['r'] = cs.edit.rotate_start
