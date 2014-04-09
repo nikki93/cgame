@@ -93,6 +93,11 @@ bool array_quick_remove(Array *arr, unsigned int i)
     return ret;
 }
 
+void array_sort(Array *arr, int (*compar)(const void *, const void *))
+{
+    qsort(arr->buf, arr->length, arr->object_size, compar);
+}
+
 /* ------------------------------------------------------------------------- */
 
 #ifdef ARRAY_TEST
@@ -110,6 +115,41 @@ void dump(Array *arr)
         printf("(%d, %d) ", p->a, p->b);
     }
     printf("}\n");
+}
+
+int int_compare(const void *a, const void *b)
+{
+    const int *ia = a, *ib = b;
+    return *ia - *ib;
+}
+
+void test_sort()
+{
+    int *i;
+    Array *arr = array_new(int);
+
+    array_add_val(int, arr) = 3;
+    array_add_val(int, arr) = 5;
+    array_add_val(int, arr) = 1;
+    array_add_val(int, arr) = 7;
+    array_add_val(int, arr) = 1;
+    array_add_val(int, arr) = 0;
+    array_add_val(int, arr) = 499;
+    array_add_val(int, arr) = 200;
+
+    printf("before sort: ");
+    array_foreach(i, arr)
+        printf("%d ", *i);
+    printf("\n");
+
+    array_sort(arr, int_compare);
+
+    printf("after sort: ");
+    array_foreach(i, arr)
+        printf("%d ", *i);
+    printf("\n");
+
+    array_free(arr);
 }
 
 int main()
@@ -135,6 +175,9 @@ int main()
     }
 
     array_free(arr);
+
+    test_sort();
+    
     return 0;
 }
 

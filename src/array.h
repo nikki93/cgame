@@ -36,6 +36,8 @@ void array_pop(Array *arr); /* remove object with highest index */
 /* remove fast, may swap some other element into arr[i], returns true if so */
 bool array_quick_remove(Array *arr, unsigned int i);
 
+void array_sort(Array *arr, int (*compar)(const void *, const void *));
+
 /*
  * can be used as:
  *
