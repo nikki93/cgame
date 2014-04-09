@@ -96,12 +96,22 @@ function cs.gui_window.add(ent)
         },
         gui_text = { str = '-' },
     }
-    window.title_text = cg.add {
+    window.title_text_area = cg.add {
         transform = { parent = window.titlebar },
+        gui_rect = { hfill = true },
+        gui = {
+            padding = cg.vec2_zero,
+            color = cg.color(0.0, 0.0, 0.0, 0.0),
+            valign = cg.GA_MAX,
+            halign = cg.GA_TABLE,
+        },
+    }
+    window.title_text = cg.add {
+        transform = { parent = window.title_text_area },
         gui = {
             color = cg.color_white,
             valign = cg.GA_MAX,
-            halign = cg.GA_TABLE,
+            halign = cg.GA_MID,
         },
         gui_text = { str = 'new window' },
     }
