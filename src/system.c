@@ -126,6 +126,7 @@ static void _saveload_all(void *s, bool save)
     saveload(sprite);
     saveload(physics);
     saveload(gui);
+    saveload(edit);
 
     saveload(keyboard_controlled);
 

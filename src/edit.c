@@ -15,8 +15,9 @@
 
 static bool enabled;
 
-/* editable map */
-static EntityMap *editable_map;
+/* editability data */
+static EntityPool *uneditable_pool; /* Entites are in this pool
+                                       iff. not editable */
 
 /* bbox pool */
 typedef struct BBoxPoolElem BBoxPoolElem;
@@ -59,11 +60,14 @@ bool edit_get_enabled()
 
 void edit_set_editable(Entity ent, bool editable)
 {
-    entitymap_set(editable_map, ent, editable);
+    if (editable)
+        entitypool_remove(uneditable_pool, ent);
+    else
+        entitypool_add(uneditable_pool, ent);
 }
 bool edit_get_editable(Entity ent)
 {
-    return entitymap_get(editable_map, ent);
+    return !entitypool_get(uneditable_pool, ent);
 }
 
 void edit_bboxes_clear()
@@ -143,7 +147,7 @@ void edit_init()
     /* init pools/maps */
     bbox_pool = entitypool_new(BBoxPoolElem);
     select_pool = entitypool_new(SelectPoolElem);
-    editable_map = entitymap_new(true);
+    uneditable_pool = entitypool_new(EntityPoolElem);
 
     /* create shader program, load atlas, bind parameters */
     program = gfx_create_program(data_path("bbox.vert"),
@@ -177,15 +181,22 @@ void edit_deinit()
     glDeleteVertexArrays(1, &vao);
 
     /* deinit pools/maps */
-    entitymap_free(editable_map);
+    entitypool_free(uneditable_pool);
     entitypool_free(select_pool);
     entitypool_free(bbox_pool);
+}
+
+static void _uneditable_remove(Entity ent)
+{
+    entitypool_remove(uneditable_pool, ent);
 }
 
 void edit_update_all()
 {
     BBoxPoolElem *elem;
     Entity ent;
+
+    entitypool_remove_destroyed(uneditable_pool, _uneditable_remove);
 
     if (!enabled)
         return;
@@ -231,4 +242,26 @@ void edit_draw_all()
 
     _bind_bbox_program();
     _draw_bboxes();
+}
+
+void edit_save_all(Serializer *s)
+{
+    EntityPoolElem *elem;
+
+    entitypool_foreach(elem, uneditable_pool)
+    {
+        if (!entity_get_save_filter(elem->ent))
+            continue;
+        loop_continue_save(s);
+
+        entitypool_elem_save(uneditable_pool, &elem, s);
+    }
+    loop_end_save(s);
+}
+void edit_load_all(Deserializer *s)
+{
+    EntityPoolElem *elem;
+
+    while (loop_continue_load(s))
+        entitypool_elem_load(uneditable_pool, &elem, s);
 }

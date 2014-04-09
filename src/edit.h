@@ -29,11 +29,13 @@ SCRIPT(edit,
        EXPORT void edit_select_remove(Entity ent);
        EXPORT bool edit_select_has(Entity ent);
 
-       EXPORT void edit_init();
-       EXPORT void edit_deinit();
-       EXPORT void edit_update_all();
-       EXPORT void edit_draw_all();
-
     )
+
+void edit_init();
+void edit_deinit();
+void edit_update_all();
+void edit_draw_all();
+void edit_save_all(Serializer *s);
+void edit_load_all(Deserializer *s);
 
 #endif
