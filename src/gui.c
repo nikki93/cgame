@@ -362,6 +362,7 @@ struct Rect
     bool vfill;
 
     bool updated;
+    int depth; /* for draw order -- child depth > parent depth */
 };
 
 static EntityPool *rect_pool;
@@ -488,7 +489,7 @@ static void _rect_deinit()
     entitypool_free(rect_pool);
 }
 
-static void _rect_update(Entity ent);
+static void _rect_update_child_first(Entity ent);
 
 static void _rect_update_table_align(Rect *rect)
 {
@@ -510,7 +511,7 @@ static void _rect_update_table_align(Rect *rect)
         if (!(child && child->visible
               && (child->halign == GA_TABLE || child->valign == GA_TABLE)))
             continue;
-        _rect_update(children[i]);
+        _rect_update_child_first(children[i]);
 
         b = bbox_transform(transform_get_matrix(children[i]), child->bbox);
         pos = transform_get_position(children[i]);
@@ -554,7 +555,7 @@ static void _rect_update_fit(Rect *rect)
         child = entitypool_get(gui_pool, children[i]);
         if (!child || !child->visible)
             continue;
-        _rect_update(children[i]);
+        _rect_update_child_first(children[i]);
 
         b = bbox_transform(transform_get_matrix(children[i]), child->bbox);
         if (rect->hfit || rect->hfill)
@@ -569,7 +570,7 @@ static void _rect_update_fit(Rect *rect)
         rect->size.y = -miny;
 }
 
-static void _rect_update(Entity ent)
+static void _rect_update_child_first(Entity ent)
 {
     Rect *rect;
     Gui *gui;
@@ -584,22 +585,23 @@ static void _rect_update(Entity ent)
     _rect_update_table_align(rect);
     _rect_update_fit(rect);
 
-    /* update this since it will be used by _rect_update_fill(...) */
     gui->bbox = bbox_bound(vec2_zero, vec2(rect->size.x, -rect->size.y));
 }
 
-static void _rect_update_fill(Entity ent)
+static void _rect_update_parent_first(Entity ent);
+
+static void _rect_update_fill(Rect *rect)
 {
-    Rect *rect;
+    Entity ent;
     Gui *pgui, *gui;
     BBox b;
     Entity parent;
 
+    ent = rect->pool_elem.ent;
     gui = entitypool_get(gui_pool, ent);
     if (!gui)
         return;
 
-    rect = entitypool_get(rect_pool, ent);
     if (!rect || !rect->visible || rect->updated || !(rect->hfill || rect->vfill))
         return;
 
@@ -608,13 +610,43 @@ static void _rect_update_fill(Entity ent)
     if (!pgui)
         return; /* no parent to fill to */
 
-    _rect_update_fill(parent);
+    _rect_update_parent_first(parent);
     b = bbox_transform(mat3_inverse(transform_get_matrix(ent)), pgui->bbox);
 
     if (rect->hfill)
         rect->size.x = b.max.x - gui->padding.x;
     if (rect->vfill)
         rect->size.y = -b.min.y + gui->padding.y;
+}
+
+static void _rect_update_depth(Rect *rect)
+{
+    Rect *prect;
+
+    prect = entitypool_get(rect_pool, transform_get_parent(rect->pool_elem.ent));
+    if (prect)
+    {
+        _rect_update_parent_first(prect->pool_elem.ent);
+        rect->depth = prect->depth + 1;
+    }
+    else
+        rect->depth = 0;
+}
+
+static void _rect_update_parent_first(Entity ent)
+{
+    Rect *rect;
+    Gui *gui;
+
+    gui = entitypool_get(gui_pool, ent);
+    if (!gui)
+        return;
+
+    rect = entitypool_get(rect_pool, ent);
+    if (!rect || rect->updated)
+        return;
+    _rect_update_fill(rect);
+    _rect_update_depth(rect);
 
     gui->bbox = bbox_bound(vec2_zero, vec2(rect->size.x, -rect->size.y));
 }
@@ -629,11 +661,12 @@ static void _rect_update_all()
     entitypool_foreach(rect, rect_pool)
         rect->updated = false;
     entitypool_foreach(rect, rect_pool)
-        _rect_update(rect->pool_elem.ent);
+        _rect_update_child_first(rect->pool_elem.ent);
+
     entitypool_foreach(rect, rect_pool)
         rect->updated = false;
     entitypool_foreach(rect, rect_pool)
-        _rect_update_fill(rect->pool_elem.ent);
+        _rect_update_parent_first(rect->pool_elem.ent);
 
     entitypool_foreach(rect, rect_pool)
     {
@@ -652,9 +685,18 @@ static void _rect_update_all()
     }
 }
 
+static int _rect_depth_compare(const void *a, const void *b)
+{
+    const Rect *ra = a, *rb = b;
+    return ra->depth - rb->depth;
+}
+
 static void _rect_draw_all()
 {
     unsigned int nrects;
+
+    /* depth sort */
+    entitypool_sort(rect_pool, _rect_depth_compare);
 
     /* bind shader program */
     glUseProgram(rect_program);
