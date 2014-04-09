@@ -69,6 +69,7 @@ function cs.gui_window.add(ent)
 
     -- titlebar containing text, minimize button
     window.titlebar = cg.add {
+        edit = { editable = false },
         transform = { parent = ent },
         gui_rect = { hfill = true },
         gui = {
@@ -79,6 +80,7 @@ function cs.gui_window.add(ent)
         },
     }
     window.close_text = cg.add {
+        edit = { editable = false },
         transform = { parent = window.titlebar },
         gui = {
             color = cg.color_white,
@@ -88,6 +90,7 @@ function cs.gui_window.add(ent)
         gui_text = { str = 'x' },
     }
     window.minmax_text = cg.add {
+        edit = { editable = false },
         transform = { parent = window.titlebar },
         gui = {
             color = cg.color_white,
@@ -97,6 +100,7 @@ function cs.gui_window.add(ent)
         gui_text = { str = '-' },
     }
     window.title_text_area = cg.add {
+        edit = { editable = false },
         transform = { parent = window.titlebar },
         gui_rect = { hfill = true },
         gui = {
@@ -107,6 +111,7 @@ function cs.gui_window.add(ent)
         },
     }
     window.title_text = cg.add {
+        edit = { editable = false },
         transform = { parent = window.title_text_area },
         gui = {
             color = cg.color_white,
@@ -118,6 +123,7 @@ function cs.gui_window.add(ent)
 
     -- body containing contents
     window.body = cg.add {
+        edit = { editable = false },
         transform = { parent = ent },
         gui_rect = {},
         gui = {
