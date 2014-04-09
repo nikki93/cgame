@@ -58,6 +58,7 @@ function cs.gui_window.add(ent)
     local window = cs.gui_window.tbl[ent]
 
     window.minimized = false
+    window.closeable = true
 
     -- add ent to gui_rect as container
     cg.add {
@@ -72,10 +73,19 @@ function cs.gui_window.add(ent)
         gui_rect = { hfill = true },
         gui = {
             padding = cg.vec2_zero,
-            color = cg.color(0.1, 0.1, 0.4, 0.9),
+            color = cg.color(0.2, 0.2, 0.4, 0.9),
             valign = cg.GA_TABLE,
             halign = cg.GA_MIN,
         },
+    }
+    window.close_text = cg.add {
+        transform = { parent = window.titlebar },
+        gui = {
+            color = cg.color_white,
+            valign = cg.GA_MAX,
+            halign = cg.GA_TABLE,
+        },
+        gui_text = { str = 'x' },
     }
     window.minmax_text = cg.add {
         transform = { parent = window.titlebar },
@@ -84,7 +94,7 @@ function cs.gui_window.add(ent)
             valign = cg.GA_MAX,
             halign = cg.GA_TABLE,
         },
-        gui_text = { str = '- ' },
+        gui_text = { str = '-' },
     }
     window.title_text = cg.add {
         transform = { parent = window.titlebar },
@@ -109,6 +119,12 @@ function cs.gui_window.add(ent)
     }
 end
 
+function cs.gui_window.remove(ent)
+    local window = cs.gui_window.tbl[ent]
+    if window then cs.transform.destroy_rec(ent) end
+    cs.gui_window.tbl[ent] = nil
+end
+
 function cs.gui_window.set_minimized(ent, minimized)
     local window = cs.gui_window.tbl[ent]
     if window then window.minimized = minimized end
@@ -116,6 +132,15 @@ end
 function cs.gui_window.get_minimized(ent)
     local window = cs.gui_window.tbl[ent]
     if window then return window.minimized end
+end
+
+function cs.gui_window.set_closeable(ent, closeable)
+    local window = cs.gui_window.tbl[ent]
+    if window then window.closeable = closeable end
+end
+function cs.gui_window.get_closeable(ent)
+    local window = cs.gui_window.tbl[ent]
+    if window then return window.closeable end
 end
 
 function cs.gui_window.set_title(ent, str)
@@ -147,9 +172,17 @@ function cs.gui_window.update_all()
     mouse_curr = cs.input.get_mouse_pos_pixels()
     if not mouse_prev then mouse_prev = mouse_curr end
 
+    -- close button clicked?
+    for ent, window in pairs(cs.gui_window.tbl) do
+        if cs.gui.event_mouse_down(window.close_text) == cg.MC_LEFT
+        and window.closeable then
+            cs.entity.destroy(ent)
+        end
+    end
+
     -- clear destroyed
     for ent, _ in pairs(cs.gui_window.tbl) do
-        if cs.entity.destroyed(ent) then cs.gui_window.tbl[ent] = nil end
+        if cs.entity.destroyed(ent) then cs.gui_window.remove(ent) end
     end
 
     -- update all
@@ -160,6 +193,9 @@ function cs.gui_window.update_all()
         and cs.gui.get_valign(ent) == cg.GA_NONE then
             drag_window = ent
         end
+
+        -- closeable?
+        cs.gui.set_visible(window.close_text, window.closeable)
 
         -- update maximize/minimize
         if cs.gui.event_mouse_down(window.minmax_text) == cg.MC_LEFT then
