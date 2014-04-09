@@ -3,7 +3,7 @@
 cs.edit.bottom_rect = cg.add {
     group = { groups = 'builtin' },
     edit = { editable = false },
-    gui_rect = { hfit = false, size = cg.vec2(cs.game.get_window_size().x, 0) },
+    gui_rect = { hfill = true, size = cg.vec2(cs.game.get_window_size().x, 0) },
     gui = {
         visible = false,
         color = cg.color(0, 0, 0, 0), -- invisible
@@ -16,7 +16,7 @@ cs.edit.status_bar = cg.add {
     transform = { parent = cs.edit.bottom_rect },
     group = { groups = 'builtin' },
     edit = { editable = false },
-    gui_rect = { hfit = false, size = cg.vec2(cs.game.get_window_size().x, 0) },
+    gui_rect = { hfill = true, size = cg.vec2(cs.game.get_window_size().x, 0) },
     gui = {
         color = cg.color(0.7, 0.2, 0.2, 1.0),
         halign = cg.GA_MIN, valign = cg.GA_TABLE,
@@ -40,7 +40,7 @@ cs.edit.bottom_bar = cg.add {
     transform = { parent = cs.edit.bottom_rect },
     group = { groups = 'builtin' },
     edit = { editable = false },
-    gui_rect = { hfit = false, size = cg.vec2(cs.game.get_window_size().x, 0) },
+    gui_rect = { hfill = true, size = cg.vec2(cs.game.get_window_size().x, 0) },
     gui = {
         color = cg.color(0.9, 0.9, 0.9, 1.0),
         halign = cg.GA_MIN, valign = cg.GA_TABLE,
