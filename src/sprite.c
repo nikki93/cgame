@@ -55,11 +55,23 @@ void sprite_set_cell(Entity ent, Vec2 cell)
     assert(sprite);
     sprite->cell = cell;
 }
+Vec2 sprite_get_cell(Entity ent)
+{
+    Sprite *sprite = entitypool_get(pool, ent);
+    assert(sprite);
+    return sprite->cell;
+}
 void sprite_set_size(Entity ent, Vec2 size)
 {
     Sprite *sprite = entitypool_get(pool, ent);
     assert(sprite);
     sprite->size = size;
+}
+Vec2 sprite_get_size(Entity ent)
+{
+    Sprite *sprite = entitypool_get(pool, ent);
+    assert(sprite);
+    return sprite->size;
 }
 
 void sprite_set_depth(Entity ent, int depth)
