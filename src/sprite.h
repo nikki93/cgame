@@ -14,6 +14,10 @@ SCRIPT(sprite,
        EXPORT void sprite_set_cell(Entity ent, Vec2 cell);
        EXPORT void sprite_set_size(Entity ent, Vec2 size);
 
+       /* lower depth drawn on top */
+       EXPORT void sprite_set_depth(Entity ent, int depth);
+       EXPORT int sprite_get_depth(Entity ent);
+
     )
 
 void sprite_init();

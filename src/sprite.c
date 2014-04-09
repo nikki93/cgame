@@ -22,6 +22,8 @@ struct Sprite
 
     Vec2 cell;
     Vec2 size;
+
+    int depth;
 };
 
 static EntityPool *pool;
@@ -40,6 +42,7 @@ void sprite_add(Entity ent)
     sprite = entitypool_add(pool, ent);
     sprite->cell = vec2(32.0f, 32.0f);
     sprite->size = vec2(32.0f, 32.0f);
+    sprite->depth = 0;
 }
 void sprite_remove(Entity ent)
 {
@@ -57,6 +60,19 @@ void sprite_set_size(Entity ent, Vec2 size)
     Sprite *sprite = entitypool_get(pool, ent);
     assert(sprite);
     sprite->size = size;
+}
+
+void sprite_set_depth(Entity ent, int depth)
+{
+    Sprite *sprite = entitypool_get(pool, ent);
+    assert(sprite);
+    sprite->depth = depth;
+}
+int sprite_get_depth(Entity ent)
+{
+    Sprite *sprite = entitypool_get(pool, ent);
+    assert(sprite);
+    return sprite->depth;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -123,9 +139,22 @@ void sprite_update_all()
             edit_bboxes_update(sprite->pool_elem.ent, bbox);
 }
 
+static int _depth_compare(const void *a, const void *b)
+{
+    const Sprite *sa = a, *sb = b;
+
+    /* descending, break ties by memory order for stability */
+    if (sb->depth == sa->depth)
+        return sa < sb ? -1 : sa > sb ? 1 : 0;
+    return sb->depth - sa->depth;
+}
+
 void sprite_draw_all()
 {
     unsigned int nsprites;
+
+    /* depth sort */
+    entitypool_sort(pool, _depth_compare);
 
     /* bind program, update uniforms */
     glUseProgram(program);
