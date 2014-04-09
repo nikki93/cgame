@@ -206,6 +206,22 @@ static void _common_update_visible()
         _common_update_visible_rec(gui);
 }
 
+static void _common_reset_align()
+{
+    Gui *gui;
+    Vec2 pos;
+
+    entitypool_foreach(gui, gui_pool)
+    {
+        pos = transform_get_position(gui->pool_elem.ent);
+        if (gui->halign != GA_NONE)
+            pos.x = gui->padding.x;
+        if (gui->valign != GA_NONE)
+            pos.y = -gui->padding.y;
+        transform_set_position(gui->pool_elem.ent, pos);
+    }
+}
+
 static void _common_update_align()
 {
     Gui *gui, *pgui;
@@ -673,9 +689,6 @@ static void _rect_update_all()
         gui = entitypool_get(gui_pool, rect->pool_elem.ent);
         assert(gui);
 
-        /* world matrix */
-        rect->wmat = transform_get_world_matrix(rect->pool_elem.ent);
-
         /* write gui bbox */
         gui->bbox = bbox_bound(vec2_zero, vec2(rect->size.x, -rect->size.y));
 
@@ -683,6 +696,13 @@ static void _rect_update_all()
         rect->visible = gui->visible;
         rect->color = gui->color;
     }
+}
+
+static void _rect_update_wmat()
+{
+    Rect *rect;
+    entitypool_foreach(rect, rect_pool)
+        rect->wmat = transform_get_world_matrix(rect->pool_elem.ent);
 }
 
 static int _rect_depth_compare(const void *a, const void *b)
@@ -1080,9 +1100,11 @@ void gui_update_all()
     _update_root();
     _common_update_destroyed();
     _common_update_visible();
+    _common_reset_align();
     _text_update_all();
     _rect_update_all();
     _common_update_align();
+    _rect_update_wmat();
     _common_update_all();
 }
 
