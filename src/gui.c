@@ -708,6 +708,8 @@ static void _rect_update_wmat()
 static int _rect_depth_compare(const void *a, const void *b)
 {
     const Rect *ra = a, *rb = b;
+    if (ra->depth == rb->depth)
+        return ((int) ra->pool_elem.ent.id) - ((int) rb->pool_elem.ent.id);
     return ra->depth - rb->depth;
 }
 

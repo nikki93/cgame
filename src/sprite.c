@@ -145,7 +145,7 @@ static int _depth_compare(const void *a, const void *b)
 
     /* descending, break ties by Entity id for stability */
     if (sb->depth == sa->depth)
-        return ((int) sb->pool_elem.ent.id) - ((int) sa->pool_elem.ent.id);
+        return ((int) sa->pool_elem.ent.id) - ((int) sb->pool_elem.ent.id);
     return sb->depth - sa->depth;
 }
 
