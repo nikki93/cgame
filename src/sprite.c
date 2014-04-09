@@ -143,9 +143,9 @@ static int _depth_compare(const void *a, const void *b)
 {
     const Sprite *sa = a, *sb = b;
 
-    /* descending, break ties by memory order for stability */
+    /* descending, break ties by Entity id for stability */
     if (sb->depth == sa->depth)
-        return sa < sb ? -1 : sa > sb ? 1 : 0;
+        return ((int) sb->pool_elem.ent.id) - ((int) sa->pool_elem.ent.id);
     return sb->depth - sa->depth;
 }
 
