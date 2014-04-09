@@ -6,6 +6,7 @@
 #include "assert.h"
 
 static Entity camera_entity;
+static Scalar viewport_height = 1.0;
 
 static Mat3 inverse_view_matrix;
 
@@ -27,10 +28,13 @@ Entity camera_get()
     return camera_entity;
 }
 
-void camera_set_viewport_size(Entity ent, Vec2 dim)
+void camera_set_viewport_height(Entity ent, Scalar height)
 {
-    if (entity_eq(camera_entity, ent))
-        transform_set_scale(camera_entity, vec2_scalar_mul(dim, 0.5f));
+    viewport_height = height;
+}
+Scalar camera_get_viewport_height(Entity ent)
+{
+    return viewport_height;
 }
 
 Mat3 camera_get_inverse_view_matrix()
@@ -73,6 +77,9 @@ void camera_init()
 
 void camera_update_all()
 {
+    Vec2 win_size;
+    Scalar aspect;
+    
     if (entity_eq(camera_entity, entity_nil))
     {
         inverse_view_matrix = mat3_identity();
@@ -84,6 +91,11 @@ void camera_update_all()
             camera_remove(camera_entity);
             return;
         }
+
+        win_size = game_get_window_size();
+        aspect = win_size.x / win_size.y;
+        transform_set_scale(camera_entity, vec2(0.5 * aspect * viewport_height,
+                                                0.5 * viewport_height));
 
         inverse_view_matrix = mat3_inverse(
             transform_get_world_matrix(camera_entity));

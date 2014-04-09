@@ -7,7 +7,7 @@ camera = cs.entity.create()
 
 cs.transform.add(camera)
 cs.camera.add(camera)
-cs.camera.set_viewport_size(camera, cs.game.get_window_size() / 32.0)
+cs.camera.set_viewport_height(camera, 18)
 
 -- add some blocks
 

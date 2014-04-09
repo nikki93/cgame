@@ -20,7 +20,6 @@ void test_c()
     transform_add(camera);
 
     camera_add(camera);
-    camera_set_viewport_size(camera, vec2(800 / 32.0, 600 / 32.0));
 
     /* add some blocks */
 

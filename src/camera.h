@@ -21,7 +21,10 @@ SCRIPT(camera,
        EXPORT Entity camera_get(); /* return current camera, or
                                       entity_nil if doesn't exist */
 
-       EXPORT void camera_set_viewport_size(Entity ent, Vec2 dim);
+       /* number of world units to fit vertically on screen */
+       EXPORT void camera_set_viewport_height(Entity ent, Scalar height);
+       EXPORT Scalar camera_get_viewport_height(Entity ent);
+
        EXPORT Mat3 camera_get_inverse_view_matrix();
 
        /* screen-space coordinates <-> world coordinates transformations */

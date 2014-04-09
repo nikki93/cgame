@@ -13,7 +13,7 @@ cs.physics.set_simulation_frequency(300)
 -- add camera
 
 camera = cg.add {
-    camera = { viewport_size = cs.game.get_window_size() / GRID_SIZE },
+    camera = { viewport_height = 54 },
 }
 
 -- add floor
