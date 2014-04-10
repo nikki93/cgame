@@ -886,6 +886,17 @@ struct Text
 
 static EntityPool *text_pool;
 
+static void _text_add_cursor(Text *text, Vec2 pos)
+{
+    TextChar *tc;
+
+    /* compute position in font grid */
+    tc = array_add(text->chars);
+    tc->pos = pos;
+    tc->cell = vec2(' ' % TEXT_GRID_W, TEXT_GRID_H - 1 - (' ' / TEXT_GRID_W));
+    tc->is_cursor = 1;
+}
+
 static void _text_set_str(Text *text, const char *str)
 {
     char c;
@@ -911,6 +922,9 @@ static void _text_set_str(Text *text, const char *str)
     array_clear(text->chars);
     while (*str)
     {
+        if (i++ == text->cursor)
+            _text_add_cursor(text, pos);
+
         c = *str++;
         switch (c)
         {
@@ -918,7 +932,6 @@ static void _text_set_str(Text *text, const char *str)
                 /* next line */
                 pos.x = 0;
                 pos.y -= 1;
-                ++i;
                 continue;
         }
 
@@ -926,10 +939,7 @@ static void _text_set_str(Text *text, const char *str)
         tc = array_add(text->chars);
         tc->pos = pos;
         tc->cell = vec2(c % TEXT_GRID_W, TEXT_GRID_H - 1 - (c / TEXT_GRID_W));
-        if (i++ == text->cursor)
-            tc->is_cursor = 1;
-        else
-            tc->is_cursor = -1;
+        tc->is_cursor = -1;
 
         /* move ahead */
         pos.x += 1;
@@ -939,13 +949,7 @@ static void _text_set_str(Text *text, const char *str)
     /* cursor at end? */
     if (i == text->cursor)
     {
-        /* compute position in font grid */
-        tc = array_add(text->chars);
-        tc->pos = pos;
-        tc->cell = vec2(' ' % TEXT_GRID_W, TEXT_GRID_H - 1 - (' ' / TEXT_GRID_W));
-        tc->is_cursor = 1;
-
-        /* move ahead */
+        _text_add_cursor(text, pos);
         pos.x += 1;
         text->bounds.x = scalar_max(text->bounds.x, pos.x);
     }
@@ -1219,8 +1223,12 @@ static void _textedit_key_down(KeyCode key)
 
     old = gui_text_get_str(ent);
 
-    /* enter */
-    if (key == KC_ENTER)
+    /* confirm? */
+    if (key == KC_ENTER
+        && (input_key_down(KC_LEFT_SHIFT)
+            || input_key_down(KC_RIGHT_SHIFT)
+            || input_key_down(KC_LEFT_CONTROL)
+            || input_key_down(KC_RIGHT_CONTROL)))
     {
         gui_set_focused_entity(entity_nil);
     }
