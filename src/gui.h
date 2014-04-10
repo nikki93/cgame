@@ -78,6 +78,7 @@ SCRIPT(gui,
        EXPORT void gui_text_remove(Entity ent);
        EXPORT void gui_text_set_str(Entity ent, const char *str);
        EXPORT const char *gui_text_get_str(Entity ent);
+       EXPORT void gui_text_set_cursor(Entity ent, int cursor);
 
        /* gui_textedit */
 

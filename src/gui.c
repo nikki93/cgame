@@ -353,7 +353,8 @@ static void _common_mouse_event(EntityMap *emap, MouseCode mouse)
                 entitymap_set(emap, ent, mouse);
 
                 /* focus? */
-                if (gui->focusable && mouse == MC_LEFT)
+                if (gui->focusable && mouse == MC_LEFT
+                    && !(edit_get_enabled() && edit_get_editable(ent)))
                 {
                     some_focused = true;
                     focused = ent;
@@ -842,8 +843,9 @@ static void _rect_load_all(Deserializer *s)
 typedef struct TextChar TextChar;
 struct TextChar
 {
-    Vec2 pos;   /* position in space of text entity in size-less units */
-    Vec2 cell;  /* cell in font image */
+    Vec2 pos;        /* position in space of text entity in size-less units */
+    Vec2 cell;       /* cell in font image */
+    float is_cursor; /* > 0 iff. this char is cursor */
 };
 
 /* info per text entity */
@@ -855,6 +857,8 @@ struct Text
     char *str;
     Array *chars;  /* per-character info buffered to shader */
     Vec2 bounds;   /* max x, min y in size-less units */
+
+    int cursor;
 };
 
 static EntityPool *text_pool;
@@ -864,11 +868,19 @@ static void _text_set_str(Text *text, const char *str)
     char c;
     TextChar *tc;
     Vec2 pos;
+    int i = 0;
 
-    /* copy to struct */
-    free(text->str);
-    text->str = malloc(strlen(str) + 1);
-    strcpy(text->str, str);
+    /* copy to struct? */
+    if (str)
+    {
+        free(text->str);
+        text->str = malloc(strlen(str) + 1);
+        strcpy(text->str, str);
+    }
+    else
+    {
+        str = text->str;
+    }
 
     /* create TextChar array and update bounds */
     pos = vec2(0, -1);
@@ -883,12 +895,7 @@ static void _text_set_str(Text *text, const char *str)
                 /* next line */
                 pos.x = 0;
                 pos.y -= 1;
-                continue;
-
-            case ' ':
-                /* just skip ahead */
-                pos.x += 1;
-                text->bounds.x = scalar_max(text->bounds.x, pos.x);
+                ++i;
                 continue;
         }
 
@@ -896,6 +903,24 @@ static void _text_set_str(Text *text, const char *str)
         tc = array_add(text->chars);
         tc->pos = pos;
         tc->cell = vec2(c % TEXT_GRID_W, TEXT_GRID_H - 1 - (c / TEXT_GRID_W));
+        if (i++ == text->cursor)
+            tc->is_cursor = 1;
+        else
+            tc->is_cursor = -1;
+
+        /* move ahead */
+        pos.x += 1;
+        text->bounds.x = scalar_max(text->bounds.x, pos.x);
+    }
+
+    /* cursor at end? */
+    if (i == text->cursor)
+    {
+        /* compute position in font grid */
+        tc = array_add(text->chars);
+        tc->pos = pos;
+        tc->cell = vec2(' ' % TEXT_GRID_W, TEXT_GRID_H - 1 - (' ' / TEXT_GRID_W));
+        tc->is_cursor = 1;
 
         /* move ahead */
         pos.x += 1;
@@ -917,6 +942,7 @@ void gui_text_add(Entity ent)
     text = entitypool_add(text_pool, ent);
     text->chars = array_new(TextChar);
     text->str = NULL; /* _text_set_str(...) calls free(text->str) */
+    text->cursor = -1;
     _text_set_str(text, "");
 }
 void gui_text_remove(Entity ent)
@@ -941,6 +967,14 @@ const char *gui_text_get_str(Entity ent)
     Text *text = entitypool_get(text_pool, ent);
     assert(text);
     return text->str;
+}
+
+void gui_text_set_cursor(Entity ent, int cursor)
+{
+    Text *text = entitypool_get(text_pool, ent);
+    assert(text);
+    text->cursor = cursor;
+    _text_set_str(text, NULL);
 }
 
 static GLuint text_program;
@@ -971,6 +1005,8 @@ static void _text_init()
     glBindBuffer(GL_ARRAY_BUFFER, text_vbo);
     gfx_bind_vertex_attrib(text_program, GL_FLOAT, 2, "pos", TextChar, pos);
     gfx_bind_vertex_attrib(text_program, GL_FLOAT, 2, "cell", TextChar, cell);
+    gfx_bind_vertex_attrib(text_program, GL_FLOAT, 1, "is_cursor",
+                           TextChar, is_cursor);
 }
 static void _text_deinit()
 {
@@ -1162,7 +1198,7 @@ static void _textedit_key_down(KeyCode key)
     old = gui_text_get_str(ent);
 
     /* enter */
-    if (key == KC_ENTER)
+    if (key == KC_SPACE)
     {
         focused = entity_nil;
     }
@@ -1222,11 +1258,17 @@ static void _textedit_update()
     {
         ent = textedit->pool_elem.ent;
 
-        /* focus color */
+        /* focus stuff */
         if (gui_get_focus(ent))
+        {
+            gui_text_set_cursor(ent, textedit->cursor);
             gui_set_color(ent, color_red);
+        }
         else
+        {
+            gui_text_set_cursor(ent, -1);
             gui_set_color(ent, color_black);
+        }
     }
 }
 
