@@ -20,16 +20,38 @@ static KeyCode _glfw_to_keycode(int key) { return key; }
 static int _mousecode_to_glfw(MouseCode mouse) { return mouse; }
 static MouseCode _glfw_to_mousecode(int mouse) { return mouse; }
 
+bool input_keycode_is_char(KeyCode key)
+{
+    switch (key)
+    {
+        case KC_SPACE: case KC_APOSTROPHE: case KC_COMMA:
+        case KC_MINUS: case KC_PERIOD: case KC_SLASH: case KC_0:
+        case KC_1: case KC_2: case KC_3: case KC_4: case KC_5:
+        case KC_6: case KC_7: case KC_8: case KC_9: case KC_SEMICOLON:
+        case KC_EQUAL: case KC_A: case KC_B: case KC_C: case KC_D:
+        case KC_E: case KC_F: case KC_G: case KC_H: case KC_I:
+        case KC_J: case KC_K: case KC_L: case KC_M: case KC_N:
+        case KC_O: case KC_P: case KC_Q: case KC_R: case KC_S:
+        case KC_T: case KC_U: case KC_V: case KC_W: case KC_X:
+        case KC_Y: case KC_Z: case KC_LEFT_BRACKET: case KC_BACKSLASH:
+        case KC_RIGHT_BRACKET: case KC_GRAVE_ACCENT: case KC_WORLD_1:
+        case KC_WORLD_2:
+            return true;
+
+        default:
+            return false;
+    }
+}
+
 char input_keycode_to_char(KeyCode key)
 {
-    assert(KC_ASCII_BEGIN <= key <= KC_ASCII_END);
-    return tolower(key);
+    if (input_keycode_is_char(key))
+        return tolower(key);
+    return '\0';
 }
 KeyCode input_char_to_keycode(char c)
 {
-    c = toupper(c);
-    assert(KC_ASCII_BEGIN <= c <= KC_ASCII_END);
-    return c;
+    return toupper(c);
 }
 
 bool input_key_down(KeyCode key)

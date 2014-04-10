@@ -66,8 +66,6 @@ SCRIPT(input,
            KC_GRAVE_ACCENT =        96,
            KC_WORLD_1 =             161,
            KC_WORLD_2 =             162,
-           KC_ASCII_BEGIN =         KC_SPACE,
-           KC_ASCII_END =           KC_WORLD_2,
 
            /* function keys */
            KC_ESCAPE =              256,
@@ -142,6 +140,7 @@ SCRIPT(input,
            KC_MENU =                348,
        };
 
+       EXPORT bool input_keycode_is_char(KeyCode key);
        EXPORT char input_keycode_to_char(KeyCode key);
        EXPORT KeyCode input_char_to_keycode(char c);
 
