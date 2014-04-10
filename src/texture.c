@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <GL/glew.h>
 #include <stb_image.h>
+#include <sys/stat.h>
 
 #include "array.h"
 
@@ -16,6 +17,8 @@ struct Texture
     int width;
     int height;
     int components;
+
+    time_t last_modified;
 };
 
 Array *textures;
@@ -42,15 +45,12 @@ static void _flip_image_vertical(unsigned char *data,
     free(new_data);
 }
 
-void texture_load(const char *filename)
+static void _load(Texture *tex)
 {
+    struct stat st;
     unsigned char *data;
-    Texture *tex;
 
-    /* add Texture element */
-    tex = array_add(textures);
-    tex->filename = malloc(strlen(filename) + 1);
-    strcpy(tex->filename, filename);
+    printf("loading texture '%s'\n", tex->filename);
 
     /* generate GL texture */
     glGenTextures(1, &tex->gl_name);
@@ -60,12 +60,27 @@ void texture_load(const char *filename)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     /* read in texture data */
-    data = stbi_load(filename, &tex->width, &tex->height,
+    data = stbi_load(tex->filename, &tex->width, &tex->height,
                      &tex->components, 0);
     _flip_image_vertical(data, tex->width, tex->height);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex->width, tex->height,
                  0, GL_RGBA, GL_UNSIGNED_BYTE, data);
     stbi_image_free(data);
+
+    /* update modified time */
+    stat(tex->filename, &st);
+    tex->last_modified = st.st_mtime;
+}
+
+void texture_load(const char *filename)
+{
+    Texture *tex;
+
+    tex = array_add(textures);
+    tex->filename = malloc(strlen(filename) + 1);
+    strcpy(tex->filename, filename);
+
+    _load(tex);
 }
 
 Texture *_find(const char *filename)
@@ -110,7 +125,16 @@ void texture_deinit()
     array_free(textures);
 }
 
+void texture_update()
+{
+    struct stat st;
+    Texture *tex;
 
-
-
-
+    array_foreach(tex, textures)
+    {
+        /* outdated? reload */
+        stat(tex->filename, &st);
+        if (st.st_mtime != tex->last_modified)
+            _load(tex);
+    }
+}

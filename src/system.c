@@ -84,7 +84,9 @@ void system_update_all()
 
     timing_update();
 
+    texture_update();
     scratch_update();
+
     script_update_all();
 
     keyboard_controlled_update_all();
