@@ -196,6 +196,7 @@ void sprite_save_all(Serializer *s)
         mat3_save(&sprite->wmat, s);
         vec2_save(&sprite->cell, s);
         vec2_save(&sprite->size, s);
+        int_save(&sprite->depth, s);
     }
 }
 void sprite_load_all(Deserializer *s)
@@ -207,6 +208,7 @@ void sprite_load_all(Deserializer *s)
         mat3_load(&sprite->wmat, s);
         vec2_load(&sprite->cell, s);
         vec2_load(&sprite->size, s);
+        int_load(&sprite->depth, s);
     }
 }
 
