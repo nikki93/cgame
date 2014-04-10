@@ -269,70 +269,68 @@ static void _common_update_visible()
         _common_update_visible_rec(gui);
 }
 
-static void _common_reset_align()
+static void _common_align(Gui *gui, GuiAlign halign, GuiAlign valign)
 {
-    Gui *gui;
-    Vec2 pos;
-
-    entitypool_foreach(gui, gui_pool)
-    {
-        pos = transform_get_position(gui->pool_elem.ent);
-        if (gui->halign != GA_NONE)
-            pos.x = gui->padding.x;
-        if (gui->valign != GA_NONE)
-            pos.y = -gui->padding.y;
-        transform_set_position(gui->pool_elem.ent, pos);
-    }
-}
-
-static void _common_update_align()
-{
-    Gui *gui, *pgui;
+    Gui *pgui;
     BBox b, pb;
     Vec2 pos;
     Entity ent;
     Scalar mid, pmid;
 
-    entitypool_foreach(gui, gui_pool)
-    {
-        if (gui->halign == GA_NONE && gui->valign == GA_NONE)
-            continue;
+    if (halign == GA_NONE && valign == GA_NONE)
+        return;
 
-        ent = gui->pool_elem.ent;
+    ent = gui->pool_elem.ent;
 
-        /* get parent-space bounding box and position */
-        b = bbox_transform(transform_get_matrix(ent), gui->bbox);
-        pos = transform_get_position(ent);
+    /* get parent-space bounding box and position */
+    b = bbox_transform(transform_get_matrix(ent), gui->bbox);
+    pos = transform_get_position(ent);
 
-        /* get parent gui and its bounding box */
-        pgui = entitypool_get(gui_pool, transform_get_parent(ent));
-        if (!pgui)
-            continue;
-        pb = pgui->bbox;
+    /* get parent gui and its bounding box */
+    pgui = entitypool_get(gui_pool, transform_get_parent(ent));
+    if (!pgui)
+        return;
+    pb = pgui->bbox;
 
-        /* macro to avoid repetition -- 'z' is Vec2 axis member (x or y) */
+    /* macro to avoid repetition -- 'z' is Vec2 axis member (x or y) */
 #define axis_align(align, z)                                            \
-        switch (align)                                                  \
-        {                                                               \
-            case GA_MIN:                                                \
-                pos.z = pb.min.z + gui->padding.z + pos.z - b.min.z;    \
-                break;                                                  \
-            case GA_MAX:                                                \
-                pos.z = pb.max.z - gui->padding.z - (b.max.z - pos.z);  \
-                break;                                                  \
-            case GA_MID:                                                \
-                mid = 0.5 * (b.min.z + b.max.z);                        \
-                pmid = 0.5 * (pb.min.z + pb.max.z);                     \
-                pos.z = pmid - (mid - pos.z);                           \
-                break;                                                  \
-            default:                                                    \
-                break;                                                  \
-        }                                                               \
+    switch (align)                                                      \
+    {                                                                   \
+        case GA_MIN:                                                    \
+            pos.z = pb.min.z + gui->padding.z + pos.z - b.min.z;        \
+            break;                                                      \
+        case GA_MAX:                                                    \
+            pos.z = pb.max.z - gui->padding.z - (b.max.z - pos.z);      \
+            break;                                                      \
+        case GA_MID:                                                    \
+            mid = 0.5 * (b.min.z + b.max.z);                            \
+            pmid = 0.5 * (pb.min.z + pb.max.z);                         \
+            pos.z = pmid - (mid - pos.z);                               \
+            break;                                                      \
+        default:                                                        \
+            break;                                                      \
+    }                                                                   \
 
-        axis_align(gui->halign, x);
-        axis_align(gui->valign, y);
-        transform_set_position(ent, pos);
-    }
+    axis_align(halign, x);
+    axis_align(valign, y);
+    transform_set_position(ent, pos);
+}
+
+/* move everything to top-left -- for fit calculations */
+static void _common_reset_align()
+{
+    Gui *gui;
+    entitypool_foreach(gui, gui_pool)
+        _common_align(gui,
+                      gui->halign == GA_NONE ? GA_NONE : GA_MIN,
+                      gui->valign == GA_NONE ? GA_NONE : GA_MAX);
+}
+
+static void _common_update_align()
+{
+    Gui *gui;
+    entitypool_foreach(gui, gui_pool)
+        _common_align(gui, gui->halign, gui->valign);
 }
 
 static void _common_update_all()
