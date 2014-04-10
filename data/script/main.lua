@@ -5,6 +5,8 @@ require 'cgame'
 -- misc. keys
 cs.app = {}
 function cs.app.key_down(key)
+    if cs.gui.has_focus() then return end
+
     if key == cg.KC_ESCAPE then
         cs.game.quit()
 

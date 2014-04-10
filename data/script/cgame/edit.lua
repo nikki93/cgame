@@ -79,15 +79,19 @@ function cs.edit._mode_exec_bind(up, codestr)
 end
 
 function cs.edit.mode_key_down(key)
+    if cs.gui.has_focus() then return end
     cs.edit._mode_exec_bind(false, cs.input.keycode_to_string(key))
 end
 function cs.edit.mode_key_up(key)
+    if cs.gui.has_focus() then return end
     cs.edit._mode_exec_bind(true, cs.input.keycode_to_string(key))
 end
 function cs.edit.mode_mouse_down(mouse)
+    if cs.gui.has_focus() then return end
     cs.edit._mode_exec_bind(false, cs.input.mousecode_to_string(mouse))
 end
 function cs.edit.mode_mouse_up(mouse)
+    if cs.gui.has_focus() then return end
     cs.edit._mode_exec_bind(true, cs.input.mousecode_to_string(mouse))
 end
 
