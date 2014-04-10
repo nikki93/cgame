@@ -48,6 +48,8 @@ struct Gui
 
 static EntityPool *gui_pool;
 
+static EntityMap *focus_enter_map;
+static EntityMap *focus_exit_map;
 static EntityMap *mouse_down_map;
 static EntityMap *mouse_up_map;
 
@@ -159,7 +161,14 @@ Vec2 gui_get_padding(Entity ent)
 
 void gui_set_focused_entity(Entity ent)
 {
+    if (entity_eq(focused, ent))
+        return;
+
+    if (entity_eq(ent, entity_nil))
+        entitymap_set(focus_exit_map, ent, true);
     focused = ent;
+    if (!entity_eq(focused, entity_nil))
+        entitymap_set(focus_enter_map, focused, true);
 }
 Entity gui_get_focused_entity()
 {
@@ -168,9 +177,9 @@ Entity gui_get_focused_entity()
 void gui_set_focus(Entity ent, bool focus)
 {
     if (focus)
-        focused = ent;
+        gui_set_focused_entity(ent);
     else if (entity_eq(focused, ent))
-        focused = entity_nil;
+        gui_set_focused_entity(entity_nil);
 }
 bool gui_get_focus(Entity ent)
 {
@@ -181,6 +190,14 @@ bool gui_has_focus()
     return !entity_eq(focused, entity_nil);
 }
 
+bool gui_event_focus_enter(Entity ent)
+{
+    return entitymap_get(focus_enter_map, ent);
+}
+bool gui_event_focus_exit(Entity ent)
+{
+    return entitymap_get(focus_exit_map, ent);
+}
 MouseCode gui_event_mouse_down(Entity ent)
 {
     return entitymap_get(mouse_down_map, ent);
@@ -193,6 +210,8 @@ MouseCode gui_event_mouse_up(Entity ent)
 static void _common_init()
 {
     gui_pool = entitypool_new(Gui);
+    focus_enter_map = entitymap_new(false);
+    focus_exit_map = entitymap_new(false);
     mouse_down_map = entitymap_new(MC_NONE);
     mouse_up_map = entitymap_new(MC_NONE);
 }
@@ -200,6 +219,8 @@ static void _common_deinit()
 {
     entitymap_free(mouse_up_map);
     entitymap_free(mouse_down_map);
+    entitymap_free(focus_enter_map);
+    entitymap_free(focus_exit_map);
     entitypool_free(gui_pool);
 }
 
@@ -343,7 +364,8 @@ static void _common_mouse_event(EntityMap *emap, MouseCode mouse)
 
     m = camera_unit_to_world(input_get_mouse_pos_unit());
     entitypool_foreach(gui, gui_pool)
-        if (gui->visible)
+        if (gui->visible
+            && !(edit_get_enabled() && edit_get_editable(gui->pool_elem.ent)))
         {
             ent = gui->pool_elem.ent;
 
@@ -353,18 +375,17 @@ static void _common_mouse_event(EntityMap *emap, MouseCode mouse)
                 entitymap_set(emap, ent, mouse);
 
                 /* focus? */
-                if (gui->focusable && mouse == MC_LEFT
-                    && !(edit_get_enabled() && edit_get_editable(ent)))
+                if (gui->focusable && mouse == MC_LEFT)
                 {
                     some_focused = true;
-                    focused = ent;
+                    gui_set_focused_entity(ent);
                 }
             }
         }
 
     /* none focused? clear */
     if (!some_focused)
-        focused = entity_nil;
+        gui_set_focused_entity(entity_nil);
 }
 static void _common_mouse_down(MouseCode mouse)
 {
@@ -376,6 +397,8 @@ static void _common_mouse_up(MouseCode mouse)
 }
 static void _common_event_clear()
 {
+    entitymap_clear(focus_enter_map);
+    entitymap_clear(focus_exit_map);
     entitymap_clear(mouse_down_map);
     entitymap_clear(mouse_up_map);
 }
@@ -1198,9 +1221,9 @@ static void _textedit_key_down(KeyCode key)
     old = gui_text_get_str(ent);
 
     /* enter */
-    if (key == KC_SPACE)
+    if (key == KC_ENTER)
     {
-        focused = entity_nil;
+        gui_set_focused_entity(entity_nil);
     }
 
     /* left/right */
@@ -1260,23 +1283,38 @@ static void _textedit_update()
 
         /* focus stuff */
         if (gui_get_focus(ent))
-        {
             gui_text_set_cursor(ent, textedit->cursor);
-            gui_set_color(ent, color_red);
-        }
         else
-        {
             gui_text_set_cursor(ent, -1);
-            gui_set_color(ent, color_black);
-        }
     }
 }
 
 static void _textedit_save_all(Serializer *s)
 {
+    TextEdit *textedit;
+
+    entitypool_foreach(textedit, textedit_pool)
+    {
+        if (!entity_get_save_filter(textedit->pool_elem.ent))
+            continue;
+        loop_continue_save(s);
+
+        entitypool_elem_save(textedit_pool, &textedit, s);
+
+        uint_save(&textedit->cursor, s);
+    }
+    loop_end_save(s);
 }
 static void _textedit_load_all(Deserializer *s)
 {
+    TextEdit *textedit;
+
+    while (loop_continue_load(s))
+    {
+        entitypool_elem_load(textedit_pool, &textedit, s);
+
+        uint_load(&textedit->cursor, s);
+    }
 }
 
 /* ------------------------------------------------------------------------- */

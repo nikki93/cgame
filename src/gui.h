@@ -52,6 +52,8 @@ SCRIPT(gui,
        EXPORT bool gui_get_focus(Entity ent);
        EXPORT bool gui_has_focus(); /* whether any gui is focused */
 
+       EXPORT bool gui_event_focus_enter(Entity ent);
+       EXPORT bool gui_event_focus_exit(Entity ent);
        EXPORT MouseCode gui_event_mouse_down(Entity ent);
        EXPORT MouseCode gui_event_mouse_up(Entity ent);
 
