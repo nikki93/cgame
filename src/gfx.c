@@ -19,7 +19,7 @@ static GLint _compile_shader(GLuint shader, const char *filename)
     fclose(input_file);
     file_contents[input_file_size] = '\0';
 
-    printf("gfx: compiling shader '%s' ...", filename);
+    console_printf("gfx: compiling shader '%s' ...", filename);
 
     glShaderSource(shader, 1, (const GLchar **) &file_contents, NULL);
     glCompileShader(shader);
@@ -28,9 +28,9 @@ static GLint _compile_shader(GLuint shader, const char *filename)
 
     /* log */
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
-    printf(status ? " successful\n" : " unsuccessful\n");
+    console_printf(status ? " successful\n" : " unsuccessful\n");
     glGetShaderInfoLog(shader, 512, NULL, log);
-    printf("%s", log);
+    console_printf("%s", log);
 
     return status;
 }
