@@ -99,5 +99,30 @@ void entitypool_elem_load(EntityPool *pool, void *elem, Deserializer *s);
     for (void *__end = (var = entitypool_begin(pool),                   \
                         entitypool_end(pool)); var != __end; ++var)
 
+#define entitypool_save_foreach(var, pool, s)           \
+    entitypool_save_foreach_(var, pool, s, __LINE__)
+#define make_label(line) __label_1_ ## line
+#define entitypool_save_foreach_(var, pool, s, line)                    \
+    if (1)                                                              \
+        goto make_label(line);                                          \
+    else                                                                \
+        while (1)                                                       \
+            if (1)                                                      \
+            {                                                           \
+                loop_end_save(s);                                       \
+                break;                                                  \
+            }                                                           \
+            else                                                        \
+            make_label(line):                                           \
+                entitypool_foreach(var, pool)                           \
+                    if (entity_get_save_filter(((EntityPoolElem *) var)->ent)) \
+                        if ((loop_continue_save(s),                     \
+                             entitypool_elem_save(pool, &var, s),       \
+                             1))                                        \
+
+#define entitypool_load_foreach(var, pool, s)                   \
+        while (loop_continue_load(s))                           \
+            if ((entitypool_elem_load(pool, &var, s), 1))       \
+
 #endif
 

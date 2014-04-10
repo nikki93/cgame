@@ -249,21 +249,10 @@ bool entity_eq(Entity e, Entity f)
 void entity_save_all(Serializer *s)
 {
     ExistsPoolElem *exists;
-
-    entitypool_foreach(exists, exists_pool)
-    {
-        if (!entity_get_save_filter(exists->pool_elem.ent))
-            continue;
-        loop_continue_save(s);
-
-        entitypool_elem_save(exists_pool, &exists, s);
-    }
-    loop_end_save(s);
+    entitypool_save_foreach(exists, exists_pool, s);
 }
 void entity_load_all(Deserializer *s)
 {
     ExistsPoolElem *exists;
-
-    while (loop_continue_load(s))
-        entitypool_elem_load(exists_pool, &exists, s);
+    entitypool_load_foreach(exists, exists_pool, s);
 }

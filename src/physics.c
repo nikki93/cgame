@@ -681,30 +681,21 @@ void physics_save_all(Serializer *s)
 {
     PhysicsInfo *info;
 
-    entitypool_foreach(info, pool)
+    entitypool_save_foreach(info, pool, s)
     {
-        if (!entity_get_save_filter(info->pool_elem.ent))
-            continue;
-        loop_continue_save(s);
-
-        entitypool_elem_save(pool, &info, s);
-
         enum_save(&info->type, s);
         scalar_save(&info->mass, s);
 
         _body_save(info, s);
         _shapes_save(info, s);
     }
-    loop_end_save(s);
 }
 void physics_load_all(Deserializer *s)
 {
     PhysicsInfo *info;
 
-    while (loop_continue_load(s))
+    entitypool_load_foreach(info, pool, s)
     {
-        entitypool_elem_load(pool, &info, s);
-
         enum_load(&info->type, s);
         scalar_load(&info->mass, s);
 

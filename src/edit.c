@@ -247,21 +247,10 @@ void edit_draw_all()
 void edit_save_all(Serializer *s)
 {
     EntityPoolElem *elem;
-
-    entitypool_foreach(elem, uneditable_pool)
-    {
-        if (!entity_get_save_filter(elem->ent))
-            continue;
-        loop_continue_save(s);
-
-        entitypool_elem_save(uneditable_pool, &elem, s);
-    }
-    loop_end_save(s);
+    entitypool_save_foreach(elem, uneditable_pool, s);
 }
 void edit_load_all(Deserializer *s)
 {
     EntityPoolElem *elem;
-
-    while (loop_continue_load(s))
-        entitypool_elem_load(uneditable_pool, &elem, s);
+    entitypool_load_foreach(elem, uneditable_pool, s);
 }

@@ -447,13 +447,8 @@ void transform_save_all(Serializer *s)
 {
     Transform *transform;
 
-    entitypool_foreach(transform, pool)
+    entitypool_save_foreach(transform, pool, s)
     {
-        if (!entity_get_save_filter(transform->pool_elem.ent))
-            continue;
-        loop_continue_save(s);
-
-        entitypool_elem_save(pool, &transform, s);
         vec2_save(&transform->position, s);
         scalar_save(&transform->rotation, s);
         vec2_save(&transform->scale, s);
@@ -469,15 +464,13 @@ void transform_save_all(Serializer *s)
 
         uint_save(&transform->dirty_count, s);
     }
-    loop_end_save(s);
 }
 void transform_load_all(Deserializer *s)
 {
     Transform *transform;
 
-    while (loop_continue_load(s))
+    entitypool_load_foreach(transform, pool, s)
     {
-        entitypool_elem_load(pool, &transform, s);
         vec2_load(&transform->position, s);
         scalar_load(&transform->rotation, s);
         vec2_load(&transform->scale, s);

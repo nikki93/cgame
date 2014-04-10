@@ -408,13 +408,8 @@ static void _common_save_all(Serializer *s)
 {
     Gui *gui;
 
-    entitypool_foreach(gui, gui_pool)
+    entitypool_save_foreach(gui, gui_pool, s)
     {
-        if (!entity_get_save_filter(gui->pool_elem.ent))
-            continue;
-        loop_continue_save(s);
-
-        entitypool_elem_save(gui_pool, &gui, s);
         color_save(&gui->color, s);
         bool_save(&gui->visible, s);
         bool_save(&gui->setvisible, s);
@@ -423,15 +418,13 @@ static void _common_save_all(Serializer *s)
         enum_save(&gui->valign, s);
         vec2_save(&gui->padding, s);
     }
-    loop_end_save(s);
 }
 static void _common_load_all(Deserializer *s)
 {
     Gui *gui;
 
-    while (loop_continue_load(s))
+    entitypool_load_foreach(gui, gui_pool, s)
     {
-        entitypool_elem_load(gui_pool, &gui, s);
         color_load(&gui->color, s);
         bool_load(&gui->visible, s);
         bool_load(&gui->setvisible, s);
@@ -823,13 +816,8 @@ static void _rect_save_all(Serializer *s)
 {
     Rect *rect;
 
-    entitypool_foreach(rect, rect_pool)
+    entitypool_save_foreach(rect, rect_pool, s)
     {
-        if (!entity_get_save_filter(rect->pool_elem.ent))
-            continue;
-        loop_continue_save(s);
-
-        entitypool_elem_save(rect_pool, &rect, s);
         mat3_save(&rect->wmat, s);
         vec2_save(&rect->size, s);
         color_save(&rect->color, s);
@@ -838,15 +826,13 @@ static void _rect_save_all(Serializer *s)
         bool_save(&rect->hfill, s);
         bool_save(&rect->vfill, s);
     }
-    loop_end_save(s);
 }
 static void _rect_load_all(Deserializer *s)
 {
     Rect *rect;
 
-    while (loop_continue_load(s))
+    entitypool_load_foreach(rect, rect_pool, s)
     {
-        entitypool_elem_load(rect_pool, &rect, s);
         mat3_load(&rect->wmat, s);
         vec2_load(&rect->size, s);
         color_load(&rect->color, s);
@@ -1134,14 +1120,8 @@ static void _text_save_all(Serializer *s)
     TextChar *tc;
     unsigned int nchars;
 
-    entitypool_foreach(text, text_pool)
+    entitypool_save_foreach(text, text_pool, s)
     {
-        if (!entity_get_save_filter(text->pool_elem.ent))
-            continue;
-        loop_continue_save(s);
-
-        entitypool_elem_save(text_pool, &text, s);
-
         string_save((const char **) &text->str, s);
 
         nchars = array_length(text->chars);
@@ -1155,7 +1135,6 @@ static void _text_save_all(Serializer *s)
         int_save(&text->cursor, s);
         vec2_save(&text->bounds, s);
     }
-    loop_end_save(s);
 }
 static void _text_load_all(Deserializer *s)
 {
@@ -1163,10 +1142,8 @@ static void _text_load_all(Deserializer *s)
     TextChar *tc;
     unsigned int nchars;
 
-    while(loop_continue_load(s))
+    entitypool_load_foreach(text, text_pool, s)
     {
-        entitypool_elem_load(text_pool, &text, s);
-
         string_load(&text->str, s);
 
         uint_load(&nchars, s);
@@ -1319,28 +1296,15 @@ static void _textedit_save_all(Serializer *s)
 {
     TextEdit *textedit;
 
-    entitypool_foreach(textedit, textedit_pool)
-    {
-        if (!entity_get_save_filter(textedit->pool_elem.ent))
-            continue;
-        loop_continue_save(s);
-
-        entitypool_elem_save(textedit_pool, &textedit, s);
-
+    entitypool_save_foreach(textedit, textedit_pool, s)
         uint_save(&textedit->cursor, s);
-    }
-    loop_end_save(s);
 }
 static void _textedit_load_all(Deserializer *s)
 {
     TextEdit *textedit;
 
-    while (loop_continue_load(s))
-    {
-        entitypool_elem_load(textedit_pool, &textedit, s);
-
+    entitypool_load_foreach(textedit, textedit_pool, s)
         uint_load(&textedit->cursor, s);
-    }
 }
 
 /* ------------------------------------------------------------------------- */
