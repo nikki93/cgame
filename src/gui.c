@@ -20,6 +20,8 @@
 static Entity gui_root; /* all gui should be descendants of this to move
                            with screen */
 
+static Entity focused; /* currently focused entity, or entity_nil if none */
+
 /* --- common -------------------------------------------------------------- */
 
 /*
@@ -34,6 +36,7 @@ struct Gui
     bool setvisible;      /* externally-set visibility */
     bool visible;         /* internal recursively computed visibility */
     bool updated_visible; /* for recursive visibility computation */
+    bool focusable;       /* can be focused */
 
     Color color;
 
@@ -65,6 +68,7 @@ void gui_add(Entity ent)
     gui = entitypool_add(gui_pool, ent);
     gui->visible = true;
     gui->setvisible = true;
+    gui->focusable = false;
     gui->color = color(0.5, 0.5, 0.5, 1.0);
     gui->bbox = bbox(vec2_zero, vec2(32, 32));
     gui->halign = GA_NONE;
@@ -103,6 +107,19 @@ bool gui_get_visible(Entity ent)
     return gui->visible;
 }
 
+void gui_set_focusable(Entity ent, bool focusable)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    gui->focusable = focusable;
+}
+bool gui_get_focusable(Entity ent)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    return gui->focusable;
+}
+
 void gui_set_halign(Entity ent, GuiAlign align)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
@@ -138,6 +155,30 @@ Vec2 gui_get_padding(Entity ent)
     Gui *gui = entitypool_get(gui_pool, ent);
     assert(gui);
     return gui->padding;
+}
+
+void gui_set_focused_entity(Entity ent)
+{
+    focused = ent;
+}
+Entity gui_get_focused_entity()
+{
+    return focused;
+}
+void gui_set_focus(Entity ent, bool focus)
+{
+    if (focus)
+        focused = ent;
+    else if (entity_eq(focused, ent))
+        focused = entity_nil;
+}
+bool gui_get_focus(Entity ent)
+{
+    return entity_eq(focused, ent);
+}
+bool gui_has_focus()
+{
+    return !entity_eq(focused, entity_nil);
 }
 
 MouseCode gui_event_mouse_down(Entity ent)
@@ -298,16 +339,31 @@ static void _common_mouse_event(EntityMap *emap, MouseCode mouse)
     Vec2 m;
     Mat3 t;
     Entity ent;
+    bool some_focused = false;
 
     m = camera_unit_to_world(input_get_mouse_pos_unit());
     entitypool_foreach(gui, gui_pool)
         if (gui->visible)
         {
             ent = gui->pool_elem.ent;
+
             t = mat3_inverse(transform_get_world_matrix(ent));
             if (bbox_contains(gui->bbox, mat3_transform(t, m)))
+            {
                 entitymap_set(emap, ent, mouse);
+
+                /* focus? */
+                if (gui->focusable && mouse == MC_LEFT)
+                {
+                    some_focused = true;
+                    focused = ent;
+                }
+            }
         }
+
+    /* none focused? clear */
+    if (!some_focused)
+        focused = entity_nil;
 }
 static void _common_mouse_down(MouseCode mouse)
 {
@@ -1049,6 +1105,138 @@ static void _text_load_all(Deserializer *s)
     }
 }
 
+/* --- textedit ------------------------------------------------------------ */
+
+typedef struct TextEdit TextEdit;
+struct TextEdit
+{
+    EntityPoolElem pool_elem;
+
+    unsigned int cursor; /* 0 at beginning of string */
+};
+
+EntityPool *textedit_pool;
+
+void gui_textedit_add(Entity ent)
+{
+    TextEdit *textedit;
+
+    if (entitypool_get(textedit_pool, ent))
+        return;
+
+    gui_text_add(ent);
+    gui_text_set_str(ent, "default");
+    gui_set_focusable(ent, true);
+
+    textedit = entitypool_add(textedit_pool, ent);
+    textedit->cursor = 0;
+}
+
+void gui_textedit_remove(Entity ent)
+{
+    entitypool_remove(textedit_pool, ent);
+}
+
+static void _textedit_init()
+{
+    textedit_pool = entitypool_new(TextEdit);
+}
+static void _textedit_deinit()
+{
+    entitypool_free(textedit_pool);
+}
+
+static void _textedit_key_down(KeyCode key)
+{
+    Entity ent;
+    TextEdit *textedit;
+    char c;
+    const char *old;
+    char *new = NULL;
+
+    textedit = entitypool_get(textedit_pool, focused);
+    if (!textedit)
+        return;
+    ent = textedit->pool_elem.ent;
+
+    old = gui_text_get_str(ent);
+
+    /* enter */
+    if (key == KC_ENTER)
+    {
+        focused = entity_nil;
+    }
+
+    /* left/right */
+    else if (key == KC_LEFT)
+    {
+        if (textedit->cursor > 0)
+            --textedit->cursor;
+    }
+    else if (key == KC_RIGHT)
+    {
+        if (textedit->cursor < strlen(old))
+            ++textedit->cursor;
+    }
+
+    /* remove char */
+    else if (key == KC_BACKSPACE || key == KC_DELETE)
+    {
+        if (key == KC_BACKSPACE)
+            if (textedit->cursor > 0)
+                --textedit->cursor;
+
+        new = malloc(strlen(old)); /* 1 less, but 1 more for null */
+        strncpy(new, old, textedit->cursor);
+        strcpy(&new[textedit->cursor], &old[textedit->cursor + 1]);
+        gui_text_set_str(ent, new);
+    }
+
+    /* insert char */
+    else if (key == KC_ENTER || input_keycode_is_char(key))
+    {
+        if (input_keycode_is_char(key))
+            c = input_keycode_to_char(key);
+        else
+            c = '\n';
+
+        new = malloc(strlen(old) + 2); /* 1 for new char, 1 for null */
+        strncpy(new, old, textedit->cursor);
+        new[textedit->cursor] = c;
+        strcpy(&new[textedit->cursor + 1], &old[textedit->cursor]);
+        gui_text_set_str(ent, new);
+        ++textedit->cursor;
+    }
+
+    free(new);
+}
+
+static void _textedit_update()
+{
+    Entity ent;
+    TextEdit *textedit;
+
+    entitypool_remove_destroyed(textedit_pool, gui_textedit_remove);
+
+    entitypool_foreach(textedit, textedit_pool)
+    {
+        ent = textedit->pool_elem.ent;
+
+        /* focus color */
+        if (gui_get_focus(ent))
+            gui_set_color(ent, color_red);
+        else
+            gui_set_color(ent, color_black);
+    }
+}
+
+static void _textedit_save_all(Serializer *s)
+{
+}
+static void _textedit_load_all(Deserializer *s)
+{
+}
+
 /* ------------------------------------------------------------------------- */
 
 void gui_event_clear()
@@ -1069,13 +1257,16 @@ static void _create_root()
 
 void gui_init()
 {
+    focused = entity_nil;
     _common_init();
     _rect_init();
     _text_init();
+    _textedit_init();
     _create_root();
 }
 void gui_deinit()
 {
+    _textedit_deinit();
     _text_deinit();
     _rect_deinit();
     _common_deinit();
@@ -1104,6 +1295,7 @@ void gui_update_all()
     _common_update_visible();
     _common_reset_align();
     _text_update_all();
+    _textedit_update();
     _rect_update_all();
     _common_update_align();
     _rect_update_wmat();
@@ -1118,6 +1310,7 @@ void gui_draw_all()
 
 void gui_key_down(KeyCode key)
 {
+    _textedit_key_down(key);
 }
 void gui_key_up(KeyCode key)
 {
@@ -1136,10 +1329,12 @@ void gui_save_all(Serializer *s)
     _common_save_all(s);
     _rect_save_all(s);
     _text_save_all(s);
+    _textedit_save_all(s);
 }
 void gui_load_all(Deserializer *s)
 {
     _common_load_all(s);
     _rect_load_all(s);
     _text_load_all(s);
+    _textedit_load_all(s);
 }

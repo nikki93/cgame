@@ -25,6 +25,8 @@ SCRIPT(gui,
        EXPORT Color gui_get_color(Entity ent);
        EXPORT void gui_set_visible(Entity ent, bool visible);
        EXPORT bool gui_get_visible(Entity ent);
+       EXPORT void gui_set_focusable(Entity ent, bool focusable);
+       EXPORT bool gui_get_focusable(Entity ent);
 
        typedef enum GuiAlign GuiAlign;
        enum GuiAlign
@@ -42,6 +44,13 @@ SCRIPT(gui,
        EXPORT GuiAlign gui_get_valign(Entity ent);
        EXPORT void gui_set_padding(Entity ent, Vec2 padding); /* h, v */
        EXPORT Vec2 gui_get_padding(Entity ent); /* h, v */
+
+       /* entity_nil for no focus */
+       EXPORT void gui_set_focused_entity(Entity ent);
+       EXPORT Entity gui_get_focused_entity();
+       EXPORT void gui_set_focus(Entity ent, bool focus);
+       EXPORT bool gui_get_focus(Entity ent);
+       EXPORT bool gui_has_focus(); /* whether any gui is focused */
 
        EXPORT MouseCode gui_event_mouse_down(Entity ent);
        EXPORT MouseCode gui_event_mouse_up(Entity ent);
@@ -69,6 +78,11 @@ SCRIPT(gui,
        EXPORT void gui_text_remove(Entity ent);
        EXPORT void gui_text_set_str(Entity ent, const char *str);
        EXPORT const char *gui_text_get_str(Entity ent);
+
+       /* gui_textedit */
+
+       EXPORT void gui_textedit_add(Entity ent);
+       EXPORT void gui_textedit_remove(Entity ent);
 
     )
 
