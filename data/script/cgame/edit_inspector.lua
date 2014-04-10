@@ -108,13 +108,14 @@ function cs.edit_inspector.remove(ent, sys)
     inspectors[ent][sys] = nil
 end
 
-local function set_uneditable_rec(ent)
+local function set_group_rec(ent)
     cs.edit.set_editable(ent, false)
+    cs.group.set_groups(ent, 'builtin')
 
     if cs.transform.has(ent) then
         local children = cs.transform.get_children(ent)
         for i = 0, cs.transform.get_num_children(ent) - 1 do
-            set_uneditable_rec(children[i])
+            set_group_rec(children[i])
         end
     end
 end
@@ -125,8 +126,8 @@ local function update_inspector(inspector)
         return
     end
     
-    -- make everything uneditable
-    set_uneditable_rec(inspector.window)
+    -- make everything uneditable/unsaveable etc.
+    set_group_rec(inspector.window)
 
     -- update property views
     for _, prop in pairs(inspector.props) do
