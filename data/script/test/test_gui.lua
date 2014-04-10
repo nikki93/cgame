@@ -98,3 +98,14 @@ text2 = cg.add {
     },
     gui_text = { str = 'I move with my parent!' },
 }
+
+textedit = cg.add {
+    transform = { parent = cs.gui_window.get_body(win2) },
+    gui = {
+        color = cg.color_white,
+        valign = cg.GA_TABLE,
+        halign = cg.GA_MIN
+    },
+    gui_event = { focus_enter = function () print('lol') end },
+    gui_textedit = {},
+}
