@@ -335,12 +335,12 @@ static void _common_update_align()
         _common_align(gui, gui->halign, gui->valign);
 }
 
-static void _common_update_all()
+/* attach root GUI entities to gui_root */
+static void _common_attach_root()
 {
     Gui *gui;
     Entity ent;
 
-    /* attach root GUI entities to gui_root */
     entitypool_foreach(gui, gui_pool)
     {
         ent = gui->pool_elem.ent;
@@ -348,6 +348,13 @@ static void _common_update_all()
             && entity_eq(transform_get_parent(ent), entity_nil))
             transform_set_parent(ent, gui_root);
     }
+}
+
+static void _common_update_all()
+{
+    Gui *gui;
+
+    _common_attach_root();
 
     /* update edit bboxes */
     if (edit_get_enabled())
@@ -421,6 +428,7 @@ static void _common_save_all(Serializer *s)
 }
 static void _common_load_all(Deserializer *s)
 {
+    Entity ent;
     Gui *gui;
 
     entitypool_load_foreach(gui, gui_pool, s)
@@ -433,6 +441,8 @@ static void _common_load_all(Deserializer *s)
         enum_load(&gui->valign, s);
         vec2_load(&gui->padding, s);
     }
+
+    _common_attach_root();
 }
 
 /* --- rect ---------------------------------------------------------------- */
