@@ -489,6 +489,7 @@ cs.edit.gui_root = cg.add {
 }
 
 require 'cgame.edit_bottom_gui'
+require 'cgame.edit_inspector'
 
 
 --- bindings -------------------------------------------------------------------
