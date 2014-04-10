@@ -1184,7 +1184,6 @@ void gui_textedit_add(Entity ent)
         return;
 
     gui_text_add(ent);
-    gui_text_set_str(ent, "default");
     gui_set_focusable(ent, true);
 
     textedit = entitypool_add(textedit_pool, ent);
