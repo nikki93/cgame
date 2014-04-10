@@ -50,7 +50,7 @@ static void _load(Texture *tex)
     struct stat st;
     unsigned char *data;
 
-    printf("loading texture '%s'\n", tex->filename);
+    printf("texture: loading texture '%s'\n", tex->filename);
 
     /* generate GL texture */
     glGenTextures(1, &tex->gl_name);
