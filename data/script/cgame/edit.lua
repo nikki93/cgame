@@ -474,7 +474,19 @@ function cs.edit.modes.boxsel.update_all()
 end
 
 
---- bottom gui -----------------------------------------------------------------
+--- gui ------------------------------------------------------------------------
+
+cs.edit.gui_root = cg.add {
+    group = { groups = 'builtin' },
+    edit = { editable = false },
+    gui_rect = { hfill = true, vfill = true },
+    gui = { visible = false },
+    gui = {
+        color = cg.color(0, 0, 0, 0), -- invisible
+        halign = cg.GA_MIN, valign = cg.GA_MIN,
+        padding = cg.vec2_zero,
+    }
+}
 
 require 'cgame.edit_bottom_gui'
 
@@ -546,10 +558,10 @@ function cs.edit.update_all()
     end
 
     if not cs.edit.get_enabled() then
-        cs.gui.set_visible(cs.edit.bottom_rect, false)
+        cs.gui.set_visible(cs.edit.gui_root, false)
         return
     end
-        cs.gui.set_visible(cs.edit.bottom_rect, true)
+        cs.gui.set_visible(cs.edit.gui_root, true)
 
     cs.edit.mode_event('update_all')
 

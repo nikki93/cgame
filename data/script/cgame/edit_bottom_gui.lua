@@ -1,11 +1,11 @@
 --- layout ---------------------------------------------------------------------
 
 cs.edit.bottom_rect = cg.add {
+    transform = { parent = cs.edit.gui_root },
     group = { groups = 'builtin' },
     edit = { editable = false },
     gui_rect = { hfill = true, size = cg.vec2(cs.game.get_window_size().x, 0) },
     gui = {
-        visible = false,
         color = cg.color(0, 0, 0, 0), -- invisible
         halign = cg.GA_MIN, valign = cg.GA_MIN,
         padding = cg.vec2_zero,
