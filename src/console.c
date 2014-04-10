@@ -16,7 +16,7 @@
 #define NUM_LINES 20
 
 /* circular buffer of lines, 'top' is current top line */
-static char lines[NUM_LINES][LINE_LEN];
+static char lines[NUM_LINES][LINE_LEN] = { { 0 } };
 static int top = 0;
 
 /* text that displays console contents */
@@ -145,10 +145,6 @@ void console_init()
     unsigned int i;
 
     text = entity_nil;
-
-    /* initially all empty */
-    for (i = 0; i < NUM_LINES; ++i)
-        lines[i][0] = '\0';
 
     /* listen to keys */
     input_add_key_down_callback(_keydown);
