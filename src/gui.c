@@ -16,6 +16,7 @@
 #include "camera.h"
 #include "edit.h"
 #include "entitymap.h"
+#include "timing.h"
 
 static Entity gui_root; /* all gui should be descendants of this to move
                            with screen */
@@ -886,6 +887,8 @@ struct Text
 
 static EntityPool *text_pool;
 
+static Scalar cursor_blink_time = 0;
+
 static void _text_add_cursor(Text *text, Vec2 pos)
 {
     TextChar *tc;
@@ -1059,10 +1062,16 @@ static void _text_update_all()
     Gui *gui;
     static Vec2 size = { TEXT_FONT_W, TEXT_FONT_H };
 
+    cursor_blink_time += 2 * timing_true_dt;
+
     entitypool_remove_destroyed(text_pool, gui_text_remove);
 
     entitypool_foreach(text, text_pool)
     {
+        /* blink on when focus entered */
+        if (gui_event_focus_enter(text->pool_elem.ent))
+            cursor_blink_time = 1;
+
         /* gui bbox */
         gui = entitypool_get(gui_pool, text->pool_elem.ent);
         assert(gui);
@@ -1082,6 +1091,8 @@ static void _text_draw_all()
 
     /* bind shader program */
     glUseProgram(text_program);
+    glUniform1f(glGetUniformLocation(text_program, "cursor_blink"),
+                ((int) cursor_blink_time) & 1);
     glUniformMatrix3fv(glGetUniformLocation(text_program,
                                             "inverse_view_matrix"),
                        1, GL_FALSE,
@@ -1220,6 +1231,9 @@ static void _textedit_key_down(KeyCode key)
     if (!textedit)
         return;
     ent = textedit->pool_elem.ent;
+
+    /* blink on for feedback */
+    cursor_blink_time = 1;
 
     old = gui_text_get_str(ent);
 
