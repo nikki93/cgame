@@ -1291,7 +1291,7 @@ static void _textedit_key_down(KeyCode key)
     free(new);
 }
 
-static void _textedit_update()
+static void _textedit_update_all()
 {
     Entity ent;
     TextEdit *textedit;
@@ -1395,8 +1395,8 @@ void gui_update_all()
     _common_update_destroyed();
     _common_update_visible();
     _common_reset_align();
+    _textedit_update_all();
     _text_update_all();
-    _textedit_update();
     _rect_update_all();
     _common_update_align();
     _rect_update_wmat();
