@@ -71,6 +71,7 @@ static void _game_init()
     srand(time(NULL));
 
     /* init systems */
+    console_puts("welcome to cgame!");
     system_init();
 
     /* init test */

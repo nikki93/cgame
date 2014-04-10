@@ -146,25 +146,10 @@ void console_printf(const char *fmt, ...)
     free(s);
 }
 
-static void _keydown(KeyCode key)
-{
-    /* if (key == KC_ENTER && input_key_down(KC_LEFT_SHIFT)) */
-    /*     text_set_visible(text, !text_get_visible(text)); */
-}
-
 void console_init()
 {
-    unsigned int i;
-
     text = entity_nil;
-
-    /* listen to keys */
-    input_add_key_down_callback(_keydown);
-
-    /* print a nice message */
-    console_puts("welcome to cgame!");
 }
 void console_deinit()
 {
 }
-
