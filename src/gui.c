@@ -227,6 +227,8 @@ static void _common_deinit()
 
 static void _common_update_destroyed()
 {
+    if (entity_destroyed(focused))
+        focused = entity_nil;
     entitypool_remove_destroyed(gui_pool, gui_remove);
 }
 
@@ -416,6 +418,7 @@ static void _common_save_all(Serializer *s)
         color_save(&gui->color, s);
         bool_save(&gui->visible, s);
         bool_save(&gui->setvisible, s);
+        bool_save(&gui->focusable, s);
         enum_save(&gui->halign, s);
         enum_save(&gui->valign, s);
         vec2_save(&gui->padding, s);
@@ -432,6 +435,7 @@ static void _common_load_all(Deserializer *s)
         color_load(&gui->color, s);
         bool_load(&gui->visible, s);
         bool_load(&gui->setvisible, s);
+        bool_load(&gui->focusable, s);
         enum_load(&gui->halign, s);
         enum_load(&gui->valign, s);
         vec2_load(&gui->padding, s);
@@ -1148,6 +1152,7 @@ static void _text_save_all(Serializer *s)
             vec2_save(&tc->cell, s);
         }
 
+        int_save(&text->cursor, s);
         vec2_save(&text->bounds, s);
     }
     loop_end_save(s);
@@ -1171,8 +1176,10 @@ static void _text_load_all(Deserializer *s)
         {
             vec2_load(&tc->pos, s);
             vec2_load(&tc->cell, s);
+            tc->is_cursor = -1;
         }
 
+        int_load(&text->cursor, s);
         vec2_load(&text->bounds, s);
     }
 }
