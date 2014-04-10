@@ -27,6 +27,8 @@ local function add_event(event, default)
     end
 end
 
+add_event('focus_enter', false)
+add_event('focus_exit', false)
 add_event('mouse_down', cg.MC_NONE)
 add_event('mouse_up', cg.MC_NONE)
 
