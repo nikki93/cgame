@@ -64,13 +64,3 @@ lchild = cg.add
 cs.keyboard.controlled_add(player)
 
 -- entity destruction
-
--- for each key 1 .. 9 pressed, destroy that entity
-cs.destroyer = {}
-function cs.destroyer.update_all()
-    for i = 1, 9 do
-        if cs.input.key_down('KC_' .. i) then
-            cs.entity.destroy(cg.Entity { id = i })
-        end
-    end
-end
