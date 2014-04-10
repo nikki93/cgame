@@ -13,6 +13,9 @@ SCRIPT(console,
        EXPORT void console_set_entity(Entity ent);
        EXPORT Entity console_get_entity(); /* entity_nil if not set */
 
+       EXPORT void console_set_visible(bool visible);
+       EXPORT bool console_get_visible();
+
        EXPORT void console_puts(const char *s);
        EXPORT void console_printf(const char *fmt, ...);
 

@@ -55,6 +55,18 @@ Entity console_get_entity()
     return text;
 }
 
+void console_set_visible(bool visible)
+{
+    if (!entity_eq(text, entity_nil))
+        gui_set_visible(text, visible);
+}
+bool console_get_visible()
+{
+    if (!entity_eq(text, entity_nil))
+        return gui_get_visible(text);
+    return false;
+}
+
 /* write a string to console with wrapping */
 static void _write(const char *s)
 {

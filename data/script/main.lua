@@ -10,6 +10,9 @@ function cs.app.key_down(key)
     if key == cg.KC_ESCAPE then
         cs.game.quit()
 
+    elseif key == cg.KC_1 then
+        cs.console.set_visible(not cs.console.get_visible())
+
     elseif key == cg.KC_E then
         cs.timing.set_paused(not cs.edit.get_enabled())
         cs.edit.set_enabled(not cs.edit.get_enabled())
