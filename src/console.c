@@ -72,7 +72,7 @@ static void _write(const char *s)
 {
     static unsigned int curs = 0; /* cursor position */
     static const char wrap_prefix[] = { 26, ' ', '\0' };
-    unsigned int width;
+    unsigned int width, tabstop;
     char c;
     bool wrap;
 
@@ -83,9 +83,27 @@ static void _write(const char *s)
 
     while (*s)
     {
+        c = *s;
+
+        /* tab? jump to tabstop */
+        if (c == '\t')
+        {
+            c = ' ';
+            tabstop = 4 * ((curs + 4) / 4);
+            if (tabstop >= width)
+            {
+                /* wrap at tab? */
+                curs = width;
+                ++s;
+            }
+            else
+                for (; curs < tabstop - 1 && curs < width; ++curs)
+                    lines[top][curs] = c;
+        }
+
         /* write char */
-        wrap = curs >= width && *s != '\n';
-        c = wrap ? '\n' : *s++;
+        wrap = curs >= width && c != '\n';
+        c = wrap ? '\n' : c;
         lines[top][curs++] = c;
 
         /* if newline, close this line and go to next */
@@ -100,6 +118,8 @@ static void _write(const char *s)
         /* add a prefix to wrapped lines */
         if (wrap)
             _write(wrap_prefix);
+        else
+            ++s;
     }
 
     /* close this line */
