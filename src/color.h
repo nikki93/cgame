@@ -16,6 +16,7 @@ SCRIPT(color,
        EXPORT extern Color color_red;
        EXPORT extern Color color_green;
        EXPORT extern Color color_blue;
+       EXPORT extern Color color_clear; /* zero alpha */
 
        EXPORT void color_save(Color *c, Serializer *s);
        EXPORT void color_load(Color *c, Deserializer *s);
