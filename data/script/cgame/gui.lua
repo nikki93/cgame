@@ -61,12 +61,13 @@ function cs.gui_window.add(ent)
 
     window.minimized = false
     window.closeable = true
+    window.highlight = false
 
     -- add ent to gui_rect as container
     cg.add {
         ent = ent,
         gui_rect = {},
-        gui = { color = cg.color(0.4, 0.4, 0.6, 0.9) },
+        gui = { color = cg.color(0.3, 0.3, 0.5, 0.95) },
     }
 
     -- titlebar containing text, minimize button
@@ -75,7 +76,7 @@ function cs.gui_window.add(ent)
         gui_rect = { hfill = true },
         gui = {
             padding = cg.vec2_zero,
-            color = cg.color(0.2, 0.2, 0.4, 0.9),
+            color = cg.color(0.15, 0.15, 0.35, 0.95),
             valign = cg.GA_TABLE,
             halign = cg.GA_MIN,
         },
@@ -146,6 +147,15 @@ function cs.gui_window.get_minimized(ent)
     if window then return window.minimized end
 end
 
+function cs.gui_window.set_highlight(ent, highlight)
+    local window = cs.gui_window.tbl[ent]
+    if window then window.highlight = highlight end
+end
+function cs.gui_window.get_highlight(ent)
+    local window = cs.gui_window.tbl[ent]
+    if window then return window.highlight end
+end
+
 function cs.gui_window.set_closeable(ent, closeable)
     local window = cs.gui_window.tbl[ent]
     if window then window.closeable = closeable end
@@ -204,6 +214,13 @@ function cs.gui_window.update_all()
         and cs.gui.get_halign(ent) == cg.GA_NONE
         and cs.gui.get_valign(ent) == cg.GA_NONE then
             drag_window = ent
+        end
+
+        -- highlight?
+        if window.highlight then
+            cs.gui.set_color(window.title_text, cg.color(1, 1, 0.2, 1))
+        else
+            cs.gui.set_color(window.title_text, cg.color_white)
         end
 
         -- closeable?
