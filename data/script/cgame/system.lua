@@ -19,7 +19,15 @@ cgame.systems = setmetatable({}, systems_mt)
 cs = cgame.systems
 
 function cgame.__fire_event(event, args)
-    for _, system in pairs(cgame.systems) do
+    -- store system names before firing event because systems list may change
+
+    local sysnames = {}
+    for name, _ in pairs(cgame.systems) do
+        sysnames[name] = true
+    end
+
+    for name, _ in pairs(sysnames) do
+        local system = cgame.systems[name]
         if system.enabled == nil or system.enabled then
             local func = system[event]
             if func then func(args) end
