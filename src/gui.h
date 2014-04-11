@@ -54,6 +54,7 @@ SCRIPT(gui,
 
        EXPORT bool gui_event_focus_enter(Entity ent);
        EXPORT bool gui_event_focus_exit(Entity ent);
+       EXPORT bool gui_event_changed(Entity ent); /* input value changed */
        EXPORT MouseCode gui_event_mouse_down(Entity ent);
        EXPORT MouseCode gui_event_mouse_up(Entity ent);
 
@@ -81,6 +82,10 @@ SCRIPT(gui,
        EXPORT void gui_text_set_str(Entity ent, const char *str);
        EXPORT const char *gui_text_get_str(Entity ent);
        EXPORT void gui_text_set_cursor(Entity ent, int cursor);
+
+       EXPORT void gui_textedit_set_numerical(Entity ent, bool numerical);
+       EXPORT bool gui_textedit_get_numerical(Entity ent);
+       EXPORT Scalar gui_textedit_get_num(Entity ent); /* 0 if not numerical */
 
        /* gui_textedit */
 

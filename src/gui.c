@@ -51,6 +51,7 @@ static EntityPool *gui_pool;
 
 static EntityMap *focus_enter_map;
 static EntityMap *focus_exit_map;
+static EntityMap *changed_map;
 static EntityMap *mouse_down_map;
 static EntityMap *mouse_up_map;
 
@@ -199,6 +200,10 @@ bool gui_event_focus_exit(Entity ent)
 {
     return entitymap_get(focus_exit_map, ent);
 }
+bool gui_event_changed(Entity ent)
+{
+    return entitymap_get(changed_map, ent);
+}
 MouseCode gui_event_mouse_down(Entity ent)
 {
     return entitymap_get(mouse_down_map, ent);
@@ -213,6 +218,7 @@ static void _common_init()
     gui_pool = entitypool_new(Gui);
     focus_enter_map = entitymap_new(false);
     focus_exit_map = entitymap_new(false);
+    changed_map = entitymap_new(false);
     mouse_down_map = entitymap_new(MC_NONE);
     mouse_up_map = entitymap_new(MC_NONE);
 }
@@ -220,6 +226,7 @@ static void _common_deinit()
 {
     entitymap_free(mouse_up_map);
     entitymap_free(mouse_down_map);
+    entitymap_free(changed_map);
     entitymap_free(focus_enter_map);
     entitymap_free(focus_exit_map);
     entitypool_free(gui_pool);
@@ -407,6 +414,7 @@ static void _common_event_clear()
 {
     entitymap_clear(focus_enter_map);
     entitymap_clear(focus_exit_map);
+    entitymap_clear(changed_map);
     entitymap_clear(mouse_down_map);
     entitymap_clear(mouse_up_map);
 }
@@ -428,7 +436,6 @@ static void _common_save_all(Serializer *s)
 }
 static void _common_load_all(Deserializer *s)
 {
-    Entity ent;
     Gui *gui;
 
     entitypool_load_foreach(gui, gui_pool, s)
@@ -1179,6 +1186,7 @@ struct TextEdit
     EntityPoolElem pool_elem;
 
     unsigned int cursor; /* 0 at beginning of string */
+    bool numerical;
 };
 
 EntityPool *textedit_pool;
@@ -1195,11 +1203,30 @@ void gui_textedit_add(Entity ent)
 
     textedit = entitypool_add(textedit_pool, ent);
     textedit->cursor = 0;
+    textedit->numerical = false;
 }
 
 void gui_textedit_remove(Entity ent)
 {
     entitypool_remove(textedit_pool, ent);
+}
+
+void gui_textedit_set_numerical(Entity ent, bool numerical)
+{
+    TextEdit *textedit = entitypool_get(textedit_pool, ent);
+    assert(textedit);
+    textedit->numerical = numerical;
+}
+bool gui_textedit_get_numerical(Entity ent)
+{
+    TextEdit *textedit = entitypool_get(textedit_pool, ent);
+    assert(textedit);
+    return textedit->numerical;
+}
+
+Scalar gui_textedit_get_num(Entity ent)
+{
+    return strtof(gui_text_get_str(ent), NULL);
 }
 
 static void _textedit_init()
@@ -1209,6 +1236,30 @@ static void _textedit_init()
 static void _textedit_deinit()
 {
     entitypool_free(textedit_pool);
+}
+
+static void _textedit_fix_cursor(TextEdit *textedit)
+{
+    unsigned int len = strlen(gui_text_get_str(textedit->pool_elem.ent));
+    if (textedit->cursor > len)
+        textedit->cursor = len;
+}
+
+static bool _textedit_set_str(TextEdit *textedit, const char *str)
+{
+    char *endptr;
+
+    /* invalid numerical? */
+    if (textedit->numerical)
+    {
+        strtof(str, &endptr);
+        if (endptr != strchr(str, '\0') && strcmp(str, "-"))
+            return false;
+    }
+
+    gui_text_set_str(textedit->pool_elem.ent, str);
+    entitymap_set(changed_map, textedit->pool_elem.ent, true);
+    return true;
 }
 
 static void _textedit_key_down(KeyCode key)
@@ -1223,6 +1274,7 @@ static void _textedit_key_down(KeyCode key)
     if (!textedit)
         return;
     ent = textedit->pool_elem.ent;
+    _textedit_fix_cursor(textedit);
 
     /* blink on for feedback */
     cursor_blink_time = 1;
@@ -1230,11 +1282,7 @@ static void _textedit_key_down(KeyCode key)
     old = gui_text_get_str(ent);
 
     /* confirm? */
-    if (key == KC_ENTER
-        && (input_key_down(KC_LEFT_SHIFT)
-            || input_key_down(KC_RIGHT_SHIFT)
-            || input_key_down(KC_LEFT_CONTROL)
-            || input_key_down(KC_RIGHT_CONTROL)))
+    if (key == KC_ENTER)
     {
         gui_set_focused_entity(entity_nil);
     }
@@ -1261,7 +1309,7 @@ static void _textedit_key_down(KeyCode key)
         new = malloc(strlen(old)); /* 1 less, but 1 more for null */
         strncpy(new, old, textedit->cursor);
         strcpy(&new[textedit->cursor], &old[textedit->cursor + 1]);
-        gui_text_set_str(ent, new);
+        _textedit_set_str(textedit, new);
     }
 
     /* insert char */
@@ -1276,8 +1324,8 @@ static void _textedit_key_down(KeyCode key)
         strncpy(new, old, textedit->cursor);
         new[textedit->cursor] = c;
         strcpy(&new[textedit->cursor + 1], &old[textedit->cursor]);
-        gui_text_set_str(ent, new);
-        ++textedit->cursor;
+        if (_textedit_set_str(textedit, new))
+            ++textedit->cursor;
     }
 
     free(new);
@@ -1293,6 +1341,7 @@ static void _textedit_update_all()
     entitypool_foreach(textedit, textedit_pool)
     {
         ent = textedit->pool_elem.ent;
+        _textedit_fix_cursor(textedit);
 
         /* focus stuff */
         if (gui_get_focus(ent))
@@ -1307,14 +1356,20 @@ static void _textedit_save_all(Serializer *s)
     TextEdit *textedit;
 
     entitypool_save_foreach(textedit, textedit_pool, s)
+    {
         uint_save(&textedit->cursor, s);
+        bool_save(&textedit->numerical, s);
+    }
 }
 static void _textedit_load_all(Deserializer *s)
 {
     TextEdit *textedit;
 
     entitypool_load_foreach(textedit, textedit_pool, s)
+    {
         uint_load(&textedit->cursor, s);
+        bool_load(&textedit->numerical, s);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
