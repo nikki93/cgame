@@ -61,7 +61,8 @@ function cgame.__load_all(str)
                 for k, v in pairs(dump) do
                     if cgame.is_entity_table(system[k]) then
                         cgame.entity_table_merge(system[k], v)
-                    else
+                    elseif system.auto_saveload_functions
+                    or type(v) ~= 'function' then
                         system[k] = v
                     end
                 end
