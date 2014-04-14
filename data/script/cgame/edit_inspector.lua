@@ -1,92 +1,109 @@
-cs.edit_inspector = {}
-
--- Entity -> (sys -> inspector data) map
-local inspectors = cg.entity_table()
+--- property -------------------------------------------------------------------
 
 local property_types = {}
 
+local function property_create_container(inspector, prop)
+    prop.container = cg.add {
+        transform = { parent = inspector.window_body },
+        gui = {
+            padding = cg.vec2_zero,
+            color = cg.color_clear,
+            valign = cg.GA_TABLE,
+            halign = cg.GA_MIN,
+        },
+        gui_rect = { hfill = true },
+    }
+end
+
+local function property_create_label(inspector, prop)
+    prop.label = cg.add {
+        transform = { parent = prop.container },
+        gui = {
+            color = cg.color_white,
+            valign = cg.GA_MID,
+            halign = cg.GA_TABLE,
+        },
+        gui_text = { str = prop.name }
+    }
+end
+
+-- returns textfield, textedit
+local function property_create_textfield(inspector, prop, numerical)
+    local textfield = cg.add {
+        transform = { parent = prop.container },
+        gui = {
+            color = cg.color(0.2, 0.2, 0.4, 1),
+            valign = cg.GA_MAX,
+            halign = cg.GA_TABLE,
+        },
+        textfield = {},
+    }
+    local textedit = cs.textfield.get_textedit(textfield)
+    if numerical then cs.gui_textedit.set_numerical(textedit, true) end
+    return textfield, textedit
+end
+
 property_types['Scalar'] = {
     create_view = function (inspector, prop)
-        -- parent container for all our view
-        prop.container = cg.add {
-            transform = { parent = inspector.window_body },
-            gui = {
-                padding = cg.vec2_zero,
-                color = cg.color_clear,
-                valign = cg.GA_TABLE,
-                halign = cg.GA_MIN,
-            },
-            gui_rect = { hfill = true },
-        }
+        property_create_container(inspector, prop)
+        property_create_label(inspector, prop)
         
-        -- label showing property name
-        prop.label = cg.add {
-            transform = { parent = prop.container },
-            gui = {
-                color = cg.color_white,
-                valign = cg.GA_MID,
-                halign = cg.GA_TABLE,
-            },
-            gui_text = { str = prop.name }
-        }
-        
-        -- field with value and box containing it
-        prop.field_back = cg.add {
-            transform = { parent = prop.container },
-            gui = {
-                color = cg.color(0.2, 0.2, 0.4, 1),
-                valign = cg.GA_MAX,
-                halign = cg.GA_TABLE,
-            },
-            gui_rect = { hfill = true },
-        }
-        prop.field = cg.add {
-            transform = { parent = prop.field_back },
-            gui = {
-                color = cg.color_white,
-                valign = cg.GA_MAX,
-                halign = cg.GA_MIN,
-            },
-            gui_textedit = { numerical = true },
-            gui_text = {},
-        }
+        prop.textfield, prop.textedit
+            = property_create_textfield(inspector, prop)
     end,
 
     update_view = function (inspector, prop)
-        if cs.gui.event_changed(prop.field) then
+        if cs.gui.event_changed(prop.textedit) then
             cg.set(inspector.sys, prop.name, inspector.ent,
-                   cs.gui_textedit.get_num(prop.field))
-        elseif not cs.gui.get_focus(prop.field) then
+                   cs.gui_textedit.get_num(prop.textedit))
+        elseif not cs.gui.get_focus(prop.textedit) then
             local s = cg.get(inspector.sys, prop.name, inspector.ent)
-            cs.gui_text.set_str(prop.field, string.format('%.4f', s))
+            cs.gui_text.set_str(prop.textedit, string.format('%.4f', s))
         end
     end,
 }
 
 property_types['Vec2'] = {
     create_view = function (inspector, prop)
-        prop.view = cg.add {
-            transform = {
-                parent = cs.gui_window.get_body(inspector.window)
-            },
-            gui = {
-                color = cg.color_white,
-                valign = cg.GA_TABLE,
-                halign = cg.GA_MIN,
-            },
-            gui_textedit = {},
-            gui_text = { str = prop.name .. ': <default>' }
-        }
+        property_create_container(inspector, prop)
+        property_create_label(inspector, prop)
+
+        prop.x_textfield, prop.x_textedit
+            = property_create_textfield(inspector, prop)
+        prop.y_textfield, prop.y_textedit
+            = property_create_textfield(inspector, prop)
     end,
 
     update_view = function (inspector, prop)
-        if not cs.gui.get_focus(prop.view) then
-            local v = cg.get(inspector.sys, prop.name, inspector.ent)
-            cs.gui_text.set_str(prop.view, prop.name .. ': '
-                                    .. string.format('%.4f, %.4f', v.x, v.y))
+        local v = cg.get(inspector.sys, prop.name, inspector.ent)
+        local changed = false
+
+        if cs.gui.event_changed(prop.x_textedit) then
+            v.x = cs.gui_textedit.get_num(prop.x_textedit)
+            changed = true
+        elseif not cs.gui.get_focus(prop.x_textedit) then
+            cs.gui_text.set_str(prop.x_textedit, string.format('%.4f', v.x))
+        end
+
+        if cs.gui.event_changed(prop.y_textedit) then
+            v.y = cs.gui_textedit.get_num(prop.y_textedit)
+            changed = true
+        elseif not cs.gui.get_focus(prop.y_textedit) then
+            cs.gui_text.set_str(prop.y_textedit, string.format('%.4f', v.y))
+        end
+
+        if changed then
+            cg.set(inspector.sys, prop.name, inspector.ent, v)
         end
     end,
 }
+
+
+--- inspector ------------------------------------------------------------------
+
+cs.edit_inspector = {}
+
+local inspectors = cg.entity_table() -- Entity (sys --> inspector) map
 
 local function add_property(inspector, typ, name)
     if inspector.props[name] then return end
@@ -185,10 +202,3 @@ function cs.edit_inspector.update_all()
         end
     end
 end
-
--- function cs.edit_inspector.save_all()
---     return { tbl = inspectors }
--- end
--- function cs.edit_inspector.load_all(d)
---     cg.entity_table_merge(inspectors, d.tbl)
--- end
