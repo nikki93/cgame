@@ -1,3 +1,18 @@
+--- C system properties --------------------------------------------------------
+
+cs.props['transform'] = {
+    { type = 'Vec2', name = 'position' },
+    { type = 'Scalar', name = 'rotation' },
+    { type = 'Vec2', name = 'scale' },
+}
+
+cs.props['sprite'] = {
+    { type = 'Vec2', name = 'cell' },
+    { type = 'Vec2', name = 'size' },
+    { type = 'Scalar', name = 'depth' },
+}
+
+
 --- property -------------------------------------------------------------------
 
 local property_types = {}
@@ -142,9 +157,9 @@ local function make_inspector(ent, sys)
     inspector.window_body = cs.gui_window.get_body(inspector.window)
     
     inspector.props = {}
-    add_property(inspector, 'Vec2', 'position')
-    add_property(inspector, 'Scalar', 'rotation')
-    add_property(inspector, 'Vec2', 'scale')
+    for _, p in ipairs(cs.props[inspector.sys] or cs[inspector.sys].props) do
+        add_property(inspector, p.type, p.name)
+    end
     
     return inspector
 end
