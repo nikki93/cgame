@@ -107,7 +107,7 @@ end
 cs.edit.history = {}
 
 function cs.edit.undo_save()
-    cs.group.set_save_filter('default', true)
+    cs.group.set_save_filter('default edit_inspector', true)
     local s = cs.serializer.open_str()
     cs.system.save_all(s)
     table.insert(cs.edit.history, ffi.string(cs.serializer.get_str(s)))
@@ -160,8 +160,6 @@ function cs.edit.select_toggle(ent)
 end
 
 function cs.edit.select_click_single()
-    cs.edit.undo_save()
-
     -- anything under mouse?
     local ents = _get_entities_under_mouse()
     if #ents == 0 then
@@ -180,11 +178,11 @@ function cs.edit.select_click_single()
     end
     cs.edit.select = cg.entity_table()
     cs.edit.select[ents[sel + 1]] = true
+
+    cs.edit.undo_save()
 end
 
 function cs.edit.select_click_multi()
-    cs.edit.undo_save()
-
     -- anything under mouse?
     local ents = _get_entities_under_mouse()
     if #ents == 0 then
@@ -201,6 +199,8 @@ function cs.edit.select_click_multi()
 
     -- otherwise deselect the first
     cs.edit.select[ents[1]] = nil
+
+    cs.edit.undo_save()
 end
 
 function cs.edit.select_clear()
@@ -211,19 +211,19 @@ end
 --- entity management ----------------------------------------------------------
 
 function cs.edit.destroy_rec()
-    cs.edit.undo_save()
-
     for ent, _ in pairs(cs.edit.select) do
         cs.transform.destroy_rec(ent)
     end
+
+    cs.edit.undo_save()
 end
 
 function cs.edit.destroy()
-    cs.edit.undo_save()
-
     for ent, _ in pairs(cs.edit.select) do
         cs.entity.destroy(ent)
     end
+
+    cs.edit.undo_save()
 end
 
 function cs.edit.duplicate()
@@ -262,8 +262,8 @@ cs.edit.modes.normal = {
 local grab_old_pos, grab_mouse_prev
 
 function cs.edit.grab_start()
-    cs.edit.undo_save()
     cs.edit.set_mode('grab')
+    cs.edit.undo_save()
 end
 function cs.edit.grab_end()
     cs.edit.set_mode('normal')
@@ -337,8 +337,8 @@ end
 local rotate_old_posrot, rotate_mouse_start, rotate_pivot
 
 function cs.edit.rotate_start()
-    cs.edit.undo_save()
     cs.edit.set_mode('rotate')
+    cs.edit.undo_save()
 end
 function cs.edit.rotate_end()
     cs.edit.set_mode('normal')
@@ -413,8 +413,8 @@ local function _boxsel_select()
 end
 
 function cs.edit.boxsel_start()
-    cs.edit.undo_save()
     cs.edit.set_mode('boxsel')
+    cs.edit.undo_save()
 end
 function cs.edit.boxsel_begin()
     boxsel_has_begun = true
@@ -506,6 +506,12 @@ cs.edit.modes.normal['S-d'] = cs.edit.duplicate
 cs.edit.modes.normal['g'] = cs.edit.grab_start
 cs.edit.modes.normal['r'] = cs.edit.rotate_start
 cs.edit.modes.normal['b'] = cs.edit.boxsel_start
+cs.edit.modes.normal['t'] = function ()
+    for ent, _ in pairs(cs.edit.select) do
+        cs.edit_inspector.add(ent, 'transform')
+    end
+    cs.edit.undo_save()
+end
 
 -- grab mode
 cs.edit.modes.grab['<enter>'] = cs.edit.grab_end

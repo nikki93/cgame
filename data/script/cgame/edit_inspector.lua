@@ -49,10 +49,14 @@ property_types['Scalar'] = {
         property_create_label(inspector, prop)
         
         prop.textfield, prop.textedit
-            = property_create_textfield(inspector, prop)
+            = property_create_textfield(inspector, prop, true)
     end,
 
     update_view = function (inspector, prop)
+        if cs.gui.event_focus_exit(prop.textedit) then
+            cs.edit.undo_save()
+        end
+
         if cs.gui.event_changed(prop.textedit) then
             cg.set(inspector.sys, prop.name, inspector.ent,
                    cs.gui_textedit.get_num(prop.textedit))
@@ -69,15 +73,18 @@ property_types['Vec2'] = {
         property_create_label(inspector, prop)
 
         prop.x_textfield, prop.x_textedit
-            = property_create_textfield(inspector, prop)
+            = property_create_textfield(inspector, prop, true)
         prop.y_textfield, prop.y_textedit
-            = property_create_textfield(inspector, prop)
+            = property_create_textfield(inspector, prop, true)
     end,
 
     update_view = function (inspector, prop)
         local v = cg.get(inspector.sys, prop.name, inspector.ent)
         local changed = false
 
+        if cs.gui.event_focus_exit(prop.x_textedit) then
+            cs.edit.undo_save()
+        end
         if cs.gui.event_changed(prop.x_textedit) then
             v.x = cs.gui_textedit.get_num(prop.x_textedit)
             changed = true
@@ -85,6 +92,9 @@ property_types['Vec2'] = {
             cs.gui_text.set_str(prop.x_textedit, string.format('%.4f', v.x))
         end
 
+        if cs.gui.event_focus_exit(prop.y_textedit) then
+            cs.edit.undo_save()
+        end
         if cs.gui.event_changed(prop.y_textedit) then
             v.y = cs.gui_textedit.get_num(prop.y_textedit)
             changed = true
@@ -134,6 +144,7 @@ local function make_inspector(ent, sys)
     inspector.props = {}
     add_property(inspector, 'Vec2', 'position')
     add_property(inspector, 'Scalar', 'rotation')
+    add_property(inspector, 'Vec2', 'scale')
     
     return inspector
 end
@@ -164,7 +175,7 @@ end
 
 local function set_group_rec(ent)
     cs.edit.set_editable(ent, false)
-    cs.group.set_groups(ent, 'builtin')
+    cs.group.set_groups(ent, 'builtin edit_inspector')
 
     if cs.transform.has(ent) then
         local children = cs.transform.get_children(ent)
@@ -179,6 +190,8 @@ local function update_inspector(inspector)
         cs.edit_inspector.remove(inspector.ent, inspector.sys)
         return
     end
+
+    cs.transform.set_parent(inspector.window, cs.edit.gui_root)
 
     cs.gui_window.set_highlight(inspector.window,
                                 cs.edit.select[inspector.ent])
@@ -205,5 +218,24 @@ function cs.edit_inspector.update_all()
         for _, inspector in pairs(insps) do
             update_inspector(inspector)
         end
+    end
+end
+
+function cs.edit_inspector.save_all()
+    -- save window -> inspector entity table
+    local d = cg.entity_table()
+    for _, insps in pairs(inspectors) do
+        for _, inspector in pairs(insps) do
+            d[inspector.window] = inspector
+        end
+    end
+    return d
+end
+function cs.edit_inspector.load_all(d)
+    for win, inspector in pairs(d) do
+        if not inspectors[inspector.ent] then
+            inspectors[inspector.ent] = {}
+        end
+        inspectors[inspector.ent][inspector.sys] = inspector
     end
 end
