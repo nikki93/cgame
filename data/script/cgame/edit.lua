@@ -121,7 +121,7 @@ function cs.edit.undo()
     end
 
     -- TODO: make 'edit' entity group and destroy all except that?
-    cs.group.destroy('default')
+    cs.group.destroy('default edit_inspector')
 
     local str = table.remove(cs.edit.history)
     local d = cs.deserializer.open_str(str)
