@@ -50,7 +50,7 @@ end
 
 --- window ---------------------------------------------------------------------
 
-cs.gui_window = {}
+cs.gui_window = { auto_saveload = true }
 
 cs.gui_window.tbl = cg.entity_table()
 
@@ -242,11 +242,57 @@ function cs.gui_window.update_all()
     mouse_prev = mouse_curr
 end
 
-function cs.gui_window.save_all()
-    return {
-        tbl = cs.gui_window.tbl,
+
+--- textfield ---------------------------------------------------------------
+
+cs.textfield = { auto_saveload = true }
+
+cs.textfield.tbl = cg.entity_table()
+
+function cs.textfield.add(ent)
+    if cs.textfield.tbl[ent] then return end
+    cs.textfield.tbl[ent] = {}
+    local textfield = cs.textfield.tbl[ent]
+
+    -- add ent to gui_rect as container
+    cg.add {
+        ent = ent,
+        gui_rect = {},
+        gui = { color = cg.color(0.2, 0.2, 0.4, 1) },
+    }
+
+    -- add textedit field
+    textfield.textedit = cg.add {
+        transform = { parent = ent },
+        gui = {
+            color = cg.color_white,
+            valign = cg.GA_MAX,
+            halign = cg.GA_MIN
+        },
+        gui_textedit = {},
     }
 end
-function cs.gui_window.load_all(d)
-    cg.entity_table_merge(cs.gui_window.tbl, d.tbl)
+
+function cs.textfield.remove(ent)
+    local textfield = cs.textfield.tbl[ent]
+    if textfield then cs.transform.destroy_rec(ent) end
+    cs.textfield.tbl[ent] = nil
 end
+
+function cs.textfield.get_textedit(ent)
+    local textfield = cs.textfield.tbl[ent]
+    if textfield then return textfield.textedit end
+end
+
+function cs.textfield.update_all()
+    for ent, _ in pairs(cs.textfield.tbl) do
+        if cs.entity.destroyed(ent) then cs.textfield.remove(ent) end
+    end
+
+    for ent, textfield in pairs(cs.textfield.tbl) do
+        if cs.gui.event_mouse_up(ent) == cg.MC_LEFT then
+            cs.gui.set_focus(textfield.textedit, true)
+        end
+    end
+end
+
