@@ -30,8 +30,13 @@ void entitypool_free(EntityPool *pool)
 
 void *entitypool_add(EntityPool *pool, Entity ent)
 {
+    EntityPoolElem *elem;
+
+    if ((elem = entitypool_get(pool, ent)))
+        return elem;
+
     /* add element to array and set id in map */
-    EntityPoolElem *elem = array_add(pool->array);
+    elem = array_add(pool->array);
     elem->ent = ent;
     entitymap_set(pool->emap, ent, array_length(pool->array) - 1);
     return elem;
