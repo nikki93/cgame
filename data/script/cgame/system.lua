@@ -17,13 +17,14 @@ local systems_mt = {
 }
 cgame.systems = setmetatable({}, systems_mt)
 cs = cgame.systems
+cs.props = { receive_events = false }
 
 function cgame.__fire_event(event, args)
     -- store system names before firing event because systems list may change
 
     local sysnames = {}
-    for name, _ in pairs(cgame.systems) do
-        sysnames[name] = true
+    for name, sys in pairs(cgame.systems) do
+        sysnames[name] = sys.receive_events == nil or sys.receive_events
     end
 
     for name, _ in pairs(sysnames) do
