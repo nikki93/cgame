@@ -85,18 +85,15 @@ static Entity _generate_id()
         ent.id = counter++;
     assert(!entity_eq(ent, entity_nil));
 
+    entitypool_add(exists_pool, ent);
     return ent;
 }
 
 Entity entity_create()
 {
     Entity ent;
-    ExistsPoolElem *exists;
 
     ent = _generate_id();
-
-    /* add to exists pool */
-    exists = entitypool_add(exists_pool, ent);
 
     return ent;
 }
