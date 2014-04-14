@@ -175,6 +175,11 @@ local function set_group_rec(ent)
 end
 
 local function update_inspector(inspector)
+    if cs.entity.destroyed(inspector.window) then
+        cs.edit_inspector.remove(inspector.ent, inspector.sys)
+        return
+    end
+
     cs.gui_window.set_highlight(inspector.window,
                                 cs.edit.select[inspector.ent])
     local title = inspector.sys .. ' ' .. inspector.ent.id
