@@ -167,7 +167,7 @@ void gui_set_focused_entity(Entity ent)
         return;
 
     if (entity_eq(ent, entity_nil))
-        entitymap_set(focus_exit_map, ent, true);
+        entitymap_set(focus_exit_map, focused, true);
     focused = ent;
     if (!entity_eq(focused, entity_nil))
         entitymap_set(focus_enter_map, focused, true);
