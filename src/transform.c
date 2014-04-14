@@ -157,6 +157,9 @@ void transform_set_parent(Entity ent, Entity parent)
 {
     Transform *t, *oldp, *newp;
 
+    if (entity_eq(ent, parent))
+        return; /* can't be child of self */
+
     t = entitypool_get(pool, ent);
     assert(t);
 
