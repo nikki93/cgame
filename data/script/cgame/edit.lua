@@ -165,6 +165,7 @@ function cs.edit.select_click_single()
     local ents = _get_entities_under_mouse()
     if #ents == 0 then
         cs.edit.select = cg.entity_table()
+        cs.edit.undo_save()
         return
     end
 
@@ -187,6 +188,7 @@ function cs.edit.select_click_multi()
     -- anything under mouse?
     local ents = _get_entities_under_mouse()
     if #ents == 0 then
+        cs.edit.undo_save()
         return
     end
 
@@ -194,6 +196,7 @@ function cs.edit.select_click_multi()
     for i = 1, #ents do
         if not cs.edit.select[ents[i]] then
             cs.edit.select[ents[i]] = true
+            cs.edit.undo_save()
             return
         end
     end
@@ -479,7 +482,7 @@ end
 
 cs.edit.modes.command = {}
 
-local command_end_callback
+local command_end_callback, command_completion_func
 
 function cs.edit.command_start(prompt, callback)
     cs.edit.set_mode('command')
