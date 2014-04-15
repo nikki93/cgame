@@ -3,6 +3,7 @@ local console_text = cg.add {
     group = { groups = 'builtin' },
     edit = { editable = false },
     gui = {
+        captures_events = false,
         color = cg.color_black,
         halign = cg.GA_MIN, valign = cg.GA_MAX,
         padding = cg.vec2(1, 1),
