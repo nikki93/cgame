@@ -112,6 +112,7 @@ void gui_update_all();
 void gui_draw_all();
 void gui_key_down(KeyCode key);
 void gui_key_up(KeyCode key);
+void gui_char_down(unsigned int c);
 void gui_mouse_down(MouseCode mouse);
 void gui_mouse_up(MouseCode mouse);
 void gui_save_all(Serializer *s);

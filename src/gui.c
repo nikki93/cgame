@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <GL/glew.h>
 
 #include "entitypool.h"
@@ -242,7 +243,7 @@ KeyCode gui_event_key_up(Entity ent)
 
 bool gui_captured_event()
 {
-    return gui_has_focus() || captured_event;
+    return captured_event;
 }
 
 static void _common_init()
@@ -453,12 +454,23 @@ static void _common_mouse_up(MouseCode mouse)
 static void _common_key_down(KeyCode key)
 {
     if (!entity_eq(focused, entity_nil))
+    {
         entitymap_set(key_down_map, focused, key);
+        captured_event = true;
+    }
 }
 static void _common_key_up(KeyCode key)
 {
     if (!entity_eq(focused, entity_nil))
+    {
         entitymap_set(key_up_map, focused, key);
+        captured_event = true;
+    }
+}
+static void _common_char_down(unsigned int c)
+{
+    if (!entity_eq(focused, entity_nil))
+        captured_event = true;
 }
 
 static void _common_event_clear()
@@ -1332,11 +1344,11 @@ static bool _textedit_set_str(TextEdit *textedit, const char *str)
     return true;
 }
 
-static void _textedit_key_down(KeyCode key)
+/* common function for key/char events */
+static void _textedit_key_event(KeyCode key, unsigned int c)
 {
     Entity ent;
     TextEdit *textedit;
-    char c;
     const char *old;
     char *new = NULL;
 
@@ -1352,7 +1364,7 @@ static void _textedit_key_down(KeyCode key)
     old = gui_text_get_str(ent);
 
     /* confirm? */
-    if (key == KC_ENTER)
+    if (key == KC_ENTER || key == KC_ESCAPE)
     {
         gui_set_focused_entity(entity_nil);
     }
@@ -1383,22 +1395,27 @@ static void _textedit_key_down(KeyCode key)
     }
 
     /* insert char */
-    else if (key == KC_ENTER || input_keycode_is_char(key))
+    else if (isprint(c))
     {
-        if (input_keycode_is_char(key))
-            c = input_keycode_to_char(key);
-        else
-            c = '\n';
-
         new = malloc(strlen(old) + 2); /* 1 for new char, 1 for null */
         strncpy(new, old, textedit->cursor);
-        new[textedit->cursor] = c;
+        new[textedit->cursor] = (char) c;
         strcpy(&new[textedit->cursor + 1], &old[textedit->cursor]);
         if (_textedit_set_str(textedit, new))
             ++textedit->cursor;
     }
 
     free(new);
+}
+
+static void _textedit_char_down(unsigned int c)
+{
+    _textedit_key_event(KC_NONE, c);
+}
+
+static void _textedit_key_down(KeyCode key)
+{
+    _textedit_key_event(key, 0);
 }
 
 static void _textedit_update_all()
@@ -1518,6 +1535,11 @@ void gui_key_down(KeyCode key)
 {
     _common_key_down(key);
     _textedit_key_down(key);
+}
+void gui_char_down(unsigned int c)
+{
+    _common_char_down(c);
+    _textedit_char_down(c);
 }
 void gui_key_up(KeyCode key)
 {
