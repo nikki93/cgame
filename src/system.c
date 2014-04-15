@@ -28,6 +28,10 @@ static void _key_up(KeyCode key)
     gui_key_up(key);
     script_key_up(key);
 }
+static void _char_down(unsigned int c)
+{
+    gui_char_down(c);
+}
 static void _mouse_down(MouseCode mouse)
 {
     gui_mouse_down(mouse);
@@ -59,6 +63,7 @@ void system_init()
 
     input_add_key_down_callback(_key_down);
     input_add_key_up_callback(_key_up);
+    input_add_char_down_callback(_char_down);
     input_add_mouse_down_callback(_mouse_down);
     input_add_mouse_up_callback(_mouse_up);
     input_add_mouse_move_callback(_mouse_move);
