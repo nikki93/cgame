@@ -5,6 +5,9 @@ cs.edit = {}
 cs.edit.set_enabled = cg.edit_set_enabled
 cs.edit.get_enabled = cg.edit_get_enabled
 
+cs.edit.set_grid_size = cg.edit_set_grid_size
+cs.edit.get_grid_size = cg.edit_get_grid_size
+
 cs.edit.set_editable = cg.edit_set_editable
 cs.edit.get_editable = cg.edit_get_editable
 
@@ -263,7 +266,9 @@ cs.edit.modes.normal = {
 
 --- grab mode ------------------------------------------------------------------
 
-local grab_old_pos, grab_mouse_prev
+local grab_old_pos, grab_mouse_start
+local grab_disp -- 'extra' displacement on top of mouse motion
+local grab_snap -- whether snapping to grid
 
 function cs.edit.grab_start()
     cs.edit.set_mode('grab')
@@ -279,44 +284,33 @@ function cs.edit.grab_cancel()
     cs.edit.set_mode('normal')
 end
 
--- move all selected by d in world space
-function cs.edit.grab_move(d)
-    for ent, _ in pairs(cs.edit.select) do
-        -- move only if no ancestor is being moved (avoid double-move)
-        local anc = cs.transform.get_parent(ent)
-        while anc ~= cg.entity_nil and not cs.edit.select[anc] do
-            anc = cs.transform.get_parent(anc)
-        end
-        if anc == cg.entity_nil then
-            -- find translation in parent space
-            local parent = cs.transform.get_parent(ent)
-            local m = cg.mat3_inverse(cs.transform.get_world_matrix(parent))
-            cs.transform.translate(ent, cg.mat3_transform(m, d)
-                                       - cg.mat3_transform(m, cg.vec2_zero))
-        end
-    end
-end
+function cs.edit.grab_snap_on() grab_snap = true end
+function cs.edit.grab_snap_off() grab_snap = false end
 
 -- move all selected grid size times mult in a direction
 function cs.edit.grab_move_left(mult)
-    cs.edit.grab_move(cg.vec2(-1, 0) * (mult or 1))
+    local g = cs.edit.get_grid_size()
+    grab_disp.x = grab_disp.x - (mult or 1) * (g.x > 0 and g.x or 1)
 end
 function cs.edit.grab_move_right(mult)
-    cs.edit.grab_move(cg.vec2(1, 0) * (mult or 1))
+    local g = cs.edit.get_grid_size()
+    grab_disp.x = grab_disp.x + (mult or 1) * (g.x > 0 and g.x or 1)
 end
 function cs.edit.grab_move_up(mult)
-    cs.edit.grab_move(cg.vec2(0, 1) * (mult or 1))
+    local g = cs.edit.get_grid_size()
+    grab_disp.y = grab_disp.y + (mult or 1) * (g.y > 0 and g.y or 1)
 end
 function cs.edit.grab_move_down(mult)
-    cs.edit.grab_move(cg.vec2(0, -1) * (mult or 1))
+    local g = cs.edit.get_grid_size()
+    grab_disp.y = grab_disp.y - (mult or 1) * (g.y > 0 and g.y or 1)
 end
 
 cs.edit.modes.grab = {}
 
 function cs.edit.modes.grab.enter()
-    cs.edit.set_mode_text('grab')
-
-    grab_mouse_prev = cs.input.get_mouse_pos_unit()
+    grab_mouse_start = cs.input.get_mouse_pos_unit()
+    grab_disp = cg.Vec2(cg.vec2_zero)
+    grab_snap = false
 
     -- store old positions
     grab_old_pos = cg.entity_table()
@@ -329,10 +323,41 @@ function cs.edit.modes.grab.exit()
 end
 
 function cs.edit.modes.grab.update_all()
-    local mp = cs.camera.unit_to_world(grab_mouse_prev)
+    local ms = cs.camera.unit_to_world(grab_mouse_start)
     local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
-    cs.edit.grab_move(mc - mp)
-    grab_mouse_prev = cs.input.get_mouse_pos_unit()
+
+    if grab_snap then
+        local g = cs.edit.get_grid_size()
+        if g.x > 0 then
+            mc.x = g.x * math.floor(0.5 + (mc.x - ms.x) / g.x) + ms.x
+        end
+        if g.y > 0 then
+            mc.y = g.y * math.floor(0.5 + (mc.y - ms.y) / g.y) + ms.y
+        end
+    end
+
+    for ent, _ in pairs(cs.edit.select) do
+        -- move only if no ancestor is being moved (avoid double-move)
+        local anc = cs.transform.get_parent(ent)
+        while anc ~= cg.entity_nil and not cs.edit.select[anc] do
+            anc = cs.transform.get_parent(anc)
+        end
+        if anc == cg.entity_nil then
+            -- find translation in parent space
+            local parent = cs.transform.get_parent(ent)
+            local m = cg.mat3_inverse(cs.transform.get_world_matrix(parent))
+            local d = cg.mat3_transform(m, mc)
+                - cg.mat3_transform(m, ms)
+            d = d + cg.mat3_transform(m, grab_disp)
+                - cg.mat3_transform(m, cg.vec2_zero)
+            cs.transform.set_position(ent, grab_old_pos[ent] + d)
+        end
+    end
+
+    local snap_text = grab_snap and 'snap ' or ''
+    local d = mc - ms + grab_disp
+    local mode_text = string.format('grab %s%.4f, %.4f', snap_text, d.x, d.y)
+    cs.edit.set_mode_text(mode_text)
 end
 
 
@@ -643,6 +668,7 @@ end
 cs.edit.modes.grab['<enter>'] = cs.edit.grab_end
 cs.edit.modes.grab['<mouse_1>'] = cs.edit.grab_end
 cs.edit.modes.grab['<mouse_2>'] = cs.edit.grab_cancel
+cs.edit.modes.grab['g'] = cs.edit.grab_snap_on
 cs.edit.modes.grab['<left>'] = cs.edit.grab_move_left
 cs.edit.modes.grab['<right>'] = cs.edit.grab_move_right
 cs.edit.modes.grab['<up>'] = cs.edit.grab_move_up
