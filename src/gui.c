@@ -57,6 +57,8 @@ static EntityMap *focus_exit_map;
 static EntityMap *changed_map;
 static EntityMap *mouse_down_map;
 static EntityMap *mouse_up_map;
+static EntityMap *key_down_map;
+static EntityMap *key_up_map;
 
 Entity gui_get_root()
 {
@@ -229,6 +231,14 @@ MouseCode gui_event_mouse_up(Entity ent)
 {
     return entitymap_get(mouse_up_map, ent);
 }
+KeyCode gui_event_key_down(Entity ent)
+{
+    return entitymap_get(key_down_map, ent);
+}
+KeyCode gui_event_key_up(Entity ent)
+{
+    return entitymap_get(key_up_map, ent);
+}
 
 bool gui_captured_event()
 {
@@ -243,9 +253,13 @@ static void _common_init()
     changed_map = entitymap_new(false);
     mouse_down_map = entitymap_new(MC_NONE);
     mouse_up_map = entitymap_new(MC_NONE);
+    key_down_map = entitymap_new(KC_NONE);
+    key_up_map = entitymap_new(KC_NONE);
 }
 static void _common_deinit()
 {
+    entitymap_free(key_up_map);
+    entitymap_free(key_down_map);
     entitymap_free(mouse_up_map);
     entitymap_free(mouse_down_map);
     entitymap_free(changed_map);
@@ -435,6 +449,18 @@ static void _common_mouse_up(MouseCode mouse)
 {
     _common_mouse_event(mouse_up_map, mouse);
 }
+
+static void _common_key_down(KeyCode key)
+{
+    if (!entity_eq(focused, entity_nil))
+        entitymap_set(key_down_map, focused, key);
+}
+static void _common_key_up(KeyCode key)
+{
+    if (!entity_eq(focused, entity_nil))
+        entitymap_set(key_up_map, focused, key);
+}
+
 static void _common_event_clear()
 {
     entitymap_clear(focus_enter_map);
@@ -442,6 +468,8 @@ static void _common_event_clear()
     entitymap_clear(changed_map);
     entitymap_clear(mouse_down_map);
     entitymap_clear(mouse_up_map);
+    entitymap_clear(key_down_map);
+    entitymap_clear(key_up_map);
     captured_event = false;
 }
 
@@ -1488,10 +1516,12 @@ void gui_draw_all()
 
 void gui_key_down(KeyCode key)
 {
+    _common_key_down(key);
     _textedit_key_down(key);
 }
 void gui_key_up(KeyCode key)
 {
+    _common_key_up(key);
 }
 void gui_mouse_down(MouseCode mouse)
 {

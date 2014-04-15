@@ -31,6 +31,8 @@ add_event('focus_enter', false)
 add_event('focus_exit', false)
 add_event('mouse_down', cg.MC_NONE)
 add_event('mouse_up', cg.MC_NONE)
+add_event('key_down', cg.KC_NONE)
+add_event('key_up', cg.KC_NONE)
 
 function cs.gui_event.update_all()
     for ent, _ in pairs(event_handlers) do

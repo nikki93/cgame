@@ -59,8 +59,10 @@ SCRIPT(gui,
        EXPORT bool gui_event_changed(Entity ent); /* input value changed */
        EXPORT MouseCode gui_event_mouse_down(Entity ent);
        EXPORT MouseCode gui_event_mouse_up(Entity ent);
+       EXPORT KeyCode gui_event_key_down(Entity ent);
+       EXPORT KeyCode gui_event_key_up(Entity ent);
 
-       /* whether gui captured this event -- mouse_down, key_down etc. */
+       /* whether some gui element captured the current event */
        EXPORT bool gui_captured_event();
 
        /* gui_rect */
