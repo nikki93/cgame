@@ -176,6 +176,9 @@ typedef void (*KeyCallback) (KeyCode key);
 void input_add_key_down_callback(KeyCallback f);
 void input_add_key_up_callback(KeyCallback f);
 
+typedef void (*CharCallback) (unsigned int c);
+void input_add_char_down_callback(CharCallback f);
+
 typedef void (*MouseCallback) (MouseCode mouse);
 void input_add_mouse_down_callback(MouseCallback f);
 void input_add_mouse_up_callback(MouseCallback f);
