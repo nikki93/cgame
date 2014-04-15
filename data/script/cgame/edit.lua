@@ -483,6 +483,7 @@ function cs.edit.command_start()
     cs.edit.set_mode('command')
 end
 function cs.edit.command_end()
+    loadstring(cs.gui_text.get_str(cs.edit.command_text))()
     cs.edit.set_mode('normal')
     cs.edit.undo_save()
 end
@@ -495,7 +496,6 @@ function cs.edit.modes.command.enter()
 
     cs.gui.set_visible(cs.edit.command_bar, true)
 
-    cs.gui.set_focus(cs.edit.command_text, true)
     cs.gui_text.set_str(cs.edit.command_text, '')
 end
 function cs.edit.modes.command.exit()
@@ -507,8 +507,12 @@ function cs.edit.modes.command.exit()
 end
 
 function cs.edit.modes.command.update_all()
-    if cs.gui.event_focus_exit(cs.edit.command_text) then
+    if cs.gui.event_key_down(cs.edit.command_text) == cg.KC_ENTER then
+        cs.edit.command_end()
+    elseif cs.gui.event_focus_exit(cs.edit.command_text) then
         cs.edit.command_cancel()
+    else
+        cs.gui.set_focus(cs.edit.command_text, true)
     end
 end
 
