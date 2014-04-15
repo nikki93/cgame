@@ -489,7 +489,7 @@ local function command_update_completions()
     local s = cs.gui_text.get_str(cs.edit.command_text)
     command_completions = command_completion_func(s)
     cs.gui_text.set_str(cs.edit.command_completions_text,
-                        table.concat(command_completions, '  '))
+                        table.concat(command_completions, ' | '))
 end
 
 -- returns a completion function that uses substring search
