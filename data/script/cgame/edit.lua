@@ -682,6 +682,7 @@ cs.edit.modes.normal['S-g'] = cs.edit.command_grid
 
 -- grab mode
 cs.edit.modes.grab['<enter>'] = cs.edit.grab_end
+cs.edit.modes.grab['<escape>'] = cs.edit.grab_cancel
 cs.edit.modes.grab['<mouse_1>'] = cs.edit.grab_end
 cs.edit.modes.grab['<mouse_2>'] = cs.edit.grab_cancel
 cs.edit.modes.grab['g'] = cs.edit.grab_snap_on
@@ -696,6 +697,7 @@ cs.edit.modes.grab['S-<down>'] = function () cs.edit.grab_move_down(10) end
 
 -- rotate mode
 cs.edit.modes.rotate['<enter>'] = cs.edit.rotate_end
+cs.edit.modes.rotate['<escape>'] = cs.edit.rotate_cancel
 cs.edit.modes.rotate['<mouse_1>'] = cs.edit.rotate_end
 cs.edit.modes.rotate['<mouse_2>'] = cs.edit.rotate_cancel
 
