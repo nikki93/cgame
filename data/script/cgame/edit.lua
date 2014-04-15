@@ -482,18 +482,46 @@ end
 
 cs.edit.modes.command = {}
 
-local command_end_callback, command_completion_func
+local command_end_callback, command_completion_func, command_completions
+local command_completions_index, command_always_complete
 
-function cs.edit.command_start(prompt, callback)
+local function command_update_completions()
+    local s = cs.gui_text.get_str(cs.edit.command_text)
+    command_completions = command_completion_func(s)
+    cs.gui_text.set_str(cs.edit.command_completions_text,
+                        table.concat(command_completions, '  '))
+end
+
+-- returns a completion function that uses substring search
+function cs.edit.command_completion_substr(t)
+    return function(s)
+        local comps = {}
+        for k, _ in pairs(t) do
+            if string.find(k, s) then table.insert(comps, k) end
+        end
+        return comps
+    end
+end
+
+function cs.edit.command_start(prompt, callback, completion_func,
+                               always_complete)
     cs.edit.set_mode('command')
 
     -- default is eval script
     prompt = prompt or 'lua: '
     command_end_callback = callback or function (s) loadstring(s)() end
+    command_completion_func = completion_func or function () return {} end
+    command_always_complete = always_complete and true or false
 
     cs.gui_text.set_str(cs.edit.command_text_colon, prompt)
+    command_update_completions()
 end
 function cs.edit.command_end()
+    if command_always_complete then
+        if #command_completions == 0 then return end -- no completions
+        cs.edit.command_complete()
+    end
+
     local s = cs.gui_text.get_str(cs.edit.command_text)
     if command_end_callback then command_end_callback(s)
     else print('no command callback for \'' .. s .. '\'') end
@@ -505,12 +533,22 @@ function cs.edit.command_cancel()
     cs.edit.set_mode('normal')
 end
 
+-- actually pick a completion
+function cs.edit.command_complete()
+    if #command_completions > 0 then
+        local comp = command_completions[1]
+        cs.gui_text.set_str(cs.edit.command_text, comp)
+        cs.gui_textedit.set_cursor(cs.edit.command_text, #comp)
+    end
+end
+
 function cs.edit.modes.command.enter()
     cs.edit.set_mode_text('command')
 
     cs.gui.set_visible(cs.edit.command_bar, true)
 
     cs.gui_text.set_str(cs.edit.command_text, '')
+    cs.gui_text.set_str(cs.edit.command_completions_text, '')
 end
 function cs.edit.modes.command.exit()
     cs.edit.hide_mode_text()
@@ -518,16 +556,27 @@ function cs.edit.modes.command.exit()
     cs.gui.set_visible(cs.edit.command_bar, false)
 
     cs.gui.set_focus(cs.edit.command_text, false)
+    command_completions = {}
 end
 
 function cs.edit.modes.command.update_all()
+    -- done?
     if cs.gui.event_key_down(cs.edit.command_text) == cg.KC_ENTER then
         cs.edit.command_end()
+        return
     elseif cs.gui.event_focus_exit(cs.edit.command_text) then
         cs.edit.command_cancel()
-    else
-        cs.gui.set_focus(cs.edit.command_text, true)
+        return
     end
+
+    if cs.gui.event_changed(cs.edit.command_text) then
+        command_update_completions()
+    end
+    if cs.gui.event_key_down(cs.edit.command_text) == cg.KC_TAB then
+        cs.edit.command_complete()
+    end
+
+    cs.gui.set_focus(cs.edit.command_text, true)
 end
 
 
@@ -578,7 +627,11 @@ cs.edit.modes.normal[','] = function ()
         end
         cs.edit.undo_save()
     end
-    cs.edit.command_start('system: ', system)
+
+    -- complete to systems that have properties listed
+    local comp = cs.edit.command_completion_substr(cs.props)
+
+    cs.edit.command_start('system: ', system, comp, true)
 end
 
 -- grab mode

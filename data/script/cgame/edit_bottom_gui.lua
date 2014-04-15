@@ -150,3 +150,15 @@ cs.edit.command_text = cg.add {
     gui_text = { str = '' },
     gui_textedit = {},
 }
+cs.edit.command_completions_text = cg.add {
+    transform = { parent = cs.edit.command_bar },
+    group = { groups = 'builtin' },
+    edit = { editable = false },
+    gui = {
+        color = cg.color(0.5, 0.30, 0.05, 1.0),
+        halign = cg.GA_TABLE, valign = cg.GA_MAX,
+        padding = cg.vec2(0, 2),
+    },
+    gui_text = { str = 'completion1 | completion2' },
+    gui_textedit = {},
+}
