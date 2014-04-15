@@ -106,6 +106,22 @@ textedit = cg.add {
         valign = cg.GA_TABLE,
         halign = cg.GA_MIN
     },
-    gui_event = { focus_enter = function () print('lol') end },
+    gui_text = { str = 'edit me!!' },
+    gui_event = {
+        key_down = function (e, k)
+            if k == cg.KC_A then print('A!') end
+        end
+    },
+    gui_textedit = {},
+}
+
+textedit = cg.add {
+    transform = { parent = cs.gui_window.get_body(win2) },
+    gui = {
+        color = cg.color_white,
+        valign = cg.GA_TABLE,
+        halign = cg.GA_MIN
+    },
+    gui_text = { str = "I'm editable too..." },
     gui_textedit = {},
 }
