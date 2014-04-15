@@ -20,7 +20,7 @@ static EntityPool *uneditable_pool; /* Entites are in this pool
                                        iff. not editable */
 
 /* grid */
-static Vec2 grid_size = { 2.0, 2.0 };
+static Vec2 grid_size = { 1.0, 1.0 };
 
 /* bbox pool */
 typedef struct BBoxPoolElem BBoxPoolElem;
