@@ -447,7 +447,7 @@ cs.edit.boxsel_box = cg.add {
     edit = { editable = false },
     transform = { position = cg.vec2(-20, -20) },
     gui_rect = { size = cg.vec2(10, 10), hfit = false, vfit = false },
-    gui = { color = cg.color(0.8, 0.5, 0.1, 0.3) },
+    gui = { captures_events = false, color = cg.color(0.8, 0.5, 0.1, 0.3) },
 }
 
 cs.edit.modes.boxsel = {}
