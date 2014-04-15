@@ -479,11 +479,22 @@ end
 
 cs.edit.modes.command = {}
 
-function cs.edit.command_start()
+local command_end_callback
+
+function cs.edit.command_start(prompt, callback)
     cs.edit.set_mode('command')
+
+    -- default is eval script
+    prompt = prompt or 'lua: '
+    command_end_callback = callback or function (s) loadstring(s)() end
+
+    cs.gui_text.set_str(cs.edit.command_text_colon, prompt)
 end
 function cs.edit.command_end()
-    loadstring(cs.gui_text.get_str(cs.edit.command_text))()
+    local s = cs.gui_text.get_str(cs.edit.command_text)
+    if command_end_callback then command_end_callback(s)
+    else print('no command callback for \'' .. s .. '\'') end
+
     cs.edit.set_mode('normal')
     cs.edit.undo_save()
 end
@@ -551,17 +562,20 @@ cs.edit.modes.normal['S-d'] = cs.edit.duplicate
 cs.edit.modes.normal['g'] = cs.edit.grab_start
 cs.edit.modes.normal['r'] = cs.edit.rotate_start
 cs.edit.modes.normal['b'] = cs.edit.boxsel_start
-cs.edit.modes.normal['t'] = function ()
-    for ent, _ in pairs(cs.edit.select) do
-        cs.edit_inspector.add(ent, 'transform')
+cs.edit.modes.normal[','] = function ()
+    local function system(s)
+        if cg.entity_table_empty(cs.edit.select) then
+            local e = cg.entity_create()
+            cs.edit_inspector.add(e, s)
+            cs.edit.select[e] = true
+        else
+            for ent, _ in pairs(cs.edit.select) do
+                cs.edit_inspector.add(ent, s)
+            end
+        end
+        cs.edit.undo_save()
     end
-    cs.edit.undo_save()
-end
-cs.edit.modes.normal['s'] = function ()
-    for ent, _ in pairs(cs.edit.select) do
-        cs.edit_inspector.add(ent, 'sprite')
-    end
-    cs.edit.undo_save()
+    cs.edit.command_start('system: ', system)
 end
 
 -- grab mode
