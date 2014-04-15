@@ -243,55 +243,65 @@ function cs.gui_window.update_all()
 end
 
 
---- textfield ---------------------------------------------------------------
+--- textbox --------------------------------------------------------------------
 
-cs.textfield = { auto_saveload = true }
+cs.gui_textbox = { auto_saveload = true }
 
-cs.textfield.tbl = cg.entity_table()
+cs.gui_textbox.tbl = cg.entity_table()
 
-function cs.textfield.add(ent)
-    if cs.textfield.tbl[ent] then return end
-    cs.textfield.tbl[ent] = {}
-    local textfield = cs.textfield.tbl[ent]
+function cs.gui_textbox.add(ent)
+    if cs.gui_textbox.tbl[ent] then return end
+    cs.gui_textbox.tbl[ent] = {}
+    local gui_textbox = cs.gui_textbox.tbl[ent]
+    gui_textbox.click_focus = false
 
     -- add ent to gui_rect as container
     cg.add {
         ent = ent,
         gui_rect = {},
-        gui = { color = cg.color(0.2, 0.2, 0.4, 1) },
     }
 
-    -- add textedit field
-    textfield.textedit = cg.add {
+    -- add text child
+    gui_textbox.text = cg.add {
         transform = { parent = ent },
         gui = {
             color = cg.color_white,
             valign = cg.GA_MAX,
             halign = cg.GA_MIN
         },
-        gui_textedit = {},
+        gui_text = {},
     }
 end
 
-function cs.textfield.remove(ent)
-    local textfield = cs.textfield.tbl[ent]
-    if textfield then cs.transform.destroy_rec(ent) end
-    cs.textfield.tbl[ent] = nil
+function cs.gui_textbox.remove(ent)
+    local textbox = cs.gui_textbox.tbl[ent]
+    if textbox then cs.transform.destroy_rec(ent) end
+    cs.gui_textbox.tbl[ent] = nil
 end
 
-function cs.textfield.get_textedit(ent)
-    local textfield = cs.textfield.tbl[ent]
-    if textfield then return textfield.textedit end
+function cs.gui_textbox.set_click_focus(ent, click_focus)
+    local window = cs.gui_textbox.tbl[ent]
+    if window then window.click_focus = click_focus end
+end
+function cs.gui_textbox.get_click_focus(ent)
+    local window = cs.gui_textbox.tbl[ent]
+    if window then return window.click_focus end
 end
 
-function cs.textfield.update_all()
-    for ent, _ in pairs(cs.textfield.tbl) do
-        if cs.entity.destroyed(ent) then cs.textfield.remove(ent) end
+function cs.gui_textbox.get_text(ent)
+    local gui_textbox = cs.gui_textbox.tbl[ent]
+    if gui_textbox then return gui_textbox.text end
+end
+
+function cs.gui_textbox.update_all()
+    for ent, _ in pairs(cs.gui_textbox.tbl) do
+        if cs.entity.destroyed(ent) then cs.gui_textbox.remove(ent) end
     end
 
-    for ent, textfield in pairs(cs.textfield.tbl) do
-        if cs.gui.event_mouse_up(ent) == cg.MC_LEFT then
-            cs.gui.set_focus(textfield.textedit, true)
+    for ent, textbox in pairs(cs.gui_textbox.tbl) do
+        if textbox.click_focus
+        and cs.gui.event_mouse_up(ent) == cg.MC_LEFT then
+            cs.gui.set_focus(textbox.text, true)
         end
     end
 end
