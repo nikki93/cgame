@@ -550,12 +550,11 @@ function cs.edit.command_end()
         cs.edit.command_complete()
     end
 
+    cs.edit.set_mode('normal')
+
     local s = cs.gui_text.get_str(cs.edit.command_text)
     if command_end_callback then command_end_callback(s)
     else print('no command callback for \'' .. s .. '\'') end
-
-    cs.edit.set_mode('normal')
-    cs.edit.undo_save()
 end
 function cs.edit.command_cancel()
     cs.edit.set_mode('normal')
@@ -606,6 +605,43 @@ function cs.edit.modes.command.update_all()
 end
 
 
+--- command prompts ------------------------------------------------------------
+
+local function command_gridx(x)
+    local function gridy(y)
+        cs.edit.set_grid_size(cg.vec2(tonumber(x) or 0, tonumber(y) or 0))
+    end
+    cs.edit.command_start('grid y: ', gridy)
+end
+function cs.edit.command_grid()
+    cs.edit.command_start('grid x: ', command_gridx)
+end
+
+-- inspects system on selected entities, or creates entity if none selected
+function cs.edit.command_inspect()
+    local add = cg.entity_table_empty(cs.edit.select)
+
+    local function system(s)
+        if add then
+            local e = cg.entity_create()
+            cs.edit_inspector.add(e, s)
+            cs.edit.select[e] = true
+        elseif not cg.entity_table_empty(cs.edit.select) then
+            for ent, _ in pairs(cs.edit.select) do
+                cs.edit_inspector.add(ent, s)
+            end
+        end
+        cs.edit.undo_save()
+    end
+
+    -- complete to systems that have properties listed
+    local comp = cs.edit.command_completion_substr(cs.props)
+
+    cs.edit.command_start(add and 'new entity: ' or 'edit system: ',
+                          system, comp, true)
+end
+
+
 --- gui ------------------------------------------------------------------------
 
 cs.edit.gui_root = cg.add {
@@ -640,28 +676,9 @@ cs.edit.modes.normal['S-d'] = cs.edit.duplicate
 cs.edit.modes.normal['g'] = cs.edit.grab_start
 cs.edit.modes.normal['r'] = cs.edit.rotate_start
 cs.edit.modes.normal['b'] = cs.edit.boxsel_start
-cs.edit.modes.normal[','] = function ()
-    local add = cg.entity_table_empty(cs.edit.select)
 
-    local function system(s)
-        if add then
-            local e = cg.entity_create()
-            cs.edit_inspector.add(e, s)
-            cs.edit.select[e] = true
-        elseif not cg.entity_table_empty(cs.edit.select) then
-            for ent, _ in pairs(cs.edit.select) do
-                cs.edit_inspector.add(ent, s)
-            end
-        end
-        cs.edit.undo_save()
-    end
-
-    -- complete to systems that have properties listed
-    local comp = cs.edit.command_completion_substr(cs.props)
-
-    cs.edit.command_start(add and 'new entity: ' or 'edit system: ',
-                          system, comp, true)
-end
+cs.edit.modes.normal[','] = cs.edit.command_inspect
+cs.edit.modes.normal['S-g'] = cs.edit.command_grid
 
 -- grab mode
 cs.edit.modes.grab['<enter>'] = cs.edit.grab_end
@@ -722,6 +739,17 @@ function cs.edit.update_all()
         cs.gui.set_visible(cs.edit.gui_root, true)
 
     cs.edit.mode_event('update_all')
+
+    -- update grid text
+    local g = cs.edit.get_grid_size()
+    if g.x <= 0 and g.y <= 0 then
+        cs.gui.set_visible(cs.edit.grid_textbox, false)
+    else
+        cs.gui.set_visible(cs.edit.grid_textbox, true)
+        if g.x == g.y then s = string.format('grid %.4g', g.x)
+        else s = string.format('grid %.4g %.4g', g.x, g.y) end
+        cs.gui_text.set_str(cs.edit.grid_text, s)
+    end
 
     -- update select text
     local nselect = 0
