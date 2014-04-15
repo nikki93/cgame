@@ -12,6 +12,10 @@ SCRIPT(edit,
        EXPORT void edit_set_enabled(bool e);
        EXPORT bool edit_get_enabled();
 
+       /* non-negative on each dimension -- zero means no grid */
+       EXPORT void edit_set_grid_size(Vec2 size);
+       EXPORT Vec2 edit_get_grid_size();
+
        /* non-editable entities cannot be selected */
        EXPORT void edit_set_editable(Entity ent, bool editable);
        EXPORT bool edit_get_editable(Entity ent);

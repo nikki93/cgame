@@ -19,6 +19,9 @@ static bool enabled;
 static EntityPool *uneditable_pool; /* Entites are in this pool
                                        iff. not editable */
 
+/* grid */
+static Vec2 grid_size = { 2.0, 2.0 };
+
 /* bbox pool */
 typedef struct BBoxPoolElem BBoxPoolElem;
 struct BBoxPoolElem
@@ -56,6 +59,20 @@ void edit_set_enabled(bool e)
 bool edit_get_enabled()
 {
     return enabled;
+}
+
+void edit_set_grid_size(Vec2 size)
+{
+    if (size.x < 0.0)
+        size.x = 0.0;
+    if (size.y < 0.0)
+        size.y = 0.0;
+
+    grid_size = size;
+}
+Vec2 edit_get_grid_size()
+{
+    return grid_size;
 }
 
 void edit_set_editable(Entity ent, bool editable)
