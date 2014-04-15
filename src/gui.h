@@ -88,14 +88,17 @@ SCRIPT(gui,
        EXPORT const char *gui_text_get_str(Entity ent);
        EXPORT void gui_text_set_cursor(Entity ent, int cursor);
 
-       EXPORT void gui_textedit_set_numerical(Entity ent, bool numerical);
-       EXPORT bool gui_textedit_get_numerical(Entity ent);
-       EXPORT Scalar gui_textedit_get_num(Entity ent); /* 0 if not numerical */
-
        /* gui_textedit */
 
        EXPORT void gui_textedit_add(Entity ent);
        EXPORT void gui_textedit_remove(Entity ent);
+
+       EXPORT void gui_textedit_set_cursor(Entity ent, unsigned int cursor);
+       EXPORT unsigned int gui_textedit_get_cursor(Entity ent);
+
+       EXPORT void gui_textedit_set_numerical(Entity ent, bool numerical);
+       EXPORT bool gui_textedit_get_numerical(Entity ent);
+       EXPORT Scalar gui_textedit_get_num(Entity ent); /* 0 if not numerical */
 
     )
 

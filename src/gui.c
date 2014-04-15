@@ -1032,7 +1032,7 @@ const char *gui_text_get_str(Entity ent)
     return text->str;
 }
 
-void gui_text_set_cursor(Entity ent, int cursor)
+static void _text_set_cursor(Entity ent, int cursor)
 {
     Text *text = entitypool_get(text_pool, ent);
     assert(text);
@@ -1251,10 +1251,31 @@ bool gui_textedit_get_numerical(Entity ent)
     assert(textedit);
     return textedit->numerical;
 }
-
 Scalar gui_textedit_get_num(Entity ent)
 {
     return strtof(gui_text_get_str(ent), NULL);
+}
+
+static void _textedit_fix_cursor(TextEdit *textedit)
+{
+    unsigned int len = strlen(gui_text_get_str(textedit->pool_elem.ent));
+    if (textedit->cursor > len)
+        textedit->cursor = len;
+}
+
+void gui_textedit_set_cursor(Entity ent, unsigned int cursor)
+{
+    TextEdit *textedit = entitypool_get(textedit_pool, ent);
+    textedit = entitypool_get(textedit_pool, ent);
+    assert(textedit);
+    textedit->cursor = cursor;
+    _textedit_fix_cursor(textedit);
+}
+unsigned int gui_textedit_get_cursor(Entity ent)
+{
+    TextEdit *textedit = entitypool_get(textedit_pool, ent);
+    assert(textedit);
+    return textedit->cursor;
 }
 
 static void _textedit_init()
@@ -1264,13 +1285,6 @@ static void _textedit_init()
 static void _textedit_deinit()
 {
     entitypool_free(textedit_pool);
-}
-
-static void _textedit_fix_cursor(TextEdit *textedit)
-{
-    unsigned int len = strlen(gui_text_get_str(textedit->pool_elem.ent));
-    if (textedit->cursor > len)
-        textedit->cursor = len;
 }
 
 static bool _textedit_set_str(TextEdit *textedit, const char *str)
@@ -1373,9 +1387,9 @@ static void _textedit_update_all()
 
         /* focus stuff */
         if (gui_get_focus(ent))
-            gui_text_set_cursor(ent, textedit->cursor);
+            _text_set_cursor(ent, textedit->cursor);
         else
-            gui_text_set_cursor(ent, -1);
+            _text_set_cursor(ent, -1);
     }
 }
 
