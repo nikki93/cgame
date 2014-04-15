@@ -503,13 +503,18 @@ function cs.edit.command_completion_substr(t)
     end
 end
 
+local function run_string(s)
+    local r, e = loadstring(s)
+    if r then r() else error(e) end
+end
+
 function cs.edit.command_start(prompt, callback, completion_func,
                                always_complete)
     cs.edit.set_mode('command')
 
     -- default is eval script
     prompt = prompt or 'lua: '
-    command_end_callback = callback or function (s) loadstring(s)() end
+    command_end_callback = callback or run_string
     command_completion_func = completion_func or function () return {} end
     command_always_complete = always_complete and true or false
 
