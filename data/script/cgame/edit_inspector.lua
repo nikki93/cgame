@@ -1,6 +1,7 @@
 --- C system properties --------------------------------------------------------
 
 cs.props['transform'] = {
+    { type = 'Entity', name = 'parent' },
     { type = 'Vec2', name = 'position' },
     { type = 'Scalar', name = 'rotation' },
     { type = 'Vec2', name = 'scale' },
@@ -10,6 +11,10 @@ cs.props['sprite'] = {
     { type = 'Vec2', name = 'cell' },
     { type = 'Vec2', name = 'size' },
     { type = 'Scalar', name = 'depth' },
+}
+
+cs.props['camera'] = {
+    { type = 'Scalar', name = 'viewport_height' },
 }
 
 
@@ -119,6 +124,49 @@ property_types['Vec2'] = {
 
         if changed then
             cg.set(inspector.sys, prop.name, inspector.ent, v)
+        end
+    end,
+}
+
+property_types['Entity'] = {
+    create_view = function (inspector, prop)
+        property_create_container(inspector, prop)
+        property_create_label(inspector, prop)
+
+        prop.field_back = cg.add {
+            transform = { parent = prop.container },
+            gui = {
+                color = cg.color(0.2, 0.2, 0.4, 1),
+                valign = cg.GA_MAX,
+                halign = cg.GA_TABLE,
+            },
+            gui_rect = { hfill = true },
+        }
+        prop.field = cg.add {
+            transform = { parent = prop.field_back },
+            gui = {
+                color = cg.color_white,
+                valign = cg.GA_MAX,
+                halign = cg.GA_MIN,
+            },
+            gui_text = {},
+        }
+    end,
+
+    update_view = function (inspector, prop)
+        if cs.gui.event_mouse_down(prop.field_back) == cg.MC_LEFT then
+            local sel = cs.edit.select_get_first()
+            if sel then cg.set(inspector.sys, prop.name, inspector.ent, sel) end
+        end
+        if cs.gui.event_mouse_down(prop.field_back) == cg.MC_RIGHT then
+            cg.set(inspector.sys, prop.name, inspector.ent, cg.entity_nil)
+        end
+
+        local e = cg.get(inspector.sys, prop.name, inspector.ent)
+        if e == cg.entity_nil then
+            cs.gui_text.set_str(prop.field, '(nil)')
+        else
+            cs.gui_text.set_str(prop.field, string.format('(%d)', e.id))
         end
     end,
 }
