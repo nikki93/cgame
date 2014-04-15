@@ -47,29 +47,35 @@ local function property_create_label(inspector, prop)
     }
 end
 
--- returns textfield, textedit
-local function property_create_textfield(inspector, prop, numerical)
-    local textfield = cg.add {
-        transform = { parent = prop.container },
+-- returns textbox, text
+local function property_create_textbox(args)
+    local textbox = cg.add {
+        transform = { parent = args.prop.container },
         gui = {
             color = cg.color(0.2, 0.2, 0.4, 1),
             valign = cg.GA_MAX,
             halign = cg.GA_TABLE,
         },
-        textfield = {},
+        gui_textbox = {},
     }
-    local textedit = cs.textfield.get_textedit(textfield)
-    if numerical then cs.gui_textedit.set_numerical(textedit, true) end
-    return textfield, textedit
+
+    local text = cs.gui_textbox.get_text(textbox)
+    if args.editable == nil or args.editable or args.numerical then
+        cs.gui_textedit.add(text)
+        cs.gui_textbox.set_click_focus(textbox, true)
+    end
+    if args.numerical then cs.gui_textedit.set_numerical(text, true) end
+
+    return textbox, text
 end
 
 property_types['Scalar'] = {
     create_view = function (inspector, prop)
         property_create_container(inspector, prop)
         property_create_label(inspector, prop)
-        
-        prop.textfield, prop.textedit
-            = property_create_textfield(inspector, prop, true)
+
+        prop.textbox, prop.textedit
+            = property_create_textbox { prop = prop, numerical = true }
     end,
 
     update_view = function (inspector, prop)
@@ -92,10 +98,10 @@ property_types['Vec2'] = {
         property_create_container(inspector, prop)
         property_create_label(inspector, prop)
 
-        prop.x_textfield, prop.x_textedit
-            = property_create_textfield(inspector, prop, true)
-        prop.y_textfield, prop.y_textedit
-            = property_create_textfield(inspector, prop, true)
+        prop.x_textbox, prop.x_textedit
+            = property_create_textbox { prop = prop, numerical = true }
+        prop.y_textbox, prop.y_textedit
+            = property_create_textbox { prop = prop, numerical = true }
     end,
 
     update_view = function (inspector, prop)
@@ -133,40 +139,42 @@ property_types['Entity'] = {
         property_create_container(inspector, prop)
         property_create_label(inspector, prop)
 
-        prop.field_back = cg.add {
+        prop.textbox, prop.text
+            = property_create_textbox { prop = prop, editable = false }
+
+        prop.pick = cg.add {
             transform = { parent = prop.container },
             gui = {
-                color = cg.color(0.2, 0.2, 0.4, 1),
+                color = cg.color(0.35, 0.15, 0.30, 1),
                 valign = cg.GA_MAX,
                 halign = cg.GA_TABLE,
             },
-            gui_rect = { hfill = true },
+            gui_textbox = {},
         }
-        prop.field = cg.add {
-            transform = { parent = prop.field_back },
-            gui = {
-                color = cg.color_white,
-                valign = cg.GA_MAX,
-                halign = cg.GA_MIN,
-            },
-            gui_text = {},
-        }
+        cs.gui_text.set_str(cs.gui_textbox.get_text(prop.pick), 'set')
     end,
 
     update_view = function (inspector, prop)
-        if cs.gui.event_mouse_down(prop.field_back) == cg.MC_LEFT then
+        -- pick?
+        if cs.gui.event_mouse_down(prop.pick) == cg.MC_LEFT then
             local sel = cs.edit.select_get_first()
-            if sel then cg.set(inspector.sys, prop.name, inspector.ent, sel) end
-        end
-        if cs.gui.event_mouse_down(prop.field_back) == cg.MC_RIGHT then
-            cg.set(inspector.sys, prop.name, inspector.ent, cg.entity_nil)
+            cg.set(inspector.sys, prop.name, inspector.ent,
+                   sel and sel or cg.entity_nil)
         end
 
+        -- display
         local e = cg.get(inspector.sys, prop.name, inspector.ent)
         if e == cg.entity_nil then
-            cs.gui_text.set_str(prop.field, '(nil)')
+            cs.gui_text.set_str(prop.text, '(nil)')
         else
-            cs.gui_text.set_str(prop.field, string.format('(%d)', e.id))
+            cs.gui_text.set_str(prop.text, string.format('[%d]', e.id))
+        end
+
+        -- select?
+        if cs.gui.event_mouse_down(prop.textbox) == cg.MC_LEFT
+        and e ~= cg.entity_nil then
+            cs.edit.select_clear()
+            cs.edit.select[e] = true
         end
     end,
 }
@@ -203,12 +211,12 @@ local function make_inspector(ent, sys)
         }
     }
     inspector.window_body = cs.gui_window.get_body(inspector.window)
-    
+
     inspector.props = {}
     for _, p in ipairs(cs.props[inspector.sys] or cs[inspector.sys].props) do
         add_property(inspector, p.type, p.name)
     end
-    
+
     return inspector
 end
 
@@ -216,7 +224,7 @@ function cs.edit_inspector.add(ent, sys)
     if not inspectors[ent] then
         inspectors[ent] = {}
     end
-    
+
     if inspectors[ent][sys] then return end
     inspectors[ent][sys] = make_inspector(ent, sys)
 end
