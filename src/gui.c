@@ -23,6 +23,8 @@ static Entity gui_root; /* all gui should be descendants of this to move
 
 static Entity focused; /* currently focused entity, or entity_nil if none */
 
+static bool captured_event = false;
+
 /* --- common -------------------------------------------------------------- */
 
 /*
@@ -38,6 +40,7 @@ struct Gui
     bool visible;         /* internal recursively computed visibility */
     bool updated_visible; /* for recursive visibility computation */
     bool focusable;       /* can be focused */
+    bool captures_events;
 
     Color color;
 
@@ -73,6 +76,7 @@ void gui_add(Entity ent)
     gui->visible = true;
     gui->setvisible = true;
     gui->focusable = false;
+    gui->captures_events = true;
     gui->color = color(0.5, 0.5, 0.5, 1.0);
     gui->bbox = bbox(vec2_zero, vec2(32, 32));
     gui->halign = GA_NONE;
@@ -122,6 +126,19 @@ bool gui_get_focusable(Entity ent)
     Gui *gui = entitypool_get(gui_pool, ent);
     assert(gui);
     return gui->focusable;
+}
+
+void gui_set_captures_events(Entity ent, bool captures_events)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    gui->captures_events = captures_events;
+}
+bool gui_get_captures_events(Entity ent)
+{
+    Gui *gui = entitypool_get(gui_pool, ent);
+    assert(gui);
+    return gui->captures_events;
 }
 
 void gui_set_halign(Entity ent, GuiAlign align)
@@ -211,6 +228,11 @@ MouseCode gui_event_mouse_down(Entity ent)
 MouseCode gui_event_mouse_up(Entity ent)
 {
     return entitymap_get(mouse_up_map, ent);
+}
+
+bool gui_captured_event()
+{
+    return gui_has_focus() || captured_event;
 }
 
 static void _common_init()
@@ -389,6 +411,9 @@ static void _common_mouse_event(EntityMap *emap, MouseCode mouse)
             {
                 entitymap_set(emap, ent, mouse);
 
+                if (gui->captures_events)
+                    captured_event = true;
+
                 /* focus? */
                 if (gui->focusable && mouse == MC_LEFT)
                 {
@@ -417,6 +442,7 @@ static void _common_event_clear()
     entitymap_clear(changed_map);
     entitymap_clear(mouse_down_map);
     entitymap_clear(mouse_up_map);
+    captured_event = false;
 }
 
 static void _common_save_all(Serializer *s)
@@ -429,6 +455,7 @@ static void _common_save_all(Serializer *s)
         bool_save(&gui->visible, s);
         bool_save(&gui->setvisible, s);
         bool_save(&gui->focusable, s);
+        bool_save(&gui->captures_events, s);
         enum_save(&gui->halign, s);
         enum_save(&gui->valign, s);
         vec2_save(&gui->padding, s);
@@ -444,6 +471,7 @@ static void _common_load_all(Deserializer *s)
         bool_load(&gui->visible, s);
         bool_load(&gui->setvisible, s);
         bool_load(&gui->focusable, s);
+        bool_load(&gui->captures_events, s);
         enum_load(&gui->halign, s);
         enum_load(&gui->valign, s);
         vec2_load(&gui->padding, s);
@@ -1388,6 +1416,7 @@ static void _create_root()
     gui_rect_set_hfit(gui_root, false);
     gui_rect_set_vfit(gui_root, false);
     gui_set_color(gui_root, color(0, 0, 0, 0));
+    gui_set_captures_events(gui_root, false);
 }
 
 void gui_init()

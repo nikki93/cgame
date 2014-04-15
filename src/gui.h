@@ -27,6 +27,8 @@ SCRIPT(gui,
        EXPORT bool gui_get_visible(Entity ent);
        EXPORT void gui_set_focusable(Entity ent, bool focusable);
        EXPORT bool gui_get_focusable(Entity ent);
+       EXPORT void gui_set_captures_events(Entity ent, bool captures_events);
+       EXPORT bool gui_get_captures_events(Entity ent);
 
        typedef enum GuiAlign GuiAlign;
        enum GuiAlign
@@ -57,6 +59,9 @@ SCRIPT(gui,
        EXPORT bool gui_event_changed(Entity ent); /* input value changed */
        EXPORT MouseCode gui_event_mouse_down(Entity ent);
        EXPORT MouseCode gui_event_mouse_up(Entity ent);
+
+       /* whether gui captured this event -- mouse_down, key_down etc. */
+       EXPORT bool gui_captured_event();
 
        /* gui_rect */
 
