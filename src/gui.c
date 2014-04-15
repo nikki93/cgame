@@ -718,8 +718,6 @@ static void _rect_update_fit(Rect *rect)
     Scalar miny, maxx;
     BBox b;
 
-    /* we also fit hfill/vfill rects, then fill them after we're all done */
-
     rect_ent = rect->pool_elem.ent;
 
     miny = 0;
@@ -735,15 +733,15 @@ static void _rect_update_fit(Rect *rect)
         _rect_update_child_first(children[i]);
 
         b = bbox_transform(transform_get_matrix(children[i]), child->bbox);
-        if (rect->hfit || rect->hfill)
+        if (rect->hfit)
             maxx = scalar_max(maxx, b.max.x + child->padding.x);
-        if (rect->vfit || rect->vfill)
+        if (rect->vfit)
             miny = scalar_min(miny, b.min.y - child->padding.y);
     }
 
-    if (rect->hfit || rect->hfill)
+    if (rect->hfit)
         rect->size.x = maxx;
-    if (rect->vfit || rect->vfill)
+    if (rect->vfit)
         rect->size.y = -miny;
 }
 
