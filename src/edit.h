@@ -12,14 +12,15 @@ SCRIPT(edit,
        EXPORT void edit_set_enabled(bool e);
        EXPORT bool edit_get_enabled();
 
-       /* non-negative on each dimension -- zero means no grid */
-       EXPORT void edit_set_grid_size(Vec2 size);
-       EXPORT Vec2 edit_get_grid_size();
-
        /* non-editable entities cannot be selected */
        EXPORT void edit_set_editable(Entity ent, bool editable);
        EXPORT bool edit_get_editable(Entity ent);
 
+       /* non-negative on each dimension -- zero means no grid */
+       EXPORT void edit_set_grid_size(Vec2 size);
+       EXPORT Vec2 edit_get_grid_size();
+
+       /* used for click selecting etc. */
        EXPORT void edit_bboxes_clear();
        EXPORT void edit_bboxes_update(Entity ent, BBox bbox); /* merge bbox */
        EXPORT unsigned int edit_bboxes_get_num();
@@ -27,11 +28,6 @@ SCRIPT(edit,
        struct EntityBBoxPair { Entity ent; BBox bbox; };
        EXPORT EntityBBoxPair edit_bboxes_get_nth(unsigned int n);
        EXPORT void edit_bboxes_set_selected(Entity ent, bool selected);
-
-       EXPORT void edit_select_clear();
-       EXPORT void edit_select_add(Entity ent);
-       EXPORT void edit_select_remove(Entity ent);
-       EXPORT bool edit_select_has(Entity ent);
 
     )
 
