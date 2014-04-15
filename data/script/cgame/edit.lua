@@ -79,19 +79,19 @@ function cs.edit._mode_exec_bind(up, codestr)
 end
 
 function cs.edit.mode_key_down(key)
-    if cs.gui.has_focus() then return end
+    if cs.gui.captured_event() then return end
     cs.edit._mode_exec_bind(false, cs.input.keycode_to_string(key))
 end
 function cs.edit.mode_key_up(key)
-    if cs.gui.has_focus() then return end
+    if cs.gui.captured_event() then return end
     cs.edit._mode_exec_bind(true, cs.input.keycode_to_string(key))
 end
 function cs.edit.mode_mouse_down(mouse)
-    if cs.gui.has_focus() then return end
+    if cs.gui.captured_event() then return end
     cs.edit._mode_exec_bind(false, cs.input.mousecode_to_string(mouse))
 end
 function cs.edit.mode_mouse_up(mouse)
-    if cs.gui.has_focus() then return end
+    if cs.gui.captured_event() then return end
     cs.edit._mode_exec_bind(true, cs.input.mousecode_to_string(mouse))
 end
 
@@ -480,8 +480,9 @@ cs.edit.gui_root = cg.add {
     group = { groups = 'builtin' },
     edit = { editable = false },
     gui_rect = { hfill = true, vfill = true },
-    gui = { visible = false },
     gui = {
+        visible = false,
+        captures_events = false,
         color = cg.color(0, 0, 0, 0), -- invisible
         halign = cg.GA_MIN, valign = cg.GA_MIN,
         padding = cg.vec2_zero,
@@ -509,6 +510,12 @@ cs.edit.modes.normal['b'] = cs.edit.boxsel_start
 cs.edit.modes.normal['t'] = function ()
     for ent, _ in pairs(cs.edit.select) do
         cs.edit_inspector.add(ent, 'transform')
+    end
+    cs.edit.undo_save()
+end
+cs.edit.modes.normal['s'] = function ()
+    for ent, _ in pairs(cs.edit.select) do
+        cs.edit_inspector.add(ent, 'sprite')
     end
     cs.edit.undo_save()
 end

@@ -7,6 +7,7 @@ cs.edit.bottom_rect = cg.add {
     gui_rect = { hfill = true, size = cg.vec2(cs.game.get_window_size().x, 0) },
     gui = {
         color = cg.color(0, 0, 0, 0), -- invisible
+        captures_events = false;
         halign = cg.GA_MIN, valign = cg.GA_MIN,
         padding = cg.vec2_zero,
     }
