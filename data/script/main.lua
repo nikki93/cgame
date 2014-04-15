@@ -7,7 +7,7 @@ cs.app = {}
 function cs.app.key_down(key)
     if cs.gui.has_focus() then return end
 
-    if key == cg.KC_ESCAPE then
+    if key == cg.KC_Q then
         cs.game.quit()
 
     elseif key == cg.KC_1 then
