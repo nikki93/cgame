@@ -474,6 +474,44 @@ function cs.edit.modes.boxsel.update_all()
 end
 
 
+--- command mode ---------------------------------------------------------------
+
+cs.edit.modes.command = {}
+
+function cs.edit.command_start()
+    cs.edit.set_mode('command')
+end
+function cs.edit.command_end()
+    cs.edit.set_mode('normal')
+    cs.edit.undo_save()
+end
+function cs.edit.command_cancel()
+    cs.edit.set_mode('normal')
+end
+
+function cs.edit.modes.command.enter()
+    cs.edit.set_mode_text('command')
+
+    cs.gui.set_visible(cs.edit.command_bar, true)
+
+    cs.gui.set_focus(cs.edit.command_text, true)
+    cs.gui_text.set_str(cs.edit.command_text, '')
+end
+function cs.edit.modes.command.exit()
+    cs.edit.hide_mode_text()
+
+    cs.gui.set_visible(cs.edit.command_bar, false)
+
+    cs.gui.set_focus(cs.edit.command_text, false)
+end
+
+function cs.edit.modes.command.update_all()
+    if cs.gui.event_focus_exit(cs.edit.command_text) then
+        cs.edit.command_cancel()
+    end
+end
+
+
 --- gui ------------------------------------------------------------------------
 
 cs.edit.gui_root = cg.add {
@@ -496,6 +534,7 @@ require 'cgame.edit_inspector'
 --- bindings -------------------------------------------------------------------
 
 -- normal mode
+cs.edit.modes.normal['S-;'] = cs.edit.command_start
 cs.edit.modes.normal['u'] = cs.edit.undo
 cs.edit.modes.normal['a'] = cs.edit.select_clear
 cs.edit.modes.normal['<mouse_1>'] = cs.edit.select_click_single

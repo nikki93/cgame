@@ -4,7 +4,7 @@ cs.edit.bottom_rect = cg.add {
     transform = { parent = cs.edit.gui_root },
     group = { groups = 'builtin' },
     edit = { editable = false },
-    gui_rect = { hfill = true, size = cg.vec2(cs.game.get_window_size().x, 0) },
+    gui_rect = { hfill = true },
     gui = {
         color = cg.color(0, 0, 0, 0), -- invisible
         captures_events = false;
@@ -17,7 +17,7 @@ cs.edit.status_bar = cg.add {
     transform = { parent = cs.edit.bottom_rect },
     group = { groups = 'builtin' },
     edit = { editable = false },
-    gui_rect = { hfill = true, size = cg.vec2(cs.game.get_window_size().x, 0) },
+    gui_rect = { hfill = true },
     gui = {
         color = cg.color(0.7, 0.2, 0.2, 1.0),
         halign = cg.GA_MIN, valign = cg.GA_TABLE,
@@ -41,7 +41,7 @@ cs.edit.bottom_bar = cg.add {
     transform = { parent = cs.edit.bottom_rect },
     group = { groups = 'builtin' },
     edit = { editable = false },
-    gui_rect = { hfill = true, size = cg.vec2(cs.game.get_window_size().x, 0) },
+    gui_rect = { hfill = true },
     gui = {
         color = cg.color(0.9, 0.9, 0.9, 1.0),
         halign = cg.GA_MIN, valign = cg.GA_TABLE,
@@ -72,7 +72,7 @@ cs.edit.edit_text = cg.add {
     gui = {
         color = cg.color_white,
         halign = cg.GA_TABLE, valign = cg.GA_MAX,
-        padding = cg.vec2(5, 2),
+        padding = cg.vec2(2, 2),
     },
 }
 
@@ -104,7 +104,6 @@ cs.edit.mode_text = cg.add {
     },
 }
 
-
 function cs.edit.set_mode_text(s)
     cs.gui.set_visible(cs.edit.mode_text, true)
     cs.gui_text.set_str(cs.edit.mode_text, s)
@@ -112,3 +111,42 @@ end
 function cs.edit.hide_mode_text()
     cs.gui.set_visible(cs.edit.mode_text, false)
 end
+
+
+--- command text ---------------------------------------------------------------
+
+cs.edit.command_bar = cg.add {
+    transform = { parent = cs.edit.bottom_bar },
+    group = { groups = 'builtin' },
+    edit = { editable = false },
+    gui_rect = { hfill = true },
+    gui = {
+        visible = false,
+        color = cg.color_clear,
+        halign = cg.GA_MIN, valign = cg.GA_TABLE,
+        padding = cg.vec2_zero,
+    }
+}
+cs.edit.command_text_colon = cg.add {
+    transform = { parent = cs.edit.command_bar },
+    group = { groups = 'builtin' },
+    edit = { editable = false },
+    gui = {
+        color = cg.color_black,
+        halign = cg.GA_TABLE, valign = cg.GA_MAX,
+        padding = cg.vec2(2, 2),
+    },
+    gui_text = { str = ':' },
+}
+cs.edit.command_text = cg.add {
+    transform = { parent = cs.edit.command_bar },
+    group = { groups = 'builtin' },
+    edit = { editable = false },
+    gui = {
+        color = cg.color_black,
+        halign = cg.GA_TABLE, valign = cg.GA_MAX,
+        padding = cg.vec2(0, 2),
+    },
+    gui_text = { str = '' },
+    gui_textedit = {},
+}
