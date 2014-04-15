@@ -115,6 +115,7 @@ void camera_save_all(Serializer *s)
     {
         entity_save(&camera_entity, s);
         mat3_save(&inverse_view_matrix, s);
+        scalar_save(&viewport_height, s);
     }
 }
 void camera_load_all(Deserializer *s)
@@ -127,6 +128,7 @@ void camera_load_all(Deserializer *s)
     {
         entity_load(&camera_entity, s);
         mat3_load(&inverse_view_matrix, s);
+        scalar_load(&viewport_height, s);
     }
 }
 
