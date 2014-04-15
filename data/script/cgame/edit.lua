@@ -690,10 +690,10 @@ cs.edit.modes.grab['<left>'] = cs.edit.grab_move_left
 cs.edit.modes.grab['<right>'] = cs.edit.grab_move_right
 cs.edit.modes.grab['<up>'] = cs.edit.grab_move_up
 cs.edit.modes.grab['<down>'] = cs.edit.grab_move_down
-cs.edit.modes.grab['S-<left>'] = function () cs.edit.grab_move_left(10) end
-cs.edit.modes.grab['S-<right>'] = function () cs.edit.grab_move_right(10) end
-cs.edit.modes.grab['S-<up>'] = function () cs.edit.grab_move_up(10) end
-cs.edit.modes.grab['S-<down>'] = function () cs.edit.grab_move_down(10) end
+cs.edit.modes.grab['S-<left>'] = function () cs.edit.grab_move_left(5) end
+cs.edit.modes.grab['S-<right>'] = function () cs.edit.grab_move_right(5) end
+cs.edit.modes.grab['S-<up>'] = function () cs.edit.grab_move_up(5) end
+cs.edit.modes.grab['S-<down>'] = function () cs.edit.grab_move_down(5) end
 
 -- rotate mode
 cs.edit.modes.rotate['<enter>'] = cs.edit.rotate_end
