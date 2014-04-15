@@ -115,7 +115,7 @@ function cs.edit.undo_save()
 end
 
 function cs.edit.undo()
-    if #cs.edit.history == 0 then
+    if #cs.edit.history <= 1 then
         print('nothing to undo')
         return
     end
@@ -123,7 +123,8 @@ function cs.edit.undo()
     -- TODO: make 'edit' entity group and destroy all except that?
     cs.group.destroy('default edit_inspector')
 
-    local str = table.remove(cs.edit.history)
+    table.remove(cs.edit.history)
+    local str = cs.edit.history[#cs.edit.history]
     local d = cs.deserializer.open_str(str)
     cs.system.load_all(d)
     cs.deserializer.close(d)
