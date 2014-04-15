@@ -28,5 +28,7 @@ SCRIPT(scalar,
 #define scalar_min fminf
 #define scalar_max fmaxf
 
+#define scalar_floor floor
+
 #endif
 
