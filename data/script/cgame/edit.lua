@@ -263,6 +263,9 @@ end
 cs.edit.modes.normal = {
 }
 
+function cs.edit.modes.normal.enter()
+    cs.edit.hide_mode_text()
+end
 
 --- grab mode ------------------------------------------------------------------
 
@@ -318,14 +321,12 @@ function cs.edit.modes.grab.enter()
         grab_old_pos[ent] = cs.transform.get_position(ent)
     end
 end
-function cs.edit.modes.grab.exit()
-    cs.edit.hide_mode_text()
-end
 
 function cs.edit.modes.grab.update_all()
     local ms = cs.camera.unit_to_world(grab_mouse_start)
     local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
 
+    -- snap mc to grid if needed
     if grab_snap then
         local g = cs.edit.get_grid_size()
         if g.x > 0 then
@@ -336,6 +337,7 @@ function cs.edit.modes.grab.update_all()
         end
     end
 
+    -- move selected objects
     for ent, _ in pairs(cs.edit.select) do
         -- move only if no ancestor is being moved (avoid double-move)
         local anc = cs.transform.get_parent(ent)
@@ -354,6 +356,7 @@ function cs.edit.modes.grab.update_all()
         end
     end
 
+    -- update
     local snap_text = grab_snap and 'snap ' or ''
     local d = mc - ms + grab_disp
     local mode_text = string.format('grab %s%.4f, %.4f', snap_text, d.x, d.y)
@@ -404,9 +407,6 @@ function cs.edit.modes.rotate.enter()
         n = n + 1
     end
     rotate_pivot = rotate_pivot / n
-end
-function cs.edit.modes.rotate.exit()
-    cs.edit.hide_mode_text()
 end
 
 function cs.edit.modes.rotate.update_all()
@@ -487,8 +487,6 @@ function cs.edit.modes.boxsel.enter()
 end
 
 function cs.edit.modes.boxsel.exit()
-    cs.edit.hide_mode_text()
-
     cs.transform.set_position(cs.edit.boxsel_box, cg.vec2(-20, -20))
     cs.gui_rect.set_size(cs.edit.boxsel_box, cg.vec2(10, 10))
 end
@@ -581,8 +579,6 @@ function cs.edit.modes.command.enter()
     cs.gui_text.set_str(cs.edit.command_completions_text, '')
 end
 function cs.edit.modes.command.exit()
-    cs.edit.hide_mode_text()
-
     cs.gui.set_visible(cs.edit.command_bar, false)
 
     cs.gui.set_focus(cs.edit.command_text, false)
@@ -645,12 +641,14 @@ cs.edit.modes.normal['g'] = cs.edit.grab_start
 cs.edit.modes.normal['r'] = cs.edit.rotate_start
 cs.edit.modes.normal['b'] = cs.edit.boxsel_start
 cs.edit.modes.normal[','] = function ()
+    local add = cg.entity_table_empty(cs.edit.select)
+
     local function system(s)
-        if cg.entity_table_empty(cs.edit.select) then
+        if add then
             local e = cg.entity_create()
             cs.edit_inspector.add(e, s)
             cs.edit.select[e] = true
-        else
+        elseif not cg.entity_table_empty(cs.edit.select) then
             for ent, _ in pairs(cs.edit.select) do
                 cs.edit_inspector.add(ent, s)
             end
@@ -661,7 +659,8 @@ cs.edit.modes.normal[','] = function ()
     -- complete to systems that have properties listed
     local comp = cs.edit.command_completion_substr(cs.props)
 
-    cs.edit.command_start('system: ', system, comp, true)
+    cs.edit.command_start(add and 'new entity: ' or 'edit system: ',
+                          system, comp, true)
 end
 
 -- grab mode
@@ -728,10 +727,10 @@ function cs.edit.update_all()
     local nselect = 0
     for _ in pairs(cs.edit.select) do nselect = nselect + 1 end
     if nselect > 0 then
-        cs.gui.set_visible(cs.edit.select_text, true)
-        cs.gui_text.set_str(cs.edit.select_text, nselect .. ' selected')
+        cs.gui.set_visible(cs.edit.select_textbox, true)
+        cs.gui_text.set_str(cs.edit.select_text, 'select ' .. nselect)
     else
-        cs.gui.set_visible(cs.edit.select_text, false)
+        cs.gui.set_visible(cs.edit.select_textbox, false)
         cs.gui_text.set_str(cs.edit.select_text, '')
     end
 end

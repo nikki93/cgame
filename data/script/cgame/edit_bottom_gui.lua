@@ -63,55 +63,44 @@ cg.add {
 
 --- text -----------------------------------------------------------------------
 
--- 'edit' text
-cs.edit.edit_text = cg.add {
-    transform = { parent = cs.edit.status_bar },
-    group = { groups = 'builtin' },
-    edit = { editable = false },
-    gui_text = { str = 'edit' },
-    gui = {
-        color = cg.color_white,
-        halign = cg.GA_TABLE, valign = cg.GA_MAX,
-        padding = cg.vec2(2, 2),
-    },
-}
+local function create_status_textbox(gap, label)
+    local textbox = cg.add {
+        transform = { parent = cs.edit.status_bar },
+        group = { groups = 'builtin' },
+        edit = { editable = false },
+        gui = {
+            color = cg.color(0.6, 0.1, 0.1, 1),
+            halign = cg.GA_TABLE, valign = cg.GA_MAX,
+            padding = cg.vec2(gap, 0),
+        },
+        gui_rect = {},
+    }
+    local text = cg.add {
+        transform = { parent = textbox },
+        group = { groups = 'builtin' },
+        edit = { editable = false },
+        gui_text = { str = label or '' },
+        gui = {
+            color = cg.color_white,
+            halign = cg.GA_MIN, valign = cg.GA_MAX,
+            padding = cg.vec2(4, 2),
+        },
+    }
+    return textbox, text
+end
 
--- select text
-cs.edit.select_text = cg.add {
-    transform = { parent = cs.edit.status_bar },
-    group = { groups = 'builtin' },
-    edit = { editable = false },
-    gui_text = { str = '' },
-    gui = {
-        visible = false,
-        color = cg.color_white,
-        halign = cg.GA_TABLE, valign = cg.GA_MAX,
-        padding = cg.vec2(24, 2),
-    },
-}
-
--- mode text
-cs.edit.mode_text = cg.add {
-    transform = { parent = cs.edit.status_bar },
-    group = { groups = 'builtin' },
-    edit = { editable = false },
-    gui_text = { str = '' },
-    gui = {
-        visible = false,
-        color = cg.color_white,
-        halign = cg.GA_TABLE, valign = cg.GA_MAX,
-        padding = cg.vec2(24, 2),
-    },
-}
+cs.edit.edit_textbox, cs.edit.edit_text = create_status_textbox(0, 'edit')
+cs.edit.select_textbox, cs.edit.select_text = create_status_textbox(5, '')
+cs.edit.mode_textbox, cs.edit.mode_text = create_status_textbox(5, '')
 
 function cs.edit.set_mode_text(s)
-    cs.gui.set_visible(cs.edit.mode_text, true)
+    cs.gui.set_visible(cs.edit.mode_textbox, true)
     cs.gui_text.set_str(cs.edit.mode_text, s)
 end
 function cs.edit.hide_mode_text()
-    cs.gui.set_visible(cs.edit.mode_text, false)
+    cs.gui.set_visible(cs.edit.mode_textbox, false)
 end
-
+cs.edit.hide_mode_text()
 
 --- command text ---------------------------------------------------------------
 
