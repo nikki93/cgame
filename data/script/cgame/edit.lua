@@ -263,10 +263,10 @@ local grab_old_pos, grab_mouse_prev
 
 function cs.edit.grab_start()
     cs.edit.set_mode('grab')
-    cs.edit.undo_save()
 end
 function cs.edit.grab_end()
     cs.edit.set_mode('normal')
+    cs.edit.undo_save()
 end
 function cs.edit.grab_cancel()
     for ent, _ in pairs(cs.edit.select) do
@@ -338,10 +338,10 @@ local rotate_old_posrot, rotate_mouse_start, rotate_pivot
 
 function cs.edit.rotate_start()
     cs.edit.set_mode('rotate')
-    cs.edit.undo_save()
 end
 function cs.edit.rotate_end()
     cs.edit.set_mode('normal')
+    cs.edit.undo_save()
 end
 function cs.edit.rotate_cancel()
     for ent, _ in pairs(cs.edit.select) do
@@ -414,7 +414,6 @@ end
 
 function cs.edit.boxsel_start()
     cs.edit.set_mode('boxsel')
-    cs.edit.undo_save()
 end
 function cs.edit.boxsel_begin()
     boxsel_has_begun = true
@@ -439,6 +438,7 @@ function cs.edit.boxsel_end_add()
     end
 
     cs.edit.set_mode('normal')
+    cs.edit.undo_save()
 end
 
 cs.edit.boxsel_box = cg.add {
