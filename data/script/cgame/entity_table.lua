@@ -73,6 +73,11 @@ function cgame.entity_table()
     return setmetatable({}, entity_table_mt)
 end
 
+function cgame.entity_table_empty(t)
+    for _, _ in pairs(t) do return false end
+    return true
+end
+
 function cgame.__entity_table_load(t)
     local e = cgame.entity_table()
     for _, slot in pairs(t) do
