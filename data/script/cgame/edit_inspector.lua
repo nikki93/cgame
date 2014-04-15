@@ -226,6 +226,7 @@ function cs.edit_inspector.add(ent, sys)
     end
 
     if inspectors[ent][sys] then return end
+    cg.add(sys, ent)
     inspectors[ent][sys] = make_inspector(ent, sys)
 end
 
