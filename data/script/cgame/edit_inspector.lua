@@ -1,27 +1,29 @@
+local refct = require 'reflect'
+
 --- C system properties --------------------------------------------------------
 
 cs.meta.props['transform'] = {
-    { type = 'Entity', name = 'parent' },
-    { type = 'Vec2', name = 'position' },
-    { type = 'Scalar', name = 'rotation' },
-    { type = 'Vec2', name = 'scale' },
+    { name = 'parent' },
+    { name = 'position' },
+    { name = 'rotation' },
+    { name = 'scale' },
 }
 
 cs.meta.props['sprite'] = {
-    { type = 'Vec2', name = 'cell' },
-    { type = 'Vec2', name = 'size' },
-    { type = 'Scalar', name = 'depth' },
+    { name = 'cell' },
+    { name = 'size' },
+    { name = 'depth' },
 }
 
 cs.meta.props['camera'] = {
-    { type = 'Scalar', name = 'viewport_height' },
+    { name = 'viewport_height' },
 }
 
 cs.meta.props['physics'] = {
-    { type = 'Scalar', name = 'mass' },
-    { type = 'Vec2', name = 'position' },
-    { type = 'Vec2', name = 'velocity' },
-    { type = 'Vec2', name = 'velocity' },
+    { name = 'mass' },
+    { name = 'position' },
+    { name = 'velocity' },
+    { name = 'velocity' },
 }
 
 
@@ -193,8 +195,30 @@ cs.edit_inspector = {}
 
 local inspectors = cg.entity_table() -- Entity (sys --> inspector) map
 
-local function add_property(inspector, typ, name)
+local function property_type(inspector, name)
+    local r = cg.get(inspector.sys, name, inspector.ent)
+
+    local typ = type(r)
+    if typ == 'cdata' then typ = refct.typeof(r).name end
+    if typ == 'number' then typ = 'Scalar' end
+
+    return typ
+
+    -- local c = cg.getter(inspector.sys, name)
+    -- if type(c) == 'cdata' then
+    --     local r = refct.typeof(c).return_type
+    -- else
+    --     typ = type(c(inspector.ent)) -- can't reflect on Lua, just call
+    -- end
+end
+
+local function add_property(inspector, name)
     if inspector.props[name] then return end
+
+    -- figure out the type
+    local typ = property_type(inspector, name)
+    print('property: ', inspector.sys, name, typ)
+    if not typ or not property_types[typ] then return end -- type not supported
 
     inspector.props[name] = {
         typ = typ,
@@ -220,26 +244,31 @@ local function make_inspector(ent, sys)
     inspector.window_body = cs.gui_window.get_body(inspector.window)
 
     inspector.props = {}
-    for _, p in ipairs(cs.meta.props[inspector.sys]) do
-        add_property(inspector, p.type, p.name)
+    if cs.meta.props[inspector.sys] then
+        for _, p in ipairs(cs.meta.props[inspector.sys]) do
+            add_property(inspector, p.name)
+        end
+    elseif rawget(cs, inspector.sys) then
+        for f, _ in pairs(cs[inspector.sys]) do
+            if string.sub(f, 1, 4) == 'set_' then
+                add_property(inspector, string.sub(f, 5, string.len(f)))
+            end
+        end
     end
 
     return inspector
 end
 
 function cs.edit_inspector.add(ent, sys)
-    if not cs.meta.props[sys] then
-        error('no inspector data for system \''
-                  .. sys .. '\'')
-        return nil
-    end
+    local adder = cs[sys].add
+    if not adder then error("system '" .. sys .. "' has no 'add(...)' function") end
 
     if not inspectors[ent] then
         inspectors[ent] = {}
     end
 
     if inspectors[ent][sys] then return end
-    cg.add(sys, ent)
+    adder(ent)
     inspectors[ent][sys] = make_inspector(ent, sys)
 end
 
@@ -256,6 +285,17 @@ function cs.edit_inspector.remove(ent, sys)
 
     cs.gui_window.remove(inspectors[ent][sys].window)
     inspectors[ent][sys] = nil
+end
+
+-- return set of all valid inspector systems
+function cs.edit_inspector.get_systems()
+    local sys = {}
+    -- system must either have property metadata or an 'add(...)' function
+    for k, _ in pairs(cs.meta.props) do sys[k] = true end
+    for k, _ in pairs(cs) do
+        if cs[k].add then sys[k] = true end
+    end
+    return sys
 end
 
 local function set_group_rec(ent)
