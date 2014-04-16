@@ -54,6 +54,8 @@ SCRIPT(gui,
        EXPORT bool gui_get_focus(Entity ent);
        EXPORT bool gui_has_focus(); /* whether any gui is focused */
 
+       EXPORT void gui_fire_event_changed(Entity ent);
+
        EXPORT bool gui_event_focus_enter(Entity ent);
        EXPORT bool gui_event_focus_exit(Entity ent);
        EXPORT bool gui_event_changed(Entity ent); /* input value changed */

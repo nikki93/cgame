@@ -212,6 +212,11 @@ bool gui_has_focus()
     return !entity_eq(focused, entity_nil);
 }
 
+void gui_fire_event_changed(Entity ent)
+{
+    entitymap_set(changed_map, ent, true);
+}
+
 bool gui_event_focus_enter(Entity ent)
 {
     return entitymap_get(focus_enter_map, ent);
