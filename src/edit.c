@@ -209,7 +209,7 @@ static void _grid_create_cells()
     BBoxPoolElem *cell;
     BBox cbox, cellbox;
     Entity camera;
-    Vec2 cur, skip;
+    Vec2 cur, csize;
 
     /* find camera bounds in world space */
     camera = camera_get();
@@ -218,27 +218,32 @@ static void _grid_create_cells()
     else
         cbox = bbox_transform(transform_get_world_matrix(camera),
                                  bbox(vec2(-1, -1), vec2(1, 1)));
-
-    /* find lower grid snap for min */
-    if (grid_size.x > 0)
-        cbox.min.x = grid_size.x * scalar_floor(cbox.min.x / grid_size.x);
-    else
-        cbox.min.x -= 0.5;
-    if (grid_size.y > 0)
-        cbox.min.y = grid_size.y * scalar_floor(cbox.min.y / grid_size.y);
-    else
-        cbox.min.y -= 0.5;
+    csize = vec2(cbox.max.x - cbox.min.x, cbox.max.y - cbox.min.y);
 
     /* create grid cell bbox */
     cellbox.min = vec2_zero;
     if (grid_size.x > 0)
         cellbox.max.x = grid_size.x;
     else
-        cellbox.max.x = cbox.max.x - cbox.min.x + 1;
+        cellbox.max.x = csize.x + 1;
     if (grid_size.y > 0)
         cellbox.max.y = grid_size.y;
     else
-        cellbox.max.y = cbox.max.y - cbox.min.y + 1;
+        cellbox.max.y = csize.y + 1;
+
+    /* find lower grid snap for min */
+    if (grid_size.x > 0)
+        cbox.min.x = cellbox.max.x * scalar_floor(cbox.min.x / cellbox.max.x);
+    else
+        cbox.min.x -= 0.5;
+    if (grid_size.y > 0)
+        cbox.min.y = cellbox.max.y * scalar_floor(cbox.min.y / cellbox.max.y);
+    else
+        cbox.min.y -= 0.5;
+
+    /* make it bigger if it's too small */
+    while (csize.x / cellbox.max.x > 70 || csize.y / cellbox.max.y > 70)
+        cellbox.max = vec2_scalar_mul(cellbox.max, 2);
 
     /* fill in with grid cells */
     for (cur.x = cbox.min.x; cur.x < cbox.max.x; cur.x += cellbox.max.x)
@@ -275,7 +280,6 @@ static void _grid_draw()
     glUniform1f(glGetUniformLocation(bboxes_program, "is_grid"), 1);
 
     _grid_create_cells();
-
     glBindVertexArray(bboxes_vao);
     glBindBuffer(GL_ARRAY_BUFFER, bboxes_vbo);
     ncells = array_length(grid_cells);
