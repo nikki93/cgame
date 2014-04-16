@@ -214,7 +214,7 @@ static void _grid_create_cells()
     /* find camera bounds in world space */
     camera = camera_get();
     if (entity_eq(camera, entity_nil))
-        cbox = bbox(vec2_zero, vec2(1, 1));
+        cbox = bbox(vec2(-1, -1), vec2(1, 1));
     else
         cbox = bbox_transform(transform_get_world_matrix(camera),
                                  bbox(vec2(-1, -1), vec2(1, 1)));
