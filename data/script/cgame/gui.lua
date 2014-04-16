@@ -324,6 +324,7 @@ function cs.gui_checkbox.add(ent)
     checkbox.checked = false
 
     cs.gui_textbox.add(ent)
+    checkbox.ent = ent
     checkbox.text = cs.gui_textbox.get_text(ent)
 end
 
@@ -332,20 +333,22 @@ function cs.gui_checkbox.remove(ent)
     cs.gui_checkbox.tbl[ent] = nil
 end
 
-function cs.gui_checkbox.set_checked(ent, checked)
-    local checkbox = cs.gui_checkbox.tbl[ent]
-    if checkbox then checkbox.checked = checked end
-end
-function cs.gui_checkbox.get_checked(ent, checked)
-    local checkbox = cs.gui_checkbox.tbl[ent]
-    if checkbox then return checkbox.checked end
-end
 local function checkbox_toggle(checkbox)
     checkbox.checked = not checkbox.checked
+    cs.gui.fire_event_changed(checkbox.ent)
 end
 function cs.gui_checkbox.toggle(ent)
     local checkbox = cs.gui_checkbox.tbl[ent]
     if checkbox then checkbox_toggle(checkbox) end
+end
+function cs.gui_checkbox.set_checked(ent, checked)
+    local checkbox = cs.gui_checkbox.tbl[ent]
+    -- do it this way to fire 'changed' event correctly
+    if checkbox.checked ~= checked then checkbox_toggle(checkbox) end
+end
+function cs.gui_checkbox.get_checked(ent, checked)
+    local checkbox = cs.gui_checkbox.tbl[ent]
+    if checkbox then return checkbox.checked end
 end
 
 function cs.gui_checkbox.update_all(ent)
