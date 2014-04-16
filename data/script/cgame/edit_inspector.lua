@@ -195,6 +195,71 @@ property_types['Vec2'] = {
     end,
 }
 
+property_types['Color'] = {
+    create_view = function (inspector, prop)
+        property_create_container(inspector, prop)
+        property_create_label(inspector, prop)
+
+        prop.r_textbox, prop.r_textedit
+            = property_create_textbox { prop = prop, numerical = true }
+        prop.g_textbox, prop.g_textedit
+            = property_create_textbox { prop = prop, numerical = true }
+        prop.b_textbox, prop.b_textedit
+            = property_create_textbox { prop = prop, numerical = true }
+        prop.a_textbox, prop.a_textedit
+            = property_create_textbox { prop = prop, numerical = true }
+    end,
+
+    update_view = function (inspector, prop)
+        local v = cg.get(inspector.sys, prop.name, inspector.ent)
+        local changed = false
+
+        if cs.gui.event_focus_exit(prop.r_textedit) then
+            cs.edit.undo_save()
+        end
+        if cs.gui.event_changed(prop.r_textedit) then
+            v.r = cs.gui_textedit.get_num(prop.r_textedit)
+            changed = true
+        elseif not cs.gui.get_focus(prop.r_textedit) then
+            cs.gui_text.set_str(prop.r_textedit, string.format('%.4f', v.r))
+        end
+
+        if cs.gui.event_focus_exit(prop.g_textedit) then
+            cs.edit.undo_save()
+        end
+        if cs.gui.event_changed(prop.g_textedit) then
+            v.g = cs.gui_textedit.get_num(prop.g_textedit)
+            changed = true
+        elseif not cs.gui.get_focus(prop.g_textedit) then
+            cs.gui_text.set_str(prop.g_textedit, string.format('%.4f', v.g))
+        end
+
+        if cs.gui.event_focus_exit(prop.b_textedit) then
+            cs.edit.undo_save()
+        end
+        if cs.gui.event_changed(prop.b_textedit) then
+            v.b = cs.gui_textedit.get_num(prop.b_textedit)
+            changed = true
+        elseif not cs.gui.get_focus(prop.b_textedit) then
+            cs.gui_text.set_str(prop.b_textedit, string.format('%.4f', v.b))
+        end
+
+        if cs.gui.event_focus_exit(prop.a_textedit) then
+            cs.edit.undo_save()
+        end
+        if cs.gui.event_changed(prop.a_textedit) then
+            v.a = cs.gui_textedit.get_num(prop.a_textedit)
+            changed = true
+        elseif not cs.gui.get_focus(prop.a_textedit) then
+            cs.gui_text.set_str(prop.a_textedit, string.format('%.4f', v.a))
+        end
+
+        if changed then
+            cg.set(inspector.sys, prop.name, inspector.ent, v)
+        end
+    end,
+}
+
 property_types['Entity'] = {
     create_view = function (inspector, prop)
         property_create_container(inspector, prop)
