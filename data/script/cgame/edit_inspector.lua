@@ -1,3 +1,4 @@
+local ffi = require 'ffi'
 local refct = require 'reflect'
 
 --- property -------------------------------------------------------------------
@@ -124,6 +125,54 @@ property_types['Scalar'] = {
             local s = cg.get(inspector.sys, prop.name, inspector.ent)
             cs.gui_text.set_str(prop.textedit, string.format('%.4f', s))
         end
+    end,
+}
+
+-- find values for a given enum type -- memoized
+local enum_values_map = {}
+local function enum_values(typename)
+    if enum_values_map[typename] then return enum_values_map[typename] end
+    enum_values_map[typename] = {}
+    for v in refct.typeof(typename):values() do
+        enum_values_map[typename][v.name] = true
+    end
+    return enum_values_map[typename]
+end
+local function enum_tostring(typename, val)
+    -- no nice inverse mapping exists...
+    for name in pairs(enum_values(typename)) do
+        if ffi.new(typename, name) == val then return name end
+    end
+    return nil
+end
+
+property_types['enum'] = {
+    create_view = function (inspector, prop)
+        property_create_container(inspector, prop)
+        property_create_label(inspector, prop)
+
+        local r = cg.get(inspector.sys, prop.name, inspector.ent)
+        prop.enumtype = refct.typeof(r).name
+        prop.values = enum_values(prop.enumtype)
+
+        prop.textbox, prop.text
+            = property_create_textbox { prop = prop, editable = false }
+    end,
+
+    update_view = function (inspector, prop)
+        if cs.gui.event_mouse_down(prop.textbox) == cg.MC_LEFT then
+            local function setter(s)
+                cg.set(inspector.sys, prop.name, inspector.ent, s)
+                cs.edit.undo_save()
+            end
+            local comp = cs.edit.command_completion_substr(prop.values)
+            cs.edit.command_start('set ' .. prop.name .. ': ', setter,
+                                  comp, true)
+        end
+
+        local s = cg.get(inspector.sys, prop.name, inspector.ent)
+        cs.gui_text.set_str(prop.text,
+                            enum_tostring(prop.enumtype, s))
     end,
 }
 
@@ -299,7 +348,11 @@ local function property_type(inspector, name)
     local r = cg.get(inspector.sys, name, inspector.ent)
 
     local typ = type(r)
-    if typ == 'cdata' then typ = refct.typeof(r).name end
+    if typ == 'cdata' then
+        local refctt = refct.typeof(r)
+        if refctt.what == 'enum' then typ = 'enum'
+        else typ = refctt.name end
+    end
     if typ == 'number' then typ = 'Scalar' end
 
     return typ
