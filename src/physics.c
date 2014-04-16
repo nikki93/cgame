@@ -303,7 +303,10 @@ void physics_set_freeze_rotation(Entity ent, bool freeze)
     assert(info);
 
     if (freeze)
+    {
+        cpBodySetAngVel(info->body, 0);
         cpBodySetMoment(info->body, SCALAR_INFINITY);
+    }
     else
         _recalculate_moment(info);
 }
