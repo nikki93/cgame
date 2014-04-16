@@ -264,6 +264,9 @@ void physics_set_mass(Entity ent, Scalar mass)
     PhysicsInfo *info = entitypool_get(pool, ent);
     assert(info);
 
+    if (mass <= SCALAR_EPSILON)
+        return;
+
     cpBodySetMass(info->body, info->mass = mass);
     _recalculate_moment(info);
 }

@@ -37,8 +37,11 @@ SCRIPT(physics,
        EXPORT void physics_add(Entity ent); /* PB_DYNAMIC by default */
        EXPORT void physics_remove(Entity ent);
 
+       EXPORT void physics_set_type(Entity ent, PhysicsBody type);
+       EXPORT PhysicsBody physics_get_type(Entity ent);
 
-       /* add/remove shape -- add functions return shape index */
+
+       /* shapes */
 
        typedef enum PhysicsShape PhysicsShape;
        enum PhysicsShape
@@ -54,9 +57,6 @@ SCRIPT(physics,
 
 
        /* dynamics */
-
-       EXPORT void physics_set_type(Entity ent, PhysicsBody type);
-       EXPORT PhysicsBody physics_get_type(Entity ent);
 
        EXPORT void physics_set_mass(Entity ent, Scalar mass);
        EXPORT Scalar physics_get_mass(Entity ent);
