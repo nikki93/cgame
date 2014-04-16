@@ -310,7 +310,17 @@ property_types['Entity'] = {
 
 cs.edit_inspector = {}
 
+cs.edit_inspector.custom = {} -- custom inspectors -- eg. for physics
+
 local inspectors = cg.entity_table() -- Entity (sys --> inspector) map
+
+local function custom_event(inspector, evt)
+    local custom = cs.edit_inspector.custom[inspector.sys]
+    if custom then
+        local f = cs.edit_inspector.custom[inspector.sys][evt]
+        if f then f(inspector) end
+    end
+end
 
 local function property_type(inspector, name)
     local r = cg.get(inspector.sys, name, inspector.ent)
@@ -373,6 +383,7 @@ local function make_inspector(ent, sys)
         end
     end
 
+    custom_event(inspector, 'add')
     return inspector
 end
 
@@ -400,6 +411,7 @@ function cs.edit_inspector.remove(ent, sys)
         return
     end
 
+    custom_event(inspectors[ent][sys], 'remove')
     cs.gui_window.remove(inspectors[ent][sys].window)
     inspectors[ent][sys] = nil
 end
@@ -427,12 +439,19 @@ local function set_group_rec(ent)
     end
 end
 
-local function update_inspector(inspector)
-    if cs.entity.destroyed(inspector.window) then
-        cs.edit_inspector.remove(inspector.ent, inspector.sys)
-        return
+local function remove_destroyed()
+    for _, insps in pairs(inspectors) do
+        for _, inspector in pairs(insps) do
+            if cs.entity.destroyed(inspector.window)
+            or cs.entity.destroyed(inspector.ent) then
+                cs.edit_inspector.remove(inspector.ent, inspector.sys)
+                return
+            end
+        end
     end
+end
 
+local function update_inspector(inspector)
     cs.transform.set_parent(inspector.window, cs.edit.gui_root)
 
     cs.gui_window.set_highlight(inspector.window,
@@ -442,13 +461,12 @@ local function update_inspector(inspector)
 
     -- make everything uneditable/unsaveable etc.
     set_group_rec(inspector.window)
+
+    custom_event(inspector, 'update')
 end
 
 function cs.edit_inspector.update_all()
-    for ent, _ in pairs(inspectors) do
-        if cs.entity.destroyed(ent) then cs.edit_inspector.remove(ent) end
-    end
-
+    remove_destroyed()
     if not cs.edit.get_enabled() then return end
 
     for _, insps in pairs(inspectors) do
@@ -463,9 +481,13 @@ local function post_update_inspector(inspector)
     for _, prop in pairs(inspector.props) do
         property_types[prop.typ].update_view(inspector, prop)
     end
+    custom_event(inspector, 'post_update')
 end
 
 function cs.edit_inspector.post_update_all()
+    remove_destroyed()
+    if not cs.edit.get_enabled() then return end
+
     for _, insps in pairs(inspectors) do
         for _, inspector in pairs(insps) do
             post_update_inspector(inspector)
