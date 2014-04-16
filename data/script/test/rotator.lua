@@ -14,7 +14,7 @@ function cs.rotator.set_speed(ent, speed)
     cs.rotator.tbl[ent] = speed or 2 * math.pi
 end
 function cs.rotator.get_speed(ent)
-    return cs.rotator.tbl[ent].speed
+    return cs.rotator.tbl[ent]
 end
 
 function cs.rotator.update_all()
