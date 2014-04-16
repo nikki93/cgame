@@ -508,11 +508,14 @@ cs.edit.modes.command = {}
 local command_end_callback, command_completion_func, command_completions
 local command_completions_index, command_always_complete
 
+local function command_update_completions_text()
+    cs.gui_text.set_str(cs.edit.command_completions_text,
+                        table.concat(command_completions, ' | '))
+end
 local function command_update_completions()
     local s = cs.gui_text.get_str(cs.edit.command_text)
     command_completions = command_completion_func(s)
-    cs.gui_text.set_str(cs.edit.command_completions_text,
-                        table.concat(command_completions, ' | '))
+    command_update_completions_text()
 end
 
 -- returns a completion function that uses substring search
@@ -599,6 +602,15 @@ function cs.edit.modes.command.update_all()
     end
     if cs.gui.event_key_down(cs.edit.command_text) == cg.KC_TAB then
         cs.edit.command_complete()
+    end
+
+    -- next/prev completion
+    if cs.gui.event_key_down(cs.edit.command_text) == cg.KC_DOWN then
+        table.insert(command_completions, table.remove(command_completions, 1))
+        command_update_completions_text()
+    elseif cs.gui.event_key_down(cs.edit.command_text) == cg.KC_UP then
+        table.insert(command_completions, 1, table.remove(command_completions))
+        command_update_completions_text()
     end
 
     cs.gui.set_focus(cs.edit.command_text, true)
