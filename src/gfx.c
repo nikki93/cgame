@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "console.h"
+
 static GLint _compile_shader(GLuint shader, const char *filename)
 {
     char *file_contents, log[512];
