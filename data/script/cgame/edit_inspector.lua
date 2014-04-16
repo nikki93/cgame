@@ -17,6 +17,13 @@ cs.meta.props['camera'] = {
     { type = 'Scalar', name = 'viewport_height' },
 }
 
+cs.meta.props['physics'] = {
+    { type = 'Scalar', name = 'mass' },
+    { type = 'Vec2', name = 'position' },
+    { type = 'Vec2', name = 'velocity' },
+    { type = 'Vec2', name = 'velocity' },
+}
+
 
 --- property -------------------------------------------------------------------
 
