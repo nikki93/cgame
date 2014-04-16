@@ -2,6 +2,7 @@
 #define SCALAR_H
 
 #include <math.h>
+#include <float.h>
 
 #include "script_export.h"
 
@@ -18,6 +19,8 @@ SCRIPT(scalar,
 #endif
 
 #define SCALAR_INFINITY INFINITY
+
+#define SCALAR_EPSILON FLT_EPSILON
 
 #define scalar_cos cosf
 #define scalar_sin sinf
