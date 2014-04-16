@@ -6,8 +6,10 @@
 #include <GL/glew.h>
 #include <stb_image.h>
 #include <sys/stat.h>
+#include <time.h>
 
 #include "array.h"
+#include "console.h"
 
 typedef struct Texture Texture;
 struct Texture
