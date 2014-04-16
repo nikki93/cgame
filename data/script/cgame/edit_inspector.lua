@@ -1,19 +1,19 @@
 --- C system properties --------------------------------------------------------
 
-cs.props['transform'] = {
+cs.meta.props['transform'] = {
     { type = 'Entity', name = 'parent' },
     { type = 'Vec2', name = 'position' },
     { type = 'Scalar', name = 'rotation' },
     { type = 'Vec2', name = 'scale' },
 }
 
-cs.props['sprite'] = {
+cs.meta.props['sprite'] = {
     { type = 'Vec2', name = 'cell' },
     { type = 'Vec2', name = 'size' },
     { type = 'Scalar', name = 'depth' },
 }
 
-cs.props['camera'] = {
+cs.meta.props['camera'] = {
     { type = 'Scalar', name = 'viewport_height' },
 }
 
@@ -213,7 +213,7 @@ local function make_inspector(ent, sys)
     inspector.window_body = cs.gui_window.get_body(inspector.window)
 
     inspector.props = {}
-    for _, p in ipairs(cs.props[inspector.sys] or cs[inspector.sys].props) do
+    for _, p in ipairs(cs.meta.props[inspector.sys]) do
         add_property(inspector, p.type, p.name)
     end
 
@@ -221,6 +221,12 @@ local function make_inspector(ent, sys)
 end
 
 function cs.edit_inspector.add(ent, sys)
+    if not cs.meta.props[sys] then
+        error('no inspector data for system \''
+                  .. sys .. '\'')
+        return nil
+    end
+
     if not inspectors[ent] then
         inspectors[ent] = {}
     end

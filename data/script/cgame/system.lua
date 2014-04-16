@@ -17,7 +17,6 @@ local systems_mt = {
 }
 cgame.systems = setmetatable({}, systems_mt)
 cs = cgame.systems
-cs.props = { receive_events = false }
 
 function cgame.__fire_event(event, args)
     -- store system names before firing event because systems list may change
@@ -112,3 +111,5 @@ function cgame.add(sys, ent, props)
 end
 function cgame.remove(sys, ...) cgame.remover(sys)(unpack({...})) end
 
+cs.meta = { receive_events = false }
+cs.meta.props = {}
