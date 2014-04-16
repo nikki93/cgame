@@ -19,7 +19,7 @@ cs.edit.status_bar = cg.add {
     edit = { editable = false },
     gui_rect = { hfill = true },
     gui = {
-        color = cg.color(0.7, 0.2, 0.2, 1.0),
+        color = cg.color(0.8, 0.3, 0.3, 1.0),
         halign = cg.GA_MIN, valign = cg.GA_TABLE,
         padding = cg.vec2_zero,
     }
@@ -92,8 +92,8 @@ end
 cs.edit.edit_textbox, cs.edit.edit_text = create_status_textbox(0, 'edit')
 cs.edit.grid_textbox, cs.edit.grid_text = create_status_textbox(0, '')
 cs.gui.set_halign(cs.edit.grid_textbox, cg.GA_MAX)
-cs.edit.select_textbox, cs.edit.select_text = create_status_textbox(5, '')
-cs.edit.mode_textbox, cs.edit.mode_text = create_status_textbox(5, '')
+cs.edit.select_textbox, cs.edit.select_text = create_status_textbox(7, '')
+cs.edit.mode_textbox, cs.edit.mode_text = create_status_textbox(7, '')
 
 function cs.edit.set_mode_text(s)
     cs.gui.set_visible(cs.edit.mode_textbox, true)
