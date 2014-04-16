@@ -231,6 +231,10 @@ static void _grid_create_cells()
     else
         cellbox.max.y = csize.y + 1;
 
+    /* make it bigger if it's too small */
+    while (csize.x / cellbox.max.x > 70 || csize.y / cellbox.max.y > 70)
+        cellbox.max = vec2_scalar_mul(cellbox.max, 2);
+
     /* find lower grid snap for min */
     if (grid_size.x > 0)
         cbox.min.x = cellbox.max.x * scalar_floor(cbox.min.x / cellbox.max.x);
@@ -240,10 +244,6 @@ static void _grid_create_cells()
         cbox.min.y = cellbox.max.y * scalar_floor(cbox.min.y / cellbox.max.y);
     else
         cbox.min.y -= 0.5;
-
-    /* make it bigger if it's too small */
-    while (csize.x / cellbox.max.x > 70 || csize.y / cellbox.max.y > 70)
-        cellbox.max = vec2_scalar_mul(cellbox.max, 2);
 
     /* fill in with grid cells */
     for (cur.x = cbox.min.x; cur.x < cbox.max.x; cur.x += cellbox.max.x)
