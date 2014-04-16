@@ -9,6 +9,9 @@
 #include "entitypool.h"
 #include "timing.h"
 #include "transform.h"
+#include "gfx.h"
+#include "dirs.h"
+#include "camera.h"
 #include "edit.h"
 
 /* per-entity info */
@@ -31,6 +34,8 @@ struct PhysicsInfo
 
     cpBody *body;
     Array *shapes;
+
+    bool debug_draw; /* whether to draw shape for debugging */
 };
 
 /* per-shape info for each shape attached to a physics entity */
@@ -112,6 +117,8 @@ void physics_add(Entity ent)
     /* initialize last_pos/last_ang info for kinematic bodies */
     info->last_pos = cpBodyGetPos(info->body);
     info->last_ang = cpBodyGetAngle(info->body);
+
+    info->debug_draw = false;
 }
 
 /* remove chipmunk stuff (doesn't remove from pool) */
@@ -174,6 +181,60 @@ static void _recalculate_moment(PhysicsInfo *info)
     cpBodySetMoment(info->body, moment);
 }
 
+static void _set_type(PhysicsInfo *info, PhysicsBody type)
+{
+    if (info->type == type)
+        return; /* already set */
+
+    info->type = type;
+    switch (type)
+    {
+        case PB_KINEMATIC:
+            info->last_pos = cpBodyGetPos(info->body);
+            info->last_ang = cpBodyGetAngle(info->body);
+            /* fall through */
+
+        case PB_STATIC:
+            if (!cpBodyIsStatic(info->body))
+            {
+                cpSpaceRemoveBody(space, info->body);
+                cpSpaceConvertBodyToStatic(space, info->body);
+            }
+            break;
+
+        case PB_DYNAMIC:
+            cpSpaceConvertBodyToDynamic(space, info->body, info->mass, 1.0);
+            cpSpaceAddBody(space, info->body);
+            _recalculate_moment(info);
+            break;
+    }
+}
+void physics_set_type(Entity ent, PhysicsBody type)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    _set_type(info, type);
+}
+PhysicsBody physics_get_type(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    return info->type;
+}
+
+void physics_set_debug_draw(Entity ent, bool debug)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    info->debug_draw = debug;
+}
+bool physics_get_debug_draw(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    return info->debug_draw;
+}
+
 static unsigned int _add_shape(Entity ent, PhysicsShape type, cpShape *shape)
 {
     PhysicsInfo *info;
@@ -216,47 +277,6 @@ unsigned int physics_add_box_shape(Entity ent, Scalar l, Scalar b, Scalar r,
 {
     cpShape *shape = cpBoxShapeNew2(NULL, cpBBNew(l, b, r, t));
     return _add_shape(ent, PS_POLYGON, shape);
-}
-
-static void _set_type(PhysicsInfo *info, PhysicsBody type)
-{
-    if (info->type == type)
-        return; /* already set */
-
-    info->type = type;
-    switch (type)
-    {
-        case PB_KINEMATIC:
-            info->last_pos = cpBodyGetPos(info->body);
-            info->last_ang = cpBodyGetAngle(info->body);
-            /* fall through */
-
-        case PB_STATIC:
-            if (!cpBodyIsStatic(info->body))
-            {
-                cpSpaceRemoveBody(space, info->body);
-                cpSpaceConvertBodyToStatic(space, info->body);
-            }
-            break;
-
-        case PB_DYNAMIC:
-            cpSpaceConvertBodyToDynamic(space, info->body, info->mass, 1.0);
-            cpSpaceAddBody(space, info->body);
-            _recalculate_moment(info);
-            break;
-    }
-}
-void physics_set_type(Entity ent, PhysicsBody type)
-{
-    PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
-    _set_type(info, type);
-}
-PhysicsBody physics_get_type(Entity ent)
-{
-    PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
-    return info->type;
 }
 
 void physics_set_mass(Entity ent, Scalar mass)
@@ -361,7 +381,11 @@ NearestResult physics_nearest(Vec2 point, Scalar max_dist)
     return res;
 }
 
-/* ------------------------------------------------------------------------- */
+/* --- init/deinit --------------------------------------------------------- */
+
+static GLuint program;
+static GLuint vao;
+static GLuint vbo;
 
 void physics_init()
 {
@@ -371,10 +395,26 @@ void physics_init()
     /* init cpSpace */
     space = cpSpaceNew();
     cpSpaceSetGravity(space, cpv(0, -9.8));
+
+    /* init draw stuff */
+    program = gfx_create_program(data_path("phypoly.vert"),
+                                 NULL,
+                                 data_path("phypoly.frag"));
+    glUseProgram(program);
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "position", Vec2, x);
 }
 void physics_deinit()
 {
     PhysicsInfo *info;
+
+    /* clean up draw stuff */
+    glDeleteProgram(program);
+    glDeleteBuffers(1, &vbo);
+    glDeleteVertexArrays(1, &vao);
 
     /* remove all bodies, shapes */
     entitypool_foreach(info, pool)
@@ -386,6 +426,8 @@ void physics_deinit()
     /* deinit pool */
     entitypool_free(pool);
 }
+
+/* --- update -------------------------------------------------------------- */
 
 /* step the space with fixed time step */
 static void _step()
@@ -472,6 +514,69 @@ void physics_update_all()
         info->last_dirty_count = transform_get_dirty_count(ent);
     }
 }
+
+/* --- draw ---------------------------------------------------------------- */
+
+static void _circle_draw(PhysicsInfo *info, ShapeInfo *shapeInfo)
+{
+    /* TODO: fill this in */
+}
+
+static void _polygon_draw(PhysicsInfo *info, ShapeInfo *shapeInfo)
+{
+    unsigned int i, nverts;
+    Vec2 *verts;
+    Mat3 wmat;
+    
+    wmat = transform_get_world_matrix(info->pool_elem.ent);
+    glUniformMatrix3fv(glGetUniformLocation(program, "wmat"),
+                       1, GL_FALSE, (const GLfloat *) &wmat);
+
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+    /* copy as Vec2 array */
+    nverts = cpPolyShapeGetNumVerts(shapeInfo->shape);
+    verts = malloc(nverts * sizeof(Vec2));
+    for (i = 0; i < nverts; ++i)
+        verts[i] = vec2_of_cpv(cpPolyShapeGetVert(shapeInfo->shape, i));
+    glBufferData(GL_ARRAY_BUFFER, nverts * sizeof(Vec2),
+                 verts, GL_STREAM_DRAW);
+    glDrawArrays(GL_LINE_LOOP, 0, nverts);
+    free(verts);
+}
+
+void physics_draw_all()
+{
+    PhysicsInfo *info;
+    ShapeInfo *shapeInfo;
+
+    if (!edit_get_enabled())
+        return;
+
+    /* bind program, update uniforms */
+    glUseProgram(program);
+    glUniformMatrix3fv(glGetUniformLocation(program, "inverse_view_matrix"),
+                       1, GL_FALSE,
+                       (const GLfloat *) camera_get_inverse_view_matrix_ptr());
+
+    /* draw! */
+    entitypool_foreach(info, pool)
+        if (info->debug_draw)
+            array_foreach(shapeInfo, info->shapes)
+                switch(shapeInfo->type)
+                {
+                    case PS_CIRCLE:
+                        _circle_draw(info, shapeInfo);
+                        break;
+
+                    case PS_POLYGON:
+                        _polygon_draw(info, shapeInfo);
+                        break;
+                }
+}
+
+/* --- save/load ----------------------------------------------------------- */
 
 /* chipmunk data save/load helpers */
 static void _cpv_save(cpVect *cv, Serializer *s)

@@ -40,6 +40,10 @@ SCRIPT(physics,
        EXPORT void physics_set_type(Entity ent, PhysicsBody type);
        EXPORT PhysicsBody physics_get_type(Entity ent);
 
+       /* debug in edit mode */
+       EXPORT void physics_set_debug_draw(Entity ent, bool debug);
+       EXPORT bool physics_get_debug_draw(Entity ent);
+
 
        /* shapes */
 
@@ -93,6 +97,7 @@ SCRIPT(physics,
 void physics_init();
 void physics_deinit();
 void physics_update_all();
+void physics_draw_all();
 void physics_save_all(Serializer *s);
 void physics_load_all(Deserializer *s);
 

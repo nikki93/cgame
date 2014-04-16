@@ -115,6 +115,7 @@ void system_draw_all()
     script_draw_all();
     sprite_draw_all();
     edit_draw_all();
+    physics_draw_all();
     gui_draw_all();
 }
 
