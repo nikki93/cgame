@@ -308,3 +308,60 @@ function cs.gui_textbox.update_all()
     end
 end
 
+
+--- gui_checkbox ---------------------------------------------------------------
+
+cs.gui_checkbox = { auto_saveload = true }
+
+cs.gui_checkbox.tbl = cg.entity_table()
+
+function cs.gui_checkbox.add(ent)
+    if cs.gui_checkbox.tbl[ent] then return end
+
+    local checkbox = {}
+    cs.gui_checkbox.tbl[ent] = checkbox
+
+    checkbox.checked = false
+
+    cs.gui_textbox.add(ent)
+    checkbox.text = cs.gui_textbox.get_text(ent)
+end
+
+function cs.gui_checkbox.remove(ent)
+    cs.gui_textbox.remove(ent)
+    cs.gui_checkbox.tbl[ent] = nil
+end
+
+function cs.gui_checkbox.set_checked(ent, checked)
+    local checkbox = cs.gui_checkbox.tbl[ent]
+    if checkbox then checkbox.checked = checked end
+end
+function cs.gui_checkbox.get_checked(ent, checked)
+    local checkbox = cs.gui_checkbox.tbl[ent]
+    if checkbox then return checkbox.checked end
+end
+local function checkbox_toggle(checkbox)
+    checkbox.checked = not checkbox.checked
+end
+function cs.gui_checkbox.toggle(ent)
+    local checkbox = cs.gui_checkbox.tbl[ent]
+    if checkbox then checkbox_toggle(checkbox) end
+end
+
+function cs.gui_checkbox.update_all(ent)
+    for ent, _ in pairs(cs.gui_checkbox.tbl) do
+        if cs.entity.destroyed(ent) then cs.gui_checkbox.remove(ent) end
+    end
+
+    for ent, checkbox in pairs(cs.gui_checkbox.tbl) do
+        if cs.gui.event_mouse_down(ent) == cg.MC_LEFT then
+            checkbox_toggle(checkbox)
+        end
+
+        if checkbox.checked then
+            cs.gui_text.set_str(checkbox.text, 'yes')
+        else
+            cs.gui_text.set_str(checkbox.text, 'no')
+        end
+    end
+end
