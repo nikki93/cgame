@@ -796,6 +796,8 @@ void physics_save_all(Serializer *s)
 
         _body_save(info, s);
         _shapes_save(info, s);
+
+        bool_save(&info->debug_draw, s);
     }
 }
 void physics_load_all(Deserializer *s)
@@ -813,6 +815,8 @@ void physics_load_all(Deserializer *s)
         /* set last_pos/last_ang info for kinematic bodies */
         info->last_pos = cpBodyGetPos(info->body);
         info->last_ang = cpBodyGetAngle(info->body);
+
+        bool_load(&info->debug_draw, s);
     }
 }
 
