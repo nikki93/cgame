@@ -1,32 +1,5 @@
 local refct = require 'reflect'
 
---- C system properties --------------------------------------------------------
-
-cs.meta.props['transform'] = {
-    { name = 'parent' },
-    { name = 'position' },
-    { name = 'rotation' },
-    { name = 'scale' },
-}
-
-cs.meta.props['sprite'] = {
-    { name = 'cell' },
-    { name = 'size' },
-    { name = 'depth' },
-}
-
-cs.meta.props['camera'] = {
-    { name = 'viewport_height' },
-}
-
-cs.meta.props['physics'] = {
-    { name = 'mass' },
-    { name = 'position' },
-    { name = 'velocity' },
-    { name = 'freeze_rotation' },
-}
-
-
 --- property -------------------------------------------------------------------
 
 local property_types = {}
@@ -513,3 +486,63 @@ function cs.edit_inspector.load_all(d)
         inspectors[inspector.ent][inspector.sys] = inspector
     end
 end
+
+
+--- C system properties --------------------------------------------------------
+
+cs.meta.props['transform'] = {
+    { name = 'parent' },
+    { name = 'position' },
+    { name = 'rotation' },
+    { name = 'scale' },
+}
+
+cs.meta.props['camera'] = {
+    { name = 'viewport_height' },
+}
+
+cs.meta.props['sprite'] = {
+    { name = 'cell' },
+    { name = 'size' },
+    { name = 'depth' },
+}
+
+cs.meta.props['physics'] = {
+    { name = 'mass' },
+    { name = 'position' },
+    { name = 'velocity' },
+    { name = 'freeze_rotation' },
+}
+
+cs.edit_inspector.custom['physics'] = {
+    add = function (inspector)
+        print('add physics ' .. inspector.ent.id)
+    end,
+    remove = function (inspector)
+        print('remove physics ' .. inspector.ent.id)
+    end,
+}
+
+cs.meta.props['gui'] = {
+    { name = 'color' },
+    { name = 'visible' },
+    { name = 'focusable' },
+    { name = 'captures_events' },
+    { name = 'halign' },
+    { name = 'valign' },
+    { name = 'padding' },
+}
+cs.meta.props['gui_rect'] = {
+    { name = 'size' },
+    { name = 'hfit' },
+    { name = 'vfit' },
+    { name = 'hfill' },
+    { name = 'vfill' },
+}
+cs.meta.props['gui_text'] = {
+    { name = 'str' },
+}
+cs.meta.props['gui_textedit'] = {
+    { name = 'cursor' },
+    { name = 'numerical' },
+}
