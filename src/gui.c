@@ -411,7 +411,9 @@ static void _common_update_all()
             edit_bboxes_update(gui->pool_elem.ent, gui->bbox);
 }
 
-static void _common_mouse_event(EntityMap *emap, MouseCode mouse)
+/* 'focus_clear' is whether to clear focus if click outside */
+static void _common_mouse_event(EntityMap *emap, MouseCode mouse,
+                                bool focus_clear)
 {
     Gui *gui;
     Vec2 m;
@@ -444,16 +446,16 @@ static void _common_mouse_event(EntityMap *emap, MouseCode mouse)
         }
 
     /* none focused? clear */
-    if (!some_focused)
+    if (focus_clear && !some_focused)
         gui_set_focused_entity(entity_nil);
 }
 static void _common_mouse_down(MouseCode mouse)
 {
-    _common_mouse_event(mouse_down_map, mouse);
+    _common_mouse_event(mouse_down_map, mouse, true);
 }
 static void _common_mouse_up(MouseCode mouse)
 {
-    _common_mouse_event(mouse_up_map, mouse);
+    _common_mouse_event(mouse_up_map, mouse, false);
 }
 
 static void _common_key_down(KeyCode key)
