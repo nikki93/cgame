@@ -23,7 +23,7 @@ cs.meta.props['physics'] = {
     { name = 'mass' },
     { name = 'position' },
     { name = 'velocity' },
-    { name = 'velocity' },
+    { name = 'freeze_rotation' },
 }
 
 
@@ -77,6 +77,34 @@ local function property_create_textbox(args)
 
     return textbox, text
 end
+
+property_types['boolean'] = {
+    create_view = function (inspector, prop)
+        property_create_container(inspector, prop)
+        property_create_label(inspector, prop)
+
+        prop.checkbox = cg.add {
+            transform = { parent = prop.container },
+            gui = {
+                color = cg.color(0.2, 0.2, 0.4, 1),
+                valign = cg.GA_MAX,
+                halign = cg.GA_TABLE,
+            },
+            gui_checkbox = {},
+        }
+    end,
+
+    update_view = function (inspector, prop)
+        if cs.gui.event_changed(prop.checkbox) then
+            cg.set(inspector.sys, prop.name, inspector.ent,
+                   cs.gui_checkbox.get_checked(prop.checkbox))
+            cs.edit.undo_save()
+        else
+            local b = cg.get(inspector.sys, prop.name, inspector.ent)
+            cs.gui_checkbox.set_checked(prop.checkbox, b)
+        end
+    end,
+}
 
 property_types['string'] = {
     create_view = function (inspector, prop)
@@ -349,11 +377,6 @@ local function update_inspector(inspector)
 
     -- make everything uneditable/unsaveable etc.
     set_group_rec(inspector.window)
-
-    -- update property views
-    for _, prop in pairs(inspector.props) do
-        property_types[prop.typ].update_view(inspector, prop)
-    end
 end
 
 function cs.edit_inspector.update_all()
@@ -366,6 +389,21 @@ function cs.edit_inspector.update_all()
     for _, insps in pairs(inspectors) do
         for _, inspector in pairs(insps) do
             update_inspector(inspector)
+        end
+    end
+end
+
+local function post_update_inspector(inspector)
+    -- update property views
+    for _, prop in pairs(inspector.props) do
+        property_types[prop.typ].update_view(inspector, prop)
+    end
+end
+
+function cs.edit_inspector.post_update_all()
+    for _, insps in pairs(inspectors) do
+        for _, inspector in pairs(insps) do
+            post_update_inspector(inspector)
         end
     end
 end
