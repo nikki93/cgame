@@ -519,11 +519,15 @@ local function command_update_completions()
 end
 
 -- returns a completion function that uses substring search
+-- case insensitive
 function cs.edit.command_completion_substr(t)
     return function(s)
         local comps = {}
+        s = string.lower(s)
         for k, _ in pairs(t) do
-            if string.find(k, s) then table.insert(comps, k) end
+            if string.find(string.lower(k), s) then
+                table.insert(comps, k)
+            end
         end
         return comps
     end
