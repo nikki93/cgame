@@ -78,6 +78,30 @@ local function property_create_textbox(args)
     return textbox, text
 end
 
+property_types['string'] = {
+    create_view = function (inspector, prop)
+        property_create_container(inspector, prop)
+        property_create_label(inspector, prop)
+
+        prop.textbox, prop.textedit
+            = property_create_textbox { prop = prop }
+    end,
+
+    update_view = function (inspector, prop)
+        if cs.gui.event_focus_exit(prop.textedit) then
+            cs.edit.undo_save()
+        end
+
+        if cs.gui.event_changed(prop.textedit) then
+            cg.set(inspector.sys, prop.name, inspector.ent,
+                   cs.gui_text.get_str(prop.textedit))
+        elseif not cs.gui.get_focus(prop.textedit) then
+            local s = cg.get(inspector.sys, prop.name, inspector.ent)
+            cs.gui_text.set_str(prop.textedit, s)
+        end
+    end,
+}
+
 property_types['Scalar'] = {
     create_view = function (inspector, prop)
         property_create_container(inspector, prop)
