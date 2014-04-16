@@ -635,7 +635,8 @@ function cs.edit.command_inspect()
     end
 
     -- complete to systems that have properties listed
-    local comp = cs.edit.command_completion_substr(cs.meta.props)
+    local syss = cs.edit_inspector.get_systems()
+    local comp = cs.edit.command_completion_substr(syss)
 
     cs.edit.command_start(add and 'new entity: ' or 'edit system: ',
                           system, comp, true)
