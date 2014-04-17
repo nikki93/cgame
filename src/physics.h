@@ -47,6 +47,7 @@ SCRIPT(physics,
 
        /* shapes */
 
+       /* shapes are indexed 0 - n */
        typedef enum PhysicsShape PhysicsShape;
        enum PhysicsShape
        {
@@ -54,10 +55,13 @@ SCRIPT(physics,
            PS_POLYGON,
        };
 
-       EXPORT unsigned int physics_add_circle_shape(Entity ent, Scalar r,
+       EXPORT unsigned int physics_shape_add_circle(Entity ent, Scalar r,
                                                     Vec2 offset);
-       EXPORT unsigned int physics_add_box_shape(Entity ent, Scalar l,
+       EXPORT unsigned int physics_shape_add_box(Entity ent, Scalar l,
                                                  Scalar b, Scalar r, Scalar t);
+
+       EXPORT PhysicsShape physics_shape_get_type(Entity ent, unsigned int i);
+       EXPORT PhysicsShape physics_shape_remove(Entity ent);
 
 
        /* dynamics */

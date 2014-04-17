@@ -235,7 +235,7 @@ bool physics_get_debug_draw(Entity ent)
     return info->debug_draw;
 }
 
-static unsigned int _add_shape(Entity ent, PhysicsShape type, cpShape *shape)
+static unsigned int _shape_add(Entity ent, PhysicsShape type, cpShape *shape)
 {
     PhysicsInfo *info;
     ShapeInfo *shapeInfo;
@@ -266,17 +266,17 @@ static unsigned int _add_shape(Entity ent, PhysicsShape type, cpShape *shape)
 
     return array_length(info->shapes) - 1;
 }
-unsigned int physics_add_circle_shape(Entity ent, Scalar r,
+unsigned int physics_shape_add_circle(Entity ent, Scalar r,
                                       Vec2 offset)
 {
     cpShape *shape = cpCircleShapeNew(NULL, r, cpv_of_vec2(offset));
-    return _add_shape(ent, PS_CIRCLE, shape);
+    return _shape_add(ent, PS_CIRCLE, shape);
 }
-unsigned int physics_add_box_shape(Entity ent, Scalar l, Scalar b, Scalar r,
+unsigned int physics_shape_add_box(Entity ent, Scalar l, Scalar b, Scalar r,
                                    Scalar t)
 {
     cpShape *shape = cpBoxShapeNew2(NULL, cpBBNew(l, b, r, t));
-    return _add_shape(ent, PS_POLYGON, shape);
+    return _shape_add(ent, PS_POLYGON, shape);
 }
 
 void physics_set_mass(Entity ent, Scalar mass)
