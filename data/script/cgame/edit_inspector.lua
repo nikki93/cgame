@@ -482,7 +482,7 @@ local function update_inspector(inspector)
 
     cs.gui_window.set_highlight(inspector.window,
                                 cs.edit.select[inspector.ent])
-    local title = inspector.sys .. ' ' .. inspector.ent.id
+    local title = inspector.sys
     cs.gui_window.set_title(inspector.window, title)
 
     -- make everything uneditable/unsaveable etc.
