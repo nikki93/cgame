@@ -510,15 +510,6 @@ local function update_inspector(inspector)
     local title = inspector.sys
     cs.gui_window.set_title(inspector.window, title)
 
-    -- -- draw line from inspector to target entity
-    if cs.transform.has(inspector.ent) then
-        local a = cs.transform.local_to_world(inspector.window,
-                                              cg.vec2(0, -16))
-        local b = cs.transform.local_to_world(inspector.ent,
-                                              cg.vec2_zero)
-        cs.edit.line_add(a, b)
-    end
-
     -- make everything uneditable/unsaveable etc.
     set_group_rec(inspector.window)
 
@@ -541,6 +532,15 @@ function cs.edit_inspector.update_all()
 end
 
 local function post_update_inspector(inspector)
+    -- draw line from inspector to target entity
+    if cs.transform.has(inspector.ent) then
+        local a = cs.transform.local_to_world(inspector.window,
+                                              cg.vec2(0, -16))
+        local b = cs.transform.local_to_world(inspector.ent,
+                                              cg.vec2_zero)
+        cs.edit.line_add(a, b)
+    end
+
     for _, prop in pairs(inspector.props) do
         property_types[prop.typ].post_update(inspector, prop)
     end
