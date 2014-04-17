@@ -466,12 +466,15 @@ local function set_group_rec(ent)
 end
 
 local function remove_destroyed()
-    for _, insps in pairs(inspectors) do
-        for _, inspector in pairs(insps) do
-            if cs.entity.destroyed(inspector.window)
-            or cs.entity.destroyed(inspector.ent) then
-                cs.edit_inspector.remove(inspector.ent, inspector.sys)
-                return
+    for ent, insps in pairs(inspectors) do
+        if cs.entity.destroyed(ent) then
+            cs.edit_inspector.remove(ent)
+        else
+            for _, inspector in pairs(insps) do
+                if cs.entity.destroyed(inspector.window) then
+                    cs.edit_inspector.remove(inspector.ent, inspector.sys)
+                    return
+                end
             end
         end
     end
