@@ -336,6 +336,19 @@ cs.edit_inspector.custom = {} -- custom inspectors -- eg. for physics
 
 local inspectors = cg.entity_table() -- Entity (sys --> inspector) map
 
+cs.edit_inspector.gui_root = cg.add {
+    transform = { parent = cs.edit.gui_root },
+    group = { groups = 'builtin edit_inspector' },
+    edit = { editable = false },
+    gui_rect = { },
+    gui = {
+        captures_events = false,
+        color = cg.color(0, 0, 0, 0), -- invisible
+        halign = cg.GA_MAX, valign = cg.GA_MAX,
+        padding = cg.vec2_zero,
+    }
+}
+
 local function custom_event(inspector, evt)
     local custom = cs.edit_inspector.custom[inspector.sys]
     if custom then
@@ -387,7 +400,7 @@ local function make_inspector(ent, sys)
     inspector.sys = sys
 
     inspector.window = cg.add {
-        transform = { parent = cs.edit.gui_root },
+        transform = { parent = cs.edit_inspector.gui_root },
         gui_window = {},
         gui = {
             valign = cg.GA_TABLE,
@@ -481,7 +494,7 @@ local function remove_destroyed()
 end
 
 local function update_inspector(inspector)
-    cs.transform.set_parent(inspector.window, cs.edit.gui_root)
+    cs.transform.set_parent(inspector.window, cs.edit_inspector.gui_root)
 
     cs.gui_window.set_highlight(inspector.window,
                                 cs.edit.select[inspector.ent])
@@ -525,17 +538,27 @@ function cs.edit_inspector.post_update_all()
 end
 
 function cs.edit_inspector.save_all()
-    -- save window -> inspector entity table
-    local d = cg.entity_table()
+    local data = {}
+
+    if cs.entity.get_save_filter(cs.edit_inspector.gui_root) then
+        data.gui_root = cs.edit_inspector.gui_root
+    end
+
+    data.tbl = cg.entity_table()
     for _, insps in pairs(inspectors) do
         for _, inspector in pairs(insps) do
-            d[inspector.window] = inspector
+            data.tbl[inspector.window] = inspector
         end
     end
-    return d
+
+    return data
 end
-function cs.edit_inspector.load_all(d)
-    for win, inspector in pairs(d) do
+function cs.edit_inspector.load_all(data)
+    if data.gui_root then
+        cs.edit_inspector.gui_root = data.gui_root
+    end
+
+    for win, inspector in pairs(data.tbl) do
         if not inspectors[inspector.ent] then
             inspectors[inspector.ent] = {}
         end
