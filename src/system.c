@@ -85,7 +85,7 @@ void system_deinit()
 
 void system_update_all()
 {
-    edit_bboxes_clear();
+    edit_clear();
 
     timing_update();
 

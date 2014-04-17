@@ -21,7 +21,6 @@ SCRIPT(edit,
        EXPORT Vec2 edit_get_grid_size();
 
        /* used for click selecting etc. */
-       EXPORT void edit_bboxes_clear();
        EXPORT void edit_bboxes_update(Entity ent, BBox bbox); /* merge bbox */
        EXPORT unsigned int edit_bboxes_get_num();
        typedef struct EntityBBoxPair EntityBBoxPair;
@@ -29,7 +28,12 @@ SCRIPT(edit,
        EXPORT EntityBBoxPair edit_bboxes_get_nth(unsigned int n);
        EXPORT void edit_bboxes_set_selected(Entity ent, bool selected);
 
+       /* draw a line between two world-space coords */
+       EXPORT void edit_line_add(Vec2 a, Vec2 b);
+
     )
+
+void edit_clear();
 
 void edit_init();
 void edit_deinit();

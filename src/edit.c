@@ -55,10 +55,6 @@ struct BBoxPoolElem
 };
 static EntityPool *bbox_pool;
 
-void edit_bboxes_clear()
-{
-    entitypool_clear(bbox_pool);
-}
 void edit_bboxes_update(Entity ent, BBox bbox)
 {
     BBoxPoolElem *elem;
@@ -289,7 +285,72 @@ static void _grid_draw()
     array_clear(grid_cells);
 }
 
+/* --- line ---------------------------------------------------------------- */
+
+static GLuint line_program;
+static GLuint line_vao;
+static GLuint line_vbo;
+
+static Array *line_points; /* each consecutive pair is a line */
+
+void edit_line_add(Vec2 a, Vec2 b)
+{
+    array_add_val(Vec2, line_points) = a;
+    array_add_val(Vec2, line_points) = b;
+}
+
+static void _line_init()
+{
+    line_points = array_new(Vec2);
+
+    /* init draw stuff */
+    line_program = gfx_create_program(data_path("edit_line.vert"),
+                                      NULL,
+                                      data_path("edit_line.frag"));
+    glUseProgram(line_program);
+    glGenVertexArrays(1, &line_vao);
+    glBindVertexArray(line_vao);
+    glGenBuffers(1, &line_vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, line_vbo);
+    gfx_bind_vertex_attrib(line_program, GL_FLOAT, 2, "position", Vec2, x);
+}
+static void _line_deinit()
+{
+    /* clean up draw stuff */
+    glDeleteProgram(line_program);
+    glDeleteBuffers(1, &line_vbo);
+    glDeleteVertexArrays(1, &line_vao);
+
+    array_free(line_points);
+}
+
+static void _line_draw_all()
+{
+    unsigned int npoints;
+
+    /* bind program, update uniforms */
+    glUseProgram(line_program);
+    glUniformMatrix3fv(glGetUniformLocation(line_program,
+                                            "inverse_view_matrix"),
+                       1, GL_FALSE,
+                       (const GLfloat *) camera_get_inverse_view_matrix_ptr());
+
+    /* draw! */
+    glBindVertexArray(line_vao);
+    glBindBuffer(GL_ARRAY_BUFFER, line_vao);
+    npoints = array_length(line_points);
+    glBufferData(GL_ARRAY_BUFFER, npoints * sizeof(Vec2),
+                 array_begin(line_points), GL_STREAM_DRAW);
+    glDrawArrays(GL_LINES, 0, npoints);
+}
+
 /* ------------------------------------------------------------------------- */
+
+void edit_clear()
+{
+    entitypool_clear(bbox_pool);
+    array_clear(line_points);
+}
 
 void edit_init()
 {
@@ -297,9 +358,11 @@ void edit_init()
 
     _bboxes_init();
     _grid_init();
+    _line_init();
 }
 void edit_deinit()
 {
+    _line_deinit();
     _grid_deinit();
     _bboxes_deinit();
 
@@ -325,6 +388,7 @@ void edit_draw_all()
 
     _bboxes_draw_all();
     _grid_draw();
+    _line_draw_all();
 }
 
 void edit_save_all(Serializer *s)
