@@ -53,7 +53,7 @@ local function property_create_textbox(args)
 end
 
 property_types['boolean'] = {
-    create_view = function (inspector, prop)
+    add = function (inspector, prop)
         property_create_container(inspector, prop)
         property_create_label(inspector, prop)
 
@@ -68,7 +68,7 @@ property_types['boolean'] = {
         }
     end,
 
-    update_view = function (inspector, prop)
+    post_update = function (inspector, prop)
         if cs.gui.event_changed(prop.checkbox) then
             cg.set(inspector.sys, prop.name, inspector.ent,
                    cs.gui_checkbox.get_checked(prop.checkbox))
@@ -81,7 +81,7 @@ property_types['boolean'] = {
 }
 
 property_types['string'] = {
-    create_view = function (inspector, prop)
+    add = function (inspector, prop)
         property_create_container(inspector, prop)
         property_create_label(inspector, prop)
 
@@ -89,7 +89,7 @@ property_types['string'] = {
             = property_create_textbox { prop = prop }
     end,
 
-    update_view = function (inspector, prop)
+    post_update = function (inspector, prop)
         if cs.gui.event_focus_exit(prop.textedit) then
             cs.edit.undo_save()
         end
@@ -105,7 +105,7 @@ property_types['string'] = {
 }
 
 property_types['Scalar'] = {
-    create_view = function (inspector, prop)
+    add = function (inspector, prop)
         property_create_container(inspector, prop)
         property_create_label(inspector, prop)
 
@@ -113,7 +113,7 @@ property_types['Scalar'] = {
             = property_create_textbox { prop = prop, numerical = true }
     end,
 
-    update_view = function (inspector, prop)
+    post_update = function (inspector, prop)
         if cs.gui.event_focus_exit(prop.textedit) then
             cs.edit.undo_save()
         end
@@ -147,7 +147,7 @@ local function enum_tostring(typename, val)
 end
 
 property_types['enum'] = {
-    create_view = function (inspector, prop)
+    add = function (inspector, prop)
         property_create_container(inspector, prop)
         property_create_label(inspector, prop)
 
@@ -159,7 +159,7 @@ property_types['enum'] = {
             = property_create_textbox { prop = prop, editable = false }
     end,
 
-    update_view = function (inspector, prop)
+    post_update = function (inspector, prop)
         if cs.gui.event_mouse_down(prop.textbox) == cg.MC_LEFT then
             local function setter(s)
                 cg.set(inspector.sys, prop.name, inspector.ent, s)
@@ -177,7 +177,7 @@ property_types['enum'] = {
 }
 
 property_types['Vec2'] = {
-    create_view = function (inspector, prop)
+    add = function (inspector, prop)
         property_create_container(inspector, prop)
         property_create_label(inspector, prop)
 
@@ -187,7 +187,7 @@ property_types['Vec2'] = {
             = property_create_textbox { prop = prop, numerical = true }
     end,
 
-    update_view = function (inspector, prop)
+    post_update = function (inspector, prop)
         local v = cg.get(inspector.sys, prop.name, inspector.ent)
         local changed = false
 
@@ -218,7 +218,7 @@ property_types['Vec2'] = {
 }
 
 property_types['Color'] = {
-    create_view = function (inspector, prop)
+    add = function (inspector, prop)
         property_create_container(inspector, prop)
         property_create_label(inspector, prop)
 
@@ -232,7 +232,7 @@ property_types['Color'] = {
             = property_create_textbox { prop = prop, numerical = true }
     end,
 
-    update_view = function (inspector, prop)
+    post_update = function (inspector, prop)
         local v = cg.get(inspector.sys, prop.name, inspector.ent)
         local changed = false
 
@@ -283,7 +283,7 @@ property_types['Color'] = {
 }
 
 property_types['Entity'] = {
-    create_view = function (inspector, prop)
+    add = function (inspector, prop)
         property_create_container(inspector, prop)
         property_create_label(inspector, prop)
 
@@ -302,7 +302,7 @@ property_types['Entity'] = {
         cs.gui_text.set_str(cs.gui_textbox.get_text(prop.pick), 'set')
     end,
 
-    update_view = function (inspector, prop)
+    post_update = function (inspector, prop)
         -- pick?
         if cs.gui.event_mouse_down(prop.pick) == cg.MC_LEFT then
             local sel = cs.edit.select_get_first()
@@ -399,7 +399,7 @@ local function add_property(inspector, name)
         typ = typ,
         name = name,
     }
-    property_types[typ].create_view(inspector, inspector.props[name])
+    property_types[typ].add(inspector, inspector.props[name])
 end
 
 local function make_inspector(ent, sys)
@@ -522,6 +522,10 @@ local function update_inspector(inspector)
     -- make everything uneditable/unsaveable etc.
     set_group_rec(inspector.window)
 
+    for _, prop in pairs(inspector.props) do
+        local f = property_types[prop.typ].update
+        if f then f(inspector, prop) end
+    end
     custom_event(inspector, 'update')
 end
 
@@ -537,9 +541,8 @@ function cs.edit_inspector.update_all()
 end
 
 local function post_update_inspector(inspector)
-    -- update property views
     for _, prop in pairs(inspector.props) do
-        property_types[prop.typ].update_view(inspector, prop)
+        property_types[prop.typ].post_update(inspector, prop)
     end
     custom_event(inspector, 'post_update')
 end
