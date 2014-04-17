@@ -27,10 +27,10 @@ floor = cg.add {
     keyboard_controlled = {},
 }
 
-cs.physics.shape_add_box(floor, -D, -D, D, -(D - 1))
-cs.physics.shape_add_box(floor, -D, D - 1, D, D)
-cs.physics.shape_add_box(floor, -D, -D, -(D - 1), D)
-cs.physics.shape_add_box(floor, D - 1, -D, D, D)
+cs.physics.shape_add_box(floor, cg.bbox(cg.vec2(-D, -D), cg.vec2(D, -(D - 1))))
+cs.physics.shape_add_box(floor, cg.bbox(cg.vec2(-D, D - 1), cg.vec2(D, D)))
+cs.physics.shape_add_box(floor, cg.bbox(cg.vec2(-D, -D), cg.vec2(-(D - 1), D)))
+cs.physics.shape_add_box(floor, cg.bbox(cg.vec2(D - 1, -D), cg.vec2(D, D)))
 
 -- oscillator_set(floor, { amp = 8, freq = 0.5 })
 -- rotator_set(floor, 0.1 * math.pi)
@@ -44,7 +44,8 @@ function make_box(pos, vel)
         sprite = { cell = cg.vec2(32, 32), size = cg.vec2(32, 32) },
         physics = { type = cg.PB_DYNAMIC, mass = 5, velocity = vel },
     }
-    cs.physics.shape_add_box(box, -0.5, -0.5, 0.5, 0.5)
+    cs.physics.shape_add_box(box,
+                             cg.bbox(cg.vec2(-0.5, -0.5), cg.vec2(0.5, 0.5)))
     cs.group.add_groups(box, 'box')
 
     boxes[box] = true
