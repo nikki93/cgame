@@ -618,7 +618,35 @@ cs.meta.props['physics'] = {
 cs.edit_inspector.custom['physics'] = {
     add = function (inspector)
         cs.physics.set_debug_draw(inspector.ent, true)
+
+        -- 'add box' button
+        inspector.add_box = cg.add {
+            transform = { parent = inspector.window_body },
+            gui = {
+                color = cg.color(0.35, 0.15, 0.30, 1),
+                valign = cg.GA_TABLE,
+                halign = cg.GA_MIN,
+            },
+            gui_textbox = {},
+        }
+        cs.gui_text.set_str(cs.gui_textbox.get_text(inspector.add_box),
+                            'add box')
     end,
+
+    post_update = function (inspector)
+        -- 'add box' button
+        if cs.gui.event_mouse_down(inspector.add_box) == cg.MC_LEFT then
+            local bbox
+            if cs.edit.bboxes_has(inspector.ent) then
+                bbox = cs.edit.bboxes_get(inspector.ent)
+            else
+                bbox = cg.bbox(cg.vec2(-1, -1), cg.vec2(1, 1))
+            end
+            cs.physics.shape_add_box(inspector.ent, bbox)
+            cs.edit.undo_save()
+        end
+    end,
+
     remove = function (inspector)
         cs.physics.set_debug_draw(inspector.ent, false)
     end,
