@@ -8,6 +8,7 @@
 #include "scalar.h"
 #include "entity.h"
 #include "vec2.h"
+#include "bbox.h"
 
 SCRIPT(physics,
 
@@ -45,7 +46,7 @@ SCRIPT(physics,
        EXPORT bool physics_get_debug_draw(Entity ent);
 
 
-       /* shapes */
+       /* shape */
 
        /* shapes are indexed 0 - n */
        typedef enum PhysicsShape PhysicsShape;
@@ -57,11 +58,10 @@ SCRIPT(physics,
 
        EXPORT unsigned int physics_shape_add_circle(Entity ent, Scalar r,
                                                     Vec2 offset);
-       EXPORT unsigned int physics_shape_add_box(Entity ent, Scalar l,
-                                                 Scalar b, Scalar r, Scalar t);
+       EXPORT unsigned int physics_shape_add_box(Entity ent, BBox b);
 
        EXPORT PhysicsShape physics_shape_get_type(Entity ent, unsigned int i);
-       EXPORT PhysicsShape physics_shape_remove(Entity ent);
+       EXPORT void physics_shape_remove(Entity ent, unsigned int i);
 
 
        /* dynamics */

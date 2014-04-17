@@ -235,6 +235,8 @@ bool physics_get_debug_draw(Entity ent)
     return info->debug_draw;
 }
 
+/* --- shape --------------------------------------------------------------- */
+
 static unsigned int _shape_add(Entity ent, PhysicsShape type, cpShape *shape)
 {
     PhysicsInfo *info;
@@ -272,12 +274,33 @@ unsigned int physics_shape_add_circle(Entity ent, Scalar r,
     cpShape *shape = cpCircleShapeNew(NULL, r, cpv_of_vec2(offset));
     return _shape_add(ent, PS_CIRCLE, shape);
 }
-unsigned int physics_shape_add_box(Entity ent, Scalar l, Scalar b, Scalar r,
-                                   Scalar t)
+unsigned int physics_shape_add_box(Entity ent, BBox b)
 {
-    cpShape *shape = cpBoxShapeNew2(NULL, cpBBNew(l, b, r, t));
+    cpShape *shape = cpBoxShapeNew2(NULL, cpBBNew(b.min.x, b.min.y,
+                                                  b.max.x, b.max.y));
     return _shape_add(ent, PS_POLYGON, shape);
 }
+
+PhysicsShape physics_shape_get_type(Entity ent, unsigned int i)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+
+    assert(i < array_length(info->shapes));
+    return array_get_val(ShapeInfo, info->shapes, i).type;
+}
+void physics_shape_remove(Entity ent, unsigned int i)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+
+    if (i >= array_length(info->shapes))
+        return;
+    _remove_shape(array_get_val(ShapeInfo, info->shapes, i).shape);
+    array_quick_remove(info->shapes, i);
+}
+
+/* --- dynamics ------------------------------------------------------------ */
 
 void physics_set_mass(Entity ent, Scalar mass)
 {
