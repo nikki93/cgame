@@ -614,10 +614,10 @@ cs.meta.props['physics'] = {
 
 cs.edit_inspector.custom['physics'] = {
     add = function (inspector)
-        print('add physics ' .. inspector.ent.id)
+        cs.physics.set_debug_draw(inspector.ent, true)
     end,
     remove = function (inspector)
-        print('remove physics ' .. inspector.ent.id)
+        cs.physics.set_debug_draw(inspector.ent, false)
     end,
 }
 
