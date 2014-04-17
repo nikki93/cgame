@@ -62,6 +62,7 @@ static void _game_init()
     glGetError(); /* see http://www.opengl.org/wiki/OpenGL_Loading_Library */
 
     /* some GL settings */
+    glEnable(GL_PROGRAM_POINT_SIZE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glDisable(GL_DEPTH_TEST);
