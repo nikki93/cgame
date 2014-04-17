@@ -587,8 +587,9 @@ cs.meta.props['sprite'] = {
 }
 
 cs.meta.props['physics'] = {
+    { name = 'type' },
     { name = 'mass' },
-    { name = 'position' },
+    --{ name = 'position' },
     { name = 'velocity' },
     { name = 'freeze_rotation' },
 }
