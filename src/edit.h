@@ -22,6 +22,8 @@ SCRIPT(edit,
 
        /* used for click selecting etc. */
        EXPORT void edit_bboxes_update(Entity ent, BBox bbox); /* merge bbox */
+       EXPORT bool edit_bboxes_has(Entity ent);
+       EXPORT BBox edit_bboxes_get(Entity ent);
        EXPORT unsigned int edit_bboxes_get_num();
        typedef struct EntityBBoxPair EntityBBoxPair;
        struct EntityBBoxPair { Entity ent; BBox bbox; };

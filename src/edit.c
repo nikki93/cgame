@@ -75,6 +75,17 @@ void edit_bboxes_update(Entity ent, BBox bbox)
     }
 }
 
+bool edit_bboxes_has(Entity ent)
+{
+    return entitypool_get(bbox_pool, ent);
+}
+BBox edit_bboxes_get(Entity ent)
+{
+    BBoxPoolElem *elem = entitypool_get(bbox_pool, ent);
+    assert(elem);
+    return elem->bbox;
+}
+
 unsigned int edit_bboxes_get_num()
 {
     return entitypool_size(bbox_pool);
