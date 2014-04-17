@@ -255,6 +255,8 @@ function cs.edit.duplicate()
     local d = cs.deserializer.open_str(str)
     cs.system.load_all(d)
     cs.deserializer.close(d)
+
+    cs.edit.undo_save()
 end
 
 
