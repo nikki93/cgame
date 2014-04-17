@@ -137,6 +137,8 @@ end
 --- bbox -----------------------------------------------------------------------
 
 cs.edit.bboxes_update = cg.edit_bboxes_update
+cs.edit.bboxes_has = cg.edit_bboxes_has
+cs.edit.bboxes_get = cg.edit_bboxes_get
 cs.edit.bboxes_get_num = cg.edit_bboxes_get_num
 cs.edit.bboxes_get_nth = cg.edit_bboxes_get_nth
 cs.edit.bboxes_set_selected = cg.edit_bboxes_set_selected
