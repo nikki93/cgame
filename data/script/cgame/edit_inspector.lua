@@ -316,6 +316,15 @@ property_types['Entity'] = {
             cs.gui_text.set_str(prop.text, '(nil)')
         else
             cs.gui_text.set_str(prop.text, string.format('[%d]', e.id))
+
+            -- draw line between entities
+            if cs.transform.has(inspector.ent)
+            and cs.edit.get_editable(e) and cs.transform.has(e) then
+                local a = cs.transform.local_to_world(inspector.ent, cg.vec2_zero)
+                local b = cs.transform.local_to_world(e,
+                                                      cg.vec2_zero)
+                cs.edit.line_add(a, b)
+            end
         end
 
         -- select?
@@ -500,6 +509,15 @@ local function update_inspector(inspector)
                                 cs.edit.select[inspector.ent])
     local title = inspector.sys
     cs.gui_window.set_title(inspector.window, title)
+
+    -- -- draw line from inspector to target entity
+    if cs.transform.has(inspector.ent) then
+        local a = cs.transform.local_to_world(inspector.window,
+                                              cg.vec2(0, -16))
+        local b = cs.transform.local_to_world(inspector.ent,
+                                              cg.vec2_zero)
+        cs.edit.line_add(a, b)
+    end
 
     -- make everything uneditable/unsaveable etc.
     set_group_rec(inspector.window)
