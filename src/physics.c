@@ -546,6 +546,7 @@ static void _polygon_draw(PhysicsInfo *info, ShapeInfo *shapeInfo)
     glBufferData(GL_ARRAY_BUFFER, nverts * sizeof(Vec2),
                  verts, GL_STREAM_DRAW);
     glDrawArrays(GL_LINE_LOOP, 0, nverts);
+    glDrawArrays(GL_POINTS, 0, nverts);
     free(verts);
 }
 
