@@ -51,7 +51,9 @@ function cgame.__save_all()
 end
 
 function cgame.__load_all(str)
-    local data = loadstring(str)()
+    local f, err = loadstring(str)
+    if err then error(err) end
+    local data = f()
 
     for name, dump in pairs(data) do
         local system = rawget(cgame.systems, name)
