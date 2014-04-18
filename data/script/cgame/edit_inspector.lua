@@ -617,8 +617,6 @@ cs.meta.props['physics'] = {
 
 cs.edit_inspector.custom['physics'] = {
     add = function (inspector)
-        cs.physics.set_debug_draw(inspector.ent, true)
-
         -- 'add box' button
         inspector.add_box = cg.add {
             transform = { parent = inspector.window_body },
@@ -634,6 +632,8 @@ cs.edit_inspector.custom['physics'] = {
     end,
 
     post_update = function (inspector)
+        cs.physics.debug_draw(inspector.ent)
+
         -- 'add box' button
         if cs.gui.event_mouse_down(inspector.add_box) == cg.MC_LEFT then
             local bbox
@@ -645,10 +645,6 @@ cs.edit_inspector.custom['physics'] = {
             cs.physics.shape_add_box(inspector.ent, bbox)
             cs.edit.undo_save()
         end
-    end,
-
-    remove = function (inspector)
-        cs.physics.set_debug_draw(inspector.ent, false)
     end,
 }
 

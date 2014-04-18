@@ -13,6 +13,7 @@
 #include "dirs.h"
 #include "camera.h"
 #include "edit.h"
+#include "entitymap.h"
 
 /* per-entity info */
 typedef struct PhysicsInfo PhysicsInfo;
@@ -34,8 +35,6 @@ struct PhysicsInfo
 
     cpBody *body;
     Array *shapes;
-
-    bool debug_draw; /* whether to draw shape for debugging */
 };
 
 /* per-shape info for each shape attached to a physics entity */
@@ -49,6 +48,8 @@ struct ShapeInfo
 static cpSpace *space;
 static Scalar period = 1.0 / 60.0; /* 1.0 / simulation_frequency */
 static EntityPool *pool;
+
+static EntityMap *debug_draw_map;
 
 /* ------------------------------------------------------------------------- */
 
@@ -117,8 +118,6 @@ void physics_add(Entity ent)
     /* initialize last_pos/last_ang info for kinematic bodies */
     info->last_pos = cpBodyGetPos(info->body);
     info->last_ang = cpBodyGetAngle(info->body);
-
-    info->debug_draw = false;
 }
 
 /* remove chipmunk stuff (doesn't remove from pool) */
@@ -222,18 +221,11 @@ PhysicsBody physics_get_type(Entity ent)
     return info->type;
 }
 
-void physics_set_debug_draw(Entity ent, bool debug)
+void physics_debug_draw(Entity ent)
 {
-    PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
-    info->debug_draw = debug;
+    entitymap_set(debug_draw_map, ent, true);
 }
-bool physics_get_debug_draw(Entity ent)
-{
-    PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
-    return info->debug_draw;
-}
+
 
 /* --- shape --------------------------------------------------------------- */
 
@@ -415,8 +407,9 @@ static GLuint vbo;
 
 void physics_init()
 {
-    /* init pool */
+    /* init pools, maps */
     pool = entitypool_new(PhysicsInfo);
+    debug_draw_map = entitymap_new(false);
 
     /* init cpSpace */
     space = cpSpaceNew();
@@ -449,7 +442,8 @@ void physics_deinit()
     /* deinit cpSpace */
     cpSpaceFree(space);
 
-    /* deinit pool */
+    /* deinit pools, maps */
+    entitymap_free(debug_draw_map);
     entitypool_free(pool);
 }
 
@@ -509,6 +503,8 @@ void physics_update_all()
     Entity ent;
 
     entitypool_remove_destroyed(pool, physics_remove);
+
+    entitymap_clear(debug_draw_map);
 
     /* simulate */
     if (!timing_get_paused())
@@ -589,7 +585,7 @@ void physics_draw_all()
 
     /* draw! */
     entitypool_foreach(info, pool)
-        if (info->debug_draw)
+        if (entitymap_get(debug_draw_map, info->pool_elem.ent))
             array_foreach(shapeInfo, info->shapes)
                 switch(shapeInfo->type)
                 {
@@ -823,8 +819,6 @@ void physics_save_all(Serializer *s)
 
         _body_save(info, s);
         _shapes_save(info, s);
-
-        bool_save(&info->debug_draw, s);
     }
 }
 void physics_load_all(Deserializer *s)
@@ -842,8 +836,6 @@ void physics_load_all(Deserializer *s)
         /* set last_pos/last_ang info for kinematic bodies */
         info->last_pos = cpBodyGetPos(info->body);
         info->last_ang = cpBodyGetAngle(info->body);
-
-        bool_load(&info->debug_draw, s);
     }
 }
 

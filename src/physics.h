@@ -41,9 +41,8 @@ SCRIPT(physics,
        EXPORT void physics_set_type(Entity ent, PhysicsBody type);
        EXPORT PhysicsBody physics_get_type(Entity ent);
 
-       /* debug in edit mode */
-       EXPORT void physics_set_debug_draw(Entity ent, bool debug);
-       EXPORT bool physics_get_debug_draw(Entity ent);
+       /* draws this object for one frame */
+       EXPORT void physics_debug_draw(Entity ent);
 
 
        /* shape */
