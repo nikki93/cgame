@@ -153,7 +153,6 @@ property_types['enum'] = {
 
         local r = cg.get(inspector.sys, prop.name, inspector.ent)
         prop.enumtype = refct.typeof(r).name
-        prop.values = enum_values(prop.enumtype)
 
         prop.textbox, prop.text
             = property_create_textbox { prop = prop, editable = false }
@@ -165,7 +164,8 @@ property_types['enum'] = {
                 cg.set(inspector.sys, prop.name, inspector.ent, s)
                 cs.edit.undo_save()
             end
-            local comp = cs.edit.command_completion_substr(prop.values)
+            local values = enum_values(prop.enumtype)
+            local comp = cs.edit.command_completion_substr(values)
             cs.edit.command_start('set ' .. prop.name .. ': ', setter,
                                   comp, true)
         end
