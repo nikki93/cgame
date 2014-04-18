@@ -629,6 +629,8 @@ cs.edit_inspector.custom['physics'] = {
         }
         cs.gui_text.set_str(cs.gui_textbox.get_text(inspector.add_box),
                             'add box')
+
+        inspector.shapes = {}
     end,
 
     post_update = function (inspector)
@@ -644,6 +646,77 @@ cs.edit_inspector.custom['physics'] = {
             end
             cs.physics.shape_add_box(inspector.ent, bbox)
             cs.edit.undo_save()
+        end
+
+        local nshapes = cs.physics.get_num_shapes(inspector.ent)
+
+        while nshapes > #inspector.shapes do
+            local shape = {}
+            table.insert(inspector.shapes, shape)
+            shape.window = cg.add {
+                transform = { parent = inspector.window_body },
+                gui_window = {},
+                gui_rect = { hfill = true },
+                gui = {
+                    valign = cg.GA_TABLE,
+                    halign = cg.GA_MIN,
+                }
+            }
+            shape.window_body = cs.gui_window.get_body(shape.window)
+
+            shape.poly_container = cg.add {
+                transform = { parent = shape.window_body },
+                gui = {
+                    padding = cg.vec2_zero,
+                    color = cg.color_clear,
+                    valign = cg.GA_TABLE,
+                    halign = cg.GA_MIN,
+                },
+                gui_rect = { hfill = true },
+            }
+
+            shape.poly_edit = cg.add {
+                transform = { parent = shape.poly_container },
+                gui = {
+                    color = cg.color(0.35, 0.15, 0.30, 1),
+                    valign = cg.GA_MAX,
+                    halign = cg.GA_TABLE,
+                },
+                gui_textbox = {},
+            }
+            cs.gui_text.set_str(cs.gui_textbox.get_text(shape.poly_edit),
+                                'edit')
+            shape.poly_info = cg.add {
+                transform = { parent = shape.poly_container },
+                gui = {
+                    color = cg.color_white,
+                    valign = cg.GA_MID,
+                    halign = cg.GA_TABLE,
+                },
+                gui_text = {},
+            }
+        end
+
+        while nshapes < #inspector.shapes do
+            local shape = table.remove(inspector.shapes)
+            cs.gui_window.remove(shape.window)
+        end
+
+        for i = #inspector.shapes, 1, -1 do -- backwards for safe remove
+            local shape = inspector.shapes[i]
+            if cs.entity.destroyed(shape.window) then
+                cs.physics.shape_remove(inspector.ent, i - 1)
+                table.remove(inspector.shapes, i)
+            else
+                local t = cs.physics.shape_get_type(inspector.ent, i - 1)
+                cs.gui_window.set_title(shape.window,
+                                        enum_tostring('PhysicsShape', t))
+                if t == cg.PS_POLYGON then
+                    local n = cs.physics.poly_get_num_verts(inspector.ent,
+                                                            i - 1)
+                    cs.gui_text.set_str(shape.poly_info, n .. ' vertices')
+                end
+            end
         end
     end,
 }

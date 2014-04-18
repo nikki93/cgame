@@ -273,6 +273,12 @@ unsigned int physics_shape_add_box(Entity ent, BBox b)
     return _shape_add(ent, PS_POLYGON, shape);
 }
 
+unsigned int physics_get_num_shapes(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    return array_length(info->shapes);
+}
 PhysicsShape physics_shape_get_type(Entity ent, unsigned int i)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
@@ -283,14 +289,50 @@ PhysicsShape physics_shape_get_type(Entity ent, unsigned int i)
 }
 void physics_shape_remove(Entity ent, unsigned int i)
 {
-    PhysicsInfo *info = entitypool_get(pool, ent);
+    PhysicsInfo *info;
+    ShapeInfo *shapeInfo;
+
+    info = entitypool_get(pool, ent);
     assert(info);
 
     if (i >= array_length(info->shapes))
         return;
+
+    shapeInfo = array_get(info->shapes, i);
+    if (array_length(info->shapes) > 1)
+        cpBodySetMoment(info->body, cpBodyGetMoment(info->body)
+                        - _moment(info->body, shapeInfo));
     _remove_shape(array_get_val(ShapeInfo, info->shapes, i).shape);
     array_quick_remove(info->shapes, i);
 }
+
+int physics_poly_get_num_verts(Entity ent, unsigned int i)
+{
+    PhysicsInfo *info;
+    ShapeInfo *shapeInfo;
+    info = entitypool_get(pool, ent);
+    assert(info);
+    if (i >= array_length(info->shapes))
+        return -1;
+    shapeInfo = array_get(info->shapes, i);
+    return cpPolyShapeGetNumVerts(shapeInfo->shape);
+}
+void physics_poly_remove_vert(Entity ent, unsigned int i,
+                              unsigned int j)
+{
+    assert(false && "not implemented!");
+}
+void physics_poly_insert_vert(Entity ent, unsigned int i,
+                              unsigned int j, Vec2 pos)
+{
+    assert(false && "not implemented!");
+}
+void physics_poly_set_vert(Entity ent, unsigned int i,
+                           unsigned int j, Vec2 pos)
+{
+    assert(false && "not implemented!");
+}
+
 
 /* --- dynamics ------------------------------------------------------------ */
 
