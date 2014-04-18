@@ -25,6 +25,34 @@ static lua_State *L;
         }                                                       \
     while (0)
 
+static int _traceback(lua_State *L)
+{
+    if (!lua_isstring(L, 1))
+    {
+        if (lua_isnoneornil(L, 1) || !luaL_callmeta(L, 1, "__tostring")
+            || !lua_isstring(L, -1))
+            return 1;
+        lua_remove(L, 1);
+    }
+    luaL_traceback(L, L, lua_tostring(L, 1), 1);
+    return 1;
+}
+
+int _pcall(lua_State *L, int nargs, int nresults)
+{
+    int r, errfunc;
+
+    /* put _traceback under function and args */
+    errfunc = lua_gettop(L) - nargs;
+    lua_pushcfunction(L, _traceback);
+    lua_insert(L, errfunc);
+
+    /* call, remove _traceback */
+    r = lua_pcall(L, nargs, nresults, errfunc);
+    lua_remove(L, errfunc);
+    return r;
+}
+
 void script_run_string(const char *s)
 {
     errcheck(luaL_dostring(L, s));
@@ -47,7 +75,7 @@ static void _push_cdata(const char *t, void *p)
     lua_remove(L, -2);
     lua_pushstring(L, t);
     lua_pushlightuserdata(L, p);
-    errcheck(lua_pcall(L, 2, 1, 0));
+    errcheck(_pcall(L, 2, 1));
 }
 
 static void _push_event(const char *event)
@@ -114,7 +142,7 @@ static void _load_cgame_ffi()
     /* get ffi.cdef */
     lua_getglobal(L, "require");
     lua_pushstring(L, "ffi");
-    errcheck(lua_pcall(L, 1, 0, 0));
+    errcheck(_pcall(L, 1, 1));
     lua_getfield(L, lua_gettop(L), "cdef");
 
     /* accumulate cgame_ffi cdefs */
@@ -130,7 +158,7 @@ static void _load_cgame_ffi()
     luaL_pushresult(&buf);
 
     /* call it */
-    errcheck(lua_pcall(L, 1, 0, 0));
+    errcheck(_pcall(L, 1, 0));
 }
 
 void script_init()
@@ -144,17 +172,17 @@ void script_init()
 
     /* run main.lua */
     errcheck(luaL_loadfile(L, data_path("script/main.lua")));
-    errcheck(lua_pcall(L, 0, 0, 0));
+    errcheck(_pcall(L, 0, 0));
 
     /* fire init event */
     _push_event("init");
-    errcheck(lua_pcall(L, 1, 0, 0));
+    errcheck(_pcall(L, 1, 0));
 }
 
 void script_deinit()
 {
     _push_event("deinit");
-    errcheck(lua_pcall(L, 1, 0, 0));
+    errcheck(_pcall(L, 1, 0));
 
     lua_close(L);
 }
@@ -162,52 +190,52 @@ void script_deinit()
 void script_update_all()
 {
     _push_event("update_all");
-    errcheck(lua_pcall(L, 1, 0, 0));
+    errcheck(_pcall(L, 1, 0));
 }
 
 void script_post_update_all()
 {
     _push_event("post_update_all");
-    errcheck(lua_pcall(L, 1, 0, 0));
+    errcheck(_pcall(L, 1, 0));
 }
 
 void script_draw_all()
 {
     _push_event("draw_all");
-    errcheck(lua_pcall(L, 1, 0, 0));
+    errcheck(_pcall(L, 1, 0));
 }
 
 void script_key_down(KeyCode key)
 {
     _push_event("key_down");
     _push_cdata("KeyCode *", &key);
-    errcheck(lua_pcall(L, 2, 0, 0));
+    errcheck(_pcall(L, 2, 0));
 }
 void script_key_up(KeyCode key)
 {
     _push_event("key_up");
     _push_cdata("KeyCode *", &key);
-    errcheck(lua_pcall(L, 2, 0, 0));
+    errcheck(_pcall(L, 2, 0));
 }
 
 void script_mouse_down(MouseCode mouse)
 {
     _push_event("mouse_down");
     _push_cdata("MouseCode *", &mouse);
-    errcheck(lua_pcall(L, 2, 0, 0));
+    errcheck(_pcall(L, 2, 0));
 }
 void script_mouse_up(MouseCode mouse)
 {
     _push_event("mouse_up");
     _push_cdata("MouseCode *", &mouse);
-    errcheck(lua_pcall(L, 2, 0, 0));
+    errcheck(_pcall(L, 2, 0));
 }
 
 void script_mouse_move(Vec2 pos)
 {
     _push_event("mouse_move");
     _push_cdata("Vec2 *", &pos);
-    errcheck(lua_pcall(L, 2, 0, 0));
+    errcheck(_pcall(L, 2, 0));
 }
 
 void script_save_all(Serializer *s)
@@ -218,7 +246,7 @@ void script_save_all(Serializer *s)
     lua_getglobal(L, "cgame");
     lua_getfield(L, -1, "__save_all");
     lua_remove(L, -2);
-    errcheck(lua_pcall(L, 0, 1, 0));
+    errcheck(_pcall(L, 0, 1));
     str = lua_tostring(L, -1);
 
     /* save it */
@@ -240,7 +268,7 @@ void script_load_all(Deserializer *s)
     lua_getfield(L, -1, "__load_all");
     lua_remove(L, -2);
     lua_pushstring(L, str);
-    errcheck(lua_pcall(L, 1, 0, 0));
+    errcheck(_pcall(L, 1, 0));
 
     /* release */
     free(str);
