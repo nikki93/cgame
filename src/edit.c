@@ -302,17 +302,34 @@ static GLuint line_program;
 static GLuint line_vao;
 static GLuint line_vbo;
 
+typedef struct LinePoint LinePoint;
+struct LinePoint
+{
+    Vec2 position;
+    Scalar point_size;
+    Color color;
+};
+
 static Array *line_points; /* each consecutive pair is a line */
 
-void edit_line_add(Vec2 a, Vec2 b)
+void edit_line_add(Vec2 a, Vec2 b, Scalar point_size, Color color)
 {
-    array_add_val(Vec2, line_points) = a;
-    array_add_val(Vec2, line_points) = b;
+    LinePoint *lp;
+
+    lp = array_add(line_points);
+    lp->position = a;
+    lp->point_size = point_size;
+    lp->color = color;
+
+    lp = array_add(line_points);
+    lp->position = b;
+    lp->point_size = point_size;
+    lp->color = color;
 }
 
 static void _line_init()
 {
-    line_points = array_new(Vec2);
+    line_points = array_new(LinePoint);
 
     /* init draw stuff */
     line_program = gfx_create_program(data_path("edit_line.vert"),
@@ -323,7 +340,12 @@ static void _line_init()
     glBindVertexArray(line_vao);
     glGenBuffers(1, &line_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, line_vbo);
-    gfx_bind_vertex_attrib(line_program, GL_FLOAT, 2, "position", Vec2, x);
+    gfx_bind_vertex_attrib(line_program, GL_FLOAT, 2, "position", LinePoint,
+                           position);
+    gfx_bind_vertex_attrib(line_program, GL_FLOAT, 1, "point_size", LinePoint,
+                           point_size);
+    gfx_bind_vertex_attrib(line_program, GL_FLOAT, 4, "color", LinePoint,
+                           color);
 }
 static void _line_deinit()
 {
@@ -350,9 +372,10 @@ static void _line_draw_all()
     glBindVertexArray(line_vao);
     glBindBuffer(GL_ARRAY_BUFFER, line_vao);
     npoints = array_length(line_points);
-    glBufferData(GL_ARRAY_BUFFER, npoints * sizeof(Vec2),
+    glBufferData(GL_ARRAY_BUFFER, npoints * sizeof(LinePoint),
                  array_begin(line_points), GL_STREAM_DRAW);
     glDrawArrays(GL_LINES, 0, npoints);
+    glDrawArrays(GL_POINTS, 0, npoints);
 }
 
 /* ------------------------------------------------------------------------- */

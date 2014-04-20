@@ -323,7 +323,7 @@ property_types['Entity'] = {
                 local a = cs.transform.local_to_world(inspector.ent, cg.vec2_zero)
                 local b = cs.transform.local_to_world(e,
                                                       cg.vec2_zero)
-                cs.edit.line_add(a, b)
+                cs.edit.line_add(a, b, 0, cg.color(1, 0, 1, 0.6))
             end
         end
 
@@ -538,7 +538,7 @@ local function post_update_inspector(inspector)
                                               cg.vec2(0, -16))
         local b = cs.transform.local_to_world(inspector.ent,
                                               cg.vec2_zero)
-        cs.edit.line_add(a, b)
+        cs.edit.line_add(a, b, 0, cg.color(1, 0, 1, 0.6))
     end
 
     for _, prop in pairs(inspector.props) do
@@ -617,18 +617,41 @@ cs.meta.props['physics'] = {
 
 cs.edit_inspector.custom['physics'] = {
     add = function (inspector)
-        -- 'add box' button
-        inspector.add_box = cg.add {
+        -- add buttons
+        inspector.add_container = cg.add {
             transform = { parent = inspector.window_body },
             gui = {
-                color = cg.color(0.35, 0.15, 0.30, 1),
+                padding = cg.vec2_zero,
+                color = cg.color_clear,
                 valign = cg.GA_TABLE,
                 halign = cg.GA_MIN,
+            },
+            gui_rect = { hfill = true },
+        }
+
+        inspector.add_box = cg.add {
+            transform = { parent = inspector.add_container },
+            gui = {
+                color = cg.color(0.35, 0.15, 0.30, 1),
+                valign = cg.GA_MAX,
+                halign = cg.GA_TABLE,
             },
             gui_textbox = {},
         }
         cs.gui_text.set_str(cs.gui_textbox.get_text(inspector.add_box),
                             'add box')
+
+        inspector.add_poly = cg.add {
+            transform = { parent = inspector.add_container },
+            gui = {
+                color = cg.color(0.35, 0.15, 0.30, 1),
+                valign = cg.GA_MAX,
+                halign = cg.GA_TABLE,
+            },
+            gui_textbox = {},
+        }
+        cs.gui_text.set_str(cs.gui_textbox.get_text(inspector.add_poly),
+                            'add poly')
 
         inspector.shapes = {}
     end,
@@ -646,6 +669,11 @@ cs.edit_inspector.custom['physics'] = {
             end
             cs.physics.shape_add_box(inspector.ent, bbox)
             cs.edit.undo_save()
+        end
+
+        -- 'add poly' button
+        if cs.gui.event_mouse_down(inspector.add_poly) == cg.MC_LEFT then
+            cs.edit.phypoly_start(inspector.ent)
         end
 
         local nshapes = cs.physics.get_num_shapes(inspector.ent)
@@ -675,17 +703,6 @@ cs.edit_inspector.custom['physics'] = {
                 gui_rect = { hfill = true },
             }
 
-            shape.poly_edit = cg.add {
-                transform = { parent = shape.poly_container },
-                gui = {
-                    color = cg.color(0.35, 0.15, 0.30, 1),
-                    valign = cg.GA_MAX,
-                    halign = cg.GA_TABLE,
-                },
-                gui_textbox = {},
-            }
-            cs.gui_text.set_str(cs.gui_textbox.get_text(shape.poly_edit),
-                                'edit')
             shape.poly_info = cg.add {
                 transform = { parent = shape.poly_container },
                 gui = {

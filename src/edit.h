@@ -5,6 +5,7 @@
 
 #include "entity.h"
 #include "bbox.h"
+#include "color.h"
 #include "script_export.h"
 
 SCRIPT(edit,
@@ -31,7 +32,8 @@ SCRIPT(edit,
        EXPORT void edit_bboxes_set_selected(Entity ent, bool selected);
 
        /* draw a line between two world-space coords */
-       EXPORT void edit_line_add(Vec2 a, Vec2 b);
+       EXPORT void edit_line_add(Vec2 a, Vec2 b, Scalar point_size,
+                                 Color color);
 
     )
 
