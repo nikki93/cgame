@@ -41,6 +41,13 @@ function cs.app.key_down(key)
     end
 end
 
--- run startup script if specified
-if cg.args[1] then dofile(cg.args[1]) end
+if cg.args[1] then
+    -- startup script specified, run it
+    dofile(cg.args[1])
+else
+    -- no startup script
+
+    -- default camera
+    cg.add { camera = { viewport_height = 18 } }
+end
 
