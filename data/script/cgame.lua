@@ -18,6 +18,7 @@ require 'cgame.entity'
 require 'cgame.group'
 require 'cgame.input'
 require 'cgame.gui'
+require 'cgame.physics'
 
 require 'cgame.edit'
 require 'cgame.console'

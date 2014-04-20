@@ -144,6 +144,11 @@ void physics_remove(Entity ent)
     entitypool_remove(pool, ent);
 }
 
+bool physics_has(Entity ent)
+{
+    return entitypool_get(pool, ent);
+}
+
 /* calculate moment for a single shape */
 static Scalar _moment(cpBody *body, ShapeInfo *shapeInfo)
 {
@@ -272,6 +277,23 @@ unsigned int physics_shape_add_box(Entity ent, BBox b)
                                                   b.max.x, b.max.y));
     return _shape_add(ent, PS_POLYGON, shape);
 }
+unsigned int physics_shape_add_poly(Entity ent,
+                                    unsigned int nverts,
+                                    const Vec2 *verts)
+{
+    unsigned int i;
+    cpVect *cpverts;
+    cpShape *shape;
+
+    cpverts = malloc(nverts * sizeof(cpVect));
+    for (i = 0; i < nverts; ++i)
+        cpverts[i] = cpv_of_vec2(verts[i]);
+    nverts = cpConvexHull(nverts, cpverts, NULL, NULL, 0);
+    shape = cpPolyShapeNew(NULL, nverts, cpverts, cpvzero);
+    free(cpverts);
+    return _shape_add(ent, PS_POLYGON, shape);
+}
+
 
 unsigned int physics_get_num_shapes(Entity ent)
 {
@@ -299,11 +321,12 @@ void physics_shape_remove(Entity ent, unsigned int i)
         return;
 
     shapeInfo = array_get(info->shapes, i);
-    if (array_length(info->shapes) > 1)
-        cpBodySetMoment(info->body, cpBodyGetMoment(info->body)
-                        - _moment(info->body, shapeInfo));
+    /* if (array_length(info->shapes) > 1) */
+    /*     cpBodySetMoment(info->body, cpBodyGetMoment(info->body) */
+    /*                     - _moment(info->body, shapeInfo)); */
     _remove_shape(array_get_val(ShapeInfo, info->shapes, i).shape);
     array_quick_remove(info->shapes, i);
+    _recalculate_moment(info); /* TODO: don't recalculate, just adjust? */
 }
 
 int physics_poly_get_num_verts(Entity ent, unsigned int i)
@@ -317,22 +340,6 @@ int physics_poly_get_num_verts(Entity ent, unsigned int i)
     shapeInfo = array_get(info->shapes, i);
     return cpPolyShapeGetNumVerts(shapeInfo->shape);
 }
-void physics_poly_remove_vert(Entity ent, unsigned int i,
-                              unsigned int j)
-{
-    assert(false && "not implemented!");
-}
-void physics_poly_insert_vert(Entity ent, unsigned int i,
-                              unsigned int j, Vec2 pos)
-{
-    assert(false && "not implemented!");
-}
-void physics_poly_set_vert(Entity ent, unsigned int i,
-                           unsigned int j, Vec2 pos)
-{
-    assert(false && "not implemented!");
-}
-
 
 /* --- dynamics ------------------------------------------------------------ */
 

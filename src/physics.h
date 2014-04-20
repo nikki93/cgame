@@ -37,6 +37,7 @@ SCRIPT(physics,
 
        EXPORT void physics_add(Entity ent); /* PB_DYNAMIC by default */
        EXPORT void physics_remove(Entity ent);
+       EXPORT bool physics_has(Entity ent);
 
        EXPORT void physics_set_type(Entity ent, PhysicsBody type);
        EXPORT PhysicsBody physics_get_type(Entity ent);
@@ -59,20 +60,16 @@ SCRIPT(physics,
                                                     Vec2 offset);
        EXPORT unsigned int physics_shape_add_box(Entity ent, BBox b);
 
+       EXPORT unsigned int physics_shape_add_poly(Entity ent,
+                                                  unsigned int nverts,
+                                                  const Vec2 *verts);
+
        EXPORT unsigned int physics_get_num_shapes(Entity ent);
        EXPORT PhysicsShape physics_shape_get_type(Entity ent, unsigned int i);
        EXPORT void physics_shape_remove(Entity ent, unsigned int i);
 
        /* -1 if not a PS_POLYGON */
        EXPORT int physics_poly_get_num_verts(Entity ent, unsigned int i);
-       /* won't remove if it's a triangle */
-       EXPORT void physics_poly_remove_vert(Entity ent, unsigned int i,
-                                            unsigned int j);
-       EXPORT void physics_poly_insert_vert(Entity ent, unsigned int i,
-                                            unsigned int j, Vec2 pos);
-       EXPORT void physics_poly_set_vert(Entity ent, unsigned int i,
-                                         unsigned int j, Vec2 pos);
-
 
        /* dynamics */
 
