@@ -667,6 +667,56 @@ function cs.edit.command_inspect()
 end
 
 
+--- phypoly mode ---------------------------------------------------------------
+
+local phypoly_ent, phypoly_verts
+
+cs.edit.modes.phypoly = {}
+
+function cs.edit.phypoly_start(ent)
+    cs.edit.set_mode('phypoly')
+    phypoly_ent = ent
+    phypoly_verts = {}
+end
+function cs.edit.phypoly_end()
+    cs.edit.set_mode('normal')
+    cs.physics.shape_add_poly(phypoly_ent, phypoly_verts)
+    phypoly_ent = nil
+    phypoly_verts = nil
+    cs.edit.undo_save()
+end
+function cs.edit.phypoly_cancel()
+    cs.edit.set_mode('normal')
+    phypoly_ent = nil
+    phypoly_verts = nil
+end
+
+function cs.edit.phypoly_add_vertex()
+    local m = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
+    -- TODO: remove scaling issue
+    local t = cg.mat3_inverse(cs.transform.get_world_matrix(phypoly_ent))
+    table.insert(phypoly_verts, cg.Vec2(cg.mat3_transform(t, m)))
+end
+
+function cs.edit.modes.phypoly.enter()
+    cs.edit.set_mode_text('phypoly')
+end
+
+function cs.edit.modes.phypoly.update_all()
+    if not cs.physics.has(phypoly_ent) then cs.edit.phypoly_cancel() end
+
+    if #phypoly_verts > 1 then
+        for i = 1, #phypoly_verts - 1 do
+            local a = cs.transform.local_to_world(phypoly_ent,
+                                                  phypoly_verts[i])
+            local b = cs.transform.local_to_world(phypoly_ent,
+                                                  phypoly_verts[i + 1])
+            cs.edit.line_add(a, b, 5, cg.color(1.0, 0.0, 0.0, 1.0))
+        end
+    end
+end
+
+
 --- gui ------------------------------------------------------------------------
 
 cs.edit.gui_root = cg.add {
@@ -732,6 +782,10 @@ cs.edit.modes.boxsel['C-<mouse_1>'] = cs.edit.boxsel_begin
 cs.edit.modes.boxsel['^<mouse_1>'] = cs.edit.boxsel_end
 cs.edit.modes.boxsel['^C-<mouse_1>'] = cs.edit.boxsel_end_add
 
+-- phypoly mode
+cs.edit.modes.phypoly['<enter>'] = cs.edit.phypoly_end
+cs.edit.modes.phypoly['<escape>'] = cs.edit.phypoly_cancel
+cs.edit.modes.phypoly['<mouse_1>'] = cs.edit.phypoly_add_vertex
 
 --- main events ----------------------------------------------------------------
 
