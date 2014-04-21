@@ -300,16 +300,10 @@ unsigned int physics_convex_hull(unsigned int nverts, Vec2 *verts)
 
     cpverts = malloc(nverts * sizeof(cpVect));
     for (i = 0; i < nverts; ++i)
-    {
-        printf("%f %f\n", verts[i].x, verts[i].y);
         cpverts[i] = cpv_of_vec2(verts[i]);
-    }
     nverts = cpConvexHull(nverts, cpverts, NULL, NULL, 0);
     for (i = 0; i < nverts; ++i)
-    {
         verts[i] = vec2_of_cpv(cpverts[i]);
-        printf("%f %f\n", verts[i].x, verts[i].y);
-    }
     free(cpverts);
     return nverts;
 }
