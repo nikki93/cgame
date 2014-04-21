@@ -293,7 +293,26 @@ unsigned int physics_shape_add_poly(Entity ent,
     free(cpverts);
     return _shape_add(ent, PS_POLYGON, shape);
 }
+unsigned int physics_convex_hull(unsigned int nverts, Vec2 *verts)
+{
+    cpVect *cpverts;
+    unsigned int i;
 
+    cpverts = malloc(nverts * sizeof(cpVect));
+    for (i = 0; i < nverts; ++i)
+    {
+        printf("%f %f\n", verts[i].x, verts[i].y);
+        cpverts[i] = cpv_of_vec2(verts[i]);
+    }
+    nverts = cpConvexHull(nverts, cpverts, NULL, NULL, 0);
+    for (i = 0; i < nverts; ++i)
+    {
+        verts[i] = vec2_of_cpv(cpverts[i]);
+        printf("%f %f\n", verts[i].x, verts[i].y);
+    }
+    free(cpverts);
+    return nverts;
+}
 
 unsigned int physics_get_num_shapes(Entity ent)
 {

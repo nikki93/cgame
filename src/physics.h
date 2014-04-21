@@ -71,6 +71,10 @@ SCRIPT(physics,
        /* -1 if not a PS_POLYGON */
        EXPORT int physics_poly_get_num_verts(Entity ent, unsigned int i);
 
+       /* modifies array in-place, returns number of convex hull vertices */
+       EXPORT unsigned int physics_convex_hull(unsigned int nverts,
+                                               Vec2 *verts);
+
        /* dynamics */
 
        EXPORT void physics_set_mass(Entity ent, Scalar mass);
