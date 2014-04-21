@@ -139,6 +139,7 @@ void camera_update_all()
     Camera *camera;
     Entity cam;
     Vec2 scale;
+    static BBox bbox = { { -1, -1 }, { 1, 1 } };
 
     entitypool_remove_destroyed(pool, camera_remove);
     
@@ -150,6 +151,8 @@ void camera_update_all()
         scale = vec2(0.5 * aspect * camera->viewport_height,
                      0.5 * camera->viewport_height);
         transform_set_scale(camera->pool_elem.ent, scale);
+
+        edit_bboxes_update(camera->pool_elem.ent, bbox);
     }
 
     cam = camera_get_current_camera();
