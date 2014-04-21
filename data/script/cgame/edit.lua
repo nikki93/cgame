@@ -673,6 +673,12 @@ local phypoly_ent, phypoly_verts
 
 cs.edit.modes.phypoly = {}
 
+local function phypoly_update_verts()
+    if #phypoly_verts >= 4 then
+        phypoly_verts = cs.physics.convex_hull(phypoly_verts)
+    end
+end
+
 function cs.edit.phypoly_start(ent)
     cs.edit.set_mode('phypoly')
     phypoly_ent = ent
@@ -696,6 +702,7 @@ function cs.edit.phypoly_add_vertex()
     -- TODO: remove scaling issue
     local t = cg.mat3_inverse(cs.transform.get_world_matrix(phypoly_ent))
     table.insert(phypoly_verts, cg.Vec2(cg.mat3_transform(t, m)))
+    phypoly_update_verts()
 end
 
 function cs.edit.modes.phypoly.enter()
@@ -706,11 +713,12 @@ function cs.edit.modes.phypoly.update_all()
     if not cs.physics.has(phypoly_ent) then cs.edit.phypoly_cancel() end
 
     if #phypoly_verts > 1 then
-        for i = 1, #phypoly_verts - 1 do
+        for i = 1, #phypoly_verts do
+            local j = i < #phypoly_verts and i + 1 or 1
             local a = cs.transform.local_to_world(phypoly_ent,
                                                   phypoly_verts[i])
             local b = cs.transform.local_to_world(phypoly_ent,
-                                                  phypoly_verts[i + 1])
+                                                  phypoly_verts[j])
             cs.edit.line_add(a, b, 5, cg.color(1.0, 0.0, 0.0, 1.0))
         end
     end
