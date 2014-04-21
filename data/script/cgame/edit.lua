@@ -744,6 +744,16 @@ require 'cgame.edit_bottom_gui'
 require 'cgame.edit_inspector'
 
 
+--- edit camera ----------------------------------------------------------------
+
+camera = cg.add {
+    group = { groups = 'builtin' },
+    edit = { editable = false },
+    camera = { viewport_height = 18, current = false },
+}
+cs.camera.set_edit_camera(camera)
+
+
 --- bindings -------------------------------------------------------------------
 
 -- normal mode

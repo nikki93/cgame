@@ -5,6 +5,7 @@
 #include "game.h"
 #include "assert.h"
 #include "entitypool.h"
+#include "edit.h"
 
 typedef struct Camera Camera;
 struct Camera
@@ -15,6 +16,7 @@ struct Camera
 };
 
 static Entity curr_camera;
+static Entity edit_camera;
 
 static Mat3 inverse_view_matrix; /* cached inverse view matrix */
 
@@ -45,6 +47,11 @@ void camera_remove(Entity ent)
         curr_camera = entity_nil;
 }
 
+void camera_set_edit_camera(Entity ent)
+{
+    edit_camera = ent;
+}
+
 void camera_set_current(Entity ent, bool current)
 {
     if (current)
@@ -62,6 +69,8 @@ void camera_set_current_camera(Entity ent)
 }
 Entity camera_get_current_camera()
 {
+    if (edit_get_enabled())
+        return edit_camera;
     return curr_camera;
 }
 
@@ -103,8 +112,9 @@ Vec2 camera_pixels_to_world(Vec2 p)
 }
 Vec2 camera_unit_to_world(Vec2 p)
 {
-    if (!entity_eq(curr_camera, entity_nil))
-        return transform_local_to_world(curr_camera, p);
+    Entity cam = camera_get_current_camera();
+    if (!entity_eq(cam, entity_nil))
+        return transform_local_to_world(cam, p);
     return p;
 }
 
@@ -114,6 +124,7 @@ void camera_init()
 {
     pool = entitypool_new(Camera);
     curr_camera = entity_nil;
+    edit_camera = entity_nil;
     inverse_view_matrix = mat3_identity();
 }
 void camera_deinit()
@@ -126,13 +137,11 @@ void camera_update_all()
     Vec2 win_size;
     Scalar aspect;
     Camera *camera;
+    Entity cam;
     Vec2 scale;
 
     entitypool_remove_destroyed(pool, camera_remove);
     
-    if (entity_eq(curr_camera, entity_nil))
-        inverse_view_matrix = mat3_identity();
-
     win_size = game_get_window_size();
     aspect = win_size.x / win_size.y;
 
@@ -143,11 +152,11 @@ void camera_update_all()
         transform_set_scale(camera->pool_elem.ent, scale);
     }
 
-    if (entity_eq(curr_camera, entity_nil))
+    cam = camera_get_current_camera();
+    if (entity_eq(cam, entity_nil))
         inverse_view_matrix = mat3_identity();
     else
-        inverse_view_matrix = mat3_inverse(
-            transform_get_world_matrix(curr_camera));
+        inverse_view_matrix = mat3_inverse(transform_get_world_matrix(cam));
 }
 
 void camera_save_all(Serializer *s)
