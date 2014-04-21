@@ -219,7 +219,7 @@ static void _grid_create_cells()
     Vec2 cur, csize;
 
     /* find camera bounds in world space */
-    camera = camera_get();
+    camera = camera_get_current_camera();
     if (entity_eq(camera, entity_nil))
         cbox = bbox(vec2(-1, -1), vec2(1, 1));
     else

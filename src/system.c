@@ -78,6 +78,7 @@ void system_deinit()
     sprite_deinit();
     gui_deinit();
     texture_deinit();
+    camera_deinit();
     transform_deinit();
     entity_deinit();
     input_deinit();

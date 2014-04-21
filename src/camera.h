@@ -18,8 +18,12 @@ SCRIPT(camera,
 
        EXPORT void camera_add(Entity ent);
        EXPORT void camera_remove(Entity ent);
-       EXPORT Entity camera_get(); /* return current camera, or
-                                      entity_nil if doesn't exist */
+
+       /* set/get currently active camera -- entity_nil if none */
+       EXPORT void camera_set_current(Entity ent, bool current);
+       EXPORT bool camera_get_current(Entity ent);
+       EXPORT void camera_set_current_camera(Entity ent);
+       EXPORT Entity camera_get_current_camera();
 
        /* number of world units to fit vertically on screen */
        EXPORT void camera_set_viewport_height(Entity ent, Scalar height);
@@ -38,6 +42,7 @@ SCRIPT(camera,
 const Mat3 *camera_get_inverse_view_matrix_ptr(); /* for quick GLSL binding */
 
 void camera_init();
+void camera_deinit();
 void camera_update_all();
 void camera_save_all(Serializer *s);
 void camera_load_all(Deserializer *s);

@@ -4,37 +4,78 @@
 #include "transform.h"
 #include "game.h"
 #include "assert.h"
+#include "entitypool.h"
 
-static Entity camera_entity;
-static Scalar viewport_height = 1.0;
+typedef struct Camera Camera;
+struct Camera
+{
+    EntityPoolElem pool_elem;
 
-static Mat3 inverse_view_matrix;
+    Scalar viewport_height;
+};
+
+static Entity curr_camera;
+
+static Mat3 inverse_view_matrix; /* cached inverse view matrix */
+
+static EntityPool *pool;
 
 /* ------------------------------------------------------------------------- */
 
 void camera_add(Entity ent)
 {
+    Camera *camera;
+
+    if (entitypool_get(pool, ent))
+        return;
+
     transform_add(ent);
 
-    camera_entity = ent;
+    camera = entitypool_add(pool, ent);
+    camera->viewport_height = 1.0;
+
+    if (entity_eq(curr_camera, entity_nil))
+        curr_camera = ent;
 }
 void camera_remove(Entity ent)
 {
-    if (entity_eq(camera_entity, ent))
-        camera_entity = entity_nil;
+    entitypool_remove(pool, ent);
+
+    if (entity_eq(curr_camera, ent))
+        curr_camera = entity_nil;
 }
-Entity camera_get()
+
+void camera_set_current(Entity ent, bool current)
 {
-    return camera_entity;
+    if (current)
+        curr_camera = ent;
+    else if (entity_eq(curr_camera, ent))
+        curr_camera = entity_nil;
+}
+bool camera_get_current(Entity ent)
+{
+    return entity_eq(curr_camera, ent);
+}
+void camera_set_current_camera(Entity ent)
+{
+    curr_camera = ent;
+}
+Entity camera_get_current_camera()
+{
+    return curr_camera;
 }
 
 void camera_set_viewport_height(Entity ent, Scalar height)
 {
-    viewport_height = height;
+    Camera *camera = entitypool_get(pool, ent);
+    assert(camera);
+    camera->viewport_height = height;
 }
 Scalar camera_get_viewport_height(Entity ent)
 {
-    return viewport_height;
+    Camera *camera = entitypool_get(pool, ent);
+    assert(camera);
+    return camera->viewport_height;
 }
 
 Mat3 camera_get_inverse_view_matrix()
@@ -62,8 +103,8 @@ Vec2 camera_pixels_to_world(Vec2 p)
 }
 Vec2 camera_unit_to_world(Vec2 p)
 {
-    if (!entity_eq(camera_entity, entity_nil))
-        return transform_local_to_world(camera_entity, p);
+    if (!entity_eq(curr_camera, entity_nil))
+        return transform_local_to_world(curr_camera, p);
     return p;
 }
 
@@ -71,64 +112,62 @@ Vec2 camera_unit_to_world(Vec2 p)
 
 void camera_init()
 {
-    camera_entity = entity_nil;
+    pool = entitypool_new(Camera);
+    curr_camera = entity_nil;
     inverse_view_matrix = mat3_identity();
+}
+void camera_deinit()
+{
+    entitypool_free(pool);
 }
 
 void camera_update_all()
 {
     Vec2 win_size;
     Scalar aspect;
+    Camera *camera;
+    Vec2 scale;
+
+    entitypool_remove_destroyed(pool, camera_remove);
     
-    if (entity_eq(camera_entity, entity_nil))
-    {
+    if (entity_eq(curr_camera, entity_nil))
         inverse_view_matrix = mat3_identity();
-    }
-    else
+
+    win_size = game_get_window_size();
+    aspect = win_size.x / win_size.y;
+
+    entitypool_foreach(camera, pool)
     {
-        if (entity_destroyed(camera_entity))
-        {
-            camera_remove(camera_entity);
-            return;
-        }
-
-        win_size = game_get_window_size();
-        aspect = win_size.x / win_size.y;
-        transform_set_scale(camera_entity, vec2(0.5 * aspect * viewport_height,
-                                                0.5 * viewport_height));
-
-        inverse_view_matrix = mat3_inverse(
-            transform_get_world_matrix(camera_entity));
+        scale = vec2(0.5 * aspect * camera->viewport_height,
+                     0.5 * camera->viewport_height);
+        transform_set_scale(camera->pool_elem.ent, scale);
     }
+
+    if (entity_eq(curr_camera, entity_nil))
+        inverse_view_matrix = mat3_identity();
+    else
+        inverse_view_matrix = mat3_inverse(
+            transform_get_world_matrix(curr_camera));
 }
 
 void camera_save_all(Serializer *s)
 {
-    bool exists;
+    Camera *camera;
 
-    /* check if we're actually saving something */
-    exists = !entity_eq(camera_entity, entity_nil)
-        && entity_get_save_filter(camera_entity);
-    bool_save(&exists, s);
+    entity_save(&curr_camera, s);
+    mat3_save(&inverse_view_matrix, s);
 
-    if (exists)
-    {
-        entity_save(&camera_entity, s);
-        mat3_save(&inverse_view_matrix, s);
-        scalar_save(&viewport_height, s);
-    }
+    entitypool_save_foreach(camera, pool, s)
+        scalar_save(&camera->viewport_height, s);
 }
 void camera_load_all(Deserializer *s)
 {
-    bool exists;
+    Camera *camera;
 
-    /* check if we have to actually load anything */
-    bool_load(&exists, s);
-    if (exists)
-    {
-        entity_load(&camera_entity, s);
-        mat3_load(&inverse_view_matrix, s);
-        scalar_load(&viewport_height, s);
-    }
+    entity_load(&curr_camera, s);
+    mat3_load(&inverse_view_matrix, s);
+
+    entitypool_load_foreach(camera, pool, s)
+        scalar_load(&camera->viewport_height, s);
 }
 

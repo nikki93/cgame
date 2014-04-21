@@ -598,6 +598,7 @@ cs.meta.props['transform'] = {
 }
 
 cs.meta.props['camera'] = {
+    { name = 'current' },
     { name = 'viewport_height' },
 }
 

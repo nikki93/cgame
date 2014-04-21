@@ -1509,7 +1509,7 @@ static void _update_root()
     edit_set_editable(gui_root, false);
 
     /* child of camera so GUI stays on screen */
-    transform_set_parent(gui_root, camera_get());
+    transform_set_parent(gui_root, camera_get_current_camera());
 
     /* use pixel coordinates */
     transform_set_scale(gui_root, scalar_vec2_div(2, win_size));
