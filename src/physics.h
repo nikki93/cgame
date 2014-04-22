@@ -58,11 +58,13 @@ SCRIPT(physics,
 
        EXPORT unsigned int physics_shape_add_circle(Entity ent, Scalar r,
                                                     Vec2 offset);
-       EXPORT unsigned int physics_shape_add_box(Entity ent, BBox b);
 
+       /* 'r' is a 'rounding radius' added polygon to the polygon smooth */
+       EXPORT unsigned int physics_shape_add_box(Entity ent, BBox b, Scalar r);
        EXPORT unsigned int physics_shape_add_poly(Entity ent,
                                                   unsigned int nverts,
-                                                  const Vec2 *verts);
+                                                  const Vec2 *verts,
+                                                  Scalar r);
 
        EXPORT unsigned int physics_get_num_shapes(Entity ent);
        EXPORT PhysicsShape physics_shape_get_type(Entity ent, unsigned int i);
@@ -74,6 +76,12 @@ SCRIPT(physics,
        /* modifies array in-place, returns number of convex hull vertices */
        EXPORT unsigned int physics_convex_hull(unsigned int nverts,
                                                Vec2 *verts);
+
+       EXPORT void physics_shape_set_surface_velocity(Entity ent,
+                                                      unsigned int i,
+                                                      Vec2 v);
+       EXPORT Vec2 physics_shape_get_surface_velocity(Entity ent,
+                                                      unsigned int i);
 
        /* dynamics */
 

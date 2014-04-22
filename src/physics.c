@@ -271,15 +271,16 @@ unsigned int physics_shape_add_circle(Entity ent, Scalar r,
     cpShape *shape = cpCircleShapeNew(NULL, r, cpv_of_vec2(offset));
     return _shape_add(ent, PS_CIRCLE, shape);
 }
-unsigned int physics_shape_add_box(Entity ent, BBox b)
+unsigned int physics_shape_add_box(Entity ent, BBox b, Scalar r)
 {
-    cpShape *shape = cpBoxShapeNew2(NULL, cpBBNew(b.min.x, b.min.y,
-                                                  b.max.x, b.max.y));
+    cpShape *shape = cpBoxShapeNew3(NULL, cpBBNew(b.min.x, b.min.y,
+                                                  b.max.x, b.max.y), r);
     return _shape_add(ent, PS_POLYGON, shape);
 }
 unsigned int physics_shape_add_poly(Entity ent,
                                     unsigned int nverts,
-                                    const Vec2 *verts)
+                                    const Vec2 *verts,
+                                    Scalar r)
 {
     unsigned int i;
     cpVect *cpverts;
@@ -289,23 +290,9 @@ unsigned int physics_shape_add_poly(Entity ent,
     for (i = 0; i < nverts; ++i)
         cpverts[i] = cpv_of_vec2(verts[i]);
     nverts = cpConvexHull(nverts, cpverts, NULL, NULL, 0);
-    shape = cpPolyShapeNew(NULL, nverts, cpverts, cpvzero);
+    shape = cpPolyShapeNew2(NULL, nverts, cpverts, cpvzero, r);
     free(cpverts);
     return _shape_add(ent, PS_POLYGON, shape);
-}
-unsigned int physics_convex_hull(unsigned int nverts, Vec2 *verts)
-{
-    cpVect *cpverts;
-    unsigned int i;
-
-    cpverts = malloc(nverts * sizeof(cpVect));
-    for (i = 0; i < nverts; ++i)
-        cpverts[i] = cpv_of_vec2(verts[i]);
-    nverts = cpConvexHull(nverts, cpverts, NULL, NULL, 0);
-    for (i = 0; i < nverts; ++i)
-        verts[i] = vec2_of_cpv(cpverts[i]);
-    free(cpverts);
-    return nverts;
 }
 
 unsigned int physics_get_num_shapes(Entity ent)
@@ -318,7 +305,6 @@ PhysicsShape physics_shape_get_type(Entity ent, unsigned int i)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
     assert(info);
-
     assert(i < array_length(info->shapes));
     return array_get_val(ShapeInfo, info->shapes, i).type;
 }
@@ -348,10 +334,48 @@ int physics_poly_get_num_verts(Entity ent, unsigned int i)
     ShapeInfo *shapeInfo;
     info = entitypool_get(pool, ent);
     assert(info);
-    if (i >= array_length(info->shapes))
-        return -1;
+    assert(i < array_length(info->shapes));
     shapeInfo = array_get(info->shapes, i);
     return cpPolyShapeGetNumVerts(shapeInfo->shape);
+}
+
+unsigned int physics_convex_hull(unsigned int nverts, Vec2 *verts)
+{
+    cpVect *cpverts;
+    unsigned int i;
+
+    cpverts = malloc(nverts * sizeof(cpVect));
+    for (i = 0; i < nverts; ++i)
+        cpverts[i] = cpv_of_vec2(verts[i]);
+    nverts = cpConvexHull(nverts, cpverts, NULL, NULL, 0);
+    for (i = 0; i < nverts; ++i)
+        verts[i] = vec2_of_cpv(cpverts[i]);
+    free(cpverts);
+    return nverts;
+}
+
+void physics_shape_set_surface_velocity(Entity ent,
+                                        unsigned int i,
+                                        Vec2 v)
+{
+    PhysicsInfo *info;
+    ShapeInfo *shapeInfo;
+    info = entitypool_get(pool, ent);
+    assert(info);
+    assert(i < array_length(info->shapes));
+    shapeInfo = array_get(info->shapes, i);
+    cpShapeSetSurfaceVelocity(shapeInfo->shape, cpv_of_vec2(v));
+}
+Vec2 physics_shape_get_surface_velocity(Entity ent,
+                                        unsigned int i)
+{
+    PhysicsInfo *info;
+    ShapeInfo *shapeInfo;
+    info = entitypool_get(pool, ent);
+    assert(info);
+    assert(i < array_length(info->shapes));
+    shapeInfo = array_get(info->shapes, i);
+    return vec2_of_cpv(cpShapeGetSurfaceVelocity(shapeInfo->shape));
 }
 
 /* --- dynamics ------------------------------------------------------------ */
@@ -533,6 +557,8 @@ void physics_init()
     /* init cpSpace */
     space = cpSpaceNew();
     cpSpaceSetGravity(space, cpv(0, -9.8));
+    cpSpaceSetCollisionSlop(space, 0.002);
+    cpSpaceSetCollisionBias(space, 0.5);
 
     /* init draw stuff */
     program = gfx_create_program(data_path("phypoly.vert"),
