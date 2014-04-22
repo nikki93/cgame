@@ -166,7 +166,10 @@ void camera_save_all(Serializer *s)
 {
     Camera *camera;
 
-    entity_save(&curr_camera, s);
+    if (entity_get_save_filter(curr_camera))
+        entity_save(&curr_camera, s);
+    else
+        entity_save(&entity_nil, s);
     mat3_save(&inverse_view_matrix, s);
 
     entitypool_save_foreach(camera, pool, s)
