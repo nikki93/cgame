@@ -152,12 +152,51 @@ cs.edit.gui_root = cg.add {
 
 --- edit camera ----------------------------------------------------------------
 
-camera = cg.add {
+cs.edit.camera = cg.add {
     group = { groups = 'builtin' },
     edit = { editable = false },
     camera = { viewport_height = 18, current = false },
 }
-cs.camera.set_edit_camera(camera)
+cs.camera.set_edit_camera(cs.edit.camera)
+
+-- drag
+
+local camera_drag_mouse_prev
+function cs.edit.camera_drag_start()
+    camera_drag_mouse_prev = cs.input.get_mouse_pos_unit()
+    cs.edit_camera_drag.enabled = true
+    camera_dragging = true
+end
+function cs.edit.camera_drag_end()
+    cs.edit_camera_drag.enabled = false
+end
+
+cs.edit_camera_drag = { enabled = false }
+function cs.edit_camera_drag.update_all()
+    if not cs.edit.get_enabled() then
+        cs.edit_camera_drag.enabled = false
+        return
+    end
+
+    local m = cs.input.get_mouse_pos_unit()
+
+    -- find screen mouse motion in world coordinates, move opposite way
+    local campos = cs.transform.local_to_world(cs.edit.camera, cg.vec2_zero)
+    local mp = cs.camera.unit_to_world(camera_drag_mouse_prev) - campos
+    local mc = cs.camera.unit_to_world(m) - campos
+    cs.transform.translate(cs.edit.camera, mp - mc)
+    camera_drag_mouse_prev = m
+end
+
+-- zoom
+function cs.edit.camera_zoom_in()
+    local h = cs.camera.get_viewport_height(cs.edit.camera)
+    cs.camera.set_viewport_height(cs.edit.camera, h * 0.8)
+end
+function cs.edit.camera_zoom_out()
+    local h = cs.camera.get_viewport_height(cs.edit.camera)
+    cs.camera.set_viewport_height(cs.edit.camera, h / 0.8)
+end
 
 
 --- other files ----------------------------------------------------------------

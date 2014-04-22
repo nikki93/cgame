@@ -1,13 +1,22 @@
 -- normal mode
 cs.edit.modes.normal['S-;'] = cs.edit.command_start
 cs.edit.modes.normal['u'] = cs.edit.undo
+
 cs.edit.modes.normal['a'] = cs.edit.select_clear
 cs.edit.modes.normal['<mouse_1>'] = cs.edit.select_click_single
-cs.edit.modes.normal['S-<mouse_1>'] = cs.edit.select_click_multi
 cs.edit.modes.normal['C-<mouse_1>'] = cs.edit.select_click_multi
+
 cs.edit.modes.normal['x'] = cs.edit.destroy
 cs.edit.modes.normal['S-x'] = cs.edit.destroy_rec
 cs.edit.modes.normal['S-d'] = cs.edit.duplicate
+
+cs.edit.modes.normal['S-<mouse_1>'] = cs.edit.camera_drag_start
+cs.edit.modes.normal['^S-<mouse_1>'] = cs.edit.camera_drag_end
+cs.edit.modes.normal['<mouse_3>'] = cs.edit.camera_drag_start
+cs.edit.modes.normal['^<mouse_3>'] = cs.edit.camera_drag_end
+cs.edit.modes.normal['-'] = cs.edit.camera_zoom_out
+cs.edit.modes.normal['='] = cs.edit.camera_zoom_in
+
 cs.edit.modes.normal['g'] = cs.edit.grab_start
 cs.edit.modes.normal['r'] = cs.edit.rotate_start
 cs.edit.modes.normal['b'] = cs.edit.boxsel_start
