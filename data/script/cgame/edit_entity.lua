@@ -1,3 +1,5 @@
+local ffi = require 'ffi'
+
 function cs.edit.destroy_rec()
     for ent, _ in pairs(cs.edit.select) do
         cs.transform.destroy_rec(ent)
