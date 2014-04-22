@@ -83,14 +83,26 @@ SCRIPT(physics,
        EXPORT void physics_set_freeze_rotation(Entity ent, bool freeze);
        EXPORT bool physics_get_freeze_rotation(Entity ent);
 
-       EXPORT void physics_set_position(Entity ent, Vec2 vel);
-       EXPORT Vec2 physics_get_position(Entity ent);
        EXPORT void physics_set_velocity(Entity ent, Vec2 vel);
        EXPORT Vec2 physics_get_velocity(Entity ent);
+       EXPORT void physics_set_force(Entity ent, Vec2 force);
+       EXPORT Vec2 physics_get_force(Entity ent);
+
+       EXPORT void physics_set_angular_velocity(Entity ent, Scalar ang_vel);
+       EXPORT Scalar physics_get_angular_velocity(Entity ent);
+       EXPORT void physics_set_torque(Entity ent, Scalar torque);
+       EXPORT Scalar physics_get_torque(Entity ent);
+
+       EXPORT void physics_set_velocity_limit(Entity ent, Scalar lim);
+       EXPORT Scalar physics_get_velocity_limit(Entity ent);
+       EXPORT void physics_set_angular_velocity_limit(Entity ent, Scalar lim);
+       EXPORT Scalar physics_get_angular_velocity_limit(Entity ent);
 
        EXPORT void physics_reset_forces(Entity ent);
        EXPORT void physics_apply_force(Entity ent, Vec2 force);
        EXPORT void physics_apply_force_at(Entity ent, Vec2 force, Vec2 at);
+       EXPORT void physics_apply_impulse(Entity ent, Vec2 impulse);
+       EXPORT void physics_apply_impulse_at(Entity ent, Vec2 impulse, Vec2 at);
 
 
        /* nearest query */

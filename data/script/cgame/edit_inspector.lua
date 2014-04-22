@@ -593,9 +593,13 @@ cs.meta.props['sprite'] = {
 cs.meta.props['physics'] = {
     { name = 'type' },
     { name = 'mass' },
-    --{ name = 'position' },
-    { name = 'velocity' },
     { name = 'freeze_rotation' },
+    { name = 'velocity' },
+    { name = 'force' },
+    { name = 'angular_velocity' },
+    { name = 'torque' },
+    { name = 'velocity_limit' },
+    { name = 'angular_velocity_limit' },
 }
 
 cs.meta.props['gui'] = {

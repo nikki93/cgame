@@ -396,20 +396,6 @@ bool physics_get_freeze_rotation(Entity ent)
     return cpBodyGetMoment(info->body) == SCALAR_INFINITY;
 }
 
-void physics_set_position(Entity ent, Vec2 pos)
-{
-    PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
-    cpBodySetPos(info->body, cpv_of_vec2(pos));
-    cpSpaceReindexShapesForBody(space, info->body);
-}
-Vec2 physics_get_position(Entity ent)
-{
-    PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
-    return vec2_of_cpv(cpBodyGetPos(info->body));
-}
-
 void physics_set_velocity(Entity ent, Vec2 vel)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
@@ -422,7 +408,68 @@ Vec2 physics_get_velocity(Entity ent)
     assert(info);
     return vec2_of_cpv(cpBodyGetVel(info->body));
 }
+void physics_set_force(Entity ent, Vec2 force)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    cpBodySetForce(info->body, cpv_of_vec2(force));
+}
+Vec2 physics_get_force(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    return vec2_of_cpv(cpBodyGetForce(info->body));
+}
 
+void physics_set_angular_velocity(Entity ent, Scalar ang_vel)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    cpBodySetAngVel(info->body, ang_vel);
+}
+Scalar physics_get_angular_velocity(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    return cpBodyGetAngVel(info->body);
+}
+void physics_set_torque(Entity ent, Scalar torque)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    cpBodySetTorque(info->body, torque);
+}
+Scalar physics_get_torque(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    return cpBodyGetTorque(info->body);
+}
+
+void physics_set_velocity_limit(Entity ent, Scalar lim)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    cpBodySetVelLimit(info->body, lim);
+}
+Scalar physics_get_velocity_limit(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    return cpBodyGetVelLimit(info->body);
+}
+void physics_set_angular_velocity_limit(Entity ent, Scalar lim)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    cpBodySetAngVelLimit(info->body, lim);
+}
+Scalar physics_get_angular_velocity_limit(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    return cpBodyGetAngVelLimit(info->body);
+}
 
 void physics_reset_forces(Entity ent)
 {
@@ -439,6 +486,16 @@ void physics_apply_force_at(Entity ent, Vec2 force, Vec2 at)
     PhysicsInfo *info = entitypool_get(pool, ent);
     assert(info);
     cpBodyApplyForce(info->body, cpv_of_vec2(force), cpv_of_vec2(at));
+}
+void physics_apply_impulse(Entity ent, Vec2 impulse)
+{
+    physics_apply_impulse_at(ent, impulse, vec2_zero);
+}
+void physics_apply_impulse_at(Entity ent, Vec2 impulse, Vec2 at)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+    cpBodyApplyImpulse(info->body, cpv_of_vec2(impulse), cpv_of_vec2(at));
 }
 
 NearestResult physics_nearest(Vec2 point, Scalar max_dist)
