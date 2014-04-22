@@ -112,7 +112,7 @@ cs.edit_inspector.custom['physics'] = {
             else
                 local t = cs.physics.shape_get_type(inspector.ent, i - 1)
                 cs.gui_window.set_title(shape.window,
-                                        enum_tostring('PhysicsShape', t))
+                                        cg.enum_tostring('PhysicsShape', t))
                 if t == cg.PS_POLYGON then
                     local n = cs.physics.poly_get_num_verts(inspector.ent,
                                                             i - 1)

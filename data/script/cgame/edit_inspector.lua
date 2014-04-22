@@ -128,24 +128,6 @@ property_types['Scalar'] = {
     end,
 }
 
--- find values for a given enum type -- memoized
-local enum_values_map = {}
-local function enum_values(typename)
-    if enum_values_map[typename] then return enum_values_map[typename] end
-    enum_values_map[typename] = {}
-    for v in refct.typeof(typename):values() do
-        enum_values_map[typename][v.name] = true
-    end
-    return enum_values_map[typename]
-end
-local function enum_tostring(typename, val)
-    -- no nice inverse mapping exists...
-    for name in pairs(enum_values(typename)) do
-        if ffi.new(typename, name) == val then return name end
-    end
-    return nil
-end
-
 property_types['enum'] = {
     add = function (inspector, prop)
         property_create_container(inspector, prop)
@@ -164,7 +146,7 @@ property_types['enum'] = {
                 cg.set(inspector.sys, prop.name, inspector.ent, s)
                 cs.edit.undo_save()
             end
-            local values = enum_values(prop.enumtype)
+            local values = cg.enum_values(prop.enumtype)
             local comp = cs.edit.command_completion_substr(values)
             cs.edit.command_start('set ' .. prop.name .. ': ', setter,
                                   comp, true)
@@ -172,7 +154,7 @@ property_types['enum'] = {
 
         local s = cg.get(inspector.sys, prop.name, inspector.ent)
         cs.gui_text.set_str(prop.text,
-                            enum_tostring(prop.enumtype, s))
+                            cg.enum_tostring(prop.enumtype, s))
     end,
 }
 

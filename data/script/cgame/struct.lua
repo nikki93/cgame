@@ -1,8 +1,29 @@
 local ffi = require 'ffi'
+local refct = require 'reflect'
+
+--- utilities ------------------------------------------------------------------
 
 -- dereference a cdata from a pointer
 function cgame.__deref_cdata(ct, p)
     return ffi.cast(ct, p)[0]
+end
+
+-- enum --> values and enum --> string functions
+local enum_values_map = {}
+function cgame.enum_values(typename)
+    if enum_values_map[typename] then return enum_values_map[typename] end
+    enum_values_map[typename] = {}
+    for v in refct.typeof(typename):values() do
+        enum_values_map[typename][v.name] = true
+    end
+    return enum_values_map[typename]
+end
+function cgame.enum_tostring(typename, val)
+    -- no nice inverse mapping exists...
+    for name in pairs(cgame.enum_values(typename)) do
+        if ffi.new(typename, name) == val then return name end
+    end
+    return nil
 end
 
 -- return serialized string for cdata, func must be of form
