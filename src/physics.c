@@ -557,8 +557,6 @@ void physics_init()
     /* init cpSpace */
     space = cpSpaceNew();
     cpSpaceSetGravity(space, cpv(0, -9.8));
-    cpSpaceSetCollisionSlop(space, 0.002);
-    cpSpaceSetCollisionBias(space, 0.5);
 
     /* init draw stuff */
     program = gfx_create_program(data_path("phypoly.vert"),
