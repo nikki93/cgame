@@ -88,7 +88,7 @@ void physics_set_simulation_frequency(Scalar freq)
 }
 Scalar physics_get_simulation_frequency()
 {
-    return period;
+    return 1.0 / period;
 }
 
 void physics_add(Entity ent)
