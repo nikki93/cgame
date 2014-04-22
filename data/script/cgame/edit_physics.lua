@@ -1,5 +1,26 @@
 --- custom inspector -----------------------------------------------------------
 
+local function add_box(ent, bbox)
+    local mindim = math.min(bbox.max.x - bbox.min.x, bbox.max.y - bbox.min.y)
+
+    local function add(s)
+        -- reduce bbox size to account for radius, then add
+        local r = math.min(tonumber(s) or 0, 0.5 * mindim)
+        local bbox2 = cg.bbox(cg.vec2(bbox.min.x + r, bbox.min.y + r),
+                              cg.vec2(bbox.max.x - r, bbox.max.y - r))
+        cs.physics.shape_add_box(ent, bbox2, r)
+    end
+
+    cs.edit.command_start('rounding radius: ', add)
+end
+
+local function add_poly(ent)
+    local function add(s)
+        cs.edit.phypoly_start(ent, tonumber(s) or 0)
+    end
+    cs.edit.command_start('rounding radius: ', add)
+end
+
 cs.edit_inspector.custom['physics'] = {
     add = function (inspector)
         -- add buttons
@@ -52,13 +73,13 @@ cs.edit_inspector.custom['physics'] = {
             else
                 bbox = cg.bbox(cg.vec2(-1, -1), cg.vec2(1, 1))
             end
-            cs.physics.shape_add_box(inspector.ent, bbox)
+            add_box(inspector.ent, bbox)
             cs.edit.undo_save()
         end
 
         -- 'add poly' button
         if cs.gui.event_mouse_down(inspector.add_poly) == cg.MC_LEFT then
-            cs.edit.phypoly_start(inspector.ent)
+            add_poly(inspector.ent)
         end
 
         local nshapes = cs.physics.get_num_shapes(inspector.ent)
@@ -126,7 +147,7 @@ cs.edit_inspector.custom['physics'] = {
 
 --- phypoly mode (draw polygon shape) ------------------------------------------
 
-local phypoly_ent, phypoly_verts
+local phypoly_ent, phypoly_verts, phypoly_radius
 
 cs.edit.modes.phypoly = {}
 
@@ -136,14 +157,17 @@ local function phypoly_update_verts()
     end
 end
 
-function cs.edit.phypoly_start(ent)
+function cs.edit.phypoly_start(ent, radius)
     cs.edit.set_mode('phypoly')
     phypoly_ent = ent
     phypoly_verts = {}
+    phypoly_radius = radius or 0
 end
 function cs.edit.phypoly_end()
+    if #phypoly_verts < 3 then return end
+
     cs.edit.set_mode('normal')
-    cs.physics.shape_add_poly(phypoly_ent, phypoly_verts)
+    cs.physics.shape_add_poly(phypoly_ent, phypoly_verts, phypoly_radius)
     phypoly_ent = nil
     phypoly_verts = nil
     cs.edit.undo_save()
