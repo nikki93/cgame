@@ -753,7 +753,32 @@ void physics_post_update_all()
 
 static void _circle_draw(PhysicsInfo *info, ShapeInfo *shapeInfo)
 {
-    /* TODO: fill this in */
+    static Vec2 verts[] = {
+        {  1.0,  0.0 }, {  0.7071,  0.7071 },
+        {  0.0,  1.0 }, { -0.7071,  0.7071 },
+        { -1.0,  0.0 }, { -0.7071, -0.7071 },
+        {  0.0, -1.0 }, {  0.7071, -0.7071 },
+    }, offset;
+    const unsigned int nverts = sizeof(verts) / sizeof(verts[0]);
+    Scalar r;
+    Mat3 wmat;
+
+    wmat = transform_get_world_matrix(info->pool_elem.ent);
+    offset = vec2_of_cpv(cpCircleShapeGetOffset(shapeInfo->shape));
+    r = cpCircleShapeGetRadius(shapeInfo->shape);
+
+    glUniformMatrix3fv(glGetUniformLocation(program, "wmat"),
+                       1, GL_FALSE, (const GLfloat *) &wmat);
+    glUniform2fv(glGetUniformLocation(program, "offset"),
+                 1, (const GLfloat *) &offset);
+    glUniform1f(glGetUniformLocation(program, "radius"), r);
+
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, nverts * sizeof(Vec2),
+                 verts, GL_STREAM_DRAW);
+    glDrawArrays(GL_LINE_LOOP, 0, nverts);
+    glDrawArrays(GL_POINTS, 0, nverts);
 }
 
 static void _polygon_draw(PhysicsInfo *info, ShapeInfo *shapeInfo)
@@ -766,18 +791,24 @@ static void _polygon_draw(PhysicsInfo *info, ShapeInfo *shapeInfo)
     glUniformMatrix3fv(glGetUniformLocation(program, "wmat"),
                        1, GL_FALSE, (const GLfloat *) &wmat);
 
-    glBindVertexArray(vao);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glUniformMatrix3fv(glGetUniformLocation(program, "wmat"),
+                       1, GL_FALSE, (const GLfloat *) &wmat);
+    glUniform2f(glGetUniformLocation(program, "offset"), 0, 0);
+    glUniform1f(glGetUniformLocation(program, "radius"), 1);
 
     /* copy as Vec2 array */
     nverts = cpPolyShapeGetNumVerts(shapeInfo->shape);
     verts = malloc(nverts * sizeof(Vec2));
     for (i = 0; i < nverts; ++i)
         verts[i] = vec2_of_cpv(cpPolyShapeGetVert(shapeInfo->shape, i));
+
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, nverts * sizeof(Vec2),
                  verts, GL_STREAM_DRAW);
     glDrawArrays(GL_LINE_LOOP, 0, nverts);
     glDrawArrays(GL_POINTS, 0, nverts);
+
     free(verts);
 }
 
