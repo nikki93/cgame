@@ -486,6 +486,7 @@ end
 
 local function update_inspector(inspector)
     cs.transform.set_parent(inspector.window, cs.edit_inspector.gui_root)
+    cs.transform.set_parent(cs.edit_inspector.gui_root, cs.edit.gui_root)
 
     cs.gui_window.set_highlight(inspector.window,
                                 cs.edit.select[inspector.ent])
