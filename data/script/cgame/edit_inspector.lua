@@ -470,6 +470,9 @@ local function set_group_rec(ent)
 end
 
 local function remove_destroyed()
+    -- if closed a window, save an undo point
+    local some_closed = false
+
     for ent, insps in pairs(inspectors) do
         if cs.entity.destroyed(ent) then
             cs.edit_inspector.remove(ent)
@@ -477,11 +480,13 @@ local function remove_destroyed()
             for _, inspector in pairs(insps) do
                 if cs.entity.destroyed(inspector.window) then
                     cs.edit_inspector.remove(inspector.ent, inspector.sys)
-                    return
+                    some_closed = true
                 end
             end
         end
     end
+
+    if some_closed then cs.edit.undo_save() end
 end
 
 local function update_inspector(inspector)
