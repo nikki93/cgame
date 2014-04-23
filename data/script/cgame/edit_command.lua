@@ -36,7 +36,7 @@ local function run_string(s)
 end
 
 function cs.edit.command_start(prompt, callback, completion_func,
-                               always_complete)
+                               always_complete, initial)
     cs.edit.set_mode('command')
 
     -- default is eval script
@@ -44,6 +44,10 @@ function cs.edit.command_start(prompt, callback, completion_func,
     command_end_callback = callback or run_string
     command_completion_func = completion_func or function () return {} end
     command_always_complete = always_complete and true or false
+
+    initial = initial or ''
+    cs.gui_text.set_str(cs.edit.command_text, initial or '')
+    cs.gui_textedit.set_cursor(cs.edit.command_text, #initial)
 
     cs.gui_text.set_str(cs.edit.command_text_colon, prompt)
     command_update_completions()
@@ -78,7 +82,6 @@ function cs.edit.modes.command.enter()
 
     cs.gui.set_visible(cs.edit.command_bar, true)
 
-    cs.gui_text.set_str(cs.edit.command_text, '')
     cs.gui_text.set_str(cs.edit.command_completions_text, '')
 end
 function cs.edit.modes.command.exit()
@@ -154,4 +157,33 @@ function cs.edit.command_inspect()
 
     cs.edit.command_start(add and 'new entity: ' or 'edit system: ',
                           system, comp, true)
+end
+
+local last_save = cgame_usr_path
+function cs.edit.command_save()
+    local function save(s)
+        print("saving group 'default' to file '" .. s .. "'")
+        cs.group.set_save_filter('default', true)
+        local s = cs.serializer.open_file(s)
+        cs.system.save_all(s)
+        cs.serializer.close(s)
+        last_save = s
+    end
+
+    cs.edit.command_start('save to file: ', save, nil, false, last_save)
+end
+
+local last_load = cgame_usr_path
+function cs.edit.command_load()
+    local function load(s)
+        cs.group.destroy('default')
+
+        print("loading from file '" .. s .. "'")
+        local d = cs.deserializer.open_file(s)
+        cs.system.load_all(d)
+        cs.deserializer.close(d)
+        last_load = s
+    end
+
+    cs.edit.command_start('load from file: ', load, nil, false, last_load)
 end

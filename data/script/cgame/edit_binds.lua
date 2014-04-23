@@ -2,6 +2,9 @@
 cs.edit.modes.normal['S-;'] = cs.edit.command_start
 cs.edit.modes.normal['u'] = cs.edit.undo
 
+cs.edit.modes.normal['s'] = cs.edit.command_save
+cs.edit.modes.normal['l'] = cs.edit.command_load
+
 cs.edit.modes.normal['a'] = cs.edit.select_clear
 cs.edit.modes.normal['<mouse_1>'] = cs.edit.select_click_single
 cs.edit.modes.normal['C-<mouse_1>'] = cs.edit.select_click_multi
