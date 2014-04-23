@@ -33,7 +33,7 @@ if cg.args[1] then
 else
     -- no startup script
 
-    -- default camera
-    cg.add { camera = { viewport_height = 18 } }
+    -- default camera with 32px per unit
+    cg.add { camera = { viewport_height = 18.75 } }
 end
 
