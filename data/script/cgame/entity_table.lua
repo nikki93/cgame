@@ -103,13 +103,19 @@ function cgame.entity_table_merge(t, d)
     end
 end
 
+function cgame.entity_table_remove_destroyed(t, f)
+    for e in pairs(t) do
+        if cs.entity.destroyed(e) then f(e) end
+    end
+end
+
 -- use to easily define properties with default values stored per-entity in a 
 -- cgame.entity_table
 -- sys is the system, tbl is the table properties are stored in, name is the
 -- name of the property and default is the default value if unset
 function cgame.simple_prop(sys, tbl, name, default)
     -- update defaults
-    if default then
+    if default ~= nil then
         local defaults = rawget(tbl, 'defaults')
         if not defaults then
             defaults = {}
@@ -128,5 +134,11 @@ function cgame.simple_prop(sys, tbl, name, default)
     sys['get_' .. name] = function (ent)
         local t = tbl[ent]
         if t then return t[name] end
+    end
+end
+
+function cgame.simple_props(sys, tbl, props)
+    for name, default in pairs(props) do
+        cgame.simple_prop(sys, tbl, name, default)
     end
 end
