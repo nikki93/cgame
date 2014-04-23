@@ -5,6 +5,15 @@
 -- hashed right
 --
 
+local function bind_defaults(t, v)
+    if type(v) == 'table' then
+        local defaults = rawget(t, 'defaults')
+        if defaults then
+            setmetatable(v, { __index = defaults })
+        end
+    end
+end
+
 local entity_table_mt = {
     __newindex = function (t, k, v)
         local map = rawget(t, 'map')
@@ -21,6 +30,7 @@ local entity_table_mt = {
             map = {}
             rawset(t, 'map', map)
         end
+        bind_defaults(t, v)
         map[k.id] = { ['k'] = cg.Entity(k), ['v'] = v }
     end,
 
@@ -88,7 +98,35 @@ end
 
 function cgame.entity_table_merge(t, d)
     for _, slot in pairs(rawget(d, 'map') or {}) do
+        bind_defaults(t, slot.v)
         t[slot.k] = slot.v
     end
 end
 
+-- use to easily define properties with default values stored per-entity in a 
+-- cgame.entity_table
+-- sys is the system, tbl is the table properties are stored in, name is the
+-- name of the property and default is the default value if unset
+function cgame.simple_prop(sys, tbl, name, default)
+    -- update defaults
+    if default then
+        local defaults = rawget(tbl, 'defaults')
+        if not defaults then
+            defaults = {}
+            rawset(tbl, 'defaults', defaults)
+        end
+        defaults[name] = default
+    end
+
+    -- setter
+    sys['set_' .. name] = function (ent, val)
+        local t = tbl[ent]
+        if t then t[name] = val end
+    end
+    
+    -- getter
+    sys['get_' .. name] = function (ent)
+        local t = tbl[ent]
+        if t then return t[name] end
+    end
+end
