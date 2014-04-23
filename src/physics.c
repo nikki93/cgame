@@ -35,6 +35,7 @@ struct PhysicsInfo
 
     cpBody *body;
     Array *shapes;
+    Array *collisions;
 };
 
 /* per-shape info for each shape attached to a physics entity */
@@ -118,6 +119,8 @@ void physics_add(Entity ent)
     /* initialize last_pos/last_ang info for kinematic bodies */
     info->last_pos = cpBodyGetPos(info->body);
     info->last_ang = cpBodyGetAngle(info->body);
+
+    info->collisions = NULL;
 }
 
 /* remove chipmunk stuff (doesn't remove from pool) */
@@ -522,6 +525,57 @@ void physics_apply_impulse_at(Entity ent, Vec2 impulse, Vec2 at)
     cpBodyApplyImpulse(info->body, cpv_of_vec2(impulse), cpv_of_vec2(at));
 }
 
+/* --- collisions ---------------------------------------------------------- */
+
+static void _add_collision(cpBody *body, cpArbiter *arbiter, void *collisions)
+{
+    cpBody *ba, *bb;
+    Collision *col;
+
+    /* get in right order */
+    cpArbiterGetBodies(arbiter, &ba, &bb);
+    if (bb == body)
+    {
+        ba = body;
+        bb = ba;
+    }
+
+    /* save collision */
+    col = array_add(collisions);
+    col->a = cpBodyGetUserData(ba);
+    col->b = cpBodyGetUserData(bb);
+    col->first_touch = cpArbiterIsFirstContact(arbiter);
+}
+static void _update_collisions(PhysicsInfo *info)
+{
+    if (info->collisions)
+        return;
+
+    /* gather collisions */
+    info->collisions = array_new(Collision);
+    cpBodyEachArbiter(info->body, _add_collision, info->collisions);
+}
+
+unsigned int physics_get_num_collisions(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+
+    _update_collisions(info);
+    return array_length(info->collisions);
+}
+Collision *physics_get_collisions(Entity ent)
+{
+    PhysicsInfo *info = entitypool_get(pool, ent);
+    assert(info);
+
+    _update_collisions(info);
+    return array_begin(info->collisions);
+}
+
+
+/* --- queries ------------------------------------------------------------- */
+
 NearestResult physics_nearest(Vec2 point, Scalar max_dist)
 {
     cpNearestPointQueryInfo info;
@@ -678,6 +732,21 @@ void physics_update_all()
 
         info->last_dirty_count = transform_get_dirty_count(ent);
     }
+}
+
+void physics_post_update_all()
+{
+    PhysicsInfo *info;
+
+    entitypool_remove_destroyed(pool, physics_remove);
+
+    /* clear collisions */
+    entitypool_foreach(info, pool)
+        if (info->collisions)
+        {
+            array_free(info->collisions);
+            info->collisions = NULL;
+        }
 }
 
 /* --- draw ---------------------------------------------------------------- */

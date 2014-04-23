@@ -1,5 +1,7 @@
 local ffi = require 'ffi'
 
+cgame.Collision = ffi.metatype('Collision', {})
+
 local old_physics_shape_add_box = cg.physics_shape_add_box
 function cg.physics_shape_add_box(ent, b, r)
     r = r or 0
@@ -22,6 +24,17 @@ function cg.physics_convex_hull(verts)
     local lua_arr = {}
     for i = 0, n - 1 do
         table.insert(lua_arr, cg.Vec2(c_arr[i]))
+    end
+    return lua_arr
+end
+
+local old_physics_get_collisions = cg.physics_get_collisions
+function cg.physics_get_collisions(ent)
+    local n = cg.physics_get_num_collisions(ent)
+    local c_arr = old_physics_get_collisions(ent)
+    local lua_arr = {}
+    for i = 0, n - 1 do
+        table.insert(lua_arr, cg.Collision(c_arr[i]))
     end
     return lua_arr
 end

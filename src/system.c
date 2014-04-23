@@ -105,6 +105,7 @@ void system_update_all()
 
     edit_update_all();
     script_post_update_all();
+    physics_post_update_all();
 
     entity_update_all();
 

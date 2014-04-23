@@ -113,6 +113,19 @@ SCRIPT(physics,
        EXPORT void physics_apply_impulse_at(Entity ent, Vec2 impulse, Vec2 at);
 
 
+       /* collisions */
+
+       typedef struct Collision Collision;
+       struct Collision
+       {
+           Entity a, b;
+           bool first_touch;
+       };
+
+       EXPORT unsigned int physics_get_num_collisions(Entity ent);
+       EXPORT Collision *physics_get_collisions(Entity ent);
+
+
        /* nearest query */
 
        typedef struct NearestResult NearestResult;
@@ -132,6 +145,7 @@ SCRIPT(physics,
 void physics_init();
 void physics_deinit();
 void physics_update_all();
+void physics_post_update_all();
 void physics_draw_all();
 void physics_save_all(Serializer *s);
 void physics_load_all(Deserializer *s);
