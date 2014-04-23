@@ -6,25 +6,30 @@ cs.rotator = { auto_saveload = true }
 
 cs.rotator.tbl = cg.entity_table()
 
+-- properties
+
+cg.simple_props(cs.rotator, cs.rotator.tbl, {
+    speed = 2 * math.pi
+})
+
+
+-- add/remove
+
 function cs.rotator.add(ent, speed)
-    cs.rotator.tbl[ent] = speed or 2 * math.pi
+    if cs.rotator.tbl[ent] then return end
+    cs.rotator.tbl[ent] = { speed = speed or 2 * math.pi }
+end
+function cs.rotator.remove(ent)
+    cs.rotator.tbl[ent] = nil
 end
 
-function cs.rotator.set_speed(ent, speed)
-    cs.rotator.tbl[ent] = speed or 2 * math.pi
-end
-function cs.rotator.get_speed(ent)
-    return cs.rotator.tbl[ent]
-end
+
+-- update
 
 function cs.rotator.update_all()
-    for ent, _ in pairs(cs.rotator.tbl) do
-        if cs.entity.destroyed(ent) then
-            cs.rotator.tbl[ent] = nil
-        end
-    end
+    cg.entity_table_remove_destroyed(cs.rotator.tbl, cs.rotator.remove)
 
-    for ent, speed in pairs(cs.rotator.tbl) do
-        cs.transform.rotate(ent, speed * cs.timing.dt)
+    for ent, rotator in pairs(cs.rotator.tbl) do
+        cs.transform.rotate(ent, rotator.speed * cs.timing.dt)
     end
 end
