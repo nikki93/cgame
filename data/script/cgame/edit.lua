@@ -155,7 +155,7 @@ cs.edit.gui_root = cg.add {
 cs.edit.camera = cg.add {
     group = { groups = 'builtin' },
     edit = { editable = false },
-    camera = { viewport_height = 18, current = false },
+    camera = { viewport_height = 25, current = false },
 }
 cs.camera.set_edit_camera(cs.edit.camera)
 
