@@ -61,10 +61,6 @@ function cs.gui_window.add(ent)
     cs.gui_window.tbl[ent] = {}
     local window = cs.gui_window.tbl[ent]
 
-    window.minimized = false
-    window.closeable = true
-    window.highlight = false
-
     -- add ent to gui_rect as container
     cg.add {
         ent = ent,
@@ -140,32 +136,11 @@ function cs.gui_window.remove(ent)
     cs.gui_window.tbl[ent] = nil
 end
 
-function cs.gui_window.set_minimized(ent, minimized)
-    local window = cs.gui_window.tbl[ent]
-    if window then window.minimized = minimized end
-end
-function cs.gui_window.get_minimized(ent)
-    local window = cs.gui_window.tbl[ent]
-    if window then return window.minimized end
-end
-
-function cs.gui_window.set_highlight(ent, highlight)
-    local window = cs.gui_window.tbl[ent]
-    if window then window.highlight = highlight end
-end
-function cs.gui_window.get_highlight(ent)
-    local window = cs.gui_window.tbl[ent]
-    if window then return window.highlight end
-end
-
-function cs.gui_window.set_closeable(ent, closeable)
-    local window = cs.gui_window.tbl[ent]
-    if window then window.closeable = closeable end
-end
-function cs.gui_window.get_closeable(ent)
-    local window = cs.gui_window.tbl[ent]
-    if window then return window.closeable end
-end
+cg.simple_props(cs.gui_window, cs.gui_window.tbl, {
+    minimized = false,
+    closeable = true,
+    highlight = false
+})
 
 function cs.gui_window.set_title(ent, str)
     local window = cs.gui_window.tbl[ent]
@@ -255,7 +230,6 @@ function cs.gui_textbox.add(ent)
     if cs.gui_textbox.tbl[ent] then return end
     cs.gui_textbox.tbl[ent] = {}
     local gui_textbox = cs.gui_textbox.tbl[ent]
-    gui_textbox.click_focus = false
 
     -- add ent to gui_rect as container
     cg.add {
@@ -281,14 +255,9 @@ function cs.gui_textbox.remove(ent)
     cs.gui_textbox.tbl[ent] = nil
 end
 
-function cs.gui_textbox.set_click_focus(ent, click_focus)
-    local window = cs.gui_textbox.tbl[ent]
-    if window then window.click_focus = click_focus end
-end
-function cs.gui_textbox.get_click_focus(ent)
-    local window = cs.gui_textbox.tbl[ent]
-    if window then return window.click_focus end
-end
+cg.simple_props(cs.gui_textbox, cs.gui_textbox.tbl, {
+    click_focus = false
+})
 
 function cs.gui_textbox.get_text(ent)
     local gui_textbox = cs.gui_textbox.tbl[ent]
