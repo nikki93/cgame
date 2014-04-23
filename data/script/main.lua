@@ -17,9 +17,6 @@ function cs.app.key_down(key)
         cs.timing.set_paused(not cs.edit.get_enabled())
         cs.edit.set_enabled(not cs.edit.get_enabled())
 
-    elseif key == cg.KC_P then
-        cs.timing.set_paused(not cs.timing.get_paused())
-
     elseif key == cg.KC_C then
         print("destroying group 'default'")
         cs.group.destroy('default')

@@ -90,10 +90,12 @@ local function create_status_textbox(gap, label)
 end
 
 cs.edit.edit_textbox, cs.edit.edit_text = create_status_textbox(0, 'edit')
-cs.edit.grid_textbox, cs.edit.grid_text = create_status_textbox(0, '')
-cs.gui.set_halign(cs.edit.grid_textbox, cg.GA_MAX)
+cs.edit.grid_textbox, cs.edit.grid_text = create_status_textbox(7, '')
 cs.edit.select_textbox, cs.edit.select_text = create_status_textbox(7, '')
 cs.edit.mode_textbox, cs.edit.mode_text = create_status_textbox(7, '')
+
+cs.edit.play_textbox, cs.edit.play_text = create_status_textbox(0, '\xcb')
+cs.gui.set_halign(cs.edit.play_textbox, cg.GA_MAX)
 
 function cs.edit.set_mode_text(s)
     cs.gui.set_visible(cs.edit.mode_textbox, true)

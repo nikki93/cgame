@@ -93,6 +93,42 @@ function cs.edit.set_mode(mode)
 end
 
 
+--- play/stop/pause ------------------------------------------------------------
+
+cs.edit.stopped = true
+
+-- load this when stopped
+local stop_savepoint = nil
+function cs.edit.stop_save()
+    cs.group.set_save_filter('default edit_inspector', true)
+    local s = cs.serializer.open_str()
+    cs.system.save_all(s)
+    stop_savepoint = ffi.string(cs.serializer.get_str(s))
+    cs.serializer.close(s)
+end
+
+function cs.edit.stop()
+    if not stop_savepoint then return end
+
+    cs.group.destroy('default edit_inspector')
+    local d = cs.deserializer.open_str(stop_savepoint)
+    cs.system.load_all(d)
+    cs.deserializer.close(d)
+
+    cs.timing.set_paused(true)
+    cs.edit.stopped = true
+end
+
+function cs.edit.play()
+    cs.timing.set_paused(false)
+end
+
+function cs.edit.pause_toggle()
+    cs.timing.set_paused(not cs.timing.get_paused())
+    print(cs.timing.get_paused())
+end
+
+
 --- undo -----------------------------------------------------------------------
 
 cs.edit.history = {}
@@ -101,7 +137,11 @@ function cs.edit.undo_save()
     cs.group.set_save_filter('default edit_inspector', true)
     local s = cs.serializer.open_str()
     cs.system.save_all(s)
-    table.insert(cs.edit.history, ffi.string(cs.serializer.get_str(s)))
+
+    local str = ffi.string(cs.serializer.get_str(s))
+    table.insert(cs.edit.history, str)
+    if cs.edit.stopped then stop_savepoint = str end -- update stop if stopped
+
     cs.serializer.close(s)
 end
 
@@ -240,12 +280,20 @@ function cs.edit.update_all()
         if cs.entity.destroyed(ent) then cs.edit.select[ent] = nil end
     end
 
+    if cs.gui.event_mouse_down(cs.edit.play_text) == cg.MC_LEFT then
+        if cs.edit.stopped then cs.edit.play()
+        else cs.edit.stop() end
+    end
+    if not cs.timing.get_paused() then cs.edit.stopped = false end
+
+    -- if not enabled skip -- also handle gui visibility
     if not cs.edit.get_enabled() then
         cs.gui.set_visible(cs.edit.gui_root, false)
         return
     end
-        cs.gui.set_visible(cs.edit.gui_root, true)
+    cs.gui.set_visible(cs.edit.gui_root, true)
 
+    -- forward to mode
     cs.edit.mode_event('update_all')
 
     -- update grid text
@@ -268,6 +316,13 @@ function cs.edit.update_all()
     else
         cs.gui.set_visible(cs.edit.select_textbox, false)
         cs.gui_text.set_str(cs.edit.select_text, '')
+    end
+
+    -- update play/stop text
+    if cs.edit.stopped then
+        cs.gui_text.set_str(cs.edit.play_text, '\x10')
+    else
+        cs.gui_text.set_str(cs.edit.play_text, '\xcb')
     end
 end
 
