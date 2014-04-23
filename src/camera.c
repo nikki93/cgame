@@ -170,6 +170,7 @@ void camera_save_all(Serializer *s)
         entity_save(&curr_camera, s);
     else
         entity_save(&entity_nil, s);
+
     mat3_save(&inverse_view_matrix, s);
 
     entitypool_save_foreach(camera, pool, s)
@@ -177,9 +178,14 @@ void camera_save_all(Serializer *s)
 }
 void camera_load_all(Deserializer *s)
 {
+    Entity curr;
     Camera *camera;
 
-    entity_load(&curr_camera, s);
+    /* only set curr_camera if we got something */
+    entity_load(&curr, s);
+    if (!entity_eq(curr, entity_nil))
+        curr_camera = curr;
+
     mat3_load(&inverse_view_matrix, s);
 
     entitypool_load_foreach(camera, pool, s)
