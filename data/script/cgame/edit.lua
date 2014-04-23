@@ -127,7 +127,6 @@ end
 
 function cs.edit.pause_toggle()
     cs.timing.set_paused(not cs.timing.get_paused())
-    print(cs.timing.get_paused())
 end
 
 
