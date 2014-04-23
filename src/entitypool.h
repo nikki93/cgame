@@ -57,6 +57,7 @@ unsigned int entitypool_size(EntityPool *pool);
 
 void entitypool_clear(EntityPool *pool);
 
+/* compare is a comparator function like for qsort(3) */
 void entitypool_sort(EntityPool *pool,
                      int (*compar)(const void *, const void *));
 
