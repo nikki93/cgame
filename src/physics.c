@@ -916,10 +916,14 @@ static void _polygon_save(PhysicsInfo *info, ShapeInfo *shapeInfo,
                           Serializer *s)
 {
     unsigned int n, i;
+    Scalar r;
     cpVect v;
 
     n = cpPolyShapeGetNumVerts(shapeInfo->shape);
     uint_save(&n, s);
+
+    r = cpPolyShapeGetRadius(shapeInfo->shape);
+    scalar_save(&r, s);
 
     for (i = 0; i < n; ++i)
     {
@@ -931,14 +935,16 @@ static void _polygon_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
                           Deserializer *s)
 {
     unsigned int n, i;
+    Scalar r;
     cpVect *vs;
 
     uint_load(&n, s);
+    scalar_load(&r, s);
 
     vs = malloc(n * sizeof(cpVect));
     for (i = 0; i < n; ++i)
         _cpv_load(&vs[i], s);
-    shapeInfo->shape = cpPolyShapeNew(info->body, n, vs, cpvzero);
+    shapeInfo->shape = cpPolyShapeNew2(info->body, n, vs, cpvzero, r);
     cpSpaceAddShape(space, shapeInfo->shape);
     free(vs);
 }
