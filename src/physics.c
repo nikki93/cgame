@@ -1045,6 +1045,8 @@ void physics_load_all(Deserializer *s)
         _body_load(info, s);
         _shapes_load(info, s);
 
+        info->collisions = NULL;
+
         /* set last_pos/last_ang info for kinematic bodies */
         info->last_pos = cpBodyGetPos(info->body);
         info->last_ang = cpBodyGetAngle(info->body);
