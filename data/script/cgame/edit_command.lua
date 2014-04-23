@@ -167,6 +167,9 @@ function cs.edit.command_save()
         local s = cs.serializer.open_file(s)
         cs.system.save_all(s)
         cs.serializer.close(s)
+
+        cs.edit.stop_save()
+
         last_save = s
     end
 
@@ -182,6 +185,11 @@ function cs.edit.command_load()
         local d = cs.deserializer.open_file(s)
         cs.system.load_all(d)
         cs.deserializer.close(d)
+
+        cs.edit.stop_save()
+        cs.timing.set_paused(true)
+        cs.edit.stopped = true
+
         last_load = s
     end
 

@@ -27,10 +27,18 @@ end
 if cg.args[1] then
     -- startup script specified, run it
     dofile(cg.args[1])
+
+    -- save initial state as edit stop
+    cs.edit.stop_save()
 else
     -- no startup script
 
     -- default camera with 32px per unit
     cg.add { camera = { viewport_height = 18.75 } }
+
+    -- go into edit mode
+    cs.timing.set_paused(true)
+    cs.edit.set_enabled(true)
+    cs.edit.stop_save()
 end
 
