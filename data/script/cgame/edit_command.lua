@@ -161,16 +161,16 @@ end
 
 local last_save = cgame_usr_path
 function cs.edit.command_save()
-    local function save(s)
-        print("saving group 'default' to file '" .. s .. "'")
+    local function save(f)
+        print("saving group 'default' to file '" .. f .. "'")
         cs.group.set_save_filter('default', true)
-        local s = cs.serializer.open_file(s)
+        local s = cs.serializer.open_file(f)
         cs.system.save_all(s)
         cs.serializer.close(s)
 
         cs.edit.stop_save()
 
-        last_save = s
+        last_save = f
     end
 
     cs.edit.command_start('save to file: ', save, nil, false, last_save)
@@ -178,11 +178,11 @@ end
 
 local last_load = cgame_usr_path
 function cs.edit.command_load()
-    local function load(s)
+    local function load(f)
         cs.group.destroy('default')
 
-        print("loading from file '" .. s .. "'")
-        local d = cs.deserializer.open_file(s)
+        print("loading from file '" .. f .. "'")
+        local d = cs.deserializer.open_file(f)
         cs.system.load_all(d)
         cs.deserializer.close(d)
 
@@ -190,7 +190,7 @@ function cs.edit.command_load()
         cs.timing.set_paused(true)
         cs.edit.stopped = true
 
-        last_load = s
+        last_load = f
     end
 
     cs.edit.command_start('load from file: ', load, nil, false, last_load)
