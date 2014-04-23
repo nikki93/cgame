@@ -105,6 +105,8 @@ function cs.edit.stop_save()
     cs.system.save_all(s)
     stop_savepoint = ffi.string(cs.serializer.get_str(s))
     cs.serializer.close(s)
+
+    if cs.timing.get_paused() then cs.edit.stopped = true end
 end
 
 function cs.edit.stop()
