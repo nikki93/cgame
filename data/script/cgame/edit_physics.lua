@@ -1,5 +1,26 @@
 --- custom inspector -----------------------------------------------------------
 
+local function add_circle(ent, bbox)
+    local r = 0.5 * math.min(bbox.max.x - bbox.min.x, bbox.max.y - bbox.min.y)
+    local mid = 0.5 * (bbox.max + bbox.min)
+
+    local function add_r(rs)
+        local function add_midx(midxs)
+            local function add_midy(midys)
+                cs.physics.shape_add_circle(ent, tonumber(rs) or 0,
+                                            cg.vec2(tonumber(midxs) or 0,
+                                                    tonumber(midys) or 0))
+            end
+            cs.edit.command_start('offset y: ', add_midy, nil, false,
+                                  tostring(mid.y))
+        end
+        cs.edit.command_start('offset x: ', add_midx, nil, false,
+                              tostring(mid.x))
+    end
+
+    cs.edit.command_start('radius: ', add_r, nil, false, tostring(r))
+end
+
 local function add_box(ent, bbox)
     local mindim = math.min(bbox.max.x - bbox.min.x, bbox.max.y - bbox.min.y)
 
@@ -59,6 +80,19 @@ cs.edit_inspector.custom['physics'] = {
         cs.gui_text.set_str(cs.gui_textbox.get_text(inspector.add_poly),
                             'add poly')
 
+
+        inspector.add_circle = cg.add {
+            transform = { parent = inspector.add_container },
+            gui = {
+                color = cg.color(0.35, 0.15, 0.30, 1),
+                valign = cg.GA_MAX,
+                halign = cg.GA_TABLE,
+            },
+            gui_textbox = {},
+        }
+        cs.gui_text.set_str(cs.gui_textbox.get_text(inspector.add_circle),
+                            'add circle')
+
         inspector.shapes = {}
     end,
 
@@ -80,6 +114,18 @@ cs.edit_inspector.custom['physics'] = {
         -- 'add poly' button
         if cs.gui.event_mouse_down(inspector.add_poly) == cg.MC_LEFT then
             add_poly(inspector.ent)
+        end
+
+        -- 'add circle' button
+        if cs.gui.event_mouse_down(inspector.add_circle) == cg.MC_LEFT then
+            local bbox
+            if cs.edit.bboxes_has(inspector.ent) then
+                bbox = cs.edit.bboxes_get(inspector.ent)
+            else
+                bbox = cg.bbox(cg.vec2(-1, -1), cg.vec2(1, 1))
+            end
+            add_circle(inspector.ent, bbox)
+            cs.edit.undo_save()
         end
 
         local nshapes = cs.physics.get_num_shapes(inspector.ent)
