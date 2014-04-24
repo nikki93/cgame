@@ -384,6 +384,20 @@ local function add_property(inspector, name)
     property_types[typ].add(inspector, inspector.props[name])
 end
 
+local function add_properties(inspector)
+    if cs.meta.props[inspector.sys] then
+        for _, p in ipairs(cs.meta.props[inspector.sys]) do
+            add_property(inspector, p.name)
+        end
+    elseif rawget(cs, inspector.sys) then
+        for f, _ in pairs(cs[inspector.sys]) do
+            if string.sub(f, 1, 4) == 'set_' then
+                add_property(inspector, string.sub(f, 5, string.len(f)))
+            end
+        end
+    end
+end
+
 local function make_inspector(ent, sys)
     local inspector = {}
 
@@ -401,17 +415,7 @@ local function make_inspector(ent, sys)
     inspector.window_body = cs.gui_window.get_body(inspector.window)
 
     inspector.props = {}
-    if cs.meta.props[inspector.sys] then
-        for _, p in ipairs(cs.meta.props[inspector.sys]) do
-            add_property(inspector, p.name)
-        end
-    elseif rawget(cs, inspector.sys) then
-        for f, _ in pairs(cs[inspector.sys]) do
-            if string.sub(f, 1, 4) == 'set_' then
-                add_property(inspector, string.sub(f, 5, string.len(f)))
-            end
-        end
-    end
+    add_properties(inspector)
 
     custom_event(inspector, 'add')
     return inspector
@@ -497,6 +501,9 @@ local function update_inspector(inspector)
                                 cs.edit.select[inspector.ent])
     local title = inspector.sys
     cs.gui_window.set_title(inspector.window, title)
+
+    -- catch new properties
+    add_properties(inspector)
 
     -- make everything uneditable/unsaveable etc.
     set_group_rec(inspector.window)
