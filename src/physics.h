@@ -77,6 +77,12 @@ SCRIPT(physics,
        EXPORT unsigned int physics_convex_hull(unsigned int nverts,
                                                Vec2 *verts);
 
+       EXPORT void physics_shape_set_sensor(Entity ent,
+                                            unsigned int i,
+                                            bool sensor);
+       EXPORT bool physics_shape_get_sensor(Entity ent,
+                                            unsigned int i);
+
        EXPORT void physics_shape_set_surface_velocity(Entity ent,
                                                       unsigned int i,
                                                       Vec2 v);

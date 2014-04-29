@@ -381,6 +381,30 @@ Vec2 physics_shape_get_surface_velocity(Entity ent,
     return vec2_of_cpv(cpShapeGetSurfaceVelocity(shapeInfo->shape));
 }
 
+void physics_shape_set_sensor(Entity ent,
+                              unsigned int i,
+                              bool sensor)
+{
+    PhysicsInfo *info;
+    ShapeInfo *shapeInfo;
+    info = entitypool_get(pool, ent);
+    assert(info);
+    assert(i < array_length(info->shapes));
+    shapeInfo = array_get(info->shapes, i);
+    cpShapeSetSensor(shapeInfo->shape, sensor);
+}
+bool physics_shape_get_sensor(Entity ent,
+                              unsigned int i)
+{
+    PhysicsInfo *info;
+    ShapeInfo *shapeInfo;
+    info = entitypool_get(pool, ent);
+    assert(info);
+    assert(i < array_length(info->shapes));
+    shapeInfo = array_get(info->shapes, i);
+    return cpShapeGetSensor(shapeInfo->shape);
+}
+
 /* --- dynamics ------------------------------------------------------------ */
 
 void physics_set_mass(Entity ent, Scalar mass)
