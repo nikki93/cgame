@@ -33,12 +33,13 @@ if cg.args[1] then
 else
     -- no startup script
 
-    -- default camera with 32px per unit
-    cg.add { camera = { viewport_height = 18.75 } }
-
     -- go into edit mode
     cs.timing.set_paused(true)
     cs.edit.set_enabled(true)
     cs.edit.stop_save()
 end
 
+if cs.camera.get_current_camera() == cg.entity_nil then
+    -- default camera with 32px per unit
+    cg.add { camera = { viewport_height = 18.75 } }
+end
