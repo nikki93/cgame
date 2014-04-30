@@ -195,3 +195,42 @@ function cs.edit.command_load()
 
     cs.edit.command_start('load from file: ', load, nil, false, last_load)
 end
+
+local last_save_prefab = cgame_usr_path
+function cs.edit.command_save_prefab()
+    if cg.entity_table_empty(cs.edit.select) then return end
+
+    local function save(f)
+        for ent, _ in pairs(cs.edit.select) do
+            if cs.transform.has(ent) then
+                cs.transform.set_save_filter_rec(ent, true)
+            else
+                cs.entity.set_save_filter(ent, true)
+            end
+        end
+
+        cs.prefab.save(f, cs.edit.select_get_first())
+
+        last_save_prefab = f
+    end
+
+    cs.edit.command_start('save prefab: ', save, nil, false, last_save_prefab)
+end
+
+local last_load_prefab = cgame_usr_path
+function cs.edit.command_load_prefab()
+    local function load(f)
+        cs.edit.select_clear()
+        local ent = cs.prefab.load(f)
+        cs.edit.select[ent] = true
+        if cs.transform.has(ent) then
+            -- move to center of view
+            local w = cs.transform.local_to_world(cs.edit.camera, cg.vec2_zero)
+            cs.transform.set_position(ent, w)
+        end
+
+        last_load_prefab = f
+    end
+
+    cs.edit.command_start('load prefab: ', load, nil, false, last_load_prefab)
+end

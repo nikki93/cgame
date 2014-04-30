@@ -4,6 +4,8 @@ cs.edit.modes.normal['u'] = cs.edit.undo
 
 cs.edit.modes.normal['s'] = cs.edit.command_save
 cs.edit.modes.normal['l'] = cs.edit.command_load
+cs.edit.modes.normal['\''] = cs.edit.command_save_prefab
+cs.edit.modes.normal['.'] = cs.edit.command_load_prefab
 
 cs.edit.modes.normal['p'] = cs.edit.pause_toggle
 cs.edit.modes.normal['S-p'] = cs.edit.stop
