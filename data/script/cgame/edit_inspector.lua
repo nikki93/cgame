@@ -392,7 +392,10 @@ local function add_properties(inspector)
     elseif rawget(cs, inspector.sys) then
         for f, _ in pairs(cs[inspector.sys]) do
             if string.sub(f, 1, 4) == 'set_' then
-                add_property(inspector, string.sub(f, 5, string.len(f)))
+                local prop = string.sub(f, 5, string.len(f))
+                if cs[inspector.sys]['get_' .. prop] then
+                    add_property(inspector, prop)
+                end
             end
         end
     end
