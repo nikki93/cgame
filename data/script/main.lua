@@ -28,19 +28,19 @@ if cg.args[1] then
     -- startup script specified, run it
     dofile(cg.args[1])
 
-    -- save initial state as edit stop
-    cs.edit.stop_save()
+    -- no camera? add default
+    if cs.camera.get_current_camera() == cg.entity_nil then
+        cg.add { camera = { viewport_height = 18.75 } }
+    end
 else
     -- no startup script
+
+    -- add default camera
+    cg.add { camera = { viewport_height = 18.75 } }
 
     -- go into edit mode
     cs.timing.set_paused(true)
     cs.edit.set_enabled(true)
-    cs.edit.stop_save()
 end
 
-if cs.camera.get_current_camera() == cg.entity_nil
-or cs.camera.get_current_camera() == cs.edit.camera then
-    -- default camera with 32px per unit
-    cg.add { camera = { viewport_height = 18.75 } }
-end
+cs.edit.stop_save()
