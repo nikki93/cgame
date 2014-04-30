@@ -30,6 +30,28 @@ function cs.edit.command_completion_substr(t)
     end
 end
 
+-- completion function that uses file system search, case
+-- insensitive
+function cs.edit.command_completion_fs(s)
+    local comps = {}
+
+    local dir_path = string.match(s, '(.*/)') or './'
+    local suffix = string.match(s, '.*/(.*)') or s
+    local dir = cs.fs.dir_open(dir_path)
+    while true do
+        local f = cs.fs.dir_next_file(dir)
+        if f == nil then break end
+        f = cg.string(f)
+        if f ~= '.' and f ~= '..'
+        and string.find(string.lower(dir_path .. f), s) then
+            table.insert(comps, dir_path .. f)
+        end
+    end
+    cs.fs.dir_close(dir)
+
+    return comps
+end
+
 local function run_string(s)
     local r, e = loadstring(s)
     if r then r() else error(e) end
@@ -173,7 +195,8 @@ function cs.edit.command_save()
         last_save = f
     end
 
-    cs.edit.command_start('save to file: ', save, nil, false, last_save)
+    cs.edit.command_start('save to file: ', save, cs.edit.command_completion_fs,
+                          false, last_save)
 end
 
 local last_load = cgame_usr_path
@@ -193,7 +216,8 @@ function cs.edit.command_load()
         last_load = f
     end
 
-    cs.edit.command_start('load from file: ', load, nil, false, last_load)
+    cs.edit.command_start('load from file: ', load, cs.edit.command_completion_fs,
+                          true, last_load)
 end
 
 local last_save_prefab = cgame_usr_path
@@ -214,7 +238,8 @@ function cs.edit.command_save_prefab()
         last_save_prefab = f
     end
 
-    cs.edit.command_start('save prefab: ', save, nil, false, last_save_prefab)
+    cs.edit.command_start('save prefab: ', save, cs.edit.command_completion_fs,
+                          false, last_save_prefab)
 end
 
 local last_load_prefab = cgame_usr_path
@@ -232,5 +257,6 @@ function cs.edit.command_load_prefab()
         last_load_prefab = f
     end
 
-    cs.edit.command_start('load prefab: ', load, nil, false, last_load_prefab)
+    cs.edit.command_start('load prefab: ', load, cs.edit.command_completion_fs,
+                          true, last_load_prefab)
 end
