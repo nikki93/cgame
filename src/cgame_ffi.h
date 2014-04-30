@@ -17,6 +17,7 @@
 #include "system.h"
 #include "input.h"
 #include "entity.h"
+#include "prefab.h"
 #include "timing.h"
 #include "transform.h"
 #include "camera.h"
@@ -48,6 +49,7 @@ static const char **cgame_ffi[] =
     &cgame_ffi_system,
     &cgame_ffi_input,
     &cgame_ffi_entity,
+    &cgame_ffi_prefab,
     &cgame_ffi_timing,
     &cgame_ffi_transform,
     &cgame_ffi_camera,

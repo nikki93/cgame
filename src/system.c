@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 #include "entity.h"
+#include "prefab.h"
 #include "script.h"
 #include "timing.h"
 #include "input.h"
@@ -130,6 +131,7 @@ static void _saveload_all(void *s, bool save)
     entity_load_all_begin();
 
     saveload(entity);
+    saveload(prefab);
     saveload(timing);
     saveload(transform);
     saveload(camera);
