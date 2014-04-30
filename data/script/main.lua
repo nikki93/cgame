@@ -39,7 +39,8 @@ else
     cs.edit.stop_save()
 end
 
-if cs.camera.get_current_camera() == cg.entity_nil then
+if cs.camera.get_current_camera() == cg.entity_nil
+or cs.camera.get_current_camera() == cs.edit.camera then
     -- default camera with 32px per unit
     cg.add { camera = { viewport_height = 18.75 } }
 end
