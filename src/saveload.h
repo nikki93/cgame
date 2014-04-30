@@ -8,6 +8,8 @@
 
 SCRIPT(saveload,
 
+       /* remember to *_close(...) when done to free resources! */
+
        typedef struct Serializer Serializer;
        typedef struct Deserializer Deserializer;
 
