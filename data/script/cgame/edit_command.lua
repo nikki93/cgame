@@ -15,6 +15,19 @@ local function command_update_completions()
     command_update_completions_text()
 end
 
+-- whether sub is a subsequence of seq
+local function subseq(seq, sub)
+    local j = 1
+    local lsub = #sub + 1
+    for i = 1, #seq do
+        if string.byte(seq, i) == string.byte(sub, j) then
+            j = j + 1
+            if j == lsub then return true end
+        end
+    end
+    return false
+end
+
 -- returns a completion function that uses substring search
 -- case insensitive
 function cs.edit.command_completion_substr(t)
@@ -22,7 +35,7 @@ function cs.edit.command_completion_substr(t)
         local comps = {}
         s = string.lower(s)
         for k, _ in pairs(t) do
-            if string.find(string.lower(k), s) then
+            if subseq(string.lower(k), s) then
                 table.insert(comps, k)
             end
         end
@@ -34,16 +47,18 @@ end
 -- insensitive
 function cs.edit.command_completion_fs(s)
     local comps = {}
+    s = string.lower(s)
 
     local dir_path = string.match(s, '(.*/)') or './'
     local suffix = string.match(s, '.*/(.*)') or s
     local dir = cs.fs.dir_open(dir_path)
+    if dir == nil then return {} end
     while true do
         local f = cs.fs.dir_next_file(dir)
         if f == nil then break end
         f = cg.string(f)
         if f ~= '.' and f ~= '..'
-        and string.find(string.lower(dir_path .. f), s) then
+        and subseq(string.lower(dir_path .. f), s) then
             table.insert(comps, dir_path .. f)
         end
     end
@@ -181,7 +196,7 @@ function cs.edit.command_inspect()
                           system, comp, true)
 end
 
-local last_save = cgame_usr_path
+local last_save = cgame_usr_path .. 'levels/'
 function cs.edit.command_save()
     local function save(f)
         print("saving group 'default' to file '" .. f .. "'")
@@ -199,7 +214,7 @@ function cs.edit.command_save()
                           false, last_save)
 end
 
-local last_load = cgame_usr_path
+local last_load = cgame_usr_path .. 'levels/'
 function cs.edit.command_load()
     local function load(f)
         cs.group.destroy('default')
@@ -220,7 +235,7 @@ function cs.edit.command_load()
                           true, last_load)
 end
 
-local last_save_prefab = cgame_usr_path
+local last_save_prefab = cgame_usr_path .. 'prefabs/'
 function cs.edit.command_save_prefab()
     if cg.entity_table_empty(cs.edit.select) then return end
 
@@ -242,7 +257,7 @@ function cs.edit.command_save_prefab()
                           false, last_save_prefab)
 end
 
-local last_load_prefab = cgame_usr_path
+local last_load_prefab = cgame_usr_path .. 'prefabs/'
 function cs.edit.command_load_prefab()
     local function load(f)
         cs.edit.select_clear()
