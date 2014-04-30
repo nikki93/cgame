@@ -32,12 +32,12 @@ for i = 0, n_blocks do
 
     cs.sprite.add(block)
     if symrand() < 0 then
-        cs.sprite.set_cell(block, cg.vec2( 0.0, 32.0))
+        cs.sprite.set_texcell(block, cg.vec2( 0.0, 32.0))
         cs.edit.select[block] = true
     else
-        cs.sprite.set_cell(block, cg.vec2(32.0, 32.0))
+        cs.sprite.set_texcell(block, cg.vec2(32.0, 32.0))
     end
-    cs.sprite.set_size(block, cg.vec2(32.0, 32.0))
+    cs.sprite.set_texsize(block, cg.vec2(32.0, 32.0))
 
     cs.oscillator.add(block, { amp = 3 * math.random(), freq = math.random() })
     cs.rotator.add(block, math.random() * math.pi)
@@ -51,8 +51,8 @@ cs.transform.add(player)
 cs.transform.set_position(player, cg.vec2(0.0, 0.0))
 
 cs.sprite.add(player)
-cs.sprite.set_cell(player, cg.vec2( 0.0, 32.0))
-cs.sprite.set_size(player, cg.vec2(32.0, 32.0))
+cs.sprite.set_texcell(player, cg.vec2( 0.0, 32.0))
+cs.sprite.set_texsize(player, cg.vec2(32.0, 32.0))
 
 cs.transform.set_scale(player, cg.vec2(2, 2))
 

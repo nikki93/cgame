@@ -1,4 +1,3 @@
-GRID_SIZE = 32.0 / 3.0
 WIN_WIDTH = 800
 WIN_HEIGHT = 600
 
@@ -22,7 +21,7 @@ local D = 16
 
 floor = cg.add {
     transform = { position = cg.vec2_zero, scale = cg.vec2(32, 32) },
-    sprite = { cell = cg.vec2(0, 0), size = cg.vec2(32, 32) },
+    sprite = { texcell = cg.vec2(0, 0), texsize = cg.vec2(32, 32) },
     physics = { type = cs.PB.KINEMATIC },
     keyboard_controlled = {},
 }
@@ -41,7 +40,7 @@ boxes = {}
 function make_box(pos, vel)
     local box = cg.add {
         transform = { position = pos },
-        sprite = { cell = cg.vec2(32, 32), size = cg.vec2(32, 32) },
+        sprite = { texcell = cg.vec2(32, 32), texsize = cg.vec2(32, 32) },
         physics = { type = cg.PB_DYNAMIC, mass = 5, velocity = vel },
     }
     cs.physics.shape_add_box(box,

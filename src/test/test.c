@@ -33,8 +33,8 @@ void test_c()
                                vec2((rand() % 25) - 12, (rand() % 9) - 4));
 
         sprite_add(block);
-        sprite_set_cell(block, vec2(32.0f, 32.0f));
-        sprite_set_size(block, vec2(32.0f, 32.0f));
+        sprite_set_texcell(block, vec2(32.0f, 32.0f));
+        sprite_set_texsize(block, vec2(32.0f, 32.0f));
     }
 
     /* add player */
@@ -45,8 +45,8 @@ void test_c()
     transform_set_position(player, vec2(0.0f, 0.0f));
 
     sprite_add(player);
-    sprite_set_cell(player, vec2( 0.0f, 32.0f));
-    sprite_set_size(player, vec2(32.0f, 32.0f));
+    sprite_set_texcell(player, vec2( 0.0f, 32.0f));
+    sprite_set_texsize(player, vec2(32.0f, 32.0f));
 
     /* who gets keyboard control? */
     keyboard_controlled_add(camera);

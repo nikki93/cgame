@@ -17,8 +17,8 @@ for i = 0, n_blocks do
     {
         transform = { position = cg.vec2(i - 8, i - 8) },
         sprite = {
-            cell = cg.vec2(i / 2 == math.floor(i / 2) and 0 or 32, 32),
-            size = cg.vec2(32, 32)
+            texcell = cg.vec2(i / 2 == math.floor(i / 2) and 0 or 32, 32),
+            texsize = cg.vec2(32, 32)
         },
     }
 
@@ -35,7 +35,7 @@ player = cg.add
         scale = cg.vec2(2, 2),
         rotation = math.pi / 16,
     },
-    sprite = { cell = cg.vec2(0, 32), size = cg.vec2(32, 32) },
+    sprite = { texcell = cg.vec2(0, 32), texsize = cg.vec2(32, 32) },
 }
 
 rchild = cg.add
@@ -45,7 +45,7 @@ rchild = cg.add
         position = cg.vec2(1, 0),
         scale = cg.vec2(0.5, 0.5),
     },
-    sprite = { cell = cg.vec2(32, 32), size = cg.vec2(32, 32) },
+    sprite = { texcell = cg.vec2(32, 32), texsize = cg.vec2(32, 32) },
 }
 
 lchild = cg.add
@@ -55,7 +55,7 @@ lchild = cg.add
         position = cg.vec2(-1, 0),
         scale = cg.vec2(0.5, 0.5),
     },
-    sprite = { cell = cg.vec2(32, 32), size = cg.vec2(32, 32) },
+    sprite = { texcell = cg.vec2(32, 32), texsize = cg.vec2(32, 32) },
 }
 
 -- who gets keyboard?
