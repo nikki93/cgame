@@ -603,8 +603,8 @@ cs.meta.props['camera'] = {
 }
 
 cs.meta.props['sprite'] = {
-    { name = 'cell' },
-    { name = 'size' },
+    { name = 'texcell' },
+    { name = 'texsize' },
     { name = 'depth' },
 }
 

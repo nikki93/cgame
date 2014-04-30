@@ -20,8 +20,8 @@ struct Sprite
 
     Mat3 wmat; /* world transform matrix to send to shader */
 
-    Vec2 cell;
-    Vec2 size;
+    Vec2 texcell;
+    Vec2 texsize;
 
     int depth;
 };
@@ -40,8 +40,8 @@ void sprite_add(Entity ent)
     transform_add(ent);
 
     sprite = entitypool_add(pool, ent);
-    sprite->cell = vec2(32.0f, 32.0f);
-    sprite->size = vec2(32.0f, 32.0f);
+    sprite->texcell = vec2(32.0f, 32.0f);
+    sprite->texsize = vec2(32.0f, 32.0f);
     sprite->depth = 0;
 }
 void sprite_remove(Entity ent)
@@ -49,29 +49,29 @@ void sprite_remove(Entity ent)
     entitypool_remove(pool, ent);
 }
 
-void sprite_set_cell(Entity ent, Vec2 cell)
+void sprite_set_texcell(Entity ent, Vec2 texcell)
 {
     Sprite *sprite = entitypool_get(pool, ent);
     assert(sprite);
-    sprite->cell = cell;
+    sprite->texcell = texcell;
 }
-Vec2 sprite_get_cell(Entity ent)
+Vec2 sprite_get_texcell(Entity ent)
 {
     Sprite *sprite = entitypool_get(pool, ent);
     assert(sprite);
-    return sprite->cell;
+    return sprite->texcell;
 }
-void sprite_set_size(Entity ent, Vec2 size)
+void sprite_set_texsize(Entity ent, Vec2 texsize)
 {
     Sprite *sprite = entitypool_get(pool, ent);
     assert(sprite);
-    sprite->size = size;
+    sprite->texsize = texsize;
 }
-Vec2 sprite_get_size(Entity ent)
+Vec2 sprite_get_texsize(Entity ent)
 {
     Sprite *sprite = entitypool_get(pool, ent);
     assert(sprite);
-    return sprite->size;
+    return sprite->texsize;
 }
 
 void sprite_set_depth(Entity ent, int depth)
@@ -119,8 +119,8 @@ void sprite_init()
     gfx_bind_vertex_attrib(program, GL_FLOAT, 3, "wmat1", Sprite, wmat.m[0]);
     gfx_bind_vertex_attrib(program, GL_FLOAT, 3, "wmat2", Sprite, wmat.m[1]);
     gfx_bind_vertex_attrib(program, GL_FLOAT, 3, "wmat3", Sprite, wmat.m[2]);
-    gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "cell", Sprite, cell);
-    gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "size", Sprite, size);
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "texcell", Sprite, texcell);
+    gfx_bind_vertex_attrib(program, GL_FLOAT, 2, "texsize", Sprite, texsize);
 }
 
 void sprite_deinit()
@@ -194,8 +194,8 @@ void sprite_save_all(Serializer *s)
     entitypool_save_foreach(sprite, pool, s)
     {
         mat3_save(&sprite->wmat, s);
-        vec2_save(&sprite->cell, s);
-        vec2_save(&sprite->size, s);
+        vec2_save(&sprite->texcell, s);
+        vec2_save(&sprite->texsize, s);
         int_save(&sprite->depth, s);
     }
 }
@@ -206,8 +206,8 @@ void sprite_load_all(Deserializer *s)
     entitypool_load_foreach(sprite, pool, s)
     {
         mat3_load(&sprite->wmat, s);
-        vec2_load(&sprite->cell, s);
-        vec2_load(&sprite->size, s);
+        vec2_load(&sprite->texcell, s);
+        vec2_load(&sprite->texsize, s);
         int_load(&sprite->depth, s);
     }
 }

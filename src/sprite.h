@@ -11,10 +11,13 @@ SCRIPT(sprite,
        EXPORT void sprite_add(Entity ent);
        EXPORT void sprite_remove(Entity ent);
 
-       EXPORT void sprite_set_cell(Entity ent, Vec2 cell);
-       EXPORT Vec2 sprite_get_cell(Entity ent);
-       EXPORT void sprite_set_size(Entity ent, Vec2 size);
-       EXPORT Vec2 sprite_get_size(Entity ent);
+       /* bottom left corner of atlas region in pixels */
+       EXPORT void sprite_set_texcell(Entity ent, Vec2 texcell);
+       EXPORT Vec2 sprite_get_texcell(Entity ent);
+
+       /* size of atlas region in pixels */
+       EXPORT void sprite_set_texsize(Entity ent, Vec2 texsize);
+       EXPORT Vec2 sprite_get_texsize(Entity ent);
 
        /* lower depth drawn on top */
        EXPORT void sprite_set_depth(Entity ent, int depth);
