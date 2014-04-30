@@ -11,6 +11,10 @@ SCRIPT(sprite,
        EXPORT void sprite_add(Entity ent);
        EXPORT void sprite_remove(Entity ent);
 
+       /* size to draw in world units, centered at transform position */
+       EXPORT void sprite_set_size(Entity ent, Vec2 size);
+       EXPORT Vec2 sprite_get_size(Entity ent);
+
        /* bottom left corner of atlas region in pixels */
        EXPORT void sprite_set_texcell(Entity ent, Vec2 texcell);
        EXPORT Vec2 sprite_get_texcell(Entity ent);
