@@ -321,7 +321,7 @@ property_types['Entity'] = {
 
 --- inspector ------------------------------------------------------------------
 
-cs.edit_inspector = {}
+cs.edit_inspector = { inspect = false }
 
 cs.edit_inspector.custom = {} -- custom inspectors -- eg. for physics
 
@@ -456,7 +456,9 @@ function cs.edit_inspector.get_systems()
     -- system must either have property metadata or an 'add(...)' function
     for k, _ in pairs(cs.meta.props) do sys[k] = true end
     for k, _ in pairs(cs) do
-        if cs[k].add then sys[k] = true end
+        if cs[k].inspect ~= false and cs[k].add then
+            sys[k] = true
+        end
     end
     return sys
 end

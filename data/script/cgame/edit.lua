@@ -1,6 +1,6 @@
 local ffi = require 'ffi'
 
-cs.edit = {}
+cs.edit = { inspect = false }
 
 
 --- expose C functions ---------------------------------------------------------
