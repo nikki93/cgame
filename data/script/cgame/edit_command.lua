@@ -253,6 +253,7 @@ function cs.edit.command_load_prefab()
             local w = cs.transform.local_to_world(cs.edit.camera, cg.vec2_zero)
             cs.transform.set_position(ent, w)
         end
+        cs.edit.undo_save()
 
         last_load_prefab = f
     end
