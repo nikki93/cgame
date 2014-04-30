@@ -19,6 +19,7 @@ end
 local function subseq(seq, sub)
     local j = 1
     local lsub = #sub + 1
+    if lsub == 1 then return true end
     for i = 1, #seq do
         if string.byte(seq, i) == string.byte(sub, j) then
             j = j + 1
