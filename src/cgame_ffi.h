@@ -14,6 +14,7 @@
 #include "mat3.h"
 #include "bbox.h"
 #include "color.h"
+#include "fs.h"
 #include "system.h"
 #include "input.h"
 #include "entity.h"
@@ -45,6 +46,7 @@ static const char **cgame_ffi[] =
     &cgame_ffi_mat3,
     &cgame_ffi_bbox,
     &cgame_ffi_color,
+    &cgame_ffi_fs,
     &cgame_ffi_game,
     &cgame_ffi_system,
     &cgame_ffi_input,
