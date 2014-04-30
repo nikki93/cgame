@@ -78,19 +78,7 @@ static void _load(Texture *tex)
     tex->last_modified = st.st_mtime;
 }
 
-void texture_load(const char *filename)
-{
-    Texture *tex;
-
-    tex = array_add(textures);
-    tex->gl_name = 0;
-    tex->filename = malloc(strlen(filename) + 1);
-    strcpy(tex->filename, filename);
-
-    _load(tex);
-}
-
-Texture *_find(const char *filename)
+static Texture *_find(const char *filename)
 {
     Texture *tex;
 
@@ -98,6 +86,21 @@ Texture *_find(const char *filename)
         if (!strcmp(tex->filename, filename))
             return tex;
     return NULL;
+}
+
+void texture_load(const char *filename)
+{
+    Texture *tex;
+
+    if (!(tex = _find(filename)))
+    {
+        tex = array_add(textures);
+        tex->gl_name = 0;
+        tex->filename = malloc(strlen(filename) + 1);
+        strcpy(tex->filename, filename);
+    }
+
+    _load(tex);
 }
 
 void texture_bind(const char *filename)
