@@ -52,6 +52,10 @@ static void _load(Texture *tex)
     struct stat st;
     unsigned char *data;
 
+    /* release old GL texture if exists */
+    if (tex->gl_name != 0)
+        glDeleteTextures(1, &tex->gl_name);
+
     console_printf("texture: loading texture '%s'\n", tex->filename);
 
     /* generate GL texture */
@@ -79,6 +83,7 @@ void texture_load(const char *filename)
     Texture *tex;
 
     tex = array_add(textures);
+    tex->gl_name = 0;
     tex->filename = malloc(strlen(filename) + 1);
     strcpy(tex->filename, filename);
 
