@@ -92,13 +92,13 @@ void texture_load(const char *filename)
 {
     Texture *tex;
 
-    if (!(tex = _find(filename)))
-    {
-        tex = array_add(textures);
-        tex->gl_name = 0;
-        tex->filename = malloc(strlen(filename) + 1);
-        strcpy(tex->filename, filename);
-    }
+    if (_find(filename))
+        return;
+
+    tex = array_add(textures);
+    tex->gl_name = 0;
+    tex->filename = malloc(strlen(filename) + 1);
+    strcpy(tex->filename, filename);
 
     _load(tex);
 }
