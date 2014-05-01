@@ -33,14 +33,30 @@ static EntityPool *pool;
 
 static char *atlas = NULL;
 
+/* GL stuff */
+static GLuint program;
+static GLuint vao;
+static GLuint vbo;
+
 /* ------------------------------------------------------------------------- */
 
+static void _update_atlas()
+{
+    Vec2 atlas_size;
+
+    texture_load(atlas);
+
+    atlas_size = texture_get_size(atlas);
+    glUseProgram(program);
+    glUniform2fv(glGetUniformLocation(program, "atlas_size"), 1,
+                 (const GLfloat *) &atlas_size);
+}
 void sprite_set_atlas(const char *filename)
 {
     free(atlas);
     atlas = malloc(strlen(filename) + 1);
     strcpy(atlas, filename);
-    texture_load(atlas);
+    _update_atlas();
 }
 const char *sprite_get_atlas()
 {
@@ -120,29 +136,18 @@ int sprite_get_depth(Entity ent)
 
 /* ------------------------------------------------------------------------- */
 
-static GLuint program;
-static GLuint vao;
-static GLuint vbo;
-
 void sprite_init()
 {
-    Vec2 atlas_size;
-
-    sprite_set_atlas(data_path("test/atlas.png"));
-
     /* initialize pool */
     pool = entitypool_new(Sprite);
 
-    /* create shader program, load atlas, bind parameters */
+    /* create shader program, load atlas */
     program = gfx_create_program(data_path("sprite.vert"),
                                  data_path("sprite.geom"),
                                  data_path("sprite.frag"));
     glUseProgram(program);
-    texture_load(data_path("test/atlas.png"));
     glUniform1i(glGetUniformLocation(program, "tex0"), 0);
-    atlas_size = texture_get_size(data_path("test/atlas.png"));
-    glUniform2fv(glGetUniformLocation(program, "atlas_size"), 1,
-                 (const GLfloat *) &atlas_size);
+    sprite_set_atlas(data_path("test/atlas.png"));
 
     /* make vao, vbo, bind attributes */
     glGenVertexArrays(1, &vao);
@@ -243,12 +248,10 @@ void sprite_save_all(Serializer *s)
 void sprite_load_all(Deserializer *s)
 {
     Sprite *sprite;
-    char *atlas_save;
 
-    /* load saved atlas */
-    string_load(&atlas_save, s);
-    sprite_set_atlas(atlas_save);
-    free(atlas_save);
+    free(atlas);
+    string_load(&atlas, s);
+    _update_atlas();
 
     entitypool_load_foreach(sprite, pool, s)
     {
