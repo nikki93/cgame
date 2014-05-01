@@ -245,11 +245,33 @@ bool entity_eq(Entity e, Entity f)
 
 void entity_save_all(Serializer *s)
 {
+    DestroyEntry *entry;
     ExistsPoolElem *exists;
+
     entitypool_save_foreach(exists, exists_pool, s);
+
+    array_foreach(entry, destroyed)
+        if (entity_get_save_filter(entry->ent))
+        {
+            loop_continue_save(s);
+            entity_save(&entry->ent, s);
+            uint_save(&entry->pass, s);
+        }
+    loop_end_save(s);
 }
+
 void entity_load_all(Deserializer *s)
 {
+    DestroyEntry *entry;
     ExistsPoolElem *exists;
+
     entitypool_load_foreach(exists, exists_pool, s);
+
+    while (loop_continue_load(s))
+    {
+        entry = array_add(destroyed);
+        entity_load(&entry->ent, s);
+        uint_load(&entry->pass, s);
+        entitymap_set(destroyed_map, entry->ent, true);
+    }
 }
