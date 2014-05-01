@@ -290,6 +290,7 @@ property_types['Entity'] = {
             local sel = cs.edit.select_get_first()
             cg.set(inspector.sys, prop.name, inspector.ent,
                    sel and sel or cg.entity_nil)
+            cs.edit.undo_save()
         end
 
         -- display
