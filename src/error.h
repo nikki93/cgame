@@ -23,7 +23,7 @@ void errorf(const char *fmt, ...);
 
 /* printf-style error formatting for an assertion, also prints condition */
 #define error_assert(cond, ...)                         \
-    error("assertion '" #cond "' failed ... " __VA_ARGS__)
+    ((cond) ? 0: error("assertion '" #cond "' failed ... " __VA_ARGS__))
 
 #endif
     
