@@ -8,6 +8,9 @@
 
 SCRIPT(sprite,
 
+       EXPORT void sprite_set_atlas(const char *filename);
+       EXPORT const char *sprite_get_atlas();
+
        EXPORT void sprite_add(Entity ent);
        EXPORT void sprite_remove(Entity ent);
 

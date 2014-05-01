@@ -1,6 +1,8 @@
 #include "sprite.h"
 
 #include <assert.h>
+#include <string.h>
+#include <stdlib.h>
 #include <GL/glew.h>
 
 #include "entitypool.h"
@@ -29,7 +31,21 @@ struct Sprite
 
 static EntityPool *pool;
 
+static char *atlas = NULL;
+
 /* ------------------------------------------------------------------------- */
+
+void sprite_set_atlas(const char *filename)
+{
+    free(atlas);
+    atlas = malloc(strlen(filename) + 1);
+    strcpy(atlas, filename);
+    texture_load(atlas);
+}
+const char *sprite_get_atlas()
+{
+    return atlas;
+}
 
 void sprite_add(Entity ent)
 {
@@ -112,6 +128,8 @@ void sprite_init()
 {
     Vec2 atlas_size;
 
+    sprite_set_atlas(data_path("test/atlas.png"));
+
     /* initialize pool */
     pool = entitypool_new(Sprite);
 
@@ -148,6 +166,8 @@ void sprite_deinit()
 
     /* deinit pool */
     entitypool_free(pool);
+
+    free(atlas);
 }
 
 void sprite_update_all()
@@ -194,7 +214,7 @@ void sprite_draw_all()
 
     /* bind atlas */
     glActiveTexture(GL_TEXTURE0);
-    texture_bind(data_path("test/atlas.png"));
+    texture_bind(atlas);
 
     /* draw! */
     glBindVertexArray(vao);
@@ -209,6 +229,8 @@ void sprite_save_all(Serializer *s)
 {
     Sprite *sprite;
 
+    string_save((const char **) &atlas, s);
+
     entitypool_save_foreach(sprite, pool, s)
     {
         mat3_save(&sprite->wmat, s);
@@ -221,6 +243,12 @@ void sprite_save_all(Serializer *s)
 void sprite_load_all(Deserializer *s)
 {
     Sprite *sprite;
+    char *atlas_save;
+
+    /* load saved atlas */
+    string_load(&atlas_save, s);
+    sprite_set_atlas(atlas_save);
+    free(atlas_save);
 
     entitypool_load_foreach(sprite, pool, s)
     {
