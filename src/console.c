@@ -58,12 +58,12 @@ Entity console_get_entity()
 void console_set_visible(bool visible)
 {
     if (!entity_eq(text, entity_nil))
-        gui_set_visible(text, visible);
+        gui_set_visible(transform_get_parent(text), visible);
 }
 bool console_get_visible()
 {
     if (!entity_eq(text, entity_nil))
-        return gui_get_visible(text);
+        return gui_get_visible(transform_get_parent(text));
     return false;
 }
 

@@ -1,9 +1,18 @@
--- create console text entity in top-left corner
+-- create console gui in top-left corner
+local console_background = cg.add {
+    group = { groups = 'builtin' },
+    edit = { editable = false },
+    gui_rect = { hfill = true },
+    gui = {
+        color = cg.color(1, 1, 1, 0.5),
+        padding = cg.vec2_zero,
+    },
+}
 local console_text = cg.add {
+    transform = { parent = console_background },
     group = { groups = 'builtin' },
     edit = { editable = false },
     gui = {
-        captures_events = false,
         color = cg.color_black,
         halign = cg.GA_MIN, valign = cg.GA_MAX,
         padding = cg.vec2(1, 1),
