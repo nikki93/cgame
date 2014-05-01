@@ -113,13 +113,18 @@ end
 -- cgame.entity_table
 -- sys is the system, tbl is the table properties are stored in, name is the
 -- name of the property and default is the default value if unset
-function cgame.simple_prop(sys, tbl, name, default)
+function cgame.simple_prop(sys, name, default, tbl)
+    if tbl == nil then tbl = sys.tbl end
+
     -- update defaults
     if default ~= nil then
         local defaults = rawget(tbl, 'defaults')
         if not defaults then
             defaults = {}
             rawset(tbl, 'defaults', defaults)
+            for _, v in pairs(tbl) do
+                bind_defaults(tbl, v)
+            end
         end
         defaults[name] = default
     end
@@ -137,8 +142,8 @@ function cgame.simple_prop(sys, tbl, name, default)
     end
 end
 
-function cgame.simple_props(sys, tbl, props)
+function cgame.simple_props(sys, props, tbl)
     for name, default in pairs(props) do
-        cgame.simple_prop(sys, tbl, name, default)
+        cgame.simple_prop(sys, name, default, tbl)
     end
 end
