@@ -569,7 +569,9 @@ function cs.edit_inspector.save_all()
     data.tbl = cg.entity_table()
     for _, insps in pairs(inspectors) do
         for _, inspector in pairs(insps) do
-            data.tbl[inspector.window] = inspector
+            if cs.entity.get_save_filter(inspector.ent) then
+                data.tbl[inspector.window] = inspector
+            end
         end
     end
 
