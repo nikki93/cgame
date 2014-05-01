@@ -115,3 +115,45 @@ function cgame.remove(sys, ...) cgame.remover(sys)(unpack({...})) end
 
 cs.meta = { receive_events = false }
 cs.meta.props = {}
+
+function cg.simple_sys()
+    local sys = { auto_saveload = true }
+    sys.tbl = cg.entity_table()
+
+    -- add/remove
+    function sys.simple_add(ent)
+        if not sys.tbl[ent] then
+            local entry = { ent = ent }
+            sys.tbl[ent] = entry
+            if sys.create then sys.create(entry) end
+        end
+    end
+    sys.add = sys.simple_add
+    function sys.simple_remove(ent)
+        local entry = sys.tbl[ent]
+        if entry then
+            if sys.destroy then sys.destroy(entry) end
+            sys.tbl[ent] = nil
+        end
+    end
+    sys.remove = sys.simple_remove
+    function sys.simple_has(ent)
+        return sys.tbl[ent] ~= nil
+    end
+    sys.has = sys.simple_has
+
+    -- update
+    function sys.simple_update_all()
+        cg.entity_table_remove_destroyed(sys.tbl, sys.remove)
+        for _, entry in pairs(sys.tbl) do
+            if cs.timing.get_paused() then
+                if sys.paused_update then sys.paused_update(entry) end
+            else
+                if sys.unpaused_update then sys.unpaused_update(entry) end
+            end
+        end
+    end
+    sys.update_all = sys.simple_update_all
+
+    return sys
+end
