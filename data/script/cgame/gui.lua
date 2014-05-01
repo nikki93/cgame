@@ -136,7 +136,7 @@ function cs.gui_window.remove(ent)
     cs.gui_window.tbl[ent] = nil
 end
 
-cg.simple_props(cs.gui_window, cs.gui_window.tbl, {
+cg.simple_props(cs.gui_window, {
     minimized = false,
     closeable = true,
     highlight = false
@@ -255,7 +255,7 @@ function cs.gui_textbox.remove(ent)
     cs.gui_textbox.tbl[ent] = nil
 end
 
-cg.simple_props(cs.gui_textbox, cs.gui_textbox.tbl, {
+cg.simple_props(cs.gui_textbox, {
     click_focus = false
 })
 

@@ -8,7 +8,7 @@ cs.rotator.tbl = cg.entity_table()
 
 -- properties
 
-cg.simple_props(cs.rotator, cs.rotator.tbl, {
+cg.simple_props(cs.rotator, {
     speed = 2 * math.pi
 })
 
