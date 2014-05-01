@@ -48,11 +48,9 @@ void timing_update()
 void timing_save_all(Serializer *s)
 {
     scalar_save(&scale, s);
-    bool_save(&paused, s);
 }
 void timing_load_all(Deserializer *s)
 {
     scalar_load(&scale, s);
-    bool_load(&paused, s);
 }
 
