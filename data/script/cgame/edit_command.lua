@@ -112,6 +112,7 @@ function cs.edit.command_complete()
         local comp = command_completions[1]
         cs.gui_text.set_str(cs.edit.command_text, comp)
         cs.gui_textedit.set_cursor(cs.edit.command_text, #comp)
+        command_update_completions()
     end
 end
 
@@ -236,6 +237,11 @@ function cs.edit.command_load()
                           true, last_load)
 end
 
+function cs.edit.set_default_file(s)
+    last_save = s
+    last_load = s
+end
+
 local last_save_prefab = cgame_usr_path .. 'prefabs/'
 function cs.edit.command_save_prefab()
     if cg.entity_table_empty(cs.edit.select) then return end
@@ -276,4 +282,9 @@ function cs.edit.command_load_prefab()
 
     cs.edit.command_start('load prefab: ', load, cs.edit.command_completion_fs,
                           true, last_load_prefab)
+end
+
+function cs.edit.set_default_prefab_file(s)
+    last_save_prefab = s
+    last_load_prefab = s
 end
