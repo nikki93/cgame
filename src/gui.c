@@ -1334,16 +1334,6 @@ static void _textedit_deinit()
 
 static bool _textedit_set_str(TextEdit *textedit, const char *str)
 {
-    char *endptr;
-
-    /* invalid numerical? */
-    if (textedit->numerical)
-    {
-        strtof(str, &endptr);
-        if (endptr != strchr(str, '\0') && strcmp(str, "-"))
-            return false;
-    }
-
     gui_text_set_str(textedit->pool_elem.ent, str);
     entitymap_set(changed_map, textedit->pool_elem.ent, true);
     return true;
