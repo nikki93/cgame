@@ -99,7 +99,8 @@ cs.edit.stopped = true
 
 -- load this when stopped
 local stop_savepoint = nil
-function cs.edit.stop_save()
+local stop_save_next_frame = false -- whether to save a stop soon
+local function stop_save()
     cs.group.set_save_filter('default edit_inspector', true)
     local s = cs.serializer.open_str()
     cs.system.save_all(s)
@@ -107,6 +108,9 @@ function cs.edit.stop_save()
     cs.serializer.close(s)
 
     if cs.timing.get_paused() then cs.edit.stopped = true end
+end
+function cs.edit.stop_save()
+    stop_save_next_frame = true
 end
 
 function cs.edit.stop()
@@ -334,6 +338,12 @@ function cs.edit.post_update_all()
     for i = 0, cs.edit.bboxes_get_num() - 1 do
         local pair = cs.edit.bboxes_get_nth(i)
         cs.edit.bboxes_set_selected(pair.ent, cs.edit.select[pair.ent] ~= nil)
+    end
+
+    -- save stop?
+    if stop_save_next_frame then
+        stop_save()
+        stop_save_next_frame = false
     end
 end
 
