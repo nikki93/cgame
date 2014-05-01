@@ -387,7 +387,7 @@ void transform_deinit()
 void transform_update_all()
 {
     Transform *transform;
-    static BBox bbox = { { -0.25, -0.25 }, { 0.25, 0.25 } };
+    static BBox bbox = { { 0, 0 }, { 0, 0 } };
 
     entitypool_remove_destroyed(pool, transform_remove);
 

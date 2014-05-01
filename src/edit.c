@@ -156,15 +156,22 @@ static void _bboxes_update_all()
 {
     Entity ent;
     BBoxPoolElem *elem;
+    static BBox defaultbb = { { -0.25, -0.25 }, { 0.25, 0.25 } };
 
     if (!enabled)
         return;
 
-    /* update bbox world matrices */
     entitypool_foreach(elem, bbox_pool)
     {
         ent = elem->pool_elem.ent;
+
+        /* update world matrix */
         elem->wmat = transform_get_world_matrix(ent);
+
+        /* if no bbox, make default */
+        if (elem->bbox.max.x - elem->bbox.min.x <= SCALAR_EPSILON
+            || elem->bbox.max.y - elem->bbox.min.y <= SCALAR_EPSILON)
+            elem->bbox = defaultbb;
     }
 }
 
