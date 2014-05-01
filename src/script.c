@@ -61,6 +61,10 @@ void script_run_file(const char *filename)
 {
     errcheck(luaL_dofile(L, filename));
 }
+void script_error(const char *s)
+{
+    luaL_error(L, s);
+}
 
 /*
  * push an object as cdata, t must be the FFI type specifier as a string -- so

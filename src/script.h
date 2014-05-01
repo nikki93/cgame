@@ -8,6 +8,7 @@
 
 void script_run_string(const char *s);
 void script_run_file(const char *filename);
+void script_error(const char *s); /* error jump, doesn't return */
 
 void script_init();
 void script_deinit();
