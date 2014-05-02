@@ -116,9 +116,6 @@ function cs.enemy_control.unpaused_update(enemy)
 end
 
 
-
-
-
 --- buttons
 
 cs.play_again_button = cg.simple_sys()
