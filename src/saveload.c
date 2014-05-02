@@ -5,7 +5,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <assert.h>
+
+#include "error.h"
 
 enum Type
 {
@@ -147,7 +148,7 @@ Serializer *serializer_open_file(const char *filename)
 }
 const char *serializer_get_str(Serializer *s)
 {
-    assert(s->type == SER_STRING);
+    error_assert(s->type == SER_STRING);
     return s->strbuf.buf;
 }
 void serializer_close(Serializer *s)

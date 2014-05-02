@@ -1,9 +1,9 @@
 #include "transform.h"
 
-#include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 
+#include "error.h"
 #include "entitypool.h"
 #include "array.h"
 #include "saveload.h"
@@ -38,7 +38,7 @@ static void _update_child(Transform *parent, Entity ent)
     Entity *child;
 
     transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     transform->worldmat_cache = mat3_mul(parent->worldmat_cache,
                                          transform->mat_cache);
     if (transform->children)
@@ -95,13 +95,13 @@ static void _detach_all(Transform *t)
 {
     Entity *child;
     Transform *p, *c;
-    assert(t);
+    error_assert(t);
 
     /* our parent */
     if (!entity_eq(t->parent, entity_nil))
     {
         p = entitypool_get(pool, t->parent);
-        assert(p);
+        error_assert(p);
         _detach(p, t);
     }
 
@@ -111,7 +111,7 @@ static void _detach_all(Transform *t)
         array_foreach(child, t->children)
         {
             c = entitypool_get(pool, *child);
-            assert(c);
+            error_assert(c);
             c->parent = entity_nil;
             _modified(c);
         }
@@ -161,7 +161,7 @@ void transform_set_parent(Entity ent, Entity parent)
         return; /* can't be child of self */
 
     t = entitypool_get(pool, ent);
-    assert(t);
+    error_assert(t);
 
     if (entity_eq(t->parent, parent))
         return; /* already set */
@@ -170,7 +170,7 @@ void transform_set_parent(Entity ent, Entity parent)
     if (!entity_eq(t->parent, entity_nil))
     {
         oldp = entitypool_get(pool, t->parent);
-        assert(oldp);
+        error_assert(oldp);
         _detach(oldp, t);
     }
 
@@ -179,7 +179,7 @@ void transform_set_parent(Entity ent, Entity parent)
     if (!entity_eq(parent, entity_nil))
     {
         newp = entitypool_get(pool, parent);
-        assert(newp);
+        error_assert(newp);
         if (!newp->children)
             newp->children = array_new(Entity);
         array_add_val(Entity, newp->children) = ent;
@@ -190,25 +190,25 @@ void transform_set_parent(Entity ent, Entity parent)
 Entity transform_get_parent(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     return transform->parent;
 }
 unsigned int transform_get_num_children(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     return transform->children ? array_length(transform->children) : 0;
 }
 Entity *transform_get_children(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     return transform->children ? array_begin(transform->children) : NULL;
 }
 void transform_detach_all(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     _detach_all(transform);
 }
 void transform_destroy_rec(Entity ent)
@@ -227,20 +227,20 @@ void transform_destroy_rec(Entity ent)
 void transform_set_position(Entity ent, Vec2 pos)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     transform->position = pos;
     _modified(transform);
 }
 Vec2 transform_get_position(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     return transform->position;
 }
 void transform_translate(Entity ent, Vec2 trans)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     transform->position = vec2_add(transform->position, trans);
     _modified(transform);
 }
@@ -248,20 +248,20 @@ void transform_translate(Entity ent, Vec2 trans)
 void transform_set_rotation(Entity ent, Scalar rot)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     transform->rotation = rot;
     _modified(transform);
 }
 Scalar transform_get_rotation(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     return transform->rotation;
 }
 void transform_rotate(Entity ent, Scalar rot)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     transform->rotation += rot;
     _modified(transform);
 }
@@ -269,21 +269,21 @@ void transform_rotate(Entity ent, Scalar rot)
 void transform_set_scale(Entity ent, Vec2 scale)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     transform->scale = scale;
     _modified(transform);
 }
 Vec2 transform_get_scale(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     return transform->scale;
 }
 
 Vec2 transform_get_world_position(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     return mat3_transform(transform->worldmat_cache, vec2_zero);
 }
 
@@ -295,7 +295,7 @@ Mat3 transform_get_world_matrix(Entity ent)
         return mat3_identity();
 
     transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     return transform->worldmat_cache;
 }
 Mat3 transform_get_matrix(Entity ent)
@@ -306,7 +306,7 @@ Mat3 transform_get_matrix(Entity ent)
         return mat3_identity();
 
     transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     return transform->mat_cache;
 }
 
@@ -314,14 +314,14 @@ Mat3 transform_get_matrix(Entity ent)
 Vec2 transform_local_to_world(Entity ent, Vec2 v)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     return mat3_transform(transform->worldmat_cache, v);
 }
 
 unsigned int transform_get_dirty_count(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     return transform->dirty_count;
 }
 
@@ -356,7 +356,7 @@ void transform_set_save_filter_rec(Entity ent, bool filter)
     entity_set_save_filter(ent, filter);
 
     transform = entitypool_get(pool, ent);
-    assert(transform);
+    error_assert(transform);
     if (transform->children)
         array_foreach(child, transform->children)
             transform_set_save_filter_rec(*child, filter);

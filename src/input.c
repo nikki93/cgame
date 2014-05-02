@@ -1,8 +1,8 @@
 #include "input.h"
 
-#include <assert.h>
 #include <ctype.h>
 
+#include "error.h"
 #include "array.h"
 #include "glew_glfw.h"
 #include "game.h"

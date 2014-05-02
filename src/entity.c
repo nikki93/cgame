@@ -1,12 +1,12 @@
 #include "entity.h"
 
-#include <assert.h>
 #include <stdbool.h>
 
 #include "saveload.h"
 #include "entitymap.h"
 #include "array.h"
 #include "entitypool.h"
+#include "error.h"
 
 typedef struct DestroyEntry DestroyEntry;
 struct DestroyEntry
@@ -83,7 +83,7 @@ static Entity _generate_id()
     }
     else
         ent.id = counter++;
-    assert(!entity_eq(ent, entity_nil));
+    error_assert(!entity_eq(ent, entity_nil));
 
     entitypool_add(exists_pool, ent);
     return ent;
@@ -203,8 +203,11 @@ void entity_update_all()
 
 void entity_save(Entity *ent, Serializer *s)
 {
-    if (!entity_eq(*ent, entity_nil))
-        assert("filtered-out entity referenced" && entity_get_save_filter(*ent));
+    if (!entity_eq(*ent, entity_nil) && !entity_get_save_filter(*ent))
+    {
+        error("filtered-out entity referenced in save!");
+        uint_save(&entity_nil.id, s);
+    }
     uint_save(&ent->id, s);
 }
 void entity_load(Entity *ent, Deserializer *s)

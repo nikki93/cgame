@@ -1,11 +1,11 @@
 #include "gui.h"
 
-#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <GL/glew.h>
 
+#include "error.h"
 #include "entitypool.h"
 #include "mat3.h"
 #include "array.h"
@@ -95,89 +95,89 @@ void gui_remove(Entity ent)
 void gui_set_color(Entity ent, Color color)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     gui->color = color;
 }
 Color gui_get_color(Entity ent)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     return gui->color;
 }
 
 void gui_set_visible(Entity ent, bool visible)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     gui->setvisible = visible;
 }
 bool gui_get_visible(Entity ent)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     return gui->visible;
 }
 
 void gui_set_focusable(Entity ent, bool focusable)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     gui->focusable = focusable;
 }
 bool gui_get_focusable(Entity ent)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     return gui->focusable;
 }
 
 void gui_set_captures_events(Entity ent, bool captures_events)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     gui->captures_events = captures_events;
 }
 bool gui_get_captures_events(Entity ent)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     return gui->captures_events;
 }
 
 void gui_set_halign(Entity ent, GuiAlign align)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     gui->halign = align;
 }
 GuiAlign gui_get_halign(Entity ent)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     return gui->halign;
 }
 void gui_set_valign(Entity ent, GuiAlign align)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     gui->valign = align;
 }
 GuiAlign gui_get_valign(Entity ent)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     return gui->valign;
 }
 void gui_set_padding(Entity ent, Vec2 padding)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     gui->padding = padding;
 }
 Vec2 gui_get_padding(Entity ent)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
-    assert(gui);
+    error_assert(gui);
     return gui->padding;
 }
 
@@ -575,63 +575,63 @@ void gui_rect_remove(Entity ent)
 void gui_rect_set_size(Entity ent, Vec2 size)
 {
     Rect *rect = entitypool_get(rect_pool, ent);
-    assert(rect);
+    error_assert(rect);
     rect->size = size;
 }
 Vec2 gui_rect_get_size(Entity ent)
 {
     Rect *rect = entitypool_get(rect_pool, ent);
-    assert(rect);
+    error_assert(rect);
     return rect->size;
 }
 
 void gui_rect_set_hfit(Entity ent, bool fit)
 {
     Rect *rect = entitypool_get(rect_pool, ent);
-    assert(rect);
+    error_assert(rect);
     rect->hfit = fit;
 }
 bool gui_rect_get_hfit(Entity ent)
 {
     Rect *rect = entitypool_get(rect_pool, ent);
-    assert(rect);
+    error_assert(rect);
     return rect->hfit;
 }
 void gui_rect_set_vfit(Entity ent, bool fit)
 {
     Rect *rect = entitypool_get(rect_pool, ent);
-    assert(rect);
+    error_assert(rect);
     rect->vfit = fit;
 }
 bool gui_rect_get_vfit(Entity ent)
 {
     Rect *rect = entitypool_get(rect_pool, ent);
-    assert(rect);
+    error_assert(rect);
     return rect->vfit;
 }
 
 void gui_rect_set_hfill(Entity ent, bool fill)
 {
     Rect *rect = entitypool_get(rect_pool, ent);
-    assert(rect);
+    error_assert(rect);
     rect->hfill = fill;
 }
 bool gui_rect_get_hfill(Entity ent)
 {
     Rect *rect = entitypool_get(rect_pool, ent);
-    assert(rect);
+    error_assert(rect);
     return rect->hfill;
 }
 void gui_rect_set_vfill(Entity ent, bool fill)
 {
     Rect *rect = entitypool_get(rect_pool, ent);
-    assert(rect);
+    error_assert(rect);
     rect->vfill = fill;
 }
 bool gui_rect_get_vfill(Entity ent)
 {
     Rect *rect = entitypool_get(rect_pool, ent);
-    assert(rect);
+    error_assert(rect);
     return rect->vfill;
 }
 
@@ -853,7 +853,7 @@ static void _rect_update_all()
     entitypool_foreach(rect, rect_pool)
     {
         gui = entitypool_get(gui_pool, rect->pool_elem.ent);
-        assert(gui);
+        error_assert(gui);
 
         /* write gui bbox */
         gui->bbox = bbox_bound(vec2_zero, vec2(rect->size.x, -rect->size.y));
@@ -1067,20 +1067,20 @@ void gui_text_remove(Entity ent)
 void gui_text_set_str(Entity ent, const char *str)
 {
     Text *text = entitypool_get(text_pool, ent);
-    assert(text);
+    error_assert(text);
     _text_set_str(text, str);
 }
 const char *gui_text_get_str(Entity ent)
 {
     Text *text = entitypool_get(text_pool, ent);
-    assert(text);
+    error_assert(text);
     return text->str;
 }
 
 static void _text_set_cursor(Entity ent, int cursor)
 {
     Text *text = entitypool_get(text_pool, ent);
-    assert(text);
+    error_assert(text);
     text->cursor = cursor;
     _text_set_str(text, NULL);
 }
@@ -1152,7 +1152,7 @@ static void _text_update_all()
 
         /* gui bbox */
         gui = entitypool_get(gui_pool, text->pool_elem.ent);
-        assert(gui);
+        error_assert(gui);
         gui->bbox = bbox_bound(vec2_zero, vec2_mul(size, text->bounds));
     }
 }
@@ -1185,7 +1185,7 @@ static void _text_draw_all()
     entitypool_foreach(text, text_pool)
     {
         gui = entitypool_get(gui_pool, text->pool_elem.ent);
-        assert(gui);
+        error_assert(gui);
         if (!gui->visible)
             continue;
         glUniform4fv(glGetUniformLocation(text_program, "base_color"), 1,
@@ -1287,13 +1287,13 @@ void gui_textedit_remove(Entity ent)
 void gui_textedit_set_numerical(Entity ent, bool numerical)
 {
     TextEdit *textedit = entitypool_get(textedit_pool, ent);
-    assert(textedit);
+    error_assert(textedit);
     textedit->numerical = numerical;
 }
 bool gui_textedit_get_numerical(Entity ent)
 {
     TextEdit *textedit = entitypool_get(textedit_pool, ent);
-    assert(textedit);
+    error_assert(textedit);
     return textedit->numerical;
 }
 Scalar gui_textedit_get_num(Entity ent)
@@ -1312,14 +1312,14 @@ void gui_textedit_set_cursor(Entity ent, unsigned int cursor)
 {
     TextEdit *textedit = entitypool_get(textedit_pool, ent);
     textedit = entitypool_get(textedit_pool, ent);
-    assert(textedit);
+    error_assert(textedit);
     textedit->cursor = cursor;
     _textedit_fix_cursor(textedit);
 }
 unsigned int gui_textedit_get_cursor(Entity ent)
 {
     TextEdit *textedit = entitypool_get(textedit_pool, ent);
-    assert(textedit);
+    error_assert(textedit);
     return textedit->cursor;
 }
 

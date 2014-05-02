@@ -1,10 +1,10 @@
 #include "sprite.h"
 
-#include <assert.h>
 #include <string.h>
 #include <stdlib.h>
 #include <GL/glew.h>
 
+#include "error.h"
 #include "entitypool.h"
 #include "dirs.h"
 #include "mat3.h"
@@ -86,51 +86,51 @@ void sprite_remove(Entity ent)
 void sprite_set_size(Entity ent, Vec2 size)
 {
     Sprite *sprite = entitypool_get(pool, ent);
-    assert(sprite);
+    error_assert(sprite);
     sprite->size = size;
 }
 Vec2 sprite_get_size(Entity ent)
 {
     Sprite *sprite = entitypool_get(pool, ent);
-    assert(sprite);
+    error_assert(sprite);
     return sprite->size;
 }
 
 void sprite_set_texcell(Entity ent, Vec2 texcell)
 {
     Sprite *sprite = entitypool_get(pool, ent);
-    assert(sprite);
+    error_assert(sprite);
     sprite->texcell = texcell;
 }
 Vec2 sprite_get_texcell(Entity ent)
 {
     Sprite *sprite = entitypool_get(pool, ent);
-    assert(sprite);
+    error_assert(sprite);
     return sprite->texcell;
 }
 void sprite_set_texsize(Entity ent, Vec2 texsize)
 {
     Sprite *sprite = entitypool_get(pool, ent);
-    assert(sprite);
+    error_assert(sprite);
     sprite->texsize = texsize;
 }
 Vec2 sprite_get_texsize(Entity ent)
 {
     Sprite *sprite = entitypool_get(pool, ent);
-    assert(sprite);
+    error_assert(sprite);
     return sprite->texsize;
 }
 
 void sprite_set_depth(Entity ent, int depth)
 {
     Sprite *sprite = entitypool_get(pool, ent);
-    assert(sprite);
+    error_assert(sprite);
     sprite->depth = depth;
 }
 int sprite_get_depth(Entity ent)
 {
     Sprite *sprite = entitypool_get(pool, ent);
-    assert(sprite);
+    error_assert(sprite);
     return sprite->depth;
 }
 

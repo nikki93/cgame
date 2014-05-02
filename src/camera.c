@@ -3,7 +3,7 @@
 #include "saveload.h"
 #include "transform.h"
 #include "game.h"
-#include "assert.h"
+#include "error.h"
 #include "entitypool.h"
 #include "edit.h"
 
@@ -77,13 +77,13 @@ Entity camera_get_current_camera()
 void camera_set_viewport_height(Entity ent, Scalar height)
 {
     Camera *camera = entitypool_get(pool, ent);
-    assert(camera);
+    error_assert(camera);
     camera->viewport_height = height;
 }
 Scalar camera_get_viewport_height(Entity ent)
 {
     Camera *camera = entitypool_get(pool, ent);
-    assert(camera);
+    error_assert(camera);
     return camera->viewport_height;
 }
 

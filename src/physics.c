@@ -1,10 +1,10 @@
 #include "physics.h"
 
-#include <assert.h>
 #include <stdlib.h>
 #define CP_DATA_POINTER_TYPE Entity
 #include <chipmunk.h>
 
+#include "error.h"
 #include "array.h"
 #include "entitypool.h"
 #include "timing.h"
@@ -219,13 +219,13 @@ static void _set_type(PhysicsInfo *info, PhysicsBody type)
 void physics_set_type(Entity ent, PhysicsBody type)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     _set_type(info, type);
 }
 PhysicsBody physics_get_type(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     return info->type;
 }
 
@@ -243,7 +243,7 @@ static unsigned int _shape_add(Entity ent, PhysicsShape type, cpShape *shape)
     ShapeInfo *shapeInfo;
 
     info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
 
     /* init ShapeInfo */
     shapeInfo = array_add(info->shapes);
@@ -301,14 +301,14 @@ unsigned int physics_shape_add_poly(Entity ent,
 unsigned int physics_get_num_shapes(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     return array_length(info->shapes);
 }
 PhysicsShape physics_shape_get_type(Entity ent, unsigned int i)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
-    assert(i < array_length(info->shapes));
+    error_assert(info);
+    error_assert(i < array_length(info->shapes));
     return array_get_val(ShapeInfo, info->shapes, i).type;
 }
 void physics_shape_remove(Entity ent, unsigned int i)
@@ -317,7 +317,7 @@ void physics_shape_remove(Entity ent, unsigned int i)
     ShapeInfo *shapeInfo;
 
     info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
 
     if (i >= array_length(info->shapes))
         return;
@@ -336,8 +336,8 @@ int physics_poly_get_num_verts(Entity ent, unsigned int i)
     PhysicsInfo *info;
     ShapeInfo *shapeInfo;
     info = entitypool_get(pool, ent);
-    assert(info);
-    assert(i < array_length(info->shapes));
+    error_assert(info);
+    error_assert(i < array_length(info->shapes));
     shapeInfo = array_get(info->shapes, i);
     return cpPolyShapeGetNumVerts(shapeInfo->shape);
 }
@@ -364,8 +364,8 @@ void physics_shape_set_surface_velocity(Entity ent,
     PhysicsInfo *info;
     ShapeInfo *shapeInfo;
     info = entitypool_get(pool, ent);
-    assert(info);
-    assert(i < array_length(info->shapes));
+    error_assert(info);
+    error_assert(i < array_length(info->shapes));
     shapeInfo = array_get(info->shapes, i);
     cpShapeSetSurfaceVelocity(shapeInfo->shape, cpv_of_vec2(v));
 }
@@ -375,8 +375,8 @@ Vec2 physics_shape_get_surface_velocity(Entity ent,
     PhysicsInfo *info;
     ShapeInfo *shapeInfo;
     info = entitypool_get(pool, ent);
-    assert(info);
-    assert(i < array_length(info->shapes));
+    error_assert(info);
+    error_assert(i < array_length(info->shapes));
     shapeInfo = array_get(info->shapes, i);
     return vec2_of_cpv(cpShapeGetSurfaceVelocity(shapeInfo->shape));
 }
@@ -388,8 +388,8 @@ void physics_shape_set_sensor(Entity ent,
     PhysicsInfo *info;
     ShapeInfo *shapeInfo;
     info = entitypool_get(pool, ent);
-    assert(info);
-    assert(i < array_length(info->shapes));
+    error_assert(info);
+    error_assert(i < array_length(info->shapes));
     shapeInfo = array_get(info->shapes, i);
     cpShapeSetSensor(shapeInfo->shape, sensor);
 }
@@ -399,8 +399,8 @@ bool physics_shape_get_sensor(Entity ent,
     PhysicsInfo *info;
     ShapeInfo *shapeInfo;
     info = entitypool_get(pool, ent);
-    assert(info);
-    assert(i < array_length(info->shapes));
+    error_assert(info);
+    error_assert(i < array_length(info->shapes));
     shapeInfo = array_get(info->shapes, i);
     return cpShapeGetSensor(shapeInfo->shape);
 }
@@ -410,7 +410,7 @@ bool physics_shape_get_sensor(Entity ent,
 void physics_set_mass(Entity ent, Scalar mass)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
 
     if (mass <= SCALAR_EPSILON)
         return;
@@ -421,14 +421,14 @@ void physics_set_mass(Entity ent, Scalar mass)
 Scalar physics_get_mass(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     return info->mass;
 }
 
 void physics_set_freeze_rotation(Entity ent, bool freeze)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
 
     if (freeze)
     {
@@ -441,7 +441,7 @@ void physics_set_freeze_rotation(Entity ent, bool freeze)
 bool physics_get_freeze_rotation(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
 
     /* TODO: do this a better way? maybe store separate flag */
     return cpBodyGetMoment(info->body) == SCALAR_INFINITY;
@@ -450,82 +450,82 @@ bool physics_get_freeze_rotation(Entity ent)
 void physics_set_velocity(Entity ent, Vec2 vel)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     cpBodySetVel(info->body, cpv_of_vec2(vel));
 }
 Vec2 physics_get_velocity(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     return vec2_of_cpv(cpBodyGetVel(info->body));
 }
 void physics_set_force(Entity ent, Vec2 force)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     cpBodySetForce(info->body, cpv_of_vec2(force));
 }
 Vec2 physics_get_force(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     return vec2_of_cpv(cpBodyGetForce(info->body));
 }
 
 void physics_set_angular_velocity(Entity ent, Scalar ang_vel)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     cpBodySetAngVel(info->body, ang_vel);
 }
 Scalar physics_get_angular_velocity(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     return cpBodyGetAngVel(info->body);
 }
 void physics_set_torque(Entity ent, Scalar torque)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     cpBodySetTorque(info->body, torque);
 }
 Scalar physics_get_torque(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     return cpBodyGetTorque(info->body);
 }
 
 void physics_set_velocity_limit(Entity ent, Scalar lim)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     cpBodySetVelLimit(info->body, lim);
 }
 Scalar physics_get_velocity_limit(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     return cpBodyGetVelLimit(info->body);
 }
 void physics_set_angular_velocity_limit(Entity ent, Scalar lim)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     cpBodySetAngVelLimit(info->body, lim);
 }
 Scalar physics_get_angular_velocity_limit(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     return cpBodyGetAngVelLimit(info->body);
 }
 
 void physics_reset_forces(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     cpBodyResetForces(info->body);
 }
 void physics_apply_force(Entity ent, Vec2 force)
@@ -535,7 +535,7 @@ void physics_apply_force(Entity ent, Vec2 force)
 void physics_apply_force_at(Entity ent, Vec2 force, Vec2 at)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     cpBodyApplyForce(info->body, cpv_of_vec2(force), cpv_of_vec2(at));
 }
 void physics_apply_impulse(Entity ent, Vec2 impulse)
@@ -545,7 +545,7 @@ void physics_apply_impulse(Entity ent, Vec2 impulse)
 void physics_apply_impulse_at(Entity ent, Vec2 impulse, Vec2 at)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
     cpBodyApplyImpulse(info->body, cpv_of_vec2(impulse), cpv_of_vec2(at));
 }
 
@@ -583,7 +583,7 @@ static void _update_collisions(PhysicsInfo *info)
 unsigned int physics_get_num_collisions(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
 
     _update_collisions(info);
     return array_length(info->collisions);
@@ -591,7 +591,7 @@ unsigned int physics_get_num_collisions(Entity ent)
 Collision *physics_get_collisions(Entity ent)
 {
     PhysicsInfo *info = entitypool_get(pool, ent);
-    assert(info);
+    error_assert(info);
 
     _update_collisions(info);
     return array_begin(info->collisions);

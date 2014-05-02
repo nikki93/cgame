@@ -1,6 +1,5 @@
 #include "texture.h"
 
-#include <assert.h>
 #include <string.h>
 #include <stdlib.h>
 #include <GL/glew.h>
@@ -8,6 +7,7 @@
 #include <sys/stat.h>
 #include <time.h>
 
+#include "error.h"
 #include "array.h"
 #include "console.h"
 
@@ -117,7 +117,7 @@ Vec2 texture_get_size(const char *filename)
     Texture *tex;
 
     tex = _find(filename);
-    assert(tex);
+    error_assert(tex);
     return vec2(tex->width, tex->height);
 }
 

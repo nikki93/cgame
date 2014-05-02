@@ -1,8 +1,8 @@
 #include "edit.h"
 
-#include <assert.h>
 #include <stdio.h>
 
+#include "error.h"
 #include "gfx.h"
 #include "entitymap.h"
 #include "entitypool.h"
@@ -82,7 +82,7 @@ bool edit_bboxes_has(Entity ent)
 BBox edit_bboxes_get(Entity ent)
 {
     BBoxPoolElem *elem = entitypool_get(bbox_pool, ent);
-    assert(elem);
+    error_assert(elem);
     return elem->bbox;
 }
 
@@ -95,7 +95,7 @@ EntityBBoxPair edit_bboxes_get_nth(unsigned int n)
     BBoxPoolElem *elem;
     EntityBBoxPair pair;
 
-    assert(n < entitypool_size(bbox_pool));
+    error_assert(n < entitypool_size(bbox_pool));
     elem = entitypool_nth(bbox_pool, n);
 
     pair.ent = elem->pool_elem.ent;
@@ -106,7 +106,7 @@ EntityBBoxPair edit_bboxes_get_nth(unsigned int n)
 void edit_bboxes_set_selected(Entity ent, bool selected)
 {
     BBoxPoolElem *elem = entitypool_get(bbox_pool, ent);
-    assert(elem);
+    error_assert(elem);
     elem->selected = selected;
 }
 
