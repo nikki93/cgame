@@ -6,6 +6,7 @@
 #include "input.h"
 #include "saveload.h"
 #include "transform.h"
+#include "gui.h"
 
 static bool kc_exists = false;
 static Entity kc_entity;
@@ -35,6 +36,11 @@ void keyboard_controlled_update_all()
             keyboard_controlled_remove(kc_entity);
             return;
         }
+
+        if (timing_get_paused())
+            return;
+        if (gui_has_focus())
+            return;
 
         rot = transform_get_rotation(kc_entity);
         sca = transform_get_scale(kc_entity);
