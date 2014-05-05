@@ -52,11 +52,6 @@ SCRIPT(transform,
 
        EXPORT unsigned int transform_get_dirty_count(Entity ent);
 
-       EXPORT void transform_offset_position(Vec2 pos);
-       EXPORT void transform_offset_rotation(Scalar rot);
-       EXPORT void transform_offset_scale(Vec2 scale);
-       EXPORT void transform_offset_reset();
-
        /* set save filter for ent and all its descendants */
        EXPORT void transform_set_save_filter_rec(Entity ent, bool filter);
 

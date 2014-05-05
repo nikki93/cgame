@@ -325,29 +325,6 @@ unsigned int transform_get_dirty_count(Entity ent)
     return transform->dirty_count;
 }
 
-static Vec2 offset_pos;
-static Scalar offset_rot;
-static Vec2 offset_scale;
-
-void transform_offset_position(Vec2 pos)
-{
-    offset_pos = pos;
-}
-void transform_offset_rotation(Scalar rot)
-{
-    offset_rot = rot;
-}
-void transform_offset_scale(Vec2 scale)
-{
-    offset_scale = scale;
-}
-void transform_offset_reset()
-{
-    offset_pos = vec2(0.0f, 0.0f);
-    offset_rot = 0.0f;
-    offset_scale = vec2(1.0f, 1.0f);
-}
-
 void transform_set_save_filter_rec(Entity ent, bool filter)
 {
     Transform *transform;
@@ -376,7 +353,6 @@ static void _free_children_arrays()
 void transform_init()
 {
     pool = entitypool_new(Transform);
-    transform_offset_reset();
 }
 void transform_deinit()
 {
@@ -429,23 +405,6 @@ static void _children_load(Transform *t, Deserializer *s)
         t->children = NULL;
 }
 
-/* apply above offsets to given transform */
-static void _apply_offset(Transform *t)
-{
-    /* scale */
-    t->position = vec2_mul(t->position, offset_scale);
-    t->scale = vec2_mul(t->scale, offset_scale);
-
-    /* rot */
-    t->position = vec2_rot(t->position, offset_rot);
-    t->rotation += offset_rot;
-
-    /* pos */
-    t->position = vec2_add(t->position, offset_pos);
-
-    ++t->dirty_count;
-}
-
 void transform_save_all(Serializer *s)
 {
     Transform *transform;
@@ -485,10 +444,6 @@ void transform_load_all(Deserializer *s)
         mat3_load(&transform->worldmat_cache, s);
 
         uint_load(&transform->dirty_count, s);
-
-        /* if (entity_eq(transform->parent, entity_nil)) */
-        /*     _apply_offset(transform); /\* offset root transforms *\/ */
-        /* _modified(transform); */
     }
 }
 
