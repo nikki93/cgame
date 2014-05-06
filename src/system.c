@@ -144,7 +144,6 @@ static void _saveload_all(void *s, bool save)
 
     saveload(script);
 
-    transform_offset_reset();
     entity_load_all_end();
 }
 
