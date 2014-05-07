@@ -143,8 +143,8 @@ end
 function cs.edit.modes.rotate.update_all()
     local ms = cs.camera.unit_to_world(rotate_mouse_start)
     local mc = cs.camera.unit_to_world(cs.input.get_mouse_pos_unit())
-    local ang = cg.vec2_atan2(ms - rotate_pivot)
-        - cg.vec2_atan2(mc - rotate_pivot)
+    local ang = cg.vec2_atan2(mc - rotate_pivot)
+        - cg.vec2_atan2(ms - rotate_pivot)
 
     for ent, _ in pairs(cs.edit.select) do
         -- set new rotation
