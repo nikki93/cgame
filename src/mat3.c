@@ -26,6 +26,20 @@ Mat3 mat3_scaling_rotation_translation(Vec2 scale, Scalar rot, Vec2 trans)
                 trans.x, trans.y, 1.0f);
 }
 
+Vec2 mat3_get_translation(Mat3 m)
+{
+    return vec2(m.m[2][0], m.m[2][1]);
+}
+Scalar mat3_get_rotation(Mat3 m)
+{
+    return scalar_atan2(m.m[0][1], m.m[0][0]);
+}
+Vec2 mat3_get_scale(Mat3 m)
+{
+    return vec2(scalar_sqrt(m.m[0][0] * m.m[0][0] + m.m[0][1] * m.m[0][1]),
+                scalar_sqrt(m.m[1][0] * m.m[1][0] + m.m[1][1] * m.m[1][1]));
+}
+
 Mat3 mat3_inverse(Mat3 m)
 {
     Scalar det;

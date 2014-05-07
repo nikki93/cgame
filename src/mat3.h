@@ -32,6 +32,10 @@ SCRIPT(mat3,
        EXPORT Mat3 mat3_scaling_rotation_translation(Vec2 scale, Scalar rot,
                                                      Vec2 trans);
 
+       EXPORT Vec2 mat3_get_translation(Mat3 m);
+       EXPORT Scalar mat3_get_rotation(Mat3 m);
+       EXPORT Vec2 mat3_get_scale(Mat3 m);
+
        EXPORT Mat3 mat3_inverse(Mat3 m);
 
        EXPORT Vec2 mat3_transform(Mat3 m, Vec2 v);
