@@ -284,7 +284,19 @@ Vec2 transform_get_world_position(Entity ent)
 {
     Transform *transform = entitypool_get(pool, ent);
     error_assert(transform);
-    return mat3_transform(transform->worldmat_cache, vec2_zero);
+    return mat3_get_translation(transform->worldmat_cache);
+}
+Scalar transform_get_world_rotation(Entity ent)
+{
+    Transform *transform = entitypool_get(pool, ent);
+    error_assert(transform);
+    return mat3_get_rotation(transform->worldmat_cache);
+}
+Vec2 transform_get_world_scale(Entity ent)
+{
+    Transform *transform = entitypool_get(pool, ent);
+    error_assert(transform);
+    return mat3_get_scale(transform->worldmat_cache);
 }
 
 Mat3 transform_get_world_matrix(Entity ent)
