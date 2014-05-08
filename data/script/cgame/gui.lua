@@ -79,8 +79,18 @@ function cs.gui_window.add(ent)
             halign = cg.GA_MIN,
         },
     }
-    window.close_text = cg.add {
+    window.title_buttons_area = cg.add {
         transform = { parent = window.titlebar },
+        gui_rect = {},
+        gui = {
+            padding = cg.vec2_zero,
+            color = cg.color(0.0, 0.0, 0.0, 0.0),
+            valign = cg.GA_MAX,
+            halign = cg.GA_TABLE,
+        },
+    }
+    window.close_text = cg.add {
+        transform = { parent = window.title_buttons_area },
         gui = {
             color = cg.color_white,
             valign = cg.GA_MAX,
@@ -89,7 +99,7 @@ function cs.gui_window.add(ent)
         gui_text = { str = 'x' },
     }
     window.minmax_text = cg.add {
-        transform = { parent = window.titlebar },
+        transform = { parent = window.title_buttons_area },
         gui = {
             color = cg.color_white,
             valign = cg.GA_MAX,
@@ -153,6 +163,10 @@ end
 function cs.gui_window.get_title(ent)
     local window = cs.gui_window.tbl[ent]
     if window then return cs.gui_text.get_str(window.title_text) end
+end
+function cs.gui_window.get_title_buttons_area(ent)
+    local window = cs.gui_window.tbl[ent]
+    if window then return window.title_buttons_area end
 end
 
 function cs.gui_window.get_body(ent)
