@@ -434,7 +434,7 @@ function cs.edit_inspector.add(ent, sys)
     end
 
     if inspectors[ent][sys] then return end
-    adder(ent)
+    if not cs[sys].has(ent) then adder(ent) end
     inspectors[ent][sys] = make_inspector(ent, sys)
 end
 
@@ -488,7 +488,8 @@ local function remove_destroyed()
             cs.edit_inspector.remove(ent)
         else
             for _, inspector in pairs(insps) do
-                if cs.entity.destroyed(inspector.window) then
+                if cs.entity.destroyed(inspector.window)
+                or not cs[inspector.sys].has(ent) then
                     cs.edit_inspector.remove(inspector.ent, inspector.sys)
                     some_closed = true
                 end
