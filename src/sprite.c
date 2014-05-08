@@ -82,6 +82,10 @@ void sprite_remove(Entity ent)
 {
     entitypool_remove(pool, ent);
 }
+bool sprite_has(Entity ent)
+{
+    return entitypool_get(pool, ent) != NULL;
+}
 
 void sprite_set_size(Entity ent, Vec2 size)
 {

@@ -52,6 +52,10 @@ function cs.group.remove(ent, groups)
     end
 end
 
+function cs.group.has(ent)
+    return true
+end
+
 function cs.group.set_groups(ent, groups)
     cs.group.remove(ent)
     cs.group.add(ent, groups)

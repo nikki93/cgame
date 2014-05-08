@@ -136,6 +136,10 @@ function cs.gui_window.remove(ent)
     cs.gui_window.tbl[ent] = nil
 end
 
+function cs.gui_window.has(ent)
+    return cs.gui_window.tbl[ent] ~= nil
+end
+
 cg.simple_props(cs.gui_window, {
     minimized = false,
     closeable = true,
@@ -255,6 +259,10 @@ function cs.gui_textbox.remove(ent)
     cs.gui_textbox.tbl[ent] = nil
 end
 
+function cs.gui_textbox.has(ent)
+    return cs.gui_textbox.tbl[ent] ~= nil
+end
+
 cg.simple_props(cs.gui_textbox, {
     click_focus = false
 })
@@ -300,6 +308,10 @@ end
 function cs.gui_checkbox.remove(ent)
     cs.gui_textbox.remove(ent)
     cs.gui_checkbox.tbl[ent] = nil
+end
+
+function cs.gui_checkbox.has(ent)
+    return cs.gui_checkbox.tbl[ent] ~= nil
 end
 
 local function checkbox_toggle(checkbox)

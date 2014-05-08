@@ -149,7 +149,7 @@ void physics_remove(Entity ent)
 
 bool physics_has(Entity ent)
 {
-    return entitypool_get(pool, ent);
+    return entitypool_get(pool, ent) != NULL;
 }
 
 /* calculate moment for a single shape */

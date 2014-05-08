@@ -16,6 +16,7 @@ SCRIPT(camera,
 
        EXPORT void camera_add(Entity ent);
        EXPORT void camera_remove(Entity ent);
+       EXPORT bool camera_has(Entity ent);
 
        /* set camera to use in edit mode -- not saved/loaded */
        EXPORT void camera_set_edit_camera(Entity ent);

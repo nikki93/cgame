@@ -13,6 +13,7 @@ SCRIPT(sprite,
 
        EXPORT void sprite_add(Entity ent);
        EXPORT void sprite_remove(Entity ent);
+       EXPORT bool sprite_has(Entity ent);
 
        /* size to draw in world units, centered at transform position */
        EXPORT void sprite_set_size(Entity ent, Vec2 size);

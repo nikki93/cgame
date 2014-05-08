@@ -46,6 +46,10 @@ void camera_remove(Entity ent)
     if (entity_eq(curr_camera, ent))
         curr_camera = entity_nil;
 }
+bool camera_has(Entity ent)
+{
+    return entitypool_get(pool, ent) != NULL;
+}
 
 void camera_set_edit_camera(Entity ent)
 {

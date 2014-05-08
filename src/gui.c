@@ -92,6 +92,11 @@ void gui_remove(Entity ent)
     entitypool_remove(gui_pool, ent);
 }
 
+bool gui_has(Entity ent)
+{
+    return entitypool_get(gui_pool, ent) != NULL;
+}
+
 void gui_set_color(Entity ent, Color color)
 {
     Gui *gui = entitypool_get(gui_pool, ent);
@@ -570,6 +575,10 @@ void gui_rect_add(Entity ent)
 void gui_rect_remove(Entity ent)
 {
     entitypool_remove(rect_pool, ent);
+}
+bool gui_rect_has(Entity ent)
+{
+    return entitypool_get(rect_pool, ent) != NULL;
 }
 
 void gui_rect_set_size(Entity ent, Vec2 size)
@@ -1063,6 +1072,10 @@ void gui_text_remove(Entity ent)
     }
     entitypool_remove(text_pool, ent);
 }
+bool gui_text_has(Entity ent)
+{
+    return entitypool_get(text_pool, ent) != NULL;
+}
 
 void gui_text_set_str(Entity ent, const char *str)
 {
@@ -1278,10 +1291,13 @@ void gui_textedit_add(Entity ent)
     textedit->cursor = 0;
     textedit->numerical = false;
 }
-
 void gui_textedit_remove(Entity ent)
 {
     entitypool_remove(textedit_pool, ent);
+}
+bool gui_textedit_has(Entity ent)
+{
+    return entitypool_get(textedit_pool, ent) != NULL;
 }
 
 void gui_textedit_set_numerical(Entity ent, bool numerical)
