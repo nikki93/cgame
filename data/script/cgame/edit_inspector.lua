@@ -418,6 +418,19 @@ local function make_inspector(ent, sys)
     }
     inspector.window_body = cs.gui_window.get_body(inspector.window)
 
+    -- add a 'remove from system' button
+    inspector.remove_text = cg.add {
+        transform = {
+            parent = cs.gui_window.get_title_buttons_area(inspector.window)
+        },
+        gui = {
+            color = cg.color_red,
+            valign = cg.GA_MAX,
+            halign = cg.GA_TABLE,
+        },
+        gui_text = { str = 'r' },
+    }
+
     inspector.props = {}
     add_properties(inspector)
 
@@ -488,7 +501,11 @@ local function remove_destroyed()
             cs.edit_inspector.remove(ent)
         else
             for _, inspector in pairs(insps) do
-                if cs.entity.destroyed(inspector.window)
+                if cs.gui.event_mouse_down(inspector.remove_text) == cg.MC_LEFT then
+                    cs[inspector.sys].remove(inspector.ent)
+                    cs.edit_inspector.remove(inspector.ent, inspector.sys)
+                    some_closed = true
+                elseif cs.entity.destroyed(inspector.window)
                 or not cs[inspector.sys].has(ent) then
                     cs.edit_inspector.remove(inspector.ent, inspector.sys)
                     some_closed = true
