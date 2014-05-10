@@ -17,10 +17,13 @@ cg.simple_props(cs.rotator, {
 
 function cs.rotator.add(ent, speed)
     if cs.rotator.tbl[ent] then return end
-    cs.rotator.tbl[ent] = { speed = speed or 2 * math.pi }
+    cs.rotator.tbl[ent] = { speed = speed or math.pi / 4 }
 end
 function cs.rotator.remove(ent)
     cs.rotator.tbl[ent] = nil
+end
+function cs.rotator.has(ent)
+    return cs.rotator.tbl[ent] ~= nil
 end
 
 
