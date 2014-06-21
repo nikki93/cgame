@@ -323,23 +323,24 @@ void physics_shape_remove(Entity ent, unsigned int i)
         return;
 
     shapeInfo = array_get(info->shapes, i);
-    /* if (array_length(info->shapes) > 1) */
-    /*     cpBodySetMoment(info->body, cpBodyGetMoment(info->body) */
-    /*                     - _moment(info->body, shapeInfo)); */
     _remove_shape(array_get_val(ShapeInfo, info->shapes, i).shape);
     array_quick_remove(info->shapes, i);
-    _recalculate_moment(info); /* TODO: don't recalculate, just adjust? */
+    _recalculate_moment(info);
+}
+
+static ShapeInfo *_get_shape(PhysicsInfo *info, unsigned int i)
+{
+    error_assert(i < array_length(info->shapes),
+                 "shape index should be in range");
+    return array_get(info->shapes, i);
 }
 
 int physics_poly_get_num_verts(Entity ent, unsigned int i)
 {
     PhysicsInfo *info;
-    ShapeInfo *shapeInfo;
     info = entitypool_get(pool, ent);
     error_assert(info);
-    error_assert(i < array_length(info->shapes));
-    shapeInfo = array_get(info->shapes, i);
-    return cpPolyShapeGetNumVerts(shapeInfo->shape);
+    return cpPolyShapeGetNumVerts(_get_shape(info, i)->shape);
 }
 
 unsigned int physics_convex_hull(unsigned int nverts, Vec2 *verts)
@@ -361,48 +362,32 @@ void physics_shape_set_surface_velocity(Entity ent,
                                         unsigned int i,
                                         Vec2 v)
 {
-    PhysicsInfo *info;
-    ShapeInfo *shapeInfo;
-    info = entitypool_get(pool, ent);
+    PhysicsInfo *info = entitypool_get(pool, ent);
     error_assert(info);
-    error_assert(i < array_length(info->shapes));
-    shapeInfo = array_get(info->shapes, i);
-    cpShapeSetSurfaceVelocity(shapeInfo->shape, cpv_of_vec2(v));
+    cpShapeSetSurfaceVelocity(_get_shape(info, i)->shape, cpv_of_vec2(v));
 }
 Vec2 physics_shape_get_surface_velocity(Entity ent,
                                         unsigned int i)
 {
-    PhysicsInfo *info;
-    ShapeInfo *shapeInfo;
-    info = entitypool_get(pool, ent);
+    PhysicsInfo *info = entitypool_get(pool, ent);
     error_assert(info);
-    error_assert(i < array_length(info->shapes));
-    shapeInfo = array_get(info->shapes, i);
-    return vec2_of_cpv(cpShapeGetSurfaceVelocity(shapeInfo->shape));
+    return vec2_of_cpv(cpShapeGetSurfaceVelocity(_get_shape(info, i)->shape));
 }
 
 void physics_shape_set_sensor(Entity ent,
                               unsigned int i,
                               bool sensor)
 {
-    PhysicsInfo *info;
-    ShapeInfo *shapeInfo;
-    info = entitypool_get(pool, ent);
+    PhysicsInfo *info = entitypool_get(pool, ent);
     error_assert(info);
-    error_assert(i < array_length(info->shapes));
-    shapeInfo = array_get(info->shapes, i);
-    cpShapeSetSensor(shapeInfo->shape, sensor);
+    cpShapeSetSensor(_get_shape(info, i)->shape, sensor);
 }
 bool physics_shape_get_sensor(Entity ent,
                               unsigned int i)
 {
-    PhysicsInfo *info;
-    ShapeInfo *shapeInfo;
-    info = entitypool_get(pool, ent);
+    PhysicsInfo *info = entitypool_get(pool, ent);
     error_assert(info);
-    error_assert(i < array_length(info->shapes));
-    shapeInfo = array_get(info->shapes, i);
-    return cpShapeGetSensor(shapeInfo->shape);
+    return cpShapeGetSensor(_get_shape(info, i)->shape);
 }
 
 /* --- dynamics ------------------------------------------------------------ */
