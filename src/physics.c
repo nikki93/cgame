@@ -109,8 +109,8 @@ void physics_add(Entity ent)
     /* create, init cpBody */
     info->body = cpSpaceAddBody(space, cpBodyNew(info->mass, 1.0));
     cpBodySetUserData(info->body, ent); /* for cpBody -> Entity mapping */
-    cpBodySetPos(info->body, cpv_of_vec2(transform_get_world_position(ent)));
-    cpBodySetAngle(info->body, transform_get_world_rotation(ent));
+    cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
+    cpBodySetAngle(info->body, transform_get_rotation(ent));
     info->last_dirty_count = transform_get_dirty_count(ent);
 
     /* initially no shapes */
@@ -701,8 +701,8 @@ static void _update_kinematics()
             ent = info->pool_elem.ent;
 
             /* move to transform */
-            pos = cpv_of_vec2(transform_get_world_position(ent));
-            ang = transform_get_world_rotation(ent);
+            pos = cpv_of_vec2(transform_get_position(ent));
+            ang = transform_get_rotation(ent);
             cpBodySetPos(info->body, pos);
             cpBodySetAngle(info->body, ang);
             info->last_dirty_count = transform_get_dirty_count(ent);
@@ -744,8 +744,8 @@ void physics_update_all()
         {
             cpBodySetVel(info->body, cpvzero);
             cpBodySetAngVel(info->body, 0.0f);
-            cpBodySetPos(info->body, cpv_of_vec2(transform_get_world_position(ent)));
-            cpBodySetAngle(info->body, transform_get_world_rotation(ent));
+            cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
+            cpBodySetAngle(info->body, transform_get_rotation(ent));
             cpSpaceReindexShapesForBody(space, info->body);
         }
         else if (info->type == PB_DYNAMIC)
@@ -936,8 +936,8 @@ static void _body_load(PhysicsInfo *info, Deserializer *s)
     _set_type(info, type);
 
     /* restore position, angle based on transform */
-    cpBodySetPos(info->body, cpv_of_vec2(transform_get_world_position(ent)));
-    cpBodySetAngle(info->body, transform_get_world_rotation(ent));
+    cpBodySetPos(info->body, cpv_of_vec2(transform_get_position(ent)));
+    cpBodySetAngle(info->body, transform_get_rotation(ent));
     info->last_dirty_count = transform_get_dirty_count(info->pool_elem.ent);
 }
 
