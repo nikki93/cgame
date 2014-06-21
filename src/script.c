@@ -38,7 +38,7 @@ static int _traceback(lua_State *L)
     return 1;
 }
 
-int _pcall(lua_State *L, int nargs, int nresults)
+static int _pcall(lua_State *L, int nargs, int nresults)
 {
     int r, errfunc;
 
@@ -55,11 +55,13 @@ int _pcall(lua_State *L, int nargs, int nresults)
 
 void script_run_string(const char *s)
 {
-    errcheck(luaL_dostring(L, s));
+    luaL_loadstring(L, s);
+    errcheck(_pcall(L, 0, LUA_MULTRET));
 }
 void script_run_file(const char *filename)
 {
-    errcheck(luaL_dofile(L, filename));
+    luaL_loadfile(L, filename);
+    errcheck(_pcall(L, 0, LUA_MULTRET));
 }
 void script_error(const char *s)
 {
