@@ -3,7 +3,6 @@
 
 #include <stdbool.h>
 
-#include "glew_glfw.h"
 #include "script_export.h"
 #include "vec2.h"
 
