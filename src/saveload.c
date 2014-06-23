@@ -24,7 +24,8 @@ struct Node
     Node *child;
     Node *sibling;
 
-    Node *iterchild; /* only used when deserializing */
+    Node *iterchild; /* next child to visit when iterating through children,
+                        only really used on deserialization */
 };
 
 /* growable string stream */
@@ -95,6 +96,35 @@ static const char *_read_string(char **dest, const char *s)
     return s;
 }
 
+/* name, data unset */
+static Node *_node_new(Node *parent)
+{
+    Node *n = malloc(sizeof(Node));
+    n->parent = parent;
+    n->child = NULL;
+    n->sibling = n->parent ? n->parent->child : NULL;
+    if (n->parent)
+        n->parent->iterchild = n->parent->child = n;
+    n->iterchild = NULL;
+    return n;
+}
+
+/* free subtree at node */
+static void _node_free(Node *n)
+{
+    Node *m;
+
+    while (n->child)
+    {
+        m = n->child->sibling;
+        _node_free(n->child);
+        n->child = m;
+    }
+
+    free(n->name);
+    free(n->data);
+}
+
 static void _node_write(Node *n, unsigned int d, Stream *sm)
 {
     Node *c;
@@ -119,13 +149,7 @@ static void _node_write(Node *n, unsigned int d, Stream *sm)
 
 static const char *_node_read(Node *parent, const char *s)
 {
-    Node *n;
-
-    n = malloc(sizeof(Node));
-    n->parent = parent;
-    n->child = NULL;
-    n->sibling = n->parent->child;
-    n->parent->child = n;
+    Node *n = _node_new(parent);
 
     /* skip open brace */
     if (*s != '{')
@@ -157,33 +181,14 @@ static const char *_node_read(Node *parent, const char *s)
     return s;
 }
 
-/* free subtree at node */
-static void _node_free(Node *n)
-{
-    Node *m;
-
-    while (n->child)
-    {
-        m = n->child->sibling;
-        _node_free(n->child);
-        n->child = m;
-    }
-
-    free(n->name);
-    free(n->data);
-}
-
 /* ------------------------------------------------------------------------- */
 
 Serializer *serializer_open_str()
 {
     Serializer *s = malloc(sizeof(Serializer));
-    s->curr = malloc(sizeof(Node));
+    s->curr = _node_new(NULL);
     s->curr->name = NULL;
     s->curr->data = NULL;
-    s->curr->parent = NULL;
-    s->curr->child = NULL;
-    s->curr->sibling = NULL;
     s->buf = NULL;
     s->filename = NULL;
     return s;
@@ -254,7 +259,6 @@ Deserializer *deserializer_open_str(const char *str)
 
     s = malloc(sizeof(Deserializer));
     s->curr = fake->child;
-    s->curr->iterchild = s->curr->child;
     return s;
 }
 
@@ -284,7 +288,7 @@ void deserializer_close(Deserializer *s)
     /* might not be at root if bad load */
     while (s->curr->parent)
         s->curr = s->curr->parent;
-    free(s->curr);
+    _node_free(s->curr);
     free(s);
 }
 
@@ -292,7 +296,7 @@ void deserializer_close(Deserializer *s)
 
 void serializer_begin_section(const char *name, Serializer *s)
 {
-    Node *n = malloc(sizeof(Node));
+    Node *n = _node_new(s->curr);
 
     if (name)
     {
@@ -304,11 +308,6 @@ void serializer_begin_section(const char *name, Serializer *s)
 
     n->data = NULL;
 
-    n->parent = s->curr;
-    n->child = NULL;
-    n->sibling = s->curr->child;
-    s->curr->child = n;
-
     s->curr = n;
 }
 
@@ -317,41 +316,37 @@ void serializer_end_section(Serializer *s)
     s->curr = s->curr->parent;
 }
 
-static void _deserializer_enter_node(Deserializer *s, Node *n)
-{
-    s->curr = n;
-    s->curr->iterchild = s->curr->child;
-}
-
 bool deserializer_begin_section(const char *name, Deserializer *s)
 {
     Node *n;
 
-    /* if NULL name pick child iterating cursor */
+    /* if NULL name pick next child to visit */
     if (!name)
     {
         if (s->curr->iterchild)
         {
             n = s->curr->iterchild;
             s->curr->iterchild = s->curr->iterchild->sibling;
-            _deserializer_enter_node(s, n);
+            s->curr = n;
             return true;
         }
         return false;
     }
 
+    /* check next child, quick if sections are in order */
     if (s->curr->iterchild && !strcmp(s->curr->iterchild->name, name))
     {
         n = s->curr->iterchild;
         s->curr->iterchild = s->curr->iterchild->sibling;
-        _deserializer_enter_node(s, n);
+        s->curr = n;
         return true;
     }
 
+    /* just search all children */
     for (n = s->curr->child; n; n = n->sibling)
         if (!strcmp(n->name, name))
         {
-            _deserializer_enter_node(s, n);
+            s->curr = n;
             return true;
         }
     return false;
@@ -364,10 +359,13 @@ void deserialization_end_section(Deserializer *s)
 
 /* ------------------------------------------------------------------------- */
 
+/* assumes only one write per section, use multiple sections for more */
 static void _serializer_printf(Serializer *s, const char *fmt, ...)
 {
     va_list ap1, ap2;
     unsigned int n;
+
+    error_assert(!s->curr->data, "section shouldn't already have data");
 
     va_start(ap1, fmt);
     va_copy(ap2, ap1);
@@ -386,6 +384,7 @@ void string_save(const char **c, const char *n, Serializer *s)
 {
     serializer_section(n, s)
     {
+        error_assert(!s->curr->data, "section shouldn't already have data");
         s->curr->data = malloc(strlen(*c) + 1);
         strcpy(s->curr->data, *c);
     }
@@ -444,9 +443,7 @@ int main()
             }
         }
 
-        serializer_section("transform", s)
-        {
-        }
+        serializer_section("transform", s);
     }
     serializer_close(s);
 
@@ -469,14 +466,12 @@ int main()
             free(c);
 
             deserializer_section("stuff", d)
-            {
                 deserializer_section_loop(d)
                 {
                     string_load(&c, "name", "noname", d);
                     printf("        name: %s\n", c);
                     free(c);
                 }
-            }
         }
         else
         {
@@ -484,9 +479,7 @@ int main()
         }
 
         deserializer_section("transform", d)
-        {
             printf("%s\n", d->curr->name);
-        }
     }
 
     /* serializer_close(s); */
