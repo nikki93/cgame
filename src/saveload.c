@@ -207,7 +207,8 @@ const char *serializer_get_str(Serializer *s)
 {
     Stream sm[1];
 
-    error_assert(!s->curr->parent, "must be at root section");
+    error_assert(!s->curr->parent, "must be at root section -- can't break out"
+                 " of serializer_enter_section(...) blocks");
 
     sm->buf = NULL;
     sm->pos = 0;
