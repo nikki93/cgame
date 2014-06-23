@@ -5,373 +5,494 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 
-#include "error.h"
+#include "array.h"
 
-enum Type
+/* #include "error.h" XXX: fixme */
+#define error_assert(...)
+#define error(...) do { printf(__VA_ARGS__); puts(""); abort(); } while (0)
+
+/* node in a tree of sections */
+typedef struct Node Node;
+struct Node
 {
-    SER_STRING,
-    SER_FILE
+    char *name;
+    char *data;
+
+    Node *parent;
+    Node *child;
+    Node *sibling;
+
+    Node *iterchild; /* only used when deserializing */
+};
+
+/* growable string stream */
+typedef struct Stream Stream;
+struct Stream
+{
+    char *buf;
+    size_t pos;
 };
 
 struct Serializer
 {
-    int type;
-
-    union
-    {
-        FILE *file;
-        struct
-        {
-            char *buf;
-            size_t pos;
-        } strbuf;
-    };
+    Node *curr;
+    char *filename; /* string target if NULL */
+    char *buf; /* result of last serializer_get_str(...) call */
 };
 
 struct Deserializer
 {
-    int type;
-
-    union
-    {
-        FILE *file;
-        const char *ptr;
-    };
+    Node *curr;
 };
 
-static void _serializer_printf(Serializer *s, const char *fmt, ...)
+/* ------------------------------------------------------------------------- */
+
+static void _stream_printf(Stream *sm, const char *fmt, ...)
 {
     va_list ap1, ap2;
     size_t new_pos;
 
     va_start(ap1, fmt);
+    va_copy(ap2, ap1);
 
-    switch (s->type)
-    {
-        case SER_STRING:
-            va_copy(ap2, ap1);
+    new_pos = sm->pos + vsnprintf(NULL, 0, fmt, ap2);
+    va_end(ap2);
 
-            new_pos = s->strbuf.pos + vsnprintf(NULL, 0, fmt, ap1);
-            s->strbuf.buf = realloc(s->strbuf.buf, new_pos + 1);
-            vsprintf(s->strbuf.buf + s->strbuf.pos, fmt, ap2);
-            s->strbuf.pos = new_pos;
-
-            va_end(ap2);
-            break;
-
-        case SER_FILE:
-            vfprintf(s->file, fmt, ap1);
-            break;
-    }
-
+    sm->buf = realloc(sm->buf, new_pos + 1);
+    vsprintf(sm->buf + sm->pos, fmt, ap1);
+    sm->pos = new_pos;
     va_end(ap1);
 }
 
-/*
- * scanf is tricky because we need to move forward by number of
- * scanned characters for string stream deserializer -- *n will store
- * number of characters read, needs to also be put at end of
- * parameter list (see _deserializer_scanf(...) macro)
- */
-static void _deserializer_scanf_(Deserializer *s, const char *fmt, int *n, ...)
+static void _write_string(const char *s, unsigned int d, Stream *sm)
 {
-    va_list ap;
-    char *newfmt;
+    if (s)
+        _stream_printf(sm, "%*s%d %s", d, "", (int) strlen(s), s);
+    else
+        _stream_printf(sm, "%*s-1", d, "");
+}
 
+static const char *_read_string(char **dest, const char *s)
+{
+    int l, r;
 
-    va_start(ap, n);
+    if (sscanf(s, "%d %n", &l, &r) != 1)
+        error("corrupt save");
+    s += r;
 
-    switch (s->type)
+    if (l >= 0)
     {
-        case SER_STRING:
-            /* add %n at end of fmt to write number of characters to *n */
-            newfmt = malloc(strlen(fmt) + strlen("%n") + 1);
-            strcpy(newfmt, fmt);
-            strcat(newfmt, "%n");
+        *dest = malloc(l + 1);
+        strncpy(*dest, s, l);
+        (*dest)[l] = '\0';
+        s += l;
+    }
+    else
+        *dest = NULL;
 
-            vsscanf(s->ptr, newfmt, ap);
-            s->ptr += *n;
+    return s;
+}
 
-            free(newfmt);
+static void _node_write(Node *n, unsigned int d, Stream *sm)
+{
+    Node *c;
+
+    /* compress leaves to one line */
+
+    _stream_printf(sm, "%*s{", d, "");
+    if (n->child)
+        _stream_printf(sm, "\n");
+
+    _write_string(n->name, n->child ? d + 4 : 1, sm);
+    _stream_printf(sm, " ", d);
+    _write_string(n->data, 0, sm);
+    if (n->child)
+        _stream_printf(sm, "\n");
+
+    for (c = n->child; c; c = c->sibling)
+        _node_write(c, d + 4, sm);
+
+    _stream_printf(sm, "%*s}\n", n->child ? d : 1, "");
+}
+
+static const char *_node_read(Node *parent, const char *s)
+{
+    Node *n;
+
+    n = malloc(sizeof(Node));
+    n->parent = parent;
+    n->child = NULL;
+    n->sibling = n->parent->child;
+    n->parent->child = n;
+
+    /* skip open brace */
+    if (*s != '{')
+        error("corrupt save");
+    while (isspace(*++s));
+
+    /* name, data */
+    s = _read_string(&n->name, s);
+    s = _read_string(&n->data, s);
+
+    /* children */
+    for (;;)
+    {
+        /* end? */
+        while (isspace(*s))
+            ++s;
+        if (*s == '}')
+        {
+            ++s;
             break;
+        }
 
-        case SER_FILE:
-            vfscanf(s->file, fmt, ap);
-            break;
+        if (*s == '{')
+            s = _node_read(n, s);
+        else
+            error("corrupt save");
     }
 
-    va_end(ap);
+    return s;
 }
-#define _deserializer_scanf(s, fmt, ...)                                \
-    do                                                                  \
-    {                                                                   \
-        int n_read__;                                                   \
-        _deserializer_scanf_(s, fmt, &n_read__, ##__VA_ARGS__, &n_read__); \
-    } while (0)
 
-/* return next character in stream but don't move ahead */
-static char _deserializer_peek(Deserializer *s)
+/* free subtree at node */
+static void _node_free(Node *n)
 {
-    int c;
+    Node *m;
 
-    switch (s->type)
+    while (n->child)
     {
-        case SER_STRING:
-            c = *s->ptr;
-            break;
-
-        case SER_FILE:
-            c = fgetc(s->file);
-            ungetc(c, s->file);
-            break;
+        m = n->child->sibling;
+        _node_free(n->child);
+        n->child = m;
     }
 
-    return c;
+    free(n->name);
+    free(n->data);
 }
+
+/* ------------------------------------------------------------------------- */
 
 Serializer *serializer_open_str()
 {
     Serializer *s = malloc(sizeof(Serializer));
-    s->type = SER_STRING;
-    s->strbuf.pos = 0;
-    s->strbuf.buf = malloc(1);
-    s->strbuf.buf[s->strbuf.pos] = '\0'; /* empty to begin */
+    s->curr = malloc(sizeof(Node));
+    s->curr->name = NULL;
+    s->curr->data = NULL;
+    s->curr->parent = NULL;
+    s->curr->child = NULL;
+    s->curr->sibling = NULL;
+    s->buf = NULL;
+    s->filename = NULL;
     return s;
 }
+
 Serializer *serializer_open_file(const char *filename)
 {
-    Serializer *s = malloc(sizeof(Serializer));
-    s->type = SER_FILE;
-    s->file = fopen(filename, "w");
+    Serializer *s = serializer_open_str();
+    s->filename = malloc(strlen(filename) + 1);
+    strcpy(s->filename, filename);
     return s;
 }
+
+
 const char *serializer_get_str(Serializer *s)
 {
-    error_assert(s->type == SER_STRING);
-    return s->strbuf.buf;
+    Stream sm[1];
+
+    error_assert(!s->curr->parent, "must be at root section");
+
+    sm->buf = NULL;
+    sm->pos = 0;
+    _stream_printf(sm, "");
+
+    _node_write(s->curr, 0, sm);
+
+    free(s->buf);
+    s->buf = sm->buf;
+    return s->buf;
 }
+
 void serializer_close(Serializer *s)
 {
-    switch (s->type)
-    {
-        case SER_STRING:
-            free(s->strbuf.buf);
-            break;
+    FILE *f;
+    const char *str;
+    unsigned int l;
 
-        case SER_FILE:
-            fclose(s->file);
-            break;
+    /* write file? */
+    if (s->filename)
+    {
+        f = fopen(s->filename, "w");
+        if (!f)
+            error("failed to open file '%s' for writing", s->filename);
+        str = serializer_get_str(s);
+        l = strlen(str);
+        fprintf(f, "%u\n", l);
+        fwrite(str, 1, l, f);
+        fclose(f);
     }
 
+    /* might not be at root if bad save */
+    while (s->curr->parent)
+        s->curr = s->curr->parent;
+    _node_free(s->curr);
+
+    free(s->buf);
+    free(s->filename);
     free(s);
 }
 
 Deserializer *deserializer_open_str(const char *str)
 {
-    Deserializer *s = malloc(sizeof(Deserializer));
-    s->type = SER_STRING;
-    s->ptr = str;
+    Deserializer *s;
+    Node fake[1];
+
+    _node_read(fake, str); /* root gets created as child of fake */
+    fake->child->parent = NULL;
+
+    s = malloc(sizeof(Deserializer));
+    s->curr = fake->child;
+    s->curr->iterchild = s->curr->child;
     return s;
 }
+
 Deserializer *deserializer_open_file(const char *filename)
 {
-    Deserializer *s = malloc(sizeof(Deserializer));
-    s->type = SER_FILE;
-    s->file = fopen(filename, "r");
-    return s;
+    char *str;
+    FILE *f;
+    unsigned int l;
+    Deserializer *d;
+
+    f = fopen(filename, "r");
+    if (!f)
+        error("failed to open file '%s' for reading", filename);
+
+    fscanf(f, "%u\n", &l);
+    str = malloc(l + 1);
+    fread(str, 1, l, f);
+    fclose(f);
+    d = deserializer_open_str(str);
+    free(str);
+
+    return d;
 }
+
 void deserializer_close(Deserializer *s)
 {
-    if (s->type == SER_FILE)
-        fclose(s->file);
+    /* might not be at root if bad load */
+    while (s->curr->parent)
+        s->curr = s->curr->parent;
+    free(s->curr);
     free(s);
 }
 
-void loop_continue_save(Serializer *s)
-{
-    static bool yes = true;
-    bool_save(&yes, s);
-}
-void loop_end_save(Serializer *s)
-{
-    static bool no = false;
-    bool_save(&no, s);
-}
-bool loop_continue_load(Deserializer *s)
-{
-    bool cont;
-    bool_load(&cont, s);
-    return cont;
-}
+/* ------------------------------------------------------------------------- */
 
-/* printf/scanf for SCALAR_INFINITY doesn't work out on MSVC */
-void scalar_save(const Scalar *f, Serializer *s)
+void serializer_begin_section(const char *name, Serializer *s)
 {
-    if (*f == SCALAR_INFINITY)
-        _serializer_printf(s, "inf\n");
-    else
-        _serializer_printf(s, "%f\n", *f);
-}
-void scalar_load(Scalar *f, Deserializer *s)
-{
-    if (_deserializer_peek(s) == 'i')
+    Node *n = malloc(sizeof(Node));
+
+    if (name)
     {
-        *f = SCALAR_INFINITY;
-        _deserializer_scanf(s, "inf\n");
+        n->name = malloc(strlen(name) + 1);
+        strcpy(n->name, name);
     }
     else
-        _deserializer_scanf(s, "%f\n", f);
+        n->name = NULL;
+
+    n->data = NULL;
+
+    n->parent = s->curr;
+    n->child = NULL;
+    n->sibling = s->curr->child;
+    s->curr->child = n;
+
+    s->curr = n;
 }
 
-void uint_save(const unsigned int *u, Serializer *s)
+void serializer_end_section(Serializer *s)
 {
-    _serializer_printf(s, "%u\n", *u);
-}
-void uint_load(unsigned int *u, Deserializer *s)
-{
-    _deserializer_scanf(s, "%u\n", u);
+    s->curr = s->curr->parent;
 }
 
-void int_save(const int *i, Serializer *s)
+static void _deserializer_enter_node(Deserializer *s, Node *n)
 {
-    _serializer_printf(s, "%d\n", *i);
-}
-void int_load(int *i, Deserializer *s)
-{
-    _deserializer_scanf(s, "%d\n", i);
+    s->curr = n;
+    s->curr->iterchild = s->curr->child;
 }
 
-void bool_save(const bool *b, Serializer *s)
+bool deserializer_begin_section(const char *name, Deserializer *s)
 {
-    _serializer_printf(s, "%d\n", *b ? 1 : 0);
-}
-void bool_load(bool *b, Deserializer *s)
-{
-    int i;
-    _deserializer_scanf(s, "%d\n", &i);
-    *b = i ? true : false;
-}
+    Node *n;
 
-void string_save(const char **c, Serializer *s)
-{
-    unsigned int len;
-
-    len = strlen(*c);
-    uint_save(&len, s);
-
-    switch (s->type)
+    /* if NULL name pick child iterating cursor */
+    if (!name)
     {
-        case SER_STRING:
-            /* just concatenate the string */
-            s->strbuf.buf = realloc(s->strbuf.buf, s->strbuf.pos + len + 1);
-            strncpy(s->strbuf.buf + s->strbuf.pos, *c, len);
-            s->strbuf.pos += len;
-            s->strbuf.buf[s->strbuf.pos] = '\0';
-            break;
+        if (s->curr->iterchild)
+        {
+            n = s->curr->iterchild;
+            s->curr->iterchild = s->curr->iterchild->sibling;
+            _deserializer_enter_node(s, n);
+            return true;
+        }
+        return false;
+    }
 
-        case SER_FILE:
-            /* write the string as a buffer */
-            fwrite(*c, sizeof(char), len, s->file);
-            fflush(s->file);
-            fprintf(s->file, "\n");
-            break;
+    if (s->curr->iterchild && !strcmp(s->curr->iterchild->name, name))
+    {
+        n = s->curr->iterchild;
+        s->curr->iterchild = s->curr->iterchild->sibling;
+        _deserializer_enter_node(s, n);
+        return true;
+    }
+
+    for (n = s->curr->child; n; n = n->sibling)
+        if (!strcmp(n->name, name))
+        {
+            _deserializer_enter_node(s, n);
+            return true;
+        }
+    return false;
+}
+
+void deserialization_end_section(Deserializer *s)
+{
+    s->curr = s->curr->parent;
+}
+
+/* ------------------------------------------------------------------------- */
+
+static void _serializer_printf(Serializer *s, const char *fmt, ...)
+{
+    va_list ap1, ap2;
+    unsigned int n;
+
+    va_start(ap1, fmt);
+    va_copy(ap2, ap1);
+
+    /* how much space do we need? */
+    n = vsnprintf(NULL, 0, fmt, ap2);
+    va_end(ap2);
+
+    /* allocate, sprintf */
+    s->curr->data = malloc(n + 1);
+    vsprintf(s->curr->data, fmt, ap1);
+    va_end(ap1);
+}
+
+void string_save(const char **c, const char *n, Serializer *s)
+{
+    serializer_section(n, s)
+    {
+        s->curr->data = malloc(strlen(*c) + 1);
+        strcpy(s->curr->data, *c);
     }
 }
-void string_load(char **c, Deserializer *s)
+void string_load(char **c, const char *n, const char *d, Deserializer *s)
 {
-    unsigned int len;
-
-    uint_load(&len, s);
-    *c = malloc(len + 1);
-
-    switch (s->type)
+    deserializer_section(n, s)
     {
-        case SER_STRING:
-            /* just copy */
-            strncpy(*c, s->ptr, len);
-            s->ptr += len;
-            break;
-
-        case SER_FILE:
-            /* read as a buffer */
-            fread(*c, sizeof(char), len, s->file);
-            fscanf(s->file, "\n");
-            break;
+        *c = malloc(strlen(s->curr->data) + 1);
+        strcpy(*c, s->curr->data);
     }
-    (*c)[len] = '\0';
+    else
+    {
+        *c = malloc(strlen(d) + 1);
+        strcpy(*c, d);
+    }
 }
 
-#ifdef SERIALIZER_TEST
-
-void test_str()
-{
-    Serializer *s;
-    Deserializer *d;
-
-    s = serializer_open_str();
-
-    printf("str: %s\n", serializer_get_str(s));
-
-    _serializer_printf(s, "%d,", 3);
-    _serializer_printf(s, " %s\n", "hello");
-
-    printf("str: %s\n", serializer_get_str(s));
-
-    d = deserializer_open_str(serializer_get_str(s));
-
-    int n;
-    _deserializer_scanf(d, "%d, ", &n);
-    printf("des: %d\n", n);
-
-    printf("des remain: '%s'\n", d->ptr);
-
-    char str[512];
-    _deserializer_scanf(d, "%s\n", &str);
-    printf("des: %s\n", str);
-
-    serializer_close(s);
-    deserializer_close(d);
-}
-
-void test_file()
-{
-    Serializer *s;
-    Deserializer *d;
-
-    /* --- */
-
-    s = serializer_open_file("tmp.sav");
-
-    _serializer_printf(s, "%d,", 3);
-    _serializer_printf(s, " %s\n", "hello");
-
-    serializer_close(s);
-
-    /* --- */
-
-    d = deserializer_open_file("tmp.sav");
-
-    int n;
-    _deserializer_scanf(d, "%d, ", &n);
-    printf("des: %d\n", n);
-
-    char str[512];
-    _deserializer_scanf(d, "%s\n", &str);
-    printf("des: %s\n", str);
-
-    deserializer_close(d);
-
-    /* --- */
-}
+#if 1
 
 int main()
 {
-    test_str();
-    printf("\n---\n\n");
-    test_file();
+    Serializer *s;
+    Deserializer *d;
+    char *c;
+
+    s = serializer_open_file("test.sav");
+    {
+        serializer_section("sprite", s)
+        {
+            c = "abc";
+            string_save(&c, "glob1", s);
+
+            c = "xyz";
+            string_save(&c, "glob2", s);
+
+            serializer_section("stuff", s)
+            {
+                serializer_section(NULL, s)
+                {
+                    c = "spr1";
+                    string_save(&c, "name", s);
+                }
+
+                serializer_section(NULL, s)
+                {
+                    c = "spr2";
+                    string_save(&c, "name", s);
+                }
+
+                serializer_section(NULL, s)
+                {
+                    c = "spr3";
+                    string_save(&c, "name", s);
+                }
+            }
+        }
+
+        serializer_section("transform", s)
+        {
+        }
+    }
+    serializer_close(s);
+
+    d = deserializer_open_file("test.sav");
+    {
+        deserializer_section("sprite", d)
+        {
+            printf("%s\n", d->curr->name);
+
+            string_load(&c, "glob1", "default", d);
+            printf("    glob1: %s\n", c);
+            free(c);
+
+            string_load(&c, "glob2", "default", d);
+            printf("    glob2: %s\n", c);
+            free(c);
+
+            string_load(&c, "glob3", "default", d);
+            printf("    glob3: %s\n", c);
+            free(c);
+
+            deserializer_section("stuff", d)
+            {
+                deserializer_section_loop(d)
+                {
+                    string_load(&c, "name", "noname", d);
+                    printf("        name: %s\n", c);
+                    free(c);
+                }
+            }
+        }
+        else
+        {
+            printf("oops\n");
+        }
+
+        deserializer_section("transform", d)
+        {
+            printf("%s\n", d->curr->name);
+        }
+    }
+
+    /* serializer_close(s); */
+    /* deserializer_close(d); */
+
     return 0;
 }
 
 #endif
-

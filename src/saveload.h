@@ -24,6 +24,22 @@ SCRIPT(saveload,
 
     )
 
+void serializer_begin_section(const char *name, Serializer *s);
+void serializer_end_section(Serializer *s);
+bool deserializer_begin_section(const char *name, Deserializer *s);
+void deserialization_end_section(Deserializer *s);
+
+#define serializer_section(n, s)                                \
+    for (int __c = (serializer_begin_section(n, s), 2); --__c;  \
+         serializer_end_section(s))
+
+#define deserializer_section(n, s)                                      \
+    if (deserializer_begin_section(n, s))                               \
+        for (int __c = 2; --__c; deserialization_end_section(s))
+#define deserializer_section_default else
+#define deserializer_section_loop(s)                                    \
+    for (; deserializer_begin_section(NULL, s); deserialization_end_section(s))
+
 /*
  * can be used to simplify the save/load loop of a collection -- check
  * transform.c, sprite.c etc. for examples
@@ -49,8 +65,9 @@ void int_load(int *i, Deserializer *s);
 void bool_save(const bool *b, Serializer *s);
 void bool_load(bool *b, Deserializer *s);
 
-void string_save(const char **c, Serializer *s);
-void string_load(char **c, Deserializer *s); /* must free(*c) later */
+void string_save(const char **c, const char *n, Serializer *s);
+void string_load(char **c, const char *n, const char *d, Deserializer *s);
+    /* must free(*c) later, copy of d if not found */
 
 #endif
 
