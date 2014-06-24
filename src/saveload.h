@@ -8,7 +8,9 @@
 
 /*
  * in all *_save() functions, 'n' is the name,
- * in all *_load() functions, 'n' is the name, 'd' is the default value
+ *
+ * in all *_load() functions, 'n' is the name, 'd' is the default
+ * value, and the return value is whether found (i.e., not defaulted)
  */
 
 SCRIPT(saveload,
@@ -36,6 +38,8 @@ void serializer_end_section(Serializer *s);
 bool deserializer_begin_section(const char *name, Deserializer *s);
 void deserialization_end_section(Deserializer *s);
 
+bool deserializer_section_found(Deserializer *s);
+
 #define serializer_section(n, s)                                \
     for (int __c = (serializer_begin_section(n, s), 2); --__c;  \
          serializer_end_section(s))
@@ -47,13 +51,13 @@ void deserialization_end_section(Deserializer *s);
     for (; deserializer_begin_section(NULL, s); deserialization_end_section(s))
 
 void scalar_save(const Scalar *f, const char *n, Serializer *s);
-void scalar_load(Scalar *f, const char *n, Scalar d, Deserializer *s);
+bool scalar_load(Scalar *f, const char *n, Scalar d, Deserializer *s);
 
 void uint_save(const unsigned int *u, const char *n, Serializer *s);
-void uint_load(unsigned int *u, const char *n, unsigned int d, Deserializer *s);
+bool uint_load(unsigned int *u, const char *n, unsigned int d, Deserializer *s);
 
 void int_save(const int *i, const char *n, Serializer *s);
-void int_load(int *i, const char *n, int d, Deserializer *s);
+bool int_load(int *i, const char *n, int d, Deserializer *s);
 
 #define enum_save(val, n, s)                                            \
     do { int e__; e__ = *(val); int_save(&e__, n, (s)); } while (0)
@@ -61,10 +65,10 @@ void int_load(int *i, const char *n, int d, Deserializer *s);
     do { int e__; int_load(&e__, n, d, (s)); *(val) = e__; } while (0)
 
 void bool_save(const bool *b, const char *n, Serializer *s);
-void bool_load(bool *b, const char *n, bool d, Deserializer *s);
+bool bool_load(bool *b, const char *n, bool d, Deserializer *s);
 
 void string_save(const char **c, const char *n, Serializer *s);
-void string_load(char **c, const char *n, const char *d, Deserializer *s);
+bool string_load(char **c, const char *n, const char *d, Deserializer *s);
     /* must free(*c) later, copy of d if not found */
 
 #endif

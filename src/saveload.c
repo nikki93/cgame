@@ -22,8 +22,9 @@ struct Node
     Node *child;
     Node *sibling;
 
-    Node *iterchild; /* next child to visit when iterating through children,
-                        only really used on deserialization */
+    /* used on deserialization only */
+    Node *iterchild; /* next child to visit when iterating through children */
+    bool last_found; /* whether last child search was successful */
 };
 
 /* growable string stream */
@@ -324,17 +325,19 @@ bool deserializer_begin_section(const char *name, Deserializer *s)
     {
         if (s->curr->iterchild)
         {
+            s->curr->last_found = true;
             n = s->curr->iterchild;
             s->curr->iterchild = s->curr->iterchild->sibling;
             s->curr = n;
             return true;
         }
-        return false;
+        return s->curr->last_found = false;
     }
 
     /* check next child, quick if sections are in order */
     if (s->curr->iterchild && !strcmp(s->curr->iterchild->name, name))
     {
+        s->curr->last_found = true;
         n = s->curr->iterchild;
         s->curr->iterchild = s->curr->iterchild->sibling;
         s->curr = n;
@@ -345,15 +348,21 @@ bool deserializer_begin_section(const char *name, Deserializer *s)
     for (n = s->curr->child; n; n = n->sibling)
         if (!strcmp(n->name, name))
         {
+            s->curr->last_found = true;
             s->curr = n;
             return true;
         }
-    return false;
+    return s->curr->last_found = false;
 }
 
 void deserialization_end_section(Deserializer *s)
 {
     s->curr = s->curr->parent;
+}
+
+bool deserializer_section_found(Deserializer *s)
+{
+    return s->curr->last_found;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -404,7 +413,7 @@ void scalar_save(const Scalar *f, const char *n, Serializer *s)
             _serializer_printf(s, "%f", *f);
     }
 }
-void scalar_load(Scalar *f, const char *n, Scalar d, Deserializer *s)
+bool scalar_load(Scalar *f, const char *n, Scalar d, Deserializer *s)
 {
     deserializer_section(n, s)
     {
@@ -415,6 +424,7 @@ void scalar_load(Scalar *f, const char *n, Scalar d, Deserializer *s)
     }
     else
         *f = d;
+    return deserializer_section_found(s);
 }
 
 void uint_save(const unsigned int *u, const char *n, Serializer *s)
@@ -422,12 +432,13 @@ void uint_save(const unsigned int *u, const char *n, Serializer *s)
     serializer_section(n, s)
         _serializer_printf(s, "%u", *u);
 }
-void uint_load(unsigned int *u, const char *n, unsigned int d, Deserializer *s)
+bool uint_load(unsigned int *u, const char *n, unsigned int d, Deserializer *s)
 {
     deserializer_section(n, s)
         _deserializer_scanf(s, "%u", u);
     else
         *u = d;
+    return deserializer_section_found(s);
 }
 
 void int_save(const int *i, const char *n, Serializer *s)
@@ -435,12 +446,13 @@ void int_save(const int *i, const char *n, Serializer *s)
     serializer_section(n, s)
         _serializer_printf(s, "%d", *i);
 }
-void int_load(int *i, const char *n, int d, Deserializer *s)
+bool int_load(int *i, const char *n, int d, Deserializer *s)
 {
     deserializer_section(n, s)
         _deserializer_scanf(s, "%d", i);
     else
         *i = d;
+    return deserializer_section_found(s);
 }
 
 void bool_save(const bool *b, const char *n, Serializer *s)
@@ -448,12 +460,13 @@ void bool_save(const bool *b, const char *n, Serializer *s)
     serializer_section(n, s)
         _serializer_printf(s, "%d", *b == true);
 }
-void bool_load(bool *b, const char *n, bool d, Deserializer *s)
+bool bool_load(bool *b, const char *n, bool d, Deserializer *s)
 {
     int i = d;
     deserializer_section(n, s)
         _deserializer_scanf(s, "%d", &i);
     *b = i ? true : false;
+    return deserializer_section_found(s);
 }
 
 void string_save(const char **c, const char *n, Serializer *s)
@@ -464,7 +477,7 @@ void string_save(const char **c, const char *n, Serializer *s)
         strcpy(s->curr->data, *c);
     }
 }
-void string_load(char **c, const char *n, const char *d, Deserializer *s)
+bool string_load(char **c, const char *n, const char *d, Deserializer *s)
 {
     deserializer_section(n, s)
     {
@@ -478,6 +491,7 @@ void string_load(char **c, const char *n, const char *d, Deserializer *s)
         *c = malloc(strlen(d) + 1);
         strcpy(*c, d);
     }
+    return deserializer_section_found(s);
 }
 
 #if 1
