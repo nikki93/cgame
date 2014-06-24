@@ -19,11 +19,25 @@ SCRIPT(color,
        EXPORT extern Color color_blue;
        EXPORT extern Color color_clear; /* zero alpha */
 
-       EXPORT void color_save(Color *c, Serializer *s);
-       EXPORT void color_load(Color *c, Deserializer *s);
+       EXPORT void color_save(Color *c, const char *n, Serializer *s);
+       EXPORT bool color_load(Color *c, const char *n, Color d, Deserializer *s);
 
     )
 
 #define color(r, g, b, a) ((Color) { (r), (g), (b), (a) })
 
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+

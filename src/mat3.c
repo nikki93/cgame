@@ -1,5 +1,7 @@
 #include "mat3.h"
 
+#include <stddef.h>
+
 #include "saveload.h"
 
 Mat3 mat3_mul(Mat3 m, Mat3 n)
@@ -83,21 +85,28 @@ Vec2 mat3_transform(Mat3 m, Vec2 v)
         );
 }
 
-void mat3_save(Mat3 *m, Serializer *s)
+void mat3_save(Mat3 *m, const char *n, Serializer *s)
 {
     unsigned int i, j;
 
-    for (i = 0; i < 3; ++i)
-        for (j = 0; j < 3; ++j)
-            scalar_save(&m->m[i][j], s);
+    serializer_section(n, s)
+        for (i = 0; i < 3; ++i)
+            for (j = 0; j < 3; ++j)
+                scalar_save(&m->m[i][j], NULL, s);
 }
-void mat3_load(Mat3 *m, Deserializer *s)
+bool mat3_load(Mat3 *m, const char *n, Mat3 d, Deserializer *s)
 {
     unsigned int i, j;
 
-    for (i = 0; i < 3; ++i)
-        for (j = 0; j < 3; ++j)
-            scalar_load(&m->m[i][j], s);
+    deserializer_section(n, s)
+        for (i = 0; i < 3; ++i)
+            for (j = 0; j < 3; ++j)
+                scalar_load(&m->m[i][j], NULL, 0, s);
+    else
+        for (i = 0; i < 3; ++i)
+            for (j = 0; j < 3; ++j)
+                m->m[i][j] = d.m[i][j];
+    return deserializer_section_found(s);
 }
 
 #undef mat3_identity

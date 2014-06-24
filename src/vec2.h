@@ -28,8 +28,9 @@ SCRIPT(vec2,
        EXPORT Vec2 vec2_rot(Vec2 v, Scalar rot);
        EXPORT Scalar vec2_atan2(Vec2 v);
 
-       EXPORT void vec2_save(Vec2 *v, Serializer *s);
-       EXPORT void vec2_load(Vec2 *v, Deserializer *s);
+       EXPORT void vec2_save(Vec2 *v, const char *n, Serializer *s);
+       EXPORT bool vec2_load(Vec2 *v, const char *n, Vec2 d, Deserializer *s);
+
     )
 
 /* C inline stuff */
@@ -37,4 +38,3 @@ SCRIPT(vec2,
 #define vec2(x, y) ((Vec2) { (x), (y) })
 
 #endif
-

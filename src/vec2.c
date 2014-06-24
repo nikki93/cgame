@@ -58,15 +58,24 @@ Scalar vec2_atan2(Vec2 v)
     return scalar_atan2(v.y, v.x);
 }
 
-void vec2_save(Vec2 *v, Serializer *s)
+void vec2_save(Vec2 *v, const char *n, Serializer *s)
 {
-    scalar_save(&v->x, s);
-    scalar_save(&v->y, s);
+    serializer_section(n, s)
+    {
+        scalar_save(&v->x, "x", s);
+        scalar_save(&v->y, "y", s);
+    }
 }
-void vec2_load(Vec2 *v, Deserializer *s)
+bool vec2_load(Vec2 *v, const char *n, Vec2 d, Deserializer *s)
 {
-    scalar_load(&v->x, s);
-    scalar_load(&v->y, s);
+    deserializer_section(n, s)
+    {
+        scalar_load(&v->x, "x", 0, s);
+        scalar_load(&v->y, "y", 0, s);
+    }
+    else
+        *v = d;
+    return deserializer_section_found(s);
 }
 
 #undef vec2
@@ -74,4 +83,14 @@ Vec2 vec2(Scalar x, Scalar y)
 {
     return (Vec2) { x, y };
 }
+
+
+
+
+
+
+
+
+
+
 

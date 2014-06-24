@@ -8,19 +8,28 @@ Color color_green = { 0.0, 1.0, 0.0, 1.0 };
 Color color_blue  = { 0.0, 0.0, 1.0, 1.0 };
 Color color_clear = { 0.0, 0.0, 0.0, 0.0 };
 
-void color_save(Color *c, Serializer *s)
+void color_save(Color *c, const char *n, Serializer *s)
 {
-    scalar_save(&c->r, s);
-    scalar_save(&c->g, s);
-    scalar_save(&c->b, s);
-    scalar_save(&c->a, s);
+    serializer_section(n, s)
+    {
+        scalar_save(&c->r, "r", s);
+        scalar_save(&c->g, "g", s);
+        scalar_save(&c->b, "b", s);
+        scalar_save(&c->a, "a", s);
+    }
 }
-void color_load(Color *c, Deserializer *s)
+bool color_load(Color *c, const char *n, Color d, Deserializer *s)
 {
-    scalar_load(&c->r, s);
-    scalar_load(&c->g, s);
-    scalar_load(&c->b, s);
-    scalar_load(&c->a, s);
+    deserializer_section(n, s)
+    {
+        scalar_load(&c->r, "r", 0, s);
+        scalar_load(&c->g, "g", 0, s);
+        scalar_load(&c->b, "b", 0, s);
+        scalar_load(&c->a, "a", 1, s);
+    }
+    else
+        *c = d;
+    return deserializer_section_found(s);
 }
 
 #undef color
