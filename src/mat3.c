@@ -133,4 +133,3 @@ Mat3 mat3(Scalar m00, Scalar m01, Scalar m02,
         }
     };
 }
-

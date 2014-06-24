@@ -83,14 +83,3 @@ Vec2 vec2(Scalar x, Scalar y)
 {
     return (Vec2) { x, y };
 }
-
-
-
-
-
-
-
-
-
-
-

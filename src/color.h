@@ -27,17 +27,3 @@ SCRIPT(color,
 #define color(r, g, b, a) ((Color) { (r), (g), (b), (a) })
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
