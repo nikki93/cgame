@@ -9,9 +9,7 @@
 
 #include "array.h"
 
-/* #include "error.h" XXX: fixme */
-#define error_assert(...)
-#define error(...) do { printf(__VA_ARGS__); puts(""); abort(); } while (0)
+#include "error.h"
 
 /* node in a tree of sections */
 typedef struct Node Node;
@@ -366,7 +364,8 @@ static void _serializer_printf(Serializer *s, const char *fmt, ...)
     va_list ap1, ap2;
     unsigned int n;
 
-    error_assert(!s->curr->data, "section shouldn't already have data");
+    error_assert(!s->curr->data, "section '%s' shouldn't already have data",
+                 s->curr->name);
 
     va_start(ap1, fmt);
     va_copy(ap2, ap1);
@@ -381,11 +380,86 @@ static void _serializer_printf(Serializer *s, const char *fmt, ...)
     va_end(ap1);
 }
 
+static int _deserializer_scanf(Deserializer *s, const char *fmt, ...)
+{
+    va_list ap;
+    int r;
+
+    error_assert(s->curr->data, "section '%s' should have data",
+                 s->curr->name);
+
+    va_start(ap, fmt);
+    r = vsscanf(s->curr->data, fmt, ap);
+    va_end(ap);
+    return r;
+}
+
+void scalar_save(const Scalar *f, const char *n, Serializer *s)
+{
+    serializer_section(n, s)
+    {
+        if (*f == SCALAR_INFINITY)
+            _serializer_printf(s, "inf");
+        else
+            _serializer_printf(s, "%f", *f);
+    }
+}
+void scalar_load(Scalar *f, const char *n, Scalar d, Deserializer *s)
+{
+    deserializer_section(n, s)
+    {
+        if (s->curr->data[0] == 'i')
+            *f = SCALAR_INFINITY;
+        else
+            _deserializer_scanf(s, "%f", f);
+    }
+    else
+        *f = d;
+}
+
+void uint_save(const unsigned int *u, const char *n, Serializer *s)
+{
+    serializer_section(n, s)
+        _serializer_printf(s, "%u", *u);
+}
+void uint_load(unsigned int *u, const char *n, unsigned int d, Deserializer *s)
+{
+    deserializer_section(n, s)
+        _deserializer_scanf(s, "%u", u);
+    else
+        *u = d;
+}
+
+void int_save(const int *i, const char *n, Serializer *s)
+{
+    serializer_section(n, s)
+        _serializer_printf(s, "%d", *i);
+}
+void int_load(int *i, const char *n, int d, Deserializer *s)
+{
+    deserializer_section(n, s)
+        _deserializer_scanf(s, "%d", i);
+    else
+        *i = d;
+}
+
+void bool_save(const bool *b, const char *n, Serializer *s)
+{
+    serializer_section(n, s)
+        _serializer_printf(s, "%d", *b == true);
+}
+void bool_load(bool *b, const char *n, bool d, Deserializer *s)
+{
+    int i = d;
+    deserializer_section(n, s)
+        _deserializer_scanf(s, "%d", &i);
+    *b = i ? true : false;
+}
+
 void string_save(const char **c, const char *n, Serializer *s)
 {
     serializer_section(n, s)
     {
-        error_assert(!s->curr->data, "section shouldn't already have data");
         s->curr->data = malloc(strlen(*c) + 1);
         strcpy(s->curr->data, *c);
     }
@@ -394,6 +468,8 @@ void string_load(char **c, const char *n, const char *d, Deserializer *s)
 {
     deserializer_section(n, s)
     {
+        error_assert(s->curr->data, "section '%s' should have data",
+                     s->curr->name);
         *c = malloc(strlen(s->curr->data) + 1);
         strcpy(*c, s->curr->data);
     }
@@ -406,21 +482,24 @@ void string_load(char **c, const char *n, const char *d, Deserializer *s)
 
 #if 1
 
+typedef enum TestEnum TestEnum;
+enum TestEnum { A, B, C };
+
 int main()
 {
     Serializer *s;
     Deserializer *d;
     char *c;
+    Scalar f;
+    bool u;
+    TestEnum e;
 
     s = serializer_open_file("test.sav");
     {
         serializer_section("sprite", s)
         {
-            c = "abc";
-            string_save(&c, "glob1", s);
-
-            c = "xyz";
-            string_save(&c, "glob2", s);
+            f = 3.14;
+            scalar_save(&f, "glob1", s);
 
             serializer_section("stuff", s)
             {
@@ -454,17 +533,19 @@ int main()
         {
             printf("%s\n", d->curr->name);
 
-            string_load(&c, "glob1", "default", d);
-            printf("    glob1: %s\n", c);
-            free(c);
+            scalar_load(&f, "glob1", 4.2, d);
+            printf("    glob1: %f\n", f);
 
-            string_load(&c, "glob2", "default", d);
-            printf("    glob2: %s\n", c);
-            free(c);
+            scalar_load(&f, "glob3", 4.2, d);
+            printf("    glob3: %f\n", f);
 
-            string_load(&c, "glob3", "default", d);
-            printf("    glob3: %s\n", c);
-            free(c);
+            enum_load(&e, "glob2", B, d);
+            switch (e)
+            {
+                case A: printf("    glob2: A\n"); break;
+                case B: printf("    glob2: B\n"); break;
+                case C: printf("    glob2: C\n"); break;
+            }
 
             deserializer_section("stuff", d)
                 deserializer_section_loop(d)
