@@ -85,28 +85,30 @@ Vec2 mat3_transform(Mat3 m, Vec2 v)
         );
 }
 
-void mat3_save(Mat3 *m, const char *n, Serializer *s)
+void mat3_save(Mat3 *m, const char *n, Store *s)
 {
+    Store *t;
     unsigned int i, j;
 
-    serializer_section(n, s)
+    if (store_child_save(&t, n, s))
         for (i = 0; i < 3; ++i)
             for (j = 0; j < 3; ++j)
-                scalar_save(&m->m[i][j], NULL, s);
+                scalar_save(&m->m[i][j], NULL, t);
 }
-bool mat3_load(Mat3 *m, const char *n, Mat3 d, Deserializer *s)
+bool mat3_load(Mat3 *m, const char *n, Mat3 d, Store *s)
 {
+    Store *t;
     unsigned int i, j;
 
-    deserializer_section(n, s)
+    if (store_child_load(&t, n, s))
         for (i = 0; i < 3; ++i)
             for (j = 0; j < 3; ++j)
-                scalar_load(&m->m[i][j], NULL, 0, s);
+                scalar_load(&m->m[i][j], NULL, 0, t);
     else
         for (i = 0; i < 3; ++i)
             for (j = 0; j < 3; ++j)
                 m->m[i][j] = d.m[i][j];
-    return deserializer_section_found(s);
+    return t != NULL;
 }
 
 #undef mat3_identity

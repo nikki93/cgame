@@ -1,5 +1,7 @@
 #include "vec2.h"
 
+#include <stdio.h>
+
 #include "saveload.h"
 
 Vec2 vec2_zero = { 0.0, 0.0 };
@@ -58,24 +60,28 @@ Scalar vec2_atan2(Vec2 v)
     return scalar_atan2(v.y, v.x);
 }
 
-void vec2_save(Vec2 *v, const char *n, Serializer *s)
+void vec2_save(Vec2 *v, const char *n, Store *s)
 {
-    serializer_section(n, s)
+    Store *t;
+
+    if (store_child_save(&t, n, s))
     {
-        scalar_save(&v->x, "x", s);
-        scalar_save(&v->y, "y", s);
+        scalar_save(&v->x, "x", t);
+        scalar_save(&v->y, "y", t);
     }
 }
-bool vec2_load(Vec2 *v, const char *n, Vec2 d, Deserializer *s)
+bool vec2_load(Vec2 *v, const char *n, Vec2 d, Store *s)
 {
-    deserializer_section(n, s)
+    Store *t;
+
+    if (store_child_load(&t, n, s))
     {
-        scalar_load(&v->x, "x", 0, s);
-        scalar_load(&v->y, "y", 0, s);
+        scalar_load(&v->x, "x", 0, t);
+        scalar_load(&v->y, "y", 0, t);
     }
     else
         *v = d;
-    return deserializer_section_found(s);
+    return t != NULL;
 }
 
 #undef vec2
