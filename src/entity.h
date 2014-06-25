@@ -30,8 +30,9 @@ SCRIPT(entity,
        EXPORT void entity_clear_save_filters();
 
        /* save/load is just for ids */
-       EXPORT void entity_save(Entity *ent, Store *s);
-       EXPORT void entity_load(Entity *ent, Store *s);
+       EXPORT void entity_save(Entity *ent, const char *n, Store *s);
+       EXPORT bool entity_load(Entity *ent, const char *n, Entity d,
+                               Store *s);
 
     )
 

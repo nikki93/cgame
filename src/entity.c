@@ -201,32 +201,37 @@ void entity_update_all()
     }
 }
 
-void entity_save(Entity *ent, Serializer *s)
+void entity_save(Entity *ent, const char *n, Store *s)
 {
+    Store *t;
+
     if (!entity_eq(*ent, entity_nil) && !entity_get_save_filter(*ent))
-    {
         error("filtered-out entity referenced in save!");
-        uint_save(&entity_nil.id, s);
-    }
-    uint_save(&ent->id, s);
+
+    if (store_child_save(&t, n, s))
+        uint_save(&ent->id, "id", t);
 }
-void entity_load(Entity *ent, Deserializer *s)
+bool entity_load(Entity *ent, const char *n, Entity d, Store *s)
 {
+    Store *t;
     Entity sav;
 
-    uint_load(&sav.id, s);
-    if (entity_eq(sav, entity_nil))
-    {
-        *ent = entity_nil;
-        return;
-    }
+    if (store_child_load(&t, n, s))
+        uint_load(&sav.id, "id", entity_nil.id, t);
+    else
+        sav = entity_nil;
 
-    /* build a map of saved id --> new id to allow merging */
-    ent->id = entitymap_get(load_map, sav);
-    if (entity_eq(*ent, entity_nil))
+    if (entity_eq(sav, entity_nil))
+        *ent = entity_nil;
+    else
     {
-        *ent = _generate_id(); /* new sav */
-        entitymap_set(load_map, sav, ent->id);
+        /* build a map of saved id --> new id to allow merging */
+        ent->id = entitymap_get(load_map, sav);
+        if (entity_eq(*ent, entity_nil))
+        {
+            *ent = _generate_id(); /* new sav */
+            entitymap_set(load_map, sav, ent->id);
+        }
     }
 }
 
@@ -246,7 +251,7 @@ bool entity_eq(Entity e, Entity f)
     return e.id == f.id;
 }
 
-void entity_save_all(Serializer *s)
+void entity_save_all(Store *s)
 {
     DestroyEntry *entry;
     ExistsPoolElem *exists;
@@ -263,7 +268,7 @@ void entity_save_all(Serializer *s)
     loop_end_save(s);
 }
 
-void entity_load_all(Deserializer *s)
+void entity_load_all(Store *s)
 {
     DestroyEntry *entry;
     ExistsPoolElem *exists;

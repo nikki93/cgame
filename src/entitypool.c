@@ -4,6 +4,7 @@
 
 #include "entitymap.h"
 #include "array.h"
+#include "error.h"
 
 struct EntityPool
 {
@@ -111,21 +112,22 @@ void entitypool_sort(EntityPool *pool,
     }
 }
 
-void entitypool_elem_save(EntityPool *pool, void *elem, Serializer *s)
+void entitypool_elem_save(EntityPool *pool, void *elem, Store *s)
 {
     EntityPoolElem **p;
 
     /* save Entity id */
     p = elem;
-    entity_save(&(*p)->ent, s);
+    entity_save(&(*p)->ent, "pool_elem", s);
 }
-void entitypool_elem_load(EntityPool *pool, void *elem, Deserializer *s)
+void entitypool_elem_load(EntityPool *pool, void *elem, Store *s)
 {
     Entity ent;
     EntityPoolElem **p;
 
     /* load Entity id, add element with that key */
-    entity_load(&ent, s);
+    error_assert(entity_load(&ent, "pool_elem", entity_nil, s),
+                 "saved EntityPoolElem entry must exist");
     p = elem;
     *p = entitypool_add(pool, ent);
     (*p)->ent = ent;
