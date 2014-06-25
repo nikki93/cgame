@@ -316,6 +316,7 @@ void store_close(Store *s)
 #define _store_scanf(s, fmt, ...) \
     _stream_scanf(s->sm, fmt, ##__VA_ARGS__)
 
+/* use 'i' for infinity */
 void scalar_save(const Scalar *f, const char *n, Store *s)
 {
     Store *t;
@@ -340,12 +341,66 @@ bool scalar_load(Scalar *f, const char *n, Scalar d, Store *s)
             _store_scanf(s, "i ");
         }
         else
-            _store_scanf(s, "%f", f);
+            _store_scanf(s, "%f ", f);
         return true;
     }
 
     *f = d;
     return false;
+}
+
+void uint_save(const unsigned int *u, const char *n, Store *s)
+{
+    Store *t;
+
+    if (store_child_save(&t, n, s))
+        _store_printf(t, "%u ", *u);
+}
+bool uint_load(unsigned int *u, const char *n, unsigned int d, Store *s)
+{
+    Store *t;
+
+    if (store_child_load(&t, n, s))
+        _store_scanf(t, "%u ", u);
+    else
+        *u = d;
+    return t != NULL;
+}
+
+void int_save(const int *i, const char *n, Store *s)
+{
+    Store *t;
+
+    if (store_child_save(&t, n, s))
+        _store_printf(t, "%d ", *i);
+}
+bool int_load(int *i, const char *n, int d, Store *s)
+{
+    Store *t;
+
+    if (store_child_load(&t, n, s))
+        _store_scanf(t, "%d ", i);
+    else
+        *i = d;
+    return t != NULL;
+}
+
+void bool_save(const bool *b, const char *n, Store *s)
+{
+    Store *t;
+
+    if (store_child_load(&t, n, s))
+        _store_printf(t, "%d ", (int) b);
+}
+bool bool_load(bool *b, const char *n, bool d, Store *s)
+{
+    int i = d;
+    Store *t;
+
+    if (store_child_load(&t, n, s))
+        _store_scanf(t, "%d ", &i);
+    *b = i;
+    return t != NULL;
 }
 
 void string_save(const char **c, const char *n, Store *s)
