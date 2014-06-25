@@ -9,10 +9,19 @@
 #define error_assert(...)
 #define error(...)
 
+/* growable string stream */
+typedef struct Stream Stream;
+struct Stream
+{
+    char *buf;
+    size_t pos;
+};
+
 struct Store
 {
     char *name;
-    char *data;
+    Stream sm[1];
+    bool compressed;
 
     Store *child;
     Store *parent;
@@ -25,19 +34,10 @@ struct Store
 
 /* --- streams ------------------------------------------------------------- */
 
-/* growable string stream */
-typedef struct Stream Stream;
-struct Stream
-{
-    char *buf;
-    size_t pos;
-};
-
 static void _stream_init(Stream *sm)
 {
+    sm->buf = NULL;
     sm->pos = 0;
-    sm->buf = malloc(sm->pos + 1);
-    sm->buf[sm->pos] = '\0';
 }
 
 static void _stream_deinit(Stream *sm)
@@ -50,6 +50,13 @@ static void _stream_printf(Stream *sm, const char *fmt, ...)
 {
     va_list ap1, ap2;
     size_t new_pos;
+
+    if (!sm->buf)
+    {
+        sm->pos = 0;
+        sm->buf = malloc(sm->pos + 1);
+        sm->buf[sm->pos] = '\0';
+    }
 
     va_start(ap1, fmt);
     va_copy(ap2, ap1);
@@ -66,6 +73,8 @@ static void _stream_printf(Stream *sm, const char *fmt, ...)
 static void _stream_scanf_(Stream *sm, const char *fmt, int *n, ...)
 {
     va_list ap;
+
+    error_assert(sm->buf, "stream buffer should be initialized");
 
     /*
      * scanf is tricky because we need to move forward by number of
@@ -98,12 +107,9 @@ static void _stream_write_string(Stream *sm, const char *s)
 static char *_stream_read_string(Stream *sm)
 {
     char *s;
-    int n, r;
+    int n;
 
-    if (sscanf(&sm->buf[sm->pos], "%d %n", &n, &r) != 1)
-        error("corrupt save");
-    sm->pos += r;
-
+    _stream_scanf(sm, "%d ", &n);
     if (n < 0)
         return NULL;
 
@@ -119,15 +125,20 @@ static char *_stream_read_string(Stream *sm)
 static Store *_store_new(Store *parent)
 {
     Store *s = malloc(sizeof(Store));
+
     s->name = NULL;
-    s->data = NULL;
+    _stream_init(s->sm);
+    s->compressed = false;
+
     s->parent = parent;
     s->child = NULL;
     s->sibling = s->parent ? s->parent->child : NULL;
     if (s->parent)
         s->parent->iterchild = s->parent->child = s;
+
     s->iterchild = NULL;
     s->str = NULL;
+
     return s;
 }
 
@@ -143,7 +154,7 @@ static void _store_free(Store *s)
     }
 
     free(s->name);
-    free(s->data);
+    _stream_deinit(s->sm);
     free(s->str);
 }
 
@@ -159,7 +170,7 @@ void _store_write(Store *s, unsigned int indent, Stream *sm)
 
     /* name, data */
     _stream_write_string(sm, s->name);
-    _stream_write_string(sm, s->data);
+    _stream_write_string(sm, s->sm->buf);
     if (s->child)
         _stream_printf(sm, "\n");
 
@@ -185,7 +196,7 @@ Store *_store_read(Store *parent, Stream *sm)
 
     /* name, data */
     s->name = _stream_read_string(sm);
-    s->data = _stream_read_string(sm);
+    s->sm->buf = _stream_read_string(sm);
 
     /* children */
     for (;;)
@@ -300,35 +311,41 @@ void store_close(Store *s)
 
 /* --- primitives ---------------------------------------------------------- */
 
-static void _store_printf(Store *s, const char *fmt, ...)
+#define _store_printf(s, fmt, ...) \
+    _stream_printf(s->sm, fmt, ##__VA_ARGS__)
+#define _store_scanf(s, fmt, ...) \
+    _stream_scanf(s->sm, fmt, ##__VA_ARGS__)
+
+void scalar_save(const Scalar *f, const char *n, Store *s)
 {
-    va_list ap1, ap2;
-    unsigned int n;
-
-    error_assert(!s->data, "store '%s' shouldn't already have data", s->name);
-
-    va_start(ap1, fmt);
-    va_copy(ap2, ap1);
-
-    n = vsnprintf(NULL, 0, fmt, ap2);
-    va_end(ap2);
-
-    s->data = malloc(n + 1);
-    vsprintf(s->data, fmt, ap1);
-    va_end(ap1);
+    Store *t;
+    
+    if (store_child_save(&t, n, s))
+    {
+        if (*f == SCALAR_INFINITY)
+            _store_printf(s, "i ");
+        else
+            _store_printf(s, "%f ", *f);
+    }
 }
-static int _deserializer_scanf(Store *s, const char *fmt, ...)
+bool scalar_load(Scalar *f, const char *n, Scalar d, Store *s)
 {
-    va_list ap;
-    int r;
+    Store *t;
 
-    error_assert(s->curr->data, "section '%s' should have data",
-                 s->curr->name);
+    if (store_child_load(&t, n, s))
+    {
+        if (s->sm->buf[s->sm->pos] == 'i')
+        {
+            *f = SCALAR_INFINITY;
+            _store_scanf(s, "i ");
+        }
+        else
+            _store_scanf(s, "%f", f);
+        return true;
+    }
 
-    va_start(ap, fmt);
-    r = vsscanf(s->data, fmt, ap);
-    va_end(ap);
-    return r;
+    *f = d;
+    return false;
 }
 
 void string_save(const char **c, const char *n, Store *s)
@@ -336,10 +353,7 @@ void string_save(const char **c, const char *n, Store *s)
     Store *t;
 
     if (store_child_save(&t, n, s))
-    {
-        t->data = malloc(strlen(*c) + 1);
-        strcpy(t->data, *c);
-    }
+        _stream_write_string(t->sm, *c);
 }
 bool string_load(char **c, const char *n, const char *d, Store *s)
 {
@@ -347,9 +361,7 @@ bool string_load(char **c, const char *n, const char *d, Store *s)
 
     if (store_child_load(&t, n, s))
     {
-        error_assert(t->data, "section '%s' should have data", t->name);
-        *c = malloc(strlen(t->data) + 1);
-        strcpy(*c, t->data);
+        *c = _stream_read_string(t->sm);
         return true;
     }
 
@@ -364,6 +376,7 @@ int main()
 {
     Store *s, *d, *sprite_s, *pool_s, *elem_s;
     char *c;
+    Scalar r;
 
     s = store_open();
     {
@@ -374,6 +387,9 @@ int main()
 
             c = "hello, world ... again";
             string_save(&c, "prop2", sprite_s);
+
+            r = SCALAR_INFINITY;
+            scalar_save(&r, "prop6", sprite_s);
 
             if (store_child_save(&pool_s, "pool", sprite_s))
             {
@@ -401,6 +417,9 @@ int main()
 
             string_load(&c, "prop2", "hai", sprite_s);
             printf("    prop2: %s\n", c);
+
+            scalar_load(&r, "prop6", 4.2, sprite_s);
+            printf("    prop6: %f\n", r);
 
             if (store_child_load(&pool_s, "pool", sprite_s))
                 while (store_child_load(&elem_s, NULL, pool_s))
