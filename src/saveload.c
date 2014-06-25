@@ -1,31 +1,29 @@
 #include "saveload.h"
 
-#include <stdarg.h>
-#include <stddef.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <ctype.h>
 
-#include "array.h"
+#define error_assert(...)
+#define error(...)
 
-#include "error.h"
-
-/* node in a tree of sections */
-typedef struct Node Node;
-struct Node
+struct Store
 {
     char *name;
     char *data;
 
-    Node *parent;
-    Node *child;
-    Node *sibling;
+    Store *child;
+    Store *parent;
+    Store *sibling;
 
-    /* used on deserialization only */
-    Node *iterchild; /* next child to visit when iterating through children */
-    bool last_found; /* whether last child search was successful */
+    Store *iterchild; /* next child to visit when NULL name */
+
+    char *str; /* result of store_get_str(...) */
 };
+
+/* --- streams ------------------------------------------------------------- */
 
 /* growable string stream */
 typedef struct Stream Stream;
@@ -35,20 +33,19 @@ struct Stream
     size_t pos;
 };
 
-struct Serializer
+static void _stream_init(Stream *sm)
 {
-    Node *curr;
-    char *filename; /* string target if NULL */
-    char *buf; /* result of last serializer_get_str(...) call */
-};
+    sm->pos = 0;
+    sm->buf = malloc(sm->pos + 1);
+    sm->buf[sm->pos] = '\0';
+}
 
-struct Deserializer
+static void _stream_deinit(Stream *sm)
 {
-    Node *curr;
-};
+    free(sm->buf);
+}
 
-/* ------------------------------------------------------------------------- */
-
+/* writes at pos, truncates to end of written string */
 static void _stream_printf(Stream *sm, const char *fmt, ...)
 {
     va_list ap1, ap2;
@@ -66,330 +63,261 @@ static void _stream_printf(Stream *sm, const char *fmt, ...)
     va_end(ap1);
 }
 
-static void _write_string(const char *s, unsigned int d, Stream *sm)
+static void _stream_scanf_(Stream *sm, const char *fmt, int *n, ...)
+{
+    va_list ap;
+
+    /*
+     * scanf is tricky because we need to move forward by number of
+     * scanned characters -- *n will store number of characters read,
+     * needs to also be put at end of parameter list (see
+     * _stream_scanf(...) macro), and "%n" needs to be appended at
+     * end of original fmt
+     */
+
+    va_start(ap, n);
+    vsscanf(&sm->buf[sm->pos], fmt, ap);
+    va_end(ap);
+    sm->pos += *n;
+}
+#define _stream_scanf(sm, fmt, ...)                                     \
+    do                                                                  \
+    {                                                                   \
+        int n_read__;                                                   \
+        _stream_scanf_(sm, fmt "%n", &n_read__, ##__VA_ARGS__, &n_read__); \
+    } while (0)
+
+/* strings are written as "<len> <str> " or "-1 " if NULL */
+static void _stream_write_string(Stream *sm, const char *s)
 {
     if (s)
-        _stream_printf(sm, "%*s%d %s", d, "", (int) strlen(s), s);
+        _stream_printf(sm, "%d %s ", (int) strlen(s), s);
     else
-        _stream_printf(sm, "%*s-1", d, "");
+        _stream_printf(sm, "-1 ");
 }
-
-static const char *_read_string(char **dest, const char *s)
+static char *_stream_read_string(Stream *sm)
 {
-    int l, r;
+    char *s;
+    int n, r;
 
-    if (sscanf(s, "%d %n", &l, &r) != 1)
+    if (sscanf(&sm->buf[sm->pos], "%d %n", &n, &r) != 1)
         error("corrupt save");
-    s += r;
+    sm->pos += r;
 
-    if (l >= 0)
-    {
-        *dest = malloc(l + 1);
-        strncpy(*dest, s, l);
-        (*dest)[l] = '\0';
-        s += l;
-    }
-    else
-        *dest = NULL;
+    if (n < 0)
+        return NULL;
 
+    s = malloc(n + 1);
+    strncpy(s, &sm->buf[sm->pos], n);
+    sm->pos += n;
+    s[n] = '\0';
     return s;
 }
 
-/* name, data unset */
-static Node *_node_new(Node *parent)
+/* --- internals ----------------------------------------------------------- */
+
+static Store *_store_new(Store *parent)
 {
-    Node *n = malloc(sizeof(Node));
-    n->parent = parent;
-    n->child = NULL;
-    n->sibling = n->parent ? n->parent->child : NULL;
-    if (n->parent)
-        n->parent->iterchild = n->parent->child = n;
-    n->iterchild = NULL;
-    return n;
+    Store *s = malloc(sizeof(Store));
+    s->name = NULL;
+    s->data = NULL;
+    s->parent = parent;
+    s->child = NULL;
+    s->sibling = s->parent ? s->parent->child : NULL;
+    if (s->parent)
+        s->parent->iterchild = s->parent->child = s;
+    s->iterchild = NULL;
+    s->str = NULL;
+    return s;
 }
 
-/* free subtree at node */
-static void _node_free(Node *n)
+static void _store_free(Store *s)
 {
-    Node *m;
+    Store *t;
 
-    while (n->child)
+    while (s->child)
     {
-        m = n->child->sibling;
-        _node_free(n->child);
-        n->child = m;
+        t = s->child->sibling;
+        _store_free(s->child);
+        s->child= t;
     }
 
-    free(n->name);
-    free(n->data);
+    free(s->name);
+    free(s->data);
+    free(s->str);
 }
 
-static void _node_write(Node *n, unsigned int d, Stream *sm)
+void _store_write(Store *s, unsigned int indent, Stream *sm)
 {
-    Node *c;
+    Store *c;
 
-    /* compress leaves to one line */
-
-    _stream_printf(sm, "%*s{", d, "");
-    if (n->child)
-        _stream_printf(sm, "\n");
-
-    _write_string(n->name, n->child ? d + 4 : 1, sm);
-    _stream_printf(sm, " ", d);
-    _write_string(n->data, 0, sm);
-    if (n->child)
-        _stream_printf(sm, "\n");
-
-    for (c = n->child; c; c = c->sibling)
-        _node_write(c, d + 4, sm);
-
-    _stream_printf(sm, "%*s}\n", n->child ? d : 1, "");
-}
-
-static const char *_node_read(Node *parent, const char *s)
-{
-    Node *n = _node_new(parent);
-
-    /* skip open brace */
-    if (*s != '{')
-        error("corrupt save");
-    while (isspace(*++s));
+    /* opening brace */
+    if (s->child)
+        _stream_printf(sm, "%*s{\n%*s", indent, "", indent + 4, "");
+    else
+        _stream_printf(sm, "%*s{ ", indent, "");
 
     /* name, data */
-    s = _read_string(&n->name, s);
-    s = _read_string(&n->data, s);
+    _stream_write_string(sm, s->name);
+    _stream_write_string(sm, s->data);
+    if (s->child)
+        _stream_printf(sm, "\n");
+
+    /* children */
+    for (c = s->child; c; c = c->sibling)
+        _store_write(c, indent + 4, sm);
+
+    /* closing brace */
+    if (s->child)
+        _stream_printf(sm, "%*s}\n", indent, "");
+    else
+        _stream_printf(sm, "}\n");
+}
+
+Store *_store_read(Store *parent, Stream *sm)
+{
+    Store *s = _store_new(parent);
+
+    /* opening brace */
+    if (sm->buf[sm->pos] != '{')
+        error("corrupt save");
+    while (isspace(sm->buf[++sm->pos]));
+
+    /* name, data */
+    s->name = _stream_read_string(sm);
+    s->data = _stream_read_string(sm);
 
     /* children */
     for (;;)
     {
+        while (isspace(sm->buf[sm->pos]))
+            ++sm->pos;
+
         /* end? */
-        while (isspace(*s))
-            ++s;
-        if (*s == '}')
+        if (sm->buf[sm->pos] == '}')
         {
-            ++s;
+            ++sm->pos;
             break;
         }
 
-        if (*s == '{')
-            s = _node_read(n, s);
-        else
-            error("corrupt save");
+        _store_read(s, sm);
     }
 
     return s;
 }
 
-/* ------------------------------------------------------------------------- */
+/* --- child save/load ----------------------------------------------------- */
 
-Serializer *serializer_open_str()
+bool store_child_save(Store **sp, const char *name, Store *parent)
 {
-    Serializer *s = malloc(sizeof(Serializer));
-    s->curr = _node_new(NULL);
-    s->curr->name = NULL;
-    s->curr->data = NULL;
-    s->buf = NULL;
-    s->filename = NULL;
-    return s;
+    Store *s = _store_new(parent);
+    s->name = malloc(strlen(name) + 1);
+    strcpy(s->name, name);
+
+    return *sp = s;
 }
 
-Serializer *serializer_open_file(const char *filename)
+bool store_child_load(Store **sp, const char *name, Store *parent)
 {
-    Serializer *s = serializer_open_str();
-    s->filename = malloc(strlen(filename) + 1);
-    strcpy(s->filename, filename);
-    return s;
+    Store *s;
+
+    /* if NULL name, pick next iteration child and advance */
+    if (!name)
+    {
+        s = parent->iterchild;
+        if (parent->iterchild)
+            parent->iterchild = parent->iterchild->sibling;
+        return *sp = s;
+    }
+
+    /* search all children */
+    for (s = parent->child; s && strcmp(s->name, name); s = s->sibling);
+    return *sp = s;
 }
 
+/* --- open/close ---------------------------------------------------------- */
 
-const char *serializer_get_str(Serializer *s)
+Store *store_open()
+{
+    return _store_new(NULL);
+}
+
+Store *store_open_str(const char *str)
+{
+    Stream sm = { (char *) str, 0 };
+    return _store_read(NULL, &sm);
+}
+const char *store_write_str(Store *s)
 {
     Stream sm[1];
 
-    error_assert(!s->curr->parent, "must be at root section -- can't break out"
-                 " of serializer_enter_section(...) blocks");
-
-    sm->buf = NULL;
-    sm->pos = 0;
-    _stream_printf(sm, "");
-
-    _node_write(s->curr, 0, sm);
-
-    free(s->buf);
-    s->buf = sm->buf;
-    return s->buf;
+    _stream_init(sm);
+    _store_write(s, 0, sm);
+    free(s->str);
+    s->str = sm->buf;
+    return s->str; /* don't deinit sm, keep string */
 }
 
-void serializer_close(Serializer *s)
+/* file stores store_write_str(...) result in "<len>\n<str>" format */
+Store *store_open_file(const char *filename)
+{
+    Store *s;
+    FILE *f;
+    unsigned int n;
+    char *str;
+
+    f = fopen(filename, "r");
+    error_assert(f, "file '%s' must be open for reading", filename);
+
+    fscanf(f, "%u\n", &n);
+    str = malloc(n + 1);
+    fread(str, 1, n, f);
+    fclose(f);
+    s = store_open_str(str);
+    free(str);
+    return s;
+}
+void store_write_file(Store *s, const char *filename)
 {
     FILE *f;
     const char *str;
-    unsigned int l;
+    unsigned int n;
 
-    /* write file? */
-    if (s->filename)
-    {
-        f = fopen(s->filename, "w");
-        if (!f)
-            error("failed to open file '%s' for writing", s->filename);
-        str = serializer_get_str(s);
-        l = strlen(str);
-        fprintf(f, "%u\n", l);
-        fwrite(str, 1, l, f);
-        fclose(f);
-    }
+    f = fopen(filename, "w");
+    error_assert(f, "file '%s' must be open for writing", filename);
 
-    /* might not be at root if bad save */
-    while (s->curr->parent)
-        s->curr = s->curr->parent;
-    _node_free(s->curr);
-
-    free(s->buf);
-    free(s->filename);
-    free(s);
-}
-
-Deserializer *deserializer_open_str(const char *str)
-{
-    Deserializer *s;
-    Node fake[1];
-
-    _node_read(fake, str); /* root gets created as child of fake */
-    fake->child->parent = NULL;
-
-    s = malloc(sizeof(Deserializer));
-    s->curr = fake->child;
-    return s;
-}
-
-Deserializer *deserializer_open_file(const char *filename)
-{
-    char *str;
-    FILE *f;
-    unsigned int l;
-    Deserializer *d;
-
-    f = fopen(filename, "r");
-    if (!f)
-        error("failed to open file '%s' for reading", filename);
-
-    fscanf(f, "%u\n", &l);
-    str = malloc(l + 1);
-    fread(str, 1, l, f);
+    str = store_write_str(s);
+    n = strlen(str);
+    fprintf(f, "%u\n", n);
+    fwrite(str, 1, n, f);
     fclose(f);
-    d = deserializer_open_str(str);
-    free(str);
-
-    return d;
 }
 
-void deserializer_close(Deserializer *s)
+void store_close(Store *s)
 {
-    /* might not be at root if bad load */
-    while (s->curr->parent)
-        s->curr = s->curr->parent;
-    _node_free(s->curr);
-    free(s);
+    _store_free(s);
 }
 
-/* ------------------------------------------------------------------------- */
+/* --- primitives ---------------------------------------------------------- */
 
-void serializer_begin_section(const char *name, Serializer *s)
-{
-    Node *n = _node_new(s->curr);
-
-    if (name)
-    {
-        n->name = malloc(strlen(name) + 1);
-        strcpy(n->name, name);
-    }
-    else
-        n->name = NULL;
-
-    n->data = NULL;
-
-    s->curr = n;
-}
-
-void serializer_end_section(Serializer *s)
-{
-    s->curr = s->curr->parent;
-}
-
-bool deserializer_begin_section(const char *name, Deserializer *s)
-{
-    Node *n;
-
-    /* if NULL name pick next child to visit */
-    if (!name)
-    {
-        if (s->curr->iterchild)
-        {
-            s->curr->last_found = true;
-            n = s->curr->iterchild;
-            s->curr->iterchild = s->curr->iterchild->sibling;
-            s->curr = n;
-            return true;
-        }
-        return s->curr->last_found = false;
-    }
-
-    /* check next child, quick if sections are in order */
-    if (s->curr->iterchild && !strcmp(s->curr->iterchild->name, name))
-    {
-        s->curr->last_found = true;
-        n = s->curr->iterchild;
-        s->curr->iterchild = s->curr->iterchild->sibling;
-        s->curr = n;
-        return true;
-    }
-
-    /* just search all children */
-    for (n = s->curr->child; n; n = n->sibling)
-        if (!strcmp(n->name, name))
-        {
-            s->curr->last_found = true;
-            s->curr = n;
-            return true;
-        }
-    return s->curr->last_found = false;
-}
-
-void deserialization_end_section(Deserializer *s)
-{
-    s->curr = s->curr->parent;
-}
-
-bool deserializer_section_found(Deserializer *s)
-{
-    return s->curr->last_found;
-}
-
-/* ------------------------------------------------------------------------- */
-
-/* assumes only one write per section, use multiple sections for more */
-static void _serializer_printf(Serializer *s, const char *fmt, ...)
+static void _store_printf(Store *s, const char *fmt, ...)
 {
     va_list ap1, ap2;
     unsigned int n;
 
-    error_assert(!s->curr->data, "section '%s' shouldn't already have data",
-                 s->curr->name);
+    error_assert(!s->data, "store '%s' shouldn't already have data", s->name);
 
     va_start(ap1, fmt);
     va_copy(ap2, ap1);
 
-    /* how much space do we need? */
     n = vsnprintf(NULL, 0, fmt, ap2);
     va_end(ap2);
 
-    /* allocate, sprintf */
-    s->curr->data = malloc(n + 1);
-    vsprintf(s->curr->data, fmt, ap1);
+    s->data = malloc(n + 1);
+    vsprintf(s->data, fmt, ap1);
     va_end(ap1);
 }
-
-static int _deserializer_scanf(Deserializer *s, const char *fmt, ...)
+static int _deserializer_scanf(Store *s, const char *fmt, ...)
 {
     va_list ap;
     int r;
@@ -398,188 +326,88 @@ static int _deserializer_scanf(Deserializer *s, const char *fmt, ...)
                  s->curr->name);
 
     va_start(ap, fmt);
-    r = vsscanf(s->curr->data, fmt, ap);
+    r = vsscanf(s->data, fmt, ap);
     va_end(ap);
     return r;
 }
 
-void scalar_save(const Scalar *f, const char *n, Serializer *s)
+void string_save(const char **c, const char *n, Store *s)
 {
-    serializer_section(n, s)
-    {
-        if (*f == SCALAR_INFINITY)
-            _serializer_printf(s, "inf");
-        else
-            _serializer_printf(s, "%f", *f);
-    }
-}
-bool scalar_load(Scalar *f, const char *n, Scalar d, Deserializer *s)
-{
-    deserializer_section(n, s)
-    {
-        if (s->curr->data[0] == 'i')
-            *f = SCALAR_INFINITY;
-        else
-            _deserializer_scanf(s, "%f", f);
-    }
-    else
-        *f = d;
-    return deserializer_section_found(s);
-}
+    Store *t;
 
-void uint_save(const unsigned int *u, const char *n, Serializer *s)
-{
-    serializer_section(n, s)
-        _serializer_printf(s, "%u", *u);
-}
-bool uint_load(unsigned int *u, const char *n, unsigned int d, Deserializer *s)
-{
-    deserializer_section(n, s)
-        _deserializer_scanf(s, "%u", u);
-    else
-        *u = d;
-    return deserializer_section_found(s);
-}
-
-void int_save(const int *i, const char *n, Serializer *s)
-{
-    serializer_section(n, s)
-        _serializer_printf(s, "%d", *i);
-}
-bool int_load(int *i, const char *n, int d, Deserializer *s)
-{
-    deserializer_section(n, s)
-        _deserializer_scanf(s, "%d", i);
-    else
-        *i = d;
-    return deserializer_section_found(s);
-}
-
-void bool_save(const bool *b, const char *n, Serializer *s)
-{
-    serializer_section(n, s)
-        _serializer_printf(s, "%d", *b == true);
-}
-bool bool_load(bool *b, const char *n, bool d, Deserializer *s)
-{
-    int i = d;
-    deserializer_section(n, s)
-        _deserializer_scanf(s, "%d", &i);
-    *b = i ? true : false;
-    return deserializer_section_found(s);
-}
-
-void string_save(const char **c, const char *n, Serializer *s)
-{
-    serializer_section(n, s)
+    if (store_child_save(&t, n, s))
     {
-        s->curr->data = malloc(strlen(*c) + 1);
-        strcpy(s->curr->data, *c);
+        t->data = malloc(strlen(*c) + 1);
+        strcpy(t->data, *c);
     }
 }
-bool string_load(char **c, const char *n, const char *d, Deserializer *s)
+bool string_load(char **c, const char *n, const char *d, Store *s)
 {
-    deserializer_section(n, s)
+    Store *t;
+
+    if (store_child_load(&t, n, s))
     {
-        error_assert(s->curr->data, "section '%s' should have data",
-                     s->curr->name);
-        *c = malloc(strlen(s->curr->data) + 1);
-        strcpy(*c, s->curr->data);
+        error_assert(t->data, "section '%s' should have data", t->name);
+        *c = malloc(strlen(t->data) + 1);
+        strcpy(*c, t->data);
+        return true;
     }
-    else
-    {
-        *c = malloc(strlen(d) + 1);
-        strcpy(*c, d);
-    }
-    return deserializer_section_found(s);
+
+    *c = malloc(strlen(d) + 1);
+    strcpy(*c, d);
+    return false;
 }
 
 #if 1
 
-typedef enum TestEnum TestEnum;
-enum TestEnum { A, B, C };
-
 int main()
 {
-    Serializer *s;
-    Deserializer *d;
+    Store *s, *d, *sprite_s, *pool_s, *elem_s;
     char *c;
-    Scalar f;
-    bool u;
-    TestEnum e;
 
-    s = serializer_open_file("test.sav");
+    s = store_open();
     {
-        serializer_section("sprite", s)
+        if (store_child_save(&sprite_s, "sprite", s))
         {
-            f = 3.14;
-            scalar_save(&f, "glob1", s);
+            c = "hello, world";
+            string_save(&c, "prop1", sprite_s);
 
-            serializer_section("stuff", s)
+            c = "hello, world ... again";
+            string_save(&c, "prop2", sprite_s);
+
+            if (store_child_save(&pool_s, "pool", sprite_s))
             {
-                serializer_section(NULL, s)
-                {
-                    c = "spr1";
-                    string_save(&c, "name", s);
-                }
-
-                serializer_section(NULL, s)
-                {
-                    c = "spr2";
-                    string_save(&c, "name", s);
-                }
-
-                serializer_section(NULL, s)
-                {
-                    c = "spr3";
-                    string_save(&c, "name", s);
-                }
+                store_child_save(&elem_s, "elem1", pool_s);
+                store_child_save(&elem_s, "elem2", pool_s);
             }
         }
-
-        serializer_section("transform", s);
     }
-    serializer_close(s);
+    store_write_file(s, "test.sav");
+    store_close(s);
 
-    d = deserializer_open_file("test.sav");
+    /* ---- */
+
+    d = store_open_file("test.sav");
     {
-        deserializer_section("sprite", d)
+        if (store_child_load(&sprite_s, "sprite", d))
         {
-            printf("%s\n", d->curr->name);
+            printf("%s\n", sprite_s->name);
 
-            scalar_load(&f, "glob1", 4.2, d);
-            printf("    glob1: %f\n", f);
+            string_load(&c, "prop1", "hai", sprite_s);
+            printf("    prop1: %s\n", c);
 
-            scalar_load(&f, "glob3", 4.2, d);
-            printf("    glob3: %f\n", f);
+            string_load(&c, "prop3", "hai", sprite_s);
+            printf("    prop3: %s\n", c);
 
-            enum_load(&e, "glob2", B, d);
-            switch (e)
-            {
-                case A: printf("    glob2: A\n"); break;
-                case B: printf("    glob2: B\n"); break;
-                case C: printf("    glob2: C\n"); break;
-            }
+            string_load(&c, "prop2", "hai", sprite_s);
+            printf("    prop2: %s\n", c);
 
-            deserializer_section("stuff", d)
-                deserializer_section_loop(d)
-                {
-                    string_load(&c, "name", "noname", d);
-                    printf("        name: %s\n", c);
-                    free(c);
-                }
+            if (store_child_load(&pool_s, "pool", sprite_s))
+                while (store_child_load(&elem_s, NULL, pool_s))
+                    printf("        %s\n", elem_s->name);
         }
-        else
-        {
-            printf("oops\n");
-        }
-
-        deserializer_section("transform", d)
-            printf("%s\n", d->curr->name);
     }
-
-    /* serializer_close(s); */
-    /* deserializer_close(d); */
+    store_close(d);
 
     return 0;
 }
