@@ -6,8 +6,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#define error_assert(...)
-#define error(...)
+#include "error.h"
 
 /* growable string stream */
 typedef struct Stream Stream;
@@ -425,7 +424,7 @@ bool string_load(char **c, const char *n, const char *d, Store *s)
     return false;
 }
 
-#if 1
+#if 0
 
 int main()
 {
