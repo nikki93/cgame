@@ -124,7 +124,7 @@ void gui_key_up(KeyCode key);
 void gui_char_down(unsigned int c);
 void gui_mouse_down(MouseCode mouse);
 void gui_mouse_up(MouseCode mouse);
-void gui_save_all(Serializer *s);
-void gui_load_all(Deserializer *s);
+void gui_save_all(Store *s);
+void gui_load_all(Store *s);
 
 #endif

@@ -15,7 +15,7 @@ SCRIPT(prefab,
 
     )
 
-void prefab_save_all(Serializer *s);
-void prefab_load_all(Deserializer *s);
+void prefab_save_all(Store *s);
+void prefab_load_all(Store *s);
 
 #endif

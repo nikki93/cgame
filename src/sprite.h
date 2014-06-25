@@ -37,8 +37,8 @@ void sprite_init();
 void sprite_deinit();
 void sprite_update_all();
 void sprite_draw_all();
-void sprite_save_all(Serializer *s);
-void sprite_load_all(Deserializer *s);
+void sprite_save_all(Store *s);
+void sprite_load_all(Store *s);
 
 #endif
 

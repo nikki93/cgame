@@ -62,8 +62,8 @@ void entitypool_sort(EntityPool *pool,
                      int (*compar)(const void *, const void *));
 
 /* elem must be /pointer to/ pointer to element */
-void entitypool_elem_save(EntityPool *pool, void *elem, Serializer *s);
-void entitypool_elem_load(EntityPool *pool, void *elem, Deserializer *s);
+void entitypool_elem_save(EntityPool *pool, void *elem, Store *s);
+void entitypool_elem_load(EntityPool *pool, void *elem, Store *s);
 
 /*
  * call 'func' on each destroyed Entity, generally done in

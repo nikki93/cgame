@@ -6,8 +6,8 @@
 
 SCRIPT(system,
 
-       EXPORT void system_load_all(Deserializer *f);
-       EXPORT void system_save_all(Serializer *f);
+       EXPORT void system_load_all(Store *f);
+       EXPORT void system_save_all(Store *f);
 
     )
 

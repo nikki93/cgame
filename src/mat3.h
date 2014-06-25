@@ -40,8 +40,8 @@ SCRIPT(mat3,
 
        EXPORT Vec2 mat3_transform(Mat3 m, Vec2 v);
 
-       EXPORT void mat3_save(Mat3 *m, const char *n, Serializer *s);
-       EXPORT bool mat3_load(Mat3 *m, const char *n, Mat3 d, Deserializer *s);
+       EXPORT void mat3_save(Mat3 *m, const char *n, Store *s);
+       EXPORT bool mat3_load(Mat3 *m, const char *n, Mat3 d, Store *s);
 
     )
 

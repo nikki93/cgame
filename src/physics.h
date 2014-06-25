@@ -153,8 +153,8 @@ void physics_deinit();
 void physics_update_all();
 void physics_post_update_all();
 void physics_draw_all();
-void physics_save_all(Serializer *s);
-void physics_load_all(Deserializer *s);
+void physics_save_all(Store *s);
+void physics_load_all(Store *s);
 
 #endif
 

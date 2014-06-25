@@ -23,8 +23,8 @@ SCRIPT(timing,
     )
 
 void timing_update();
-void timing_save_all(Serializer *s);
-void timing_load_all(Deserializer *s);
+void timing_save_all(Store *s);
+void timing_load_all(Store *s);
 
 #endif
 

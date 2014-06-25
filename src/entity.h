@@ -30,8 +30,8 @@ SCRIPT(entity,
        EXPORT void entity_clear_save_filters();
 
        /* save/load is just for ids */
-       EXPORT void entity_save(Entity *ent, Serializer *s);
-       EXPORT void entity_load(Entity *ent, Deserializer *s);
+       EXPORT void entity_save(Entity *ent, Store *s);
+       EXPORT void entity_load(Entity *ent, Store *s);
 
     )
 
@@ -39,8 +39,8 @@ void entity_init();
 void entity_deinit();
 void entity_update_all();
 
-void entity_save_all(Serializer *s);
-void entity_load_all(Deserializer *s);
+void entity_save_all(Store *s);
+void entity_load_all(Store *s);
 void entity_load_all_begin();
 void entity_load_all_end();
 

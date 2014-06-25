@@ -43,7 +43,7 @@ void edit_init();
 void edit_deinit();
 void edit_update_all();
 void edit_draw_all();
-void edit_save_all(Serializer *s);
-void edit_load_all(Deserializer *s);
+void edit_save_all(Store *s);
+void edit_load_all(Store *s);
 
 #endif
