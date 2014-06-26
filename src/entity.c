@@ -233,6 +233,8 @@ bool entity_load(Entity *ent, const char *n, Entity d, Store *s)
             entitymap_set(load_map, sav, ent->id);
         }
     }
+
+    return t != NULL;
 }
 
 void entity_load_all_begin()
