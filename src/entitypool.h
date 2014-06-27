@@ -100,30 +100,29 @@ void entitypool_elem_load(EntityPool *pool, void *elem, Store *s);
     for (void *__end = (var = entitypool_begin(pool),                   \
                         entitypool_end(pool)); var != __end; ++var)
 
-#define entitypool_save_foreach(var, pool, s)           \
-    entitypool_save_foreach_(var, pool, s, __LINE__)
-#define make_label(line) __label_1_ ## line
-#define entitypool_save_foreach_(var, pool, s, line)                    \
-    if (1)                                                              \
-        goto make_label(line);                                          \
-    else                                                                \
-        while (1)                                                       \
-            if (1)                                                      \
-            {                                                           \
-                loop_end_save(s);                                       \
-                break;                                                  \
-            }                                                           \
-            else                                                        \
-            make_label(line):                                           \
-                entitypool_foreach(var, pool)                           \
-                    if (entity_get_save_filter(((EntityPoolElem *) var)->ent)) \
-                        if ((loop_continue_save(s),                     \
-                             entitypool_elem_save(pool, &var, s),       \
-                             1))                                        \
-
-#define entitypool_load_foreach(var, pool, s)                   \
-        while (loop_continue_load(s))                           \
-            if ((entitypool_elem_load(pool, &var, s), 1))       \
+/*
+ * save/load each element of an EntityPool -- var is the variable used
+ * to iterate over the pool, var_s is the Store pointer to use for the
+ * Stores created/loaded per element, pool is the EntityPool, n is the
+ * name to save/load the entire pool under, and finally s is the
+ * parent pool to save under
+ *
+ * respects entity save filtering
+ *
+ * see transform, sprite etc. for example usage
+ */
+#define entitypool_save_foreach(var, var_s, pool, n, s)                 \
+    for (Store *pool##_s__ = NULL;                                      \
+         !pool##_s__ && store_child_save(&pool##_s__, n, s); )          \
+        entitypool_foreach(var, pool)                                   \
+            if (entity_get_save_filter(((EntityPoolElem *) var)->ent))  \
+                if (store_child_save(&var_s, NULL, pool##_s__))         \
+                    if ((entitypool_elem_save(pool, &var, var_s)), 1)
+#define entitypool_load_foreach(var, var_s, pool, n, s)         \
+    for (Store *pool##_s__ = NULL;                              \
+         !pool##_s__ && store_child_load(&pool##_s__, n, s); )  \
+        while (store_child_load(&var_s, NULL, pool##_s__))      \
+            if ((entitypool_elem_load(pool, &var, var_s)), 1)
 
 #endif
 
