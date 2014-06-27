@@ -216,25 +216,29 @@ bool entity_load(Entity *ent, const char *n, Entity d, Store *s)
     Store *t;
     Entity sav;
 
-    if (store_child_load(&t, n, s))
-        uint_load(&sav.id, "id", entity_nil.id, t);
-    else
-        sav = entity_nil;
+    /* build a map of saved id --> new id to allow merging */
+
+    if (!store_child_load(&t, n, s))
+    {
+        *ent = d; /* default shouldn't be remapped */
+        return false;
+    }
+
+    uint_load(&sav.id, "id", entity_nil.id, t);
 
     if (entity_eq(sav, entity_nil))
-        *ent = entity_nil;
+        *ent = entity_nil; /* entity_nil always maps to entity_nil */
     else
     {
-        /* build a map of saved id --> new id to allow merging */
         ent->id = entitymap_get(load_map, sav);
         if (entity_eq(*ent, entity_nil))
         {
-            *ent = _generate_id(); /* new sav */
+            *ent = _generate_id(); /* not seen before, generate new */
             entitymap_set(load_map, sav, ent->id);
         }
     }
 
-    return t != NULL;
+    return true;
 }
 
 void entity_load_all_begin()
