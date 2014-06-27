@@ -261,33 +261,41 @@ void entity_save_all(Store *s)
 {
     DestroyEntry *entry;
     ExistsPoolElem *exists;
-    Store *exists_s, *destroyed_s, *entry_s;
+    Store *entity_s, *exists_s, *destroyed_s, *entry_s;
 
-    entitypool_save_foreach(exists, exists_s, exists_pool, "exists_pool", s);
+    if (store_child_save(&entity_s, "entity", s))
+    {
+        entitypool_save_foreach(exists, exists_s, exists_pool,
+                                "exists_pool", s);
 
-    if (store_child_save(&destroyed_s, "destroyed", s))
-        array_foreach(entry, destroyed)
-            if (entity_get_save_filter(entry->ent))
-                if (store_child_save(&entry_s, NULL, destroyed_s))
-                {
-                    entity_save(&entry->ent, "ent", entry_s);
-                    uint_save(&entry->pass, "pass", entry_s);
-                }
+        if (store_child_save(&destroyed_s, "destroyed", s))
+            array_foreach(entry, destroyed)
+                if (entity_get_save_filter(entry->ent))
+                    if (store_child_save(&entry_s, NULL, destroyed_s))
+                    {
+                        entity_save(&entry->ent, "ent", entry_s);
+                        uint_save(&entry->pass, "pass", entry_s);
+                    }
+    }
 }
 
 void entity_load_all(Store *s)
 {
     DestroyEntry *entry;
     ExistsPoolElem *exists;
-    Store *exists_s, *destroyed_s, *entry_s;
+    Store *entity_s, *exists_s, *destroyed_s, *entry_s;
 
-    entitypool_load_foreach(exists, exists_s, exists_pool, "exists_pool", s);
+    if (store_child_load(&entity_s, "entity", s))
+    {
+        entitypool_load_foreach(exists, exists_s, exists_pool,
+                                "exists_pool", s);
 
-    if (store_child_load(&destroyed_s, "destroyed", s))
-        while (store_child_load(&entry_s, NULL, destroyed_s))
-        {
-            entry = array_add(destroyed);
-            error_assert(entity_load(&entry->ent, "ent", entity_nil, entry_s));
-            uint_load(&entry->pass, "pass", 0, entry_s);
-        }
+        if (store_child_load(&destroyed_s, "destroyed", s))
+            while (store_child_load(&entry_s, NULL, destroyed_s))
+            {
+                entry = array_add(destroyed);
+                error_assert(entity_load(&entry->ent, "ent", entity_nil, entry_s));
+                uint_load(&entry->pass, "pass", 0, entry_s);
+            }
+    }
 }
