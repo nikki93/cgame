@@ -45,12 +45,18 @@ void timing_update()
     _dt_update();
 }
 
-void timing_save_all(Serializer *s)
+void timing_save_all(Store *s)
 {
-    scalar_save(&scale, s);
+    Store *t;
+
+    if (store_child_save(&t, "timing", s))
+        scalar_save(&scale, "scale", t);
 }
-void timing_load_all(Deserializer *s)
+void timing_load_all(Store *s)
 {
-    scalar_load(&scale, s);
+    Store *t;
+
+    if (store_child_load(&t, "timing", s))
+        scalar_load(&scale, "scale", 1, t);
 }
 

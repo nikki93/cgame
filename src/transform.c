@@ -386,76 +386,80 @@ void transform_update_all()
 }
 
 /* save/load for just the children array */
-static void _children_save(Transform *t, Serializer *s)
+static void _children_save(Transform *t, Store *s)
 {
+    Store *u;
     Entity *child;
 
-    if (t->children)
-        array_foreach(child, t->children)
-            if (entity_get_save_filter(*child))
-            {
-                loop_continue_save(s);
-                entity_save(child, s);
-            }
-    loop_end_save(s);
+    if (store_child_save(&u, "children", s))
+        if (t->children)
+            array_foreach(child, t->children)
+                if (entity_get_save_filter(*child))
+                    entity_save(child, NULL, u);
 }
-static void _children_load(Transform *t, Deserializer *s)
+static void _children_load(Transform *t, Store *s)
 {
-    Entity *child;
+    Store *u;
+    Entity child;
+
+    t->children = NULL;
 
     /* this is a little weird because we want NULL array when no children */
-    if (loop_continue_load(s))
-    {
-        t->children = array_new(Entity);
-        do
+    if (store_child_load(&u, "children", s))
+        if (entity_load(&child, NULL, entity_nil, u))
         {
-            child = array_add(t->children);
-            entity_load(child, s);
-        } while (loop_continue_load(s));
-    }
-    else
-        t->children = NULL;
+            t->children = array_new(Entity);
+            do
+                array_add_val(Entity, t->children) = child;
+            while (entity_load(&child, NULL, entity_nil, u));
+        }
 }
 
-void transform_save_all(Serializer *s)
+void transform_save_all(Store *s)
 {
+    Store *t, *transform_s;
     Transform *transform;
 
-    entitypool_save_foreach(transform, pool, s)
-    {
-        vec2_save(&transform->position, s);
-        scalar_save(&transform->rotation, s);
-        vec2_save(&transform->scale, s);
+    if (store_child_save(&t, "transform", s))
+        entitypool_save_foreach(transform, transform_s, pool, "pool", t)
+        {
+            vec2_save(&transform->position, "position", transform_s);
+            scalar_save(&transform->rotation, "rotation", transform_s);
+            vec2_save(&transform->scale, "scale", transform_s);
 
-        if (entity_get_save_filter(transform->parent))
-            entity_save(&transform->parent, s);
-        else
-            entity_save(&entity_nil, s);
-        _children_save(transform, s);
+            if (entity_get_save_filter(transform->parent))
+                entity_save(&transform->parent, "parent", transform_s);
+            else
+                entity_save(&entity_nil, "parent", transform_s);
+            _children_save(transform, transform_s);
 
-        mat3_save(&transform->mat_cache, s);
-        mat3_save(&transform->worldmat_cache, s);
+            mat3_save(&transform->mat_cache, "mat_cache", transform_s);
+            mat3_save(&transform->worldmat_cache, "worldmat_cache",
+                      transform_s);
 
-        uint_save(&transform->dirty_count, s);
-    }
+            uint_save(&transform->dirty_count, "dirty_count", transform_s);
+        }
 }
-void transform_load_all(Deserializer *s)
+void transform_load_all(Store *s)
 {
+    Store *t, *transform_s;
     Transform *transform;
 
-    entitypool_load_foreach(transform, pool, s)
-    {
-        vec2_load(&transform->position, s);
-        scalar_load(&transform->rotation, s);
-        vec2_load(&transform->scale, s);
+    if (store_child_load(&t, "transform", s))
+        entitypool_load_foreach(transform, transform_s, pool, "pool", t)
+        {
+            vec2_load(&transform->position, "position", vec2_zero, transform_s);
+            scalar_load(&transform->rotation, "rotation", 0, transform_s);
+            vec2_load(&transform->scale, "scale", vec2(1, 1), transform_s);
 
-        entity_load(&transform->parent, s);
-        _children_load(transform, s);
+            entity_load(&transform->parent, "parent", entity_nil, transform_s);
+            _children_load(transform, transform_s);
 
-        mat3_load(&transform->mat_cache, s);
-        mat3_load(&transform->worldmat_cache, s);
+            mat3_load(&transform->mat_cache, "mat_cache", mat3_identity(),
+                      transform_s);
+            mat3_load(&transform->worldmat_cache, "worldmat_cache",
+                      mat3_identity(), transform_s);
 
-        uint_load(&transform->dirty_count, s);
-    }
+            uint_load(&transform->dirty_count, "dirty_count", 0, transform_s);
+        }
 }
-

@@ -147,12 +147,12 @@ static void _saveload_all(void *s, bool save)
     entity_load_all_end();
 }
 
-void system_save_all(Serializer *s)
+void system_save_all(Store *s)
 {
     _saveload_all(s, true);
 }
 
-void system_load_all(Deserializer *s)
+void system_load_all(Store *s)
 {
     _saveload_all(s, false);
 }

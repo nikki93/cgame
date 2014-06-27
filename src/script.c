@@ -244,39 +244,45 @@ void script_mouse_move(Vec2 pos)
     errcheck(_pcall(L, 2, 0));
 }
 
-void script_save_all(Serializer *s)
+void script_save_all(Store *s)
 {
+    Store *t;
     const char *str;
 
-    /* get string from Lua */
-    lua_getglobal(L, "cgame");
-    lua_getfield(L, -1, "__save_all");
-    lua_remove(L, -2);
-    errcheck(_pcall(L, 0, 1));
-    str = lua_tostring(L, -1);
+    if (store_child_save(&t, "script", s))
+    {
+        /* get string from Lua */
+        lua_getglobal(L, "cgame");
+        lua_getfield(L, -1, "__save_all");
+        lua_remove(L, -2);
+        errcheck(_pcall(L, 0, 1));
+        str = lua_tostring(L, -1);
 
-    /* save it */
-    string_save(&str, s);
+        /* save it */
+        string_save(&str, "str", t);
 
-    /* release */
-    lua_pop(L, 1);
+        /* release */
+        lua_pop(L, 1);
+    }
 }
 
-void script_load_all(Deserializer *s)
+void script_load_all(Store *s)
 {
+    Store *t;
     char *str;
 
-    /* load the string */
-    string_load(&str, s);
+    if (store_child_load(&t, "script", s))
+        if (string_load(&str, "str", NULL, t))
+        {
+            /* send it to Lua */
+            lua_getglobal(L, "cgame");
+            lua_getfield(L, -1, "__load_all");
+            lua_remove(L, -2);
+            lua_pushstring(L, str);
+            errcheck(_pcall(L, 1, 0));
 
-    /* send it to Lua */
-    lua_getglobal(L, "cgame");
-    lua_getfield(L, -1, "__load_all");
-    lua_remove(L, -2);
-    lua_pushstring(L, str);
-    errcheck(_pcall(L, 1, 0));
-
-    /* release */
-    free(str);
+            /* release */
+            free(str);
+        }
 }
 

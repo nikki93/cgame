@@ -166,33 +166,39 @@ void camera_update_all()
         inverse_view_matrix = mat3_inverse(transform_get_world_matrix(cam));
 }
 
-void camera_save_all(Serializer *s)
+void camera_save_all(Store *s)
 {
+    Store *t, *camera_s;
     Camera *camera;
 
-    if (entity_get_save_filter(curr_camera))
-        entity_save(&curr_camera, s);
-    else
-        entity_save(&entity_nil, s);
+    if (store_child_save(&t, "camera", s))
+    {
+        if (entity_get_save_filter(curr_camera))
+            entity_save(&curr_camera, "curr_camera", t);
 
-    mat3_save(&inverse_view_matrix, s);
+        mat3_save(&inverse_view_matrix, "inverse_view_matrix", t);
 
-    entitypool_save_foreach(camera, pool, s)
-        scalar_save(&camera->viewport_height, s);
+        entitypool_save_foreach(camera, camera_s, pool, "pool", t)
+            scalar_save(&camera->viewport_height, "viewport_height", camera_s);
+    }
 }
-void camera_load_all(Deserializer *s)
+void camera_load_all(Store *s)
 {
+    Store *t, *camera_s;
     Entity curr;
     Camera *camera;
 
-    /* only set curr_camera if we got something */
-    entity_load(&curr, s);
-    if (!entity_eq(curr, entity_nil))
-        curr_camera = curr;
+    if (store_child_load(&t, "camera", s))
+    {
+        if (entity_load(&curr, "curr_camera", entity_nil, t))
+            curr_camera = curr;
 
-    mat3_load(&inverse_view_matrix, s);
+        mat3_load(&inverse_view_matrix, "inverse_view_matrix",
+                  mat3_identity(), t);
 
-    entitypool_load_foreach(camera, pool, s)
-        scalar_load(&camera->viewport_height, s);
+        entitypool_load_foreach(camera, camera_s, pool, "pool", t)
+            scalar_load(&camera->viewport_height, "viewport_height", 1,
+                        camera_s);
+    }
 }
 
