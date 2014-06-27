@@ -13,6 +13,7 @@ SCRIPT(color,
        EXPORT Color color(Scalar r, Scalar g, Scalar b, Scalar a);
        EXPORT extern Color color_black;
        EXPORT extern Color color_white;
+       EXPORT extern Color color_gray;
        EXPORT extern Color color_red;
        EXPORT extern Color color_green;
        EXPORT extern Color color_blue;
