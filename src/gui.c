@@ -80,7 +80,7 @@ void gui_add(Entity ent)
     gui->setvisible = true;
     gui->focusable = false;
     gui->captures_events = true;
-    gui->color = color(0.5, 0.5, 0.5, 1.0);
+    gui->color = color_gray;
     gui->bbox = bbox(vec2_zero, vec2(32, 32));
     gui->halign = GA_NONE;
     gui->valign = GA_NONE;
@@ -1485,7 +1485,7 @@ static void _create_root()
     gui_rect_add(gui_root);
     gui_rect_set_hfit(gui_root, false);
     gui_rect_set_vfit(gui_root, false);
-    gui_set_color(gui_root, color(0, 0, 0, 0));
+    gui_set_color(gui_root, color_clear);
     gui_set_captures_events(gui_root, false);
 }
 
