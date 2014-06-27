@@ -261,31 +261,33 @@ void entity_save_all(Store *s)
 {
     DestroyEntry *entry;
     ExistsPoolElem *exists;
+    Store *exists_s, *destroyed_s, *entry_s;
 
-    entitypool_save_foreach(exists, exists_pool, s);
+    entitypool_save_foreach(exists, exists_s, exists_pool, "exists_pool", s);
 
-    array_foreach(entry, destroyed)
-        if (entity_get_save_filter(entry->ent))
-        {
-            loop_continue_save(s);
-            entity_save(&entry->ent, s);
-            uint_save(&entry->pass, s);
-        }
-    loop_end_save(s);
+    if (store_child_save(&destroyed_s, "destroyed", s))
+        array_foreach(entry, destroyed)
+            if (entity_get_save_filter(entry->ent))
+                if (store_child_save(&entry_s, NULL, destroyed_s))
+                {
+                    entity_save(&entry->ent, "ent", entry_s);
+                    uint_save(&entry->pass, "pass", entry_s);
+                }
 }
 
 void entity_load_all(Store *s)
 {
     DestroyEntry *entry;
     ExistsPoolElem *exists;
+    Store *exists_s, *destroyed_s, *entry_s;
 
-    entitypool_load_foreach(exists, exists_pool, s);
+    entitypool_load_foreach(exists, exists_s, exists_pool, "exists_pool", s);
 
-    while (loop_continue_load(s))
-    {
-        entry = array_add(destroyed);
-        entity_load(&entry->ent, s);
-        uint_load(&entry->pass, s);
-        entitymap_set(destroyed_map, entry->ent, true);
-    }
+    if (store_child_load(&destroyed_s, "destroyed", s))
+        while (store_child_load(&entry_s, NULL, destroyed_s))
+        {
+            entry = array_add(destroyed);
+            error_assert(entity_load(&entry->ent, "ent", entity_nil, entry_s));
+            uint_load(&entry->pass, "pass", 0, entry_s);
+        }
 }
