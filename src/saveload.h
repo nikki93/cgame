@@ -51,7 +51,7 @@ bool bool_load(bool *b, const char *n, bool d, Store *s);
 
 void string_save(const char **c, const char *n, Store *s);
 bool string_load(char **c, const char *n, const char *d, Store *s);
-    /* must free(*c) later, copy of d if not found */
+    /* must free(*c) later, copy of d (possibly NULL) if not found */
 
 #endif
 

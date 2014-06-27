@@ -419,8 +419,13 @@ bool string_load(char **c, const char *n, const char *d, Store *s)
         return true;
     }
 
-    *c = malloc(strlen(d) + 1);
-    strcpy(*c, d);
+    if (d)
+    {
+        *c = malloc(strlen(d) + 1);
+        strcpy(*c, d);
+    }
+    else
+        *c = NULL;
     return false;
 }
 
