@@ -432,17 +432,27 @@ void edit_draw_all()
     _line_draw_all();
 }
 
-void edit_save_all(Serializer *s)
+void edit_save_all(Store *s)
 {
+    Store *t, *elem_s;
     EntityPoolElem *elem;
 
-    vec2_save(&grid_size, s);
-    entitypool_save_foreach(elem, uneditable_pool, s);
+    if (store_child_save(&t, "edit", s))
+    {
+        vec2_save(&grid_size, "grid_size", t);
+        entitypool_save_foreach(elem, elem_s, uneditable_pool,
+                                "uneditable_pool", s);
+    }
 }
-void edit_load_all(Deserializer *s)
+void edit_load_all(Store *s)
 {
+    Store *t, *elem_s;
     EntityPoolElem *elem;
 
-    vec2_load(&grid_size, s);
-    entitypool_load_foreach(elem, uneditable_pool, s);
+    if (store_child_load(&t, "edit", s))
+    {
+        vec2_load(&grid_size, "grid_size", grid_size, t);
+        entitypool_load_foreach(elem, elem_s, uneditable_pool,
+                                "uneditable_pool", s);
+    }
 }

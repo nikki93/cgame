@@ -8,6 +8,11 @@
 #include "transform.h"
 #include "gui.h"
 
+/* 
+ * this isn't the most ideal way -- should probably just use
+ * entity_nil for non-existent...
+ */
+
 static bool kc_exists = false;
 static Entity kc_entity;
 
@@ -78,30 +83,20 @@ void keyboard_controlled_update_all()
     }
 }
 
-void keyboard_controlled_save_all(Serializer *s)
+void keyboard_controlled_save_all(Store *s)
 {
-    bool exists;
+    Store *t;
 
-    /* check if we're actually saving something */
-    exists = kc_exists && entity_get_save_filter(kc_entity);
-    bool_save(&exists, s);
-
-    if (exists)
-    {
-        bool_save(&kc_exists, s);
-        entity_save(&kc_entity, s);
-    }
+    if (store_child_save(&t, "keyboard_controlled", s))
+        if (kc_exists && entity_get_save_filter(kc_entity))
+            entity_save(&kc_entity, "kc_entity", t);
 }
-void keyboard_controlled_load_all(Deserializer *s)
+void keyboard_controlled_load_all(Store *s)
 {
-    bool exists;
+    Store *t;
 
-    /* check if we have to actually load anything */
-    bool_load(&exists, s);
-    if (exists)
-    {
-        bool_load(&kc_exists, s);
-        entity_load(&kc_entity, s);
-    }
+    if (store_child_load(&t, "keyboard_controlled", s))
+        if (entity_load(&kc_entity, "kc_entity", kc_entity, t))
+            kc_exists = true;
 }
 

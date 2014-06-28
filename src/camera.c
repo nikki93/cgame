@@ -185,13 +185,11 @@ void camera_save_all(Store *s)
 void camera_load_all(Store *s)
 {
     Store *t, *camera_s;
-    Entity curr;
     Camera *camera;
 
     if (store_child_load(&t, "camera", s))
     {
-        if (entity_load(&curr, "curr_camera", entity_nil, t))
-            curr_camera = curr;
+        entity_load(&curr_camera, "curr_camera", curr_camera, t);
 
         mat3_load(&inverse_view_matrix, "inverse_view_matrix",
                   mat3_identity(), t);

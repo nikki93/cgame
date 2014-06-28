@@ -105,9 +105,7 @@ bool mat3_load(Mat3 *m, const char *n, Mat3 d, Store *s)
             for (j = 0; j < 3; ++j)
                 scalar_load(&m->m[i][j], NULL, 0, t);
     else
-        for (i = 0; i < 3; ++i)
-            for (j = 0; j < 3; ++j)
-                m->m[i][j] = d.m[i][j];
+        *m = d;
     return t != NULL;
 }
 

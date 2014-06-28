@@ -234,36 +234,49 @@ void sprite_draw_all()
     glDrawArrays(GL_POINTS, 0, nsprites);
 }
 
-void sprite_save_all(Serializer *s)
+void sprite_save_all(Store *s)
 {
+    Store *t, *sprite_s;
     Sprite *sprite;
 
-    string_save((const char **) &atlas, s);
-
-    entitypool_save_foreach(sprite, pool, s)
+    if (store_child_save(&t, "sprite", s))
     {
-        mat3_save(&sprite->wmat, s);
-        vec2_save(&sprite->size, s);
-        vec2_save(&sprite->texcell, s);
-        vec2_save(&sprite->texsize, s);
-        int_save(&sprite->depth, s);
+        string_save((const char **) &atlas, "atlas", t);
+
+        entitypool_save_foreach(sprite, sprite_s, pool, "pool", t)
+        {
+            mat3_save(&sprite->wmat, "wmat", sprite_s);
+            vec2_save(&sprite->size, "size", sprite_s);
+            vec2_save(&sprite->texcell, "texcell", sprite_s);
+            vec2_save(&sprite->texsize, "texsize", sprite_s);
+            int_save(&sprite->depth, "depth", sprite_s);
+        }
     }
 }
-void sprite_load_all(Deserializer *s)
+void sprite_load_all(Store *s)
 {
+    Store *t, *sprite_s;
     Sprite *sprite;
+    char *tatlas;
 
-    free(atlas);
-    string_load(&atlas, s);
-    _update_atlas();
-
-    entitypool_load_foreach(sprite, pool, s)
+    if (store_child_load(&t, "sprite", s))
     {
-        mat3_load(&sprite->wmat, s);
-        vec2_load(&sprite->size, s);
-        vec2_load(&sprite->texcell, s);
-        vec2_load(&sprite->texsize, s);
-        int_load(&sprite->depth, s);
+        /* only replace atlas if actually found something */
+        if (string_load(&tatlas, "atlas", NULL, t))
+        {
+            free(atlas);
+            atlas = tatlas;
+            _update_atlas();
+        }
+
+        entitypool_load_foreach(sprite, sprite_s, pool, "pool", t)
+        {
+            mat3_load(&sprite->wmat, "wmat", mat3_identity(), sprite_s);
+            vec2_load(&sprite->size, "size", vec2(1, 1), sprite_s);
+            vec2_load(&sprite->texcell, "texcell", vec2(32, 32), sprite_s);
+            vec2_load(&sprite->texsize, "texsize", vec2(32, 32), sprite_s);
+            int_load(&sprite->depth, "depth", 0, sprite_s);
+        }
     }
 }
 

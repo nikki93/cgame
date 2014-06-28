@@ -221,8 +221,12 @@ Store *_store_read(Store *parent, Stream *sm)
 bool store_child_save(Store **sp, const char *name, Store *parent)
 {
     Store *s = _store_new(parent);
-    s->name = malloc(strlen(name) + 1);
-    strcpy(s->name, name);
+
+    if (name)
+    {
+        s->name = malloc(strlen(name) + 1);
+        strcpy(s->name, name);
+    }
 
     return *sp = s;
 }
@@ -323,9 +327,9 @@ void scalar_save(const Scalar *f, const char *n, Store *s)
     if (store_child_save(&t, n, s))
     {
         if (*f == SCALAR_INFINITY)
-            _store_printf(s, "i ");
+            _store_printf(t, "i ");
         else
-            _store_printf(s, "%f ", *f);
+            _store_printf(t, "%f ", *f);
     }
 }
 bool scalar_load(Scalar *f, const char *n, Scalar d, Store *s)
@@ -337,10 +341,10 @@ bool scalar_load(Scalar *f, const char *n, Scalar d, Store *s)
         if (s->sm->buf[s->sm->pos] == 'i')
         {
             *f = SCALAR_INFINITY;
-            _store_scanf(s, "i ");
+            _store_scanf(t, "i ");
         }
         else
-            _store_scanf(s, "%f ", f);
+            _store_scanf(t, "%f ", f);
         return true;
     }
 

@@ -854,28 +854,40 @@ void physics_draw_all()
 /* --- save/load ----------------------------------------------------------- */
 
 /* chipmunk data save/load helpers */
-static void _cpv_save(cpVect *cv, Serializer *s)
+static void _cpv_save(cpVect *cv, const char *n, Store *s)
 {
     Vec2 v = vec2_of_cpv(*cv);
-    vec2_save(&v, s);
+    vec2_save(&v, n, s);
 }
-static void _cpv_load(cpVect *cv, Deserializer *s)
+static bool _cpv_load(cpVect *cv, const char *n, cpVect d, Store *s)
 {
     Vec2 v;
-    vec2_load(&v, s);
-    *cv = cpv_of_vec2(v);
+    if (vec2_load(&v, n, vec2_zero, s))
+    {
+        *cv = cpv_of_vec2(v);
+        return true;
+    }
+    *cv = d;
+    return false;
 }
-static void _cpf_save(cpFloat *cf, Serializer *s)
+static void _cpf_save(cpFloat *cf, const char *n, Store *s)
 {
     Scalar f = *cf;
-    scalar_save(&f, s);
+    scalar_save(&f, n, s);
 }
-static void _cpf_load(cpFloat *cf, Deserializer *s)
+static bool _cpf_load(cpFloat *cf, const char *n, cpFloat d, Store *s)
 {
     Scalar f;
-    scalar_load(&f, s);
+    bool r = scalar_load(&f, n, d, s);
     *cf = f;
+    return r;
 }
+
+/* properties aren't set if missing, so defaults don't really matter */
+#define _cpv_default cpvzero
+#define _cpf_default 0.0f
+#define bool_default false
+#define uint_default 0
 
 /*
  * note that UserData isn't directly save/load'd -- it is restored to
@@ -883,31 +895,46 @@ static void _cpf_load(cpFloat *cf, Deserializer *s)
  */
 
 /* some hax to reduce typing for body properties save/load */
-#define body_prop_save(type, f, prop)                                   \
-    { type v; v = cpBodyGet##prop(info->body); f##_save(&v, s); }
-#define body_prop_load(type, f, prop)                                   \
-    { type v; f##_load(&v, s); cpBodySet##prop(info->body, v); }
-#define body_props_saveload(saveload)                   \
-    body_prop_##saveload(cpFloat, _cpf, Mass);          \
-    body_prop_##saveload(cpFloat, _cpf, Moment);        \
-    /* body_prop_##saveload(cpVect, _cpv, Pos); */      \
-    body_prop_##saveload(cpVect, _cpv, Vel);            \
-    body_prop_##saveload(cpVect, _cpv, Force);          \
-    /* body_prop_##saveload(cpFloat, _cpf, Angle); */   \
-    body_prop_##saveload(cpFloat, _cpf, AngVel);        \
-    body_prop_##saveload(cpFloat, _cpf, Torque);        \
-    body_prop_##saveload(cpFloat, _cpf, VelLimit);      \
-    body_prop_##saveload(cpFloat, _cpf, AngVelLimit);   \
+#define body_prop_save(type, f, n, prop)        \
+    {                                           \
+        type v;                                 \
+        v = cpBodyGet##prop(info->body);        \
+            f##_save(&v, n, body_s);            \
+    }
+#define body_prop_load(type, f, n, prop)                \
+    {                                                   \
+        type v;                                         \
+        if (f##_load(&v, n, f##_default, body_s))       \
+            cpBodySet##prop(info->body, v);             \
+    }
+#define body_props_saveload(saveload)                                   \
+    body_prop_##saveload(cpFloat, _cpf, "mass", Mass);                  \
+    body_prop_##saveload(cpFloat, _cpf, "moment", Moment);              \
+    /* body_prop_##saveload(cpVect, _cpv, Pos); */                      \
+    body_prop_##saveload(cpVect, _cpv, "vel", Vel);                     \
+    body_prop_##saveload(cpVect, _cpv, "force", Force);                 \
+    /* body_prop_##saveload(cpFloat, _cpf, Angle); */                   \
+    body_prop_##saveload(cpFloat, _cpf, "ang_vel", AngVel);             \
+    body_prop_##saveload(cpFloat, _cpf, "torque", Torque);              \
+    body_prop_##saveload(cpFloat, _cpf, "vel_limit", VelLimit);         \
+    body_prop_##saveload(cpFloat, _cpf, "ang_vel_limit", AngVelLimit);  \
 
 /* save/load for just the body in a PhysicsInfo */
-static void _body_save(PhysicsInfo *info, Serializer *s)
+static void _body_save(PhysicsInfo *info, Store *s)
 {
-    body_props_saveload(save);
+    Store *body_s;
+
+    if (store_child_save(&body_s, "body", s))
+        body_props_saveload(save);
 }
-static void _body_load(PhysicsInfo *info, Deserializer *s)
+static void _body_load(PhysicsInfo *info, Store *s)
 {
+    Store *body_s;
     Entity ent;
     PhysicsBody type;
+
+    error_assert(store_child_load(&body_s, "body", s),
+                 "physics entry must have a saved body");
 
     /* create, restore properties */
     ent = info->pool_elem.ent;
@@ -929,173 +956,188 @@ static void _body_load(PhysicsInfo *info, Deserializer *s)
 /* save/load for special properties of each shape type */
 
 static void _circle_save(PhysicsInfo *info, ShapeInfo *shapeInfo,
-                         Serializer *s)
+                         Store *s)
 {
     cpFloat radius;
     cpVect offset;
 
     radius = cpCircleShapeGetRadius(shapeInfo->shape);
-    _cpf_save(&radius, s);
+    _cpf_save(&radius, "radius", s);
     offset = cpCircleShapeGetOffset(shapeInfo->shape);
-    _cpv_save(&offset, s);
+    _cpv_save(&offset, "offset", s);
 }
 static void _circle_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
-                         Deserializer *s)
+                         Store *s)
 {
     cpFloat radius;
     cpVect offset;
 
-    _cpf_load(&radius, s);
-    _cpv_load(&offset, s);
+    _cpf_load(&radius, "radius", 1, s);
+    _cpv_load(&offset, "offset", cpvzero, s);
 
     shapeInfo->shape = cpCircleShapeNew(info->body, radius, offset);
     cpSpaceAddShape(space, shapeInfo->shape);
 }
 
 static void _polygon_save(PhysicsInfo *info, ShapeInfo *shapeInfo,
-                          Serializer *s)
+                          Store *s)
 {
+    Store *verts_s;
     unsigned int n, i;
     Scalar r;
     cpVect v;
 
     n = cpPolyShapeGetNumVerts(shapeInfo->shape);
-    uint_save(&n, s);
+    uint_save(&n, "num_verts", s);
 
     r = cpPolyShapeGetRadius(shapeInfo->shape);
-    scalar_save(&r, s);
+    scalar_save(&r, "radius", s);
 
-    for (i = 0; i < n; ++i)
-    {
-        v = cpPolyShapeGetVert(shapeInfo->shape, i);
-        _cpv_save(&v, s);
-    }
+    if (store_child_save(&verts_s, "verts", s))
+        for (i = 0; i < n; ++i)
+        {
+            v = cpPolyShapeGetVert(shapeInfo->shape, i);
+            _cpv_save(&v, NULL, s);
+        }
 }
 static void _polygon_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
-                          Deserializer *s)
+                          Store *s)
 {
+    Store *verts_s;
     unsigned int n, i;
     Scalar r;
     cpVect *vs;
 
-    uint_load(&n, s);
-    scalar_load(&r, s);
+    error_assert(uint_load(&n, "num_verts", 0, s),
+                 "polygon shape type must have saved number of vertices");
+    scalar_load(&r, "radius", 0, s);
 
+    error_assert(store_child_load(&verts_s, "verts", s),
+                 "polygon shape type must have saved list of vertices");
     vs = malloc(n * sizeof(cpVect));
     for (i = 0; i < n; ++i)
-        _cpv_load(&vs[i], s);
+        if (!_cpv_load(&vs[i], NULL, cpvzero, s))
+            error("polygon shape type saved number of vertices doesn't match"
+                  "size of saved list of vertices");
     shapeInfo->shape = cpPolyShapeNew2(info->body, n, vs, cpvzero, r);
     cpSpaceAddShape(space, shapeInfo->shape);
     free(vs);
 }
 
 /* some hax to reduce typing for shape properties save/load */
-#define shape_prop_save(type, f, prop)                                  \
-    { type v; v = cpShapeGet##prop(shapeInfo->shape); f##_save(&v, s); }
-#define shape_prop_load(type, f, prop)                                  \
-    { type v; f##_load(&v, s); cpShapeSet##prop(shapeInfo->shape, v); }
-#define shape_props_saveload(saveload)                          \
-    shape_prop_##saveload(bool, bool, Sensor);                  \
-    shape_prop_##saveload(cpFloat, _cpf, Elasticity);           \
-    shape_prop_##saveload(cpFloat, _cpf, Friction);             \
-    shape_prop_##saveload(cpVect, _cpv, SurfaceVelocity);       \
-    shape_prop_##saveload(unsigned int, uint, CollisionType);   \
-    shape_prop_##saveload(unsigned int, uint, Group);           \
-    shape_prop_##saveload(unsigned int, uint, Layers);          \
+#define shape_prop_save(type, f, n, prop)       \
+    {                                           \
+        type v;                                 \
+        v = cpShapeGet##prop(shapeInfo->shape); \
+            f##_save(&v, n, shape_s);           \
+    }
+#define shape_prop_load(type, f, n, prop)               \
+    {                                                   \
+        type v;                                         \
+        if (f##_load(&v, n, f##_default, shape_s))      \
+            cpShapeSet##prop(shapeInfo->shape, v);      \
+    }
+#define shape_props_saveload(saveload)                                  \
+    shape_prop_##saveload(bool, bool, "sensor", Sensor);                \
+    shape_prop_##saveload(cpFloat, _cpf, "elasticity", Elasticity);     \
+    shape_prop_##saveload(cpFloat, _cpf, "friction", Friction);         \
+    shape_prop_##saveload(cpVect, _cpv, "surface_velocity", SurfaceVelocity); \
+    shape_prop_##saveload(unsigned int, uint, "collision_type", CollisionType); \
+    shape_prop_##saveload(unsigned int, uint, "group", Group);          \
+    shape_prop_##saveload(unsigned int, uint, "layers", Layers);        \
 
 /* save/load for all shapes in a PhysicsInfo */
-static void _shapes_save(PhysicsInfo *info, Serializer *s)
+static void _shapes_save(PhysicsInfo *info, Store *s)
 {
-    unsigned int n;
+    Store *t, *shape_s;
     ShapeInfo *shapeInfo;
 
-    n = array_length(info->shapes);
-    uint_save(&n, s);
+    if (store_child_save(&t, "shapes", s))
+        array_foreach(shapeInfo, info->shapes)
+            if (store_child_save(&shape_s, NULL, t))
+            {
+                /* type-specific */
+                enum_save(&shapeInfo->type, "type", shape_s);
+                switch (shapeInfo->type)
+                {
+                    case PS_CIRCLE:
+                        _circle_save(info, shapeInfo, shape_s);
+                        break;
+                    case PS_POLYGON:
+                        _polygon_save(info, shapeInfo, shape_s);
+                        break;
+                }
 
-    array_foreach(shapeInfo, info->shapes)
-    {
-        /* type-specific properties */
-        enum_save(&shapeInfo->type, s);
-        switch (shapeInfo->type)
-        {
-            case PS_CIRCLE:
-                _circle_save(info, shapeInfo, s);
-                break;
-
-            case PS_POLYGON:
-                _polygon_save(info, shapeInfo, s);
-                break;
-        }
-
-        /* common properties */
-        shape_props_saveload(save);
-    }
-
+                /* common */
+                shape_props_saveload(save);
+            }
 }
-static void _shapes_load(PhysicsInfo *info, Deserializer *s)
+static void _shapes_load(PhysicsInfo *info, Store *s)
 {
-    unsigned int n;
+    Store *t, *shape_s;
     ShapeInfo *shapeInfo;
 
-    uint_load(&n, s);
-    info->shapes = array_new(ShapeInfo);
-    array_reset(info->shapes, n);
-
-    array_foreach(shapeInfo, info->shapes)
-    {
-        /* type-specific properties */
-        enum_load(&shapeInfo->type, s);
-        switch (shapeInfo->type)
+    if (store_child_load(&t, "shapes", s))
+        while (store_child_load(&shape_s, NULL, t))
         {
-            case PS_CIRCLE:
-                _circle_load(info, shapeInfo, s);
-                break;
+            shapeInfo = array_add(info->shapes);
 
-            case PS_POLYGON:
-                _polygon_load(info, shapeInfo, s);
-                break;
+            /* type-specific */
+            enum_load(&shapeInfo->type, "type", PS_CIRCLE, shape_s);
+            switch (shapeInfo->type)
+            {
+                case PS_CIRCLE:
+                    _circle_load(info, shapeInfo, shape_s);
+                    break;
+                case PS_POLYGON:
+                    _polygon_load(info, shapeInfo, shape_s);
+                    break;
+            }
+
+            /* common */
+            shape_props_saveload(load);
+            cpShapeSetUserData(shapeInfo->shape, info->pool_elem.ent);
         }
-
-        /* common properties */
-        shape_props_saveload(load);
-        cpShapeSetUserData(shapeInfo->shape, info->pool_elem.ent);
-    }
 }
 
 /* 
  * save/load for all data in a PhysicsInfo other than the the actual body,
  * shapes is handled here, the rest is done in functions above
  */
-void physics_save_all(Serializer *s)
+void physics_save_all(Store *s)
 {
+    Store *t, *info_s;
     PhysicsInfo *info;
 
-    entitypool_save_foreach(info, pool, s)
-    {
-        enum_save(&info->type, s);
-        scalar_save(&info->mass, s);
+    if (store_child_save(&t, "physics", s))
+        entitypool_save_foreach(info, info_s, pool, "pool", t)
+        {
+            enum_save(&info->type, "type", info_s);
+            scalar_save(&info->mass, "mass", info_s);
 
-        _body_save(info, s);
-        _shapes_save(info, s);
-    }
+            _body_save(info, info_s);
+            _shapes_save(info, info_s);
+        }
 }
-void physics_load_all(Deserializer *s)
+void physics_load_all(Store *s)
 {
+    Store *t, *info_s;
     PhysicsInfo *info;
 
-    entitypool_load_foreach(info, pool, s)
-    {
-        enum_load(&info->type, s);
-        scalar_load(&info->mass, s);
+    if (store_child_load(&t, "physics", s))
+        entitypool_load_foreach(info, info_s, pool, "pool", t)
+        {
+            enum_load(&info->type, "type", PB_DYNAMIC, info_s);
+            scalar_load(&info->mass, "mass", 1, info_s);
 
-        _body_load(info, s);
-        _shapes_load(info, s);
+            _body_load(info, info_s);
+            _shapes_load(info, info_s);
 
-        info->collisions = NULL;
+            info->collisions = NULL;
 
-        /* set last_pos/last_ang info for kinematic bodies */
-        info->last_pos = cpBodyGetPos(info->body);
-        info->last_ang = cpBodyGetAngle(info->body);
-    }
+            /* set last_pos/last_ang info for kinematic bodies */
+            info->last_pos = cpBodyGetPos(info->body);
+            info->last_ang = cpBodyGetAngle(info->body);
+        }
 }
 

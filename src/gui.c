@@ -497,37 +497,41 @@ static void _common_event_clear()
     captured_event = false;
 }
 
-static void _common_save_all(Serializer *s)
+static void _common_save_all(Store *s)
 {
+    Store *t, *gui_s;
     Gui *gui;
 
-    entitypool_save_foreach(gui, gui_pool, s)
-    {
-        color_save(&gui->color, s);
-        bool_save(&gui->visible, s);
-        bool_save(&gui->setvisible, s);
-        bool_save(&gui->focusable, s);
-        bool_save(&gui->captures_events, s);
-        enum_save(&gui->halign, s);
-        enum_save(&gui->valign, s);
-        vec2_save(&gui->padding, s);
-    }
+    if (store_child_save(&t, "gui", s))
+        entitypool_save_foreach(gui, gui_s, gui_pool, "pool", t)
+        {
+            color_save(&gui->color, "color", gui_s);
+            bool_save(&gui->visible, "visible", gui_s);
+            bool_save(&gui->setvisible, "setvisible", gui_s);
+            bool_save(&gui->focusable, "focusable", gui_s);
+            bool_save(&gui->captures_events, "captures_events", gui_s);
+            enum_save(&gui->halign, "halign", gui_s);
+            enum_save(&gui->valign, "valign", gui_s);
+            vec2_save(&gui->padding, "padding", gui_s);
+        }
 }
-static void _common_load_all(Deserializer *s)
+static void _common_load_all(Store *s)
 {
+    Store *t, *gui_s;
     Gui *gui;
 
-    entitypool_load_foreach(gui, gui_pool, s)
-    {
-        color_load(&gui->color, s);
-        bool_load(&gui->visible, s);
-        bool_load(&gui->setvisible, s);
-        bool_load(&gui->focusable, s);
-        bool_load(&gui->captures_events, s);
-        enum_load(&gui->halign, s);
-        enum_load(&gui->valign, s);
-        vec2_load(&gui->padding, s);
-    }
+    if (store_child_load(&t, "gui", s))
+        entitypool_load_foreach(gui, gui_s, gui_pool, "pool", t)
+        {
+            color_load(&gui->color, "color", color_gray, gui_s);
+            bool_load(&gui->visible, "visible", true, gui_s);
+            bool_load(&gui->setvisible, "setvisible", true, gui_s);
+            bool_load(&gui->focusable, "focusable", false, gui_s);
+            bool_load(&gui->captures_events, "captures_events", true, gui_s);
+            enum_load(&gui->halign, "halign", GA_NONE, gui_s);
+            enum_load(&gui->valign, "valign", GA_NONE, gui_s);
+            vec2_load(&gui->padding, "padding", vec2(5, 5), gui_s);
+        }
 
     _common_attach_root();
 }
@@ -911,35 +915,39 @@ static void _rect_draw_all()
     glDrawArrays(GL_POINTS, 0, nrects);
 }
 
-static void _rect_save_all(Serializer *s)
+static void _rect_save_all(Store *s)
 {
+    Store *t, *rect_s;
     Rect *rect;
 
-    entitypool_save_foreach(rect, rect_pool, s)
-    {
-        mat3_save(&rect->wmat, s);
-        vec2_save(&rect->size, s);
-        color_save(&rect->color, s);
-        bool_save(&rect->hfit, s);
-        bool_save(&rect->vfit, s);
-        bool_save(&rect->hfill, s);
-        bool_save(&rect->vfill, s);
-    }
+    if (store_child_save(&t, "gui_rect", s))
+        entitypool_save_foreach(rect, rect_s, rect_pool, "pool", t)
+        {
+            mat3_save(&rect->wmat, "wmat", rect_s);
+            vec2_save(&rect->size, "size", rect_s);
+            color_save(&rect->color, "color", rect_s);
+            bool_save(&rect->hfit, "hfit", rect_s);
+            bool_save(&rect->vfit, "vfit", rect_s);
+            bool_save(&rect->hfill, "hfill", rect_s);
+            bool_save(&rect->vfill, "vfill", rect_s);
+        }
 }
-static void _rect_load_all(Deserializer *s)
+static void _rect_load_all(Store *s)
 {
+    Store *t, *rect_s;
     Rect *rect;
 
-    entitypool_load_foreach(rect, rect_pool, s)
-    {
-        mat3_load(&rect->wmat, s);
-        vec2_load(&rect->size, s);
-        color_load(&rect->color, s);
-        bool_load(&rect->hfit, s);
-        bool_load(&rect->vfit, s);
-        bool_load(&rect->hfill, s);
-        bool_load(&rect->vfill, s);
-    }
+    if (store_child_load(&t, "gui_rect", s))
+        entitypool_load_foreach(rect, rect_s, rect_pool, "pool", t)
+        {
+            mat3_load(&rect->wmat, "wmat", mat3_identity(), rect_s);
+            vec2_load(&rect->size, "size", vec2(64, 64), rect_s);
+            color_load(&rect->color, "color", color_gray, rect_s);
+            bool_load(&rect->hfit, "hfit", true, rect_s);
+            bool_load(&rect->vfit, "vfit", true, rect_s);
+            bool_load(&rect->hfill, "hfill", false, rect_s);
+            bool_load(&rect->vfill, "vfill", false, rect_s);
+        }
 }
 
 /* --- text ---------------------------------------------------------------- */
@@ -987,6 +995,7 @@ static void _text_add_cursor(Text *text, Vec2 pos)
     tc->is_cursor = 1;
 }
 
+/* empty string if str is NULL */
 static void _text_set_str(Text *text, const char *str)
 {
     char c;
@@ -1217,51 +1226,33 @@ static void _text_draw_all()
     }
 }
 
-static void _text_save_all(Serializer *s)
+static void _text_save_all(Store *s)
 {
+    Store *t, *text_s;
     Text *text;
-    TextChar *tc;
-    unsigned int nchars;
 
-    entitypool_save_foreach(text, text_pool, s)
-    {
-        string_save((const char **) &text->str, s);
-
-        nchars = array_length(text->chars);
-        uint_save(&nchars, s);
-        array_foreach(tc, text->chars)
+    if (store_child_save(&t, "gui_text", s))
+        entitypool_save_foreach(text, text_s, text_pool, "pool", t)
         {
-            vec2_save(&tc->pos, s);
-            vec2_save(&tc->cell, s);
+            string_save((const char **) &text->str, "str", text_s);
+            int_save(&text->cursor, "cursor", text_s);
         }
-
-        int_save(&text->cursor, s);
-        vec2_save(&text->bounds, s);
-    }
 }
-static void _text_load_all(Deserializer *s)
+static void _text_load_all(Store *s)
 {
+    Store *t, *text_s;
     Text *text;
-    TextChar *tc;
-    unsigned int nchars;
+    char *str;
 
-    entitypool_load_foreach(text, text_pool, s)
-    {
-        string_load(&text->str, s);
-
-        uint_load(&nchars, s);
-        text->chars = array_new(TextChar);
-        array_reset(text->chars, nchars);
-        array_foreach(tc, text->chars)
+    if (store_child_load(&t, "gui_text", s))
+        entitypool_load_foreach(text, text_s, text_pool, "pool", t)
         {
-            vec2_load(&tc->pos, s);
-            vec2_load(&tc->cell, s);
-            tc->is_cursor = -1;
+            text->str = NULL;
+            string_load(&str, "str", NULL, text_s);
+            _text_set_str(text, str ? str : "");
+            free(str);
+            int_load(&text->cursor, "cursor", -1, text_s);
         }
-
-        int_load(&text->cursor, s);
-        vec2_load(&text->bounds, s);
-    }
 }
 
 /* --- textedit ------------------------------------------------------------ */
@@ -1449,25 +1440,29 @@ static void _textedit_update_all()
     }
 }
 
-static void _textedit_save_all(Serializer *s)
+static void _textedit_save_all(Store *s)
 {
+    Store *t, *textedit_s;
     TextEdit *textedit;
 
-    entitypool_save_foreach(textedit, textedit_pool, s)
-    {
-        uint_save(&textedit->cursor, s);
-        bool_save(&textedit->numerical, s);
-    }
+    if (store_child_save(&t, "gui_textedit", s))
+        entitypool_save_foreach(textedit, textedit_s, textedit_pool, "pool", t)
+        {
+            uint_save(&textedit->cursor, "cursor", textedit_s);
+            bool_save(&textedit->numerical, "numerical", textedit_s);
+        }
 }
-static void _textedit_load_all(Deserializer *s)
+static void _textedit_load_all(Store *s)
 {
+    Store *t, *textedit_s;
     TextEdit *textedit;
 
-    entitypool_load_foreach(textedit, textedit_pool, s)
-    {
-        uint_load(&textedit->cursor, s);
-        bool_load(&textedit->numerical, s);
-    }
+    if (store_child_load(&t, "gui_textedit", s))
+        entitypool_load_foreach(textedit, textedit_s, textedit_pool, "pool", t)
+        {
+            uint_load(&textedit->cursor, "cursor", 0, textedit_s);
+            bool_load(&textedit->numerical, "numerical", false, textedit_s);
+        }
 }
 
 /* ------------------------------------------------------------------------- */
@@ -1565,14 +1560,14 @@ void gui_mouse_up(MouseCode mouse)
     _common_mouse_up(mouse);
 }
 
-void gui_save_all(Serializer *s)
+void gui_save_all(Store *s)
 {
     _common_save_all(s);
     _rect_save_all(s);
     _text_save_all(s);
     _textedit_save_all(s);
 }
-void gui_load_all(Deserializer *s)
+void gui_load_all(Store *s)
 {
     _common_load_all(s);
     _rect_load_all(s);
