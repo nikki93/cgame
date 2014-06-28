@@ -102,10 +102,10 @@ local stop_savepoint = nil
 local stop_save_next_frame = false -- whether to save a stop soon
 local function stop_save()
     cs.group.set_save_filter('default edit_inspector', true)
-    local s = cs.serializer.open_str()
+    local s = cg.store_open()
     cs.system.save_all(s)
-    stop_savepoint = ffi.string(cs.serializer.get_str(s))
-    cs.serializer.close(s)
+    stop_savepoint = ffi.string(cg.store_write_str(s))
+    cg.store_close(s)
 
     if cs.timing.get_paused() then cs.edit.stopped = true end
 end
@@ -117,9 +117,9 @@ function cs.edit.stop()
     if not stop_savepoint then return end
 
     cs.group.destroy('default edit_inspector')
-    local d = cs.deserializer.open_str(stop_savepoint)
-    cs.system.load_all(d)
-    cs.deserializer.close(d)
+    local s = cg.store_open_str(stop_savepoint)
+    cs.system.load_all(s)
+    cg.store_close(s)
 
     cs.timing.set_paused(true)
     cs.edit.stopped = true
@@ -140,14 +140,14 @@ cs.edit.history = {}
 
 function cs.edit.undo_save()
     cs.group.set_save_filter('default edit_inspector', true)
-    local s = cs.serializer.open_str()
+    local s = cg.store_open()
     cs.system.save_all(s)
 
-    local str = ffi.string(cs.serializer.get_str(s))
+    local str = ffi.string(cg.store_write_str(s))
     table.insert(cs.edit.history, str)
     if cs.edit.stopped then stop_savepoint = str end -- update stop if stopped
 
-    cs.serializer.close(s)
+    cg.store_close(s)
 end
 
 function cs.edit.undo()
@@ -161,9 +161,9 @@ function cs.edit.undo()
 
     table.remove(cs.edit.history)
     local str = cs.edit.history[#cs.edit.history]
-    local d = cs.deserializer.open_str(str)
-    cs.system.load_all(d)
-    cs.deserializer.close(d)
+    local s = cg.store_open_str(str)
+    cs.system.load_all(s)
+    cg.store_close(s)
 end
 
 

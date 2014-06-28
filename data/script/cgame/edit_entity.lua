@@ -25,19 +25,19 @@ function cs.edit.duplicate()
             cs.entity.set_save_filter(ent, true)
         end
     end
-    local s = cs.serializer.open_str()
+    local s = cg.store_open()
     cs.system.save_all(s)
-    local str = ffi.string(cs.serializer.get_str(s))
-    cs.serializer.close(s)
+    local str = ffi.string(cg.store_write_str(s))
+    cg.store_close(s)
 
     -- clear selection
     cs.edit.select_clear()
 
     -- load from the string -- they were selected on save and so will be
     -- selected when loaded
-    local d = cs.deserializer.open_str(str)
+    local d = cg.store_open()
     cs.system.load_all(d)
-    cs.deserializer.close(d)
+    cg.store_close(d)
 
     cs.edit.undo_save()
 end

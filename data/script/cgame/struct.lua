@@ -29,10 +29,10 @@ end
 -- return serialized string for cdata, func must be of form
 -- void (typeof(cdata) *, Serializer *)
 function cgame.c_serialize(func, cdata)
-    local s = cgame.serializer_open_str()
-    func(cdata, s)
-    local dump = ffi.string(cgame.serializer_get_str(s))
-    cgame.serializer_close(s)
+    local s = cgame.store_open()
+    func(cdata, nil, s)
+    local dump = ffi.string(cgame.store_write_str(s))
+    cgame.store_close(s)
     return dump
 end
 
@@ -40,9 +40,9 @@ end
 -- void (ctype *, Deserializer *)
 function cgame.c_deserialize(ctype, func, str)
     local cdata = ctype { }
-    local s = cgame.deserializer_open_str(str)
-    func(cdata, s)
-    cgame.deserializer_close(s)
+    local s = cgame.store_open_str(str)
+    func(cdata, nil, cdata, s)
+    cgame.store_close(s)
     return cdata
 end
 
