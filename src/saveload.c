@@ -338,7 +338,7 @@ bool scalar_load(Scalar *f, const char *n, Scalar d, Store *s)
 
     if (store_child_load(&t, n, s))
     {
-        if (s->sm->buf[s->sm->pos] == 'i')
+        if (t->sm->buf[t->sm->pos] == 'i')
         {
             *f = SCALAR_INFINITY;
             _store_scanf(t, "i ");
