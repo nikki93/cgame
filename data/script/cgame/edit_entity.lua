@@ -35,7 +35,7 @@ function cs.edit.duplicate()
 
     -- load from the string -- they were selected on save and so will be
     -- selected when loaded
-    local d = cg.store_open()
+    local d = cg.store_open_str(str)
     cs.system.load_all(d)
     cg.store_close(d)
 
