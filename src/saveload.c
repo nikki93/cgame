@@ -213,13 +213,27 @@ static void _store_free(Store *s)
     free(s->str);
 }
 
-void _store_write(Store *s, unsigned int indent, Stream *sm)
+static void _store_write(Store *s, Stream *sm)
+{
+    Store *c;
+
+    _stream_printf(sm, "{ ");
+    _stream_write_string(sm, s->name);
+    _stream_write_string(sm, s->sm->buf);
+    for (c = s->child; c; c = c->sibling)
+        _store_write(c, sm);
+    _stream_printf(sm, "} ");
+}
+
+#define INDENT 2
+
+static void _store_write_pretty(Store *s, unsigned int indent, Stream *sm)
 {
     Store *c;
 
     /* opening brace */
     if (s->child)
-        _stream_printf(sm, "%*s{\n%*s", indent, "", indent + 4, "");
+        _stream_printf(sm, "%*s{\n%*s", indent, "", indent + INDENT, "");
     else
         _stream_printf(sm, "%*s{ ", indent, "");
 
@@ -231,7 +245,7 @@ void _store_write(Store *s, unsigned int indent, Stream *sm)
 
     /* children */
     for (c = s->child; c; c = c->sibling)
-        _store_write(c, indent + 4, sm);
+        _store_write_pretty(c, indent + INDENT, sm);
 
     /* closing brace */
     if (s->child)
@@ -240,7 +254,7 @@ void _store_write(Store *s, unsigned int indent, Stream *sm)
         _stream_printf(sm, "}\n");
 }
 
-Store *_store_read(Store *parent, Stream *sm)
+static Store *_store_read(Store *parent, Stream *sm)
 {
     Store *s = _store_new(parent);
 
@@ -316,7 +330,7 @@ Store *store_open()
 
 Store *store_open_str(const char *str)
 {
-    Stream sm = { (char *) str, 0 };
+    Stream sm = { (char *) str, 0, 0 };
     return _store_read(NULL, &sm);
 }
 const char *store_write_str(Store *s)
@@ -324,7 +338,7 @@ const char *store_write_str(Store *s)
     Stream sm[1];
 
     _stream_init(sm);
-    _store_write(s, 0, sm);
+    _store_write_pretty(s, 0, sm);
     free(s->str);
     s->str = sm->buf;
     return s->str; /* don't deinit sm, keep string */
