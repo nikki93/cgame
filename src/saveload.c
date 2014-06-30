@@ -245,7 +245,8 @@ bool store_child_load(Store **sp, const char *name, Store *parent)
     }
 
     /* search all children */
-    for (s = parent->child; s && strcmp(s->name, name); s = s->sibling);
+    for (s = parent->child; s && (!s->name || strcmp(s->name, name));
+         s = s->sibling);
     return *sp = s;
 }
 
