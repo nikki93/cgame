@@ -207,6 +207,7 @@ function cs.edit.command_save()
         cs.system.save_all(s)
         cg.store_write_file(s, f)
         cg.store_close(s)
+        print("done saving")
 
         cs.edit.stop_save()
 
@@ -226,6 +227,7 @@ function cs.edit.command_load()
         local s = cg.store_open_file(f)
         cs.system.load_all(s)
         cg.store_close(s)
+        print("done loading")
 
         cs.edit.stop_save()
         cs.timing.set_paused(true)
