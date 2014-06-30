@@ -923,7 +923,6 @@ static void _rect_save_all(Store *s)
     if (store_child_save(&t, "gui_rect", s))
         entitypool_save_foreach(rect, rect_s, rect_pool, "pool", t)
         {
-            mat3_save(&rect->wmat, "wmat", rect_s);
             vec2_save(&rect->size, "size", rect_s);
             color_save(&rect->color, "color", rect_s);
             bool_save(&rect->hfit, "hfit", rect_s);
@@ -940,7 +939,6 @@ static void _rect_load_all(Store *s)
     if (store_child_load(&t, "gui_rect", s))
         entitypool_load_foreach(rect, rect_s, rect_pool, "pool", t)
         {
-            mat3_load(&rect->wmat, "wmat", mat3_identity(), rect_s);
             vec2_load(&rect->size, "size", vec2(64, 64), rect_s);
             color_load(&rect->color, "color", color_gray, rect_s);
             bool_load(&rect->hfit, "hfit", true, rect_s);

@@ -245,7 +245,6 @@ void sprite_save_all(Store *s)
 
         entitypool_save_foreach(sprite, sprite_s, pool, "pool", t)
         {
-            mat3_save(&sprite->wmat, "wmat", sprite_s);
             vec2_save(&sprite->size, "size", sprite_s);
             vec2_save(&sprite->texcell, "texcell", sprite_s);
             vec2_save(&sprite->texsize, "texsize", sprite_s);
@@ -271,7 +270,6 @@ void sprite_load_all(Store *s)
 
         entitypool_load_foreach(sprite, sprite_s, pool, "pool", t)
         {
-            mat3_load(&sprite->wmat, "wmat", mat3_identity(), sprite_s);
             vec2_load(&sprite->size, "size", vec2(1, 1), sprite_s);
             vec2_load(&sprite->texcell, "texcell", vec2(32, 32), sprite_s);
             vec2_load(&sprite->texsize, "texsize", vec2(32, 32), sprite_s);
