@@ -1077,6 +1077,8 @@ static void _shapes_load(PhysicsInfo *info, Store *s)
     Store *t, *shape_s;
     ShapeInfo *shapeInfo;
 
+    info->shapes = array_new(ShapeInfo);
+
     if (store_child_load(&t, "shapes", s))
         while (store_child_load(&shape_s, NULL, t))
         {
