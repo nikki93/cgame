@@ -13,7 +13,8 @@ typedef struct Stream Stream;
 struct Stream
 {
     char *buf;
-    size_t pos;
+    size_t pos; /* next char to read, or next pos to write to */
+    size_t cap; /* allocated size of buf */
 };
 
 struct Store
@@ -37,11 +38,25 @@ static void _stream_init(Stream *sm)
 {
     sm->buf = NULL;
     sm->pos = 0;
+    sm->cap = 0;
 }
 
 static void _stream_deinit(Stream *sm)
 {
     free(sm->buf);
+}
+
+/* grow so that pos is within allocated space */
+static void _stream_grow(Stream *sm, size_t pos)
+{
+    if (pos >= sm->cap)
+    {
+        if (sm->cap < 2)
+            sm->cap = 2;
+        while (pos >= sm->cap)
+            sm->cap <<= 1;
+        sm->buf = realloc(sm->buf, sm->cap);
+    }
 }
 
 /* writes at pos, truncates to end of written string */
@@ -50,20 +65,13 @@ static void _stream_printf(Stream *sm, const char *fmt, ...)
     va_list ap1, ap2;
     size_t new_pos;
 
-    if (!sm->buf)
-    {
-        sm->pos = 0;
-        sm->buf = malloc(sm->pos + 1);
-        sm->buf[sm->pos] = '\0';
-    }
-
     va_start(ap1, fmt);
     va_copy(ap2, ap1);
 
     new_pos = sm->pos + vsnprintf(NULL, 0, fmt, ap2);
     va_end(ap2);
 
-    sm->buf = realloc(sm->buf, new_pos + 1);
+    _stream_grow(sm, new_pos);
     vsprintf(sm->buf + sm->pos, fmt, ap1);
     sm->pos = new_pos;
     va_end(ap1);
@@ -98,26 +106,74 @@ static void _stream_scanf_(Stream *sm, const char *fmt, int *n, ...)
 /* strings are written as "<len> <str> " or "-1 " if NULL */
 static void _stream_write_string(Stream *sm, const char *s)
 {
-    if (s)
-        _stream_printf(sm, "%d %s ", (int) strlen(s), s);
-    else
-        _stream_printf(sm, "-1 ");
+    /* NULL? */
+    if (!s)
+    {
+        _stream_printf(sm, "n ");
+        return;
+    }
+
+    _stream_printf(sm, "\"");
+
+    for (; *s; ++s)
+    {
+        _stream_grow(sm, sm->pos);
+
+        if (*s == '"')
+        {
+            sm->buf[sm->pos++] = '\\';
+            _stream_grow(sm, sm->pos);
+        }
+
+        sm->buf[sm->pos++] = *s;
+    }
+
+    _stream_printf(sm, "\" ");
 }
-static char *_stream_read_string(Stream *sm)
+/* store allocated length in plen if non-NULL */
+static char *_stream_read_string_(Stream *sm, size_t *plen)
 {
-    char *s;
-    int n;
+    Stream rm[1];
 
-    _stream_scanf(sm, "%d ", &n);
-    if (n < 0)
+    /* NULL? */
+    if (sm->buf[sm->pos] == 'n')
+    {
+        if (strncmp(&sm->buf[sm->pos], "n ", 2))
+            error("corrupt save");
+        sm->pos += 2;
         return NULL;
+    }
 
-    s = malloc(n + 1);
-    strncpy(s, &sm->buf[sm->pos], n);
-    sm->pos += n;
-    s[n] = '\0';
-    return s;
+    _stream_init(rm);
+
+    /* opening quote */
+    if (sm->buf[sm->pos] != '"')
+        error("corrupt save");
+    ++sm->pos;
+
+    while (sm->buf[sm->pos] != '"')
+    {
+        _stream_grow(rm, rm->pos);
+
+        if (sm->buf[sm->pos] == '\\' && sm->buf[sm->pos + 1] == '"')
+        {
+            rm->buf[rm->pos++] = '"';
+            sm->pos += 2;
+        }
+        else
+            rm->buf[rm->pos++] = sm->buf[sm->pos++];
+    }
+    sm->pos += 2; /* closing quote, space */
+
+    _stream_grow(rm, rm->pos);
+    rm->buf[rm->pos] = '\0';
+
+    if (plen)
+        *plen = rm->cap;
+
+    return rm->buf;
 }
+#define _stream_read_string(sm) _stream_read_string_(sm, NULL)
 
 /* --- internals ----------------------------------------------------------- */
 
@@ -195,7 +251,8 @@ Store *_store_read(Store *parent, Stream *sm)
 
     /* name, data */
     s->name = _stream_read_string(sm);
-    s->sm->buf = _stream_read_string(sm);
+    s->sm->buf = _stream_read_string_(sm, &s->sm->cap);
+    s->sm->pos = 0;
 
     /* children */
     for (;;)
