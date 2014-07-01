@@ -993,7 +993,7 @@ static void _text_add_cursor(Text *text, Vec2 pos)
     tc->is_cursor = 1;
 }
 
-/* empty string if str is NULL */
+/* just update with existing string if str is NULL */
 static void _text_set_str(Text *text, const char *str)
 {
     char c;
@@ -1009,9 +1009,7 @@ static void _text_set_str(Text *text, const char *str)
         strcpy(text->str, str);
     }
     else
-    {
         str = text->str;
-    }
 
     /* create TextChar array and update bounds */
     pos = vec2(0, -1);
@@ -1240,16 +1238,14 @@ static void _text_load_all(Store *s)
 {
     Store *t, *text_s;
     Text *text;
-    char *str;
 
     if (store_child_load(&t, "gui_text", s))
         entitypool_load_foreach(text, text_s, text_pool, "pool", t)
         {
-            text->str = NULL;
-            string_load(&str, "str", NULL, text_s);
-            _text_set_str(text, str ? str : "");
-            free(str);
+            text->chars = array_new(TextChar);
+            string_load(&text->str, "str", "", text_s);
             int_load(&text->cursor, "cursor", -1, text_s);
+            _text_set_str(text, NULL);
         }
 }
 

@@ -30,6 +30,7 @@ SCRIPT(saveload,
 
 /* store trees help with backwards-compatible save/load */
 bool store_child_save(Store **sp, const char *name, Store *parent);
+bool store_child_save_compressed(Store **sp, const char *name, Store *parent);
 bool store_child_load(Store **sp, const char *name, Store *parent);
 
 void scalar_save(const Scalar *f, const char *n, Store *s);

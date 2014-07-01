@@ -201,13 +201,13 @@ end
 local last_save = cgame_usr_path .. 'levels/'
 function cs.edit.command_save()
     local function save(f)
-        print("saving group 'default' to file '" .. f .. "'")
+        cs.console.printf("edit: saving group 'default' to file '" .. f .. "' ... ")
         cs.group.set_save_filter('default', true)
         local s = cg.store_open()
         cs.system.save_all(s)
         cg.store_write_file(s, f)
         cg.store_close(s)
-        print("done saving")
+        print("done")
 
         cs.edit.stop_save()
 
@@ -223,11 +223,11 @@ function cs.edit.command_load()
     local function load(f)
         cs.group.destroy('default')
 
-        print("loading from file '" .. f .. "'")
+        cs.console.printf("edit: loading from file '" .. f .. "' ... ")
         local s = cg.store_open_file(f)
         cs.system.load_all(s)
         cg.store_close(s)
-        print("done loading")
+        print("done")
 
         cs.edit.stop_save()
         cs.timing.set_paused(true)

@@ -119,6 +119,7 @@ static void _stream_write_string(Stream *sm, const char *s)
     {
         _stream_grow(sm, sm->pos);
 
+        /* escape quotes */
         if (*s == '"')
         {
             sm->buf[sm->pos++] = '\\';
@@ -155,6 +156,7 @@ static char *_stream_read_string_(Stream *sm, size_t *plen)
     {
         _stream_grow(rm, rm->pos);
 
+        /* escape quotes */
         if (sm->buf[sm->pos] == '\\' && sm->buf[sm->pos + 1] == '"')
         {
             rm->buf[rm->pos++] = '"';
@@ -205,7 +207,7 @@ static void _store_free(Store *s)
     {
         t = s->child->sibling;
         _store_free(s->child);
-        s->child= t;
+        s->child = t;
     }
 
     free(s->name);
@@ -213,16 +215,18 @@ static void _store_free(Store *s)
     free(s->str);
 }
 
+/* { ... } for normal, [ ... ] for compressed */
+
 static void _store_write(Store *s, Stream *sm)
 {
     Store *c;
 
-    _stream_printf(sm, "{ ");
+    _stream_printf(sm, s->compressed ? "[ " : "{ ");
     _stream_write_string(sm, s->name);
     _stream_write_string(sm, s->sm->buf);
     for (c = s->child; c; c = c->sibling)
         _store_write(c, sm);
-    _stream_printf(sm, "} ");
+    _stream_printf(sm, s->compressed ? "] " : "} ");
 }
 
 #define INDENT 2
@@ -230,6 +234,15 @@ static void _store_write(Store *s, Stream *sm)
 static void _store_write_pretty(Store *s, unsigned int indent, Stream *sm)
 {
     Store *c;
+
+    /* compressed stuff isn't pretty */
+    if (s->compressed)
+    {
+        _stream_printf(sm, "%*s", indent, "");
+        _store_write(s, sm);
+        _stream_printf(sm, "\n");
+        return;
+    }
 
     /* opening brace */
     if (s->child)
@@ -256,10 +269,16 @@ static void _store_write_pretty(Store *s, unsigned int indent, Stream *sm)
 
 static Store *_store_read(Store *parent, Stream *sm)
 {
+    char close_brace = '}'; /* type of close brace to expect */
     Store *s = _store_new(parent);
 
     /* opening brace */
-    if (sm->buf[sm->pos] != '{')
+    if (sm->buf[sm->pos] == '[')
+    {
+        s->compressed = true;
+        close_brace = ']';
+    }
+    else if (sm->buf[sm->pos] != '{')
         error("corrupt save");
     while (isspace(sm->buf[++sm->pos]));
 
@@ -275,7 +294,7 @@ static Store *_store_read(Store *parent, Stream *sm)
             ++sm->pos;
 
         /* end? */
-        if (sm->buf[sm->pos] == '}')
+        if (sm->buf[sm->pos] == close_brace)
         {
             ++sm->pos;
             break;
@@ -291,20 +310,35 @@ static Store *_store_read(Store *parent, Stream *sm)
 
 bool store_child_save(Store **sp, const char *name, Store *parent)
 {
-    Store *s = _store_new(parent);
+    Store *s;
 
+    /* compressed? keep it flat */
+    if (parent->compressed)
+        return *sp = parent;
+
+    s = _store_new(parent);
     if (name)
     {
         s->name = malloc(strlen(name) + 1);
         strcpy(s->name, name);
     }
-
     return *sp = s;
+}
+
+bool store_child_save_compressed(Store **sp, const char *name, Store *parent)
+{
+    bool r = store_child_save(sp, name, parent);
+    (*sp)->compressed = true;
+    return r;
 }
 
 bool store_child_load(Store **sp, const char *name, Store *parent)
 {
     Store *s;
+
+    /* compressed? expect flat */
+    if (parent->compressed)
+        return *sp = parent;
 
     /* if NULL name, pick next iteration child and advance */
     if (!name)
