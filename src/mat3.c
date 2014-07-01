@@ -90,7 +90,7 @@ void mat3_save(Mat3 *m, const char *n, Store *s)
     Store *t;
     unsigned int i, j;
 
-    if (store_child_save(&t, n, s))
+    if (store_child_save_compressed(&t, n, s))
         for (i = 0; i < 3; ++i)
             for (j = 0; j < 3; ++j)
                 scalar_save(&m->m[i][j], NULL, t);

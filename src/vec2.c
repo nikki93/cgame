@@ -64,7 +64,7 @@ void vec2_save(Vec2 *v, const char *n, Store *s)
 {
     Store *t;
 
-    if (store_child_save(&t, n, s))
+    if (store_child_save_compressed(&t, n, s))
     {
         scalar_save(&v->x, "x", t);
         scalar_save(&v->y, "y", t);
