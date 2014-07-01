@@ -1,5 +1,8 @@
 ![cgame](screenshot.png "cgame")
 
+* [paper](http://www.princeton.edu/~sigatapu/images/cgame.pdf) (May 2014)
+* [poster](http://www.princeton.edu/~sigatapu/images/cgame-poster.pdf) (May 2014)
+
 NOTE: the 'cgame' executable looks for data in './data' so make sure you run it
 with the repository root as working directory
 
