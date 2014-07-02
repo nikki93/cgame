@@ -23,7 +23,7 @@ struct Texture
     time_t last_modified;
 };
 
-Array *textures;
+static Array *textures;
 
 /* ------------------------------------------------------------------------- */
 
