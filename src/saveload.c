@@ -60,6 +60,7 @@ static void _stream_grow(Stream *sm, size_t pos)
 }
 
 /* writes at pos, truncates to end of written string */
+__attribute__((format(printf, 2, 3)))
 static void _stream_printf(Stream *sm, const char *fmt, ...)
 {
     va_list ap1, ap2;
@@ -77,6 +78,7 @@ static void _stream_printf(Stream *sm, const char *fmt, ...)
     va_end(ap1);
 }
 
+__attribute__((format(scanf, 2, 4)))
 static void _stream_scanf_(Stream *sm, const char *fmt, int *n, ...)
 {
     va_list ap;
