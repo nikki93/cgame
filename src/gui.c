@@ -797,7 +797,8 @@ static void _rect_update_fill(Rect *rect)
     if (!gui)
         return;
 
-    if (!rect || !rect->visible || rect->updated || !(rect->hfill || rect->vfill))
+    if (!rect || !rect->visible || rect->updated
+        || !(rect->hfill || rect->vfill))
         return;
 
     parent = transform_get_parent(ent);
@@ -818,7 +819,8 @@ static void _rect_update_depth(Rect *rect)
 {
     Rect *prect;
 
-    prect = entitypool_get(rect_pool, transform_get_parent(rect->pool_elem.ent));
+    prect = entitypool_get(rect_pool,
+                           transform_get_parent(rect->pool_elem.ent));
     if (prect)
     {
         _rect_update_parent_first(prect->pool_elem.ent);

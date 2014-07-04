@@ -294,7 +294,8 @@ void entity_load_all(Store *s)
             while (store_child_load(&entry_s, NULL, destroyed_s))
             {
                 entry = array_add(destroyed);
-                error_assert(entity_load(&entry->ent, "ent", entity_nil, entry_s));
+                error_assert(entity_load(&entry->ent, "ent", entity_nil,
+                                         entry_s));
                 uint_load(&entry->pass, "pass", 0, entry_s);
             }
     }

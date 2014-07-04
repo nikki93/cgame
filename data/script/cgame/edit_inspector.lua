@@ -303,7 +303,8 @@ property_types['Entity'] = {
             -- draw line between entities
             if cs.transform.has(inspector.ent)
             and cs.edit.get_editable(e) and cs.transform.has(e) then
-                local a = cs.transform.local_to_world(inspector.ent, cg.vec2_zero)
+                local a = cs.transform.local_to_world(inspector.ent,
+                                                      cg.vec2_zero)
                 local b = cs.transform.local_to_world(e,
                                                       cg.vec2_zero)
                 cs.edit.line_add(a, b, 0, cg.color(1, 0, 1, 0.6))
@@ -440,7 +441,9 @@ end
 
 function cs.edit_inspector.add(ent, sys)
     local adder = cs[sys].add
-    if not adder then error("system '" .. sys .. "' has no 'add(...)' function") end
+    if not adder then
+        error("system '" .. sys .. "' has no 'add(...)' function")
+    end
 
     if not inspectors[ent] then
         inspectors[ent] = {}
@@ -501,7 +504,8 @@ local function remove_destroyed()
             cs.edit_inspector.remove(ent)
         else
             for _, inspector in pairs(insps) do
-                if cs.gui.event_mouse_down(inspector.remove_text) == cg.MC_LEFT then
+                if cs.gui.event_mouse_down(inspector.remove_text)
+                == cg.MC_LEFT then
                     cs[inspector.sys].remove(inspector.ent)
                     cs.edit_inspector.remove(inspector.ent, inspector.sys)
                     some_closed = true

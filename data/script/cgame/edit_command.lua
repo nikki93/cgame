@@ -201,7 +201,8 @@ end
 local last_save = cgame_usr_path .. 'levels/'
 function cs.edit.command_save()
     local function save(f)
-        cs.console.printf("edit: saving group 'default' to file '" .. f .. "' ... ")
+        cs.console.printf("edit: saving group 'default' to file '"
+                              .. f .. "' ... ")
         cs.group.set_save_filter('default', true)
         local s = cg.store_open()
         cs.system.save_all(s)
@@ -236,8 +237,8 @@ function cs.edit.command_load()
         last_load = f
     end
 
-    cs.edit.command_start('load from file: ', load, cs.edit.command_completion_fs,
-                          true, last_load)
+    cs.edit.command_start('load from file: ', load,
+                          cs.edit.command_completion_fs, true, last_load)
 end
 
 function cs.edit.set_default_file(s)

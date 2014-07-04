@@ -182,7 +182,8 @@ static void _bboxes_draw_all()
     unsigned int nbboxes;
 
     glUseProgram(bboxes_program);
-    glUniformMatrix3fv(glGetUniformLocation(bboxes_program, "inverse_view_matrix"),
+    glUniformMatrix3fv(glGetUniformLocation(bboxes_program,
+                                            "inverse_view_matrix"),
                        1, GL_FALSE,
                        (const GLfloat *) camera_get_inverse_view_matrix_ptr());
     win = game_get_window_size();
@@ -285,7 +286,8 @@ static void _grid_draw()
     unsigned int ncells;
 
     glUseProgram(bboxes_program);
-    glUniformMatrix3fv(glGetUniformLocation(bboxes_program, "inverse_view_matrix"),
+    glUniformMatrix3fv(glGetUniformLocation(bboxes_program,
+                                            "inverse_view_matrix"),
                        1, GL_FALSE,
                        (const GLfloat *) camera_get_inverse_view_matrix_ptr());
     win = game_get_window_size();

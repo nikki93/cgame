@@ -1042,7 +1042,8 @@ static void _polygon_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
     shape_prop_##saveload(cpFloat, _cpf, "elasticity", Elasticity);     \
     shape_prop_##saveload(cpFloat, _cpf, "friction", Friction);         \
     shape_prop_##saveload(cpVect, _cpv, "surface_velocity", SurfaceVelocity); \
-    shape_prop_##saveload(unsigned int, uint, "collision_type", CollisionType); \
+    shape_prop_##saveload(unsigned int, uint, "collision_type",         \
+                          CollisionType);                               \
     shape_prop_##saveload(unsigned int, uint, "group", Group);          \
     shape_prop_##saveload(unsigned int, uint, "layers", Layers);        \
 
