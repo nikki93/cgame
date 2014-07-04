@@ -32,9 +32,6 @@ ideas
 todo
 ----
 
-- easy: annotate printf/scanf-like functions to get clang warnings
-  for bad formats
-
 - easy: make entity_destroyed(ent) be true iff. on 2nd pass of
   destroyed map?
 
