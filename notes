@@ -32,8 +32,6 @@ ideas
 todo
 ----
 
-- hard: add versioning to C save/load system
-
 - easy: annotate printf/scanf-like functions to get clang warnings
   for bad formats
 
