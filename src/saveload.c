@@ -500,8 +500,8 @@ void bool_save(const bool *b, const char *n, Store *s)
 {
     Store *t;
 
-    if (store_child_load(&t, n, s))
-        _store_printf(t, "%d ", (int) b);
+    if (store_child_save(&t, n, s))
+        _store_printf(t, "%d ", (int) *b);
 }
 bool bool_load(bool *b, const char *n, bool d, Store *s)
 {
