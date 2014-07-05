@@ -997,7 +997,7 @@ static void _polygon_save(PhysicsInfo *info, ShapeInfo *shapeInfo,
         for (i = 0; i < n; ++i)
         {
             v = cpPolyShapeGetVert(shapeInfo->shape, i);
-            _cpv_save(&v, NULL, s);
+            _cpv_save(&v, NULL, verts_s);
         }
 }
 static void _polygon_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
@@ -1016,7 +1016,7 @@ static void _polygon_load(PhysicsInfo *info, ShapeInfo *shapeInfo,
                  "polygon shape type must have saved list of vertices");
     vs = malloc(n * sizeof(cpVect));
     for (i = 0; i < n; ++i)
-        if (!_cpv_load(&vs[i], NULL, cpvzero, s))
+        if (!_cpv_load(&vs[i], NULL, cpvzero, verts_s))
             error("polygon shape type saved number of vertices doesn't match"
                   "size of saved list of vertices");
     shapeInfo->shape = cpPolyShapeNew2(info->body, n, vs, cpvzero, r);
