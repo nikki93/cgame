@@ -6,6 +6,7 @@ local console_background = cg.add {
     gui = {
         color = cg.color(1, 1, 1, 0.5),
         padding = cg.vec2_zero,
+        visible = false,
     },
 }
 local console_text = cg.add {
