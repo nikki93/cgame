@@ -15,6 +15,7 @@ require 'cgame.entity_table'
 
 require 'cgame.system'
 require 'cgame.entity'
+require 'cgame.name'
 require 'cgame.group'
 require 'cgame.input'
 require 'cgame.gui'
