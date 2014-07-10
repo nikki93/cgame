@@ -19,6 +19,7 @@ require 'cgame.name'
 require 'cgame.group'
 require 'cgame.input'
 require 'cgame.gui'
+require 'cgame.animation'
 require 'cgame.physics'
 
 require 'cgame.edit'
