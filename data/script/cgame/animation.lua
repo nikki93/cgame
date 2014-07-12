@@ -41,6 +41,17 @@ local function _enter_frame(entry, frame, anim)
     if frm.texsize then cs.sprite.set_texsize(entry.ent, frm.texsize) end
 end
 
+function cs.animation.switch(ent, anim)
+    local entry = cs.animation.tbl[ent]
+    assert(entry, 'entity must be in animation system')
+    assert(entry.anims[anim], "must have an animation with name '"
+               .. anim .. "'")
+    if entry.curr_anim ~= anim then
+        entry.curr_anim = anim
+        _enter_frame(entry, 1)
+    end
+end
+
 function cs.animation.start(ent, anim)
     local entry = cs.animation.tbl[ent]
     assert(entry, 'entity must be in animation system')
