@@ -20,25 +20,40 @@ function cs.animation.has(ent)
     return cs.animation.tbl[ent] ~= nil
 end
 
-function cs.animation.set_frames(ent, anim, frames)
-    if type(anim) == 'table' then
-        for name, frames in pairs(anim) do
-            cs.animation.set_frames(ent, name, frames)
-        end
-    end
-
+-- utility for contiguous strips of frames
+function cs.animation.set_strips(ent, tbl)
     local entry = cs.animation.tbl[ent]
     assert(entry, 'entity must be in animation system')
-    entry.anims[anim] = { frames = frames }
+    for anim, info in pairs(tbl) do
+        entry.anims[anim] = info
+    end
+end
+
+-- manual specification of every frame and its duration
+function cs.animation.set_frames(ent, tbl)
+    local entry = cs.animation.tbl[ent]
+    assert(entry, 'entity must be in animation system')
+    for anim, frames in pairs(anim) do
+        entry.anims[anim] = { n = #frames, frames = frames }
+    end
 end
 
 local function _enter_frame(entry, frame, anim)
     anim = anim or entry.anims[entry.curr_anim]
     entry.frame = frame
-    local frm = anim.frames[frame]
-    entry.t = frm.t
-    if frm.texcell then cs.sprite.set_texcell(entry.ent, frm.texcell) end
-    if frm.texsize then cs.sprite.set_texsize(entry.ent, frm.texsize) end
+    if anim.t then
+        -- it's a strip
+        entry.t = anim.t
+        local v = cg.Vec2(anim.base)
+        v.x = v.x + (frame - 1) * cs.sprite.get_texsize(entry.ent).x
+        cs.sprite.set_texcell(entry.ent, v)
+    else
+        -- it's manual, just use nth frame data
+        local frm = anim.frames[frame]
+        entry.t = frm.t
+        if frm.texcell then cs.sprite.set_texcell(entry.ent, frm.texcell) end
+        if frm.texsize then cs.sprite.set_texsize(entry.ent, frm.texsize) end
+    end
 end
 
 function cs.animation.switch(ent, anim)
@@ -66,15 +81,18 @@ function cs.animation.update_all()
 
     if cs.timing.get_paused() then return end
 
-    local dt = cs.timing.dt
     for ent, entry in pairs(cs.animation.tbl) do
         if entry.curr_anim then
+            local dt = cs.timing.dt
             local anim = entry.anims[entry.curr_anim]
+
+            -- next frame?
             while entry.t <= dt do
-                _enter_frame(entry, entry.frame >= #anim.frames
+                _enter_frame(entry, entry.frame >= anim.n
                                  and 1 or entry.frame + 1, anim)
                 dt = dt - entry.t
             end
+
             entry.t = entry.t - dt
         end
     end
