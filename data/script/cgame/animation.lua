@@ -24,8 +24,8 @@ end
 function cs.animation.set_strips(ent, tbl)
     local entry = cs.animation.tbl[ent]
     assert(entry, 'entity must be in animation system')
-    for anim, info in pairs(tbl) do
-        entry.anims[anim] = info
+    for anim, strip in pairs(tbl) do
+        entry.anims[anim] = { n = strip.n, strip = strip }
     end
 end
 
@@ -41,14 +41,12 @@ end
 local function _enter_frame(entry, frame, anim)
     anim = anim or entry.anims[entry.curr_anim]
     entry.frame = frame
-    if anim.t then
-        -- it's a strip
-        entry.t = anim.t
-        local v = cg.Vec2(anim.base)
+    if anim.strip then
+        entry.t = anim.strip.t
+        local v = cg.Vec2(anim.strip.base)
         v.x = v.x + (frame - 1) * cs.sprite.get_texsize(entry.ent).x
         cs.sprite.set_texcell(entry.ent, v)
-    else
-        -- it's manual, just use nth frame data
+    elseif anim.frames then
         local frm = anim.frames[frame]
         entry.t = frm.t
         if frm.texcell then cs.sprite.set_texcell(entry.ent, frm.texcell) end
