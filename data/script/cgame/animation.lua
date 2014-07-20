@@ -13,8 +13,18 @@ function cs.animation.add(ent)
         t = 1,             -- time left in this frame
     }
 end
-function cs.animation.remove(ent)
-    cs.animation.tbl[ent] = nil
+function cs.animation.remove(ent, anim)
+    local entry = cs.animation.tbl[ent]
+    if entry then
+        if anim then
+            if entry.curr_anim == anim then
+                entry.curr_anim = nil
+            end
+            entry.anims[anim] = nil
+        else
+            cs.animation.tbl[ent] = nil
+        end
+    end
 end
 function cs.animation.has(ent)
     return cs.animation.tbl[ent] ~= nil
