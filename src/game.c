@@ -7,16 +7,8 @@
 #include <time.h>
 
 #include "glew_glfw.h"
-#include "dirs.h"
-#include "saveload.h"
 #include "system.h"
 #include "console.h"
-#include "gui.h"
-#include "transform.h"
-#include "input.h"
-#include "timing.h"
-#include "scratch.h"
-#include "edit.h"
 
 #ifdef CGAME_DEBUG_WINDOW
 #include "debugwin.h"
