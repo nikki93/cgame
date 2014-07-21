@@ -44,8 +44,6 @@ todo
 - easy: serialize global physics properties, expose more physics
   functions
 
-- hard: add sprite animation
-
 
 files
 -----
