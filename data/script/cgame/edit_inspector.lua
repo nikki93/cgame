@@ -1,39 +1,44 @@
 local ffi = require 'ffi'
 local refct = require 'reflect'
 
---- property -------------------------------------------------------------------
+--- edit_field -----------------------------------------------------------------
 
-local property_types = {}
+local field_types = {}
 
-local function property_create_container(inspector, prop)
-    prop.container = cg.add {
-        transform = { parent = inspector.window_body },
-        gui = {
-            padding = cg.vec2_zero,
-            color = cg.color_clear,
-            valign = cg.GA_TABLE,
-            halign = cg.GA_MIN,
-        },
-        gui_rect = { hfill = true },
-    }
+-- edit_field makes it easy to provide editors for simple properties of various
+-- types (Vec2, Scalar etc.)
+
+-- 'args' may contain:
+--      field_type: the field type (boolean, string, Scalar, enum, Vec2,
+--                                  Color, Entity)
+--      ctype: the name of the underlying C type, if any
+--      parent: the parent GUI entity
+--      label: descriptive label (optional)
+--      halign, valign: alignment for container (optional)
+function cg.edit_field_create(args)
+    assert(args.field_type, 'field type expected')
+    print('creating field for ' .. (args.label or 'nope'))
+    local field = field_types[args.field_type].create(args)
+    field.type = args.field_type
+    return field
 end
 
-local function property_create_label(inspector, prop)
-    prop.label = cg.add {
-        transform = { parent = prop.container },
-        gui = {
-            color = cg.color_white,
-            valign = cg.GA_MID,
-            halign = cg.GA_TABLE,
-        },
-        gui_text = { str = prop.name }
-    }
+-- updates display to val
+function cg.edit_field_update(field, val)
+    local f = field_types[field.type].update
+    if f then f(field, val) end
+end
+
+-- updates display to val, calls setter with new value if edited
+function cg.edit_field_post_update(field, val, setter)
+    local f = field_types[field.type].post_update
+    if f then f(field, val, setter) end
 end
 
 -- returns textbox, text
-local function property_create_textbox(args)
+local function field_create_textbox(args)
     local textbox = cg.add {
-        transform = { parent = args.prop.container },
+        transform = { parent = args.field.container },
         gui = {
             color = cg.color(0.2, 0.2, 0.4, 1),
             valign = cg.GA_MAX,
@@ -52,13 +57,41 @@ local function property_create_textbox(args)
     return textbox, text
 end
 
-property_types['boolean'] = {
-    add = function (inspector, prop)
-        property_create_container(inspector, prop)
-        property_create_label(inspector, prop)
+local function field_create_common(args)
+    local field = {}
 
-        prop.checkbox = cg.add {
-            transform = { parent = prop.container },
+    field.container = cg.add {
+        transform = { parent = args.parent },
+        gui = {
+            padding = cg.vec2_zero,
+            color = cg.color_clear,
+            valign = args.valign or cg.GA_TABLE,
+            halign = args.halign or cg.GA_MIN,
+        },
+        gui_rect = { hfill = true },
+    }
+
+    if args.label then
+        field.name = args.label
+        field.label = cg.add {
+            transform = { parent = field.container },
+            gui = {
+                color = cg.color_white,
+                valign = cg.GA_MID,
+                halign = cg.GA_TABLE,
+            },
+            gui_text = { str = args.label }
+        }
+    end
+
+    return field
+end
+
+field_types['boolean'] = {
+    create = function (args)
+        local field = field_create_common(args)
+        field.checkbox = cg.add {
+            transform = { parent = field.container },
             gui = {
                 color = cg.color(0.2, 0.2, 0.4, 1),
                 valign = cg.GA_MAX,
@@ -66,214 +99,148 @@ property_types['boolean'] = {
             },
             gui_checkbox = {},
         }
+        return field
     end,
 
-    post_update = function (inspector, prop)
-        if cs.gui.event_changed(prop.checkbox) then
-            cg.set(inspector.sys, prop.name, inspector.ent,
-                   cs.gui_checkbox.get_checked(prop.checkbox))
+    post_update = function (field, val, setter)
+        if cs.gui.event_changed(field.checkbox) then
+            setter(cs.gui_checkbox.get_checked(field.checkbox))
             cs.edit.undo_save()
         else
-            local b = cg.get(inspector.sys, prop.name, inspector.ent)
-            cs.gui_checkbox.set_checked(prop.checkbox, b)
+            cs.gui_checkbox.set_checked(field.checkbox, val)
+        end
+    end
+}
+
+field_types['string'] = {
+    create = function (args)
+        local field = field_create_common(args)
+        field.textbox, field.textedit = field_create_textbox { field = field }
+        return field
+    end,
+
+    post_update = function (field, val, setter)
+        if cs.gui.event_focus_exit(field.textedit) then cs.edit.undo_save() end
+        if cs.gui.event_changed(field.textedit) then
+            setter(cs.gui_text.get_str(field.textedit))
+        elseif not cs.gui.get_focus(field.textedit) then
+            cs.gui_text.set_str(field.textedit, val)
         end
     end,
 }
 
-property_types['string'] = {
-    add = function (inspector, prop)
-        property_create_container(inspector, prop)
-        property_create_label(inspector, prop)
-
-        prop.textbox, prop.textedit
-            = property_create_textbox { prop = prop }
+field_types['Scalar'] = {
+    create = function (args)
+        local field = field_create_common(args)
+        field.textbox, field.textedit =
+            field_create_textbox { field = field, numerical = true }
+        return field
     end,
 
-    post_update = function (inspector, prop)
-        if cs.gui.event_focus_exit(prop.textedit) then
-            cs.edit.undo_save()
+    post_update = function (field, val, setter)
+        if cs.gui.event_focus_exit(field.textedit) then cs.edit.undo_save() end
+        if cs.gui.event_changed(field.textedit) then
+            setter(cs.gui_textedit.get_num(field.textedit))
+        elseif not cs.gui.get_focus(field.textedit) then
+            cs.gui_text.set_str(field.textedit, string.format('%.4f', val))
         end
-
-        if cs.gui.event_changed(prop.textedit) then
-            cg.set(inspector.sys, prop.name, inspector.ent,
-                   cs.gui_text.get_str(prop.textedit))
-        elseif not cs.gui.get_focus(prop.textedit) then
-            local s = cg.get(inspector.sys, prop.name, inspector.ent)
-            cs.gui_text.set_str(prop.textedit, s)
-        end
-    end,
+    end
 }
 
-property_types['Scalar'] = {
-    add = function (inspector, prop)
-        property_create_container(inspector, prop)
-        property_create_label(inspector, prop)
-
-        prop.textbox, prop.textedit
-            = property_create_textbox { prop = prop, numerical = true }
+field_types['enum'] = {
+    create = function (args)
+        local field = field_create_common(args)
+        field.enumtype = args.ctype
+        field.textbox, field.text =
+            field_create_textbox { field = field, editable = false }
+        return field
     end,
 
-    post_update = function (inspector, prop)
-        if cs.gui.event_focus_exit(prop.textedit) then
-            cs.edit.undo_save()
-        end
-
-        if cs.gui.event_changed(prop.textedit) then
-            cg.set(inspector.sys, prop.name, inspector.ent,
-                   cs.gui_textedit.get_num(prop.textedit))
-        elseif not cs.gui.get_focus(prop.textedit) then
-            local s = cg.get(inspector.sys, prop.name, inspector.ent)
-            cs.gui_text.set_str(prop.textedit, string.format('%.4f', s))
-        end
-    end,
-}
-
-property_types['enum'] = {
-    add = function (inspector, prop)
-        property_create_container(inspector, prop)
-        property_create_label(inspector, prop)
-
-        local r = cg.get(inspector.sys, prop.name, inspector.ent)
-        prop.enumtype = refct.typeof(r).name
-
-        prop.textbox, prop.text
-            = property_create_textbox { prop = prop, editable = false }
-    end,
-
-    post_update = function (inspector, prop)
-        if cs.gui.event_mouse_down(prop.textbox) == cg.MC_LEFT then
-            local function setter(s)
-                cg.set(inspector.sys, prop.name, inspector.ent, s)
+    post_update = function (field, val, setter)
+        if cs.gui.event_mouse_down(field.textbox) == cg.MC_LEFT then
+            local function setter_wrap(s)
+                setter(s)
                 cs.edit.undo_save()
             end
-            local values = cg.enum_values(prop.enumtype)
+            local values = cg.enum_values(field.enumtype)
             local comp = cs.edit.command_completion_substr(values)
-            cs.edit.command_start('set ' .. prop.name .. ': ', setter,
-                                  comp, true)
+            local prompt = 'set ' .. (field.name or field.enumtype) .. ': '
+            cs.edit.command_start(prompt, setter_wrap, comp, true)
         end
-
-        local s = cg.get(inspector.sys, prop.name, inspector.ent)
-        cs.gui_text.set_str(prop.text,
-                            cg.enum_tostring(prop.enumtype, s))
+        cs.gui_text.set_str(field.text, cg.enum_tostring(field.enumtype, val))
     end,
 }
 
-property_types['Vec2'] = {
-    add = function (inspector, prop)
-        property_create_container(inspector, prop)
-        property_create_label(inspector, prop)
-
-        prop.x_textbox, prop.x_textedit
-            = property_create_textbox { prop = prop, numerical = true }
-        prop.y_textbox, prop.y_textedit
-            = property_create_textbox { prop = prop, numerical = true }
+field_types['Vec2'] = {
+    create = function (args)
+        local field = field_create_common(args)
+        field.x_field = cg.edit_field_create {
+            field_type = 'Scalar', ctype = 'Scalar',
+            parent = field.container, valign = cg.GA_MAX, halign = cg.GA_TABLE
+        }
+        field.y_field = cg.edit_field_create {
+            field_type = 'Scalar', ctype = 'Scalar',
+            parent = field.container, valign = cg.GA_MAX, halign = cg.GA_TABLE
+        }
+        return field
     end,
 
-    post_update = function (inspector, prop)
-        local v = cg.get(inspector.sys, prop.name, inspector.ent)
-        local changed = false
-
-        if cs.gui.event_focus_exit(prop.x_textedit) then
-            cs.edit.undo_save()
-        end
-        if cs.gui.event_changed(prop.x_textedit) then
-            v.x = cs.gui_textedit.get_num(prop.x_textedit)
-            changed = true
-        elseif not cs.gui.get_focus(prop.x_textedit) then
-            cs.gui_text.set_str(prop.x_textedit, string.format('%.4f', v.x))
-        end
-
-        if cs.gui.event_focus_exit(prop.y_textedit) then
-            cs.edit.undo_save()
-        end
-        if cs.gui.event_changed(prop.y_textedit) then
-            v.y = cs.gui_textedit.get_num(prop.y_textedit)
-            changed = true
-        elseif not cs.gui.get_focus(prop.y_textedit) then
-            cs.gui_text.set_str(prop.y_textedit, string.format('%.4f', v.y))
-        end
-
-        if changed then
-            cg.set(inspector.sys, prop.name, inspector.ent, v)
-        end
+    post_update = function (field, val, setter)
+        cg.edit_field_post_update(field.x_field, val.x,
+                                  function (x) setter(cg.vec2(x, val.y)) end)
+        cg.edit_field_post_update(field.y_field, val.y,
+                                  function (y) setter(cg.vec2(val.x, y)) end)
     end,
 }
 
-property_types['Color'] = {
-    add = function (inspector, prop)
-        property_create_container(inspector, prop)
-        property_create_label(inspector, prop)
-
-        prop.r_textbox, prop.r_textedit
-            = property_create_textbox { prop = prop, numerical = true }
-        prop.g_textbox, prop.g_textedit
-            = property_create_textbox { prop = prop, numerical = true }
-        prop.b_textbox, prop.b_textedit
-            = property_create_textbox { prop = prop, numerical = true }
-        prop.a_textbox, prop.a_textedit
-            = property_create_textbox { prop = prop, numerical = true }
+field_types['Color'] = {
+    create = function (args)
+        local field = field_create_common(args)
+        field.r_field = cg.edit_field_create {
+            field_type = 'Scalar', ctype = 'Scalar',
+            parent = field.container, valign = cg.GA_MAX, halign = cg.GA_TABLE
+        }
+        field.g_field = cg.edit_field_create {
+            field_type = 'Scalar', ctype = 'Scalar',
+            parent = field.container, valign = cg.GA_MAX, halign = cg.GA_TABLE
+        }
+        field.b_field = cg.edit_field_create {
+            field_type = 'Scalar', ctype = 'Scalar',
+            parent = field.container, valign = cg.GA_MAX, halign = cg.GA_TABLE
+        }
+        field.a_field = cg.edit_field_create {
+            field_type = 'Scalar', ctype = 'Scalar',
+            parent = field.container, valign = cg.GA_MAX, halign = cg.GA_TABLE
+        }
+        return field
     end,
 
-    post_update = function (inspector, prop)
-        local v = cg.get(inspector.sys, prop.name, inspector.ent)
-        local changed = false
-
-        if cs.gui.event_focus_exit(prop.r_textedit) then
-            cs.edit.undo_save()
-        end
-        if cs.gui.event_changed(prop.r_textedit) then
-            v.r = cs.gui_textedit.get_num(prop.r_textedit)
-            changed = true
-        elseif not cs.gui.get_focus(prop.r_textedit) then
-            cs.gui_text.set_str(prop.r_textedit, string.format('%.4f', v.r))
-        end
-
-        if cs.gui.event_focus_exit(prop.g_textedit) then
-            cs.edit.undo_save()
-        end
-        if cs.gui.event_changed(prop.g_textedit) then
-            v.g = cs.gui_textedit.get_num(prop.g_textedit)
-            changed = true
-        elseif not cs.gui.get_focus(prop.g_textedit) then
-            cs.gui_text.set_str(prop.g_textedit, string.format('%.4f', v.g))
-        end
-
-        if cs.gui.event_focus_exit(prop.b_textedit) then
-            cs.edit.undo_save()
-        end
-        if cs.gui.event_changed(prop.b_textedit) then
-            v.b = cs.gui_textedit.get_num(prop.b_textedit)
-            changed = true
-        elseif not cs.gui.get_focus(prop.b_textedit) then
-            cs.gui_text.set_str(prop.b_textedit, string.format('%.4f', v.b))
-        end
-
-        if cs.gui.event_focus_exit(prop.a_textedit) then
-            cs.edit.undo_save()
-        end
-        if cs.gui.event_changed(prop.a_textedit) then
-            v.a = cs.gui_textedit.get_num(prop.a_textedit)
-            changed = true
-        elseif not cs.gui.get_focus(prop.a_textedit) then
-            cs.gui_text.set_str(prop.a_textedit, string.format('%.4f', v.a))
-        end
-
-        if changed then
-            cg.set(inspector.sys, prop.name, inspector.ent, v)
-        end
+    post_update = function (field, val, setter)
+        cg.edit_field_post_update(
+            field.r_field, val.r,
+            function (r) setter(cg.color(r, val.g, val.b, val.a)) end)
+        cg.edit_field_post_update(
+            field.g_field, val.g,
+            function (g) setter(cg.color(val.r, g, val.b, val.a)) end)
+        cg.edit_field_post_update(
+            field.b_field, val.b,
+            function (b) setter(cg.color(val.r, val.g, b, val.a)) end)
+        cg.edit_field_post_update(
+            field.a_field, val.a,
+            function (a) setter(cg.color(val.r, val.g, val.b, a)) end)
     end,
 }
 
-property_types['Entity'] = {
-    add = function (inspector, prop)
-        property_create_container(inspector, prop)
-        property_create_label(inspector, prop)
+field_types['Entity'] = {
+    create = function (args)
+        local field = field_create_common(args)
+        field.enumtype = args.ctype
+        field.textbox, field.text =
+            field_create_textbox { field = field, editable = false }
 
-        prop.textbox, prop.text
-            = property_create_textbox { prop = prop, editable = false }
-
-        prop.pick = cg.add {
-            transform = { parent = prop.container },
+        -- 'set' button
+        field.pick = cg.add {
+            transform = { parent = field.container },
             gui = {
                 color = cg.color(0.35, 0.15, 0.30, 1),
                 valign = cg.GA_MAX,
@@ -281,45 +248,29 @@ property_types['Entity'] = {
             },
             gui_textbox = {},
         }
-        cs.gui_text.set_str(cs.gui_textbox.get_text(prop.pick), 'set')
+        cs.gui_text.set_str(cs.gui_textbox.get_text(field.pick), 'set')
+
+        return field
     end,
 
-    post_update = function (inspector, prop)
-        -- pick?
-        if cs.gui.event_mouse_down(prop.pick) == cg.MC_LEFT then
-            local sel = cs.edit.select_get_first()
-            cg.set(inspector.sys, prop.name, inspector.ent,
-                   sel and sel or cg.entity_nil)
+    post_update = function (field, val, setter)
+        -- pick new value?
+        if cs.gui.event_mouse_down(field.pick) == cg.MC_LEFT then
+            val = cs.edit.select_get_first() or cg.entity_nil
+            setter(val)
             cs.edit.undo_save()
         end
 
-        -- display
-        local e = cg.get(inspector.sys, prop.name, inspector.ent)
-        if e == cg.entity_nil then
-            cs.gui_text.set_str(prop.text, '(nil)')
-        else
-            cs.gui_text.set_str(prop.text, string.format('[%d]', e.id))
-
-            -- draw line between entities
-            if cs.transform.has(inspector.ent)
-            and cs.edit.get_editable(e) and cs.transform.has(e) then
-                local a = cs.transform.local_to_world(inspector.ent,
-                                                      cg.vec2_zero)
-                local b = cs.transform.local_to_world(e,
-                                                      cg.vec2_zero)
-                cs.edit.line_add(a, b, 0, cg.color(1, 0, 1, 0.6))
-            end
-        end
-
-        -- select?
-        if cs.gui.event_mouse_down(prop.textbox) == cg.MC_LEFT
-        and e ~= cg.entity_nil then
+        -- display, select on click
+        cs.gui_text.set_str(field.text, val == cg.entity_nil and '(nil)'
+                                or string.format('[%d]', val.id))
+        if cs.gui.event_mouse_down(field.textbox) == cg.MC_LEFT
+        and val ~= cg.entity_nil then
             cs.edit.select_clear()
-            cs.edit.select[e] = true
+            cs.edit.select[val] = true
         end
-    end,
+    end
 }
-
 
 --- inspector ------------------------------------------------------------------
 
@@ -350,40 +301,38 @@ local function custom_event(inspector, evt)
     end
 end
 
+-- returns field type, C type
 local function property_type(inspector, name)
     local r = cg.get(inspector.sys, name, inspector.ent)
 
-    local typ = type(r)
-    if typ == 'cdata' then
+    local field_type = type(r)
+    local ctype = nil
+    if field_type == 'cdata' then
         local refctt = refct.typeof(r)
-        if refctt.what == 'enum' then typ = 'enum'
-        else typ = refctt.name end
+        ctype = refctt.name
+        if refctt.what == 'enum' then field_type = 'enum'
+        else field_type = ctype end
     end
-    if typ == 'number' then typ = 'Scalar' end
+    if field_type == 'number' then field_type = 'Scalar' end
 
-    return typ
-
-    -- local c = cg.getter(inspector.sys, name)
-    -- if type(c) == 'cdata' then
-    --     local r = refct.typeof(c).return_type
-    -- else
-    --     typ = type(c(inspector.ent)) -- can't reflect on Lua, just call
-    -- end
+    return field_type, ctype
 end
 
 local function add_property(inspector, name)
-    if inspector.props[name] then return end
+    if inspector.props[name] then return end -- already exists
 
-    -- figure out the type
-    local typ = property_type(inspector, name)
-    print('property: ', inspector.sys, name, typ)
-    if not typ or not property_types[typ] then return end -- type not supported
+    local field_type, ctype = property_type(inspector, name)
+    if not field_type or not field_types[field_type] then return end
 
     inspector.props[name] = {
-        typ = typ,
         name = name,
+        field = cg.edit_field_create {
+            field_type = field_type,
+            ctype = ctype,
+            parent = inspector.window_body,
+            label = name,
+        },
     }
-    property_types[typ].add(inspector, inspector.props[name])
 end
 
 local function add_properties(inspector)
@@ -537,8 +486,8 @@ local function update_inspector(inspector)
     set_group_rec(inspector.window)
 
     for _, prop in pairs(inspector.props) do
-        local f = property_types[prop.typ].update
-        if f then f(inspector, prop) end
+        cg.edit_field_update(prop.field,
+                             cg.get(inspector.sys, prop.name, inspector.ent))
     end
     custom_event(inspector, 'update')
 end
@@ -565,7 +514,11 @@ local function post_update_inspector(inspector)
     end
 
     for _, prop in pairs(inspector.props) do
-        property_types[prop.typ].post_update(inspector, prop)
+        cg.edit_field_post_update(
+            prop.field,
+            cg.get(inspector.sys, prop.name, inspector.ent),
+            function (val) cg.set(inspector.sys, prop.name,
+                                  inspector.ent, val) end)
     end
     custom_event(inspector, 'post_update')
 end
