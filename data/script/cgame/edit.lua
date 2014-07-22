@@ -210,7 +210,6 @@ local camera_drag_mouse_prev
 function cs.edit.camera_drag_start()
     camera_drag_mouse_prev = cs.input.get_mouse_pos_unit()
     cs.edit_camera_drag.enabled = true
-    camera_dragging = true
 end
 function cs.edit.camera_drag_end()
     cs.edit_camera_drag.enabled = false
@@ -307,6 +306,7 @@ function cs.edit.update_all()
         cs.gui.set_visible(cs.edit.grid_textbox, false)
     else
         cs.gui.set_visible(cs.edit.grid_textbox, true)
+        local s
         if g.x == g.y then s = string.format('grid %.4g', g.x)
         else s = string.format('grid %.4g %.4g', g.x, g.y) end
         cs.gui_text.set_str(cs.edit.grid_text, s)

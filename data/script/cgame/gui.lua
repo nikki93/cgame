@@ -186,7 +186,7 @@ end
 
 function cs.gui_window.update_all()
     -- get mouse position
-    mouse_curr = cs.input.get_mouse_pos_pixels()
+    local mouse_curr = cs.input.get_mouse_pos_pixels()
     if not mouse_prev then mouse_prev = mouse_curr end
 
     -- close button clicked?

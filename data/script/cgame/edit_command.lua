@@ -34,7 +34,7 @@ end
 function cs.edit.command_completion_substr(t)
     return function(s)
         local comps = {}
-        s = string.lower(s)
+        local s = string.lower(s)
         for k, _ in pairs(t) do
             if subseq(string.lower(k), s) then
                 table.insert(comps, k)
@@ -48,7 +48,7 @@ end
 -- insensitive
 function cs.edit.command_completion_fs(s)
     local comps = {}
-    s = string.lower(s)
+    local s = string.lower(s)
 
     local dir_path = string.match(s, '(.*/)') or './'
     local suffix = string.match(s, '.*/(.*)') or s
