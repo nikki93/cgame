@@ -70,7 +70,7 @@ local keycode_to_string_tbl = {
     [cg.KC_RIGHT_SUPER] = '<super>',
     [cg.KC_MENU] = '<menu>',
 }
-function cgame.input_keycode_to_string(key)
+function cg.input_keycode_to_string(key)
     return keycode_to_string_tbl[tonumber(key)]
         or string.char(cs.input.keycode_to_char(key))
 end
@@ -85,6 +85,6 @@ local mousecode_to_string_tbl = {
     [cg.MC_7] = '<mouse_7>',
     [cg.MC_8] = '<mouse_8>',
 }
-function cgame.input_mousecode_to_string(mouse)
+function cg.input_mousecode_to_string(mouse)
     return mousecode_to_string_tbl[tonumber(mouse)]
 end

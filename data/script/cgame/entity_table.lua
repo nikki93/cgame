@@ -52,11 +52,11 @@ local entity_table_mt = {
         -- don't save filtered-out entities
         local filtered = {}
         for k, slot in pairs(map) do
-            if cgame.entity_get_save_filter(slot.k) then
+            if cg.entity_get_save_filter(slot.k) then
                 filtered[k] = slot
             end
         end
-        return 'cgame.__entity_table_load', filtered
+        return 'cg.__entity_table_load', filtered
     end,
 
     -- allows iteration using pairs(...)
@@ -75,45 +75,45 @@ local entity_table_mt = {
     end,
 }
 
-function cgame.is_entity_table(t)
+function cg.is_entity_table(t)
     return type(t) == 'table' and getmetatable(t) == entity_table_mt
 end
 
-function cgame.entity_table()
+function cg.entity_table()
     return setmetatable({}, entity_table_mt)
 end
 
-function cgame.entity_table_empty(t)
+function cg.entity_table_empty(t)
     for _, _ in pairs(t) do return false end
     return true
 end
 
-function cgame.__entity_table_load(t)
-    local e = cgame.entity_table()
+function cg.__entity_table_load(t)
+    local e = cg.entity_table()
     for _, slot in pairs(t) do
         e[slot.k] = slot.v
     end
     return e
 end
 
-function cgame.entity_table_merge(t, d)
+function cg.entity_table_merge(t, d)
     for _, slot in pairs(rawget(d, 'map') or {}) do
         bind_defaults(t, slot.v)
         t[slot.k] = slot.v
     end
 end
 
-function cgame.entity_table_remove_destroyed(t, f)
+function cg.entity_table_remove_destroyed(t, f)
     for e in pairs(t) do
         if cs.entity.destroyed(e) then f(e) end
     end
 end
 
 -- use to easily define properties with default values stored per-entity in a 
--- cgame.entity_table
+-- cg.entity_table
 -- sys is the system, tbl is the table properties are stored in, name is the
 -- name of the property and default is the default value if unset
-function cgame.simple_prop(sys, name, default, tbl)
+function cg.simple_prop(sys, name, default, tbl)
     if tbl == nil then tbl = sys.tbl end
 
     -- update defaults
@@ -142,8 +142,8 @@ function cgame.simple_prop(sys, name, default, tbl)
     end
 end
 
-function cgame.simple_props(sys, props, tbl)
+function cg.simple_props(sys, props, tbl)
     for name, default in pairs(props) do
-        cgame.simple_prop(sys, name, default, tbl)
+        cg.simple_prop(sys, name, default, tbl)
     end
 end

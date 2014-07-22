@@ -1,5 +1,8 @@
 local serpent = require 'serpent'
 
+-- cg.systems (shortcut cs) is a special table such that cs.sys.func evaluates
+-- to C function sys_func, eg. cs.transform.rotate(...) becomes
+-- transform_rotate(...)
 local systems_mt = {
     __index = function (t, k)
         local v = rawget(t, k)
@@ -7,7 +10,7 @@ local systems_mt = {
         if v == nil then
             local mt = {
                 __index = function (_, k2)
-                    return cgame[k .. '_' .. k2]
+                    return cg[k .. '_' .. k2]
                 end,
             }
             return setmetatable({}, mt)
@@ -15,19 +18,19 @@ local systems_mt = {
         return v
     end,
 }
-cgame.systems = setmetatable({}, systems_mt)
-cs = cgame.systems
+cg.systems = setmetatable({}, systems_mt)
+cs = cg.systems
 
-function cgame.__fire_event(event, args)
+function cg.__fire_event(event, args)
     -- store system names before firing event because systems list may change
 
     local sysnames = {}
-    for name, sys in pairs(cgame.systems) do
+    for name, sys in pairs(cs) do
         sysnames[name] = sys.receive_events == nil or sys.receive_events
     end
 
     for name, _ in pairs(sysnames) do
-        local system = cgame.systems[name]
+        local system = cs[name]
         if system.enabled == nil or system.enabled then
             local func = system[event]
             if func then func(args) end
@@ -35,10 +38,10 @@ function cgame.__fire_event(event, args)
     end
 end
 
-function cgame.__save_all()
+function cg.__save_all()
     local data = {}
 
-    for name, system in pairs(cgame.systems) do
+    for name, system in pairs(cs) do
         if system.auto_saveload then
             data[name] = system
         elseif system.save_all then
@@ -50,19 +53,19 @@ function cgame.__save_all()
     return serpent.dump(data, { indent = '  ', nocode = true })
 end
 
-function cgame.__load_all(str)
+function cg.__load_all(str)
     local f, err = loadstring(str)
     if err then error(err) end
     local data = f()
 
     for name, dump in pairs(data) do
-        local system = rawget(cgame.systems, name)
+        local system = rawget(cs, name)
         if system then
             -- system currently exists, must merge
             if system.auto_saveload then
                 for k, v in pairs(dump) do
-                    if cgame.is_entity_table(system[k]) then
-                        cgame.entity_table_merge(system[k], v)
+                    if cg.is_entity_table(system[k]) then
+                        cg.entity_table_merge(system[k], v)
                     elseif --[[ system.auto_saveload_functions
                         or --]] type(v) ~= 'function' then
                             system[k] = v
@@ -73,7 +76,7 @@ function cgame.__load_all(str)
             end
         elseif dump.auto_saveload then
             -- system doesn't exist currently, just dump it in
-            rawset(cgame.systems, name, dump)
+            rawset(cs, name, dump)
         end
     end
 end
@@ -83,35 +86,33 @@ end
 -- C functions of the form sys_add()/sys_remove(),
 -- sys_get_prop(ent)/sys_set_prop(ent, val)
 
-function cgame.getter(sys, prop) return cgame.systems[sys]['get_' .. prop] end
-function cgame.setter(sys, prop)return cgame.systems[sys]['set_' .. prop] end
-function cgame.get(sys, prop, ...)
-    return cgame.getter(sys, prop)(unpack({...}))
-end
-function cgame.set(sys, prop, ...) cgame.setter(sys, prop)(unpack({...})) end
+function cg.getter(sys, prop) return cs[sys]['get_' .. prop] end
+function cg.setter(sys, prop)return cs[sys]['set_' .. prop] end
+function cg.get(sys, prop, ...) return cg.getter(sys, prop)(unpack({...})) end
+function cg.set(sys, prop, ...) cg.setter(sys, prop)(unpack({...})) end
 
-function cgame.adder(sys) return cgame.systems[sys]['add'] end
-function cgame.remover(sys) return cgame.systems[sys]['remove'] end
-function cgame.add(sys, ent, props)
+function cg.adder(sys) return cs[sys]['add'] end
+function cg.remover(sys) return cs[sys]['remove'] end
+function cg.add(sys, ent, props)
     -- multi-add?
     if type(sys) == 'table' then
-        ent = ent or sys.ent or cgame.entity_create()
+        ent = ent or sys.ent or cg.entity_create()
         sys.ent = nil
-        for k, v in pairs(sys) do cgame.add(k, ent, v) end
+        for k, v in pairs(sys) do cg.add(k, ent, v) end
         return ent
     end
 
     -- all entities are already in 'entity' system
     if sys ~= 'entity' then
-        cgame.adder(sys)(ent)
+        cg.adder(sys)(ent)
     end
     if (props) then
         for k, v in pairs(props) do
-            cgame.set(sys, k, ent, v)
+            cg.set(sys, k, ent, v)
         end
     end
 end
-function cgame.remove(sys, ...) cgame.remover(sys)(unpack({...})) end
+function cg.remove(sys, ...) cg.remover(sys)(unpack({...})) end
 
 cs.meta = { receive_events = false }
 cs.meta.props = {}

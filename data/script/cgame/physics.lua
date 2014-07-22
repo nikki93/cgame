@@ -1,6 +1,6 @@
 local ffi = require 'ffi'
 
-cgame.Collision = ffi.metatype('Collision', {})
+cg.Collision = ffi.metatype('Collision', {})
 
 local old_physics_shape_add_box = cg.physics_shape_add_box
 function cg.physics_shape_add_box(ent, b, r)

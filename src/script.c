@@ -76,7 +76,7 @@ void script_error(const char *s)
 static void _push_cdata(const char *t, void *p)
 {
     /* just call __deref_cdata(t, p) */
-    lua_getglobal(L, "cgame");
+    lua_getglobal(L, "cg");
     lua_getfield(L, -1, "__deref_cdata");
     lua_remove(L, -2);
     lua_pushstring(L, t);
@@ -87,7 +87,7 @@ static void _push_cdata(const char *t, void *p)
 static void _push_event(const char *event)
 {
     /* call cgame.__fire_event(event, ...) */
-    lua_getglobal(L, "cgame");
+    lua_getglobal(L, "cg");
     lua_getfield(L, -1, "__fire_event");
     lua_remove(L, -2);
     lua_pushstring(L, event);
@@ -252,7 +252,7 @@ void script_save_all(Store *s)
     if (store_child_save(&t, "script", s))
     {
         /* get string from Lua */
-        lua_getglobal(L, "cgame");
+        lua_getglobal(L, "cg");
         lua_getfield(L, -1, "__save_all");
         lua_remove(L, -2);
         errcheck(_pcall(L, 0, 1));
@@ -275,7 +275,7 @@ void script_load_all(Store *s)
         if (string_load(&str, "str", NULL, t))
         {
             /* send it to Lua */
-            lua_getglobal(L, "cgame");
+            lua_getglobal(L, "cg");
             lua_getfield(L, -1, "__load_all");
             lua_remove(L, -2);
             lua_pushstring(L, str);

@@ -1,13 +1,16 @@
--- inherit C functions
+-- any exported C function/varaible f is available as cg.f, eg. C function
+-- vec2(...) is available as cg.vec2(...) in Lua
 local ffi = require 'ffi'
-cgame = setmetatable({}, { __index = ffi.C })
+cg = setmetatable({}, { __index = ffi.C })
 
--- aliases
-cg = cgame
+-- command-line args
 cg.args = cgame_args
 
 -- useful ffi functions
 cg.string = ffi.string
+
+
+-- import everything
 
 require 'cgame.util'
 require 'cgame.struct'
