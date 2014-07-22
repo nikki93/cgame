@@ -3,17 +3,22 @@ local serpent = require 'serpent'
 -- cg.systems (shortcut cs) is a special table such that cs.sys.func evaluates
 -- to C function sys_func, eg. cs.transform.rotate(...) becomes
 -- transform_rotate(...)
+local system_binds = {}
 local systems_mt = {
     __index = function (t, k)
         local v = rawget(t, k)
 
         if v == nil then
-            local mt = {
-                __index = function (_, k2)
-                    return cg[k .. '_' .. k2]
-                end,
-            }
-            return setmetatable({}, mt)
+            local bind = system_binds[k]
+            if bind == nil then
+                bind = setmetatable({}, {
+                    __index = function (_, k2)
+                        return cg[k .. '_' .. k2]
+                    end,
+                })
+                system_binds[k] = bind
+            end
+            return bind
         end
         return v
     end,
