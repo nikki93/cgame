@@ -293,6 +293,7 @@ cs.edit_inspector.gui_root = cg.add {
     }
 }
 
+-- forward event to custom event handler
 local function custom_event(inspector, evt)
     local custom = cs.edit_inspector.custom[inspector.sys]
     if custom then
@@ -318,6 +319,7 @@ local function property_type(inspector, name)
     return field_type, ctype
 end
 
+-- add field for property
 local function add_property(inspector, name)
     if inspector.props[name] then return end -- already exists
 
@@ -335,6 +337,8 @@ local function add_property(inspector, name)
     }
 end
 
+-- add all properties for an inspector, either through cs.meta.props or
+-- through automatic discovery
 local function add_properties(inspector)
     if cs.meta.props[inspector.sys] then
         for _, p in ipairs(cs.meta.props[inspector.sys]) do
@@ -352,12 +356,14 @@ local function add_properties(inspector)
     end
 end
 
+-- return inspector object
 local function make_inspector(ent, sys)
     local inspector = {}
 
     inspector.ent = cg.Entity(ent)
     inspector.sys = sys
 
+    -- window
     inspector.window = cg.add {
         transform = { parent = cs.edit_inspector.gui_root },
         gui_window = {},
@@ -368,7 +374,7 @@ local function make_inspector(ent, sys)
     }
     inspector.window_body = cs.gui_window.get_body(inspector.window)
 
-    -- add a 'remove from system' button
+    -- 'remove' button
     inspector.remove_text = cg.add {
         transform = {
             parent = cs.gui_window.get_title_buttons_area(inspector.window)
@@ -381,6 +387,7 @@ local function make_inspector(ent, sys)
         gui_text = { str = 'r' },
     }
 
+    -- property fields
     inspector.props = {}
     add_properties(inspector)
 
@@ -388,6 +395,7 @@ local function make_inspector(ent, sys)
     return inspector
 end
 
+-- add a sys inspector for Entity ent
 function cs.edit_inspector.add(ent, sys)
     local adder = cs[sys].add
     if not adder then
@@ -403,6 +411,8 @@ function cs.edit_inspector.add(ent, sys)
     inspectors[ent][sys] = make_inspector(ent, sys)
 end
 
+-- remove sys inspector for Entity ent -- sys is optional, removes all
+-- inspectors on ent if not specified
 function cs.edit_inspector.remove(ent, sys)
     if not inspectors[ent] then return end
 
@@ -432,18 +442,6 @@ function cs.edit_inspector.get_systems()
     return sys
 end
 
-local function set_group_rec(ent)
-    cs.edit.set_editable(ent, false)
-    cs.group.set_groups(ent, 'builtin edit_inspector')
-
-    if cs.transform.has(ent) then
-        local children = cs.transform.get_children(ent)
-        for i = 0, cs.transform.get_num_children(ent) - 1 do
-            set_group_rec(children[i])
-        end
-    end
-end
-
 local function remove_destroyed()
     -- if closed a window, save an undo point
     local some_closed = false
@@ -470,20 +468,30 @@ local function remove_destroyed()
     if some_closed then cs.edit.undo_save() end
 end
 
+-- make entities uneditable/unsaveable etc. recursively
+local function update_group_editable_rec(ent)
+    cs.edit.set_editable(ent, false)
+    cs.group.set_groups(ent, 'builtin edit_inspector')
+
+    if cs.transform.has(ent) then
+        local children = cs.transform.get_children(ent)
+        for i = 0, cs.transform.get_num_children(ent) - 1 do
+            update_group_editable_rec(children[i])
+        end
+    end
+end
+
 local function update_inspector(inspector)
     cs.transform.set_parent(inspector.window, cs.edit_inspector.gui_root)
-    cs.transform.set_parent(cs.edit_inspector.gui_root, cs.edit.gui_root)
 
     cs.gui_window.set_highlight(inspector.window,
                                 cs.edit.select[inspector.ent])
     local title = inspector.sys
     cs.gui_window.set_title(inspector.window, title)
 
-    -- catch new properties
-    add_properties(inspector)
+    add_properties(inspector) -- capture newly added properties
 
-    -- make everything uneditable/unsaveable etc.
-    set_group_rec(inspector.window)
+    update_group_editable_rec(inspector.window)
 
     for _, prop in pairs(inspector.props) do
         cg.edit_field_update(prop.field,
@@ -493,6 +501,7 @@ local function update_inspector(inspector)
 end
 
 function cs.edit_inspector.update_all()
+    cs.transform.set_parent(cs.edit_inspector.gui_root, cs.edit.gui_root)
     remove_destroyed()
     if not cs.edit.get_enabled() then return end
 
