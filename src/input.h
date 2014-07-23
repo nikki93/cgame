@@ -185,6 +185,9 @@ void input_add_mouse_up_callback(MouseCallback f);
 typedef void (*MouseMoveCallback) (Vec2 pos);
 void input_add_mouse_move_callback(MouseMoveCallback f);
 
+typedef void (*ScrollCallback) (Vec2 scroll);
+void input_add_scroll_callback(ScrollCallback f);
+
 void input_init();
 void input_deinit();
 
