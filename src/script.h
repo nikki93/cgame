@@ -20,6 +20,7 @@ void script_key_up(KeyCode key);
 void script_mouse_down(MouseCode mouse);
 void script_mouse_up(MouseCode mouse);
 void script_mouse_move(Vec2 pos);
+void script_scroll(Vec2 scroll);
 void script_save_all(Store *s);
 void script_load_all(Store *s);
 

@@ -244,6 +244,13 @@ void script_mouse_move(Vec2 pos)
     errcheck(_pcall(L, 2, 0));
 }
 
+void script_scroll(Vec2 scroll)
+{
+    _push_event("scroll");
+    _push_cdata("Vec2 *", &scroll);
+    errcheck(_pcall(L, 2, 0));
+}
+
 void script_save_all(Store *s)
 {
     Store *t;

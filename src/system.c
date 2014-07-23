@@ -47,6 +47,10 @@ static void _mouse_move(Vec2 pos)
 {
     script_mouse_move(pos);
 }
+static void _scroll(Vec2 scroll)
+{
+    script_scroll(scroll);
+}
 
 void system_init()
 {
@@ -68,6 +72,7 @@ void system_init()
     input_add_mouse_down_callback(_mouse_down);
     input_add_mouse_up_callback(_mouse_up);
     input_add_mouse_move_callback(_mouse_move);
+    input_add_scroll_callback(_scroll);
 }
 
 void system_deinit()
