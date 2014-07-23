@@ -27,4 +27,3 @@ void errorf(const char *fmt, ...);
     ((cond) ? 0: error("assertion '" #cond "' failed ... " __VA_ARGS__))
 
 #endif
-    

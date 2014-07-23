@@ -383,7 +383,7 @@ local function make_inspector(ent, sys)
     inspector.last_pos = pos
     inspector.window_body = cs.gui_window.get_body(inspector.window)
     inspector.docked = false
-    
+
     -- dock toggle button
     inspector.dock_text = cg.add {
         transform = {

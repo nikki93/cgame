@@ -134,7 +134,7 @@ function cg.simple_prop(sys, name, default, tbl)
         local t = tbl[ent]
         if t then t[name] = val end
     end
-    
+
     -- getter
     sys['get_' .. name] = function (ent)
         local t = tbl[ent]

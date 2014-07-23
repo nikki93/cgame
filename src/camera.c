@@ -146,7 +146,7 @@ void camera_update_all()
     static BBox bbox = { { -1, -1 }, { 1, 1 } };
 
     entitypool_remove_destroyed(pool, camera_remove);
-    
+
     win_size = game_get_window_size();
     aspect = win_size.x / win_size.y;
 

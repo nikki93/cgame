@@ -49,7 +49,7 @@ static void _modified(Transform *transform)
 {
     Transform *parent;
     Entity *child;
-    
+
     ++transform->dirty_count;
 
     transform->mat_cache = mat3_scaling_rotation_translation(

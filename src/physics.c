@@ -795,7 +795,7 @@ static void _polygon_draw(PhysicsInfo *info, ShapeInfo *shapeInfo)
     unsigned int i, nverts;
     Vec2 *verts;
     Mat3 wmat;
-    
+
     wmat = transform_get_world_matrix(info->pool_elem.ent);
     glUniformMatrix3fv(glGetUniformLocation(program, "wmat"),
                        1, GL_FALSE, (const GLfloat *) &wmat);

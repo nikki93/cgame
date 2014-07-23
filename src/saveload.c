@@ -431,7 +431,7 @@ void store_close(Store *s)
 void scalar_save(const Scalar *f, const char *n, Store *s)
 {
     Store *t;
-    
+
     if (store_child_save(&t, n, s))
     {
         if (*f == SCALAR_INFINITY)

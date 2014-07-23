@@ -1139,7 +1139,7 @@ static void _text_init()
 static void _text_deinit()
 {
     Text *text;
-    
+
     /* deinit gl stuff */
     glDeleteProgram(text_program);
     glDeleteBuffers(1, &text_vbo);

@@ -177,7 +177,7 @@ int main()
     array_free(arr);
 
     test_sort();
-    
+
     return 0;
 }
 
