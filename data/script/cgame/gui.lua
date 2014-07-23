@@ -198,6 +198,9 @@ function cs.gui_window.update_all()
     end
 
     -- clear destroyed
+    if drag_window and cs.entity.destroyed(drag_window) then
+        drag_window = nil
+    end
     for ent, _ in pairs(cs.gui_window.tbl) do
         if cs.entity.destroyed(ent) then cs.gui_window.remove(ent) end
     end
