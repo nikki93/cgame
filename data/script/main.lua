@@ -43,4 +43,4 @@ else
     cs.edit.set_enabled(true)
 end
 
-cs.edit.stop_save()
+cs.edit.undo_save()
