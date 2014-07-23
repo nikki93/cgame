@@ -158,7 +158,7 @@ static void _cursor_pos_callback(GLFWwindow *window, double x, double y)
     MouseMoveCallback *f;
 
     array_foreach(f, mouse_move_cbs)
-        (*f)(vec2(x, y));
+        (*f)(vec2(x, -y));
 }
 
 void input_init()
