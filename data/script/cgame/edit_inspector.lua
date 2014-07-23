@@ -284,11 +284,11 @@ cs.edit_inspector.gui_root = cg.add {
     transform = { parent = cs.edit.gui_root },
     group = { groups = 'builtin edit_inspector' },
     edit = { editable = false },
-    gui_rect = { },
+    gui_rect = { hfill = true, vfill = true },
     gui = {
         captures_events = false,
         color = cg.color(0, 0, 0, 0), -- invisible
-        halign = cg.GA_MAX, valign = cg.GA_MAX,
+        halign = cg.GA_MIN, valign = cg.GA_MAX,
         padding = cg.vec2_zero,
     }
 }
@@ -363,16 +363,39 @@ local function make_inspector(ent, sys)
     inspector.ent = cg.Entity(ent)
     inspector.sys = sys
 
+    -- put near entity initially
+    local pos = cg.vec2(16, -16)
+    if cs.transform.has(ent) then
+        pos = cs.transform.local_to_world(ent, cg.vec2_zero)
+        pos = cs.transform.world_to_local(cs.edit_inspector.gui_root, pos)
+            + cg.vec2(22, -10)
+    end
+
     -- window
     inspector.window = cg.add {
-        transform = { parent = cs.edit_inspector.gui_root },
+        transform = {
+            parent = cs.edit_inspector.gui_root,
+            position = pos
+        },
         gui_window = {},
-        gui = {
-            valign = cg.GA_TABLE,
-            halign = cg.GA_MAX,
-        }
+        gui = {}
     }
+    inspector.last_pos = pos
     inspector.window_body = cs.gui_window.get_body(inspector.window)
+    inspector.docked = false
+    
+    -- dock toggle button
+    inspector.dock_text = cg.add {
+        transform = {
+            parent = cs.gui_window.get_title_buttons_area(inspector.window)
+        },
+        gui = {
+            color = cg.color_white,
+            valign = cg.GA_MAX,
+            halign = cg.GA_TABLE
+        },
+        gui_text = { str = '<' },
+    }
 
     -- 'remove' button
     inspector.remove_text = cg.add {
@@ -488,6 +511,24 @@ local function update_inspector(inspector)
                                 cs.edit.select[inspector.ent])
     local title = inspector.sys
     cs.gui_window.set_title(inspector.window, title)
+
+    -- docking
+    if cs.gui.event_mouse_down(inspector.dock_text) == cg.MC_LEFT then
+        inspector.docked = not inspector.docked
+        if not inspector.docked then
+            cs.transform.set_position(inspector.window, inspector.last_pos)
+        end
+    end
+    if inspector.docked then
+        cs.gui.set_halign(inspector.window, cg.GA_MAX)
+        cs.gui.set_valign(inspector.window, cg.GA_TABLE)
+        cs.gui_text.set_str(inspector.dock_text, '<')
+    else
+        inspector.last_pos = cs.transform.get_position(inspector.window)
+        cs.gui.set_halign(inspector.window, cg.GA_NONE)
+        cs.gui.set_valign(inspector.window, cg.GA_NONE)
+        cs.gui_text.set_str(inspector.dock_text, '>')
+    end
 
     add_properties(inspector) -- capture newly added properties
 
