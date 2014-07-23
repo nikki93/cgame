@@ -197,10 +197,11 @@ cs.edit.gui_root = cg.add {
 
 --- edit camera ----------------------------------------------------------------
 
+local camera_default_height = 25
 cs.edit.camera = cg.add {
     group = { groups = 'builtin' },
     edit = { editable = false },
-    camera = { viewport_height = 25, current = false },
+    camera = { viewport_height = camera_default_height, current = false },
 }
 cs.camera.set_edit_camera(cs.edit.camera)
 
@@ -233,13 +234,17 @@ function cs.edit_camera_drag.update_all()
 end
 
 -- zoom
+local camera_zoom_factor = 0
+function cs.edit.camera_zoom(f)
+    camera_zoom_factor = camera_zoom_factor + f
+    local h = math.pow(0.8, camera_zoom_factor) * camera_default_height
+    cs.camera.set_viewport_height(cs.edit.camera, h)
+end
 function cs.edit.camera_zoom_in()
-    local h = cs.camera.get_viewport_height(cs.edit.camera)
-    cs.camera.set_viewport_height(cs.edit.camera, h * 0.8)
+    cs.edit.camera_zoom(1)
 end
 function cs.edit.camera_zoom_out()
-    local h = cs.camera.get_viewport_height(cs.edit.camera)
-    cs.camera.set_viewport_height(cs.edit.camera, h / 0.8)
+    cs.edit.camera_zoom(-1)
 end
 
 
@@ -277,6 +282,9 @@ end
 function cs.edit.mouse_up(mouse)
     if not cs.edit.get_enabled() then return end
     cs.edit.mode_mouse_up(mouse)
+end
+function cs.edit.scroll(scroll)
+    cs.edit.camera_zoom((scroll.y > 0 and 0.9 or -0.9) + 0.1 * scroll.y)
 end
 
 function cs.edit.update_all()
