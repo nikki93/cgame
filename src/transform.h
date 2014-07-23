@@ -51,6 +51,7 @@ SCRIPT(transform,
        EXPORT Mat3 transform_get_matrix(Entity ent); /* parent-space */
 
        EXPORT Vec2 transform_local_to_world(Entity ent, Vec2 v);
+       EXPORT Vec2 transform_world_to_local(Entity ent, Vec2 v);
 
        EXPORT unsigned int transform_get_dirty_count(Entity ent);
 

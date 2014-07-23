@@ -329,6 +329,12 @@ Vec2 transform_local_to_world(Entity ent, Vec2 v)
     error_assert(transform);
     return mat3_transform(transform->worldmat_cache, v);
 }
+Vec2 transform_world_to_local(Entity ent, Vec2 v)
+{
+    Transform *transform = entitypool_get(pool, ent);
+    error_assert(transform);
+    return mat3_transform(mat3_inverse(transform->worldmat_cache), v);
+}
 
 unsigned int transform_get_dirty_count(Entity ent)
 {
