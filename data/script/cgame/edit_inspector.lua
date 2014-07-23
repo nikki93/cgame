@@ -17,7 +17,6 @@ local field_types = {}
 --      halign, valign: alignment for container (optional)
 function cg.edit_field_create(args)
     assert(args.field_type, 'field type expected')
-    print('creating field for ' .. (args.label or 'nope'))
     local field = field_types[args.field_type].create(args)
     field.type = args.field_type
     return field
