@@ -29,9 +29,9 @@ function cg.edit_field_update(field, val)
 end
 
 -- updates display to val, calls setter with new value if edited
-function cg.edit_field_post_update(field, val, setter)
+function cg.edit_field_post_update(field, ...)
     local f = field_types[field.type].post_update
-    if f then f(field, val, setter) end
+    if f then f(field, unpack({...})) end
 end
 
 -- returns textbox, text
@@ -146,6 +146,9 @@ field_types['Scalar'] = {
     end
 }
 
+-- if it's a C enum field the C enum values are automatically used, else a
+-- set of values must be provided as an extra parameter to
+-- cg.edit_field_post_update(...)
 field_types['enum'] = {
     create = function (args)
         local field = field_create_common(args)
@@ -155,18 +158,19 @@ field_types['enum'] = {
         return field
     end,
 
-    post_update = function (field, val, setter)
+    post_update = function (field, val, setter, vals)
         if cs.gui.event_mouse_down(field.textbox) == cg.MC_LEFT then
             local function setter_wrap(s)
                 setter(s)
                 cs.edit.undo_save()
             end
-            local values = cg.enum_values(field.enumtype)
-            local comp = cs.edit.command_completion_substr(values)
-            local prompt = 'set ' .. (field.name or field.enumtype) .. ': '
+            vals = field.enumtype and cg.enum_values(field.enumtype) or vals
+            local comp = cs.edit.command_completion_substr(vals)
+            local prompt = 'set ' .. (field.name or '') .. ': '
             cs.edit.command_start(prompt, setter_wrap, comp, true)
         end
-        cs.gui_text.set_str(field.text, cg.enum_tostring(field.enumtype, val))
+        val = field.enumtype and cg.enum_tostring(field.enumtype, val) or val
+        cs.gui_text.set_str(field.text, val)
     end,
 }
 
