@@ -148,7 +148,7 @@ cs.edit_inspector.custom['animation'] = {
 
         -- current animation
         cg.edit_field_post_update(
-            inspector.curr_anim, entry.curr_anim or '',
+            inspector.curr_anim, entry.curr_anim or '(none)',
             function (v) cs.animation.switch(ent, v) end,
             anims)
 
