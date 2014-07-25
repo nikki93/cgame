@@ -105,3 +105,121 @@ function cs.animation.update_all()
         end
     end
 end
+
+cs.edit_inspector.custom['animation'] = {
+    add = function (inspector)
+        -- current animation
+        inspector.curr_anim = cg.edit_field_create {
+            field_type = 'enum', parent = inspector.window_body,
+            label = 'curr_anim'
+        }
+
+        -- animation list
+        inspector.anim_views_container = cg.add {
+            transform = { parent = inspector.window_body },
+            gui = {
+                padding = cg.vec2_zero,
+                color = cg.color_clear,
+                valign = cg.GA_TABLE,
+                halign = cg.GA_MIN,
+            },
+            gui_rect = { hfill = true },
+        }
+        inspector.anim_views = {}
+
+        -- 'add strip' button
+        inspector.add_strip = cg.add {
+            transform = { parent = inspector.window_body },
+            gui = {
+                color = cg.color(0.35, 0.15, 0.30, 1),
+                valign = cg.GA_TABLE,
+                halign = cg.GA_MID,
+            },
+            gui_textbox = {},
+        }
+        cs.gui_text.set_str(cs.gui_textbox.get_text(inspector.add_strip),
+                            'add strip')
+    end,
+
+    post_update = function (inspector)
+        local ent = inspector.ent
+        local entry = cs.animation.tbl[ent]
+        local anims = entry.anims
+
+        -- current animation
+        cg.edit_field_post_update(
+            inspector.curr_anim, entry.curr_anim or '',
+            function (v) cs.animation.switch(ent, v) end,
+            anims)
+
+        -- add strip?
+        if cs.gui.event_mouse_down(inspector.add_strip) == cg.MC_LEFT then
+            local function new_strip(s)
+                local strips = { [s] = { n = 1, t = 1, base = cg.vec2(0, 0) } }
+                cs.animation.set_strips(ent, strips)
+            end
+            cs.edit.command_start('new strip name: ', new_strip)
+        end
+
+        -- add missing views
+        for name, anim in pairs(anims) do
+            if not inspector.anim_views[name] then
+                local view = {}
+                inspector.anim_views[name] = view
+
+                view.window = cg.add {
+                    transform = { parent = inspector.anim_views_container },
+                    gui_window = { title = name, minimized = true },
+                    gui_rect = { hfill = true },
+                    gui = {
+                        valign = cg.GA_TABLE,
+                        halign = cg.GA_MIN,
+                    }
+                }
+                view.window_body = cs.gui_window.get_body(view.window)
+
+                view.n = cg.edit_field_create {
+                    field_type = 'Scalar', parent = view.window_body,
+                    label = 'n'
+                }
+                view.t = cg.edit_field_create {
+                    field_type = 'Scalar', parent = view.window_body,
+                    label = 't'
+                }
+                view.base = cg.edit_field_create {
+                    field_type = 'Vec2', parent = view.window_body,
+                    label = 'base'
+                }
+            end
+        end
+
+        -- remove extra views
+        for name, view in pairs(inspector.anim_views) do
+            if not anims[name] then
+                cs.gui_window.remove(view.window)
+                inspector.anim_views[name] = nil
+            end
+        end
+
+        -- update views
+        for name, view in pairs(inspector.anim_views) do
+            if cs.entity.destroyed(view.window) then
+                cs.animation.remove(ent, name)
+            else
+                local anim = anims[name]
+                cg.edit_field_post_update(
+                    view.n, anim.n,
+                    function (v) anim.n = v end)
+                cg.edit_field_post_update(
+                    view.t, anim.strip.t,
+                    function (v)
+                        anim.strip.t = v
+                        entry.t = v > 0 and v or 1
+                    end)
+                cg.edit_field_post_update(
+                    view.base, anim.strip.base,
+                    function (v) anim.strip.base = v end)
+            end
+        end
+    end,
+}
