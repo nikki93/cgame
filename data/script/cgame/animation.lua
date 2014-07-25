@@ -52,13 +52,13 @@ local function _enter_frame(entry, frame, anim)
     anim = anim or entry.anims[entry.curr_anim]
     entry.frame = frame
     if anim.strip then
-        entry.t = anim.strip.t
+        entry.t = anim.strip.t > 0 and anim.strip.t or 1
         local v = cg.Vec2(anim.strip.base)
         v.x = v.x + (frame - 1) * cs.sprite.get_texsize(entry.ent).x
         cs.sprite.set_texcell(entry.ent, v)
     elseif anim.frames then
         local frm = anim.frames[frame]
-        entry.t = frm.t
+        entry.t = frm.t > 0 and frm.t or 1
         if frm.texcell then cs.sprite.set_texcell(entry.ent, frm.texcell) end
         if frm.texsize then cs.sprite.set_texsize(entry.ent, frm.texsize) end
     end
