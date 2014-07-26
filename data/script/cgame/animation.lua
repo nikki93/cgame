@@ -167,6 +167,7 @@ cs.edit_inspector.custom['animation'] = {
                 local view = {}
                 inspector.anim_views[name] = view
 
+                -- view window
                 view.window = cg.add {
                     transform = { parent = inspector.anim_views_container },
                     gui_window = { title = name, minimized = true },
@@ -178,6 +179,21 @@ cs.edit_inspector.custom['animation'] = {
                 }
                 view.window_body = cs.gui_window.get_body(view.window)
 
+                -- 'duplicate' button
+                view.dup_text = cg.add {
+                    transform = {
+                        parent =
+                            cs.gui_window.get_title_buttons_area(view.window)
+                    },
+                    gui = {
+                        color = cg.color_white,
+                        valign = cg.GA_MAX,
+                        halign = cg.GA_TABLE,
+                    },
+                    gui_text = { str = 'd' },
+                }
+
+                -- fields
                 view.n = cg.edit_field_create {
                     field_type = 'Scalar', parent = view.window_body,
                     label = 'n'
@@ -207,6 +223,22 @@ cs.edit_inspector.custom['animation'] = {
                 cs.animation.remove(ent, name)
             else
                 local anim = anims[name]
+
+                -- duplicate?
+                if cs.gui.event_mouse_down(view.dup_text) == cg.MC_LEFT then
+                    local function new_strip(s)
+                        local strips = {
+                            [s] = {
+                                n = anim.n, t = anim.strip.t,
+                                base = cg.Vec2(anim.strip.base)
+                            }
+                        }
+                        cs.animation.set_strips(ent, strips)
+                    end
+                    cs.edit.command_start('duplicate strip name: ', new_strip)
+                end
+
+                -- update fields
                 cg.edit_field_post_update(
                     view.n, anim.n,
                     function (v) anim.n = v end)
