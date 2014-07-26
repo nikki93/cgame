@@ -3,6 +3,7 @@ build/
 usr/*
 !usr/.keepme
 
+cscope.out
 .clang_complete
 .gdbinit
 .lldbinit
