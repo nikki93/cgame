@@ -16,6 +16,7 @@
 #include "scratch.h"
 #include "physics.h"
 #include "edit.h"
+#include "sound.h"
 
 #include "test/keyboard_controlled.h"
 
@@ -62,6 +63,7 @@ void system_init()
     sprite_init();
     gui_init();
     console_init();
+    sound_init();
     physics_init();
     edit_init();
     script_init();
@@ -80,6 +82,7 @@ void system_deinit()
     edit_deinit();
     script_deinit();
     physics_deinit();
+    sound_deinit();
     console_deinit();
     sprite_deinit();
     gui_deinit();
@@ -108,6 +111,7 @@ void system_update_all()
     camera_update_all();
     gui_update_all();
     sprite_update_all();
+    sound_update_all();
 
     edit_update_all();
     script_post_update_all();

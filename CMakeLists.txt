@@ -8,8 +8,8 @@ set(CGAME_SOURCES src/main.c src/vec2.c src/bbox.c src/mat3.c
   src/system.c src/prefab.c src/entitymap.c src/array.c
   src/entitypool.c src/saveload.c src/script.c src/input.c
   src/timing.c src/transform.c src/camera.c src/texture.c src/gfx.c
-  src/gui.c src/console.c src/scratch.c src/sprite.c src/physics.c
-  src/edit.c
+  src/gui.c src/console.c src/scratch.c src/sprite.c src/sound.c
+  src/physics.c src/edit.c
 
   src/test/keyboard_controlled.c src/test/test.c
 
@@ -43,23 +43,25 @@ add_definitions(-DLUAJIT_ENABLE_LUA52COMPAT)
 add_subdirectory(ext/glfw)
 add_subdirectory(ext/luajit)
 add_subdirectory(ext/chipmunk)
+add_subdirectory(ext/gorilla/build)
 include_directories(${PROJECT_SOURCE_DIR}/ext/glew/include)
 include_directories(${PROJECT_SOURCE_DIR}/ext/glfw/include)
 include_directories(${PROJECT_SOURCE_DIR}/ext/stb)
 include_directories(${PROJECT_SOURCE_DIR}/ext/luajit/src)
 include_directories(${PROJECT_SOURCE_DIR}/ext/chipmunk/include/chipmunk)
+include_directories(${PROJECT_SOURCE_DIR}/ext/gorilla/include)
 
 if(APPLE)
   set_target_properties(cgame PROPERTIES LINK_FLAGS
     "-pagezero_size 10000 -image_base 100000000")
   target_link_libraries(cgame glfw ${GLFW_LIBRARIES} libluajit
-    chipmunk_static)
+    chipmunk_static gorilla)
 elseif(UNIX)
   target_link_libraries(cgame dl glfw ${GLFW_LIBRARIES} libluajit
-    chipmunk_static)
+    chipmunk_static gorilla)
 else()
   target_link_libraries(cgame ws2_32.lib glfw ${GLFW_LIBRARIES} libluajit
-    chipmunk_static)
+    chipmunk_static gorilla)
 endif()
 
 #add_definitions(-DDATA_DIR="${PROJECT_SOURCE_DIR}/data/")
