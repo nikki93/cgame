@@ -7,7 +7,7 @@
  */
 
 /* printf-style error formatting */
-__attribute__((format(printf, 1, 2)))
+__attribute__((noreturn, format(printf, 1, 2)))
 void errorf(const char *fmt, ...);
 
 /* evaluates to a 'filename:linenumber: ' string */
