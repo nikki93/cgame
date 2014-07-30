@@ -215,6 +215,8 @@ static void _store_free(Store *s)
     free(s->name);
     _stream_deinit(s->sm);
     free(s->str);
+
+    free(s);
 }
 
 /* { ... } for normal, [ ... ] for compressed */
