@@ -197,8 +197,8 @@ void sound_deinit()
 {
     SoundSource *source;
 
-    /* entitypool_foreach(source, pool) */
-    /*     _release_source(source); */
+    entitypool_foreach(source, pool)
+        _release_source(source);
     entitypool_free(pool);
 
     gau_manager_destroy(mgr);
@@ -207,5 +207,7 @@ void sound_deinit()
 
 void sound_update_all()
 {
+    entitypool_remove_destroyed(pool, sound_remove);
+
     gau_manager_update(mgr);
 }
