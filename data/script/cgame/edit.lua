@@ -28,6 +28,10 @@ cs.edit.line_add = cg.edit_line_add
 function cs.edit.add()
 end
 
+function cs.edit.has()
+    return true
+end
+
 
 --- mode management-------------------------------------------------------------
 
