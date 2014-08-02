@@ -98,17 +98,39 @@ function cg.set(sys, prop, ...) cg.setter(sys, prop)(unpack({...})) end
 
 function cg.adder(sys) return cs[sys]['add'] end
 function cg.remover(sys) return cs[sys]['remove'] end
+function cg.remove(sys, ...) cg.remover(sys)(unpack({...})) end
+
+-- multi-purpose system adder/setter, used as follows:
+--
+--   ent = cg.add {
+--       ent = some_entity,           -- entity to modify, skip to create new
+--       prefab = 'path/to/prefab',   -- initial prefab, skip for none
+--       sys1 = {
+--           prop1 = val1,
+--           prop2 = val2,
+--           ...
+--       },
+--       sys2 = {
+--           ...
+--       },
+--       ...
+--   }
+--
+-- here 'sys1' could be transform, 'prop1' could be position, for example
 function cg.add(sys, ent, props)
     -- multi-add?
     if type(sys) == 'table' then
-        ent = ent or sys.ent or cg.entity_create()
+        ent = ent or sys.ent
+            or (sys.prefab and cs.prefab.load(sys.prefab))
+            or cg.entity_create()
         sys.ent = nil
+        sys.prefab = nil
         for k, v in pairs(sys) do cg.add(k, ent, v) end
         return ent
     end
 
     -- all entities are already in 'entity' system
-    if sys ~= 'entity' then
+    if sys ~= 'entity' and not cs[sys].has(ent) then
         cg.adder(sys)(ent)
     end
     if (props) then
@@ -117,7 +139,6 @@ function cg.add(sys, ent, props)
         end
     end
 end
-function cg.remove(sys, ...) cg.remover(sys)(unpack({...})) end
 
 cs.meta = { receive_events = false }
 cs.meta.props = {}
