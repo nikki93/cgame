@@ -28,6 +28,10 @@ void keyboard_controlled_remove(Entity ent)
     if (entity_eq(ent, kc_entity))
         kc_exists = false;
 }
+bool keyboard_controlled_has(Entity ent)
+{
+    return kc_exists && entity_eq(kc_entity, ent);
+}
 
 void keyboard_controlled_update_all()
 {
