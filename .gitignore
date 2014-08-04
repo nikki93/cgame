@@ -4,6 +4,7 @@
 !/usr/.keepme
 
 cscope.out
+cscope.files
 .clang_complete
 .gdbinit
 .lldbinit
