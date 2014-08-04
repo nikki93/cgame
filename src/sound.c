@@ -51,31 +51,34 @@ static const char *_format(const char *path)
     error("unknown sound format for file '%s'", path);
 }
 
-static void _set_path(Sound *sound, const char *path)
+static void _load(Sound *sound)
 {
-    const char *format;
     bool prev_playing;
+    char *old_path;
+    const char *format;
     ga_Sound *src;
 
+    /* currently playing? */
     prev_playing = sound->handle && ga_handle_playing(sound->handle);
-    _release(sound);
 
-    /* copy path */
-    sound->path = malloc(strlen(path) + 1);
-    strcpy(sound->path, path);
+    /* release old resources but keep path */
+    old_path = sound->path;
+    sound->path = NULL;
+    _release(sound);
+    sound->path = old_path;
 
     /* create handle */
-    format = _format(path);
+    format = _format(sound->path);
     if (!strcmp(format, "ogg"))
     {
         sound->handle = gau_create_handle_buffered_file(
-            mixer, stream_mgr, path, _format(path),
+            mixer, stream_mgr, sound->path, _format(sound->path),
             NULL, NULL, NULL
             );
     }
     else
     {
-        src = gau_load_sound_file(path, format);
+        src = gau_load_sound_file(sound->path, format);
         if (src)
             sound->handle = gau_create_handle_sound(
                 mixer, src,
@@ -86,9 +89,10 @@ static void _set_path(Sound *sound, const char *path)
     {
         _release(sound);
         error("couldn't load sound from path '%s', check path and format",
-              path);
+              sound->path);
     }
 
+    /* play new sound if old one was playing */
     if (prev_playing)
         ga_handle_play(sound->handle);
 }
@@ -127,49 +131,12 @@ bool sound_has(Entity ent)
 void sound_set_path(Entity ent, const char *path)
 {
     Sound *sound;
-    const char *format;
-    bool prev_playing;
-    ga_Sound *src;
 
     sound =  entitypool_get(pool, ent);
     error_assert(sound, "entity must be in sound system");
-
-    /* check if currently playing, release */
-    prev_playing = sound->handle && ga_handle_playing(sound->handle);
-    _release(sound);
-
-    /* copy path */
     sound->path = malloc(strlen(path) + 1);
     strcpy(sound->path, path);
-
-    /* create handle */
-    format = _format(path);
-    if (!strcmp(format, "ogg"))
-    {
-        sound->handle = gau_create_handle_buffered_file(
-            mixer, stream_mgr, path, _format(path),
-            NULL, NULL, NULL
-            );
-    }
-    else
-    {
-        src = gau_load_sound_file(path, format);
-        if (src)
-            sound->handle = gau_create_handle_sound(
-                mixer, src,
-                NULL, NULL, NULL
-                );
-    }
-    if (!sound->handle)
-    {
-        _release(sound);
-        error("couldn't load sound from path '%s', check path and format",
-              path);
-    }
-
-    /* play new sound if old one was playing */
-    if (prev_playing)
-        ga_handle_play(sound->handle);
+    _load(sound);
 }
 const char *sound_get_path(Entity ent)
 {
