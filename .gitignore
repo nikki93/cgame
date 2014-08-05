@@ -3,6 +3,9 @@
 /usr/*
 !/usr/.keepme
 
+GPATH
+GRTAGS
+GTAGS
 cscope.out
 cscope.files
 .clang_complete
