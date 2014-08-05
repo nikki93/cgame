@@ -94,6 +94,8 @@ static void _load(Sound *sound)
         ga_handle_play(sound->handle);
 }
 
+static const char default_path[] = data_path("default.wav");
+
 void sound_add(Entity ent)
 {
     Sound *sound;
@@ -102,8 +104,10 @@ void sound_add(Entity ent)
         return;
 
     sound = entitypool_add(pool, ent);
-    sound->path = NULL;
+    sound->path = malloc(sizeof(default_path));
+    strcpy(sound->path, default_path);
     sound->handle = NULL;
+    _load(sound);
     sound->finish_destroy = true;
 }
 
@@ -146,6 +150,7 @@ void sound_set_playing(Entity ent, bool playing)
 {
     Sound *sound = entitypool_get(pool, ent);
     error_assert(sound, "entity must be in sound system");
+    error_assert(sound->handle, "sound must be valid");
     if (playing)
         ga_handle_play(sound->handle);
     else
@@ -155,6 +160,7 @@ bool sound_get_playing(Entity ent)
 {
     Sound *sound = entitypool_get(pool, ent);
     error_assert(sound, "entity must be in sound system");
+    error_assert(sound->handle, "sound must be valid");
     return ga_handle_playing(sound->handle);
 }
 
@@ -162,12 +168,14 @@ void sound_set_seek(Entity ent, int seek)
 {
     Sound *sound = entitypool_get(pool, ent);
     error_assert(sound, "entity must be in sound system");
+    error_assert(sound->handle, "sound must be valid");
     ga_handle_seek(sound->handle, seek);
 }
 int sound_get_seek(Entity ent)
 {
     Sound *sound = entitypool_get(pool, ent);
     error_assert(sound, "entity must be in sound system");
+    error_assert(sound->handle, "sound must be valid");
     return ga_handle_tell(sound->handle, GA_TELL_PARAM_CURRENT);
 }
 
