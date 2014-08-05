@@ -249,10 +249,7 @@ static void _store_write_pretty(Store *s, unsigned int indent, Stream *sm)
     }
 
     /* opening brace */
-    if (s->child)
-        _stream_printf(sm, "%*s{\n%*s", indent, "", indent + INDENT, "");
-    else
-        _stream_printf(sm, "%*s{ ", indent, "");
+    _stream_printf(sm, "%*s{ ", indent, "");
 
     /* name, data */
     _stream_write_string(sm, s->name);
