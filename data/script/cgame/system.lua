@@ -8,18 +8,22 @@ local systems_mt = {
     __index = function (t, k)
         local v = rawget(t, k)
 
-        if v == nil then
-            local bind = system_binds[k]
-            if bind == nil then
-                bind = setmetatable({}, {
-                    __index = function (_, k2)
-                        return cg[k .. '_' .. k2]
-                    end,
-                })
-                system_binds[k] = bind
-            end
-            return bind
-        end
+        if v ~= nil then return v end
+
+        local v = system_binds[k]
+        if v ~= nil then return v end
+
+        local names = {}
+        v = setmetatable({}, {
+            __index = function (_, k2)
+                local name = names[k2]
+                if name ~= nil then return cg[name] end
+                name = k .. '_' .. k2
+                names[k2] = name
+                return cg[name]
+            end,
+        })
+        system_binds[k] = v
         return v
     end,
 }
