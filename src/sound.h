@@ -20,12 +20,14 @@ SCRIPT(sound,
        EXPORT int sound_get_seek(Entity ent);
 
        EXPORT void sound_set_finish_destroy(Entity ent, bool finish_destroy);
-       EXPORT bool sound_get_finish_Destroy(Entity ent);
+       EXPORT bool sound_get_finish_destroy(Entity ent);
 
     )
 
 void sound_init();
 void sound_deinit();
 void sound_update_all();
+void sound_save_all(Store *s);
+void sound_load_all(Store *s);
 
 #endif

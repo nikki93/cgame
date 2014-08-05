@@ -51,6 +51,7 @@ static const char *_format(const char *path)
     error("unknown sound format for file '%s'", path);
 }
 
+/* precondition: path must be good or NULL, handle must be good or NULL */
 static void _load(Sound *sound)
 {
     bool prev_playing;
@@ -66,25 +67,21 @@ static void _load(Sound *sound)
     sound->path = NULL;
     _release(sound);
     sound->path = old_path;
+    if (!sound->path)
+        return;
 
     /* create handle */
     format = _format(sound->path);
     if (!strcmp(format, "ogg"))
-    {
         sound->handle = gau_create_handle_buffered_file(
             mixer, stream_mgr, sound->path, _format(sound->path),
             NULL, NULL, NULL
             );
-    }
-    else
-    {
-        src = gau_load_sound_file(sound->path, format);
-        if (src)
-            sound->handle = gau_create_handle_sound(
-                mixer, src,
-                NULL, NULL, NULL
-                );
-    }
+    else if ((src = gau_load_sound_file(sound->path, format)))
+        sound->handle = gau_create_handle_sound(
+            mixer, src,
+            NULL, NULL, NULL
+            );
     if (!sound->handle)
     {
         _release(sound);
@@ -222,4 +219,56 @@ void sound_update_all()
     entitypool_remove_destroyed(pool, sound_remove);
 
     gau_manager_update(mgr);
+}
+
+void sound_save_all(Store *s)
+{
+    Store *t, *sound_s;
+    Sound *sound;
+    int seek;
+    bool playing;
+
+    if (store_child_save(&t, "sound", s))
+        entitypool_save_foreach(sound, sound_s, pool, "pool", t)
+        {
+            string_save((const char **) &sound->path, "path", sound_s);
+
+            bool_save(&sound->finish_destroy, "finish_destroy", sound_s);
+
+            playing = sound->handle && ga_handle_playing(sound->handle);
+            bool_save(&playing, "playing", sound_s);
+
+            if (sound->handle)
+            {
+                seek = ga_handle_tell(sound->handle, GA_TELL_PARAM_CURRENT);
+                int_save(&seek, "seek", sound_s);
+            }
+        }
+}
+void sound_load_all(Store *s)
+{
+    Store *t, *sound_s;
+    Sound *sound;
+    int seek;
+    bool playing;
+
+    if (store_child_load(&t, "sound", s))
+        entitypool_load_foreach(sound, sound_s, pool, "pool", t)
+        {
+            string_load(&sound->path, "path", NULL, sound_s);
+            sound->handle = NULL;
+            _load(sound);
+
+            bool_load(&sound->finish_destroy, "finish_destroy", false, sound_s);
+
+            bool_load(&playing, "playing", false, sound_s);
+            if (sound->handle && playing)
+                ga_handle_play(sound->handle);
+
+            if (sound->handle)
+            {
+                int_load(&seek, "seek", 0, sound_s);
+                ga_handle_seek(sound->handle, seek);
+            }
+        }
 }
