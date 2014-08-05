@@ -52,49 +52,40 @@ static const char *_format(const char *path)
 }
 
 /* precondition: path must be good or NULL, handle must be good or NULL */
-static void _load(Sound *sound)
+static void _set_path(Sound *sound, const char *path)
 {
     bool prev_playing;
-    char *old_path;
     const char *format;
     ga_Sound *src;
+    ga_Handle *handle;
 
     /* currently playing? */
     prev_playing = sound->handle && ga_handle_playing(sound->handle);
 
-    /* release old resources but keep path */
-    old_path = sound->path;
-    sound->path = NULL;
-    _release(sound);
-    sound->path = old_path;
-    if (!sound->path)
-        return;
-
-    /* create handle */
-    format = _format(sound->path);
+    /* try loading sound */
+    format = _format(path);
+    handle = NULL;
     if (!strcmp(format, "ogg"))
-        sound->handle = gau_create_handle_buffered_file(
-            mixer, stream_mgr, sound->path, _format(sound->path),
-            NULL, NULL, NULL
-            );
-    else if ((src = gau_load_sound_file(sound->path, format)))
-        sound->handle = gau_create_handle_sound(
-            mixer, src,
-            NULL, NULL, NULL
-            );
-    if (!sound->handle)
-    {
-        _release(sound);
+        handle = gau_create_handle_buffered_file(mixer, stream_mgr, path,
+                                                 format, NULL, NULL, NULL);
+    else if ((src = gau_load_sound_file(path, format)))
+        handle = gau_create_handle_sound(mixer, src, NULL, NULL, NULL);
+    if (!handle)
         error("couldn't load sound from path '%s', check path and format",
-              sound->path);
-    }
+              path);
+
+    /* set new */
+    _release(sound);
+    sound->path = malloc(strlen(path) + 1);
+    strcpy(sound->path, path);
+    sound->handle = handle;
 
     /* play new sound if old one was playing */
     if (prev_playing)
         ga_handle_play(sound->handle);
 }
 
-static const char default_path[] = data_path("default.wav");
+static const char *default_path = data_path("default.wav");
 
 void sound_add(Entity ent)
 {
@@ -104,10 +95,9 @@ void sound_add(Entity ent)
         return;
 
     sound = entitypool_add(pool, ent);
-    sound->path = malloc(sizeof(default_path));
-    strcpy(sound->path, default_path);
+    sound->path = NULL;
     sound->handle = NULL;
-    _load(sound);
+    _set_path(sound, default_path);
     sound->finish_destroy = true;
 }
 
@@ -135,9 +125,7 @@ void sound_set_path(Entity ent, const char *path)
 
     sound =  entitypool_get(pool, ent);
     error_assert(sound, "entity must be in sound system");
-    sound->path = malloc(strlen(path) + 1);
-    strcpy(sound->path, path);
-    _load(sound);
+    _set_path(sound, path);
 }
 const char *sound_get_path(Entity ent)
 {
@@ -259,13 +247,15 @@ void sound_load_all(Store *s)
     Sound *sound;
     int seek;
     bool playing;
+    char *path;
 
     if (store_child_load(&t, "sound", s))
         entitypool_load_foreach(sound, sound_s, pool, "pool", t)
         {
-            string_load(&sound->path, "path", NULL, sound_s);
+            string_load(&path, "path", NULL, sound_s);
+            sound->path = NULL;
             sound->handle = NULL;
-            _load(sound);
+            _set_path(sound, path);
 
             bool_load(&sound->finish_destroy, "finish_destroy", false, sound_s);
 
