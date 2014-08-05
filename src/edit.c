@@ -443,7 +443,7 @@ void edit_save_all(Store *s)
     {
         vec2_save(&grid_size, "grid_size", t);
         entitypool_save_foreach(elem, elem_s, uneditable_pool,
-                                "uneditable_pool", s);
+                                "uneditable_pool", t);
     }
 }
 void edit_load_all(Store *s)
@@ -455,6 +455,6 @@ void edit_load_all(Store *s)
     {
         vec2_load(&grid_size, "grid_size", grid_size, t);
         entitypool_load_foreach(elem, elem_s, uneditable_pool,
-                                "uneditable_pool", s);
+                                "uneditable_pool", t);
     }
 }

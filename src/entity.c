@@ -266,9 +266,9 @@ void entity_save_all(Store *s)
     if (store_child_save(&entity_s, "entity", s))
     {
         entitypool_save_foreach(exists, exists_s, exists_pool,
-                                "exists_pool", s);
+                                "exists_pool", entity_s);
 
-        if (store_child_save(&destroyed_s, "destroyed", s))
+        if (store_child_save(&destroyed_s, "destroyed", entity_s))
             array_foreach(entry, destroyed)
                 if (entity_get_save_filter(entry->ent))
                     if (store_child_save(&entry_s, NULL, destroyed_s))
@@ -288,9 +288,9 @@ void entity_load_all(Store *s)
     if (store_child_load(&entity_s, "entity", s))
     {
         entitypool_load_foreach(exists, exists_s, exists_pool,
-                                "exists_pool", s);
+                                "exists_pool", entity_s);
 
-        if (store_child_load(&destroyed_s, "destroyed", s))
+        if (store_child_load(&destroyed_s, "destroyed", entity_s))
             while (store_child_load(&entry_s, NULL, destroyed_s))
             {
                 entry = array_add(destroyed);
