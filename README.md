@@ -22,9 +22,11 @@ Building
 
 CMake should make it easy to set up. [GLFW](http://www.glfw.org/),
 [GLEW](http://glew.sourceforge.net/),
-[stb_image](http://code.google.com/p/stblib/), [LuaJIT](http://luajit.org/),
-[chipmunk](http://chipmunk-physics.net/) are dependencies and are included in
-ext/. From the repository root,
+[stb_image](http://code.google.com/p/stblib/),
+[LuaJIT](http://luajit.org/),
+[chipmunk](http://chipmunk-physics.net/), [Gorilla
+Audio](https://code.google.com/p/gorilla-audio/) are dependencies and
+are included in ext/. From the repository root,
 
     cmake -E make_directory build
     cmake -E chdir build cmake ..
@@ -43,9 +45,9 @@ the project (cgame looks for data in './data'). It takes a startup
 script as the first argument. So after running the commands in the
 previous section, you'd do,
 
-    ./build/cgame data/test/test.lua
+    ./build/cgame data/script/test/test.lua
 
-There some other tests in data/test. Try data/test/test_physics.lua!
-You could also just fire up cgame with no startup script and write
-stuff in usr/scratch.lua to code live! It'll run the contents of that
-file whenever it is modified.
+There some other tests in data/script/test. Try
+data/script/test/test_physics.lua!  You could also just fire up cgame
+with no startup script and write stuff in usr/scratch.lua to code
+live! It'll run the contents of that file whenever it is modified.
