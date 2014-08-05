@@ -675,3 +675,10 @@ cs.meta.props['gui_textedit'] = {
     { name = 'cursor' },
     { name = 'numerical' },
 }
+
+cs.meta.props['sound'] = {
+    { name = 'path' },
+    { name = 'playing' },
+    { name = 'seek' },
+    { name = 'finish_destroy' },
+}

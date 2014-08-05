@@ -25,6 +25,7 @@ require 'cgame.gui'
 require 'cgame.edit'
 require 'cgame.animation'
 require 'cgame.physics'
+require 'cgame.sound'
 
 require 'cgame.console'
 require 'cgame.fps'
