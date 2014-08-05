@@ -184,3 +184,10 @@ function cg.simple_sys()
 
     return sys
 end
+
+function cg.wrap_string(sys, prop)
+    local old = cg.getter(sys, prop)
+    cg[sys .. '_get_' .. prop] = function (ent)
+        return cg.string(old(ent))
+    end
+end

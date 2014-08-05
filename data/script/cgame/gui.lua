@@ -1,10 +1,8 @@
 local root = cs.gui.get_root()
 cs.group.set_groups(root, 'builtin')
 
-local old_gui_text_get_str = cg.gui_text_get_str
-function cg.gui_text_get_str(ent)
-    return cg.string(old_gui_text_get_str(ent))
-end
+cg.wrap_string('gui_text', 'str')
+
 
 --- event ----------------------------------------------------------------------
 
