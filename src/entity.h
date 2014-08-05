@@ -34,6 +34,9 @@ SCRIPT(entity,
        EXPORT bool entity_load(Entity *ent, const char *n, Entity d,
                                Store *s);
 
+       /* get resolved id for merging -- meant for internal use */
+       EXPORT Entity _entity_resolve_saved_id(unsigned int id);
+
     )
 
 void entity_init();

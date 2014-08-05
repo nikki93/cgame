@@ -211,12 +211,25 @@ void entity_save(Entity *ent, const char *n, Store *s)
     if (store_child_save(&t, n, s))
         uint_save(&ent->id, "id", t);
 }
+Entity _entity_resolve_saved_id(unsigned int id)
+{
+    Entity ent, sav = { id };
+
+    if (entity_eq(sav, entity_nil))
+        return entity_nil; /* entity_nil always maps to entity_nil */
+
+    ent.id = entitymap_get(load_map, sav);
+    if (entity_eq(ent, entity_nil))
+    {
+        ent = _generate_id();
+        entitymap_set(load_map, sav, ent.id);
+    }
+    return ent;
+}
 bool entity_load(Entity *ent, const char *n, Entity d, Store *s)
 {
     Store *t;
-    Entity sav;
-
-    /* build a map of saved id --> new id to allow merging */
+    unsigned int id;
 
     if (!store_child_load(&t, n, s))
     {
@@ -224,20 +237,8 @@ bool entity_load(Entity *ent, const char *n, Entity d, Store *s)
         return false;
     }
 
-    uint_load(&sav.id, "id", entity_nil.id, t);
-
-    if (entity_eq(sav, entity_nil))
-        *ent = entity_nil; /* entity_nil always maps to entity_nil */
-    else
-    {
-        ent->id = entitymap_get(load_map, sav);
-        if (entity_eq(*ent, entity_nil))
-        {
-            *ent = _generate_id(); /* not seen before, generate new */
-            entitymap_set(load_map, sav, ent->id);
-        }
-    }
-
+    uint_load(&id, "id", entity_nil.id, t);
+    *ent = _entity_resolve_saved_id(id);
     return true;
 }
 

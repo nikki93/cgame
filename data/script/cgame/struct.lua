@@ -60,6 +60,9 @@ end
 
 --- Entity ---------------------------------------------------------------------
 
+-- compress entity save format
+_cge = cg._entity_resolve_saved_id
+
 cg.Entity = ffi.metatype('Entity',
 {
     __eq = function (a, b)
@@ -69,8 +72,9 @@ cg.Entity = ffi.metatype('Entity',
     end,
     __index =
     {
-        __serialize = cg.c_save_load('cg.Entity', 'cg.entity_save',
-            'cg.entity_load')
+        __serialize = function (e)
+            return string.format('_cge(%u)', e.id)
+        end
     },
 })
 
@@ -93,8 +97,9 @@ cg.Vec2 = ffi.metatype('Vec2',
     end,
     __index =
     {
-        __serialize = cg.c_save_load('cg.Vec2', 'cg.vec2_save',
-            'cg.vec2_load')
+        __serialize = function (v)
+            return string.format('cg.vec2(%f, %f)', v.x, v.y)
+        end
     },
 })
 
@@ -105,8 +110,14 @@ cg.Mat3 = ffi.metatype('Mat3',
 {
     __index =
     {
-        __serialize = cg.c_save_load('cg.Mat3', 'cg.mat3_save',
-            'cg.mat3_load')
+            __serialize = function (m)
+                return string.format(
+                    'cg.mat3(%f, %f, %f, %f, %f, %f, %f, %f, %f)',
+                    m.m[0][0], m.m[0][1], m.m[0][2],
+                    m.m[1][0], m.m[1][1], m.m[1][2],
+                    m.m[2][0], m.m[2][1], m.m[2][2]
+                )
+            end
     },
 })
 
