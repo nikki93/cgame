@@ -682,4 +682,5 @@ cs.meta.props['sound'] = {
     { name = 'seek' },
     { name = 'finish_destroy' },
     { name = 'loop' },
+    { name = 'gain' },
 }

@@ -25,6 +25,9 @@ SCRIPT(sound,
        EXPORT void sound_set_loop(Entity ent, bool loop);
        EXPORT bool sound_get_loop(Entity ent);
 
+       EXPORT void sound_set_gain(Entity ent, Scalar gain);
+       EXPORT Scalar sound_get_gain(Entity ent);
+
     )
 
 void sound_init();

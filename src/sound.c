@@ -223,6 +223,25 @@ bool sound_get_loop(Entity ent)
     return sound->loop;
 }
 
+void sound_set_gain(Entity ent, Scalar gain)
+{
+    Sound *sound = entitypool_get(pool, ent);
+    error_assert(sound, "entity must be in sound system");
+    error_assert(sound->handle, "sound must be valid");
+    ga_handle_setParamf(sound->handle, GA_HANDLE_PARAM_GAIN, gain);
+}
+Scalar sound_get_gain(Entity ent)
+{
+    Sound *sound;
+    gc_float32 v;
+
+    sound = entitypool_get(pool, ent);
+    error_assert(sound, "entity must be in sound system");
+    error_assert(sound->handle, "sound must be valid");
+    ga_handle_getParamf(sound->handle, GA_HANDLE_PARAM_GAIN, &v);
+    return v;
+}
+
 /* ------------------------------------------------------------------------- */
 
 void sound_init()
@@ -267,6 +286,7 @@ void sound_save_all(Store *s)
     Sound *sound;
     int seek;
     bool playing;
+    Scalar gain;
 
     if (store_child_save(&t, "sound", s))
         entitypool_save_foreach(sound, sound_s, pool, "pool", t)
@@ -275,14 +295,14 @@ void sound_save_all(Store *s)
             bool_save(&sound->finish_destroy, "finish_destroy", sound_s);
             bool_save(&sound->loop, "loop", sound_s);
 
-            playing = sound->handle && ga_handle_playing(sound->handle);
+            playing = ga_handle_playing(sound->handle);
             bool_save(&playing, "playing", sound_s);
 
-            if (sound->handle)
-            {
-                seek = ga_handle_tell(sound->handle, GA_TELL_PARAM_CURRENT);
-                int_save(&seek, "seek", sound_s);
-            }
+            seek = ga_handle_tell(sound->handle, GA_TELL_PARAM_CURRENT);
+            int_save(&seek, "seek", sound_s);
+
+            ga_handle_getParamf(sound->handle, GA_HANDLE_PARAM_GAIN, &gain);
+            scalar_save(&gain, "gain", sound_s);
         }
 }
 void sound_load_all(Store *s)
@@ -292,6 +312,7 @@ void sound_load_all(Store *s)
     int seek;
     bool playing;
     char *path;
+    Scalar gain;
 
     if (store_child_load(&t, "sound", s))
         entitypool_load_foreach(sound, sound_s, pool, "pool", t)
@@ -305,13 +326,13 @@ void sound_load_all(Store *s)
             _set_path(sound, path);
 
             bool_load(&playing, "playing", false, sound_s);
-            if (sound->handle && playing)
+            if (playing)
                 ga_handle_play(sound->handle);
 
-            if (sound->handle)
-            {
-                int_load(&seek, "seek", 0, sound_s);
-                ga_handle_seek(sound->handle, seek);
-            }
+            int_load(&seek, "seek", 0, sound_s);
+            ga_handle_seek(sound->handle, seek);
+
+            scalar_load(&gain, "gain", 1, sound_s);
+            ga_handle_setParamf(sound->handle, GA_HANDLE_PARAM_GAIN, gain);
         }
 }
