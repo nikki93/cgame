@@ -62,7 +62,8 @@ static void _update_loop(Sound *sound)
         gau_sample_source_loop_clear(sound->loop_src);
 }
 
-/* precondition: path must be good or NULL, handle must be good or NULL */
+/* precondition: path must be good or NULL, handle must be good or NULL,
+   doesn't allocate new path string if sound->path == path */
 static void _set_path(Sound *sound, const char *path)
 {
     bool prev_playing;
@@ -90,8 +91,11 @@ static void _set_path(Sound *sound, const char *path)
 
     /* set new */
     _release(sound);
-    sound->path = malloc(strlen(path) + 1);
-    strcpy(sound->path, path);
+    if (sound->path != path)
+    {
+        sound->path = malloc(strlen(path) + 1);
+        strcpy(sound->path, path);
+    }
     sound->handle = handle;
 
     /* update loop */
@@ -161,7 +165,11 @@ void sound_set_playing(Entity ent, bool playing)
     error_assert(sound, "entity must be in sound system");
     error_assert(sound->handle, "sound must be valid");
     if (playing)
+    {
+        if (ga_handle_finished(sound->handle))
+            _set_path(sound, sound->path); /* can't reuse finished handles */
         ga_handle_play(sound->handle);
+    }
     else
         ga_handle_stop(sound->handle);
 }
