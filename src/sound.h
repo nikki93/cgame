@@ -22,6 +22,9 @@ SCRIPT(sound,
        EXPORT void sound_set_finish_destroy(Entity ent, bool finish_destroy);
        EXPORT bool sound_get_finish_destroy(Entity ent);
 
+       EXPORT void sound_set_loop(Entity ent, bool loop);
+       EXPORT bool sound_get_loop(Entity ent);
+
     )
 
 void sound_init();

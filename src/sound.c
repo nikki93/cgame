@@ -18,7 +18,9 @@ struct Sound
 
     char *path;
     ga_Handle *handle;
+    gau_SampleSourceLoop *loop_src;
     bool finish_destroy;
+    bool loop;
 };
 
 static EntityPool *pool;
@@ -51,6 +53,15 @@ static const char *_format(const char *path)
     error("unknown sound format for file '%s'", path);
 }
 
+/* update gorilla loop state to actually reflect sound->loop */
+static void _update_loop(Sound *sound)
+{
+    if (sound->loop)
+        gau_sample_source_loop_set(sound->loop_src, -1, 0);
+    else
+        gau_sample_source_loop_clear(sound->loop_src);
+}
+
 /* precondition: path must be good or NULL, handle must be good or NULL */
 static void _set_path(Sound *sound, const char *path)
 {
@@ -58,6 +69,7 @@ static void _set_path(Sound *sound, const char *path)
     const char *format;
     ga_Sound *src;
     ga_Handle *handle;
+    gau_SampleSourceLoop *loop_src;
 
     /* currently playing? */
     prev_playing = sound->handle && ga_handle_playing(sound->handle);
@@ -67,18 +79,24 @@ static void _set_path(Sound *sound, const char *path)
     handle = NULL;
     if (!strcmp(format, "ogg"))
         handle = gau_create_handle_buffered_file(mixer, stream_mgr, path,
-                                                 format, NULL, NULL, NULL);
+                                                 format, NULL, NULL,
+                                                 &loop_src);
     else if ((src = gau_load_sound_file(path, format)))
-        handle = gau_create_handle_sound(mixer, src, NULL, NULL, NULL);
+        handle = gau_create_handle_sound(mixer, src, NULL, NULL, &loop_src);
     if (!handle)
         error("couldn't load sound from path '%s', check path and format",
               path);
+    error_assert(loop_src, "handle must have valid loop source");
 
     /* set new */
     _release(sound);
     sound->path = malloc(strlen(path) + 1);
     strcpy(sound->path, path);
     sound->handle = handle;
+
+    /* update loop */
+    sound->loop_src = loop_src;
+    _update_loop(sound);
 
     /* play new sound if old one was playing */
     if (prev_playing)
@@ -97,8 +115,11 @@ void sound_add(Entity ent)
     sound = entitypool_add(pool, ent);
     sound->path = NULL;
     sound->handle = NULL;
-    _set_path(sound, default_path);
+    sound->loop_src = NULL;
+    sound->loop = false;
     sound->finish_destroy = true;
+
+    _set_path(sound, default_path);
 }
 
 void sound_remove(Entity ent)
@@ -180,6 +201,21 @@ bool sound_get_finish_destroy(Entity ent)
     return sound->finish_destroy;
 }
 
+void sound_set_loop(Entity ent, bool loop)
+{
+    Sound *sound = entitypool_get(pool, ent);
+    error_assert(sound, "entity must be in sound system");
+    error_assert(sound->handle, "sound must be valid");
+    sound->loop = loop;
+    _update_loop(sound);
+}
+bool sound_get_loop(Entity ent)
+{
+    Sound *sound = entitypool_get(pool, ent);
+    error_assert(sound, "entity must be in sound system");
+    return sound->loop;
+}
+
 void sound_init()
 {
     gc_initialize(NULL);
@@ -228,8 +264,8 @@ void sound_save_all(Store *s)
         entitypool_save_foreach(sound, sound_s, pool, "pool", t)
         {
             string_save((const char **) &sound->path, "path", sound_s);
-
             bool_save(&sound->finish_destroy, "finish_destroy", sound_s);
+            bool_save(&sound->loop, "loop", sound_s);
 
             playing = sound->handle && ga_handle_playing(sound->handle);
             bool_save(&playing, "playing", sound_s);
@@ -253,11 +289,12 @@ void sound_load_all(Store *s)
         entitypool_load_foreach(sound, sound_s, pool, "pool", t)
         {
             string_load(&path, "path", NULL, sound_s);
+            bool_load(&sound->finish_destroy, "finish_destroy", false, sound_s);
+            bool_load(&sound->loop, "loop", false, sound_s);
+
             sound->path = NULL;
             sound->handle = NULL;
             _set_path(sound, path);
-
-            bool_load(&sound->finish_destroy, "finish_destroy", false, sound_s);
 
             bool_load(&playing, "playing", false, sound_s);
             if (sound->handle && playing)
