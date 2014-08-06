@@ -29,6 +29,8 @@ static gau_Manager *mgr;
 static ga_Mixer *mixer;
 static ga_StreamManager *stream_mgr;
 
+/* ------------------------------------------------------------------------- */
+
 static void _release(Sound *sound)
 {
     /* path */
@@ -107,8 +109,6 @@ static void _set_path(Sound *sound, const char *path)
         ga_handle_play(sound->handle);
 }
 
-static const char *default_path = data_path("default.wav");
-
 void sound_add(Entity ent)
 {
     Sound *sound;
@@ -123,7 +123,7 @@ void sound_add(Entity ent)
     sound->loop = false;
     sound->finish_destroy = true;
 
-    _set_path(sound, default_path);
+    _set_path(sound, data_path("default.wav"));
 }
 
 void sound_remove(Entity ent)
@@ -134,7 +134,6 @@ void sound_remove(Entity ent)
     if (!sound)
         return;
 
-    sound = entitypool_get(pool, ent);
     _release(sound);
     entitypool_remove(pool, ent);
 }
@@ -224,11 +223,12 @@ bool sound_get_loop(Entity ent)
     return sound->loop;
 }
 
+/* ------------------------------------------------------------------------- */
+
 void sound_init()
 {
     gc_initialize(NULL);
     mgr = gau_manager_create();
-
     mixer = gau_manager_mixer(mgr);
     stream_mgr = gau_manager_streamManager(mgr);
 
