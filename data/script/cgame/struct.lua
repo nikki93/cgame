@@ -123,4 +123,14 @@ cg.Mat3 = ffi.metatype('Mat3',
 
 --- BBox -----------------------------------------------------------------------
 
-cg.BBox = ffi.metatype('BBox', {})
+cg.BBox = ffi.metatype('BBox',
+{
+    __index =
+    {
+            __serialize = function (b)
+                return string.format(
+                    'cg.bbox(cg.vec2(%f, %f), cg.vec2(%f, %f))',
+                    b.min.x, b.min.y, b.max.x, b.max.y)
+            end
+    }
+})

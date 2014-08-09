@@ -275,6 +275,28 @@ field_types['Entity'] = {
     end
 }
 
+field_types['BBox'] = {
+    create = function (args)
+        local field = field_create_common(args)
+        field.min_field = cg.edit_field_create {
+            field_type = 'Vec2', ctype = 'Vec2',
+            parent = field.container, valign = cg.GA_MAX, halign = cg.GA_TABLE
+        }
+        field.max_field = cg.edit_field_create {
+            field_type = 'Vec2', ctype = 'Vec2',
+            parent = field.container, valign = cg.GA_MAX, halign = cg.GA_TABLE
+        }
+        return field
+    end,
+
+    post_update = function (field, val, setter)
+        cg.edit_field_post_update(field.min_field, val.min,
+                                  function (m) setter(cg.bbox(m, val.max)) end)
+        cg.edit_field_post_update(field.max_field, val.max,
+                                  function (m) setter(cg.bbox(val.min, m)) end)
+    end,
+}
+
 --- inspector ------------------------------------------------------------------
 
 cs.edit_inspector = { inspect = false }
