@@ -553,7 +553,6 @@ static void _add_collision(cpBody *body, cpArbiter *arbiter, void *collisions)
     col = array_add(collisions);
     col->a = cpBodyGetUserData(ba);
     col->b = cpBodyGetUserData(bb);
-    col->first_touch = cpArbiterIsFirstContact(arbiter);
 }
 static void _update_collisions(PhysicsInfo *info)
 {

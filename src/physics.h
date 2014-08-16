@@ -125,7 +125,6 @@ SCRIPT(physics,
        struct Collision
        {
            Entity a, b;
-           bool first_touch;
        };
 
        EXPORT unsigned int physics_get_num_collisions(Entity ent);
