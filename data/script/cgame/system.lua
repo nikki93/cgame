@@ -182,6 +182,7 @@ function cg.simple_sys()
             else
                 if sys.unpaused_update then sys.unpaused_update(entry) end
             end
+            if sys.update then sys.update(entry) end
         end
     end
     sys.update_all = sys.simple_update_all
