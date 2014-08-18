@@ -113,7 +113,7 @@ end
 -- cg.entity_table
 -- sys is the system, tbl is the table properties are stored in, name is the
 -- name of the property and default is the default value if unset
-function cg.simple_prop(sys, name, default, tbl)
+function cg.simple_prop(sys, name, default, tbl, set, get)
     if tbl == nil then tbl = sys.tbl end
 
     -- update defaults
@@ -130,15 +130,19 @@ function cg.simple_prop(sys, name, default, tbl)
     end
 
     -- setter
-    sys['set_' .. name] = function (ent, val)
-        local t = tbl[ent]
-        if t then t[name] = val end
+    if set ~= false then
+        sys['set_' .. name] = function (ent, val)
+            local t = tbl[ent]
+            if t then t[name] = val end
+        end
     end
 
     -- getter
-    sys['get_' .. name] = function (ent)
-        local t = tbl[ent]
-        if t then return t[name] end
+    if get ~= false then
+        sys['get_' .. name] = function (ent)
+            local t = tbl[ent]
+            if t then return t[name] end
+        end
     end
 end
 
