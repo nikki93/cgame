@@ -24,6 +24,7 @@ require 'cgame.input'
 require 'cgame.gui'
 require 'cgame.edit'
 require 'cgame.animation'
+require 'cgame.bump'
 require 'cgame.physics'
 require 'cgame.sound'
 
