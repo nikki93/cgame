@@ -73,9 +73,8 @@ end
 
 --- main --------------------------------------------------------------------
 
--- load level if specified
-if cg.args[2] then
-    local s = cg.store_open_file(cg.args[2])
-    cs.system.load_all(s)
-    cg.store_close(s)
-end
+-- start at level 1 or command line option
+local level_path = cg.args[2] or './test/platformer/1.lvl'
+local s = cg.store_open_file(level_path)
+cs.system.load_all(s)
+cg.store_close(s)
