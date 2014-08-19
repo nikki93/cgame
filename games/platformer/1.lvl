@@ -1,4 +1,4 @@
-22484
+23012
 { n n 
   { "script" n 
     { "str" "\"do local _={
@@ -32,6 +32,18 @@
     remove=function() --[[..skipped..]] end,
     get_title_buttons_area=function() --[[..skipped..]] end
   },
+  animation={
+    auto_saveload=true,
+    set_frames=function() --[[..skipped..]] end,
+    set_strips=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    switch=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    start=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({})
+  },
   player={
     set_gravity=function() --[[..skipped..]] end,
     get_speed=function() --[[..skipped..]] end,
@@ -48,13 +60,13 @@
     get_gravity=function() --[[..skipped..]] end,
     remove=nil,
     tbl=cg.__entity_table_load({
-        [79]={
-          k=_cge(79),
+        [29]={
+          k=_cge(29),
           v={
             grounded=true,
             v=cg.vec2(0.000000, 0.000000),
             jump_speed=26.795000076294,
-            ent=_cge(79)
+            ent=_cge(29)
           }
         }
       }),
@@ -73,173 +85,173 @@
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
     tbl=cg.__entity_table_load({
-        [99]={
-          k=_cge(99),
-          v={
-            rect={
-              t=1.5,
-              w=1,
-              h=1,
-              l=-5.5,
-              ent=_cge(99)
-            },
-            ent=_cge(99)
-          }
-        },
-        [95]={
-          k=_cge(95),
-          v={
-            rect={
-              t=0.5,
-              w=1,
-              h=1,
-              l=-5.5,
-              ent=_cge(95)
-            },
-            ent=_cge(95)
-          }
-        },
-        [87]={
-          k=_cge(87),
-          v={
-            rect={
-              t=-0.5,
-              w=1,
-              h=1,
-              l=6.5,
-              ent=_cge(87)
-            },
-            ent=_cge(87)
-          }
-        },
-        [98]={
-          k=_cge(98),
-          v={
-            rect={
-              t=-0.5,
-              w=1,
-              h=1,
-              l=-6.5,
-              ent=_cge(98)
-            },
-            ent=_cge(98)
-          }
-        },
-        [79]={
-          k=_cge(79),
-          v={
-            rect={
-              t=-5.5,
-              w=1,
-              h=1,
-              l=2.4838409423828,
-              ent=_cge(79)
-            },
-            ent=_cge(79)
-          }
-        },
-        [89]={
-          k=_cge(89),
-          v={
-            rect={
-              t=-0.5,
-              w=1,
-              h=1,
-              l=10.5,
-              ent=_cge(89)
-            },
-            ent=_cge(89)
-          }
-        },
-        [96]={
-          k=_cge(96),
-          v={
-            rect={
-              t=-6.5,
-              w=1,
-              h=1,
-              l=-7.5,
-              ent=_cge(96)
-            },
-            ent=_cge(96)
-          }
-        },
-        [97]={
-          k=_cge(97),
-          v={
-            rect={
-              t=-4.5,
-              w=1,
-              h=1,
-              l=-5.5,
-              ent=_cge(97)
-            },
-            ent=_cge(97)
-          }
-        },
-        [91]={
-          k=_cge(91),
+        [34]={
+          k=_cge(34),
           v={
             rect={
               t=3.5,
               w=1,
               h=1,
               l=3.5,
-              ent=_cge(91)
+              ent=_cge(34)
             },
-            ent=_cge(91)
+            ent=_cge(34)
           }
         },
-        [93]={
-          k=_cge(93),
+        [32]={
+          k=_cge(32),
           v={
             rect={
               t=-0.5,
               w=1,
               h=1,
-              l=8.5,
-              ent=_cge(93)
+              l=6.5,
+              ent=_cge(32)
             },
-            ent=_cge(93)
+            ent=_cge(32)
           }
         },
-        [83]={
-          k=_cge(83),
+        [31]={
+          k=_cge(31),
           v={
             rect={
               t=-0.5,
               w=1,
               h=1,
               l=7.5,
-              ent=_cge(83)
+              ent=_cge(31)
             },
-            ent=_cge(83)
+            ent=_cge(31)
           }
         },
-        [100]={
-          k=_cge(100),
+        [29]={
+          k=_cge(29),
           v={
             rect={
-              t=-0.5,
+              t=-5.5,
               w=1,
               h=1,
-              l=-6.5,
-              ent=_cge(100)
+              l=2.4838409423828,
+              ent=_cge(29)
             },
-            ent=_cge(100)
+            ent=_cge(29)
           }
         },
-        [77]={
-          k=_cge(77),
+        [28]={
+          k=_cge(28),
           v={
             rect={
               t=-0.5,
               w=1,
               h=1,
               l=9.5,
-              ent=_cge(77)
+              ent=_cge(28)
             },
-            ent=_cge(77)
+            ent=_cge(28)
+          }
+        },
+        [41]={
+          k=_cge(41),
+          v={
+            rect={
+              t=-0.5,
+              w=1,
+              h=1,
+              l=-6.5,
+              ent=_cge(41)
+            },
+            ent=_cge(41)
+          }
+        },
+        [39]={
+          k=_cge(39),
+          v={
+            rect={
+              t=-0.5,
+              w=1,
+              h=1,
+              l=-6.5,
+              ent=_cge(39)
+            },
+            ent=_cge(39)
+          }
+        },
+        [33]={
+          k=_cge(33),
+          v={
+            rect={
+              t=-0.5,
+              w=1,
+              h=1,
+              l=10.5,
+              ent=_cge(33)
+            },
+            ent=_cge(33)
+          }
+        },
+        [36]={
+          k=_cge(36),
+          v={
+            rect={
+              t=0.5,
+              w=1,
+              h=1,
+              l=-5.5,
+              ent=_cge(36)
+            },
+            ent=_cge(36)
+          }
+        },
+        [35]={
+          k=_cge(35),
+          v={
+            rect={
+              t=-0.5,
+              w=1,
+              h=1,
+              l=8.5,
+              ent=_cge(35)
+            },
+            ent=_cge(35)
+          }
+        },
+        [37]={
+          k=_cge(37),
+          v={
+            rect={
+              t=-6.5,
+              w=1,
+              h=1,
+              l=-7.5,
+              ent=_cge(37)
+            },
+            ent=_cge(37)
+          }
+        },
+        [40]={
+          k=_cge(40),
+          v={
+            rect={
+              t=1.5,
+              w=1,
+              h=1,
+              l=-5.5,
+              ent=_cge(40)
+            },
+            ent=_cge(40)
+          }
+        },
+        [38]={
+          k=_cge(38),
+          v={
+            rect={
+              t=-4.5,
+              w=1,
+              h=1,
+              l=-5.5,
+              ent=_cge(38)
+            },
+            ent=_cge(38)
           }
         }
       }),
@@ -253,110 +265,27 @@
     sweep=function() --[[..skipped..]] end,
     get_bbox=function() --[[..skipped..]] end
   },
-  animation={
-    auto_saveload=true,
-    set_frames=function() --[[..skipped..]] end,
-    set_strips=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    switch=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    start=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({})
+  edit={
+    sel=cg.__entity_table_load({
+        [29]={
+          k=_cge(29),
+          v=true
+        }
+      })
   },
-  group=cg.__entity_table_load({
-      [46]={
-        k=_cge(46),
-        v={
-          default=true
-        }
-      },
-      [99]={
-        k=_cge(99),
-        v={
-          default=true
-        }
-      },
-      [93]={
-        k=_cge(93),
-        v={
-          default=true
-        }
-      },
-      [91]={
-        k=_cge(91),
-        v={
-          default=true
-        }
-      },
-      [87]={
-        k=_cge(87),
-        v={
-          default=true
-        }
-      },
-      [98]={
-        k=_cge(98),
-        v={
-          default=true
-        }
-      },
-      [79]={
-        k=_cge(79),
-        v={
-          default=true
-        }
-      },
-      [96]={
-        k=_cge(96),
-        v={
-          default=true
-        }
-      },
-      [95]={
-        k=_cge(95),
-        v={
-          default=true
-        }
-      },
-      [97]={
-        k=_cge(97),
-        v={
-          default=true
-        }
-      },
-      [83]={
-        k=_cge(83),
-        v={
-          default=true
-        }
-      },
-      [89]={
-        k=_cge(89),
-        v={
-          default=true
-        }
-      },
-      [81]={
-        k=_cge(81),
-        v={
-          default=true
-        }
-      },
-      [100]={
-        k=_cge(100),
-        v={
-          default=true
-        }
-      },
-      [77]={
-        k=_cge(77),
-        v={
-          default=true
-        }
-      }
-    }),
+  oneway={
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
   gui_checkbox={
     auto_saveload=true,
     toggle=function() --[[..skipped..]] end,
@@ -372,19 +301,103 @@
     tbl=cg.__entity_table_load({})
   },
   name=cg.__entity_table_load({
-      [46]={
-        k=_cge(46),
+      [42]={
+        k=_cge(42),
         v=\\"start\\"
       }
     }),
-  edit={
-    sel=cg.__entity_table_load({
-        [79]={
-          k=_cge(79),
-          v=true
+  group=cg.__entity_table_load({
+      [34]={
+        k=_cge(34),
+        v={
+          default=true
         }
-      })
-  }
+      },
+      [32]={
+        k=_cge(32),
+        v={
+          default=true
+        }
+      },
+      [31]={
+        k=_cge(31),
+        v={
+          default=true
+        }
+      },
+      [29]={
+        k=_cge(29),
+        v={
+          default=true
+        }
+      },
+      [28]={
+        k=_cge(28),
+        v={
+          default=true
+        }
+      },
+      [41]={
+        k=_cge(41),
+        v={
+          default=true
+        }
+      },
+      [37]={
+        k=_cge(37),
+        v={
+          default=true
+        }
+      },
+      [33]={
+        k=_cge(33),
+        v={
+          default=true
+        }
+      },
+      [35]={
+        k=_cge(35),
+        v={
+          default=true
+        }
+      },
+      [30]={
+        k=_cge(30),
+        v={
+          default=true
+        }
+      },
+      [39]={
+        k=_cge(39),
+        v={
+          default=true
+        }
+      },
+      [38]={
+        k=_cge(38),
+        v={
+          default=true
+        }
+      },
+      [42]={
+        k=_cge(42),
+        v={
+          default=true
+        }
+      },
+      [40]={
+        k=_cge(40),
+        v={
+          default=true
+        }
+      },
+      [36]={
+        k=_cge(36),
+        v={
+          default=true
+        }
+      }
+    })
 }
 local __={}
 _.player.add=_.player.simple_add
@@ -395,6 +408,10 @@ _.bump.add=_.bump.simple_add
 _.bump.remove=_.bump.simple_remove
 _.bump.simple_has=_.bump.has
 _.bump.simple_update_all=_.bump.update_all
+_.oneway.remove=_.oneway.simple_remove
+_.oneway.simple_update_all=_.oneway.update_all
+_.oneway.simple_has=_.oneway.has
+_.oneway.add=_.oneway.simple_add
 return _
 end\" " }
   }
@@ -429,7 +446,7 @@ end\" " }
         [ "texcell" "32.000000 32.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "100 " }
+          { "id" "41 " }
         }
       }
       { n n 
@@ -438,7 +455,7 @@ end\" " }
         [ "texcell" "32.000000 32.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "99 " }
+          { "id" "40 " }
         }
       }
       { n n 
@@ -447,7 +464,7 @@ end\" " }
         [ "texcell" "32.000000 32.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "98 " }
+          { "id" "39 " }
         }
       }
       { n n 
@@ -456,7 +473,7 @@ end\" " }
         [ "texcell" "32.000000 32.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "97 " }
+          { "id" "38 " }
         }
       }
       { n n 
@@ -465,7 +482,7 @@ end\" " }
         [ "texcell" "32.000000 32.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "96 " }
+          { "id" "37 " }
         }
       }
       { n n 
@@ -474,7 +491,7 @@ end\" " }
         [ "texcell" "32.000000 32.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "95 " }
+          { "id" "36 " }
         }
       }
       { n n 
@@ -483,7 +500,7 @@ end\" " }
         [ "texcell" "32.000000 32.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "93 " }
+          { "id" "35 " }
         }
       }
       { n n 
@@ -492,7 +509,7 @@ end\" " }
         [ "texcell" "32.000000 32.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "91 " }
+          { "id" "34 " }
         }
       }
       { n n 
@@ -501,7 +518,7 @@ end\" " }
         [ "texcell" "32.000000 32.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "89 " }
+          { "id" "33 " }
         }
       }
       { n n 
@@ -510,7 +527,7 @@ end\" " }
         [ "texcell" "32.000000 32.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "87 " }
+          { "id" "32 " }
         }
       }
       { n n 
@@ -519,7 +536,7 @@ end\" " }
         [ "texcell" "32.000000 32.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "83 " }
+          { "id" "31 " }
         }
       }
       { n n 
@@ -528,7 +545,7 @@ end\" " }
         [ "texcell" "0.000000 32.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "79 " }
+          { "id" "29 " }
         }
       }
       { n n 
@@ -537,24 +554,24 @@ end\" " }
         [ "texcell" "32.000000 32.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "77 " }
+          { "id" "28 " }
         }
       }
     }
-    { "atlas" "\"./data/test/atlas.png\" " }
+    { "atlas" "\"./data/default.png\" " }
   }
   { "camera" n 
     { "pool" n 
       { n n 
         { "viewport_height" "18.750000 " }
         { "pool_elem" n 
-          { "id" "81 " }
+          { "id" "30 " }
         }
       }
     }
-    [ "inverse_view_matrix" "0.048000 0.000000 0.000000 0.000000 0.064000 -0.000000 -0.000000 0.000000 1.000000 " ] 
+    [ "inverse_view_matrix" "0.060000 0.000000 0.000000 0.000000 0.080000 -0.000000 -0.000000 0.000000 1.000000 " ] 
     { "curr_camera" n 
-      { "id" "81 " }
+      { "id" "30 " }
     }
   }
   { "transform" n 
@@ -571,7 +588,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-9.000000 -6.000000 " ] 
         { "pool_elem" n 
-          { "id" "46 " }
+          { "id" "42 " }
         }
       }
       { n n 
@@ -586,7 +603,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "8.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "83 " }
+          { "id" "31 " }
         }
       }
       { n n 
@@ -601,11 +618,11 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "9.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "93 " }
+          { "id" "35 " }
         }
       }
       { n n 
-        { "dirty_count" "82561 " }
+        { "dirty_count" "82847 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -6.000000 1.000000 " ] 
         [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -6.000000 1.000000 " ] 
         { "children" n }
@@ -616,7 +633,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-9.000000 -6.000000 " ] 
         { "pool_elem" n 
-          { "id" "79 " }
+          { "id" "29 " }
         }
       }
       { n n 
@@ -631,7 +648,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "97 " }
+          { "id" "38 " }
         }
       }
       { n n 
@@ -646,7 +663,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "10.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "77 " }
+          { "id" "28 " }
         }
       }
       { n n 
@@ -661,7 +678,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "5.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "91 " }
+          { "id" "34 " }
         }
       }
       { n n 
@@ -676,7 +693,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "11.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "89 " }
+          { "id" "33 " }
         }
       }
       { n n 
@@ -691,7 +708,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-10.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "98 " }
+          { "id" "39 " }
         }
       }
       { n n 
@@ -706,11 +723,11 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "7.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "87 " }
+          { "id" "32 " }
         }
       }
       { n n 
-        { "dirty_count" "28792 " }
+        { "dirty_count" "30135 " }
         [ "worldmat_cache" "12.500000 0.000000 0.000000 -0.000000 9.375000 0.000000 0.000000 0.000000 1.000000 " ] 
         [ "mat_cache" "12.500000 0.000000 0.000000 -0.000000 9.375000 0.000000 0.000000 0.000000 1.000000 " ] 
         { "children" n }
@@ -721,7 +738,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "0.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "81 " }
+          { "id" "30 " }
         }
       }
       { n n 
@@ -736,7 +753,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-9.000000 -3.000000 " ] 
         { "pool_elem" n 
-          { "id" "100 " }
+          { "id" "41 " }
         }
       }
       { n n 
@@ -751,7 +768,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-9.000000 2.000000 " ] 
         { "pool_elem" n 
-          { "id" "99 " }
+          { "id" "40 " }
         }
       }
       { n n 
@@ -766,7 +783,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-9.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "96 " }
+          { "id" "37 " }
         }
       }
       { n n 
@@ -781,7 +798,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "95 " }
+          { "id" "36 " }
         }
       }
     }
@@ -799,77 +816,77 @@ end\" " }
     { "exists_pool" n 
       { n n 
         { "pool_elem" n 
-          { "id" "46 " }
+          { "id" "42 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "100 " }
+          { "id" "41 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "99 " }
+          { "id" "40 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "98 " }
+          { "id" "39 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "97 " }
+          { "id" "38 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "96 " }
+          { "id" "37 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "95 " }
+          { "id" "36 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "93 " }
+          { "id" "35 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "91 " }
+          { "id" "34 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "89 " }
+          { "id" "33 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "87 " }
+          { "id" "32 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "83 " }
+          { "id" "31 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "81 " }
+          { "id" "30 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "79 " }
+          { "id" "29 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "77 " }
+          { "id" "28 " }
         }
       }
     }
