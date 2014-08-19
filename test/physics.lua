@@ -1,3 +1,5 @@
+cs.sprite.set_atlas('./test/atlas.png')
+
 WIN_WIDTH = 800
 WIN_HEIGHT = 600
 

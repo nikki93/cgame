@@ -1,6 +1,8 @@
 require 'test.oscillator'
 require 'test.rotator'
 
+cs.sprite.set_atlas('./test/atlas.png')
+
 -- add camera: 32 pixels is one unit
 
 camera = cs.entity.create()
