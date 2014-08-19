@@ -7,49 +7,54 @@ cs.bump = cg.simple_sys()
 cg.simple_prop(cs.bump, 'bbox', cg.bbox(cg.vec2(-0.5, -0.5),
                                         cg.vec2(0.5, 0.5)))
 
-function _update_rect(obj, add)
-    local rect = obj.rect
-    if not rect then
-        rect = { ent = obj.ent }
-        obj.rect = rect
+local function _update_rect(obj, add)
+    local lt = obj.bbox.min + cs.transform.get_position(obj.ent)
+    local wh = obj.bbox.max - obj.bbox.min
+    if world.rects[obj.ent.id] then
+        world:move(obj.ent.id, lt.x, lt.y, wh.x, wh.y)
+    else
+        world:add(obj.ent.id, lt.x, lt.y, wh.x, wh.y)
     end
-    
-    local pos = cs.transform.get_position(obj.ent)
-    local bbt = cg.bbox(obj.bbox.min + pos, obj.bbox.max + pos)
-    rect.l, rect.t = bbt.min.x, bbt.min.y
-    local bbs = bbt.max - bbt.min
-    rect.w, rect.h = bbs.x, bbs.y
-    if not world.rects[rect] then
-        world:add(rect, rect.l, rect.t, rect.w, rect.h)
-    end
-    world:move(rect, rect.l, rect.t, rect.w, rect.h)
 end
 
 function cs.bump.create(obj)
+    cs.transform.add(obj.ent)
     _update_rect(obj, true)
 end
 function cs.bump.destroy(obj)
-    world:remove(obj.rect)
+    world:remove(obj.ent.id)
 end
 
-function cs.bump.get_collisions(ent, p)
+function cs.bump.set_position(ent, pos)
     local obj = cs.bump.tbl[ent]
     assert(obj, 'entity must be in bump system')
-    local mp = p and (obj.bbox.min + p)
-    local cols, len = world:check(obj.rect,
-                                  mp and mp.x or obj.rect.l,
-                                  mp and mp.y or obj.rect.p)
-    local ecols = {}
+    cs.transform.set_position(ent, pos)
+    _update_rect(obj)
+end
 
+local function _filter_wrap(filter)
+    return filter and function (id)
+        return filter(cg.Entity { id = id })
+    end
+end
+
+function cs.bump.sweep(ent, p, filter)
+    local obj = cs.bump.tbl[ent]
+    assert(obj, 'entity must be in bump system')
+    _update_rect(obj)
+
+    p = p or cs.transform.get_position(ent)
+    p = obj.bbox.min + p
+
+    local wfilter = _filter_wrap(filter)
+    local cols, len = world:check(obj.ent.id, p.x, p.y, wfilter)
+    local min = obj.bbox.min
+    local ecols = {}
     for i = 1, len do
         local col = cols[i]
-        local min = cs.bump.tbl[col.other.ent].bbox.min
-        local function conv(x, y)
-            return cg.vec2(x, y) - min
-        end
         local tl, tt, nx, ny, sl, st = col:getSlide()
         table.insert(ecols, {
-            other = col.other.ent,
+            other = cg.Entity { id = col.other },
             touch = cg.vec2(tl, tt) - min,
             normal = cg.vec2(nx, ny),
             slide = cg.vec2(sl, st) - min,
@@ -58,36 +63,53 @@ function cs.bump.get_collisions(ent, p)
     return ecols
 end
 
-function cs.bump.slide(ent, np, first)
+function cs.bump.slide(ent, p, filter)
     local obj = cs.bump.tbl[ent]
     assert(obj, 'entity must be in bump system')
-    local rcols = {}
+    _update_rect(obj)
 
-    local x, y = np.x + obj.bbox.min.x, np.y + obj.bbox.min.y
-    local tl, tt, nx, ny
-    local hit = {}
-    while true do
-        local cols, len = world:check(obj.rect, x, y)
-        if len == 0 then
-            obj.rect.l, obj.rect.t = x, y
-            world:move(obj.rect, x, y)
-            break
+    local min = obj.bbox.min
+    local wfilter = _filter_wrap(filter)
+
+    local function rslide(ax, ay, bx, by, depth)
+        if depth > 3 then return ax, ay, {} end
+
+        world:move(obj.ent.id, ax, ay)
+        local cols, len = world:check(obj.ent.id, bx, by, wfilter)
+        if len == 0 then return bx, by, {} end
+
+        -- find best next collision recursively
+        local m = -1
+        local mcols, mcol, mtx, mty, mnx, mny, msx, msy
+        for i = 1, len do
+            world:move(obj.ent.id, ax, ay) -- TODO: avoid re-moving
+            local tx, ty, nx, ny, sx, sy = cols[i]:getSlide()
+            local px, py, pcols = rslide(tx, ty, sx, sy, depth + 1)
+            local dx, dy = px - ax, py - ay
+            local d = dx * dx + dy * dy
+            if d > m then
+                m = d
+                bx, by = px, py
+                mcols, mcol = pcols, cols[i]
+                mtx, mty, mnx, mny, msx, msy = tx, ty, nx, ny, sx, sy
+            end
         end
-        local col = cols[1]
-        tl, tt, nx, ny, x, y = col:getSlide()
-        table.insert(rcols, {
-            other = col.other.ent,
-            normal = cg.vec2(nx, ny) ,
-        })
-        obj.rect.l, obj.rect.t = tl, tt
-        world:move(obj.rect, tl, tt)
-        if hit[col.other] or first == true then break end
-        hit[col.other] = true
-    end
-    cs.transform.set_position(ent, cg.vec2(obj.rect.l - obj.bbox.min.x,
-                                           obj.rect.t - obj.bbox.min.y))
 
-    return rcols
+        -- add next collision and return
+        table.insert(mcols, {
+            other = cg.Entity { id = mcol.other },
+            touch = cg.vec2(mtx, mty) - min,
+            normal = cg.vec2(mnx, mny),
+            slide = cg.vec2(msx, msy) - min,
+        })
+        return bx, by, mcols
+    end
+
+    local a = cs.transform.get_position(obj.ent) + min
+    local bx, by, cols = rslide(a.x, a.y, p.x + min.x, p.y + min.y, 0)
+    cs.transform.set_position(ent, cg.vec2(bx - min.x, by - min.y))
+    _update_rect(obj)
+    return cols
 end
 
 function cs.bump.update(obj)
