@@ -45,20 +45,9 @@ function cs.player.unpaused_update(obj)
     -- gravity
     obj.v.y = obj.v.y - obj.gravity * cs.timing.dt
 
-    -- move filtering
-    local p = cs.transform.get_position(obj.ent)
-    local filter = function (e)
-        if cs.edit.select[e] then
-            local op = cs.transform.get_position(e)
-            if p.y <= op.y + 0.95 then return false end
-        end
-        return true
-    end
-
     -- move! (first y then x)
     local d = obj.v * cs.timing.dt
-    local cols = cs.bump.slide(obj.ent, cs.transform.get_position(obj.ent) + d,
-                               filter)
+    local cols = cs.bump.slide(obj.ent, cs.transform.get_position(obj.ent) + d)
 
     -- collisions
     for _, col in ipairs(cols) do
