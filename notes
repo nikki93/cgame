@@ -32,9 +32,6 @@ ideas
 todo
 ----
 
-- easy: make all save/load-ed enums specify value explicitly to avoid
-  problems on reordering etc.
-
 - easy: make entity_destroyed(ent) be true iff. on 2nd pass of
   destroyed map?
 

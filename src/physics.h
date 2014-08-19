@@ -25,14 +25,14 @@ SCRIPT(physics,
        typedef enum PhysicsBody PhysicsBody;
        enum PhysicsBody
        {
-           PB_STATIC,      /* never (or rarely) moves -- eg. wall */
-
-           PB_KINEMATIC,   /* moves but not dynamic -- eg. moving platform,
-                              can be moved through transform system */
-
-           PB_DYNAMIC,     /* moves subject to dynamics -- eg. bowling pin,
-                              avoid moving through transform system
-                              use forces, velocities, etc. instead */
+           PB_STATIC    = 0,   /* never (or rarely) moves -- eg. wall */
+                               
+           PB_KINEMATIC = 1,   /* moves but not dynamic -- eg. moving platform,
+                                  can be moved through transform system */
+                               
+           PB_DYNAMIC   = 2,   /* moves subject to dynamics -- eg. bowling pin,
+                                  avoid moving through transform system
+                                  use forces, velocities, etc. instead */
        };
 
        EXPORT void physics_add(Entity ent); /* PB_DYNAMIC by default */
@@ -52,8 +52,8 @@ SCRIPT(physics,
        typedef enum PhysicsShape PhysicsShape;
        enum PhysicsShape
        {
-           PS_CIRCLE,
-           PS_POLYGON,
+           PS_CIRCLE  = 0,
+           PS_POLYGON = 1,
        };
 
        EXPORT unsigned int physics_shape_add_circle(Entity ent, Scalar r,

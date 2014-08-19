@@ -35,11 +35,11 @@ SCRIPT(gui,
        typedef enum GuiAlign GuiAlign;
        enum GuiAlign
        {
-           GA_MIN,   /* h: left, v: bottom */
-           GA_MID,   /* h: center, v: center */
-           GA_MAX,   /* h: right, v: top */
-           GA_TABLE, /* h: left-right table, v: top-down table */
-           GA_NONE,  /* manual position */
+           GA_MIN   = 0,   /* h: left, v: bottom */
+           GA_MID   = 1,   /* h: center, v: center */
+           GA_MAX   = 2,   /* h: right, v: top */
+           GA_TABLE = 3,   /* h: left-right table, v: top-down table */
+           GA_NONE  = 4,   /* manual position */
        };
 
        EXPORT void gui_set_halign(Entity ent, GuiAlign align);
