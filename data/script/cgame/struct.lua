@@ -85,6 +85,7 @@ cg.Vec2 = ffi.metatype('Vec2',
 {
     __add = cg.vec2_add,
     __sub = cg.vec2_sub,
+    __unm = function (v) return cg.vec2_neg(v) end,
     __mul = function (a, b)
         if type(a) == 'number' then return cg.vec2_scalar_mul(b, a)
         elseif type(b) == 'number' then return cg.vec2_scalar_mul(a, b)
