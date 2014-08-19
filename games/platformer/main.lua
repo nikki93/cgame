@@ -25,15 +25,11 @@ function cs.player.unpaused_update(obj)
     if not obj.v then obj.v = cg.vec2(0, 0) end
 
     -- respawn
-    local p = cs.transform.get_position(obj.ent)
-    if p.y < -11 then
+    if cs.transform.get_position(obj.ent).y < -11 then
         local start = cs.name.find('start')
-        if start ~= cg.entity_nil then
-            cs.transform.set_position(obj.ent,
-                                      cs.transform.get_position(start))
-        else
-            cs.transform.set_position(obj.ent, cg.vec2_zero)
-        end
+        cs.transform.set_position(obj.ent, start ~= cg.entity_nil
+                                      and cs.transform.get_position(start)
+                                      or cg.vec2_zero)
         obj.v = cg.vec2(0, 0)
     end
 
