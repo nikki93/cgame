@@ -1,0 +1,877 @@
+22484
+{ n n 
+  { "script" n 
+    { "str" "\"do local _={
+  gui_textbox={
+    auto_saveload=true,
+    set_click_focus=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    get_click_focus=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    get_text=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end
+  },
+  gui_window={
+    get_body=function() --[[..skipped..]] end,
+    get_minimized=function() --[[..skipped..]] end,
+    set_highlight=function() --[[..skipped..]] end,
+    set_title=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    get_title=function() --[[..skipped..]] end,
+    mouse_up=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    set_minimized=function() --[[..skipped..]] end,
+    auto_saveload=true,
+    get_highlight=function() --[[..skipped..]] end,
+    get_closeable=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    update_all=function() --[[..skipped..]] end,
+    set_closeable=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    get_title_buttons_area=function() --[[..skipped..]] end
+  },
+  player={
+    set_gravity=function() --[[..skipped..]] end,
+    get_speed=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    add=nil,
+    auto_saveload=true,
+    get_jump_speed=function() --[[..skipped..]] end,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    key_down=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    get_gravity=function() --[[..skipped..]] end,
+    remove=nil,
+    tbl=cg.__entity_table_load({
+        [79]={
+          k=_cge(79),
+          v={
+            grounded=true,
+            v=cg.vec2(0.000000, 0.000000),
+            jump_speed=26.795000076294,
+            ent=_cge(79)
+          }
+        }
+      }),
+    simple_has=nil,
+    simple_update_all=nil,
+    set_speed=function() --[[..skipped..]] end,
+    set_jump_speed=function() --[[..skipped..]] end
+  },
+  bump={
+    slide=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    set_position=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    add=nil,
+    update=function() --[[..skipped..]] end,
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({
+        [99]={
+          k=_cge(99),
+          v={
+            rect={
+              t=1.5,
+              w=1,
+              h=1,
+              l=-5.5,
+              ent=_cge(99)
+            },
+            ent=_cge(99)
+          }
+        },
+        [95]={
+          k=_cge(95),
+          v={
+            rect={
+              t=0.5,
+              w=1,
+              h=1,
+              l=-5.5,
+              ent=_cge(95)
+            },
+            ent=_cge(95)
+          }
+        },
+        [87]={
+          k=_cge(87),
+          v={
+            rect={
+              t=-0.5,
+              w=1,
+              h=1,
+              l=6.5,
+              ent=_cge(87)
+            },
+            ent=_cge(87)
+          }
+        },
+        [98]={
+          k=_cge(98),
+          v={
+            rect={
+              t=-0.5,
+              w=1,
+              h=1,
+              l=-6.5,
+              ent=_cge(98)
+            },
+            ent=_cge(98)
+          }
+        },
+        [79]={
+          k=_cge(79),
+          v={
+            rect={
+              t=-5.5,
+              w=1,
+              h=1,
+              l=2.4838409423828,
+              ent=_cge(79)
+            },
+            ent=_cge(79)
+          }
+        },
+        [89]={
+          k=_cge(89),
+          v={
+            rect={
+              t=-0.5,
+              w=1,
+              h=1,
+              l=10.5,
+              ent=_cge(89)
+            },
+            ent=_cge(89)
+          }
+        },
+        [96]={
+          k=_cge(96),
+          v={
+            rect={
+              t=-6.5,
+              w=1,
+              h=1,
+              l=-7.5,
+              ent=_cge(96)
+            },
+            ent=_cge(96)
+          }
+        },
+        [97]={
+          k=_cge(97),
+          v={
+            rect={
+              t=-4.5,
+              w=1,
+              h=1,
+              l=-5.5,
+              ent=_cge(97)
+            },
+            ent=_cge(97)
+          }
+        },
+        [91]={
+          k=_cge(91),
+          v={
+            rect={
+              t=3.5,
+              w=1,
+              h=1,
+              l=3.5,
+              ent=_cge(91)
+            },
+            ent=_cge(91)
+          }
+        },
+        [93]={
+          k=_cge(93),
+          v={
+            rect={
+              t=-0.5,
+              w=1,
+              h=1,
+              l=8.5,
+              ent=_cge(93)
+            },
+            ent=_cge(93)
+          }
+        },
+        [83]={
+          k=_cge(83),
+          v={
+            rect={
+              t=-0.5,
+              w=1,
+              h=1,
+              l=7.5,
+              ent=_cge(83)
+            },
+            ent=_cge(83)
+          }
+        },
+        [100]={
+          k=_cge(100),
+          v={
+            rect={
+              t=-0.5,
+              w=1,
+              h=1,
+              l=-6.5,
+              ent=_cge(100)
+            },
+            ent=_cge(100)
+          }
+        },
+        [77]={
+          k=_cge(77),
+          v={
+            rect={
+              t=-0.5,
+              w=1,
+              h=1,
+              l=9.5,
+              ent=_cge(77)
+            },
+            ent=_cge(77)
+          }
+        }
+      }),
+    destroy=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    remove=nil,
+    set_bbox=function() --[[..skipped..]] end,
+    simple_has=nil,
+    simple_update_all=nil,
+    sweep=function() --[[..skipped..]] end,
+    get_bbox=function() --[[..skipped..]] end
+  },
+  animation={
+    auto_saveload=true,
+    set_frames=function() --[[..skipped..]] end,
+    set_strips=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    switch=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    start=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({})
+  },
+  group=cg.__entity_table_load({
+      [46]={
+        k=_cge(46),
+        v={
+          default=true
+        }
+      },
+      [99]={
+        k=_cge(99),
+        v={
+          default=true
+        }
+      },
+      [93]={
+        k=_cge(93),
+        v={
+          default=true
+        }
+      },
+      [91]={
+        k=_cge(91),
+        v={
+          default=true
+        }
+      },
+      [87]={
+        k=_cge(87),
+        v={
+          default=true
+        }
+      },
+      [98]={
+        k=_cge(98),
+        v={
+          default=true
+        }
+      },
+      [79]={
+        k=_cge(79),
+        v={
+          default=true
+        }
+      },
+      [96]={
+        k=_cge(96),
+        v={
+          default=true
+        }
+      },
+      [95]={
+        k=_cge(95),
+        v={
+          default=true
+        }
+      },
+      [97]={
+        k=_cge(97),
+        v={
+          default=true
+        }
+      },
+      [83]={
+        k=_cge(83),
+        v={
+          default=true
+        }
+      },
+      [89]={
+        k=_cge(89),
+        v={
+          default=true
+        }
+      },
+      [81]={
+        k=_cge(81),
+        v={
+          default=true
+        }
+      },
+      [100]={
+        k=_cge(100),
+        v={
+          default=true
+        }
+      },
+      [77]={
+        k=_cge(77),
+        v={
+          default=true
+        }
+      }
+    }),
+  gui_checkbox={
+    auto_saveload=true,
+    toggle=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    get_checked=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    set_checked=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end
+  },
+  edit_inspector={
+    tbl=cg.__entity_table_load({})
+  },
+  name=cg.__entity_table_load({
+      [46]={
+        k=_cge(46),
+        v=\\"start\\"
+      }
+    }),
+  edit={
+    sel=cg.__entity_table_load({
+        [79]={
+          k=_cge(79),
+          v=true
+        }
+      })
+  }
+}
+local __={}
+_.player.add=_.player.simple_add
+_.player.remove=_.player.simple_remove
+_.player.simple_has=_.player.has
+_.player.simple_update_all=_.player.update_all
+_.bump.add=_.bump.simple_add
+_.bump.remove=_.bump.simple_remove
+_.bump.simple_has=_.bump.has
+_.bump.simple_update_all=_.bump.update_all
+return _
+end\" " }
+  }
+  { "keyboard_controlled" n }
+  { "sound" n 
+    { "pool" n }
+  }
+  { "edit" n 
+    { "uneditable_pool" n }
+    [ "grid_size" "1.000000 1.000000 " ] 
+  }
+  { "gui_textedit" n 
+    { "pool" n }
+  }
+  { "gui_text" n 
+    { "pool" n }
+  }
+  { "gui_rect" n 
+    { "pool" n }
+  }
+  { "gui" n 
+    { "pool" n }
+  }
+  { "physics" n 
+    { "pool" n }
+  }
+  { "sprite" n 
+    { "pool" n 
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 32.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "100 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 32.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "99 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 32.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "98 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 32.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "97 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 32.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "96 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 32.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "95 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 32.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "93 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 32.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "91 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 32.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "89 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 32.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "87 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 32.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "83 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "0.000000 32.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "79 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 32.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "77 " }
+        }
+      }
+    }
+    { "atlas" "\"./data/test/atlas.png\" " }
+  }
+  { "camera" n 
+    { "pool" n 
+      { n n 
+        { "viewport_height" "18.750000 " }
+        { "pool_elem" n 
+          { "id" "81 " }
+        }
+      }
+    }
+    [ "inverse_view_matrix" "0.048000 0.000000 0.000000 0.000000 0.064000 -0.000000 -0.000000 0.000000 1.000000 " ] 
+    { "curr_camera" n 
+      { "id" "81 " }
+    }
+  }
+  { "transform" n 
+    { "pool" n 
+      { n n 
+        { "dirty_count" "658 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -6.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -6.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-9.000000 -6.000000 " ] 
+        { "pool_elem" n 
+          { "id" "46 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2027 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 8.000000 0.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 8.000000 0.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "8.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "83 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2169 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 9.000000 0.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 9.000000 0.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "9.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "93 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "82561 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -6.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -6.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-9.000000 -6.000000 " ] 
+        { "pool_elem" n 
+          { "id" "79 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2991 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -7.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -7.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-8.000000 -7.000000 " ] 
+        { "pool_elem" n 
+          { "id" "97 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2410 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 10.000000 0.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 10.000000 0.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "10.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "77 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2512 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 5.000000 1.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 5.000000 1.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "5.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "91 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2552 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 11.000000 0.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 11.000000 0.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "11.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "89 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2552 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 1.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 1.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-10.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "98 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2345 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 7.000000 0.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 7.000000 0.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "7.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "87 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "28792 " }
+        [ "worldmat_cache" "12.500000 0.000000 0.000000 -0.000000 9.375000 0.000000 0.000000 0.000000 1.000000 " ] 
+        [ "mat_cache" "12.500000 0.000000 0.000000 -0.000000 9.375000 0.000000 0.000000 0.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "12.500000 9.375000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "0.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "81 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2468 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-9.000000 -3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "100 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2737 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 2.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 2.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-9.000000 2.000000 " ] 
+        { "pool_elem" n 
+          { "id" "99 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2841 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -8.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -8.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-9.000000 -8.000000 " ] 
+        { "pool_elem" n 
+          { "id" "96 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2637 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -2.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -2.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-8.000000 -2.000000 " ] 
+        { "pool_elem" n 
+          { "id" "95 " }
+        }
+      }
+    }
+  }
+  { "timing" n 
+    { "scale" "1.000000 " }
+  }
+  { "prefab" n 
+    { "saved_root" n 
+      { "id" "0 " }
+    }
+  }
+  { "entity" n 
+    { "destroyed" n }
+    { "exists_pool" n 
+      { n n 
+        { "pool_elem" n 
+          { "id" "46 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "100 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "99 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "98 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "97 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "96 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "95 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "93 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "91 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "89 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "87 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "83 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "81 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "79 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "77 " }
+        }
+      }
+    }
+  }
+}
