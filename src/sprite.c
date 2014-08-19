@@ -151,7 +151,7 @@ void sprite_init()
                                  data_path("sprite.frag"));
     glUseProgram(program);
     glUniform1i(glGetUniformLocation(program, "tex0"), 0);
-    sprite_set_atlas(data_path("test/atlas.png"));
+    sprite_set_atlas(data_path("default.png"));
 
     /* make vao, vbo, bind attributes */
     glGenVertexArrays(1, &vao);
