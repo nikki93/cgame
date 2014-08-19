@@ -41,12 +41,17 @@ function cs.name.find(name)
     return name_entity[name] and name_entity[name] or cg.Entity(entity_nil)
 end
 
+function cs.name.update_all()
+    cg.entity_table_remove_destroyed(entity_name, cs.name.remove)
+end
+
 function cs.name.save_all()
     return entity_name
 end
 
 local counter = 0
 function cs.name.load_all(d)
+    cg.entity_table_remove_destroyed(entity_name, cs.name.remove)
     for ent, rname in pairs(d) do
         local name = rname
 
