@@ -17,7 +17,6 @@ SCRIPT(console,
        EXPORT bool console_get_visible();
 
        EXPORT void console_puts(const char *s);
-       __attribute__((format(printf, 1, 2)))
        EXPORT void console_printf(const char *fmt, ...);
 
     )

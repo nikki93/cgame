@@ -9,9 +9,9 @@ SCRIPT(fs,
 
        typedef struct Dir Dir;
 
-       Dir *fs_dir_open(const char *path);
-       const char *fs_dir_next_file(Dir *dir); /* NULL after last file */
-       void fs_dir_close(Dir *dir);
+       EXPORT Dir *fs_dir_open(const char *path);
+       EXPORT const char *fs_dir_next_file(Dir *dir); /* NULL after last file */
+       EXPORT void fs_dir_close(Dir *dir);
 
     )
 
