@@ -26,7 +26,8 @@ SCRIPT(game,
         *    pixels: (0, 0) top-left, game_get_window_size() bottom right
         *
         */
-       EXPORT Vec2 game_get_window_size(); /* width, height in pixels */
+       EXPORT void game_set_window_size(Vec2 s); /* width, height in pixels */
+       EXPORT Vec2 game_get_window_size();
        EXPORT Vec2 game_unit_to_pixels(Vec2 p);
        EXPORT Vec2 game_pixels_to_unit(Vec2 p);
 

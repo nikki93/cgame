@@ -133,6 +133,10 @@ void game_set_bg_color(Color c)
     glClearColor(c.r, c.g, c.b, 1.0);
 }
 
+void game_set_window_size(Vec2 s)
+{
+    glfwSetWindowSize(game_window, s.x, s.y);
+}
 Vec2 game_get_window_size()
 {
     int w, h;
