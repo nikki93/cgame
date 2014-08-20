@@ -10,7 +10,7 @@ cg.simple_prop(cs.bump, 'bbox', cg.bbox(cg.vec2(-0.5, -0.5),
 local function _update_rect(obj, add)
     local lt = obj.bbox.min + cs.transform.get_position(obj.ent)
     local wh = obj.bbox.max - obj.bbox.min
-    if world.rects[obj.ent.id] then
+    if world:hasItem(obj.ent.id) then
         world:move(obj.ent.id, lt.x, lt.y, wh.x, wh.y)
     else
         world:add(obj.ent.id, lt.x, lt.y, wh.x, wh.y)
