@@ -18,6 +18,19 @@ function cs.player.key_down(k)
     end
 end
 
+function cs.player.move(ent, d)
+    local p = cs.transform.get_position(ent)
+    local function filter(e)
+        if cs.oneway.has(e) then
+            local ep = cs.transform.get_position(e)
+            if p.y < ep.y + 0.99 then return false end
+        end
+        return true
+    end
+
+    return cs.bump.slide(ent, cs.transform.get_position(ent) + d, filter)
+end
+
 function cs.player.unpaused_update(obj)
     obj.grounded = false
     if not obj.v then obj.v = cg.vec2(0, 0) end
@@ -39,25 +52,49 @@ function cs.player.unpaused_update(obj)
     -- gravity
     obj.v.y = obj.v.y - obj.gravity * cs.timing.dt
 
-    -- move filtering
-    local p = cs.transform.get_position(obj.ent)
-    local function filter(e)
-        if cs.oneway.has(e) then
-            local ep = cs.transform.get_position(e)
-            if p.y < ep.y + 0.99 then return false end
-        end
-        return true
-    end
-
-    -- move! (first y then x)
-    local d = obj.v * cs.timing.dt
-    local cols = cs.bump.slide(obj.ent, cs.transform.get_position(obj.ent) + d,
-                               filter)
+    -- move!
+    local cols = cs.player.move(obj.ent, obj.v * cs.timing.dt)
 
     -- collisions
     for _, col in ipairs(cols) do
         if col.normal.y ~= 0 then obj.v.y = 0 end
         if col.normal.y > 0 then obj.grounded = true end
+    end
+end
+
+
+--- mover -------------------------------------------------------------------
+
+cs.mover = cg.simple_sys()
+
+cg.simple_prop(cs.mover, 'velocity', cg.vec2(2, 0))
+
+function cs.mover.create(obj)
+    cs.bump.add(obj.ent)
+end
+
+function cs.mover.unpaused_update(obj)
+    local old_pos = cs.transform.get_position(obj.ent)
+
+    -- move
+    local d = obj.velocity * cs.timing.dt
+    local cols = cs.bump.slide(obj.ent, cs.transform.get_position(obj.ent) + d)
+
+    -- bounce?
+    for _, col in ipairs(cols) do
+        if col.normal.x ~= 0 then
+            obj.velocity = cg.vec2_neg(obj.velocity)
+            break
+        end
+    end
+
+    -- move player?
+    local p = cs.transform.get_position(obj.ent)
+    local reald = p - old_pos
+    for _, col in ipairs(cs.bump.sweep(obj.ent, p + cg.vec2(0, 0.01))) do
+        if cs.player.has(col.other) then
+            cs.player.move(col.other, reald)
+        end
     end
 end
 
