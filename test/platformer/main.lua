@@ -110,8 +110,13 @@ end
 
 --- main --------------------------------------------------------------------
 
+-- directories
+game_dir = './test/platformer'
+cs.edit.set_default_file(game_dir .. '/')
+cs.edit.set_default_prefab_file(game_dir .. '/')
+
 -- start at level 1 or command line option
-local level_path = cg.args[2] or './test/platformer/1.lvl'
+local level_path = cg.args[2] or (game_dir .. '/1.lvl')
 local s = cg.store_open_file(level_path)
 cs.system.load_all(s)
 cg.store_close(s)
