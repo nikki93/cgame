@@ -24,9 +24,10 @@ function cs.app.key_down(key)
     end
 end
 
-if cg.args[1] then
-    -- startup script specified, run it
-    dofile(cg.args[1])
+local run = (cg.args[1] and loadfile(cg.args[1])) or loadfile('./main.lua')
+if run then
+    -- run script given, run it
+    run()
 
     -- no camera? add default
     if cs.camera.get_current_camera() == cg.entity_nil then
