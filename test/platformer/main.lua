@@ -23,7 +23,7 @@ function cs.player.move(ent, d)
     local function filter(e)
         if cs.oneway.has(e) then
             local ep = cs.transform.get_position(e)
-            if p.y < ep.y + 0.99 then return false end
+            if p.y < ep.y + 1 then return false end
         end
         return true
     end
