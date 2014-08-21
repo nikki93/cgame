@@ -28,7 +28,7 @@ function cs.player.move(ent, d)
         return true
     end
 
-    return cs.bump.slide(ent, cs.transform.get_position(ent) + d, filter)
+    return cs.bump.slide(ent, d, filter)
 end
 
 function cs.player.unpaused_update(obj)
@@ -78,7 +78,7 @@ function cs.mover.unpaused_update(obj)
 
     -- move
     local d = obj.velocity * cs.timing.dt
-    local cols = cs.bump.slide(obj.ent, cs.transform.get_position(obj.ent) + d)
+    local cols = cs.bump.slide(obj.ent, d)
 
     -- bounce?
     for _, col in ipairs(cols) do
@@ -89,9 +89,8 @@ function cs.mover.unpaused_update(obj)
     end
 
     -- move player?
-    local p = cs.transform.get_position(obj.ent)
-    local reald = p - old_pos
-    for _, col in ipairs(cs.bump.sweep(obj.ent, p + cg.vec2(0, 0.01))) do
+    local reald = cs.transform.get_position(obj.ent) - old_pos
+    for _, col in ipairs(cs.bump.sweep(obj.ent, cg.vec2(0, 0.01))) do
         if cs.player.has(col.other) then
             cs.player.move(col.other, reald)
         end

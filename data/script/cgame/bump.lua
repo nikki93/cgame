@@ -43,8 +43,7 @@ function cs.bump.sweep(ent, p, filter)
     assert(obj, 'entity must be in bump system')
     _update_rect(obj)
 
-    p = p or cs.transform.get_position(ent)
-    p = obj.bbox.min + p
+    p = obj.bbox.min + cs.transform.get_position(ent) + (p or cg.vec2_zero)
 
     local wfilter = _filter_wrap(filter)
     local cols, len = world:check(obj.ent.id, p.x, p.y, wfilter)
@@ -67,6 +66,8 @@ function cs.bump.slide(ent, p, filter)
     local obj = cs.bump.tbl[ent]
     assert(obj, 'entity must be in bump system')
     _update_rect(obj)
+
+    p = cs.transform.get_position(ent) + p
 
     local min = obj.bbox.min
     local wfilter = _filter_wrap(filter)
