@@ -3,17 +3,8 @@ set(CMAKE_BUILD_TYPE Release)
 
 project(cgame)
 
-set(CGAME_SOURCES src/main.c src/vec2.c src/bbox.c src/mat3.c
-  src/color.c src/fs.c src/error.c src/game.c src/entity.c
-  src/system.c src/prefab.c src/entitymap.c src/array.c
-  src/entitypool.c src/saveload.c src/script.c src/input.c
-  src/timing.c src/transform.c src/camera.c src/texture.c src/gfx.c
-  src/gui.c src/console.c src/scratch.c src/sprite.c src/sound.c
-  src/physics.c src/edit.c
-
-  src/test/keyboard_controlled.c src/test/test.c
-
-  ext/glew/src/glew.c ext/stb/stb_image.c)
+file(GLOB_RECURSE CGAME_SOURCES src/*.c src/*.h)
+list(APPEND CGAME_SOURCES ext/glew/src/glew.c ext/stb/stb_image.c)
 
 if(APPLE)
   add_definitions(-DCGAME_OSX)
