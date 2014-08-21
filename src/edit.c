@@ -77,7 +77,7 @@ void edit_bboxes_update(Entity ent, BBox bbox)
 
 bool edit_bboxes_has(Entity ent)
 {
-    return entitypool_get(bbox_pool, ent);
+    return entitypool_get(bbox_pool, ent) != NULL;
 }
 BBox edit_bboxes_get(Entity ent)
 {
