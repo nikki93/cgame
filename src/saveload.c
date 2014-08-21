@@ -313,7 +313,7 @@ bool store_child_save(Store **sp, const char *name, Store *parent)
 
     /* compressed? keep it flat */
     if (parent->compressed)
-        return *sp = parent;
+        return (*sp = parent) != NULL;
 
     s = _store_new(parent);
     if (name)
@@ -321,7 +321,7 @@ bool store_child_save(Store **sp, const char *name, Store *parent)
         s->name = malloc(strlen(name) + 1);
         strcpy(s->name, name);
     }
-    return *sp = s;
+    return (*sp = s) != NULL;
 }
 
 bool store_child_save_compressed(Store **sp, const char *name, Store *parent)
@@ -337,7 +337,7 @@ bool store_child_load(Store **sp, const char *name, Store *parent)
 
     /* compressed? expect flat */
     if (parent->compressed)
-        return *sp = parent;
+        return (*sp = parent) != NULL;
 
     /* if NULL name, pick next iteration child and advance */
     if (!name)
@@ -345,13 +345,13 @@ bool store_child_load(Store **sp, const char *name, Store *parent)
         s = parent->iterchild;
         if (parent->iterchild)
             parent->iterchild = parent->iterchild->sibling;
-        return *sp = s;
+        return (*sp = s) != NULL;
     }
 
     /* search all children */
     for (s = parent->child; s && (!s->name || strcmp(s->name, name));
          s = s->sibling);
-    return *sp = s;
+    return (*sp = s) != NULL;
 }
 
 /* --- open/close ---------------------------------------------------------- */
