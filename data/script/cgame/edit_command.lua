@@ -238,7 +238,7 @@ function cs.edit.command_load()
     end
 
     cs.edit.command_start('load from file: ', load,
-                          cs.edit.command_completion_fs, false, last_load)
+                          cs.edit.command_completion_fs, true, last_load)
 end
 
 function cs.edit.set_default_file(s)

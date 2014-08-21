@@ -50,6 +50,7 @@ include_directories(${PROJECT_SOURCE_DIR}/ext/stb)
 include_directories(${PROJECT_SOURCE_DIR}/ext/luajit/src)
 include_directories(${PROJECT_SOURCE_DIR}/ext/chipmunk/include/chipmunk)
 include_directories(${PROJECT_SOURCE_DIR}/ext/gorilla/include)
+include_directories(${PROJECT_SOURCE_DIR}/ext/dirent_win)
 
 if(APPLE)
   set_target_properties(cgame PROPERTIES LINK_FLAGS
