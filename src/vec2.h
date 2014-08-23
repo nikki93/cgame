@@ -24,6 +24,7 @@ SCRIPT(vec2,
 
        EXPORT Scalar vec2_len(Vec2 v);
        EXPORT Vec2 vec2_normalize(Vec2 v);
+       EXPORT Scalar vec2_dot(Vec2 u, Vec2 v);
        EXPORT Scalar vec2_dist(Vec2 u, Vec2 v);
 
        EXPORT Vec2 vec2_rot(Vec2 v, Scalar rot);
