@@ -261,7 +261,7 @@ function cs.edit.command_save_prefab()
 
         cs.prefab.save(f, cs.edit.select_get_first())
 
-        last_save_prefab = f
+        -- last_save_prefab = f
     end
 
     cs.edit.command_start('save prefab: ', save, cs.edit.command_completion_fs,
@@ -281,7 +281,7 @@ function cs.edit.command_load_prefab()
         end
         cs.edit.undo_save()
 
-        last_load_prefab = f
+        -- last_load_prefab = f
     end
 
     cs.edit.command_start('load prefab: ', load, cs.edit.command_completion_fs,
