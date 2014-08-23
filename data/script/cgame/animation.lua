@@ -96,6 +96,13 @@ function cs.animation.update_all()
 
             -- next frame?
             while entry.t <= dt do
+                if anim.after and entry.frame >= anim.n then
+                    assert(entry.anims[anim.after], "must have an animation "
+                               .. "with name '" .. anim.after .. "'")
+                    entry.curr_anim = anim.after
+                    entry.frame = 1
+                    anim = entry.anims[anim.after]
+                end
                 _enter_frame(entry, entry.frame >= anim.n
                                  and 1 or entry.frame + 1, anim)
                 dt = dt - entry.t
@@ -206,6 +213,10 @@ cs.edit_inspector.custom['animation'] = {
                     field_type = 'Vec2', parent = view.window_body,
                     label = 'base'
                 }
+                view.after = cg.edit_field_create {
+                    field_type = 'enum', parent = view.window_body,
+                    label = 'after'
+                }
             end
         end
 
@@ -230,7 +241,8 @@ cs.edit_inspector.custom['animation'] = {
                         local strips = {
                             [s] = {
                                 n = anim.n, t = anim.strip.t,
-                                base = cg.Vec2(anim.strip.base)
+                                base = cg.Vec2(anim.strip.base),
+                                after = anim.after
                             }
                         }
                         cs.animation.set_strips(ent, strips)
@@ -251,6 +263,9 @@ cs.edit_inspector.custom['animation'] = {
                 cg.edit_field_post_update(
                     view.base, anim.strip.base,
                     function (v) anim.strip.base = v end)
+                cg.edit_field_post_update(
+                    view.after, anim.after or '(none)',
+                    function (s) anim.after = s end, anims)
             end
         end
     end,
