@@ -277,6 +277,8 @@ function cs.edit.command_load_prefab()
         if cs.transform.has(ent) then
             -- move to center of view
             local w = cs.transform.local_to_world(cs.edit.camera, cg.vec2_zero)
+            w.x = math.floor(w.x + 0.5)
+            w.y = math.floor(w.y + 0.5)
             cs.transform.set_position(ent, w)
         end
         cs.edit.undo_save()
