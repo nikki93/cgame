@@ -38,7 +38,7 @@ function cs.name.get_name(ent, name)
 end
 
 function cs.name.find(name)
-    return name_entity[name] and name_entity[name] or cg.Entity(entity_nil)
+    return name_entity[name] and name_entity[name] or cg.Entity(cg.entity_nil)
 end
 
 function cs.name.update_all()
