@@ -74,8 +74,8 @@ void sprite_add(Entity ent)
 
     sprite = entitypool_add(pool, ent);
     sprite->size = vec2(1.0f, 1.0f);
-    sprite->texcell = vec2(32.0f, 32.0f);
-    sprite->texsize = vec2(32.0f, 32.0f);
+    sprite->texcell = vec2(0.0f, 0.0f);
+    sprite->texsize = vec2(16.0f, 16.0f);
     sprite->depth = 0;
 }
 void sprite_remove(Entity ent)
