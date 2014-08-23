@@ -1,31 +1,7 @@
-10191
+36274
 { n n 
   { "script" n 
     { "str" "\"do local _={
-  camera_follow={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  gui_textbox={
-    auto_saveload=true,
-    set_click_focus=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
-    get_click_focus=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    get_text=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end
-  },
   wall={
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
@@ -53,47 +29,6 @@
     tbl=cg.__entity_table_load({}),
     add=nil
   },
-  gui_window={
-    get_body=function() --[[..skipped..]] end,
-    get_minimized=function() --[[..skipped..]] end,
-    set_highlight=function() --[[..skipped..]] end,
-    set_title=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    get_title=function() --[[..skipped..]] end,
-    mouse_up=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    set_minimized=function() --[[..skipped..]] end,
-    auto_saveload=true,
-    get_highlight=function() --[[..skipped..]] end,
-    get_closeable=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
-    update_all=function() --[[..skipped..]] end,
-    set_closeable=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    get_title_buttons_area=function() --[[..skipped..]] end
-  },
-  gui_checkbox={
-    auto_saveload=true,
-    toggle=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
-    get_checked=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    set_checked=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end
-  },
-  edit={
-    sel=cg.__entity_table_load({
-        [30]={
-          k=_cge(30),
-          v=true
-        }
-      })
-  },
-  edit_inspector={
-    tbl=cg.__entity_table_load({})
-  },
   animation={
     auto_saveload=true,
     set_frames=function() --[[..skipped..]] end,
@@ -116,10 +51,10 @@
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
     tbl=cg.__entity_table_load({
-        [30]={
-          k=_cge(30),
+        [29]={
+          k=_cge(29),
           v={
-            ent=_cge(30),
+            ent=_cge(29),
             bbox=cg.bbox(cg.vec2(-0.400000, -0.400000), cg.vec2(0.400000, 0.400000))
           }
         }
@@ -134,35 +69,14 @@
     sweep=function() --[[..skipped..]] end,
     get_bbox=function() --[[..skipped..]] end
   },
-  player_control={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    die=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({
-        [30]={
-          k=_cge(30),
-          v={
-            ent=_cge(30)
-          }
+  edit={
+    sel=cg.__entity_table_load({
+        [29]={
+          k=_cge(29),
+          v=true
         }
-      }),
-    add=nil
+      })
   },
-  group=cg.__entity_table_load({
-      [30]={
-        k=_cge(30),
-        v={
-          default=true
-        }
-      }
-    }),
   quad_shooter={
     auto_saveload=true,
     set_period=function() --[[..skipped..]] end,
@@ -179,6 +93,262 @@
     simple_has=nil,
     get_next=function() --[[..skipped..]] end,
     add=nil
+  },
+  player_dead={
+    auto_saveload=true,
+    create=function() --[[..skipped..]] end,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_update_all=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_time=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=nil,
+    get_time=function() --[[..skipped..]] end,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  edit_inspector={
+    gui_root=_cge(24),
+    tbl=cg.__entity_table_load({
+        [28]={
+          k=_cge(28),
+          v={
+            dock_text=_cge(37),
+            remove_text=_cge(38),
+            props={
+              groups={
+                name=\\"groups\\",
+                field={
+                  textbox=_cge(41),
+                  label=_cge(40),
+                  type=\\"string\\",
+                  container=_cge(39),
+                  name=\\"groups\\",
+                  textedit=_cge(42)
+                }
+              }
+            },
+            last_pos=cg.vec2(509.414093, -415.327576),
+            sys=\\"group\\",
+            window=_cge(28),
+            window_body=_cge(36),
+            docked=false,
+            ent=_cge(29)
+          }
+        }
+      })
+  },
+  gui_window={
+    get_body=function() --[[..skipped..]] end,
+    get_minimized=function() --[[..skipped..]] end,
+    set_highlight=function() --[[..skipped..]] end,
+    set_title=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    get_title=function() --[[..skipped..]] end,
+    mouse_up=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    set_minimized=function() --[[..skipped..]] end,
+    auto_saveload=true,
+    get_highlight=function() --[[..skipped..]] end,
+    get_closeable=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({
+        [28]={
+          k=_cge(28),
+          v={
+            highlight=true,
+            body=_cge(36),
+            title_buttons_area=_cge(31),
+            title_text_area=_cge(34),
+            close_text=_cge(32),
+            minmax_text=_cge(33),
+            title_text=_cge(35),
+            titlebar=_cge(30)
+          }
+        }
+      }),
+    update_all=function() --[[..skipped..]] end,
+    set_closeable=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    get_title_buttons_area=function() --[[..skipped..]] end
+  },
+  player_control={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    die=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({
+        [29]={
+          k=_cge(29),
+          v={
+            ent=_cge(29)
+          }
+        }
+      }),
+    add=nil
+  },
+  camera_follow={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=function() --[[..skipped..]] end,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  portal={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    set_world_2=function() --[[..skipped..]] end,
+    get_world_2=function() --[[..skipped..]] end,
+    get_world_1=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_world_1=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  group=cg.__entity_table_load({
+      [34]={
+        k=_cge(34),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [32]={
+        k=_cge(32),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [30]={
+        k=_cge(30),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [29]={
+        k=_cge(29),
+        v={
+          warp=true
+        }
+      },
+      [28]={
+        k=_cge(28),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [41]={
+        k=_cge(41),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [31]={
+        k=_cge(31),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [24]={
+        k=_cge(24),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [33]={
+        k=_cge(33),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [35]={
+        k=_cge(35),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [39]={
+        k=_cge(39),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [38]={
+        k=_cge(38),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [37]={
+        k=_cge(37),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [42]={
+        k=_cge(42),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [40]={
+        k=_cge(40),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      },
+      [36]={
+        k=_cge(36),
+        v={
+          edit_inspector=true,
+          builtin=true
+        }
+      }
+    }),
+  gui_checkbox={
+    auto_saveload=true,
+    toggle=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    get_checked=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    set_checked=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end
   },
   bullet={
     unpaused_update=function() --[[..skipped..]] end,
@@ -200,33 +370,32 @@
     simple_update_all=nil
   },
   name=cg.__entity_table_load({
-      [30]={
-        k=_cge(30),
+      [29]={
+        k=_cge(29),
         v=\\"player\\"
       }
     }),
-  player_dead={
+  gui_textbox={
     auto_saveload=true,
-    create=function() --[[..skipped..]] end,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_update_all=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
+    set_click_focus=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({
+        [41]={
+          k=_cge(41),
+          v={
+            click_focus=true,
+            text=_cge(42)
+          }
+        }
+      }),
+    get_click_focus=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    get_text=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    set_time=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=nil,
-    get_time=function() --[[..skipped..]] end,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
+    remove=function() --[[..skipped..]] end
   }
 }
 local __={}
-_.camera_follow.remove=_.camera_follow.simple_remove
-_.camera_follow.simple_update_all=_.camera_follow.update_all
-_.camera_follow.simple_has=_.camera_follow.has
-_.camera_follow.add=_.camera_follow.simple_add
 _.wall.remove=_.wall.simple_remove
 _.wall.simple_update_all=_.wall.update_all
 _.wall.simple_has=_.wall.has
@@ -239,22 +408,29 @@ _.bump.add=_.bump.simple_add
 _.bump.remove=_.bump.simple_remove
 _.bump.simple_has=_.bump.has
 _.bump.simple_update_all=_.bump.update_all
-_.player_control.remove=_.player_control.simple_remove
-_.player_control.simple_update_all=_.player_control.update_all
-_.player_control.simple_has=_.player_control.has
-_.player_control.add=_.player_control.simple_add
 _.quad_shooter.remove=_.quad_shooter.simple_remove
 _.quad_shooter.simple_update_all=_.quad_shooter.update_all
 _.quad_shooter.simple_has=_.quad_shooter.has
 _.quad_shooter.add=_.quad_shooter.simple_add
-_.bullet.simple_has=_.bullet.has
-_.bullet.remove=_.bullet.simple_remove
-_.bullet.simple_add=_.bullet.add
-_.bullet.simple_update_all=_.bullet.update_all
 _.player_dead.remove=_.player_dead.simple_remove
 _.player_dead.update_all=_.player_dead.simple_update_all
 _.player_dead.simple_has=_.player_dead.has
 _.player_dead.add=_.player_dead.simple_add
+_.player_control.remove=_.player_control.simple_remove
+_.player_control.simple_update_all=_.player_control.update_all
+_.player_control.simple_has=_.player_control.has
+_.player_control.add=_.player_control.simple_add
+_.camera_follow.remove=_.camera_follow.simple_remove
+_.camera_follow.simple_has=_.camera_follow.has
+_.camera_follow.add=_.camera_follow.simple_add
+_.portal.remove=_.portal.simple_remove
+_.portal.simple_update_all=_.portal.update_all
+_.portal.simple_has=_.portal.has
+_.portal.add=_.portal.simple_add
+_.bullet.simple_has=_.bullet.has
+_.bullet.remove=_.bullet.simple_remove
+_.bullet.simple_add=_.bullet.add
+_.bullet.simple_update_all=_.bullet.update_all
 return _
 end\" " }
   }
@@ -263,20 +439,554 @@ end\" " }
     { "pool" n }
   }
   { "edit" n 
-    { "uneditable_pool" n }
+    { "uneditable_pool" n 
+      { n n 
+        { "pool_elem" n 
+          { "id" "42 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "41 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "40 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "39 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "36 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "35 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "34 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "38 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "37 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "33 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "32 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "31 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "30 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "28 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "24 " }
+        }
+      }
+    }
     [ "grid_size" "1.000000 1.000000 " ] 
   }
   { "gui_textedit" n 
-    { "pool" n }
+    { "pool" n 
+      { n n 
+        { "numerical" "0 " }
+        { "cursor" "4 " }
+        { "pool_elem" n 
+          { "id" "42 " }
+        }
+      }
+    }
   }
   { "gui_text" n 
-    { "pool" n }
+    { "pool" n 
+      { n n 
+        { "cursor" "-1 " }
+        { "str" "\"warp\" " }
+        { "pool_elem" n 
+          { "id" "42 " }
+        }
+      }
+      { n n 
+        { "cursor" "-1 " }
+        { "str" "\"groups\" " }
+        { "pool_elem" n 
+          { "id" "40 " }
+        }
+      }
+      { n n 
+        { "cursor" "-1 " }
+        { "str" "\"r\" " }
+        { "pool_elem" n 
+          { "id" "38 " }
+        }
+      }
+      { n n 
+        { "cursor" "-1 " }
+        { "str" "\">\" " }
+        { "pool_elem" n 
+          { "id" "37 " }
+        }
+      }
+      { n n 
+        { "cursor" "-1 " }
+        { "str" "\"group\" " }
+        { "pool_elem" n 
+          { "id" "35 " }
+        }
+      }
+      { n n 
+        { "cursor" "-1 " }
+        { "str" "\"-\" " }
+        { "pool_elem" n 
+          { "id" "33 " }
+        }
+      }
+      { n n 
+        { "cursor" "-1 " }
+        { "str" "\"x\" " }
+        { "pool_elem" n 
+          { "id" "32 " }
+        }
+      }
+    }
   }
   { "gui_rect" n 
-    { "pool" n }
+    { "pool" n 
+      { n n 
+        { "vfill" "0 " }
+        { "hfill" "0 " }
+        { "vfit" "1 " }
+        { "hfit" "1 " }
+        { "color" n 
+          { "a" "1.000000 " }
+          { "b" "0.400000 " }
+          { "g" "0.200000 " }
+          { "r" "0.200000 " }
+        }
+        [ "size" "50.000000 22.000000 " ] 
+        { "pool_elem" n 
+          { "id" "41 " }
+        }
+      }
+      { n n 
+        { "vfill" "0 " }
+        { "hfill" "1 " }
+        { "vfit" "1 " }
+        { "hfit" "1 " }
+        { "color" n 
+          { "a" "0.000000 " }
+          { "b" "0.000000 " }
+          { "g" "0.000000 " }
+          { "r" "0.000000 " }
+        }
+        [ "size" "125.000000 32.000000 " ] 
+        { "pool_elem" n 
+          { "id" "39 " }
+        }
+      }
+      { n n 
+        { "vfill" "0 " }
+        { "hfill" "1 " }
+        { "vfit" "1 " }
+        { "hfit" "1 " }
+        { "color" n 
+          { "a" "0.000000 " }
+          { "b" "0.000000 " }
+          { "g" "0.000000 " }
+          { "r" "0.000000 " }
+        }
+        [ "size" "60.000000 22.000000 " ] 
+        { "pool_elem" n 
+          { "id" "34 " }
+        }
+      }
+      { n n 
+        { "vfill" "0 " }
+        { "hfill" "0 " }
+        { "vfit" "1 " }
+        { "hfit" "1 " }
+        { "color" n 
+          { "a" "0.000000 " }
+          { "b" "0.000000 " }
+          { "g" "0.000000 " }
+          { "r" "0.000000 " }
+        }
+        [ "size" "65.000000 22.000000 " ] 
+        { "pool_elem" n 
+          { "id" "31 " }
+        }
+      }
+      { n n 
+        { "vfill" "0 " }
+        { "hfill" "0 " }
+        { "vfit" "1 " }
+        { "hfit" "1 " }
+        { "color" n 
+          { "a" "0.000000 " }
+          { "b" "0.000000 " }
+          { "g" "0.000000 " }
+          { "r" "0.000000 " }
+        }
+        [ "size" "125.000000 32.000000 " ] 
+        { "pool_elem" n 
+          { "id" "36 " }
+        }
+      }
+      { n n 
+        { "vfill" "0 " }
+        { "hfill" "1 " }
+        { "vfit" "1 " }
+        { "hfit" "1 " }
+        { "color" n 
+          { "a" "0.950000 " }
+          { "b" "0.350000 " }
+          { "g" "0.150000 " }
+          { "r" "0.150000 " }
+        }
+        [ "size" "125.000000 22.000000 " ] 
+        { "pool_elem" n 
+          { "id" "30 " }
+        }
+      }
+      { n n 
+        { "vfill" "0 " }
+        { "hfill" "0 " }
+        { "vfit" "1 " }
+        { "hfit" "1 " }
+        { "color" n 
+          { "a" "0.950000 " }
+          { "b" "0.500000 " }
+          { "g" "0.300000 " }
+          { "r" "0.300000 " }
+        }
+        [ "size" "125.000000 54.000000 " ] 
+        { "pool_elem" n 
+          { "id" "28 " }
+        }
+      }
+      { n n 
+        { "vfill" "1 " }
+        { "hfill" "1 " }
+        { "vfit" "1 " }
+        { "hfit" "1 " }
+        { "color" n 
+          { "a" "0.000000 " }
+          { "b" "0.000000 " }
+          { "g" "0.000000 " }
+          { "r" "0.000000 " }
+        }
+        [ "size" "800.000000 600.000000 " ] 
+        { "pool_elem" n 
+          { "id" "24 " }
+        }
+      }
+    }
   }
   { "gui" n 
-    { "pool" n }
+    { "pool" n 
+      { n n 
+        [ "padding" "5.000000 5.000000 " ] 
+        { "valign" "2 " }
+        { "halign" "0 " }
+        { "captures_events" "1 " }
+        { "focusable" "1 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "1.000000 " }
+          { "b" "1.000000 " }
+          { "g" "1.000000 " }
+          { "r" "1.000000 " }
+        }
+        { "pool_elem" n 
+          { "id" "42 " }
+        }
+      }
+      { n n 
+        [ "padding" "5.000000 5.000000 " ] 
+        { "valign" "2 " }
+        { "halign" "3 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "1.000000 " }
+          { "b" "0.400000 " }
+          { "g" "0.200000 " }
+          { "r" "0.200000 " }
+        }
+        { "pool_elem" n 
+          { "id" "41 " }
+        }
+      }
+      { n n 
+        [ "padding" "5.000000 5.000000 " ] 
+        { "valign" "1 " }
+        { "halign" "3 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "1.000000 " }
+          { "b" "1.000000 " }
+          { "g" "1.000000 " }
+          { "r" "1.000000 " }
+        }
+        { "pool_elem" n 
+          { "id" "40 " }
+        }
+      }
+      { n n 
+        [ "padding" "0.000000 0.000000 " ] 
+        { "valign" "3 " }
+        { "halign" "0 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "0.000000 " }
+          { "b" "0.000000 " }
+          { "g" "0.000000 " }
+          { "r" "0.000000 " }
+        }
+        { "pool_elem" n 
+          { "id" "39 " }
+        }
+      }
+      { n n 
+        [ "padding" "5.000000 5.000000 " ] 
+        { "valign" "2 " }
+        { "halign" "3 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "1.000000 " }
+          { "b" "0.000000 " }
+          { "g" "0.000000 " }
+          { "r" "1.000000 " }
+        }
+        { "pool_elem" n 
+          { "id" "38 " }
+        }
+      }
+      { n n 
+        [ "padding" "5.000000 5.000000 " ] 
+        { "valign" "2 " }
+        { "halign" "3 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "1.000000 " }
+          { "b" "1.000000 " }
+          { "g" "1.000000 " }
+          { "r" "1.000000 " }
+        }
+        { "pool_elem" n 
+          { "id" "37 " }
+        }
+      }
+      { n n 
+        [ "padding" "0.000000 0.000000 " ] 
+        { "valign" "3 " }
+        { "halign" "0 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "0.000000 " }
+          { "b" "0.000000 " }
+          { "g" "0.000000 " }
+          { "r" "0.000000 " }
+        }
+        { "pool_elem" n 
+          { "id" "36 " }
+        }
+      }
+      { n n 
+        [ "padding" "5.000000 5.000000 " ] 
+        { "valign" "2 " }
+        { "halign" "1 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "1.000000 " }
+          { "b" "0.200000 " }
+          { "g" "1.000000 " }
+          { "r" "1.000000 " }
+        }
+        { "pool_elem" n 
+          { "id" "35 " }
+        }
+      }
+      { n n 
+        [ "padding" "0.000000 0.000000 " ] 
+        { "valign" "2 " }
+        { "halign" "3 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "0.000000 " }
+          { "b" "0.000000 " }
+          { "g" "0.000000 " }
+          { "r" "0.000000 " }
+        }
+        { "pool_elem" n 
+          { "id" "34 " }
+        }
+      }
+      { n n 
+        [ "padding" "5.000000 5.000000 " ] 
+        { "valign" "2 " }
+        { "halign" "3 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "1.000000 " }
+          { "b" "1.000000 " }
+          { "g" "1.000000 " }
+          { "r" "1.000000 " }
+        }
+        { "pool_elem" n 
+          { "id" "33 " }
+        }
+      }
+      { n n 
+        [ "padding" "5.000000 5.000000 " ] 
+        { "valign" "2 " }
+        { "halign" "3 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "1.000000 " }
+          { "b" "1.000000 " }
+          { "g" "1.000000 " }
+          { "r" "1.000000 " }
+        }
+        { "pool_elem" n 
+          { "id" "32 " }
+        }
+      }
+      { n n 
+        [ "padding" "0.000000 0.000000 " ] 
+        { "valign" "2 " }
+        { "halign" "3 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "0.000000 " }
+          { "b" "0.000000 " }
+          { "g" "0.000000 " }
+          { "r" "0.000000 " }
+        }
+        { "pool_elem" n 
+          { "id" "31 " }
+        }
+      }
+      { n n 
+        [ "padding" "0.000000 0.000000 " ] 
+        { "valign" "3 " }
+        { "halign" "0 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "0.950000 " }
+          { "b" "0.350000 " }
+          { "g" "0.150000 " }
+          { "r" "0.150000 " }
+        }
+        { "pool_elem" n 
+          { "id" "30 " }
+        }
+      }
+      { n n 
+        [ "padding" "5.000000 5.000000 " ] 
+        { "valign" "4 " }
+        { "halign" "4 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "0.950000 " }
+          { "b" "0.500000 " }
+          { "g" "0.300000 " }
+          { "r" "0.300000 " }
+        }
+        { "pool_elem" n 
+          { "id" "28 " }
+        }
+      }
+      { n n 
+        [ "padding" "0.000000 0.000000 " ] 
+        { "valign" "2 " }
+        { "halign" "0 " }
+        { "captures_events" "0 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "0.000000 " }
+          { "b" "0.000000 " }
+          { "g" "0.000000 " }
+          { "r" "0.000000 " }
+        }
+        { "pool_elem" n 
+          { "id" "24 " }
+        }
+      }
+    }
   }
   { "physics" n 
     { "pool" n }
@@ -289,7 +999,7 @@ end\" " }
         [ "texcell" "16.000000 16.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "30 " }
+          { "id" "29 " }
         }
       }
     }
@@ -302,6 +1012,262 @@ end\" " }
   { "transform" n 
     { "pool" n 
       { n n 
+        { "dirty_count" "2724 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 7.683920 -6.138650 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 5.000000 -5.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "41 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "5.000000 -5.000000 " ] 
+        { "pool_elem" n 
+          { "id" "42 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "28583 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 7.475587 -5.930317 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 70.000000 -5.000000 1.000000 " ] 
+        { "children" n 
+          { n n 
+            { "id" "42 " }
+          }
+        }
+        { "parent" n 
+          { "id" "39 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "70.000000 -5.000000 " ] 
+        { "pool_elem" n 
+          { "id" "41 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "28583 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.767253 -6.138650 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 5.000000 -10.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "39 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "5.000000 -10.000000 " ] 
+        { "pool_elem" n 
+          { "id" "40 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "14973 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.558920 -5.721983 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
+        { "children" n 
+          { n n 
+            { "id" "41 " }
+          }
+          { n n 
+            { "id" "40 " }
+          }
+        }
+        { "parent" n 
+          { "id" "36 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "0.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "39 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "28583 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 6.642253 -5.013650 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 50.000000 -5.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "31 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "50.000000 -5.000000 " ] 
+        { "pool_elem" n 
+          { "id" "38 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "28583 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 6.017253 -5.013650 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 35.000000 -5.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "31 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "35.000000 -5.000000 " ] 
+        { "pool_elem" n 
+          { "id" "37 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "8168 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.558920 -5.721983 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -22.000000 1.000000 " ] 
+        { "children" n 
+          { n n 
+            { "id" "39 " }
+          }
+        }
+        { "parent" n 
+          { "id" "28 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "0.000000 -22.000000 " ] 
+        { "pool_elem" n 
+          { "id" "36 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2724 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 7.475587 -5.013650 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 5.000000 -5.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "34 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "5.000000 -5.000000 " ] 
+        { "pool_elem" n 
+          { "id" "35 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "14973 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 7.267253 -4.805317 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 65.000000 0.000000 1.000000 " ] 
+        { "children" n 
+          { n n 
+            { "id" "35 " }
+          }
+        }
+        { "parent" n 
+          { "id" "30 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "65.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "34 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "28583 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 5.392253 -5.013650 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 20.000000 -5.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "31 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "20.000000 -5.000000 " ] 
+        { "pool_elem" n 
+          { "id" "33 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "28583 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.767253 -5.013650 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 5.000000 -5.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "31 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "5.000000 -5.000000 " ] 
+        { "pool_elem" n 
+          { "id" "32 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "14973 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.558920 -4.805317 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
+        { "children" n 
+          { n n 
+            { "id" "38 " }
+          }
+          { n n 
+            { "id" "37 " }
+          }
+          { n n 
+            { "id" "33 " }
+          }
+          { n n 
+            { "id" "32 " }
+          }
+        }
+        { "parent" n 
+          { "id" "30 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "0.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "31 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "8168 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.558920 -4.805317 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
+        { "children" n 
+          { n n 
+            { "id" "34 " }
+          }
+          { n n 
+            { "id" "31 " }
+          }
+        }
+        { "parent" n 
+          { "id" "28 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "0.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "30 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "9 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.558920 -4.805317 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 509.414093 -415.327576 1.000000 " ] 
+        { "children" n 
+          { n n 
+            { "id" "36 " }
+          }
+          { n n 
+            { "id" "30 " }
+          }
+        }
+        { "parent" n 
+          { "id" "24 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "509.414093 -415.327576 " ] 
+        { "pool_elem" n 
+          { "id" "28 " }
+        }
+      }
+      { n n 
         { "dirty_count" "2168639 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.642253 -4.388650 1.000000 " ] 
         [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.642253 -4.388650 1.000000 " ] 
@@ -313,7 +1279,26 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "3.642253 -4.388650 " ] 
         { "pool_elem" n 
-          { "id" "30 " }
+          { "id" "29 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3672 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.666668 12.500000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
+        { "children" n 
+          { n n 
+            { "id" "28 " }
+          }
+        }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "0.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "24 " }
         }
       }
     }
@@ -323,7 +1308,7 @@ end\" " }
   }
   { "prefab" n 
     { "saved_root" n 
-      { "id" "30 " }
+      { "id" "29 " }
     }
   }
   { "entity" n 
@@ -331,7 +1316,82 @@ end\" " }
     { "exists_pool" n 
       { n n 
         { "pool_elem" n 
+          { "id" "42 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "41 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "40 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "39 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "38 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "37 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "36 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "35 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "34 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "33 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "32 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "31 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
           { "id" "30 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "28 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "29 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "24 " }
         }
       }
     }
