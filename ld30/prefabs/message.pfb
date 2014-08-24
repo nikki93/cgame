@@ -1,4 +1,4 @@
-16646
+16642
 { n n 
   { "script" n 
     { "str" "\"do local _={
@@ -99,8 +99,8 @@
   name=cg.__entity_table_load({}),
   edit={
     sel=cg.__entity_table_load({
-        [60]={
-          k=_cge(60),
+        [37]={
+          k=_cge(37),
           v=true
         }
       })
@@ -137,10 +137,10 @@
     add=nil
   },
   group=cg.__entity_table_load({
-      [60]={
-        k=_cge(60),
+      [37]={
+        k=_cge(37),
         v={
-          default=true
+          warp=true
         }
       }
     }),
@@ -199,10 +199,10 @@
     get_time=function() --[[..skipped..]] end,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [60]={
-          k=_cge(60),
+        [37]={
+          k=_cge(37),
           v={
-            ent=_cge(60)
+            ent=_cge(37)
           }
         }
       }),
@@ -443,7 +443,7 @@ end\" " }
         { "cursor" "-1 " }
         { "str" "\"this is a message...\" " }
         { "pool_elem" n 
-          { "id" "60 " }
+          { "id" "37 " }
         }
       }
     }
@@ -468,7 +468,7 @@ end\" " }
           { "r" "0.000000 " }
         }
         { "pool_elem" n 
-          { "id" "60 " }
+          { "id" "37 " }
         }
       }
     }
@@ -487,18 +487,18 @@ end\" " }
   { "transform" n 
     { "pool" n 
       { n n 
-        { "dirty_count" "28969 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -4.166668 10.500000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 300.000000 -48.000000 1.000000 " ] 
+        { "dirty_count" "36024 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -4.166668 8.500000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 300.000000 -96.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "1.000000 1.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "300.000000 -48.000000 " ] 
+        [ "position" "300.000000 -96.000000 " ] 
         { "pool_elem" n 
-          { "id" "60 " }
+          { "id" "37 " }
         }
       }
     }
@@ -508,7 +508,7 @@ end\" " }
   }
   { "prefab" n 
     { "saved_root" n 
-      { "id" "60 " }
+      { "id" "37 " }
     }
   }
   { "entity" n 
@@ -516,7 +516,7 @@ end\" " }
     { "exists_pool" n 
       { n n 
         { "pool_elem" n 
-          { "id" "60 " }
+          { "id" "37 " }
         }
       }
     }

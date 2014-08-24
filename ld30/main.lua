@@ -456,6 +456,7 @@ function cs.crate.move(ent, dir)
     local sound
     local function filter (e)
         return not cs.pit.has(e) and not cs.switch.has(e)
+            and not cs.message_trigger.has(e)
     end
     local cols = cs.bump.sweep(obj.ent, dir, filter)
     if #cols == 0 then
@@ -584,27 +585,14 @@ function cs.door.unpaused_update(obj)
 end
 
 
-
-
-cs.main.world = 'white'
-load_game('portals.lvl', true)
-
-if cg.args[2] == 'start' then
-    load_game('start.lvl', true)
-else
-    cg.add {
-        camera = { viewport_height = 18.75 },
-        camera_follow = {},
-        group = { groups = 'warp' },
-    }
-end
-
-
 -----------------------------------------------------------------------------
 
 g_messages = {
     default = 'this is a message...',
     wasd = 'W, A, S, D: move',
+    portal = "This is weird... Where am I?\nAnd what is this thing?",
+    hell = "Oh my...",
+    earth = "This place looks familiar..."
 }
 
 cs.message = cg.simple_sys()
@@ -635,6 +623,10 @@ function cs.message.unpaused_update(obj)
 end
 
 function show_message(name, time)
+    for e in pairs(cs.message.tbl) do
+        cs.entity.destroy(e)
+    end
+
     cg.add {
         prefab = prefab_dir .. '/message.pfb',
         message = {
@@ -658,4 +650,20 @@ function cs.message_trigger.unpaused_update(obj)
         show_message(obj.message_name, obj.time)
         cs.entity.destroy(obj.ent)
     end
+end
+
+
+-----------------------------------------------------------------------------
+
+cs.main.world = 'white'
+load_game('portals.lvl', true)
+
+if cg.args[2] == 'start' then
+    load_game('start.lvl', true)
+else
+    cg.add {
+        camera = { viewport_height = 18.75 },
+        camera_follow = {},
+        group = { groups = 'warp' },
+    }
 end
