@@ -86,7 +86,7 @@ end
 
 g_world_colors = {
     hell = cg.color_opaque(198 / 255.0, 77 / 255.0, 77 / 255.0),
-    earth = cg.color_opaque(68 / 255.0, 137 / 255.0, 26 / 255.0),
+    earth = cg.color_opaque(231 / 255.0, 163 / 255.0, 93 / 255.0),
 }
 
 function cs.main.update_all()
