@@ -1,4 +1,4 @@
-284358
+293350
 { n n 
   { "script" n 
     { "str" "\"do local _={
@@ -47,1624 +47,8 @@
         nil,
         nil,
         nil,
-        {
-          k=_cge(34),
-          v={
-            ent=_cge(34)
-          }
-        },
-        {
-          k=_cge(35),
-          v={
-            ent=_cge(35)
-          }
-        },
-        {
-          k=_cge(36),
-          v={
-            ent=_cge(36)
-          }
-        },
-        {
-          k=_cge(37),
-          v={
-            ent=_cge(37)
-          }
-        },
-        {
-          k=_cge(38),
-          v={
-            ent=_cge(38)
-          }
-        },
-        {
-          k=_cge(39),
-          v={
-            ent=_cge(39)
-          }
-        },
-        {
-          k=_cge(40),
-          v={
-            ent=_cge(40)
-          }
-        },
-        {
-          k=_cge(41),
-          v={
-            ent=_cge(41)
-          }
-        },
-        {
-          k=_cge(42),
-          v={
-            ent=_cge(42)
-          }
-        },
-        {
-          k=_cge(43),
-          v={
-            ent=_cge(43)
-          }
-        },
-        {
-          k=_cge(44),
-          v={
-            ent=_cge(44)
-          }
-        },
-        {
-          k=_cge(45),
-          v={
-            ent=_cge(45)
-          }
-        },
-        {
-          k=_cge(46),
-          v={
-            ent=_cge(46)
-          }
-        },
-        {
-          k=_cge(47),
-          v={
-            ent=_cge(47)
-          }
-        },
-        {
-          k=_cge(48),
-          v={
-            ent=_cge(48)
-          }
-        },
-        {
-          k=_cge(49),
-          v={
-            ent=_cge(49)
-          }
-        },
-        {
-          k=_cge(50),
-          v={
-            ent=_cge(50)
-          }
-        },
-        {
-          k=_cge(51),
-          v={
-            ent=_cge(51)
-          }
-        },
         nil,
         nil,
-        nil,
-        {
-          k=_cge(55),
-          v={
-            ent=_cge(55)
-          }
-        },
-        {
-          k=_cge(56),
-          v={
-            ent=_cge(56)
-          }
-        },
-        {
-          k=_cge(57),
-          v={
-            ent=_cge(57)
-          }
-        },
-        {
-          k=_cge(58),
-          v={
-            ent=_cge(58)
-          }
-        },
-        {
-          k=_cge(59),
-          v={
-            ent=_cge(59)
-          }
-        },
-        {
-          k=_cge(60),
-          v={
-            ent=_cge(60)
-          }
-        },
-        {
-          k=_cge(61),
-          v={
-            ent=_cge(61)
-          }
-        },
-        {
-          k=_cge(62),
-          v={
-            ent=_cge(62)
-          }
-        },
-        {
-          k=_cge(63),
-          v={
-            ent=_cge(63)
-          }
-        },
-        {
-          k=_cge(64),
-          v={
-            ent=_cge(64)
-          }
-        },
-        {
-          k=_cge(65),
-          v={
-            ent=_cge(65)
-          }
-        },
-        {
-          k=_cge(66),
-          v={
-            ent=_cge(66)
-          }
-        },
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        {
-          k=_cge(73),
-          v={
-            ent=_cge(73)
-          }
-        },
-        {
-          k=_cge(74),
-          v={
-            ent=_cge(74)
-          }
-        },
-        {
-          k=_cge(75),
-          v={
-            ent=_cge(75)
-          }
-        },
-        {
-          k=_cge(76),
-          v={
-            ent=_cge(76)
-          }
-        },
-        {
-          k=_cge(77),
-          v={
-            ent=_cge(77)
-          }
-        },
-        {
-          k=_cge(78),
-          v={
-            ent=_cge(78)
-          }
-        },
-        nil,
-        nil,
-        {
-          k=_cge(81),
-          v={
-            ent=_cge(81)
-          }
-        },
-        {
-          k=_cge(82),
-          v={
-            ent=_cge(82)
-          }
-        },
-        {
-          k=_cge(83),
-          v={
-            ent=_cge(83)
-          }
-        },
-        {
-          k=_cge(84),
-          v={
-            ent=_cge(84)
-          }
-        },
-        {
-          k=_cge(85),
-          v={
-            ent=_cge(85)
-          }
-        },
-        nil,
-        {
-          k=_cge(87),
-          v={
-            ent=_cge(87)
-          }
-        },
-        {
-          k=_cge(88),
-          v={
-            ent=_cge(88)
-          }
-        },
-        {
-          k=_cge(89),
-          v={
-            ent=_cge(89)
-          }
-        },
-        {
-          k=_cge(90),
-          v={
-            ent=_cge(90)
-          }
-        },
-        {
-          k=_cge(91),
-          v={
-            ent=_cge(91)
-          }
-        },
-        {
-          k=_cge(92),
-          v={
-            ent=_cge(92)
-          }
-        },
-        {
-          k=_cge(93),
-          v={
-            ent=_cge(93)
-          }
-        },
-        {
-          k=_cge(94),
-          v={
-            ent=_cge(94)
-          }
-        },
-        {
-          k=_cge(95),
-          v={
-            ent=_cge(95)
-          }
-        },
-        {
-          k=_cge(96),
-          v={
-            ent=_cge(96)
-          }
-        },
-        {
-          k=_cge(97),
-          v={
-            ent=_cge(97)
-          }
-        },
-        {
-          k=_cge(98),
-          v={
-            ent=_cge(98)
-          }
-        },
-        {
-          k=_cge(99),
-          v={
-            ent=_cge(99)
-          }
-        },
-        {
-          k=_cge(100),
-          v={
-            ent=_cge(100)
-          }
-        },
-        {
-          k=_cge(101),
-          v={
-            ent=_cge(101)
-          }
-        },
-        {
-          k=_cge(102),
-          v={
-            ent=_cge(102)
-          }
-        },
-        {
-          k=_cge(103),
-          v={
-            ent=_cge(103)
-          }
-        },
-        {
-          k=_cge(104),
-          v={
-            ent=_cge(104)
-          }
-        },
-        {
-          k=_cge(105),
-          v={
-            ent=_cge(105)
-          }
-        },
-        {
-          k=_cge(106),
-          v={
-            ent=_cge(106)
-          }
-        },
-        {
-          k=_cge(107),
-          v={
-            ent=_cge(107)
-          }
-        },
-        {
-          k=_cge(108),
-          v={
-            ent=_cge(108)
-          }
-        },
-        {
-          k=_cge(109),
-          v={
-            ent=_cge(109)
-          }
-        },
-        {
-          k=_cge(110),
-          v={
-            ent=_cge(110)
-          }
-        },
-        {
-          k=_cge(111),
-          v={
-            ent=_cge(111)
-          }
-        },
-        {
-          k=_cge(112),
-          v={
-            ent=_cge(112)
-          }
-        },
-        {
-          k=_cge(113),
-          v={
-            ent=_cge(113)
-          }
-        },
-        {
-          k=_cge(114),
-          v={
-            ent=_cge(114)
-          }
-        },
-        {
-          k=_cge(115),
-          v={
-            ent=_cge(115)
-          }
-        },
-        {
-          k=_cge(116),
-          v={
-            ent=_cge(116)
-          }
-        },
-        {
-          k=_cge(117),
-          v={
-            ent=_cge(117)
-          }
-        },
-        {
-          k=_cge(118),
-          v={
-            ent=_cge(118)
-          }
-        },
-        {
-          k=_cge(119),
-          v={
-            ent=_cge(119)
-          }
-        },
-        {
-          k=_cge(120),
-          v={
-            ent=_cge(120)
-          }
-        },
-        {
-          k=_cge(121),
-          v={
-            ent=_cge(121)
-          }
-        },
-        {
-          k=_cge(122),
-          v={
-            ent=_cge(122)
-          }
-        },
-        {
-          k=_cge(123),
-          v={
-            ent=_cge(123)
-          }
-        },
-        {
-          k=_cge(124),
-          v={
-            ent=_cge(124)
-          }
-        },
-        {
-          k=_cge(125),
-          v={
-            ent=_cge(125)
-          }
-        },
-        {
-          k=_cge(126),
-          v={
-            ent=_cge(126)
-          }
-        },
-        {
-          k=_cge(127),
-          v={
-            ent=_cge(127)
-          }
-        },
-        {
-          k=_cge(128),
-          v={
-            ent=_cge(128)
-          }
-        },
-        {
-          k=_cge(129),
-          v={
-            ent=_cge(129)
-          }
-        },
-        {
-          k=_cge(130),
-          v={
-            ent=_cge(130)
-          }
-        },
-        {
-          k=_cge(131),
-          v={
-            ent=_cge(131)
-          }
-        },
-        {
-          k=_cge(132),
-          v={
-            ent=_cge(132)
-          }
-        },
-        {
-          k=_cge(133),
-          v={
-            ent=_cge(133)
-          }
-        },
-        {
-          k=_cge(134),
-          v={
-            ent=_cge(134)
-          }
-        },
-        {
-          k=_cge(135),
-          v={
-            ent=_cge(135)
-          }
-        },
-        {
-          k=_cge(136),
-          v={
-            ent=_cge(136)
-          }
-        },
-        {
-          k=_cge(137),
-          v={
-            ent=_cge(137)
-          }
-        },
-        {
-          k=_cge(138),
-          v={
-            ent=_cge(138)
-          }
-        },
-        {
-          k=_cge(139),
-          v={
-            ent=_cge(139)
-          }
-        },
-        {
-          k=_cge(140),
-          v={
-            ent=_cge(140)
-          }
-        },
-        {
-          k=_cge(141),
-          v={
-            ent=_cge(141)
-          }
-        },
-        {
-          k=_cge(142),
-          v={
-            ent=_cge(142)
-          }
-        },
-        {
-          k=_cge(143),
-          v={
-            ent=_cge(143)
-          }
-        },
-        {
-          k=_cge(144),
-          v={
-            ent=_cge(144)
-          }
-        },
-        {
-          k=_cge(145),
-          v={
-            ent=_cge(145)
-          }
-        },
-        {
-          k=_cge(146),
-          v={
-            ent=_cge(146)
-          }
-        },
-        {
-          k=_cge(147),
-          v={
-            ent=_cge(147)
-          }
-        },
-        {
-          k=_cge(148),
-          v={
-            ent=_cge(148)
-          }
-        },
-        {
-          k=_cge(149),
-          v={
-            ent=_cge(149)
-          }
-        },
-        {
-          k=_cge(150),
-          v={
-            ent=_cge(150)
-          }
-        },
-        {
-          k=_cge(151),
-          v={
-            ent=_cge(151)
-          }
-        },
-        {
-          k=_cge(152),
-          v={
-            ent=_cge(152)
-          }
-        },
-        {
-          k=_cge(153),
-          v={
-            ent=_cge(153)
-          }
-        },
-        {
-          k=_cge(154),
-          v={
-            ent=_cge(154)
-          }
-        },
-        {
-          k=_cge(155),
-          v={
-            ent=_cge(155)
-          }
-        },
-        {
-          k=_cge(156),
-          v={
-            ent=_cge(156)
-          }
-        },
-        {
-          k=_cge(157),
-          v={
-            ent=_cge(157)
-          }
-        },
-        {
-          k=_cge(158),
-          v={
-            ent=_cge(158)
-          }
-        },
-        {
-          k=_cge(159),
-          v={
-            ent=_cge(159)
-          }
-        },
-        {
-          k=_cge(160),
-          v={
-            ent=_cge(160)
-          }
-        },
-        {
-          k=_cge(161),
-          v={
-            ent=_cge(161)
-          }
-        },
-        {
-          k=_cge(162),
-          v={
-            ent=_cge(162)
-          }
-        },
-        {
-          k=_cge(163),
-          v={
-            ent=_cge(163)
-          }
-        },
-        {
-          k=_cge(164),
-          v={
-            ent=_cge(164)
-          }
-        },
-        {
-          k=_cge(165),
-          v={
-            ent=_cge(165)
-          }
-        },
-        {
-          k=_cge(166),
-          v={
-            ent=_cge(166)
-          }
-        },
-        {
-          k=_cge(167),
-          v={
-            ent=_cge(167)
-          }
-        },
-        {
-          k=_cge(168),
-          v={
-            ent=_cge(168)
-          }
-        },
-        {
-          k=_cge(169),
-          v={
-            ent=_cge(169)
-          }
-        },
-        {
-          k=_cge(170),
-          v={
-            ent=_cge(170)
-          }
-        },
-        {
-          k=_cge(171),
-          v={
-            ent=_cge(171)
-          }
-        },
-        {
-          k=_cge(172),
-          v={
-            ent=_cge(172)
-          }
-        },
-        {
-          k=_cge(173),
-          v={
-            ent=_cge(173)
-          }
-        },
-        {
-          k=_cge(174),
-          v={
-            ent=_cge(174)
-          }
-        },
-        nil,
-        nil,
-        nil,
-        {
-          k=_cge(178),
-          v={
-            ent=_cge(178)
-          }
-        },
-        nil,
-        {
-          k=_cge(180),
-          v={
-            ent=_cge(180)
-          }
-        },
-        nil,
-        nil,
-        nil,
-        nil,
-        {
-          k=_cge(185),
-          v={
-            ent=_cge(185)
-          }
-        },
-        {
-          k=_cge(186),
-          v={
-            ent=_cge(186)
-          }
-        },
-        {
-          k=_cge(187),
-          v={
-            ent=_cge(187)
-          }
-        },
-        {
-          k=_cge(188),
-          v={
-            ent=_cge(188)
-          }
-        },
-        {
-          k=_cge(189),
-          v={
-            ent=_cge(189)
-          }
-        },
-        {
-          k=_cge(190),
-          v={
-            ent=_cge(190)
-          }
-        },
-        {
-          k=_cge(191),
-          v={
-            ent=_cge(191)
-          }
-        },
-        {
-          k=_cge(192),
-          v={
-            ent=_cge(192)
-          }
-        },
-        {
-          k=_cge(193),
-          v={
-            ent=_cge(193)
-          }
-        },
-        {
-          k=_cge(194),
-          v={
-            ent=_cge(194)
-          }
-        },
-        {
-          k=_cge(195),
-          v={
-            ent=_cge(195)
-          }
-        },
-        {
-          k=_cge(196),
-          v={
-            ent=_cge(196)
-          }
-        },
-        {
-          k=_cge(197),
-          v={
-            ent=_cge(197)
-          }
-        },
-        {
-          k=_cge(198),
-          v={
-            ent=_cge(198)
-          }
-        },
-        {
-          k=_cge(199),
-          v={
-            ent=_cge(199)
-          }
-        },
-        {
-          k=_cge(200),
-          v={
-            ent=_cge(200)
-          }
-        },
-        {
-          k=_cge(201),
-          v={
-            ent=_cge(201)
-          }
-        },
-        {
-          k=_cge(202),
-          v={
-            ent=_cge(202)
-          }
-        },
-        {
-          k=_cge(203),
-          v={
-            ent=_cge(203)
-          }
-        },
-        {
-          k=_cge(204),
-          v={
-            ent=_cge(204)
-          }
-        },
-        {
-          k=_cge(205),
-          v={
-            ent=_cge(205)
-          }
-        },
-        {
-          k=_cge(206),
-          v={
-            ent=_cge(206)
-          }
-        },
-        {
-          k=_cge(207),
-          v={
-            ent=_cge(207)
-          }
-        },
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        {
-          k=_cge(213),
-          v={
-            ent=_cge(213)
-          }
-        },
-        {
-          k=_cge(214),
-          v={
-            ent=_cge(214)
-          }
-        },
-        {
-          k=_cge(215),
-          v={
-            ent=_cge(215)
-          }
-        },
-        {
-          k=_cge(216),
-          v={
-            ent=_cge(216)
-          }
-        },
-        {
-          k=_cge(217),
-          v={
-            ent=_cge(217)
-          }
-        },
-        {
-          k=_cge(218),
-          v={
-            ent=_cge(218)
-          }
-        },
-        {
-          k=_cge(219),
-          v={
-            ent=_cge(219)
-          }
-        },
-        {
-          k=_cge(220),
-          v={
-            ent=_cge(220)
-          }
-        },
-        {
-          k=_cge(221),
-          v={
-            ent=_cge(221)
-          }
-        },
-        {
-          k=_cge(222),
-          v={
-            ent=_cge(222)
-          }
-        },
-        {
-          k=_cge(223),
-          v={
-            ent=_cge(223)
-          }
-        },
-        {
-          k=_cge(224),
-          v={
-            ent=_cge(224)
-          }
-        },
-        {
-          k=_cge(225),
-          v={
-            ent=_cge(225)
-          }
-        },
-        {
-          k=_cge(226),
-          v={
-            ent=_cge(226)
-          }
-        },
-        {
-          k=_cge(227),
-          v={
-            ent=_cge(227)
-          }
-        },
-        {
-          k=_cge(228),
-          v={
-            ent=_cge(228)
-          }
-        },
-        {
-          k=_cge(229),
-          v={
-            ent=_cge(229)
-          }
-        },
-        {
-          k=_cge(230),
-          v={
-            ent=_cge(230)
-          }
-        },
-        {
-          k=_cge(231),
-          v={
-            ent=_cge(231)
-          }
-        },
-        {
-          k=_cge(232),
-          v={
-            ent=_cge(232)
-          }
-        },
-        {
-          k=_cge(233),
-          v={
-            ent=_cge(233)
-          }
-        },
-        {
-          k=_cge(234),
-          v={
-            ent=_cge(234)
-          }
-        },
-        {
-          k=_cge(235),
-          v={
-            ent=_cge(235)
-          }
-        },
-        {
-          k=_cge(236),
-          v={
-            ent=_cge(236)
-          }
-        },
-        {
-          k=_cge(237),
-          v={
-            ent=_cge(237)
-          }
-        },
-        {
-          k=_cge(238),
-          v={
-            ent=_cge(238)
-          }
-        },
-        {
-          k=_cge(239),
-          v={
-            ent=_cge(239)
-          }
-        },
-        {
-          k=_cge(240),
-          v={
-            ent=_cge(240)
-          }
-        },
-        nil,
-        {
-          k=_cge(242),
-          v={
-            ent=_cge(242)
-          }
-        },
-        {
-          k=_cge(243),
-          v={
-            ent=_cge(243)
-          }
-        },
-        {
-          k=_cge(244),
-          v={
-            ent=_cge(244)
-          }
-        },
-        {
-          k=_cge(245),
-          v={
-            ent=_cge(245)
-          }
-        },
-        {
-          k=_cge(246),
-          v={
-            ent=_cge(246)
-          }
-        },
-        {
-          k=_cge(247),
-          v={
-            ent=_cge(247)
-          }
-        },
-        {
-          k=_cge(248),
-          v={
-            ent=_cge(248)
-          }
-        },
-        {
-          k=_cge(249),
-          v={
-            ent=_cge(249)
-          }
-        },
-        {
-          k=_cge(250),
-          v={
-            ent=_cge(250)
-          }
-        },
-        {
-          k=_cge(251),
-          v={
-            ent=_cge(251)
-          }
-        },
-        {
-          k=_cge(252),
-          v={
-            ent=_cge(252)
-          }
-        },
-        {
-          k=_cge(253),
-          v={
-            ent=_cge(253)
-          }
-        },
-        nil,
-        nil,
-        {
-          k=_cge(256),
-          v={
-            ent=_cge(256)
-          }
-        },
-        {
-          k=_cge(257),
-          v={
-            ent=_cge(257)
-          }
-        },
-        {
-          k=_cge(258),
-          v={
-            ent=_cge(258)
-          }
-        },
-        {
-          k=_cge(259),
-          v={
-            ent=_cge(259)
-          }
-        },
-        {
-          k=_cge(260),
-          v={
-            ent=_cge(260)
-          }
-        },
-        {
-          k=_cge(261),
-          v={
-            ent=_cge(261)
-          }
-        },
-        {
-          k=_cge(262),
-          v={
-            ent=_cge(262)
-          }
-        },
-        {
-          k=_cge(263),
-          v={
-            ent=_cge(263)
-          }
-        },
-        {
-          k=_cge(264),
-          v={
-            ent=_cge(264)
-          }
-        }
-      }),
-    add=nil
-  },
-  dangerous={
-    auto_saveload=true,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  door={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    get_switch=function() --[[..skipped..]] end,
-    set_open=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({
-        [208]={
-          k=_cge(208),
-          v={
-            switch=_cge(181),
-            ent=_cge(208)
-          }
-        },
-        [211]={
-          k=_cge(211),
-          v={
-            switch=_cge(183),
-            ent=_cge(211)
-          }
-        },
-        [210]={
-          k=_cge(210),
-          v={
-            switch=_cge(184),
-            ent=_cge(210)
-          }
-        },
-        [209]={
-          k=_cge(209),
-          v={
-            switch=_cge(182),
-            ent=_cge(209)
-          }
-        },
-        [79]={
-          k=_cge(79),
-          v={
-            switch=_cge(80),
-            ent=_cge(79)
-          }
-        }
-      }),
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    get_open=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    set_switch=function() --[[..skipped..]] end,
-    add=nil
-  },
-  animation={
-    auto_saveload=true,
-    get_curr_anim=function() --[[..skipped..]] end,
-    set_strips=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    switch=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({
-        [208]={
-          k=_cge(208),
-          v={
-            t=1.6660156399012,
-            anims={
-              closing={
-                after=\\"closed\\",
-                strip={
-                  t=0.045000001788139,
-                  after=\\"opened\\",
-                  base=cg.vec2(240.000000, 112.000000),
-                  n=3
-                },
-                n=3
-              },
-              opening={
-                after=\\"opened\\",
-                strip={
-                  t=0.045000001788139,
-                  base=cg.vec2(240.000000, 128.000000),
-                  n=1
-                },
-                n=3
-              },
-              closed={
-                strip={
-                  t=1,
-                  base=cg.vec2(224.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              },
-              opened={
-                strip={
-                  t=1,
-                  base=cg.vec2(288.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              }
-            },
-            curr_anim=\\"closed\\",
-            frame=1,
-            ent=_cge(208)
-          }
-        },
-        [211]={
-          k=_cge(211),
-          v={
-            t=1.6660156399012,
-            anims={
-              closing={
-                after=\\"closed\\",
-                strip={
-                  t=0.045000001788139,
-                  after=\\"opened\\",
-                  base=cg.vec2(240.000000, 112.000000),
-                  n=3
-                },
-                n=3
-              },
-              opening={
-                after=\\"opened\\",
-                strip={
-                  t=0.045000001788139,
-                  base=cg.vec2(240.000000, 128.000000),
-                  n=1
-                },
-                n=3
-              },
-              closed={
-                strip={
-                  t=1,
-                  base=cg.vec2(224.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              },
-              opened={
-                strip={
-                  t=1,
-                  base=cg.vec2(288.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              }
-            },
-            curr_anim=\\"closed\\",
-            frame=1,
-            ent=_cge(211)
-          }
-        },
-        [210]={
-          k=_cge(210),
-          v={
-            t=1.6660156399012,
-            anims={
-              closing={
-                after=\\"closed\\",
-                strip={
-                  t=0.045000001788139,
-                  after=\\"opened\\",
-                  base=cg.vec2(240.000000, 112.000000),
-                  n=3
-                },
-                n=3
-              },
-              opening={
-                after=\\"opened\\",
-                strip={
-                  t=0.045000001788139,
-                  base=cg.vec2(240.000000, 128.000000),
-                  n=1
-                },
-                n=3
-              },
-              closed={
-                strip={
-                  t=1,
-                  base=cg.vec2(224.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              },
-              opened={
-                strip={
-                  t=1,
-                  base=cg.vec2(288.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              }
-            },
-            curr_anim=\\"closed\\",
-            frame=1,
-            ent=_cge(210)
-          }
-        },
-        [209]={
-          k=_cge(209),
-          v={
-            t=1.6660156399012,
-            anims={
-              closing={
-                after=\\"closed\\",
-                strip={
-                  t=0.045000001788139,
-                  after=\\"opened\\",
-                  base=cg.vec2(240.000000, 112.000000),
-                  n=3
-                },
-                n=3
-              },
-              opening={
-                after=\\"opened\\",
-                strip={
-                  t=0.045000001788139,
-                  base=cg.vec2(240.000000, 128.000000),
-                  n=1
-                },
-                n=3
-              },
-              closed={
-                strip={
-                  t=1,
-                  base=cg.vec2(224.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              },
-              opened={
-                strip={
-                  t=1,
-                  base=cg.vec2(288.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              }
-            },
-            curr_anim=\\"closed\\",
-            frame=1,
-            ent=_cge(209)
-          }
-        },
-        [79]={
-          k=_cge(79),
-          v={
-            t=1.6660156399012,
-            anims={
-              closing={
-                after=\\"closed\\",
-                strip={
-                  t=0.045000001788139,
-                  after=\\"opened\\",
-                  base=cg.vec2(240.000000, 112.000000),
-                  n=3
-                },
-                n=3
-              },
-              opening={
-                after=\\"opened\\",
-                strip={
-                  t=0.045000001788139,
-                  base=cg.vec2(240.000000, 128.000000),
-                  n=1
-                },
-                n=3
-              },
-              closed={
-                strip={
-                  t=1,
-                  base=cg.vec2(224.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              },
-              opened={
-                strip={
-                  t=1,
-                  base=cg.vec2(288.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              }
-            },
-            curr_anim=\\"closed\\",
-            frame=1,
-            ent=_cge(79)
-          }
-        }
-      }),
-    add=function() --[[..skipped..]] end,
-    start=function() --[[..skipped..]] end,
-    set_frames=function() --[[..skipped..]] end
-  },
-  bump={
-    slide=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
-    set_position=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    add=nil,
-    update=function() --[[..skipped..]] end,
-    auto_saveload=true,
-    simple_remove=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        {
-          k=_cge(33),
-          v={
-            ent=_cge(33)
-          }
-        },
-        {
-          k=_cge(34),
-          v={
-            ent=_cge(34)
-          }
-        },
-        {
-          k=_cge(35),
-          v={
-            ent=_cge(35)
-          }
-        },
         {
           k=_cge(36),
           v={
@@ -1773,24 +157,9 @@
             ent=_cge(53)
           }
         },
-        {
-          k=_cge(54),
-          v={
-            ent=_cge(54)
-          }
-        },
-        {
-          k=_cge(55),
-          v={
-            ent=_cge(55)
-          }
-        },
-        {
-          k=_cge(56),
-          v={
-            ent=_cge(56)
-          }
-        },
+        nil,
+        nil,
+        nil,
         {
           k=_cge(57),
           v={
@@ -1863,42 +232,12 @@
             ent=_cge(68)
           }
         },
-        {
-          k=_cge(69),
-          v={
-            ent=_cge(69)
-          }
-        },
-        {
-          k=_cge(70),
-          v={
-            ent=_cge(70)
-          }
-        },
-        {
-          k=_cge(71),
-          v={
-            ent=_cge(71)
-          }
-        },
-        {
-          k=_cge(72),
-          v={
-            ent=_cge(72)
-          }
-        },
-        {
-          k=_cge(73),
-          v={
-            ent=_cge(73)
-          }
-        },
-        {
-          k=_cge(74),
-          v={
-            ent=_cge(74)
-          }
-        },
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
         {
           k=_cge(75),
           v={
@@ -1932,22 +271,11 @@
         {
           k=_cge(80),
           v={
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
             ent=_cge(80)
           }
         },
-        {
-          k=_cge(81),
-          v={
-            ent=_cge(81)
-          }
-        },
-        {
-          k=_cge(82),
-          v={
-            ent=_cge(82)
-          }
-        },
+        nil,
+        nil,
         {
           k=_cge(83),
           v={
@@ -1978,12 +306,7 @@
             ent=_cge(87)
           }
         },
-        {
-          k=_cge(88),
-          v={
-            ent=_cge(88)
-          }
-        },
+        nil,
         {
           k=_cge(89),
           v={
@@ -2512,70 +835,26 @@
             ent=_cge(176)
           }
         },
-        {
-          k=_cge(177),
-          v={
-            ent=_cge(177)
-          }
-        },
-        {
-          k=_cge(178),
-          v={
-            ent=_cge(178)
-          }
-        },
-        {
-          k=_cge(179),
-          v={
-            ent=_cge(179)
-          }
-        },
+        nil,
+        nil,
+        nil,
         {
           k=_cge(180),
           v={
             ent=_cge(180)
           }
         },
-        {
-          k=_cge(181),
-          v={
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
-            ent=_cge(181)
-          }
-        },
+        nil,
         {
           k=_cge(182),
           v={
-            ent=_cge(182),
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000))
+            ent=_cge(182)
           }
         },
-        {
-          k=_cge(183),
-          v={
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
-            ent=_cge(183)
-          }
-        },
-        {
-          k=_cge(184),
-          v={
-            ent=_cge(184),
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000))
-          }
-        },
-        {
-          k=_cge(185),
-          v={
-            ent=_cge(185)
-          }
-        },
-        {
-          k=_cge(186),
-          v={
-            ent=_cge(186)
-          }
-        },
+        nil,
+        nil,
+        nil,
+        nil,
         {
           k=_cge(187),
           v={
@@ -2714,31 +993,11 @@
             ent=_cge(209)
           }
         },
-        {
-          k=_cge(210),
-          v={
-            ent=_cge(210)
-          }
-        },
-        {
-          k=_cge(211),
-          v={
-            ent=_cge(211)
-          }
-        },
         nil,
-        {
-          k=_cge(213),
-          v={
-            ent=_cge(213)
-          }
-        },
-        {
-          k=_cge(214),
-          v={
-            ent=_cge(214)
-          }
-        },
+        nil,
+        nil,
+        nil,
+        nil,
         {
           k=_cge(215),
           v={
@@ -2895,7 +1154,12 @@
             ent=_cge(240)
           }
         },
-        nil,
+        {
+          k=_cge(241),
+          v={
+            ent=_cge(241)
+          }
+        },
         {
           k=_cge(242),
           v={
@@ -2968,8 +1232,18 @@
             ent=_cge(253)
           }
         },
-        nil,
-        nil,
+        {
+          k=_cge(254),
+          v={
+            ent=_cge(254)
+          }
+        },
+        {
+          k=_cge(255),
+          v={
+            ent=_cge(255)
+          }
+        },
         {
           k=_cge(256),
           v={
@@ -3022,6 +1296,1984 @@
           k=_cge(264),
           v={
             ent=_cge(264)
+          }
+        },
+        {
+          k=_cge(265),
+          v={
+            ent=_cge(265)
+          }
+        }
+      }),
+    add=nil
+  },
+  dangerous={
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  door={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    get_switch=function() --[[..skipped..]] end,
+    set_open=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({
+        [212]={
+          k=_cge(212),
+          v={
+            ent=_cge(212),
+            switch=_cge(186)
+          }
+        },
+        [211]={
+          k=_cge(211),
+          v={
+            ent=_cge(211),
+            switch=_cge(184)
+          }
+        },
+        [81]={
+          k=_cge(81),
+          v={
+            ent=_cge(81),
+            switch=_cge(82)
+          }
+        },
+        [210]={
+          k=_cge(210),
+          v={
+            ent=_cge(210),
+            switch=_cge(183)
+          }
+        },
+        [213]={
+          k=_cge(213),
+          v={
+            ent=_cge(213),
+            switch=_cge(185)
+          }
+        }
+      }),
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    get_open=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    set_switch=function() --[[..skipped..]] end,
+    add=nil
+  },
+  animation={
+    auto_saveload=true,
+    get_curr_anim=function() --[[..skipped..]] end,
+    set_strips=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    switch=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({
+        [212]={
+          k=_cge(212),
+          v={
+            t=1.6660156399012,
+            anims={
+              closing={
+                after=\\"closed\\",
+                strip={
+                  t=0.045000001788139,
+                  after=\\"opened\\",
+                  base=cg.vec2(240.000000, 112.000000),
+                  n=3
+                },
+                n=3
+              },
+              opening={
+                after=\\"opened\\",
+                strip={
+                  t=0.045000001788139,
+                  base=cg.vec2(240.000000, 128.000000),
+                  n=1
+                },
+                n=3
+              },
+              closed={
+                strip={
+                  t=1,
+                  base=cg.vec2(224.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              },
+              opened={
+                strip={
+                  t=1,
+                  base=cg.vec2(288.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              }
+            },
+            curr_anim=\\"closed\\",
+            frame=1,
+            ent=_cge(212)
+          }
+        },
+        [211]={
+          k=_cge(211),
+          v={
+            t=1.6660156399012,
+            anims={
+              closing={
+                after=\\"closed\\",
+                strip={
+                  t=0.045000001788139,
+                  after=\\"opened\\",
+                  base=cg.vec2(240.000000, 112.000000),
+                  n=3
+                },
+                n=3
+              },
+              opening={
+                after=\\"opened\\",
+                strip={
+                  t=0.045000001788139,
+                  base=cg.vec2(240.000000, 128.000000),
+                  n=1
+                },
+                n=3
+              },
+              closed={
+                strip={
+                  t=1,
+                  base=cg.vec2(224.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              },
+              opened={
+                strip={
+                  t=1,
+                  base=cg.vec2(288.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              }
+            },
+            curr_anim=\\"closed\\",
+            frame=1,
+            ent=_cge(211)
+          }
+        },
+        [81]={
+          k=_cge(81),
+          v={
+            t=1.6660156399012,
+            anims={
+              closing={
+                after=\\"closed\\",
+                strip={
+                  t=0.045000001788139,
+                  after=\\"opened\\",
+                  base=cg.vec2(240.000000, 112.000000),
+                  n=3
+                },
+                n=3
+              },
+              opening={
+                after=\\"opened\\",
+                strip={
+                  t=0.045000001788139,
+                  base=cg.vec2(240.000000, 128.000000),
+                  n=1
+                },
+                n=3
+              },
+              closed={
+                strip={
+                  t=1,
+                  base=cg.vec2(224.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              },
+              opened={
+                strip={
+                  t=1,
+                  base=cg.vec2(288.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              }
+            },
+            curr_anim=\\"closed\\",
+            frame=1,
+            ent=_cge(81)
+          }
+        },
+        [210]={
+          k=_cge(210),
+          v={
+            t=1.6660156399012,
+            anims={
+              closing={
+                after=\\"closed\\",
+                strip={
+                  t=0.045000001788139,
+                  after=\\"opened\\",
+                  base=cg.vec2(240.000000, 112.000000),
+                  n=3
+                },
+                n=3
+              },
+              opening={
+                after=\\"opened\\",
+                strip={
+                  t=0.045000001788139,
+                  base=cg.vec2(240.000000, 128.000000),
+                  n=1
+                },
+                n=3
+              },
+              closed={
+                strip={
+                  t=1,
+                  base=cg.vec2(224.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              },
+              opened={
+                strip={
+                  t=1,
+                  base=cg.vec2(288.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              }
+            },
+            curr_anim=\\"closed\\",
+            frame=1,
+            ent=_cge(210)
+          }
+        },
+        [213]={
+          k=_cge(213),
+          v={
+            t=1.6660156399012,
+            anims={
+              closing={
+                after=\\"closed\\",
+                strip={
+                  t=0.045000001788139,
+                  after=\\"opened\\",
+                  base=cg.vec2(240.000000, 112.000000),
+                  n=3
+                },
+                n=3
+              },
+              opening={
+                after=\\"opened\\",
+                strip={
+                  t=0.045000001788139,
+                  base=cg.vec2(240.000000, 128.000000),
+                  n=1
+                },
+                n=3
+              },
+              closed={
+                strip={
+                  t=1,
+                  base=cg.vec2(224.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              },
+              opened={
+                strip={
+                  t=1,
+                  base=cg.vec2(288.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              }
+            },
+            curr_anim=\\"closed\\",
+            frame=1,
+            ent=_cge(213)
+          }
+        }
+      }),
+    add=function() --[[..skipped..]] end,
+    start=function() --[[..skipped..]] end,
+    set_frames=function() --[[..skipped..]] end
+  },
+  bump={
+    slide=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    set_position=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    add=nil,
+    update=function() --[[..skipped..]] end,
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        nil,
+        {
+          k=_cge(36),
+          v={
+            last_dirty=590,
+            ent=_cge(36)
+          }
+        },
+        {
+          k=_cge(37),
+          v={
+            last_dirty=627,
+            ent=_cge(37)
+          }
+        },
+        {
+          k=_cge(38),
+          v={
+            last_dirty=517,
+            ent=_cge(38)
+          }
+        },
+        {
+          k=_cge(39),
+          v={
+            last_dirty=549,
+            ent=_cge(39)
+          }
+        },
+        {
+          k=_cge(40),
+          v={
+            last_dirty=538,
+            ent=_cge(40)
+          }
+        },
+        {
+          k=_cge(41),
+          v={
+            last_dirty=567,
+            ent=_cge(41)
+          }
+        },
+        {
+          k=_cge(42),
+          v={
+            last_dirty=595,
+            ent=_cge(42)
+          }
+        },
+        {
+          k=_cge(43),
+          v={
+            last_dirty=625,
+            ent=_cge(43)
+          }
+        },
+        {
+          k=_cge(44),
+          v={
+            last_dirty=669,
+            ent=_cge(44)
+          }
+        },
+        {
+          k=_cge(45),
+          v={
+            last_dirty=694,
+            ent=_cge(45)
+          }
+        },
+        {
+          k=_cge(46),
+          v={
+            last_dirty=719,
+            ent=_cge(46)
+          }
+        },
+        {
+          k=_cge(47),
+          v={
+            last_dirty=744,
+            ent=_cge(47)
+          }
+        },
+        {
+          k=_cge(48),
+          v={
+            last_dirty=769,
+            ent=_cge(48)
+          }
+        },
+        {
+          k=_cge(49),
+          v={
+            last_dirty=791,
+            ent=_cge(49)
+          }
+        },
+        {
+          k=_cge(50),
+          v={
+            last_dirty=813,
+            ent=_cge(50)
+          }
+        },
+        {
+          k=_cge(51),
+          v={
+            last_dirty=858,
+            ent=_cge(51)
+          }
+        },
+        {
+          k=_cge(52),
+          v={
+            last_dirty=883,
+            ent=_cge(52)
+          }
+        },
+        {
+          k=_cge(53),
+          v={
+            last_dirty=902,
+            ent=_cge(53)
+          }
+        },
+        {
+          k=_cge(54),
+          v={
+            last_dirty=322,
+            ent=_cge(54)
+          }
+        },
+        {
+          k=_cge(55),
+          v={
+            last_dirty=378,
+            ent=_cge(55)
+          }
+        },
+        {
+          k=_cge(56),
+          v={
+            last_dirty=421,
+            ent=_cge(56)
+          }
+        },
+        {
+          k=_cge(57),
+          v={
+            last_dirty=905,
+            ent=_cge(57)
+          }
+        },
+        {
+          k=_cge(58),
+          v={
+            last_dirty=926,
+            ent=_cge(58)
+          }
+        },
+        {
+          k=_cge(59),
+          v={
+            last_dirty=944,
+            ent=_cge(59)
+          }
+        },
+        {
+          k=_cge(60),
+          v={
+            last_dirty=968,
+            ent=_cge(60)
+          }
+        },
+        {
+          k=_cge(61),
+          v={
+            last_dirty=991,
+            ent=_cge(61)
+          }
+        },
+        {
+          k=_cge(62),
+          v={
+            last_dirty=1015,
+            ent=_cge(62)
+          }
+        },
+        {
+          k=_cge(63),
+          v={
+            last_dirty=1035,
+            ent=_cge(63)
+          }
+        },
+        {
+          k=_cge(64),
+          v={
+            last_dirty=1057,
+            ent=_cge(64)
+          }
+        },
+        {
+          k=_cge(65),
+          v={
+            last_dirty=1079,
+            ent=_cge(65)
+          }
+        },
+        {
+          k=_cge(66),
+          v={
+            last_dirty=1160,
+            ent=_cge(66)
+          }
+        },
+        {
+          k=_cge(67),
+          v={
+            last_dirty=1190,
+            ent=_cge(67)
+          }
+        },
+        {
+          k=_cge(68),
+          v={
+            last_dirty=1195,
+            ent=_cge(68)
+          }
+        },
+        {
+          k=_cge(69),
+          v={
+            last_dirty=102,
+            ent=_cge(69)
+          }
+        },
+        {
+          k=_cge(70),
+          v={
+            last_dirty=125,
+            ent=_cge(70)
+          }
+        },
+        {
+          k=_cge(71),
+          v={
+            last_dirty=145,
+            ent=_cge(71)
+          }
+        },
+        {
+          k=_cge(72),
+          v={
+            last_dirty=163,
+            ent=_cge(72)
+          }
+        },
+        {
+          k=_cge(73),
+          v={
+            last_dirty=187,
+            ent=_cge(73)
+          }
+        },
+        {
+          k=_cge(74),
+          v={
+            last_dirty=212,
+            ent=_cge(74)
+          }
+        },
+        {
+          k=_cge(75),
+          v={
+            last_dirty=1186,
+            ent=_cge(75)
+          }
+        },
+        {
+          k=_cge(76),
+          v={
+            last_dirty=1652,
+            ent=_cge(76)
+          }
+        },
+        {
+          k=_cge(77),
+          v={
+            last_dirty=1267,
+            ent=_cge(77)
+          }
+        },
+        {
+          k=_cge(78),
+          v={
+            last_dirty=1299,
+            ent=_cge(78)
+          }
+        },
+        {
+          k=_cge(79),
+          v={
+            last_dirty=1342,
+            ent=_cge(79)
+          }
+        },
+        {
+          k=_cge(80),
+          v={
+            last_dirty=1376,
+            ent=_cge(80)
+          }
+        },
+        {
+          k=_cge(81),
+          v={
+            last_dirty=60,
+            ent=_cge(81)
+          }
+        },
+        {
+          k=_cge(82),
+          v={
+            last_dirty=93,
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
+            ent=_cge(82)
+          }
+        },
+        {
+          k=_cge(83),
+          v={
+            last_dirty=2112,
+            ent=_cge(83)
+          }
+        },
+        {
+          k=_cge(84),
+          v={
+            last_dirty=1735,
+            ent=_cge(84)
+          }
+        },
+        {
+          k=_cge(85),
+          v={
+            last_dirty=1479,
+            ent=_cge(85)
+          }
+        },
+        {
+          k=_cge(86),
+          v={
+            last_dirty=1514,
+            ent=_cge(86)
+          }
+        },
+        {
+          k=_cge(87),
+          v={
+            last_dirty=1576,
+            ent=_cge(87)
+          }
+        },
+        {
+          k=_cge(88),
+          v={
+            last_dirty=683,
+            ent=_cge(88)
+          }
+        },
+        {
+          k=_cge(89),
+          v={
+            last_dirty=1638,
+            ent=_cge(89)
+          }
+        },
+        {
+          k=_cge(90),
+          v={
+            last_dirty=1628,
+            ent=_cge(90)
+          }
+        },
+        {
+          k=_cge(91),
+          v={
+            last_dirty=1214,
+            ent=_cge(91)
+          }
+        },
+        {
+          k=_cge(92),
+          v={
+            last_dirty=1260,
+            ent=_cge(92)
+          }
+        },
+        {
+          k=_cge(93),
+          v={
+            last_dirty=1717,
+            ent=_cge(93)
+          }
+        },
+        {
+          k=_cge(94),
+          v={
+            last_dirty=1641,
+            ent=_cge(94)
+          }
+        },
+        {
+          k=_cge(95),
+          v={
+            last_dirty=1675,
+            ent=_cge(95)
+          }
+        },
+        {
+          k=_cge(96),
+          v={
+            last_dirty=1731,
+            ent=_cge(96)
+          }
+        },
+        {
+          k=_cge(97),
+          v={
+            last_dirty=1693,
+            ent=_cge(97)
+          }
+        },
+        {
+          k=_cge(98),
+          v={
+            last_dirty=1689,
+            ent=_cge(98)
+          }
+        },
+        {
+          k=_cge(99),
+          v={
+            last_dirty=1764,
+            ent=_cge(99)
+          }
+        },
+        {
+          k=_cge(100),
+          v={
+            last_dirty=1830,
+            ent=_cge(100)
+          }
+        },
+        {
+          k=_cge(101),
+          v={
+            last_dirty=1854,
+            ent=_cge(101)
+          }
+        },
+        {
+          k=_cge(102),
+          v={
+            last_dirty=1883,
+            ent=_cge(102)
+          }
+        },
+        {
+          k=_cge(103),
+          v={
+            last_dirty=1907,
+            ent=_cge(103)
+          }
+        },
+        {
+          k=_cge(104),
+          v={
+            last_dirty=1947,
+            ent=_cge(104)
+          }
+        },
+        {
+          k=_cge(105),
+          v={
+            last_dirty=1972,
+            ent=_cge(105)
+          }
+        },
+        {
+          k=_cge(106),
+          v={
+            last_dirty=1994,
+            ent=_cge(106)
+          }
+        },
+        {
+          k=_cge(107),
+          v={
+            last_dirty=2018,
+            ent=_cge(107)
+          }
+        },
+        {
+          k=_cge(108),
+          v={
+            last_dirty=2039,
+            ent=_cge(108)
+          }
+        },
+        {
+          k=_cge(109),
+          v={
+            last_dirty=2059,
+            ent=_cge(109)
+          }
+        },
+        {
+          k=_cge(110),
+          v={
+            last_dirty=582,
+            ent=_cge(110)
+          }
+        },
+        {
+          k=_cge(111),
+          v={
+            last_dirty=601,
+            ent=_cge(111)
+          }
+        },
+        {
+          k=_cge(112),
+          v={
+            last_dirty=620,
+            ent=_cge(112)
+          }
+        },
+        {
+          k=_cge(113),
+          v={
+            last_dirty=639,
+            ent=_cge(113)
+          }
+        },
+        {
+          k=_cge(114),
+          v={
+            last_dirty=733,
+            ent=_cge(114)
+          }
+        },
+        {
+          k=_cge(115),
+          v={
+            last_dirty=760,
+            ent=_cge(115)
+          }
+        },
+        {
+          k=_cge(116),
+          v={
+            last_dirty=778,
+            ent=_cge(116)
+          }
+        },
+        {
+          k=_cge(117),
+          v={
+            last_dirty=797,
+            ent=_cge(117)
+          }
+        },
+        {
+          k=_cge(118),
+          v={
+            last_dirty=862,
+            ent=_cge(118)
+          }
+        },
+        {
+          k=_cge(119),
+          v={
+            last_dirty=662,
+            ent=_cge(119)
+          }
+        },
+        {
+          k=_cge(120),
+          v={
+            last_dirty=643,
+            ent=_cge(120)
+          }
+        },
+        {
+          k=_cge(121),
+          v={
+            last_dirty=685,
+            ent=_cge(121)
+          }
+        },
+        {
+          k=_cge(122),
+          v={
+            last_dirty=779,
+            ent=_cge(122)
+          }
+        },
+        {
+          k=_cge(123),
+          v={
+            last_dirty=806,
+            ent=_cge(123)
+          }
+        },
+        {
+          k=_cge(124),
+          v={
+            last_dirty=824,
+            ent=_cge(124)
+          }
+        },
+        {
+          k=_cge(125),
+          v={
+            last_dirty=843,
+            ent=_cge(125)
+          }
+        },
+        {
+          k=_cge(126),
+          v={
+            last_dirty=1807,
+            ent=_cge(126)
+          }
+        },
+        {
+          k=_cge(127),
+          v={
+            last_dirty=1833,
+            ent=_cge(127)
+          }
+        },
+        {
+          k=_cge(128),
+          v={
+            last_dirty=1859,
+            ent=_cge(128)
+          }
+        },
+        {
+          k=_cge(129),
+          v={
+            last_dirty=1879,
+            ent=_cge(129)
+          }
+        },
+        {
+          k=_cge(130),
+          v={
+            last_dirty=1924,
+            ent=_cge(130)
+          }
+        },
+        {
+          k=_cge(131),
+          v={
+            last_dirty=1958,
+            ent=_cge(131)
+          }
+        },
+        {
+          k=_cge(132),
+          v={
+            last_dirty=1984,
+            ent=_cge(132)
+          }
+        },
+        {
+          k=_cge(133),
+          v={
+            last_dirty=2121,
+            ent=_cge(133)
+          }
+        },
+        {
+          k=_cge(134),
+          v={
+            last_dirty=2209,
+            ent=_cge(134)
+          }
+        },
+        {
+          k=_cge(135),
+          v={
+            last_dirty=2138,
+            ent=_cge(135)
+          }
+        },
+        {
+          k=_cge(136),
+          v={
+            last_dirty=2242,
+            ent=_cge(136)
+          }
+        },
+        {
+          k=_cge(137),
+          v={
+            last_dirty=2298,
+            ent=_cge(137)
+          }
+        },
+        {
+          k=_cge(138),
+          v={
+            last_dirty=2421,
+            ent=_cge(138)
+          }
+        },
+        {
+          k=_cge(139),
+          v={
+            last_dirty=2449,
+            ent=_cge(139)
+          }
+        },
+        {
+          k=_cge(140),
+          v={
+            last_dirty=2483,
+            ent=_cge(140)
+          }
+        },
+        {
+          k=_cge(141),
+          v={
+            last_dirty=2528,
+            ent=_cge(141)
+          }
+        },
+        {
+          k=_cge(142),
+          v={
+            last_dirty=2550,
+            ent=_cge(142)
+          }
+        },
+        {
+          k=_cge(143),
+          v={
+            last_dirty=2602,
+            ent=_cge(143)
+          }
+        },
+        {
+          k=_cge(144),
+          v={
+            last_dirty=2661,
+            ent=_cge(144)
+          }
+        },
+        {
+          k=_cge(145),
+          v={
+            last_dirty=2689,
+            ent=_cge(145)
+          }
+        },
+        {
+          k=_cge(146),
+          v={
+            last_dirty=2716,
+            ent=_cge(146)
+          }
+        },
+        {
+          k=_cge(147),
+          v={
+            last_dirty=2806,
+            ent=_cge(147)
+          }
+        },
+        {
+          k=_cge(148),
+          v={
+            last_dirty=2833,
+            ent=_cge(148)
+          }
+        },
+        {
+          k=_cge(149),
+          v={
+            last_dirty=2855,
+            ent=_cge(149)
+          }
+        },
+        {
+          k=_cge(150),
+          v={
+            last_dirty=2873,
+            ent=_cge(150)
+          }
+        },
+        {
+          k=_cge(151),
+          v={
+            last_dirty=2895,
+            ent=_cge(151)
+          }
+        },
+        {
+          k=_cge(152),
+          v={
+            last_dirty=2910,
+            ent=_cge(152)
+          }
+        },
+        {
+          k=_cge(153),
+          v={
+            last_dirty=1174,
+            ent=_cge(153)
+          }
+        },
+        {
+          k=_cge(154),
+          v={
+            last_dirty=1204,
+            ent=_cge(154)
+          }
+        },
+        {
+          k=_cge(155),
+          v={
+            last_dirty=1289,
+            ent=_cge(155)
+          }
+        },
+        {
+          k=_cge(156),
+          v={
+            last_dirty=1311,
+            ent=_cge(156)
+          }
+        },
+        {
+          k=_cge(157),
+          v={
+            last_dirty=1357,
+            ent=_cge(157)
+          }
+        },
+        {
+          k=_cge(158),
+          v={
+            last_dirty=1381,
+            ent=_cge(158)
+          }
+        },
+        {
+          k=_cge(159),
+          v={
+            last_dirty=1429,
+            ent=_cge(159)
+          }
+        },
+        {
+          k=_cge(160),
+          v={
+            last_dirty=1454,
+            ent=_cge(160)
+          }
+        },
+        {
+          k=_cge(161),
+          v={
+            last_dirty=1476,
+            ent=_cge(161)
+          }
+        },
+        {
+          k=_cge(162),
+          v={
+            last_dirty=1547,
+            ent=_cge(162)
+          }
+        },
+        {
+          k=_cge(163),
+          v={
+            last_dirty=1590,
+            ent=_cge(163)
+          }
+        },
+        {
+          k=_cge(164),
+          v={
+            last_dirty=1669,
+            ent=_cge(164)
+          }
+        },
+        {
+          k=_cge(165),
+          v={
+            last_dirty=1696,
+            ent=_cge(165)
+          }
+        },
+        {
+          k=_cge(166),
+          v={
+            last_dirty=1724,
+            ent=_cge(166)
+          }
+        },
+        {
+          k=_cge(167),
+          v={
+            last_dirty=1751,
+            ent=_cge(167)
+          }
+        },
+        {
+          k=_cge(168),
+          v={
+            last_dirty=1772,
+            ent=_cge(168)
+          }
+        },
+        {
+          k=_cge(169),
+          v={
+            last_dirty=1793,
+            ent=_cge(169)
+          }
+        },
+        {
+          k=_cge(170),
+          v={
+            last_dirty=1858,
+            ent=_cge(170)
+          }
+        },
+        {
+          k=_cge(171),
+          v={
+            last_dirty=1879,
+            ent=_cge(171)
+          }
+        },
+        {
+          k=_cge(172),
+          v={
+            last_dirty=1897,
+            ent=_cge(172)
+          }
+        },
+        {
+          k=_cge(173),
+          v={
+            last_dirty=1912,
+            ent=_cge(173)
+          }
+        },
+        {
+          k=_cge(174),
+          v={
+            last_dirty=1939,
+            ent=_cge(174)
+          }
+        },
+        {
+          k=_cge(175),
+          v={
+            last_dirty=1212,
+            ent=_cge(175)
+          }
+        },
+        {
+          k=_cge(176),
+          v={
+            last_dirty=1247,
+            ent=_cge(176)
+          }
+        },
+        {
+          k=_cge(177),
+          v={
+            last_dirty=517,
+            ent=_cge(177)
+          }
+        },
+        {
+          k=_cge(178),
+          v={
+            last_dirty=594,
+            ent=_cge(178)
+          }
+        },
+        {
+          k=_cge(179),
+          v={
+            last_dirty=637,
+            ent=_cge(179)
+          }
+        },
+        {
+          k=_cge(180),
+          v={
+            last_dirty=1824,
+            ent=_cge(180)
+          }
+        },
+        {
+          k=_cge(181),
+          v={
+            last_dirty=635,
+            ent=_cge(181)
+          }
+        },
+        {
+          k=_cge(182),
+          v={
+            last_dirty=1860,
+            ent=_cge(182)
+          }
+        },
+        {
+          k=_cge(183),
+          v={
+            last_dirty=230,
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
+            ent=_cge(183)
+          }
+        },
+        {
+          k=_cge(184),
+          v={
+            last_dirty=298,
+            ent=_cge(184),
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000))
+          }
+        },
+        {
+          k=_cge(185),
+          v={
+            last_dirty=339,
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
+            ent=_cge(185)
+          }
+        },
+        {
+          k=_cge(186),
+          v={
+            last_dirty=377,
+            ent=_cge(186),
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000))
+          }
+        },
+        {
+          k=_cge(187),
+          v={
+            last_dirty=1264,
+            ent=_cge(187)
+          }
+        },
+        {
+          k=_cge(188),
+          v={
+            last_dirty=1934,
+            ent=_cge(188)
+          }
+        },
+        {
+          k=_cge(189),
+          v={
+            last_dirty=1865,
+            ent=_cge(189)
+          }
+        },
+        {
+          k=_cge(190),
+          v={
+            last_dirty=1417,
+            ent=_cge(190)
+          }
+        },
+        {
+          k=_cge(191),
+          v={
+            last_dirty=1345,
+            ent=_cge(191)
+          }
+        },
+        {
+          k=_cge(192),
+          v={
+            last_dirty=1252,
+            ent=_cge(192)
+          }
+        },
+        {
+          k=_cge(193),
+          v={
+            last_dirty=1332,
+            ent=_cge(193)
+          }
+        },
+        {
+          k=_cge(194),
+          v={
+            last_dirty=1353,
+            ent=_cge(194)
+          }
+        },
+        {
+          k=_cge(195),
+          v={
+            last_dirty=1373,
+            ent=_cge(195)
+          }
+        },
+        {
+          k=_cge(196),
+          v={
+            last_dirty=1394,
+            ent=_cge(196)
+          }
+        },
+        {
+          k=_cge(197),
+          v={
+            last_dirty=1417,
+            ent=_cge(197)
+          }
+        },
+        {
+          k=_cge(198),
+          v={
+            last_dirty=1336,
+            ent=_cge(198)
+          }
+        },
+        {
+          k=_cge(199),
+          v={
+            last_dirty=1364,
+            ent=_cge(199)
+          }
+        },
+        {
+          k=_cge(200),
+          v={
+            last_dirty=1383,
+            ent=_cge(200)
+          }
+        },
+        {
+          k=_cge(201),
+          v={
+            last_dirty=1389,
+            ent=_cge(201)
+          }
+        },
+        {
+          k=_cge(202),
+          v={
+            last_dirty=1367,
+            ent=_cge(202)
+          }
+        },
+        {
+          k=_cge(203),
+          v={
+            last_dirty=1405,
+            ent=_cge(203)
+          }
+        },
+        {
+          k=_cge(204),
+          v={
+            last_dirty=1400,
+            ent=_cge(204)
+          }
+        },
+        {
+          k=_cge(205),
+          v={
+            last_dirty=1420,
+            ent=_cge(205)
+          }
+        },
+        {
+          k=_cge(206),
+          v={
+            last_dirty=1441,
+            ent=_cge(206)
+          }
+        },
+        {
+          k=_cge(207),
+          v={
+            last_dirty=1438,
+            ent=_cge(207)
+          }
+        },
+        {
+          k=_cge(208),
+          v={
+            last_dirty=1458,
+            ent=_cge(208)
+          }
+        },
+        {
+          k=_cge(209),
+          v={
+            last_dirty=1479,
+            ent=_cge(209)
+          }
+        },
+        {
+          k=_cge(210),
+          v={
+            last_dirty=221,
+            ent=_cge(210)
+          }
+        },
+        {
+          k=_cge(211),
+          v={
+            last_dirty=243,
+            ent=_cge(211)
+          }
+        },
+        {
+          k=_cge(212),
+          v={
+            last_dirty=265,
+            ent=_cge(212)
+          }
+        },
+        {
+          k=_cge(213),
+          v={
+            last_dirty=286,
+            ent=_cge(213)
+          }
+        },
+        {
+          k=_cge(214),
+          v={
+            last_dirty=211,
+            ent=_cge(214)
+          }
+        },
+        {
+          k=_cge(215),
+          v={
+            last_dirty=1371,
+            ent=_cge(215)
+          }
+        },
+        {
+          k=_cge(216),
+          v={
+            last_dirty=1389,
+            ent=_cge(216)
+          }
+        },
+        {
+          k=_cge(217),
+          v={
+            last_dirty=1411,
+            ent=_cge(217)
+          }
+        },
+        {
+          k=_cge(218),
+          v={
+            last_dirty=1430,
+            ent=_cge(218)
+          }
+        },
+        {
+          k=_cge(219),
+          v={
+            last_dirty=1450,
+            ent=_cge(219)
+          }
+        },
+        {
+          k=_cge(220),
+          v={
+            last_dirty=1472,
+            ent=_cge(220)
+          }
+        },
+        {
+          k=_cge(221),
+          v={
+            last_dirty=1493,
+            ent=_cge(221)
+          }
+        },
+        {
+          k=_cge(222),
+          v={
+            last_dirty=1516,
+            ent=_cge(222)
+          }
+        },
+        {
+          k=_cge(223),
+          v={
+            last_dirty=1558,
+            ent=_cge(223)
+          }
+        },
+        {
+          k=_cge(224),
+          v={
+            last_dirty=1617,
+            ent=_cge(224)
+          }
+        },
+        {
+          k=_cge(225),
+          v={
+            last_dirty=1648,
+            ent=_cge(225)
+          }
+        },
+        {
+          k=_cge(226),
+          v={
+            last_dirty=1672,
+            ent=_cge(226)
+          }
+        },
+        {
+          k=_cge(227),
+          v={
+            last_dirty=1696,
+            ent=_cge(227)
+          }
+        },
+        {
+          k=_cge(228),
+          v={
+            last_dirty=1719,
+            ent=_cge(228)
+          }
+        },
+        {
+          k=_cge(229),
+          v={
+            last_dirty=1740,
+            ent=_cge(229)
+          }
+        },
+        {
+          k=_cge(230),
+          v={
+            last_dirty=1765,
+            ent=_cge(230)
+          }
+        },
+        {
+          k=_cge(231),
+          v={
+            last_dirty=1803,
+            ent=_cge(231)
+          }
+        },
+        {
+          k=_cge(232),
+          v={
+            last_dirty=1834,
+            ent=_cge(232)
+          }
+        },
+        {
+          k=_cge(233),
+          v={
+            last_dirty=1932,
+            ent=_cge(233)
+          }
+        },
+        {
+          k=_cge(234),
+          v={
+            last_dirty=1954,
+            ent=_cge(234)
+          }
+        },
+        {
+          k=_cge(235),
+          v={
+            last_dirty=1974,
+            ent=_cge(235)
+          }
+        },
+        {
+          k=_cge(236),
+          v={
+            last_dirty=2001,
+            ent=_cge(236)
+          }
+        },
+        {
+          k=_cge(237),
+          v={
+            last_dirty=2041,
+            ent=_cge(237)
+          }
+        },
+        {
+          k=_cge(238),
+          v={
+            last_dirty=2059,
+            ent=_cge(238)
+          }
+        },
+        {
+          k=_cge(239),
+          v={
+            last_dirty=2077,
+            ent=_cge(239)
+          }
+        },
+        {
+          k=_cge(240),
+          v={
+            last_dirty=2091,
+            ent=_cge(240)
+          }
+        },
+        {
+          k=_cge(241),
+          v={
+            last_dirty=2029,
+            ent=_cge(241)
+          }
+        },
+        {
+          k=_cge(242),
+          v={
+            last_dirty=2054,
+            ent=_cge(242)
+          }
+        },
+        {
+          k=_cge(243),
+          v={
+            last_dirty=1886,
+            ent=_cge(243)
+          }
+        },
+        {
+          k=_cge(244),
+          v={
+            last_dirty=2487,
+            ent=_cge(244)
+          }
+        },
+        {
+          k=_cge(245),
+          v={
+            last_dirty=2039,
+            ent=_cge(245)
+          }
+        },
+        {
+          k=_cge(246),
+          v={
+            last_dirty=1967,
+            ent=_cge(246)
+          }
+        },
+        {
+          k=_cge(247),
+          v={
+            last_dirty=1874,
+            ent=_cge(247)
+          }
+        },
+        {
+          k=_cge(248),
+          v={
+            last_dirty=1954,
+            ent=_cge(248)
+          }
+        },
+        {
+          k=_cge(249),
+          v={
+            last_dirty=1975,
+            ent=_cge(249)
+          }
+        },
+        {
+          k=_cge(250),
+          v={
+            last_dirty=1995,
+            ent=_cge(250)
+          }
+        },
+        {
+          k=_cge(251),
+          v={
+            last_dirty=2016,
+            ent=_cge(251)
+          }
+        },
+        {
+          k=_cge(252),
+          v={
+            last_dirty=2039,
+            ent=_cge(252)
+          }
+        },
+        {
+          k=_cge(253),
+          v={
+            last_dirty=1958,
+            ent=_cge(253)
+          }
+        },
+        {
+          k=_cge(254),
+          v={
+            last_dirty=2072,
+            ent=_cge(254)
+          }
+        },
+        {
+          k=_cge(255),
+          v={
+            last_dirty=2115,
+            ent=_cge(255)
+          }
+        },
+        {
+          k=_cge(256),
+          v={
+            last_dirty=2094,
+            ent=_cge(256)
+          }
+        },
+        {
+          k=_cge(257),
+          v={
+            last_dirty=1989,
+            ent=_cge(257)
+          }
+        },
+        {
+          k=_cge(258),
+          v={
+            last_dirty=2027,
+            ent=_cge(258)
+          }
+        },
+        {
+          k=_cge(259),
+          v={
+            last_dirty=1993,
+            ent=_cge(259)
+          }
+        },
+        {
+          k=_cge(260),
+          v={
+            last_dirty=2011,
+            ent=_cge(260)
+          }
+        },
+        {
+          k=_cge(261),
+          v={
+            last_dirty=2033,
+            ent=_cge(261)
+          }
+        },
+        {
+          k=_cge(262),
+          v={
+            last_dirty=2052,
+            ent=_cge(262)
+          }
+        },
+        {
+          k=_cge(263),
+          v={
+            last_dirty=2006,
+            ent=_cge(263)
+          }
+        },
+        {
+          k=_cge(264),
+          v={
+            ent=_cge(264),
+            last_dirty=1856
+          }
+        },
+        {
+          k=_cge(265),
+          v={
+            last_dirty=1885,
+            ent=_cge(265)
           }
         }
       }),
@@ -3102,24 +3354,9 @@
       nil,
       nil,
       nil,
-      {
-        k=_cge(33),
-        v={
-          default=true
-        }
-      },
-      {
-        k=_cge(34),
-        v={
-          default=true
-        }
-      },
-      {
-        k=_cge(35),
-        v={
-          default=true
-        }
-      },
+      nil,
+      nil,
+      nil,
       {
         k=_cge(36),
         v={
@@ -4176,7 +4413,12 @@
           default=true
         }
       },
-      nil,
+      {
+        k=_cge(212),
+        v={
+          default=true
+        }
+      },
       {
         k=_cge(213),
         v={
@@ -4345,7 +4587,12 @@
           default=true
         }
       },
-      nil,
+      {
+        k=_cge(241),
+        v={
+          default=true
+        }
+      },
       {
         k=_cge(242),
         v={
@@ -4418,8 +4665,18 @@
           default=true
         }
       },
-      nil,
-      nil,
+      {
+        k=_cge(254),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(255),
+        v={
+          default=true
+        }
+      },
       {
         k=_cge(256),
         v={
@@ -4473,6 +4730,12 @@
         v={
           default=true
         }
+      },
+      {
+        k=_cge(265),
+        v={
+          default=true
+        }
       }
     }),
   edit={
@@ -4499,16 +4762,16 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [54]={
-          k=_cge(54),
+        [56]={
+          k=_cge(56),
           v={
-            ent=_cge(54)
+            ent=_cge(56)
           }
         },
-        [53]={
-          k=_cge(53),
+        [55]={
+          k=_cge(55),
           v={
-            ent=_cge(53)
+            ent=_cge(55)
           }
         },
         [179]={
@@ -4517,22 +4780,10 @@
             ent=_cge(179)
           }
         },
-        [52]={
-          k=_cge(52),
+        [88]={
+          k=_cge(88),
           v={
-            ent=_cge(52)
-          }
-        },
-        [176]={
-          k=_cge(176),
-          v={
-            ent=_cge(176)
-          }
-        },
-        [86]={
-          k=_cge(86),
-          v={
-            ent=_cge(86)
+            ent=_cge(88)
           }
         },
         [177]={
@@ -4541,10 +4792,22 @@
             ent=_cge(177)
           }
         },
-        [175]={
-          k=_cge(175),
+        [178]={
+          k=_cge(178),
           v={
-            ent=_cge(175)
+            ent=_cge(178)
+          }
+        },
+        [181]={
+          k=_cge(181),
+          v={
+            ent=_cge(181)
+          }
+        },
+        [54]={
+          k=_cge(54),
+          v={
+            ent=_cge(54)
           }
         }
       }),
@@ -4580,16 +4843,16 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [67]={
-          k=_cge(67),
-          v={
-            ent=_cge(67)
-          }
-        },
         [69]={
           k=_cge(69),
           v={
             ent=_cge(69)
+          }
+        },
+        [71]={
+          k=_cge(71),
+          v={
+            ent=_cge(71)
           }
         },
         [72]={
@@ -4604,43 +4867,45 @@
             ent=_cge(70)
           }
         },
-        [68]={
-          k=_cge(68),
+        [214]={
+          k=_cge(214),
           v={
-            ent=_cge(68)
+            ent=_cge(214)
           }
         },
-        [71]={
-          k=_cge(71),
+        [74]={
+          k=_cge(74),
           v={
-            ent=_cge(71)
+            ent=_cge(74)
           }
         },
-        [33]={
-          k=_cge(33),
+        [73]={
+          k=_cge(73),
           v={
-            ent=_cge(33)
+            ent=_cge(73)
           }
         }
       }),
     add=nil
   },
   quad_shooter={
-    auto_saveload=true,
-    set_period=function() --[[..skipped..]] end,
-    get_period=function() --[[..skipped..]] end,
     unpaused_update=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
-    simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
     set_next=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
     simple_has=nil,
     get_next=function() --[[..skipped..]] end,
-    add=nil
+    auto_saveload=true,
+    set_period=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    set_dir=function() --[[..skipped..]] end,
+    get_dir=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    add=nil,
+    simple_update_all=function() --[[..skipped..]] end,
+    get_period=function() --[[..skipped..]] end,
+    update_all=nil,
+    simple_remove=nil
   },
   player_control={
     auto_saveload=true,
@@ -4686,16 +4951,16 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [54]={
-          k=_cge(54),
+        [88]={
+          k=_cge(88),
           v={
-            ent=_cge(54)
+            ent=_cge(88)
           }
         },
-        [86]={
-          k=_cge(86),
+        [55]={
+          k=_cge(55),
           v={
-            ent=_cge(86)
+            ent=_cge(55)
           }
         },
         [179]={
@@ -4704,22 +4969,10 @@
             ent=_cge(179)
           }
         },
-        [53]={
-          k=_cge(53),
+        [54]={
+          k=_cge(54),
           v={
-            ent=_cge(53)
-          }
-        },
-        [176]={
-          k=_cge(176),
-          v={
-            ent=_cge(176)
-          }
-        },
-        [52]={
-          k=_cge(52),
-          v={
-            ent=_cge(52)
+            ent=_cge(54)
           }
         },
         [177]={
@@ -4728,10 +4981,22 @@
             ent=_cge(177)
           }
         },
-        [175]={
-          k=_cge(175),
+        [178]={
+          k=_cge(178),
           v={
-            ent=_cge(175)
+            ent=_cge(178)
+          }
+        },
+        [181]={
+          k=_cge(181),
+          v={
+            ent=_cge(181)
+          }
+        },
+        [56]={
+          k=_cge(56),
+          v={
+            ent=_cge(56)
           }
         }
       }),
@@ -4768,18 +5033,25 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [182]={
-          k=_cge(182),
+        [186]={
+          k=_cge(186),
           v={
             on=false,
-            ent=_cge(182)
+            ent=_cge(186)
           }
         },
-        [80]={
-          k=_cge(80),
+        [82]={
+          k=_cge(82),
           v={
             on=false,
-            ent=_cge(80)
+            ent=_cge(82)
+          }
+        },
+        [183]={
+          k=_cge(183),
+          v={
+            on=false,
+            ent=_cge(183)
           }
         },
         [184]={
@@ -4789,18 +5061,11 @@
             ent=_cge(184)
           }
         },
-        [181]={
-          k=_cge(181),
+        [185]={
+          k=_cge(185),
           v={
             on=false,
-            ent=_cge(181)
-          }
-        },
-        [183]={
-          k=_cge(183),
-          v={
-            on=false,
-            ent=_cge(183)
+            ent=_cge(185)
           }
         }
       }),
@@ -4873,10 +5138,10 @@ _.pit.remove=_.pit.simple_remove
 _.pit.simple_update_all=_.pit.update_all
 _.pit.simple_has=_.pit.has
 _.pit.add=_.pit.simple_add
-_.quad_shooter.remove=_.quad_shooter.simple_remove
-_.quad_shooter.simple_update_all=_.quad_shooter.update_all
 _.quad_shooter.simple_has=_.quad_shooter.has
 _.quad_shooter.add=_.quad_shooter.simple_add
+_.quad_shooter.update_all=_.quad_shooter.simple_update_all
+_.quad_shooter.simple_remove=_.quad_shooter.remove
 _.player_control.remove=_.player_control.simple_remove
 _.player_control.simple_update_all=_.player_control.update_all
 _.player_control.simple_has=_.player_control.has
@@ -4935,6 +5200,15 @@ end\" " }
         [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
+          { "id" "265 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
           { "id" "264 " }
         }
       }
@@ -5008,6 +5282,24 @@ end\" " }
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "256 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "255 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "254 " }
         }
       }
       { n n 
@@ -5116,6 +5408,15 @@ end\" " }
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "242 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "241 " }
         }
       }
       { n n 
@@ -5355,19 +5656,19 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
+        [ "texcell" "224.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "214 " }
+          { "id" "213 " }
         }
       }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
+        [ "texcell" "224.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "213 " }
+          { "id" "212 " }
         }
       }
       { n n 
@@ -5391,7 +5692,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "224.000000 128.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "209 " }
@@ -5400,7 +5701,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "224.000000 128.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "208 " }
@@ -5598,7 +5899,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
+        [ "texcell" "144.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "186 " }
@@ -5607,7 +5908,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
+        [ "texcell" "144.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "185 " }
@@ -5634,7 +5935,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "144.000000 128.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "182 " }
@@ -5643,7 +5944,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "144.000000 128.000000 " ] 
+        [ "texcell" "80.000000 208.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "181 " }
@@ -5670,7 +5971,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
+        [ "texcell" "80.000000 208.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "178 " }
@@ -5688,7 +5989,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "80.000000 208.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "176 " }
@@ -5697,7 +5998,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "80.000000 208.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "175 " }
@@ -6480,7 +6781,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
+        [ "texcell" "80.000000 208.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "88 " }
@@ -6498,7 +6799,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "80.000000 208.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "86 " }
@@ -6534,7 +6835,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
+        [ "texcell" "144.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "82 " }
@@ -6543,7 +6844,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
+        [ "texcell" "224.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "81 " }
@@ -6552,7 +6853,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "144.000000 128.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "80 " }
@@ -6561,7 +6862,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "224.000000 128.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "79 " }
@@ -6609,7 +6910,7 @@ end\" " }
         [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "74 " }
+          { "id" "68 " }
         }
       }
       { n n 
@@ -6618,7 +6919,7 @@ end\" " }
         [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "73 " }
+          { "id" "67 " }
         }
       }
       { n n 
@@ -6714,7 +7015,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
+        [ "texcell" "80.000000 208.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "56 " }
@@ -6723,7 +7024,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
+        [ "texcell" "80.000000 208.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "55 " }
@@ -6741,7 +7042,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "80.000000 208.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "53 " }
@@ -6750,7 +7051,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "80.000000 208.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "52 " }
@@ -6901,21 +7202,30 @@ end\" " }
         }
       }
       { n n 
-        { "depth" "0 " }
+        { "depth" "9 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
+        [ "texcell" "272.000000 16.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "35 " }
+          { "id" "214 " }
         }
       }
       { n n 
-        { "depth" "0 " }
+        { "depth" "9 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
+        [ "texcell" "272.000000 16.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "34 " }
+          { "id" "74 " }
+        }
+      }
+      { n n 
+        { "depth" "9 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 16.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "73 " }
         }
       }
       { n n 
@@ -6954,284 +7264,62 @@ end\" " }
           { "id" "69 " }
         }
       }
-      { n n 
-        { "depth" "9 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 16.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "68 " }
-        }
-      }
-      { n n 
-        { "depth" "9 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 16.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "67 " }
-        }
-      }
-      { n n 
-        { "depth" "9 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 16.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "33 " }
-        }
-      }
     }
     { "atlas" "\"./ld30/atlas-1.png\" " }
   }
   { "camera" n 
     { "pool" n }
-    [ "inverse_view_matrix" "0.049192 -0.000000 0.000000 0.000000 0.065590 -0.000000 0.578761 2.102911 1.000000 " ] 
+    [ "inverse_view_matrix" "0.058807 -0.000000 0.000000 0.000000 0.078409 -0.000000 0.587570 2.604772 1.000000 " ] 
   }
   { "transform" n 
     { "pool" n 
       { n n 
-        { "dirty_count" "1929 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -11.000000 -42.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -11.000000 -42.000000 1.000000 " ] 
+        { "dirty_count" "1885 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -33.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -33.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "1.000000 1.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "-11.000000 -42.000000 " ] 
+        [ "position" "-10.000000 -33.000000 " ] 
         { "pool_elem" n 
-          { "id" "253 " }
+          { "id" "265 " }
         }
       }
       { n n 
-        { "dirty_count" "1975 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -39.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -39.000000 1.000000 " ] 
+        { "dirty_count" "1856 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -33.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -33.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "1.000000 1.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "-8.000000 -39.000000 " ] 
+        [ "position" "-12.000000 -33.000000 " ] 
         { "pool_elem" n 
-          { "id" "261 " }
+          { "id" "264 " }
         }
       }
       { n n 
-        { "dirty_count" "1956 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -38.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -38.000000 1.000000 " ] 
+        { "dirty_count" "2006 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -11.000000 -43.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -11.000000 -43.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "1.000000 1.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "-8.000000 -38.000000 " ] 
+        [ "position" "-11.000000 -43.000000 " ] 
         { "pool_elem" n 
-          { "id" "260 " }
+          { "id" "263 " }
         }
       }
       { n n 
-        { "dirty_count" "1934 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -37.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -37.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-8.000000 -37.000000 " ] 
-        { "pool_elem" n 
-          { "id" "259 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1916 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -36.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -36.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-8.000000 -36.000000 " ] 
-        { "pool_elem" n 
-          { "id" "258 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1809 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -42.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -42.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-9.000000 -42.000000 " ] 
-        { "pool_elem" n 
-          { "id" "242 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "2410 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -42.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -42.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-14.000000 -42.000000 " ] 
-        { "pool_elem" n 
-          { "id" "243 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1962 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -13.000000 -36.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -13.000000 -36.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-13.000000 -36.000000 " ] 
-        { "pool_elem" n 
-          { "id" "244 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1890 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -13.000000 -42.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -13.000000 -42.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-13.000000 -42.000000 " ] 
-        { "pool_elem" n 
-          { "id" "245 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1797 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -36.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -36.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-14.000000 -36.000000 " ] 
-        { "pool_elem" n 
-          { "id" "246 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1877 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -37.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -37.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-14.000000 -37.000000 " ] 
-        { "pool_elem" n 
-          { "id" "247 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1898 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -38.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -38.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-14.000000 -38.000000 " ] 
-        { "pool_elem" n 
-          { "id" "248 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1918 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -39.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -39.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-14.000000 -39.000000 " ] 
-        { "pool_elem" n 
-          { "id" "249 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1939 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -40.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -40.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-14.000000 -40.000000 " ] 
-        { "pool_elem" n 
-          { "id" "250 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1962 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -41.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -41.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-14.000000 -41.000000 " ] 
-        { "pool_elem" n 
-          { "id" "251 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1881 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -36.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -36.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-9.000000 -36.000000 " ] 
-        { "pool_elem" n 
-          { "id" "252 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1995 " }
+        { "dirty_count" "2052 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -40.000000 1.000000 " ] 
         [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -40.000000 1.000000 " ] 
         { "children" n }
@@ -7246,22 +7334,217 @@ end\" " }
         }
       }
       { n n 
-        { "dirty_count" "2038 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -42.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -42.000000 1.000000 " ] 
+        { "dirty_count" "2033 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -39.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -39.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "1.000000 1.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "-8.000000 -42.000000 " ] 
+        [ "position" "-8.000000 -39.000000 " ] 
         { "pool_elem" n 
-          { "id" "264 " }
+          { "id" "261 " }
         }
       }
       { n n 
-        { "dirty_count" "2017 " }
+        { "dirty_count" "2011 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -38.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -38.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-8.000000 -38.000000 " ] 
+        { "pool_elem" n 
+          { "id" "260 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1993 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -37.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -37.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-8.000000 -37.000000 " ] 
+        { "pool_elem" n 
+          { "id" "259 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1886 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -43.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -43.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-9.000000 -43.000000 " ] 
+        { "pool_elem" n 
+          { "id" "243 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2487 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -43.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -43.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-14.000000 -43.000000 " ] 
+        { "pool_elem" n 
+          { "id" "244 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2039 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -13.000000 -37.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -13.000000 -37.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-13.000000 -37.000000 " ] 
+        { "pool_elem" n 
+          { "id" "245 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1967 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -13.000000 -43.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -13.000000 -43.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-13.000000 -43.000000 " ] 
+        { "pool_elem" n 
+          { "id" "246 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1874 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -37.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -37.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-14.000000 -37.000000 " ] 
+        { "pool_elem" n 
+          { "id" "247 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1954 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -38.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -38.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-14.000000 -38.000000 " ] 
+        { "pool_elem" n 
+          { "id" "248 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1975 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -39.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -39.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-14.000000 -39.000000 " ] 
+        { "pool_elem" n 
+          { "id" "249 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1995 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -40.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -40.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-14.000000 -40.000000 " ] 
+        { "pool_elem" n 
+          { "id" "250 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2016 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -41.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -41.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-14.000000 -41.000000 " ] 
+        { "pool_elem" n 
+          { "id" "251 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2039 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -42.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -14.000000 -42.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-14.000000 -42.000000 " ] 
+        { "pool_elem" n 
+          { "id" "252 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1958 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -37.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -37.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-9.000000 -37.000000 " ] 
+        { "pool_elem" n 
+          { "id" "253 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2072 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -41.000000 1.000000 " ] 
         [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -41.000000 1.000000 " ] 
         { "children" n }
@@ -7272,37 +7555,67 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -41.000000 " ] 
         { "pool_elem" n 
-          { "id" "263 " }
+          { "id" "254 " }
         }
       }
       { n n 
-        { "dirty_count" "1912 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -42.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -42.000000 1.000000 " ] 
+        { "dirty_count" "2115 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -43.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -43.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "1.000000 1.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "-12.000000 -42.000000 " ] 
+        [ "position" "-8.000000 -43.000000 " ] 
+        { "pool_elem" n 
+          { "id" "255 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2094 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -42.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -42.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-8.000000 -42.000000 " ] 
         { "pool_elem" n 
           { "id" "256 " }
         }
       }
       { n n 
-        { "dirty_count" "1950 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -42.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -42.000000 1.000000 " ] 
+        { "dirty_count" "1989 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -43.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -43.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "1.000000 1.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "-10.000000 -42.000000 " ] 
+        [ "position" "-12.000000 -43.000000 " ] 
         { "pool_elem" n 
           { "id" "257 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2027 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -43.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -43.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-10.000000 -43.000000 " ] 
+        { "pool_elem" n 
+          { "id" "258 " }
         }
       }
       { n n 
@@ -7317,7 +7630,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-9.000000 -32.000000 " ] 
         { "pool_elem" n 
-          { "id" "240 " }
+          { "id" "242 " }
         }
       }
       { n n 
@@ -7332,26 +7645,11 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-10.000000 -32.000000 " ] 
         { "pool_elem" n 
-          { "id" "239 " }
+          { "id" "241 " }
         }
       }
       { n n 
-        { "dirty_count" "2014 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -33.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -33.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-10.000000 -33.000000 " ] 
-        { "pool_elem" n 
-          { "id" "238 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "2000 " }
+        { "dirty_count" "2091 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -34.000000 1.000000 " ] 
         [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -34.000000 1.000000 " ] 
         { "children" n }
@@ -7362,11 +7660,11 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-10.000000 -34.000000 " ] 
         { "pool_elem" n 
-          { "id" "237 " }
+          { "id" "240 " }
         }
       }
       { n n 
-        { "dirty_count" "1982 " }
+        { "dirty_count" "2077 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -35.000000 1.000000 " ] 
         [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -35.000000 1.000000 " ] 
         { "children" n }
@@ -7377,11 +7675,11 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-10.000000 -35.000000 " ] 
         { "pool_elem" n 
-          { "id" "236 " }
+          { "id" "239 " }
         }
       }
       { n n 
-        { "dirty_count" "1964 " }
+        { "dirty_count" "2059 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -36.000000 1.000000 " ] 
         [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -36.000000 1.000000 " ] 
         { "children" n }
@@ -7392,11 +7690,41 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-10.000000 -36.000000 " ] 
         { "pool_elem" n 
-          { "id" "235 " }
+          { "id" "238 " }
         }
       }
       { n n 
-        { "dirty_count" "1924 " }
+        { "dirty_count" "2041 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -37.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -10.000000 -37.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-10.000000 -37.000000 " ] 
+        { "pool_elem" n 
+          { "id" "237 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "2001 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -37.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -37.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-12.000000 -37.000000 " ] 
+        { "pool_elem" n 
+          { "id" "236 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1974 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -36.000000 1.000000 " ] 
         [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -36.000000 1.000000 " ] 
         { "children" n }
@@ -7407,11 +7735,11 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-12.000000 -36.000000 " ] 
         { "pool_elem" n 
-          { "id" "234 " }
+          { "id" "235 " }
         }
       }
       { n n 
-        { "dirty_count" "1897 " }
+        { "dirty_count" "1954 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -35.000000 1.000000 " ] 
         [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -35.000000 1.000000 " ] 
         { "children" n }
@@ -7422,11 +7750,11 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-12.000000 -35.000000 " ] 
         { "pool_elem" n 
-          { "id" "233 " }
+          { "id" "234 " }
         }
       }
       { n n 
-        { "dirty_count" "1877 " }
+        { "dirty_count" "1932 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -34.000000 1.000000 " ] 
         [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -34.000000 1.000000 " ] 
         { "children" n }
@@ -7437,22 +7765,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-12.000000 -34.000000 " ] 
         { "pool_elem" n 
-          { "id" "232 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1855 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -33.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -12.000000 -33.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-12.000000 -33.000000 " ] 
-        { "pool_elem" n 
-          { "id" "231 " }
+          { "id" "233 " }
         }
       }
       { n n 
@@ -7467,7 +7780,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-12.000000 -32.000000 " ] 
         { "pool_elem" n 
-          { "id" "230 " }
+          { "id" "232 " }
         }
       }
       { n n 
@@ -7482,7 +7795,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-13.000000 -32.000000 " ] 
         { "pool_elem" n 
-          { "id" "229 " }
+          { "id" "231 " }
         }
       }
       { n n 
@@ -7497,7 +7810,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -32.000000 " ] 
         { "pool_elem" n 
-          { "id" "228 " }
+          { "id" "230 " }
         }
       }
       { n n 
@@ -7512,7 +7825,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -31.000000 " ] 
         { "pool_elem" n 
-          { "id" "227 " }
+          { "id" "229 " }
         }
       }
       { n n 
@@ -7527,7 +7840,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -30.000000 " ] 
         { "pool_elem" n 
-          { "id" "226 " }
+          { "id" "228 " }
         }
       }
       { n n 
@@ -7542,7 +7855,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -29.000000 " ] 
         { "pool_elem" n 
-          { "id" "225 " }
+          { "id" "227 " }
         }
       }
       { n n 
@@ -7557,7 +7870,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -28.000000 " ] 
         { "pool_elem" n 
-          { "id" "224 " }
+          { "id" "226 " }
         }
       }
       { n n 
@@ -7572,7 +7885,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -27.000000 " ] 
         { "pool_elem" n 
-          { "id" "223 " }
+          { "id" "225 " }
         }
       }
       { n n 
@@ -7587,7 +7900,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -26.000000 " ] 
         { "pool_elem" n 
-          { "id" "222 " }
+          { "id" "224 " }
         }
       }
       { n n 
@@ -7602,7 +7915,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-13.000000 -26.000000 " ] 
         { "pool_elem" n 
-          { "id" "221 " }
+          { "id" "223 " }
         }
       }
       { n n 
@@ -7617,7 +7930,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-9.000000 -26.000000 " ] 
         { "pool_elem" n 
-          { "id" "220 " }
+          { "id" "222 " }
         }
       }
       { n n 
@@ -7632,7 +7945,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -23.000000 " ] 
         { "pool_elem" n 
-          { "id" "219 " }
+          { "id" "221 " }
         }
       }
       { n n 
@@ -7647,7 +7960,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -22.000000 " ] 
         { "pool_elem" n 
-          { "id" "218 " }
+          { "id" "220 " }
         }
       }
       { n n 
@@ -7662,7 +7975,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -21.000000 " ] 
         { "pool_elem" n 
-          { "id" "217 " }
+          { "id" "219 " }
         }
       }
       { n n 
@@ -7677,7 +7990,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -20.000000 " ] 
         { "pool_elem" n 
-          { "id" "216 " }
+          { "id" "218 " }
         }
       }
       { n n 
@@ -7692,7 +8005,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -19.000000 " ] 
         { "pool_elem" n 
-          { "id" "215 " }
+          { "id" "217 " }
         }
       }
       { n n 
@@ -7707,7 +8020,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -18.000000 " ] 
         { "pool_elem" n 
-          { "id" "214 " }
+          { "id" "216 " }
         }
       }
       { n n 
@@ -7722,7 +8035,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -17.000000 " ] 
         { "pool_elem" n 
-          { "id" "213 " }
+          { "id" "215 " }
         }
       }
       { n n 
@@ -7737,7 +8050,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "4.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "150 " }
+          { "id" "152 " }
         }
       }
       { n n 
@@ -7752,7 +8065,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "4.000000 -3.000000 " ] 
         { "pool_elem" n 
-          { "id" "149 " }
+          { "id" "151 " }
         }
       }
       { n n 
@@ -7767,7 +8080,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "4.000000 -4.000000 " ] 
         { "pool_elem" n 
-          { "id" "148 " }
+          { "id" "150 " }
         }
       }
       { n n 
@@ -7782,7 +8095,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "4.000000 -5.000000 " ] 
         { "pool_elem" n 
-          { "id" "147 " }
+          { "id" "149 " }
         }
       }
       { n n 
@@ -7797,7 +8110,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "4.000000 -6.000000 " ] 
         { "pool_elem" n 
-          { "id" "146 " }
+          { "id" "148 " }
         }
       }
       { n n 
@@ -7812,7 +8125,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "4.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "145 " }
+          { "id" "147 " }
         }
       }
       { n n 
@@ -7827,7 +8140,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "5.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "144 " }
+          { "id" "146 " }
         }
       }
       { n n 
@@ -7842,7 +8155,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "6.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "143 " }
+          { "id" "145 " }
         }
       }
       { n n 
@@ -7857,7 +8170,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "7.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "142 " }
+          { "id" "144 " }
         }
       }
       { n n 
@@ -7872,7 +8185,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "10.000000 -5.000000 " ] 
         { "pool_elem" n 
-          { "id" "141 " }
+          { "id" "143 " }
         }
       }
       { n n 
@@ -7887,7 +8200,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "5.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "140 " }
+          { "id" "142 " }
         }
       }
       { n n 
@@ -7902,7 +8215,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "6.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "139 " }
+          { "id" "141 " }
         }
       }
       { n n 
@@ -7917,7 +8230,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "7.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "138 " }
+          { "id" "140 " }
         }
       }
       { n n 
@@ -7932,7 +8245,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "8.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "137 " }
+          { "id" "139 " }
         }
       }
       { n n 
@@ -7947,7 +8260,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "9.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "136 " }
+          { "id" "138 " }
         }
       }
       { n n 
@@ -7962,7 +8275,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "9.000000 -3.000000 " ] 
         { "pool_elem" n 
-          { "id" "135 " }
+          { "id" "137 " }
         }
       }
       { n n 
@@ -7977,7 +8290,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "9.000000 -4.000000 " ] 
         { "pool_elem" n 
-          { "id" "134 " }
+          { "id" "136 " }
         }
       }
       { n n 
@@ -7992,7 +8305,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "8.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "133 " }
+          { "id" "135 " }
         }
       }
       { n n 
@@ -8007,7 +8320,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "9.000000 -5.000000 " ] 
         { "pool_elem" n 
-          { "id" "132 " }
+          { "id" "134 " }
         }
       }
       { n n 
@@ -8022,7 +8335,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "10.000000 -6.000000 " ] 
         { "pool_elem" n 
-          { "id" "131 " }
+          { "id" "133 " }
         }
       }
       { n n 
@@ -8037,7 +8350,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "8.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "130 " }
+          { "id" "132 " }
         }
       }
       { n n 
@@ -8052,7 +8365,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "9.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "129 " }
+          { "id" "131 " }
         }
       }
       { n n 
@@ -8067,7 +8380,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "9.000000 -9.000000 " ] 
         { "pool_elem" n 
-          { "id" "128 " }
+          { "id" "130 " }
         }
       }
       { n n 
@@ -8082,7 +8395,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "10.000000 -9.000000 " ] 
         { "pool_elem" n 
-          { "id" "127 " }
+          { "id" "129 " }
         }
       }
       { n n 
@@ -8097,7 +8410,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "10.000000 -10.000000 " ] 
         { "pool_elem" n 
-          { "id" "126 " }
+          { "id" "128 " }
         }
       }
       { n n 
@@ -8112,7 +8425,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "11.000000 -10.000000 " ] 
         { "pool_elem" n 
-          { "id" "125 " }
+          { "id" "127 " }
         }
       }
       { n n 
@@ -8127,7 +8440,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "11.000000 -11.000000 " ] 
         { "pool_elem" n 
-          { "id" "124 " }
+          { "id" "126 " }
         }
       }
       { n n 
@@ -8142,7 +8455,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "117 " }
+          { "id" "119 " }
         }
       }
       { n n 
@@ -8157,7 +8470,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "118 " }
+          { "id" "120 " }
         }
       }
       { n n 
@@ -8172,7 +8485,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 -1.000000 " ] 
         { "pool_elem" n 
-          { "id" "116 " }
+          { "id" "118 " }
         }
       }
       { n n 
@@ -8187,7 +8500,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "115 " }
+          { "id" "117 " }
         }
       }
       { n n 
@@ -8202,7 +8515,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-1.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "114 " }
+          { "id" "116 " }
         }
       }
       { n n 
@@ -8217,7 +8530,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "0.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "113 " }
+          { "id" "115 " }
         }
       }
       { n n 
@@ -8232,7 +8545,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "1.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "112 " }
+          { "id" "114 " }
         }
       }
       { n n 
@@ -8247,7 +8560,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "2.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "111 " }
+          { "id" "113 " }
         }
       }
       { n n 
@@ -8262,7 +8575,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "2.000000 -1.000000 " ] 
         { "pool_elem" n 
-          { "id" "110 " }
+          { "id" "112 " }
         }
       }
       { n n 
@@ -8277,7 +8590,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "2.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "109 " }
+          { "id" "111 " }
         }
       }
       { n n 
@@ -8292,7 +8605,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "2.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "108 " }
+          { "id" "110 " }
         }
       }
       { n n 
@@ -8307,7 +8620,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -13.000000 " ] 
         { "pool_elem" n 
-          { "id" "107 " }
+          { "id" "109 " }
         }
       }
       { n n 
@@ -8322,7 +8635,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -14.000000 " ] 
         { "pool_elem" n 
-          { "id" "106 " }
+          { "id" "108 " }
         }
       }
       { n n 
@@ -8337,7 +8650,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -15.000000 " ] 
         { "pool_elem" n 
-          { "id" "105 " }
+          { "id" "107 " }
         }
       }
       { n n 
@@ -8352,7 +8665,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "21.000000 -15.000000 " ] 
         { "pool_elem" n 
-          { "id" "104 " }
+          { "id" "106 " }
         }
       }
       { n n 
@@ -8367,7 +8680,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "20.000000 -15.000000 " ] 
         { "pool_elem" n 
-          { "id" "103 " }
+          { "id" "105 " }
         }
       }
       { n n 
@@ -8382,7 +8695,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "19.000000 -15.000000 " ] 
         { "pool_elem" n 
-          { "id" "102 " }
+          { "id" "104 " }
         }
       }
       { n n 
@@ -8397,7 +8710,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "18.000000 -15.000000 " ] 
         { "pool_elem" n 
-          { "id" "101 " }
+          { "id" "103 " }
         }
       }
       { n n 
@@ -8412,7 +8725,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "17.000000 -15.000000 " ] 
         { "pool_elem" n 
-          { "id" "100 " }
+          { "id" "102 " }
         }
       }
       { n n 
@@ -8427,7 +8740,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "16.000000 -15.000000 " ] 
         { "pool_elem" n 
-          { "id" "99 " }
+          { "id" "101 " }
         }
       }
       { n n 
@@ -8442,7 +8755,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "15.000000 -15.000000 " ] 
         { "pool_elem" n 
-          { "id" "98 " }
+          { "id" "100 " }
         }
       }
       { n n 
@@ -8457,7 +8770,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "15.000000 -14.000000 " ] 
         { "pool_elem" n 
-          { "id" "97 " }
+          { "id" "99 " }
         }
       }
       { n n 
@@ -8472,7 +8785,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "15.000000 -13.000000 " ] 
         { "pool_elem" n 
-          { "id" "96 " }
+          { "id" "98 " }
         }
       }
       { n n 
@@ -8487,7 +8800,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "13.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "95 " }
+          { "id" "97 " }
         }
       }
       { n n 
@@ -8502,7 +8815,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "12.000000 -11.000000 " ] 
         { "pool_elem" n 
-          { "id" "94 " }
+          { "id" "96 " }
         }
       }
       { n n 
@@ -8517,7 +8830,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "13.000000 -12.000000 " ] 
         { "pool_elem" n 
-          { "id" "93 " }
+          { "id" "95 " }
         }
       }
       { n n 
@@ -8532,7 +8845,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "14.000000 -12.000000 " ] 
         { "pool_elem" n 
-          { "id" "92 " }
+          { "id" "94 " }
         }
       }
       { n n 
@@ -8547,7 +8860,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "12.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "91 " }
+          { "id" "93 " }
         }
       }
       { n n 
@@ -8562,7 +8875,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "14.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "90 " }
+          { "id" "92 " }
         }
       }
       { n n 
@@ -8577,7 +8890,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "89 " }
+          { "id" "91 " }
         }
       }
       { n n 
@@ -8592,7 +8905,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "16.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "88 " }
+          { "id" "90 " }
         }
       }
       { n n 
@@ -8607,7 +8920,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "15.000000 -12.000000 " ] 
         { "pool_elem" n 
-          { "id" "87 " }
+          { "id" "89 " }
         }
       }
       { n n 
@@ -8622,7 +8935,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "17.000000 -13.000000 " ] 
         { "pool_elem" n 
-          { "id" "86 " }
+          { "id" "88 " }
         }
       }
       { n n 
@@ -8637,7 +8950,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "17.000000 -12.000000 " ] 
         { "pool_elem" n 
-          { "id" "85 " }
+          { "id" "87 " }
         }
       }
       { n n 
@@ -8652,7 +8965,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "18.000000 -12.000000 " ] 
         { "pool_elem" n 
-          { "id" "84 " }
+          { "id" "86 " }
         }
       }
       { n n 
@@ -8667,7 +8980,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "19.000000 -12.000000 " ] 
         { "pool_elem" n 
-          { "id" "83 " }
+          { "id" "85 " }
         }
       }
       { n n 
@@ -8682,7 +8995,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "13.000000 -9.000000 " ] 
         { "pool_elem" n 
-          { "id" "82 " }
+          { "id" "84 " }
         }
       }
       { n n 
@@ -8697,7 +9010,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "13.000000 -11.000000 " ] 
         { "pool_elem" n 
-          { "id" "81 " }
+          { "id" "83 " }
         }
       }
       { n n 
@@ -8712,7 +9025,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "16.000000 -10.000000 " ] 
         { "pool_elem" n 
-          { "id" "80 " }
+          { "id" "82 " }
         }
       }
       { n n 
@@ -8727,7 +9040,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "13.000000 -10.000000 " ] 
         { "pool_elem" n 
-          { "id" "79 " }
+          { "id" "81 " }
         }
       }
       { n n 
@@ -8742,7 +9055,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -12.000000 " ] 
         { "pool_elem" n 
-          { "id" "78 " }
+          { "id" "80 " }
         }
       }
       { n n 
@@ -8757,7 +9070,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -11.000000 " ] 
         { "pool_elem" n 
-          { "id" "77 " }
+          { "id" "79 " }
         }
       }
       { n n 
@@ -8772,7 +9085,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -10.000000 " ] 
         { "pool_elem" n 
-          { "id" "76 " }
+          { "id" "78 " }
         }
       }
       { n n 
@@ -8787,7 +9100,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -9.000000 " ] 
         { "pool_elem" n 
-          { "id" "75 " }
+          { "id" "77 " }
         }
       }
       { n n 
@@ -8802,7 +9115,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "15.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "74 " }
+          { "id" "76 " }
         }
       }
       { n n 
@@ -8817,7 +9130,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "73 " }
+          { "id" "75 " }
         }
       }
       { n n 
@@ -8832,7 +9145,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "20.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "72 " }
+          { "id" "74 " }
         }
       }
       { n n 
@@ -8847,7 +9160,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "20.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "71 " }
+          { "id" "73 " }
         }
       }
       { n n 
@@ -8862,7 +9175,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "19.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "70 " }
+          { "id" "72 " }
         }
       }
       { n n 
@@ -8877,7 +9190,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "19.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "69 " }
+          { "id" "71 " }
         }
       }
       { n n 
@@ -8892,7 +9205,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "18.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "68 " }
+          { "id" "70 " }
         }
       }
       { n n 
@@ -8907,7 +9220,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "18.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "67 " }
+          { "id" "69 " }
         }
       }
       { n n 
@@ -8922,7 +9235,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "17.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "66 " }
+          { "id" "68 " }
         }
       }
       { n n 
@@ -8937,7 +9250,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "21.000000 -8.000000 " ] 
         { "pool_elem" n 
-          { "id" "65 " }
+          { "id" "67 " }
         }
       }
       { n n 
@@ -8952,7 +9265,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "21.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "64 " }
+          { "id" "66 " }
         }
       }
       { n n 
@@ -8967,7 +9280,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -6.000000 " ] 
         { "pool_elem" n 
-          { "id" "63 " }
+          { "id" "65 " }
         }
       }
       { n n 
@@ -8982,7 +9295,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -5.000000 " ] 
         { "pool_elem" n 
-          { "id" "62 " }
+          { "id" "64 " }
         }
       }
       { n n 
@@ -8997,7 +9310,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -4.000000 " ] 
         { "pool_elem" n 
-          { "id" "61 " }
+          { "id" "63 " }
         }
       }
       { n n 
@@ -9012,7 +9325,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -3.000000 " ] 
         { "pool_elem" n 
-          { "id" "60 " }
+          { "id" "62 " }
         }
       }
       { n n 
@@ -9027,7 +9340,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "22.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "59 " }
+          { "id" "61 " }
         }
       }
       { n n 
@@ -9042,7 +9355,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "21.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "58 " }
+          { "id" "60 " }
         }
       }
       { n n 
@@ -9057,7 +9370,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "20.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "57 " }
+          { "id" "59 " }
         }
       }
       { n n 
@@ -9072,7 +9385,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "19.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "56 " }
+          { "id" "58 " }
         }
       }
       { n n 
@@ -9087,7 +9400,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "18.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "55 " }
+          { "id" "57 " }
         }
       }
       { n n 
@@ -9102,7 +9415,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "20.000000 -4.000000 " ] 
         { "pool_elem" n 
-          { "id" "54 " }
+          { "id" "56 " }
         }
       }
       { n n 
@@ -9117,7 +9430,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "19.000000 -5.000000 " ] 
         { "pool_elem" n 
-          { "id" "53 " }
+          { "id" "55 " }
         }
       }
       { n n 
@@ -9132,7 +9445,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "17.000000 -4.000000 " ] 
         { "pool_elem" n 
-          { "id" "52 " }
+          { "id" "54 " }
         }
       }
       { n n 
@@ -9147,7 +9460,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "16.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "51 " }
+          { "id" "53 " }
         }
       }
       { n n 
@@ -9162,7 +9475,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "17.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "50 " }
+          { "id" "52 " }
         }
       }
       { n n 
@@ -9177,7 +9490,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "15.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "49 " }
+          { "id" "51 " }
         }
       }
       { n n 
@@ -9192,7 +9505,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "17.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "48 " }
+          { "id" "50 " }
         }
       }
       { n n 
@@ -9207,7 +9520,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "16.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "47 " }
+          { "id" "49 " }
         }
       }
       { n n 
@@ -9222,7 +9535,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "15.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "46 " }
+          { "id" "48 " }
         }
       }
       { n n 
@@ -9237,7 +9550,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "14.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "45 " }
+          { "id" "47 " }
         }
       }
       { n n 
@@ -9252,7 +9565,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "13.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "44 " }
+          { "id" "46 " }
         }
       }
       { n n 
@@ -9267,7 +9580,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "12.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "43 " }
+          { "id" "45 " }
         }
       }
       { n n 
@@ -9282,7 +9595,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "11.000000 -7.000000 " ] 
         { "pool_elem" n 
-          { "id" "42 " }
+          { "id" "44 " }
         }
       }
       { n n 
@@ -9297,7 +9610,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "11.000000 -6.000000 " ] 
         { "pool_elem" n 
-          { "id" "41 " }
+          { "id" "43 " }
         }
       }
       { n n 
@@ -9312,7 +9625,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "11.000000 -5.000000 " ] 
         { "pool_elem" n 
-          { "id" "40 " }
+          { "id" "42 " }
         }
       }
       { n n 
@@ -9327,7 +9640,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "11.000000 -4.000000 " ] 
         { "pool_elem" n 
-          { "id" "39 " }
+          { "id" "41 " }
         }
       }
       { n n 
@@ -9342,7 +9655,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "11.000000 -3.000000 " ] 
         { "pool_elem" n 
-          { "id" "38 " }
+          { "id" "40 " }
         }
       }
       { n n 
@@ -9357,7 +9670,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "11.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "36 " }
+          { "id" "38 " }
         }
       }
       { n n 
@@ -9372,7 +9685,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "12.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "37 " }
+          { "id" "39 " }
         }
       }
       { n n 
@@ -9387,7 +9700,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "13.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "34 " }
+          { "id" "36 " }
         }
       }
       { n n 
@@ -9402,7 +9715,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "14.000000 -2.000000 " ] 
         { "pool_elem" n 
-          { "id" "35 " }
+          { "id" "37 " }
         }
       }
       { n n 
@@ -9417,7 +9730,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 2.000000 " ] 
         { "pool_elem" n 
-          { "id" "123 " }
+          { "id" "125 " }
         }
       }
       { n n 
@@ -9432,7 +9745,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-1.000000 2.000000 " ] 
         { "pool_elem" n 
-          { "id" "122 " }
+          { "id" "124 " }
         }
       }
       { n n 
@@ -9447,7 +9760,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "0.000000 2.000000 " ] 
         { "pool_elem" n 
-          { "id" "121 " }
+          { "id" "123 " }
         }
       }
       { n n 
@@ -9462,7 +9775,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "1.000000 2.000000 " ] 
         { "pool_elem" n 
-          { "id" "120 " }
+          { "id" "122 " }
         }
       }
       { n n 
@@ -9477,7 +9790,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "2.000000 2.000000 " ] 
         { "pool_elem" n 
-          { "id" "119 " }
+          { "id" "121 " }
         }
       }
       { n n 
@@ -9492,7 +9805,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -26.000000 " ] 
         { "pool_elem" n 
-          { "id" "151 " }
+          { "id" "153 " }
         }
       }
       { n n 
@@ -9507,7 +9820,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-7.000000 -26.000000 " ] 
         { "pool_elem" n 
-          { "id" "152 " }
+          { "id" "154 " }
         }
       }
       { n n 
@@ -9522,7 +9835,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-7.000000 -25.000000 " ] 
         { "pool_elem" n 
-          { "id" "153 " }
+          { "id" "155 " }
         }
       }
       { n n 
@@ -9537,7 +9850,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-6.000000 -25.000000 " ] 
         { "pool_elem" n 
-          { "id" "154 " }
+          { "id" "156 " }
         }
       }
       { n n 
@@ -9552,7 +9865,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-5.000000 -25.000000 " ] 
         { "pool_elem" n 
-          { "id" "155 " }
+          { "id" "157 " }
         }
       }
       { n n 
@@ -9567,7 +9880,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-4.000000 -25.000000 " ] 
         { "pool_elem" n 
-          { "id" "156 " }
+          { "id" "158 " }
         }
       }
       { n n 
@@ -9582,7 +9895,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-3.000000 -25.000000 " ] 
         { "pool_elem" n 
-          { "id" "157 " }
+          { "id" "159 " }
         }
       }
       { n n 
@@ -9597,7 +9910,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 -25.000000 " ] 
         { "pool_elem" n 
-          { "id" "158 " }
+          { "id" "160 " }
         }
       }
       { n n 
@@ -9612,7 +9925,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 -26.000000 " ] 
         { "pool_elem" n 
-          { "id" "159 " }
+          { "id" "161 " }
         }
       }
       { n n 
@@ -9627,7 +9940,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 -27.000000 " ] 
         { "pool_elem" n 
-          { "id" "160 " }
+          { "id" "162 " }
         }
       }
       { n n 
@@ -9642,7 +9955,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 -28.000000 " ] 
         { "pool_elem" n 
-          { "id" "161 " }
+          { "id" "163 " }
         }
       }
       { n n 
@@ -9657,7 +9970,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 -29.000000 " ] 
         { "pool_elem" n 
-          { "id" "162 " }
+          { "id" "164 " }
         }
       }
       { n n 
@@ -9672,7 +9985,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 -30.000000 " ] 
         { "pool_elem" n 
-          { "id" "163 " }
+          { "id" "165 " }
         }
       }
       { n n 
@@ -9687,7 +10000,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 -31.000000 " ] 
         { "pool_elem" n 
-          { "id" "164 " }
+          { "id" "166 " }
         }
       }
       { n n 
@@ -9702,7 +10015,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-3.000000 -31.000000 " ] 
         { "pool_elem" n 
-          { "id" "165 " }
+          { "id" "167 " }
         }
       }
       { n n 
@@ -9717,7 +10030,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-4.000000 -30.000000 " ] 
         { "pool_elem" n 
-          { "id" "166 " }
+          { "id" "168 " }
         }
       }
       { n n 
@@ -9732,7 +10045,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-4.000000 -31.000000 " ] 
         { "pool_elem" n 
-          { "id" "167 " }
+          { "id" "169 " }
         }
       }
       { n n 
@@ -9747,7 +10060,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-5.000000 -31.000000 " ] 
         { "pool_elem" n 
-          { "id" "168 " }
+          { "id" "170 " }
         }
       }
       { n n 
@@ -9762,7 +10075,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-6.000000 -31.000000 " ] 
         { "pool_elem" n 
-          { "id" "169 " }
+          { "id" "171 " }
         }
       }
       { n n 
@@ -9777,7 +10090,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-7.000000 -31.000000 " ] 
         { "pool_elem" n 
-          { "id" "170 " }
+          { "id" "172 " }
         }
       }
       { n n 
@@ -9792,7 +10105,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -31.000000 " ] 
         { "pool_elem" n 
-          { "id" "171 " }
+          { "id" "173 " }
         }
       }
       { n n 
@@ -9807,7 +10120,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -30.000000 " ] 
         { "pool_elem" n 
-          { "id" "172 " }
+          { "id" "174 " }
         }
       }
       { n n 
@@ -9822,7 +10135,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -27.000000 " ] 
         { "pool_elem" n 
-          { "id" "173 " }
+          { "id" "175 " }
         }
       }
       { n n 
@@ -9837,7 +10150,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -28.000000 " ] 
         { "pool_elem" n 
-          { "id" "174 " }
+          { "id" "176 " }
         }
       }
       { n n 
@@ -9852,7 +10165,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-4.000000 -27.000000 " ] 
         { "pool_elem" n 
-          { "id" "175 " }
+          { "id" "177 " }
         }
       }
       { n n 
@@ -9867,7 +10180,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-5.000000 -28.000000 " ] 
         { "pool_elem" n 
-          { "id" "176 " }
+          { "id" "178 " }
         }
       }
       { n n 
@@ -9882,7 +10195,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-4.000000 -29.000000 " ] 
         { "pool_elem" n 
-          { "id" "177 " }
+          { "id" "179 " }
         }
       }
       { n n 
@@ -9897,7 +10210,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-4.000000 -28.000000 " ] 
         { "pool_elem" n 
-          { "id" "178 " }
+          { "id" "180 " }
         }
       }
       { n n 
@@ -9912,7 +10225,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-7.000000 -28.000000 " ] 
         { "pool_elem" n 
-          { "id" "179 " }
+          { "id" "181 " }
         }
       }
       { n n 
@@ -9927,7 +10240,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-6.000000 -28.000000 " ] 
         { "pool_elem" n 
-          { "id" "180 " }
+          { "id" "182 " }
         }
       }
       { n n 
@@ -9942,7 +10255,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-7.000000 -27.000000 " ] 
         { "pool_elem" n 
-          { "id" "181 " }
+          { "id" "183 " }
         }
       }
       { n n 
@@ -9957,7 +10270,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-3.000000 -26.000000 " ] 
         { "pool_elem" n 
-          { "id" "182 " }
+          { "id" "184 " }
         }
       }
       { n n 
@@ -9972,7 +10285,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-3.000000 -30.000000 " ] 
         { "pool_elem" n 
-          { "id" "183 " }
+          { "id" "185 " }
         }
       }
       { n n 
@@ -9987,7 +10300,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-7.000000 -30.000000 " ] 
         { "pool_elem" n 
-          { "id" "184 " }
+          { "id" "186 " }
         }
       }
       { n n 
@@ -10002,7 +10315,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-9.000000 -23.000000 " ] 
         { "pool_elem" n 
-          { "id" "185 " }
+          { "id" "187 " }
         }
       }
       { n n 
@@ -10017,7 +10330,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -23.000000 " ] 
         { "pool_elem" n 
-          { "id" "187 " }
+          { "id" "189 " }
         }
       }
       { n n 
@@ -10032,7 +10345,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-8.000000 -32.000000 " ] 
         { "pool_elem" n 
-          { "id" "186 " }
+          { "id" "188 " }
         }
       }
       { n n 
@@ -10047,7 +10360,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-13.000000 -17.000000 " ] 
         { "pool_elem" n 
-          { "id" "188 " }
+          { "id" "190 " }
         }
       }
       { n n 
@@ -10062,7 +10375,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-13.000000 -23.000000 " ] 
         { "pool_elem" n 
-          { "id" "189 " }
+          { "id" "191 " }
         }
       }
       { n n 
@@ -10077,7 +10390,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -17.000000 " ] 
         { "pool_elem" n 
-          { "id" "190 " }
+          { "id" "192 " }
         }
       }
       { n n 
@@ -10092,7 +10405,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -18.000000 " ] 
         { "pool_elem" n 
-          { "id" "191 " }
+          { "id" "193 " }
         }
       }
       { n n 
@@ -10107,7 +10420,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -19.000000 " ] 
         { "pool_elem" n 
-          { "id" "192 " }
+          { "id" "194 " }
         }
       }
       { n n 
@@ -10122,7 +10435,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -20.000000 " ] 
         { "pool_elem" n 
-          { "id" "193 " }
+          { "id" "195 " }
         }
       }
       { n n 
@@ -10137,7 +10450,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -21.000000 " ] 
         { "pool_elem" n 
-          { "id" "194 " }
+          { "id" "196 " }
         }
       }
       { n n 
@@ -10152,7 +10465,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-14.000000 -22.000000 " ] 
         { "pool_elem" n 
-          { "id" "195 " }
+          { "id" "197 " }
         }
       }
       { n n 
@@ -10167,7 +10480,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-9.000000 -17.000000 " ] 
         { "pool_elem" n 
-          { "id" "196 " }
+          { "id" "198 " }
         }
       }
       { n n 
@@ -10182,7 +10495,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-10.000000 -17.000000 " ] 
         { "pool_elem" n 
-          { "id" "197 " }
+          { "id" "199 " }
         }
       }
       { n n 
@@ -10197,7 +10510,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-11.000000 -17.000000 " ] 
         { "pool_elem" n 
-          { "id" "198 " }
+          { "id" "200 " }
         }
       }
       { n n 
@@ -10212,7 +10525,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-12.000000 -17.000000 " ] 
         { "pool_elem" n 
-          { "id" "199 " }
+          { "id" "201 " }
         }
       }
       { n n 
@@ -10227,7 +10540,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-12.000000 -23.000000 " ] 
         { "pool_elem" n 
-          { "id" "200 " }
+          { "id" "202 " }
         }
       }
       { n n 
@@ -10242,7 +10555,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-10.000000 -23.000000 " ] 
         { "pool_elem" n 
-          { "id" "201 " }
+          { "id" "203 " }
         }
       }
       { n n 
@@ -10257,7 +10570,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-12.000000 -24.000000 " ] 
         { "pool_elem" n 
-          { "id" "202 " }
+          { "id" "204 " }
         }
       }
       { n n 
@@ -10272,7 +10585,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-12.000000 -25.000000 " ] 
         { "pool_elem" n 
-          { "id" "203 " }
+          { "id" "205 " }
         }
       }
       { n n 
@@ -10287,7 +10600,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-12.000000 -26.000000 " ] 
         { "pool_elem" n 
-          { "id" "204 " }
+          { "id" "206 " }
         }
       }
       { n n 
@@ -10302,7 +10615,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-10.000000 -24.000000 " ] 
         { "pool_elem" n 
-          { "id" "205 " }
+          { "id" "207 " }
         }
       }
       { n n 
@@ -10317,7 +10630,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-10.000000 -25.000000 " ] 
         { "pool_elem" n 
-          { "id" "206 " }
+          { "id" "208 " }
         }
       }
       { n n 
@@ -10332,11 +10645,11 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-10.000000 -26.000000 " ] 
         { "pool_elem" n 
-          { "id" "207 " }
+          { "id" "209 " }
         }
       }
       { n n 
-        { "dirty_count" "113 " }
+        { "dirty_count" "221 " }
         [ "worldmat_cache" "0.000000 1.000000 0.000000 -1.000000 0.000000 0.000000 -11.000000 -33.000000 1.000000 " ] 
         [ "mat_cache" "0.000000 1.000000 0.000000 -1.000000 0.000000 0.000000 -11.000000 -33.000000 1.000000 " ] 
         { "children" n }
@@ -10347,11 +10660,11 @@ end\" " }
         { "rotation" "1.570796 " }
         [ "position" "-11.000000 -33.000000 " ] 
         { "pool_elem" n 
-          { "id" "208 " }
+          { "id" "210 " }
         }
       }
       { n n 
-        { "dirty_count" "135 " }
+        { "dirty_count" "243 " }
         [ "worldmat_cache" "0.000000 1.000000 0.000000 -1.000000 0.000000 0.000000 -11.000000 -34.000000 1.000000 " ] 
         [ "mat_cache" "0.000000 1.000000 0.000000 -1.000000 0.000000 0.000000 -11.000000 -34.000000 1.000000 " ] 
         { "children" n }
@@ -10362,11 +10675,11 @@ end\" " }
         { "rotation" "1.570796 " }
         [ "position" "-11.000000 -34.000000 " ] 
         { "pool_elem" n 
-          { "id" "209 " }
+          { "id" "211 " }
         }
       }
       { n n 
-        { "dirty_count" "157 " }
+        { "dirty_count" "265 " }
         [ "worldmat_cache" "0.000000 1.000000 0.000000 -1.000000 0.000000 0.000000 -11.000000 -35.000000 1.000000 " ] 
         [ "mat_cache" "0.000000 1.000000 0.000000 -1.000000 0.000000 0.000000 -11.000000 -35.000000 1.000000 " ] 
         { "children" n }
@@ -10377,11 +10690,11 @@ end\" " }
         { "rotation" "1.570796 " }
         [ "position" "-11.000000 -35.000000 " ] 
         { "pool_elem" n 
-          { "id" "210 " }
+          { "id" "212 " }
         }
       }
       { n n 
-        { "dirty_count" "178 " }
+        { "dirty_count" "286 " }
         [ "worldmat_cache" "0.000000 1.000000 0.000000 -1.000000 0.000000 0.000000 -11.000000 -36.000000 1.000000 " ] 
         [ "mat_cache" "0.000000 1.000000 0.000000 -1.000000 0.000000 0.000000 -11.000000 -36.000000 1.000000 " ] 
         { "children" n }
@@ -10392,7 +10705,7 @@ end\" " }
         { "rotation" "1.570796 " }
         [ "position" "-11.000000 -36.000000 " ] 
         { "pool_elem" n 
-          { "id" "211 " }
+          { "id" "213 " }
         }
       }
       { n n 
@@ -10407,7 +10720,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-13.000000 -27.000000 " ] 
         { "pool_elem" n 
-          { "id" "33 " }
+          { "id" "214 " }
         }
       }
     }
@@ -10425,7 +10738,22 @@ end\" " }
     { "exists_pool" n 
       { n n 
         { "pool_elem" n 
-          { "id" "253 " }
+          { "id" "265 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "264 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "263 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "262 " }
         }
       }
       { n n 
@@ -10460,17 +10788,17 @@ end\" " }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "263 " }
+          { "id" "255 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "264 " }
+          { "id" "254 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "262 " }
+          { "id" "253 " }
         }
       }
       { n n 
@@ -10526,6 +10854,11 @@ end\" " }
       { n n 
         { "pool_elem" n 
           { "id" "242 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "241 " }
         }
       }
       { n n 
@@ -10670,7 +11003,7 @@ end\" " }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "33 " }
+          { "id" "212 " }
         }
       }
       { n n 
@@ -11551,16 +11884,6 @@ end\" " }
       { n n 
         { "pool_elem" n 
           { "id" "36 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "35 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "34 " }
         }
       }
     }
