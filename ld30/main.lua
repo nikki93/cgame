@@ -526,15 +526,16 @@ end
 
 
 
---- prologue...
 
 cs.main.world = 'white'
 load_game('portals.lvl', true)
-load_game('start.lvl', true)
 
-
--- cg.add {
---     camera = { viewport_height = 18.75 },
---     camera_follow = {},
---     group = { groups = 'warp' },
--- }
+if cg.args[2] == 'start' then
+    load_game('start.lvl', true)
+else
+    cg.add {
+        camera = { viewport_height = 18.75 },
+        camera_follow = {},
+        group = { groups = 'warp' },
+    }
+end
