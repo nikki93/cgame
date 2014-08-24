@@ -1,31 +1,7 @@
-9821
+11368
 { n n 
   { "script" n 
     { "str" "\"do local _={
-  camera_follow={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  gui_textbox={
-    auto_saveload=true,
-    set_click_focus=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
-    get_click_focus=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    get_text=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end
-  },
   wall={
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
@@ -36,7 +12,14 @@
     update_all=function() --[[..skipped..]] end,
     simple_update_all=nil,
     simple_has=nil,
-    tbl=cg.__entity_table_load({}),
+    tbl=cg.__entity_table_load({
+        [31]={
+          k=_cge(31),
+          v={
+            ent=_cge(31)
+          }
+        }
+      }),
     add=nil
   },
   follower={
@@ -52,47 +35,6 @@
     simple_has=nil,
     tbl=cg.__entity_table_load({}),
     add=nil
-  },
-  gui_window={
-    get_body=function() --[[..skipped..]] end,
-    get_minimized=function() --[[..skipped..]] end,
-    set_highlight=function() --[[..skipped..]] end,
-    set_title=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    get_title=function() --[[..skipped..]] end,
-    mouse_up=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    set_minimized=function() --[[..skipped..]] end,
-    auto_saveload=true,
-    get_highlight=function() --[[..skipped..]] end,
-    get_closeable=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
-    update_all=function() --[[..skipped..]] end,
-    set_closeable=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    get_title_buttons_area=function() --[[..skipped..]] end
-  },
-  gui_checkbox={
-    auto_saveload=true,
-    toggle=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
-    get_checked=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    set_checked=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end
-  },
-  edit={
-    sel=cg.__entity_table_load({
-        [37]={
-          k=_cge(37),
-          v=true
-        }
-      })
-  },
-  edit_inspector={
-    tbl=cg.__entity_table_load({})
   },
   animation={
     auto_saveload=true,
@@ -115,7 +57,14 @@
     update=function() --[[..skipped..]] end,
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
+    tbl=cg.__entity_table_load({
+        [31]={
+          k=_cge(31),
+          v={
+            ent=_cge(31)
+          }
+        }
+      }),
     destroy=function() --[[..skipped..]] end,
     update_all=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
@@ -126,28 +75,14 @@
     sweep=function() --[[..skipped..]] end,
     get_bbox=function() --[[..skipped..]] end
   },
-  player_control={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    die=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  group=cg.__entity_table_load({
-      [37]={
-        k=_cge(37),
-        v={
-          default=true
+  edit={
+    sel=cg.__entity_table_load({
+        [31]={
+          k=_cge(31),
+          v=true
         }
-      }
-    }),
+      })
+  },
   quad_shooter={
     auto_saveload=true,
     set_period=function() --[[..skipped..]] end,
@@ -164,6 +99,119 @@
     simple_has=nil,
     get_next=function() --[[..skipped..]] end,
     add=nil
+  },
+  player_dead={
+    auto_saveload=true,
+    create=function() --[[..skipped..]] end,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_update_all=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_time=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=nil,
+    get_time=function() --[[..skipped..]] end,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  gui_textbox={
+    auto_saveload=true,
+    set_click_focus=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    get_click_focus=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    get_text=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end
+  },
+  gui_window={
+    get_body=function() --[[..skipped..]] end,
+    get_minimized=function() --[[..skipped..]] end,
+    set_highlight=function() --[[..skipped..]] end,
+    set_title=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    get_title=function() --[[..skipped..]] end,
+    mouse_up=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    set_minimized=function() --[[..skipped..]] end,
+    auto_saveload=true,
+    get_highlight=function() --[[..skipped..]] end,
+    get_closeable=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    update_all=function() --[[..skipped..]] end,
+    set_closeable=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    get_title_buttons_area=function() --[[..skipped..]] end
+  },
+  camera_follow={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=function() --[[..skipped..]] end,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  group=cg.__entity_table_load({
+      [31]={
+        k=_cge(31),
+        v={
+          default=true
+        }
+      }
+    }),
+  crate={
+    auto_saveload=true,
+    move=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  portal={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    set_world_2=function() --[[..skipped..]] end,
+    get_world_2=function() --[[..skipped..]] end,
+    get_world_1=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_world_1=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  edit_inspector={
+    tbl=cg.__entity_table_load({})
+  },
+  gui_checkbox={
+    auto_saveload=true,
+    toggle=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    get_checked=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    set_checked=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end
   },
   bullet={
     unpaused_update=function() --[[..skipped..]] end,
@@ -185,28 +233,22 @@
     simple_update_all=nil
   },
   name=cg.__entity_table_load({}),
-  player_dead={
+  player_control={
     auto_saveload=true,
-    create=function() --[[..skipped..]] end,
     unpaused_update=function() --[[..skipped..]] end,
-    simple_update_all=function() --[[..skipped..]] end,
     simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
-    set_time=function() --[[..skipped..]] end,
+    die=function() --[[..skipped..]] end,
     remove=nil,
-    update_all=nil,
-    get_time=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({}),
     add=nil
   }
 }
 local __={}
-_.camera_follow.remove=_.camera_follow.simple_remove
-_.camera_follow.simple_update_all=_.camera_follow.update_all
-_.camera_follow.simple_has=_.camera_follow.has
-_.camera_follow.add=_.camera_follow.simple_add
 _.wall.remove=_.wall.simple_remove
 _.wall.simple_update_all=_.wall.update_all
 _.wall.simple_has=_.wall.has
@@ -219,22 +261,33 @@ _.bump.add=_.bump.simple_add
 _.bump.remove=_.bump.simple_remove
 _.bump.simple_has=_.bump.has
 _.bump.simple_update_all=_.bump.update_all
-_.player_control.remove=_.player_control.simple_remove
-_.player_control.simple_update_all=_.player_control.update_all
-_.player_control.simple_has=_.player_control.has
-_.player_control.add=_.player_control.simple_add
 _.quad_shooter.remove=_.quad_shooter.simple_remove
 _.quad_shooter.simple_update_all=_.quad_shooter.update_all
 _.quad_shooter.simple_has=_.quad_shooter.has
 _.quad_shooter.add=_.quad_shooter.simple_add
-_.bullet.simple_has=_.bullet.has
-_.bullet.remove=_.bullet.simple_remove
-_.bullet.simple_add=_.bullet.add
-_.bullet.simple_update_all=_.bullet.update_all
 _.player_dead.remove=_.player_dead.simple_remove
 _.player_dead.update_all=_.player_dead.simple_update_all
 _.player_dead.simple_has=_.player_dead.has
 _.player_dead.add=_.player_dead.simple_add
+_.camera_follow.remove=_.camera_follow.simple_remove
+_.camera_follow.simple_has=_.camera_follow.has
+_.camera_follow.add=_.camera_follow.simple_add
+_.crate.remove=_.crate.simple_remove
+_.crate.simple_update_all=_.crate.update_all
+_.crate.simple_has=_.crate.has
+_.crate.add=_.crate.simple_add
+_.portal.remove=_.portal.simple_remove
+_.portal.simple_update_all=_.portal.update_all
+_.portal.simple_has=_.portal.has
+_.portal.add=_.portal.simple_add
+_.bullet.simple_has=_.bullet.has
+_.bullet.remove=_.bullet.simple_remove
+_.bullet.simple_add=_.bullet.add
+_.bullet.simple_update_all=_.bullet.update_all
+_.player_control.remove=_.player_control.simple_remove
+_.player_control.simple_update_all=_.player_control.update_all
+_.player_control.simple_has=_.player_control.has
+_.player_control.add=_.player_control.simple_add
 return _
 end\" " }
   }
@@ -264,12 +317,12 @@ end\" " }
   { "sprite" n 
     { "pool" n 
       { n n 
-        { "depth" "10 " }
-        [ "texsize" "32.000000 32.000000 " ] 
-        [ "texcell" "16.000000 48.000000 " ] 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "37 " }
+          { "id" "31 " }
         }
       }
     }
@@ -277,23 +330,23 @@ end\" " }
   }
   { "camera" n 
     { "pool" n }
-    [ "inverse_view_matrix" "0.060000 0.000000 0.000000 0.000000 0.080000 -0.000000 -0.000000 0.000000 1.000000 " ] 
+    [ "inverse_view_matrix" "0.117187 0.000000 0.000000 0.000000 0.156250 -0.000000 -0.000000 0.000000 1.000000 " ] 
   }
   { "transform" n 
     { "pool" n 
       { n n 
-        { "dirty_count" "99 " }
-        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 0.000000 -4.000000 1.000000 " ] 
-        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 0.000000 -4.000000 1.000000 " ] 
+        { "dirty_count" "227 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -1.000000 4.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -1.000000 4.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
-        [ "scale" "2.000000 2.000000 " ] 
+        [ "scale" "1.000000 1.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "0.000000 -4.000000 " ] 
+        [ "position" "-1.000000 4.000000 " ] 
         { "pool_elem" n 
-          { "id" "37 " }
+          { "id" "31 " }
         }
       }
     }
@@ -303,7 +356,7 @@ end\" " }
   }
   { "prefab" n 
     { "saved_root" n 
-      { "id" "37 " }
+      { "id" "31 " }
     }
   }
   { "entity" n 
@@ -311,7 +364,7 @@ end\" " }
     { "exists_pool" n 
       { n n 
         { "pool_elem" n 
-          { "id" "37 " }
+          { "id" "31 " }
         }
       }
     }

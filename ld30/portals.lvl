@@ -1,4 +1,4 @@
-77886
+16070
 { n n 
   { "script" n 
     { "str" "\"do local _={
@@ -8,6 +8,224 @@
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
     create=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  dangerous={
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  door={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    get_switch=function() --[[..skipped..]] end,
+    set_open=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    get_open=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    set_switch=function() --[[..skipped..]] end,
+    add=nil
+  },
+  animation={
+    auto_saveload=true,
+    get_curr_anim=function() --[[..skipped..]] end,
+    set_strips=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    switch=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    add=function() --[[..skipped..]] end,
+    start=function() --[[..skipped..]] end,
+    set_frames=function() --[[..skipped..]] end
+  },
+  bump={
+    slide=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    set_position=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    add=nil,
+    update=function() --[[..skipped..]] end,
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({
+        [28]={
+          k=_cge(28),
+          v={
+            ent=_cge(28),
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
+          }
+        },
+        [29]={
+          k=_cge(29),
+          v={
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
+            ent=_cge(29)
+          }
+        }
+      }),
+    destroy=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    remove=nil,
+    set_bbox=function() --[[..skipped..]] end,
+    simple_has=nil,
+    simple_update_all=nil,
+    sweep=function() --[[..skipped..]] end,
+    get_bbox=function() --[[..skipped..]] end
+  },
+  camera_follow={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=function() --[[..skipped..]] end,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  main={
+    auto_saveload=true,
+    die=function() --[[..skipped..]] end,
+    reload=function() --[[..skipped..]] end,
+    world=\\"earth\\",
+    warp=function() --[[..skipped..]] end
+  },
+  player_dead={
+    auto_saveload=true,
+    set_falling=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    get_falling=function() --[[..skipped..]] end,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_update_all=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_time=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=nil,
+    get_time=function() --[[..skipped..]] end,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  group=cg.__entity_table_load({
+      [28]={
+        k=_cge(28),
+        v={
+          portals=true
+        }
+      },
+      [29]={
+        k=_cge(29),
+        v={
+          portals=true
+        }
+      }
+    }),
+  edit={
+    sel=cg.__entity_table_load({})
+  },
+  gui_textbox={
+    auto_saveload=true,
+    set_click_focus=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    get_click_focus=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    get_text=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end
+  },
+  switcher={
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  gui_window={
+    get_body=function() --[[..skipped..]] end,
+    get_minimized=function() --[[..skipped..]] end,
+    set_highlight=function() --[[..skipped..]] end,
+    set_title=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    get_title=function() --[[..skipped..]] end,
+    mouse_up=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    set_minimized=function() --[[..skipped..]] end,
+    auto_saveload=true,
+    get_highlight=function() --[[..skipped..]] end,
+    get_closeable=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    update_all=function() --[[..skipped..]] end,
+    set_closeable=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    get_title_buttons_area=function() --[[..skipped..]] end
+  },
+  pit={
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  quad_shooter={
+    auto_saveload=true,
+    set_period=function() --[[..skipped..]] end,
+    get_period=function() --[[..skipped..]] end,
+    unpaused_update=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_next=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    get_next=function() --[[..skipped..]] end,
+    add=nil
+  },
+  player_control={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    die=function() --[[..skipped..]] end,
     remove=nil,
     update_all=function() --[[..skipped..]] end,
     simple_update_all=nil,
@@ -29,181 +247,18 @@
     tbl=cg.__entity_table_load({}),
     add=nil
   },
-  animation={
+  crate={
     auto_saveload=true,
-    set_frames=function() --[[..skipped..]] end,
-    set_strips=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    switch=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    start=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({})
-  },
-  bump={
-    slide=function() --[[..skipped..]] end,
+    move=function() --[[..skipped..]] end,
     create=function() --[[..skipped..]] end,
-    set_position=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    add=nil,
-    update=function() --[[..skipped..]] end,
-    auto_saveload=true,
-    simple_remove=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({
-        [29]={
-          k=_cge(29),
-          v={
-            bbox=cg.bbox(cg.vec2(-0.400000, -0.400000), cg.vec2(0.400000, 0.400000)),
-            ent=_cge(29)
-          }
-        }
-      }),
-    destroy=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    remove=nil,
-    set_bbox=function() --[[..skipped..]] end,
-    simple_has=nil,
-    simple_update_all=nil,
-    sweep=function() --[[..skipped..]] end,
-    get_bbox=function() --[[..skipped..]] end
-  },
-  edit={
-    sel=cg.__entity_table_load({
-        [29]={
-          k=_cge(29),
-          v=true
-        }
-      })
-  },
-  quad_shooter={
-    auto_saveload=true,
-    set_period=function() --[[..skipped..]] end,
-    get_period=function() --[[..skipped..]] end,
-    unpaused_update=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
+    get_stuck=function() --[[..skipped..]] end,
     simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
-    set_next=function() --[[..skipped..]] end,
+    set_stuck=function() --[[..skipped..]] end,
     remove=nil,
     update_all=function() --[[..skipped..]] end,
     simple_update_all=nil,
-    simple_has=nil,
-    get_next=function() --[[..skipped..]] end,
-    add=nil
-  },
-  player_dead={
-    auto_saveload=true,
-    create=function() --[[..skipped..]] end,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_update_all=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    set_time=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=nil,
-    get_time=function() --[[..skipped..]] end,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  edit_inspector={
-    gui_root=_cge(24),
-    tbl=cg.__entity_table_load({
-        [28]={
-          k=_cge(28),
-          v={
-            dock_text=_cge(37),
-            remove_text=_cge(38),
-            props={
-              groups={
-                name=\\"groups\\",
-                field={
-                  textbox=_cge(41),
-                  label=_cge(40),
-                  type=\\"string\\",
-                  container=_cge(39),
-                  name=\\"groups\\",
-                  textedit=_cge(42)
-                }
-              }
-            },
-            last_pos=cg.vec2(509.414093, -415.327576),
-            sys=\\"group\\",
-            window=_cge(28),
-            window_body=_cge(36),
-            docked=false,
-            ent=_cge(29)
-          }
-        }
-      })
-  },
-  gui_window={
-    get_body=function() --[[..skipped..]] end,
-    get_minimized=function() --[[..skipped..]] end,
-    set_highlight=function() --[[..skipped..]] end,
-    set_title=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    get_title=function() --[[..skipped..]] end,
-    mouse_up=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    set_minimized=function() --[[..skipped..]] end,
-    auto_saveload=true,
-    get_highlight=function() --[[..skipped..]] end,
-    get_closeable=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({
-        [28]={
-          k=_cge(28),
-          v={
-            highlight=true,
-            body=_cge(36),
-            title_buttons_area=_cge(31),
-            title_text_area=_cge(34),
-            close_text=_cge(32),
-            minmax_text=_cge(33),
-            title_text=_cge(35),
-            titlebar=_cge(30)
-          }
-        }
-      }),
-    update_all=function() --[[..skipped..]] end,
-    set_closeable=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    get_title_buttons_area=function() --[[..skipped..]] end
-  },
-  player_control={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    die=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({
-        [29]={
-          k=_cge(29),
-          v={
-            ent=_cge(29)
-          }
-        }
-      }),
-    add=nil
-  },
-  camera_follow={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=function() --[[..skipped..]] end,
     simple_has=nil,
     tbl=cg.__entity_table_load({}),
     add=nil
@@ -223,279 +278,40 @@
     update_all=function() --[[..skipped..]] end,
     simple_update_all=nil,
     simple_has=nil,
+    tbl=cg.__entity_table_load({
+        [28]={
+          k=_cge(28),
+          v={
+            ent=_cge(28),
+            in_warp=false
+          }
+        },
+        [29]={
+          k=_cge(29),
+          v={
+            in_warp=false,
+            ent=_cge(29)
+          }
+        }
+      }),
+    add=nil
+  },
+  switch={
+    auto_saveload=true,
+    create=function() --[[..skipped..]] end,
+    unpaused_update=function() --[[..skipped..]] end,
+    get_on=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_on=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
     tbl=cg.__entity_table_load({}),
     add=nil
   },
-  group=cg.__entity_table_load({
-      {
-        k=_cge(1),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(2),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(3),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(4),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(5),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(6),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(7),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(8),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(9),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(10),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(11),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(12),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(13),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(14),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(15),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(16),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(17),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(18),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(19),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(20),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(21),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(22),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(23),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(24),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(25),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(26),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(27),
-        v={
-          builtin=true
-        }
-      },
-      {
-        k=_cge(28),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(29),
-        v={
-          warp=true,
-          default=true
-        }
-      },
-      {
-        k=_cge(30),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(31),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(32),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(33),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(34),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(35),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(36),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(37),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(38),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(39),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(40),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(41),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      },
-      {
-        k=_cge(42),
-        v={
-          edit_inspector=true,
-          builtin=true
-        }
-      }
-    }),
   gui_checkbox={
     auto_saveload=true,
     toggle=function() --[[..skipped..]] end,
@@ -526,30 +342,9 @@
     simple_add=nil,
     simple_update_all=nil
   },
-  name=cg.__entity_table_load({
-      [29]={
-        k=_cge(29),
-        v=\\"player\\"
-      }
-    }),
-  gui_textbox={
-    auto_saveload=true,
-    set_click_focus=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({
-        [41]={
-          k=_cge(41),
-          v={
-            click_focus=true,
-            text=_cge(42)
-          }
-        }
-      }),
-    get_click_focus=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    get_text=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end
+  name=cg.__entity_table_load({}),
+  edit_inspector={
+    tbl=cg.__entity_table_load({})
   }
 }
 local __={}
@@ -557,33 +352,57 @@ _.wall.remove=_.wall.simple_remove
 _.wall.simple_update_all=_.wall.update_all
 _.wall.simple_has=_.wall.has
 _.wall.add=_.wall.simple_add
-_.follower.remove=_.follower.simple_remove
-_.follower.simple_update_all=_.follower.update_all
-_.follower.simple_has=_.follower.has
-_.follower.add=_.follower.simple_add
+_.dangerous.remove=_.dangerous.simple_remove
+_.dangerous.simple_update_all=_.dangerous.update_all
+_.dangerous.simple_has=_.dangerous.has
+_.dangerous.add=_.dangerous.simple_add
+_.door.remove=_.door.simple_remove
+_.door.simple_update_all=_.door.update_all
+_.door.simple_has=_.door.has
+_.door.add=_.door.simple_add
 _.bump.add=_.bump.simple_add
 _.bump.remove=_.bump.simple_remove
 _.bump.simple_has=_.bump.has
 _.bump.simple_update_all=_.bump.update_all
-_.quad_shooter.remove=_.quad_shooter.simple_remove
-_.quad_shooter.simple_update_all=_.quad_shooter.update_all
-_.quad_shooter.simple_has=_.quad_shooter.has
-_.quad_shooter.add=_.quad_shooter.simple_add
+_.camera_follow.remove=_.camera_follow.simple_remove
+_.camera_follow.simple_has=_.camera_follow.has
+_.camera_follow.add=_.camera_follow.simple_add
 _.player_dead.remove=_.player_dead.simple_remove
 _.player_dead.update_all=_.player_dead.simple_update_all
 _.player_dead.simple_has=_.player_dead.has
 _.player_dead.add=_.player_dead.simple_add
+_.switcher.remove=_.switcher.simple_remove
+_.switcher.simple_update_all=_.switcher.update_all
+_.switcher.simple_has=_.switcher.has
+_.switcher.add=_.switcher.simple_add
+_.pit.remove=_.pit.simple_remove
+_.pit.simple_update_all=_.pit.update_all
+_.pit.simple_has=_.pit.has
+_.pit.add=_.pit.simple_add
+_.quad_shooter.remove=_.quad_shooter.simple_remove
+_.quad_shooter.simple_update_all=_.quad_shooter.update_all
+_.quad_shooter.simple_has=_.quad_shooter.has
+_.quad_shooter.add=_.quad_shooter.simple_add
 _.player_control.remove=_.player_control.simple_remove
 _.player_control.simple_update_all=_.player_control.update_all
 _.player_control.simple_has=_.player_control.has
 _.player_control.add=_.player_control.simple_add
-_.camera_follow.remove=_.camera_follow.simple_remove
-_.camera_follow.simple_has=_.camera_follow.has
-_.camera_follow.add=_.camera_follow.simple_add
+_.follower.remove=_.follower.simple_remove
+_.follower.simple_update_all=_.follower.update_all
+_.follower.simple_has=_.follower.has
+_.follower.add=_.follower.simple_add
+_.crate.remove=_.crate.simple_remove
+_.crate.simple_update_all=_.crate.update_all
+_.crate.simple_has=_.crate.has
+_.crate.add=_.crate.simple_add
 _.portal.remove=_.portal.simple_remove
 _.portal.simple_update_all=_.portal.update_all
 _.portal.simple_has=_.portal.has
 _.portal.add=_.portal.simple_add
+_.switch.remove=_.switch.simple_remove
+_.switch.simple_update_all=_.switch.update_all
+_.switch.simple_has=_.switch.has
+_.switch.add=_.switch.simple_add
 _.bullet.simple_has=_.bullet.has
 _.bullet.remove=_.bullet.simple_remove
 _.bullet.simple_add=_.bullet.add
@@ -596,1459 +415,20 @@ end\" " }
     { "pool" n }
   }
   { "edit" n 
-    { "uneditable_pool" n 
-      { n n 
-        { "pool_elem" n 
-          { "id" "42 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "41 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "40 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "39 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "36 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "35 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "34 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "38 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "37 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "33 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "32 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "31 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "30 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "28 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "1 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "27 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "26 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "25 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "24 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "23 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "22 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "21 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "20 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "19 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "18 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "17 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "16 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "15 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "14 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "13 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "12 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "11 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "10 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "9 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "8 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "7 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "6 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "5 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "4 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "3 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "2 " }
-        }
-      }
-    }
+    { "uneditable_pool" n }
     [ "grid_size" "1.000000 1.000000 " ] 
   }
   { "gui_textedit" n 
-    { "pool" n 
-      { n n 
-        { "numerical" "0 " }
-        { "cursor" "4 " }
-        { "pool_elem" n 
-          { "id" "42 " }
-        }
-      }
-      { n n 
-        { "numerical" "0 " }
-        { "cursor" "0 " }
-        { "pool_elem" n 
-          { "id" "23 " }
-        }
-      }
-      { n n 
-        { "numerical" "0 " }
-        { "cursor" "7 " }
-        { "pool_elem" n 
-          { "id" "22 " }
-        }
-      }
-    }
+    { "pool" n }
   }
   { "gui_text" n 
-    { "pool" n 
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"warp default\" " }
-        { "pool_elem" n 
-          { "id" "42 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"groups\" " }
-        { "pool_elem" n 
-          { "id" "40 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"r\" " }
-        { "pool_elem" n 
-          { "id" "38 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\">\" " }
-        { "pool_elem" n 
-          { "id" "37 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"group\" " }
-        { "pool_elem" n 
-          { "id" "35 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"-\" " }
-        { "pool_elem" n 
-          { "id" "33 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"x\" " }
-        { "pool_elem" n 
-          { "id" "32 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"fps: 60.00\" " }
-        { "pool_elem" n 
-          { "id" "27 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"gfx: compiling shader './data/sprite.geom' ... successful
-gfx: compiling shader './data/sprite.frag' ... successful
-texture: loading texture './data/default.png'
-gfx: compiling shader './data/rect.vert' ... successful
-gfx: compiling shader './data/rect.geom' ... successful
-gfx: compiling shader './data/rect.frag' ... successful
-gfx: compiling shader './data/text.vert' ... successful
-gfx: compiling shader './data/text.geom' ... successful
-gfx: compiling shader './data/text.frag' ... successful
-texture: loading texture './data/font1.png'
-gfx: compiling shader './data/phypoly.vert' ... successful
-gfx: compiling shader './data/phypoly.frag' ... successful
-gfx: compiling shader './data/bbox.vert' ... successful
-gfx: compiling shader './data/bbox.geom' ... successful
-gfx: compiling shader './data/bbox.frag' ... successful
-gfx: compiling shader './data/edit_line.vert' ... successful
-gfx: compiling shader './data/edit_line.frag' ... successful
-texture: loading texture './ld30/atlas-1.png'
-edit: loading from file './ld30/player.pfb' ... done
-\" " }
-        { "pool_elem" n 
-          { "id" "26 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"./ld30/1.lvl | ./ld30/atlas-1.png | ./ld30/atlas-1.pyxel | ./ld30/dead-1.pfb | ./ld30/hell-bullet-1.pfb | ./ld30/hell-floor-1.pfb | ./ld30/hell-follower-1.pfb | ./ld30/hell-quad-1.pfb | ./ld30/hell-wall-1.pfb | ./ld30/main.lua | ./ld30/player.pfb | ./ld30/portal.pfb | ./ld30/portals.lvl | ./ld30/wall-1.pfb\" " }
-        { "pool_elem" n 
-          { "id" "23 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"./ld30/\" " }
-        { "pool_elem" n 
-          { "id" "22 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"save to file: \" " }
-        { "pool_elem" n 
-          { "id" "21 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"\" " }
-        { "pool_elem" n 
-          { "id" "19 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"command\" " }
-        { "pool_elem" n 
-          { "id" "17 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"select 1\" " }
-        { "pool_elem" n 
-          { "id" "15 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"grid 1\" " }
-        { "pool_elem" n 
-          { "id" "13 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"edit\" " }
-        { "pool_elem" n 
-          { "id" "11 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"\" " }
-        { "pool_elem" n 
-          { "id" "9 " }
-        }
-      }
-      { n n 
-        { "cursor" "-1 " }
-        { "str" "\"\" " }
-        { "pool_elem" n 
-          { "id" "7 " }
-        }
-      }
-    }
+    { "pool" n }
   }
   { "gui_rect" n 
-    { "pool" n 
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "0 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.400000 " }
-          { "g" "0.200000 " }
-          { "r" "0.200000 " }
-        }
-        [ "size" "130.000000 22.000000 " ] 
-        { "pool_elem" n 
-          { "id" "41 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "1 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        [ "size" "205.000000 32.000000 " ] 
-        { "pool_elem" n 
-          { "id" "39 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "1 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        [ "size" "140.000000 22.000000 " ] 
-        { "pool_elem" n 
-          { "id" "34 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "0 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        [ "size" "65.000000 22.000000 " ] 
-        { "pool_elem" n 
-          { "id" "31 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "0 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        [ "size" "205.000000 32.000000 " ] 
-        { "pool_elem" n 
-          { "id" "36 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "1 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "0.950000 " }
-          { "b" "0.350000 " }
-          { "g" "0.150000 " }
-          { "r" "0.150000 " }
-        }
-        [ "size" "205.000000 22.000000 " ] 
-        { "pool_elem" n 
-          { "id" "30 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "1 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        [ "size" "0.000000 -0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "20 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "0 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.100000 " }
-          { "g" "0.100000 " }
-          { "r" "0.600000 " }
-        }
-        [ "size" "18.000000 16.000000 " ] 
-        { "pool_elem" n 
-          { "id" "18 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "0 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.100000 " }
-          { "g" "0.100000 " }
-          { "r" "0.600000 " }
-        }
-        [ "size" "0.000000 -0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "16 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "0 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.100000 " }
-          { "g" "0.100000 " }
-          { "r" "0.600000 " }
-        }
-        [ "size" "88.000000 16.000000 " ] 
-        { "pool_elem" n 
-          { "id" "14 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "0 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.100000 " }
-          { "g" "0.100000 " }
-          { "r" "0.600000 " }
-        }
-        [ "size" "68.000000 16.000000 " ] 
-        { "pool_elem" n 
-          { "id" "12 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "0 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.100000 " }
-          { "g" "0.100000 " }
-          { "r" "0.600000 " }
-        }
-        [ "size" "48.000000 16.000000 " ] 
-        { "pool_elem" n 
-          { "id" "10 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "0 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "0.950000 " }
-          { "b" "0.500000 " }
-          { "g" "0.300000 " }
-          { "r" "0.300000 " }
-        }
-        [ "size" "205.000000 54.000000 " ] 
-        { "pool_elem" n 
-          { "id" "28 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "1 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.900000 " }
-          { "g" "0.900000 " }
-          { "r" "0.900000 " }
-        }
-        [ "size" "800.000000 16.000000 " ] 
-        { "pool_elem" n 
-          { "id" "8 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "1 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.300000 " }
-          { "g" "0.300000 " }
-          { "r" "0.800000 " }
-        }
-        [ "size" "800.000000 16.000000 " ] 
-        { "pool_elem" n 
-          { "id" "6 " }
-        }
-      }
-      { n n 
-        { "vfill" "1 " }
-        { "hfill" "1 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        [ "size" "800.000000 600.000000 " ] 
-        { "pool_elem" n 
-          { "id" "24 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "1 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        [ "size" "800.000000 32.000000 " ] 
-        { "pool_elem" n 
-          { "id" "5 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "1 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "0.500000 " }
-          { "b" "1.000000 " }
-          { "g" "1.000000 " }
-          { "r" "1.000000 " }
-        }
-        [ "size" "0.000000 -0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "25 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "0 " }
-        { "vfit" "0 " }
-        { "hfit" "0 " }
-        { "color" n 
-          { "a" "0.300000 " }
-          { "b" "0.100000 " }
-          { "g" "0.500000 " }
-          { "r" "0.800000 " }
-        }
-        [ "size" "10.000000 10.000000 " ] 
-        { "pool_elem" n 
-          { "id" "4 " }
-        }
-      }
-      { n n 
-        { "vfill" "1 " }
-        { "hfill" "1 " }
-        { "vfit" "1 " }
-        { "hfit" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        [ "size" "800.000000 600.000000 " ] 
-        { "pool_elem" n 
-          { "id" "2 " }
-        }
-      }
-      { n n 
-        { "vfill" "0 " }
-        { "hfill" "0 " }
-        { "vfit" "0 " }
-        { "hfit" "0 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        [ "size" "800.000000 600.000000 " ] 
-        { "pool_elem" n 
-          { "id" "1 " }
-        }
-      }
-    }
+    { "pool" n }
   }
   { "gui" n 
-    { "pool" n 
-      { n n 
-        [ "padding" "5.000000 5.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "1 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "1.000000 " }
-          { "g" "1.000000 " }
-          { "r" "1.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "42 " }
-        }
-      }
-      { n n 
-        [ "padding" "5.000000 5.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.400000 " }
-          { "g" "0.200000 " }
-          { "r" "0.200000 " }
-        }
-        { "pool_elem" n 
-          { "id" "41 " }
-        }
-      }
-      { n n 
-        [ "padding" "5.000000 5.000000 " ] 
-        { "valign" "1 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "1.000000 " }
-          { "g" "1.000000 " }
-          { "r" "1.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "40 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "3 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "39 " }
-        }
-      }
-      { n n 
-        [ "padding" "5.000000 5.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "1.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "38 " }
-        }
-      }
-      { n n 
-        [ "padding" "5.000000 5.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "1.000000 " }
-          { "g" "1.000000 " }
-          { "r" "1.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "37 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "3 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "36 " }
-        }
-      }
-      { n n 
-        [ "padding" "5.000000 5.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "1 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.200000 " }
-          { "g" "1.000000 " }
-          { "r" "1.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "35 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "34 " }
-        }
-      }
-      { n n 
-        [ "padding" "5.000000 5.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "1.000000 " }
-          { "g" "1.000000 " }
-          { "r" "1.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "33 " }
-        }
-      }
-      { n n 
-        [ "padding" "5.000000 5.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "1.000000 " }
-          { "g" "1.000000 " }
-          { "r" "1.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "32 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "31 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "3 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "0.950000 " }
-          { "b" "0.350000 " }
-          { "g" "0.150000 " }
-          { "r" "0.150000 " }
-        }
-        { "pool_elem" n 
-          { "id" "30 " }
-        }
-      }
-      { n n 
-        [ "padding" "5.000000 5.000000 " ] 
-        { "valign" "4 " }
-        { "halign" "4 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "0.950000 " }
-          { "b" "0.500000 " }
-          { "g" "0.300000 " }
-          { "r" "0.300000 " }
-        }
-        { "pool_elem" n 
-          { "id" "28 " }
-        }
-      }
-      { n n 
-        [ "padding" "1.000000 1.000000 " ] 
-        { "valign" "0 " }
-        { "halign" "2 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.100000 " }
-          { "g" "0.400000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "27 " }
-        }
-      }
-      { n n 
-        [ "padding" "1.000000 1.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "0 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "26 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "4 " }
-        { "halign" "4 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "0 " }
-        { "visible" "0 " }
-        { "color" n 
-          { "a" "0.500000 " }
-          { "b" "1.000000 " }
-          { "g" "1.000000 " }
-          { "r" "1.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "25 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "0 " }
-        { "captures_events" "0 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "24 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 2.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "1 " }
-        { "setvisible" "1 " }
-        { "visible" "0 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.050000 " }
-          { "g" "0.300000 " }
-          { "r" "0.500000 " }
-        }
-        { "pool_elem" n 
-          { "id" "23 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 2.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "1 " }
-        { "setvisible" "1 " }
-        { "visible" "0 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "22 " }
-        }
-      }
-      { n n 
-        [ "padding" "2.000000 2.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "0 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "21 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "3 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "0 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "20 " }
-        }
-      }
-      { n n 
-        [ "padding" "4.000000 2.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "1.000000 " }
-          { "g" "1.000000 " }
-          { "r" "1.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "19 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "2 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.100000 " }
-          { "g" "0.100000 " }
-          { "r" "0.600000 " }
-        }
-        { "pool_elem" n 
-          { "id" "18 " }
-        }
-      }
-      { n n 
-        [ "padding" "4.000000 2.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "0 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "1.000000 " }
-          { "g" "1.000000 " }
-          { "r" "1.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "17 " }
-        }
-      }
-      { n n 
-        [ "padding" "7.000000 0.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "0 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.100000 " }
-          { "g" "0.100000 " }
-          { "r" "0.600000 " }
-        }
-        { "pool_elem" n 
-          { "id" "16 " }
-        }
-      }
-      { n n 
-        [ "padding" "4.000000 2.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "1.000000 " }
-          { "g" "1.000000 " }
-          { "r" "1.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "15 " }
-        }
-      }
-      { n n 
-        [ "padding" "7.000000 0.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.100000 " }
-          { "g" "0.100000 " }
-          { "r" "0.600000 " }
-        }
-        { "pool_elem" n 
-          { "id" "14 " }
-        }
-      }
-      { n n 
-        [ "padding" "4.000000 2.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "1.000000 " }
-          { "g" "1.000000 " }
-          { "r" "1.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "13 " }
-        }
-      }
-      { n n 
-        [ "padding" "7.000000 0.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.100000 " }
-          { "g" "0.100000 " }
-          { "r" "0.600000 " }
-        }
-        { "pool_elem" n 
-          { "id" "12 " }
-        }
-      }
-      { n n 
-        [ "padding" "4.000000 2.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "1.000000 " }
-          { "g" "1.000000 " }
-          { "r" "1.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "11 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "3 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.100000 " }
-          { "g" "0.100000 " }
-          { "r" "0.600000 " }
-        }
-        { "pool_elem" n 
-          { "id" "10 " }
-        }
-      }
-      { n n 
-        [ "padding" "2.000000 2.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "9 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "3 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.900000 " }
-          { "g" "0.900000 " }
-          { "r" "0.900000 " }
-        }
-        { "pool_elem" n 
-          { "id" "8 " }
-        }
-      }
-      { n n 
-        [ "padding" "2.000000 2.000000 " ] 
-        { "valign" "2 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "7 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "3 " }
-        { "halign" "0 " }
-        { "captures_events" "1 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "1.000000 " }
-          { "b" "0.300000 " }
-          { "g" "0.300000 " }
-          { "r" "0.800000 " }
-        }
-        { "pool_elem" n 
-          { "id" "6 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "0 " }
-        { "halign" "0 " }
-        { "captures_events" "0 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "5 " }
-        }
-      }
-      { n n 
-        [ "padding" "5.000000 5.000000 " ] 
-        { "valign" "4 " }
-        { "halign" "4 " }
-        { "captures_events" "0 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "0.300000 " }
-          { "b" "0.100000 " }
-          { "g" "0.500000 " }
-          { "r" "0.800000 " }
-        }
-        { "pool_elem" n 
-          { "id" "4 " }
-        }
-      }
-      { n n 
-        [ "padding" "0.000000 0.000000 " ] 
-        { "valign" "0 " }
-        { "halign" "0 " }
-        { "captures_events" "0 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "2 " }
-        }
-      }
-      { n n 
-        [ "padding" "5.000000 5.000000 " ] 
-        { "valign" "4 " }
-        { "halign" "4 " }
-        { "captures_events" "0 " }
-        { "focusable" "0 " }
-        { "setvisible" "1 " }
-        { "visible" "1 " }
-        { "color" n 
-          { "a" "0.000000 " }
-          { "b" "0.000000 " }
-          { "g" "0.000000 " }
-          { "r" "0.000000 " }
-        }
-        { "pool_elem" n 
-          { "id" "1 " }
-        }
-      }
-    }
+    { "pool" n }
   }
   { "physics" n 
     { "pool" n }
@@ -2056,802 +436,60 @@ edit: loading from file './ld30/player.pfb' ... done
   { "sprite" n 
     { "pool" n 
       { n n 
-        { "depth" "-1 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "16.000000 16.000000 " ] 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "29 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 128.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "28 " }
         }
       }
     }
     { "atlas" "\"./ld30/atlas-1.png\" " }
   }
   { "camera" n 
-    { "pool" n 
-      { n n 
-        { "viewport_height" "25.000000 " }
-        { "pool_elem" n 
-          { "id" "3 " }
-        }
-      }
-    }
-    [ "inverse_view_matrix" "0.060000 0.000000 0.000000 0.000000 0.080000 -0.000000 -0.000000 0.000000 1.000000 " ] 
-    { "curr_camera" n 
-      { "id" "0 " }
-    }
+    { "pool" n }
+    [ "inverse_view_matrix" "0.048974 0.000000 0.000000 0.000000 0.065298 -0.000000 -0.122920 -0.117083 1.000000 " ] 
   }
   { "transform" n 
     { "pool" n 
       { n n 
-        { "dirty_count" "1284 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 7.683920 -6.138650 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 5.000000 -5.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "41 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "5.000000 -5.000000 " ] 
-        { "pool_elem" n 
-          { "id" "42 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "13463 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 7.475587 -5.930317 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 70.000000 -5.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "42 " }
-          }
-        }
-        { "parent" n 
-          { "id" "39 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "70.000000 -5.000000 " ] 
-        { "pool_elem" n 
-          { "id" "41 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "13463 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.767253 -6.138650 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 5.000000 -10.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "39 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "5.000000 -10.000000 " ] 
-        { "pool_elem" n 
-          { "id" "40 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "7053 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.558920 -5.721983 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "41 " }
-          }
-          { n n 
-            { "id" "40 " }
-          }
-        }
-        { "parent" n 
-          { "id" "36 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "39 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "13463 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 6.642253 -5.013650 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 50.000000 -5.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "31 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "50.000000 -5.000000 " ] 
-        { "pool_elem" n 
-          { "id" "38 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "13463 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 6.017253 -5.013650 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 35.000000 -5.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "31 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "35.000000 -5.000000 " ] 
-        { "pool_elem" n 
-          { "id" "37 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "3848 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.558920 -5.721983 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -22.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "39 " }
-          }
-        }
-        { "parent" n 
-          { "id" "28 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 -22.000000 " ] 
-        { "pool_elem" n 
-          { "id" "36 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1284 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 9.142254 -5.013650 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 45.000000 -5.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "34 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "45.000000 -5.000000 " ] 
-        { "pool_elem" n 
-          { "id" "35 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "7053 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 7.267253 -4.805317 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 65.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "35 " }
-          }
-        }
-        { "parent" n 
-          { "id" "30 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "65.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "34 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "13463 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 5.392253 -5.013650 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 20.000000 -5.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "31 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "20.000000 -5.000000 " ] 
-        { "pool_elem" n 
-          { "id" "33 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "13463 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.767253 -5.013650 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 5.000000 -5.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "31 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "5.000000 -5.000000 " ] 
-        { "pool_elem" n 
-          { "id" "32 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "7053 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.558920 -4.805317 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "38 " }
-          }
-          { n n 
-            { "id" "37 " }
-          }
-          { n n 
-            { "id" "33 " }
-          }
-          { n n 
-            { "id" "32 " }
-          }
-        }
-        { "parent" n 
-          { "id" "30 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "31 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "3848 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.558920 -4.805317 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "34 " }
-          }
-          { n n 
-            { "id" "31 " }
-          }
-        }
-        { "parent" n 
-          { "id" "28 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "30 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "3 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 4.558920 -4.805317 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 509.414093 -415.327576 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "36 " }
-          }
-          { n n 
-            { "id" "30 " }
-          }
-        }
-        { "parent" n 
-          { "id" "24 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "509.414093 -415.327576 " ] 
-        { "pool_elem" n 
-          { "id" "28 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "2168639 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.642253 -4.388650 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.642253 -4.388650 1.000000 " ] 
+        { "dirty_count" "807 " }
+        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 6.000000 11.000000 1.000000 " ] 
+        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 6.000000 11.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
-        [ "scale" "1.000000 1.000000 " ] 
+        [ "scale" "2.000000 2.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "3.642253 -4.388650 " ] 
+        [ "position" "6.000000 11.000000 " ] 
         { "pool_elem" n 
           { "id" "29 " }
         }
       }
       { n n 
-        { "dirty_count" "1908 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 12.458332 -11.958334 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 699.000000 -587.000000 1.000000 " ] 
+        { "dirty_count" "647 " }
+        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -4.000000 -5.000000 1.000000 " ] 
+        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -4.000000 -5.000000 1.000000 " ] 
         { "children" n }
-        { "parent" n 
-          { "id" "1 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "699.000000 -587.000000 " ] 
-        { "pool_elem" n 
-          { "id" "27 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1910 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.625002 12.458333 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 1.000000 -1.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "25 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "1.000000 -1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "26 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "2 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.666668 12.500000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "26 " }
-          }
-        }
-        { "parent" n 
-          { "id" "1 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "25 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1910 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.666668 12.500000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "28 " }
-          }
-        }
-        { "parent" n 
-          { "id" "2 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "24 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "3635 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.666668 -11.916668 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "20 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 -2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "23 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "3635 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.666668 -11.916668 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "20 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 -2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "22 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "3635 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.583334 -11.916668 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 2.000000 -2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "20 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "2.000000 -2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "21 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "2715 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.666668 -11.833335 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "23 " }
-          }
-          { n n 
-            { "id" "22 " }
-          }
-          { n n 
-            { "id" "21 " }
-          }
-        }
-        { "parent" n 
-          { "id" "8 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "20 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1910 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 16.083334 -11.250001 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 4.000000 -2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "18 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "4.000000 -2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "19 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1910 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 15.916668 -11.166668 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 782.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "19 " }
-          }
-        }
-        { "parent" n 
-          { "id" "6 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "782.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "18 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1910 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.208336 -11.250001 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 4.000000 -2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "16 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "4.000000 -2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "17 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "2715 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.375002 -11.166668 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 7.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "17 " }
-          }
-        }
-        { "parent" n 
-          { "id" "6 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "7.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "16 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1910 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -11.083334 -11.250001 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 4.000000 -2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "14 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "4.000000 -2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "15 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "7335 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -11.250001 -11.166668 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 130.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "15 " }
-          }
-        }
-        { "parent" n 
-          { "id" "6 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "130.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "14 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1910 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -14.208334 -11.250001 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 4.000000 -2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "12 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "4.000000 -2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "13 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "8399 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -14.375001 -11.166668 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 55.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "13 " }
-          }
-        }
-        { "parent" n 
-          { "id" "6 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "55.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "12 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1910 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.500002 -11.250001 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 4.000000 -2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "10 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "4.000000 -2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "11 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "8399 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.666668 -11.166668 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "11 " }
-          }
-        }
-        { "parent" n 
-          { "id" "6 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "10 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1910 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.583334 -11.916668 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 2.000000 -2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "8 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "2.000000 -2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "9 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "4691 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.666668 -11.833335 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -16.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "20 " }
-          }
-          { n n 
-            { "id" "9 " }
-          }
-        }
-        { "parent" n 
-          { "id" "5 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 -16.000000 " ] 
-        { "pool_elem" n 
-          { "id" "8 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1910 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.583334 -11.250001 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 2.000000 -2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "6 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "2.000000 -2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "7 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "4691 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.666668 -11.166668 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "18 " }
-          }
-          { n n 
-            { "id" "16 " }
-          }
-          { n n 
-            { "id" "14 " }
-          }
-          { n n 
-            { "id" "12 " }
-          }
-          { n n 
-            { "id" "10 " }
-          }
-          { n n 
-            { "id" "7 " }
-          }
-        }
-        { "parent" n 
-          { "id" "5 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "6 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1910 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.666668 -11.166668 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -568.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "8 " }
-          }
-          { n n 
-            { "id" "6 " }
-          }
-        }
-        { "parent" n 
-          { "id" "2 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 -568.000000 " ] 
-        { "pool_elem" n 
-          { "id" "5 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "3 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -17.500002 11.666667 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -20.000000 -20.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "1 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-20.000000 -20.000000 " ] 
-        { "pool_elem" n 
-          { "id" "4 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "955 " }
-        [ "worldmat_cache" "16.666668 0.000000 0.000000 -0.000000 12.500000 0.000000 0.000000 0.000000 1.000000 " ] 
-        [ "mat_cache" "16.666668 0.000000 0.000000 -0.000000 12.500000 0.000000 0.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "1 " }
-          }
-        }
         { "parent" n 
           { "id" "0 " }
         }
-        [ "scale" "16.666668 12.500000 " ] 
+        [ "scale" "2.000000 2.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
+        [ "position" "-4.000000 -5.000000 " ] 
         { "pool_elem" n 
-          { "id" "3 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1908 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.666668 12.500000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "24 " }
-          }
-          { n n 
-            { "id" "5 " }
-          }
-        }
-        { "parent" n 
-          { "id" "1 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "2 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "958 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -16.666668 12.500000 1.000000 " ] 
-        [ "mat_cache" "0.002500 0.000000 0.000000 -0.000000 0.003333 0.000000 -1.000000 1.000000 1.000000 " ] 
-        { "children" n 
-          { n n 
-            { "id" "27 " }
-          }
-          { n n 
-            { "id" "25 " }
-          }
-          { n n 
-            { "id" "4 " }
-          }
-          { n n 
-            { "id" "2 " }
-          }
-        }
-        { "parent" n 
-          { "id" "3 " }
-        }
-        [ "scale" "0.002500 0.003333 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "1 " }
+          { "id" "28 " }
         }
       }
     }
@@ -2861,7 +499,7 @@ edit: loading from file './ld30/player.pfb' ... done
   }
   { "prefab" n 
     { "saved_root" n 
-      { "id" "29 " }
+      { "id" "0 " }
     }
   }
   { "entity" n 
@@ -2869,212 +507,12 @@ edit: loading from file './ld30/player.pfb' ... done
     { "exists_pool" n 
       { n n 
         { "pool_elem" n 
-          { "id" "42 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "41 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "40 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "39 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "38 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "37 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "36 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "35 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "34 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "33 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "32 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "31 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "30 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "28 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
           { "id" "29 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "27 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "26 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "25 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "24 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "23 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "22 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "21 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "20 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "19 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "18 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "17 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "16 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "15 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "14 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "13 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "12 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "11 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "10 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "9 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "8 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "7 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "6 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "5 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "4 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "3 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "2 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "1 " }
+          { "id" "28 " }
         }
       }
     }
