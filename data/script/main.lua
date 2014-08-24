@@ -7,21 +7,26 @@ cs.app = {}
 function cs.app.key_down(key)
     if cs.gui.has_focus() then return end
 
-    if key == cg.KC_Q then
-        cs.game.quit()
-
-    elseif key == cg.KC_1 then
-        cs.console.set_visible(not cs.console.get_visible())
-
-    elseif key == cg.KC_E then
+    if key == cg.KC_E and cs.input.key_down(cg.KC_LEFT_CONTROL) then
         cs.timing.set_paused(not cs.edit.get_enabled())
         cs.edit.set_enabled(not cs.edit.get_enabled())
-
-    elseif key == cg.KC_C then
-        print("destroying group 'default'")
-        cs.group.destroy('default')
-
     end
+
+    -- if key == cg.KC_Q then
+    --     cs.game.quit()
+
+    -- elseif key == cg.KC_1 then
+    --     cs.console.set_visible(not cs.console.get_visible())
+
+    -- elseif key == cg.KC_E then
+    --     cs.timing.set_paused(not cs.edit.get_enabled())
+    --     cs.edit.set_enabled(not cs.edit.get_enabled())
+
+    -- elseif key == cg.KC_C then
+    --     print("destroying group 'default'")
+    --     cs.group.destroy('default')
+
+    -- end
 end
 
 local run = (cg.args[1] and loadfile(cg.args[1])) or loadfile('./main.lua')
