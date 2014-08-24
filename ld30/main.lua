@@ -15,6 +15,7 @@ end
 data_dir = './ld30'
 usr_dir = './usr'
 prefab_dir = data_dir .. '/prefabs'
+sound_dir = data_dir .. '/sounds'
 
 cs.sprite.set_atlas(data_dir .. '/atlas-1.png')
 
@@ -56,6 +57,18 @@ end
 
 -----------------------------------------------------------------------------
 
+function play_sound(file)
+    cg.add {
+        sound = {
+            path = sound_dir .. '/' .. file,
+            playing = true
+        }
+    }
+end
+
+
+-----------------------------------------------------------------------------
+
 cs.main = {}
 
 function cs.main.reload()
@@ -68,6 +81,8 @@ end
 function cs.main.die(...)
     local player = cs.name.find('player')
     if player then cs.player_control.die(player, unpack({...})) end
+    play_sound('death.wav')
+
 end
 
 function cs.main.warp(world)
@@ -84,6 +99,9 @@ function cs.main.warp(world)
     -- save progress
     g_save_world = true
     save_game('curr.sav', 'portals warp default')
+
+    -- play sound
+    play_sound('portal.wav')
 end
 
 g_world_colors = {
@@ -304,7 +322,8 @@ function cs.quad_shooter.unpaused_update(obj)
         if player ~= cg.entity_nil then
             local pp = cs.transform.get_position(player)
             local p = cs.transform.get_position(obj.ent)
-            if cg.vec2_len(pp - p) < 30 then
+            local d = cg.vec2_len(pp - p)
+            if d < 30 then
                 cg.add {
                     prefab = prefab_dir .. '/hell-bullet-1.pfb',
                     transform = { position = p + 0.7 * obj.dir },
@@ -313,6 +332,17 @@ function cs.quad_shooter.unpaused_update(obj)
                         velocity = 8 * obj.dir,
                     }
                 }
+
+                if d < 10 then
+                    local g = (10 - d) / 10
+                    cg.add {
+                        sound = {
+                            path = sound_dir .. '/quad.wav',
+                            playing = true,
+                            gain = g * g,
+                        }
+                    }
+                end
             end
         end
     end
@@ -422,12 +452,14 @@ function cs.crate.move(ent, dir)
     assert(obj, 'must be in crate')
     if obj.stuck then return end
 
+    local sound
     local function filter (e)
         return not cs.pit.has(e) and not cs.switch.has(e)
     end
     local cols = cs.bump.sweep(obj.ent, dir, filter)
     if #cols == 0 then
         cs.bump.set_position(ent, cs.transform.get_position(ent) + dir)
+        sound = 'crate.wav'
     end
 
     local cols = cs.bump.sweep(obj.ent, cg.vec2_zero, cs.pit.has)
@@ -437,11 +469,14 @@ function cs.crate.move(ent, dir)
     if #cols > 0 then
         obj.stuck = true
         cs.bump.remove(obj.ent)
+        sound = 'crate-pit.wav'
 
         local ot = cs.sprite.get_texcell(obj.ent)
         cs.sprite.set_texcell(obj.ent, ot + cg.vec2(32, 0))
         cs.sprite.set_depth(obj.ent, 6)
     end
+
+    if sound then play_sound(sound) end
 end
 
 
@@ -473,14 +508,35 @@ end
 
 function cs.switch.unpaused_update(obj)
     cs.sprite.set_depth(obj.ent, 5)
+    if not obj.prev_on then obj.prev_on = false end
+    local sound
 
     local switcher_cols = cs.bump.sweep(obj.ent, cg.vec2_zero, cs.switcher.has)
     obj.on = #switcher_cols > 0
 
     if obj.on then
         cs.sprite.set_texcell(obj.ent, cg.vec2(160, 128))
+        if not obj.prev_on then sound = 'switch-on.wav' end
     else
         cs.sprite.set_texcell(obj.ent, cg.vec2(144, 128))
+        if obj.prev_on then sound = 'switch-off.wav' end
+    end
+    obj.prev_on = obj.on
+
+    local player = cs.name.find('player')
+    if player ~= cg.entity_nil and sound then
+        local pp = cs.transform.get_position(player)
+        local d = cg.vec2_len(pp - cs.transform.get_position(obj.ent))
+        if d < 10 then
+            local g = (10 - d) / 10
+            cg.add {
+                sound = {
+                    path = sound_dir .. '/' .. sound,
+                    playing = true,
+                    gain = g * g,
+                }
+            }
+        end
     end
 end
 
