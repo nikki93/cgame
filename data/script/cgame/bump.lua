@@ -8,6 +8,11 @@ cg.simple_prop(cs.bump, 'bbox', cg.bbox(cg.vec2(-0.5, -0.5),
                                         cg.vec2(0.5, 0.5)))
 
 local function _update_rect(obj, add)
+    if world:hasItem(obj.ent.id)
+    and obj.last_dirty == cs.transform.get_dirty_count(obj.ent) then
+        return
+    end
+
     local lt = obj.bbox.min + cs.transform.get_position(obj.ent)
     local wh = obj.bbox.max - obj.bbox.min
     if world:hasItem(obj.ent.id) then
@@ -15,6 +20,8 @@ local function _update_rect(obj, add)
     else
         world:add(obj.ent.id, lt.x, lt.y, wh.x, wh.y)
     end
+
+    obj.last_dirty = cs.transform.get_dirty_count(obj.ent)
 end
 
 function cs.bump.create(obj)
