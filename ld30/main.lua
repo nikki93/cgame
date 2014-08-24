@@ -31,9 +31,10 @@ function save_game(name, groups)
     cg.store_close(s)
 end
 
-function load_game(name)
-    if not file_exists(usr_dir .. '/' .. name) then return false end
-    local s = cg.store_open_file(usr_dir .. '/' .. name)
+function load_game(name, lvl)
+    local dir = lvl and data_dir or usr_dir
+    if not file_exists(dir .. '/' .. name) then return false end
+    local s = cg.store_open_file(dir .. '/' .. name)
     cs.system.load_all(s)
     cg.store_close(s)
     return true
@@ -75,7 +76,7 @@ function cs.main.warp(world)
 
     -- set, load new world
     cs.main.world = world
-    if not load_game(world .. '.sav') then load_game(world .. '.lvl') end
+    if not load_game(world .. '.sav') then load_game(world .. '.lvl', true) end
     print('now in ' .. cs.main.world .. ', saving')
 
     -- save progress
@@ -226,12 +227,6 @@ function cs.player_control.unpaused_update(obj)
 end
 
 
-for e in pairs(cs.edit.select) do
-    cs.sprite.set_depth(e, 10)
-end
-
-
-
 -----------------------------------------------------------------------------
 
 cs.wall = cg.simple_sys()
@@ -239,8 +234,6 @@ cs.wall = cg.simple_sys()
 function cs.wall.create(obj)
     cs.bump.add(obj.ent)
 end
-
-
 
 
 -----------------------------------------------------------------------------
@@ -280,7 +273,6 @@ cs.quad_shooter = cg.simple_sys()
 
 cg.simple_prop(cs.quad_shooter, 'next', 1)
 cg.simple_prop(cs.quad_shooter, 'period', 1)
-
 
 function cs.quad_shooter.unpaused_update(obj)
     obj.next = obj.next - cs.timing.dt
@@ -378,9 +370,6 @@ cs.portal = cg.simple_sys()
 cg.simple_prop(cs.portal, 'world_1', 'hell')
 cg.simple_prop(cs.portal, 'world_2', 'earth')
 
-function cs.portal.create(obj)
-end
-
 function cs.portal.unpaused_update(obj)
     local cols = cs.bump.sweep(obj.ent)
     if obj.in_warp == nil then obj.in_warp = false end
@@ -439,21 +428,9 @@ function cs.crate.move(ent, dir)
 end
 
 
-
-
-load_game('portals.lvl')
-
-cg.add {
-    camera = { viewport_height = 18.75 },
-    camera_follow = {},
-    group = { groups = 'warp' },
-}
-
-
 -----------------------------------------------------------------------------
 
 cs.dangerous = cg.simple_sys()
-
 
 
 -----------------------------------------------------------------------------
@@ -537,3 +514,18 @@ function cs.door.unpaused_update(obj)
         end
     end
 end
+
+
+
+--- prologue...
+
+cs.main.world = 'white'
+load_game('portals.lvl', true)
+load_game('start.lvl', true)
+
+
+-- cg.add {
+--     camera = { viewport_height = 18.75 },
+--     camera_follow = {},
+--     group = { groups = 'warp' },
+-- }
