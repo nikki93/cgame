@@ -1,9 +1,10 @@
-53193
+52694
 { n n 
   { "script" n 
     { "str" "\"do local _={
   wall={
     auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
     simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
@@ -13,226 +14,196 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        {
-          k=_cge(24),
+        [88]={
+          k=_cge(88),
           v={
-            ent=_cge(24)
+            ent=_cge(88)
           }
         },
-        nil,
-        nil,
-        nil,
-        nil,
-        {
-          k=_cge(29),
+        [92]={
+          k=_cge(92),
           v={
-            ent=_cge(29)
+            ent=_cge(92)
           }
         },
-        {
-          k=_cge(30),
-          v={
-            ent=_cge(30)
-          }
-        },
-        {
+        [31]={
           k=_cge(31),
           v={
             ent=_cge(31)
           }
         },
-        {
-          k=_cge(32),
+        [72]={
+          k=_cge(72),
           v={
-            ent=_cge(32)
+            ent=_cge(72)
           }
         },
-        {
-          k=_cge(33),
+        [91]={
+          k=_cge(91),
           v={
-            ent=_cge(33)
+            ent=_cge(91)
           }
         },
-        {
-          k=_cge(34),
+        [83]={
+          k=_cge(83),
           v={
-            ent=_cge(34)
+            ent=_cge(83)
           }
         },
-        {
-          k=_cge(35),
+        [98]={
+          k=_cge(98),
           v={
-            ent=_cge(35)
+            ent=_cge(98)
           }
         },
-        {
-          k=_cge(36),
+        [75]={
+          k=_cge(75),
           v={
-            ent=_cge(36)
+            ent=_cge(75)
           }
         },
-        {
-          k=_cge(37),
+        [90]={
+          k=_cge(90),
           v={
-            ent=_cge(37)
+            ent=_cge(90)
           }
         },
-        {
-          k=_cge(38),
+        [82]={
+          k=_cge(82),
           v={
-            ent=_cge(38)
+            ent=_cge(82)
           }
         },
-        {
-          k=_cge(39),
+        [96]={
+          k=_cge(96),
           v={
-            ent=_cge(39)
+            ent=_cge(96)
           }
         },
-        {
-          k=_cge(40),
+        [74]={
+          k=_cge(74),
           v={
-            ent=_cge(40)
+            ent=_cge(74)
           }
         },
-        {
-          k=_cge(41),
+        [70]={
+          k=_cge(70),
           v={
-            ent=_cge(41)
+            ent=_cge(70)
           }
         },
-        nil,
-        nil,
-        nil,
-        {
-          k=_cge(45),
+        [85]={
+          k=_cge(85),
           v={
-            ent=_cge(45)
+            ent=_cge(85)
           }
         },
-        {
-          k=_cge(46),
+        [95]={
+          k=_cge(95),
           v={
-            ent=_cge(46)
+            ent=_cge(95)
           }
         },
-        {
-          k=_cge(47),
+        [77]={
+          k=_cge(77),
           v={
-            ent=_cge(47)
+            ent=_cge(77)
           }
         },
-        {
-          k=_cge(48),
+        [71]={
+          k=_cge(71),
           v={
-            ent=_cge(48)
+            ent=_cge(71)
           }
         },
-        {
-          k=_cge(49),
+        [84]={
+          k=_cge(84),
           v={
-            ent=_cge(49)
+            ent=_cge(84)
           }
         },
-        {
-          k=_cge(50),
+        [94]={
+          k=_cge(94),
           v={
-            ent=_cge(50)
+            ent=_cge(94)
           }
         },
-        {
-          k=_cge(51),
+        [76]={
+          k=_cge(76),
           v={
-            ent=_cge(51)
+            ent=_cge(76)
           }
         },
-        {
-          k=_cge(52),
+        [68]={
+          k=_cge(68),
           v={
-            ent=_cge(52)
+            ent=_cge(68)
           }
         },
-        {
-          k=_cge(53),
+        [87]={
+          k=_cge(87),
           v={
-            ent=_cge(53)
+            ent=_cge(87)
           }
         },
-        {
-          k=_cge(54),
+        [93]={
+          k=_cge(93),
           v={
-            ent=_cge(54)
+            ent=_cge(93)
           }
         },
-        {
-          k=_cge(55),
+        [79]={
+          k=_cge(79),
           v={
-            ent=_cge(55)
+            ent=_cge(79)
           }
         },
-        {
-          k=_cge(56),
+        [69]={
+          k=_cge(69),
           v={
-            ent=_cge(56)
+            ent=_cge(69)
           }
         },
-        {
-          k=_cge(57),
+        [86]={
+          k=_cge(86),
           v={
-            ent=_cge(57)
+            ent=_cge(86)
           }
         },
-        {
-          k=_cge(58),
+        [97]={
+          k=_cge(97),
           v={
-            ent=_cge(58)
+            ent=_cge(97)
           }
         },
-        {
-          k=_cge(59),
+        [78]={
+          k=_cge(78),
           v={
-            ent=_cge(59)
+            ent=_cge(78)
           }
         },
-        {
-          k=_cge(60),
+        [89]={
+          k=_cge(89),
           v={
-            ent=_cge(60)
+            ent=_cge(89)
           }
         },
-        {
-          k=_cge(61),
+        [81]={
+          k=_cge(81),
           v={
-            ent=_cge(61)
+            ent=_cge(81)
           }
         },
-        {
-          k=_cge(62),
+        [80]={
+          k=_cge(80),
           v={
-            ent=_cge(62)
+            ent=_cge(80)
+          }
+        },
+        [73]={
+          k=_cge(73),
+          v={
+            ent=_cge(73)
           }
         }
       }),
@@ -290,232 +261,203 @@
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
     tbl=cg.__entity_table_load({
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        nil,
-        {
-          k=_cge(24),
-          v={
-            ent=_cge(24)
-          }
-        },
-        nil,
-        nil,
-        nil,
-        nil,
-        {
-          k=_cge(29),
-          v={
-            ent=_cge(29)
-          }
-        },
-        {
-          k=_cge(30),
-          v={
-            ent=_cge(30)
-          }
-        },
-        {
+        [31]={
           k=_cge(31),
           v={
             ent=_cge(31)
           }
         },
-        {
+        [32]={
           k=_cge(32),
           v={
-            ent=_cge(32)
+            ent=_cge(32),
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.250000))
           }
         },
-        {
-          k=_cge(33),
+        [68]={
+          k=_cge(68),
           v={
-            ent=_cge(33)
+            ent=_cge(68)
           }
         },
-        {
-          k=_cge(34),
+        [69]={
+          k=_cge(69),
           v={
-            ent=_cge(34)
+            ent=_cge(69)
           }
         },
-        {
-          k=_cge(35),
+        [70]={
+          k=_cge(70),
           v={
-            ent=_cge(35)
+            ent=_cge(70)
           }
         },
-        {
-          k=_cge(36),
+        [71]={
+          k=_cge(71),
           v={
-            ent=_cge(36)
+            ent=_cge(71)
           }
         },
-        {
-          k=_cge(37),
+        [72]={
+          k=_cge(72),
           v={
-            ent=_cge(37)
+            ent=_cge(72)
           }
         },
-        {
-          k=_cge(38),
+        [73]={
+          k=_cge(73),
           v={
-            ent=_cge(38)
+            ent=_cge(73)
           }
         },
-        {
-          k=_cge(39),
+        [74]={
+          k=_cge(74),
           v={
-            ent=_cge(39)
+            ent=_cge(74)
           }
         },
-        {
-          k=_cge(40),
+        [75]={
+          k=_cge(75),
           v={
-            ent=_cge(40)
+            ent=_cge(75)
           }
         },
-        {
-          k=_cge(41),
+        [76]={
+          k=_cge(76),
           v={
-            ent=_cge(41)
+            ent=_cge(76)
           }
         },
-        nil,
-        nil,
-        {
-          k=_cge(44),
+        [77]={
+          k=_cge(77),
           v={
-            ent=_cge(44),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
+            ent=_cge(77)
           }
         },
-        {
-          k=_cge(45),
+        [78]={
+          k=_cge(78),
           v={
-            ent=_cge(45)
+            ent=_cge(78)
           }
         },
-        {
-          k=_cge(46),
+        [79]={
+          k=_cge(79),
           v={
-            ent=_cge(46)
+            ent=_cge(79)
           }
         },
-        {
-          k=_cge(47),
+        [80]={
+          k=_cge(80),
           v={
-            ent=_cge(47)
+            ent=_cge(80)
           }
         },
-        {
-          k=_cge(48),
+        [81]={
+          k=_cge(81),
           v={
-            ent=_cge(48)
+            ent=_cge(81)
           }
         },
-        {
-          k=_cge(49),
+        [82]={
+          k=_cge(82),
           v={
-            ent=_cge(49)
+            ent=_cge(82)
           }
         },
-        {
-          k=_cge(50),
+        [83]={
+          k=_cge(83),
           v={
-            ent=_cge(50)
+            ent=_cge(83)
           }
         },
-        {
-          k=_cge(51),
+        [84]={
+          k=_cge(84),
           v={
-            ent=_cge(51)
+            ent=_cge(84)
           }
         },
-        {
-          k=_cge(52),
+        [85]={
+          k=_cge(85),
           v={
-            ent=_cge(52)
+            ent=_cge(85)
           }
         },
-        {
-          k=_cge(53),
+        [86]={
+          k=_cge(86),
           v={
-            ent=_cge(53)
+            ent=_cge(86)
           }
         },
-        {
-          k=_cge(54),
+        [87]={
+          k=_cge(87),
           v={
-            ent=_cge(54)
+            ent=_cge(87)
           }
         },
-        {
-          k=_cge(55),
+        [88]={
+          k=_cge(88),
           v={
-            ent=_cge(55)
+            ent=_cge(88)
           }
         },
-        {
-          k=_cge(56),
+        [89]={
+          k=_cge(89),
           v={
-            ent=_cge(56)
+            ent=_cge(89)
           }
         },
-        {
-          k=_cge(57),
+        [90]={
+          k=_cge(90),
           v={
-            ent=_cge(57)
+            ent=_cge(90)
           }
         },
-        {
-          k=_cge(58),
+        [91]={
+          k=_cge(91),
           v={
-            ent=_cge(58)
+            ent=_cge(91)
           }
         },
-        {
-          k=_cge(59),
+        [92]={
+          k=_cge(92),
           v={
-            ent=_cge(59)
+            ent=_cge(92)
           }
         },
-        {
-          k=_cge(60),
+        [93]={
+          k=_cge(93),
           v={
-            ent=_cge(60)
+            ent=_cge(93)
           }
         },
-        {
-          k=_cge(61),
+        [94]={
+          k=_cge(94),
           v={
-            ent=_cge(61)
+            ent=_cge(94)
           }
         },
-        {
-          k=_cge(62),
+        [95]={
+          k=_cge(95),
           v={
-            ent=_cge(62)
+            ent=_cge(95)
+          }
+        },
+        [96]={
+          k=_cge(96),
+          v={
+            ent=_cge(96)
+          }
+        },
+        [97]={
+          k=_cge(97),
+          v={
+            ent=_cge(97)
+          }
+        },
+        [98]={
+          k=_cge(98),
+          v={
+            ent=_cge(98)
           }
         }
       }),
@@ -540,10 +482,10 @@
     simple_update_all=function() --[[..skipped..]] end,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [43]={
-          k=_cge(43),
+        [67]={
+          k=_cge(67),
           v={
-            ent=_cge(43)
+            ent=_cge(67)
           }
         }
       }),
@@ -569,241 +511,218 @@
     add=nil
   },
   group=cg.__entity_table_load({
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      nil,
-      {
-        k=_cge(24),
-        v={
-          default=true
-        }
-      },
-      nil,
-      nil,
-      nil,
-      nil,
-      {
-        k=_cge(29),
-        v={
-          default=true
-        }
-      },
-      {
-        k=_cge(30),
-        v={
-          default=true
-        }
-      },
-      {
+      [31]={
         k=_cge(31),
         v={
           default=true
         }
       },
-      {
+      [32]={
         k=_cge(32),
         v={
-          default=true
+          warp=true
         }
       },
-      {
-        k=_cge(33),
-        v={
-          default=true
-        }
-      },
-      {
-        k=_cge(34),
-        v={
-          default=true
-        }
-      },
-      {
-        k=_cge(35),
-        v={
-          default=true
-        }
-      },
-      {
-        k=_cge(36),
-        v={
-          default=true
-        }
-      },
-      {
-        k=_cge(37),
-        v={
-          default=true
-        }
-      },
-      {
-        k=_cge(38),
-        v={
-          default=true
-        }
-      },
-      {
-        k=_cge(39),
-        v={
-          default=true
-        }
-      },
-      {
-        k=_cge(40),
-        v={
-          default=true
-        }
-      },
-      {
-        k=_cge(41),
-        v={
-          default=true
-        }
-      },
-      nil,
-      {
-        k=_cge(43),
+      [67]={
+        k=_cge(67),
         v={
           warp=true
         }
       },
-      {
-        k=_cge(44),
-        v={
-          warp=true
-        }
-      },
-      {
-        k=_cge(45),
+      [68]={
+        k=_cge(68),
         v={
           default=true
         }
       },
-      {
-        k=_cge(46),
+      [69]={
+        k=_cge(69),
         v={
           default=true
         }
       },
-      {
-        k=_cge(47),
+      [70]={
+        k=_cge(70),
         v={
           default=true
         }
       },
-      {
-        k=_cge(48),
+      [71]={
+        k=_cge(71),
         v={
           default=true
         }
       },
-      {
-        k=_cge(49),
+      [72]={
+        k=_cge(72),
         v={
           default=true
         }
       },
-      {
-        k=_cge(50),
+      [73]={
+        k=_cge(73),
         v={
           default=true
         }
       },
-      {
-        k=_cge(51),
+      [74]={
+        k=_cge(74),
         v={
           default=true
         }
       },
-      {
-        k=_cge(52),
+      [75]={
+        k=_cge(75),
         v={
           default=true
         }
       },
-      {
-        k=_cge(53),
+      [76]={
+        k=_cge(76),
         v={
           default=true
         }
       },
-      {
-        k=_cge(54),
+      [77]={
+        k=_cge(77),
         v={
           default=true
         }
       },
-      {
-        k=_cge(55),
+      [78]={
+        k=_cge(78),
         v={
           default=true
         }
       },
-      {
-        k=_cge(56),
+      [79]={
+        k=_cge(79),
         v={
           default=true
         }
       },
-      {
-        k=_cge(57),
+      [80]={
+        k=_cge(80),
         v={
           default=true
         }
       },
-      {
-        k=_cge(58),
+      [81]={
+        k=_cge(81),
         v={
           default=true
         }
       },
-      {
-        k=_cge(59),
+      [82]={
+        k=_cge(82),
         v={
           default=true
         }
       },
-      {
-        k=_cge(60),
+      [83]={
+        k=_cge(83),
         v={
           default=true
         }
       },
-      {
-        k=_cge(61),
+      [84]={
+        k=_cge(84),
         v={
           default=true
         }
       },
-      {
-        k=_cge(62),
+      [85]={
+        k=_cge(85),
+        v={
+          default=true
+        }
+      },
+      [86]={
+        k=_cge(86),
+        v={
+          default=true
+        }
+      },
+      [87]={
+        k=_cge(87),
+        v={
+          default=true
+        }
+      },
+      [88]={
+        k=_cge(88),
+        v={
+          default=true
+        }
+      },
+      [89]={
+        k=_cge(89),
+        v={
+          default=true
+        }
+      },
+      [90]={
+        k=_cge(90),
+        v={
+          default=true
+        }
+      },
+      [91]={
+        k=_cge(91),
+        v={
+          default=true
+        }
+      },
+      [92]={
+        k=_cge(92),
+        v={
+          default=true
+        }
+      },
+      [93]={
+        k=_cge(93),
+        v={
+          default=true
+        }
+      },
+      [94]={
+        k=_cge(94),
+        v={
+          default=true
+        }
+      },
+      [95]={
+        k=_cge(95),
+        v={
+          default=true
+        }
+      },
+      [96]={
+        k=_cge(96),
+        v={
+          default=true
+        }
+      },
+      [97]={
+        k=_cge(97),
+        v={
+          default=true
+        }
+      },
+      [98]={
+        k=_cge(98),
         v={
           default=true
         }
       }
     }),
   edit={
-    sel=cg.__entity_table_load({})
+    sel=cg.__entity_table_load({
+        [67]={
+          k=_cge(67),
+          v=true
+        }
+      })
   },
   gui_textbox={
     auto_saveload=true,
@@ -826,10 +745,10 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [44]={
-          k=_cge(44),
+        [32]={
+          k=_cge(32),
           v={
-            ent=_cge(44)
+            ent=_cge(32)
           }
         }
       }),
@@ -896,10 +815,10 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [44]={
-          k=_cge(44),
+        [32]={
+          k=_cge(32),
           v={
-            ent=_cge(44)
+            ent=_cge(32)
           }
         }
       }),
@@ -938,7 +857,6 @@
   portal={
     auto_saveload=true,
     unpaused_update=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
     set_world_2=function() --[[..skipped..]] end,
     get_world_2=function() --[[..skipped..]] end,
     get_world_1=function() --[[..skipped..]] end,
@@ -1000,8 +918,8 @@
     simple_update_all=nil
   },
   name=cg.__entity_table_load({
-      [44]={
-        k=_cge(44),
+      [32]={
+        k=_cge(32),
         v=\\"player\\"
       }
     }),
@@ -1103,259 +1021,286 @@ end\" " }
         [ "texcell" "16.000000 16.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "44 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "62 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "61 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "60 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "59 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "58 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "57 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "56 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "55 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "54 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "53 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "52 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "51 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "50 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "49 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "48 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "47 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "46 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "45 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "41 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "40 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "39 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "38 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "37 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "36 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "35 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "34 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "33 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
           { "id" "32 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "98 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "97 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "96 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "95 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "94 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "93 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "92 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "91 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "90 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "89 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "88 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "87 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "86 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "85 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "84 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "83 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "82 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "81 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "80 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "79 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "78 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "77 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "76 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "75 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "74 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "73 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "72 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "71 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "70 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "69 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "68 " }
         }
       }
       { n n 
@@ -1367,33 +1312,6 @@ end\" " }
           { "id" "31 " }
         }
       }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "30 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "29 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "272.000000 48.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "24 " }
-        }
-      }
     }
     { "atlas" "\"./ld30/atlas-1.png\" " }
   }
@@ -1402,30 +1320,30 @@ end\" " }
       { n n 
         { "viewport_height" "18.750000 " }
         { "pool_elem" n 
-          { "id" "43 " }
+          { "id" "67 " }
         }
       }
     }
     [ "inverse_view_matrix" "0.060000 0.000000 0.000000 0.000000 0.080000 -0.000000 -0.000000 0.000000 1.000000 " ] 
     { "curr_camera" n 
-      { "id" "43 " }
+      { "id" "67 " }
     }
   }
   { "transform" n 
     { "pool" n 
       { n n 
-        { "dirty_count" "1231 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -5.000000 -3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -5.000000 -3.000000 1.000000 " ] 
+        { "dirty_count" "2174160 " }
+        [ "worldmat_cache" "-1.000000 -0.000000 0.000000 0.000000 -1.000000 0.000000 -4.000000 0.000000 1.000000 " ] 
+        [ "mat_cache" "-1.000000 -0.000000 0.000000 0.000000 -1.000000 0.000000 -4.000000 0.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-5.000000 -3.000000 " ] 
+        { "rotation" "3.141593 " }
+        [ "position" "-4.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "62 " }
+          { "id" "32 " }
         }
       }
       { n n 
@@ -1440,430 +1358,10 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-6.000000 -3.000000 " ] 
         { "pool_elem" n 
-          { "id" "61 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1177 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 -2.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 -2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-6.000000 -2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "60 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1153 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 -1.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 -1.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-6.000000 -1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "59 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1130 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 0.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 0.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-6.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "58 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1107 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 1.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 1.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-6.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "57 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1082 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 2.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-6.000000 2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "56 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "1053 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-6.000000 3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "34 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "999 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -4.000000 3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -4.000000 3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-4.000000 3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "24 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "976 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -5.000000 3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -5.000000 3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-5.000000 3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "29 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "952 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-3.000000 3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "30 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "926 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -2.000000 3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -2.000000 3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-2.000000 3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "38 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "871 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -4.000000 -3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -4.000000 -3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-4.000000 -3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "40 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "839 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 -3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 -3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-3.000000 -3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "36 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "812 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -2.000000 -3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -2.000000 -3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-2.000000 -3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "39 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "768 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -1.000000 -3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -1.000000 -3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-1.000000 -3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "35 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "683 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -1.000000 3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -1.000000 3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-1.000000 3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "33 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "659 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "37 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "629 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 1.000000 3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 1.000000 3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "1.000000 3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "41 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "601 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 2.000000 3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 2.000000 3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "2.000000 3.000000 " ] 
-        { "pool_elem" n 
           { "id" "31 " }
         }
       }
       { n n 
-        { "dirty_count" "573 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "3.000000 3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "32 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "7358 " }
-        [ "worldmat_cache" "12.500000 0.000000 0.000000 -0.000000 9.375000 0.000000 0.000000 0.000000 1.000000 " ] 
-        [ "mat_cache" "12.500000 0.000000 0.000000 -0.000000 9.375000 0.000000 0.000000 0.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "12.500000 9.375000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "43 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "2174108 " }
-        [ "worldmat_cache" "-1.000000 -0.000000 0.000000 0.000000 -1.000000 0.000000 -4.000000 0.000000 1.000000 " ] 
-        [ "mat_cache" "-1.000000 -0.000000 0.000000 0.000000 -1.000000 0.000000 -4.000000 0.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "3.141593 " }
-        [ "position" "-4.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "44 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "307 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 -3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "45 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "330 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 1.000000 -3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 1.000000 -3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "1.000000 -3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "46 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "420 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 2.000000 -3.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 2.000000 -3.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "2.000000 -3.000000 " ] 
-        { "pool_elem" n 
-          { "id" "47 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "454 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 -2.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 -2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "3.000000 -2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "48 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "479 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 -1.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 -1.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "3.000000 -1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "49 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "505 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 0.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 0.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "3.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "50 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "530 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 1.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 1.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "3.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "51 " }
-        }
-      }
-      { n n 
         { "dirty_count" "554 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 2.000000 1.000000 " ] 
         [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 2.000000 1.000000 " ] 
@@ -1875,22 +1373,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "3.000000 2.000000 " ] 
         { "pool_elem" n 
-          { "id" "52 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "554 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 2.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 2.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "1.000000 1.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "3.000000 2.000000 " ] 
-        { "pool_elem" n 
-          { "id" "53 " }
+          { "id" "79 " }
         }
       }
       { n n 
@@ -1905,7 +1388,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "3.000000 -3.000000 " ] 
         { "pool_elem" n 
-          { "id" "54 " }
+          { "id" "78 " }
         }
       }
       { n n 
@@ -1920,7 +1403,442 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "3.000000 2.000000 " ] 
         { "pool_elem" n 
-          { "id" "55 " }
+          { "id" "77 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "554 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 2.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 2.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "3.000000 2.000000 " ] 
+        { "pool_elem" n 
+          { "id" "76 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "530 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 1.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 1.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "3.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "75 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "505 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 0.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 0.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "3.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "74 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "479 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 -1.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 -1.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "3.000000 -1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "73 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "454 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 -2.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 -2.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "3.000000 -2.000000 " ] 
+        { "pool_elem" n 
+          { "id" "72 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "420 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 2.000000 -3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 2.000000 -3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "2.000000 -3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "71 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "330 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 1.000000 -3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 1.000000 -3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "1.000000 -3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "70 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "307 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "0.000000 -3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "69 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1231 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -5.000000 -3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -5.000000 -3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-5.000000 -3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "68 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "13839 " }
+        [ "worldmat_cache" "12.500000 0.000000 0.000000 -0.000000 9.375000 0.000000 0.000000 0.000000 1.000000 " ] 
+        [ "mat_cache" "12.500000 0.000000 0.000000 -0.000000 9.375000 0.000000 0.000000 0.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "12.500000 9.375000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "0.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "67 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "573 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 3.000000 3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "3.000000 3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "80 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "601 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 2.000000 3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 2.000000 3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "2.000000 3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "81 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "629 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 1.000000 3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 1.000000 3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "1.000000 3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "82 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "659 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "0.000000 3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "83 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "683 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -1.000000 3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -1.000000 3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-1.000000 3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "84 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "768 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -1.000000 -3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -1.000000 -3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-1.000000 -3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "85 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "812 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -2.000000 -3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -2.000000 -3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-2.000000 -3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "86 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "839 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 -3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 -3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-3.000000 -3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "87 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "871 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -4.000000 -3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -4.000000 -3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-4.000000 -3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "88 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "926 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -2.000000 3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -2.000000 3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-2.000000 3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "89 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "952 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-3.000000 3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "90 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "976 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -5.000000 3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -5.000000 3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-5.000000 3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "91 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "999 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -4.000000 3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -4.000000 3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-4.000000 3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "92 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1053 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 3.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-6.000000 3.000000 " ] 
+        { "pool_elem" n 
+          { "id" "93 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1082 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 2.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 2.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-6.000000 2.000000 " ] 
+        { "pool_elem" n 
+          { "id" "94 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1107 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 1.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 1.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-6.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "95 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1130 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 0.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 0.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-6.000000 0.000000 " ] 
+        { "pool_elem" n 
+          { "id" "96 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1153 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 -1.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 -1.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-6.000000 -1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "97 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1177 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 -2.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 -2.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-6.000000 -2.000000 " ] 
+        { "pool_elem" n 
+          { "id" "98 " }
         }
       }
     }
@@ -1938,97 +1856,162 @@ end\" " }
     { "exists_pool" n 
       { n n 
         { "pool_elem" n 
-          { "id" "62 " }
+          { "id" "98 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "61 " }
+          { "id" "97 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "60 " }
+          { "id" "96 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "59 " }
+          { "id" "95 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "58 " }
+          { "id" "94 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "57 " }
+          { "id" "93 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "56 " }
+          { "id" "92 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "34 " }
+          { "id" "91 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "24 " }
+          { "id" "90 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "29 " }
+          { "id" "89 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "30 " }
+          { "id" "88 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "38 " }
+          { "id" "87 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "40 " }
+          { "id" "86 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "36 " }
+          { "id" "85 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "39 " }
+          { "id" "84 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "35 " }
+          { "id" "83 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "33 " }
+          { "id" "82 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "37 " }
+          { "id" "81 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "41 " }
+          { "id" "80 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "79 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "78 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "77 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "76 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "75 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "74 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "73 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "72 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "71 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "70 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "69 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "68 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "67 " }
         }
       }
       { n n 
@@ -2039,71 +2022,6 @@ end\" " }
       { n n 
         { "pool_elem" n 
           { "id" "32 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "55 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "54 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "53 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "52 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "51 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "50 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "49 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "48 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "47 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "46 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "45 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "44 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "43 " }
         }
       }
     }

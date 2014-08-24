@@ -1,9 +1,10 @@
-14844
+14856
 { n n 
   { "script" n 
     { "str" "\"do local _={
   wall={
     auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
     simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
@@ -67,11 +68,11 @@
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
     tbl=cg.__entity_table_load({
-        [31]={
-          k=_cge(31),
+        [32]={
+          k=_cge(32),
           v={
-            ent=_cge(31),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.250000)),
+            ent=_cge(32)
           }
         }
       }),
@@ -118,8 +119,8 @@
     add=nil
   },
   group=cg.__entity_table_load({
-      [31]={
-        k=_cge(31),
+      [32]={
+        k=_cge(32),
         v={
           warp=true
         }
@@ -127,8 +128,8 @@
     }),
   edit={
     sel=cg.__entity_table_load({
-        [31]={
-          k=_cge(31),
+        [32]={
+          k=_cge(32),
           v=true
         }
       })
@@ -154,10 +155,10 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [31]={
-          k=_cge(31),
+        [32]={
+          k=_cge(32),
           v={
-            ent=_cge(31)
+            ent=_cge(32)
           }
         }
       }),
@@ -224,10 +225,10 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [31]={
-          k=_cge(31),
+        [32]={
+          k=_cge(32),
           v={
-            ent=_cge(31)
+            ent=_cge(32)
           }
         }
       }),
@@ -266,7 +267,6 @@
   portal={
     auto_saveload=true,
     unpaused_update=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
     set_world_2=function() --[[..skipped..]] end,
     get_world_2=function() --[[..skipped..]] end,
     get_world_1=function() --[[..skipped..]] end,
@@ -328,8 +328,8 @@
     simple_update_all=nil
   },
   name=cg.__entity_table_load({
-      [31]={
-        k=_cge(31),
+      [32]={
+        k=_cge(32),
         v=\\"player\\"
       }
     }),
@@ -431,7 +431,7 @@ end\" " }
         [ "texcell" "16.000000 16.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "31 " }
+          { "id" "32 " }
         }
       }
     }
@@ -444,18 +444,18 @@ end\" " }
   { "transform" n 
     { "pool" n 
       { n n 
-        { "dirty_count" "2174002 " }
-        [ "worldmat_cache" "-1.000000 -0.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        [ "mat_cache" "-1.000000 -0.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
+        { "dirty_count" "2174108 " }
+        [ "worldmat_cache" "-1.000000 -0.000000 0.000000 0.000000 -1.000000 0.000000 -4.000000 0.000000 1.000000 " ] 
+        [ "mat_cache" "-1.000000 -0.000000 0.000000 0.000000 -1.000000 0.000000 -4.000000 0.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "1.000000 1.000000 " ] 
         { "rotation" "3.141593 " }
-        [ "position" "0.000000 0.000000 " ] 
+        [ "position" "-4.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "31 " }
+          { "id" "32 " }
         }
       }
     }
@@ -465,7 +465,7 @@ end\" " }
   }
   { "prefab" n 
     { "saved_root" n 
-      { "id" "31 " }
+      { "id" "32 " }
     }
   }
   { "entity" n 
@@ -473,7 +473,7 @@ end\" " }
     { "exists_pool" n 
       { n n 
         { "pool_elem" n 
-          { "id" "31 " }
+          { "id" "32 " }
         }
       }
     }
