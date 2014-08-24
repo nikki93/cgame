@@ -1,4 +1,4 @@
-16070
+14653
 { n n 
   { "script" n 
     { "str" "\"do local _={
@@ -70,15 +70,8 @@
         [28]={
           k=_cge(28),
           v={
-            ent=_cge(28),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
-          }
-        },
-        [29]={
-          k=_cge(29),
-          v={
             bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            ent=_cge(29)
+            ent=_cge(28)
           }
         }
       }),
@@ -105,13 +98,7 @@
     tbl=cg.__entity_table_load({}),
     add=nil
   },
-  main={
-    auto_saveload=true,
-    die=function() --[[..skipped..]] end,
-    reload=function() --[[..skipped..]] end,
-    world=\\"earth\\",
-    warp=function() --[[..skipped..]] end
-  },
+  main={},
   player_dead={
     auto_saveload=true,
     set_falling=function() --[[..skipped..]] end,
@@ -133,12 +120,6 @@
   group=cg.__entity_table_load({
       [28]={
         k=_cge(28),
-        v={
-          portals=true
-        }
-      },
-      [29]={
-        k=_cge(29),
         v={
           portals=true
         }
@@ -282,15 +263,9 @@
         [28]={
           k=_cge(28),
           v={
-            ent=_cge(28),
-            in_warp=false
-          }
-        },
-        [29]={
-          k=_cge(29),
-          v={
+            world_2=\\"white\\",
             in_warp=false,
-            ent=_cge(29)
+            ent=_cge(28)
           }
         }
       }),
@@ -441,15 +416,6 @@ end\" " }
         [ "texcell" "32.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "29 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "32.000000 32.000000 " ] 
-        [ "texcell" "32.000000 128.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
           { "id" "28 " }
         }
       }
@@ -458,36 +424,21 @@ end\" " }
   }
   { "camera" n 
     { "pool" n }
-    [ "inverse_view_matrix" "0.048974 0.000000 0.000000 0.000000 0.065298 -0.000000 -0.122920 -0.117083 1.000000 " ] 
+    [ "inverse_view_matrix" "0.060000 0.000000 0.000000 0.000000 0.080000 -0.000000 -0.000000 0.000000 1.000000 " ] 
   }
   { "transform" n 
     { "pool" n 
       { n n 
-        { "dirty_count" "807 " }
-        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 6.000000 11.000000 1.000000 " ] 
-        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 6.000000 11.000000 1.000000 " ] 
+        { "dirty_count" "648 " }
+        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 0.000000 0.000000 1.000000 " ] 
+        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 0.000000 0.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "2.000000 2.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "6.000000 11.000000 " ] 
-        { "pool_elem" n 
-          { "id" "29 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "647 " }
-        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -4.000000 -5.000000 1.000000 " ] 
-        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -4.000000 -5.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "2.000000 2.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-4.000000 -5.000000 " ] 
+        [ "position" "0.000000 0.000000 " ] 
         { "pool_elem" n 
           { "id" "28 " }
         }
@@ -505,11 +456,6 @@ end\" " }
   { "entity" n 
     { "destroyed" n }
     { "exists_pool" n 
-      { n n 
-        { "pool_elem" n 
-          { "id" "29 " }
-        }
-      }
       { n n 
         { "pool_elem" n 
           { "id" "28 " }
