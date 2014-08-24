@@ -41,7 +41,7 @@ function load_game(name, lvl)
 end
 
 cs.edit.modes.normal['s'] = function ()
-    cs.edit.command_save()
+    cs.edit.command_save(function () g_save_world = true end)
 
     cs.group.set_save_filter('portals', true)
     local s = cg.store_open()
@@ -103,7 +103,7 @@ function cs.main.save_all()
     return t
 end
 function cs.main.load_all(t)
-    if t and t.world then cs.main.world = t.saved_world end
+    if t and t.saved_world then cs.main.world = t.saved_world end
 end
 
 
