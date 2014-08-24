@@ -491,17 +491,20 @@ function cs.door.unpaused_update(obj)
             cs.bump.add(obj.ent)
 
             -- blocked?
-            local block = cs.bump.sweep(obj.ent, cg.vec2_zero, cs.follower.has)
-            if #block > 0 then
-                blocked = true
-                cs.bump.remove(obj.ent)
-            else
-                -- crushed player?
-                local plcols = cs.bump.sweep(obj.ent, cg.vec2_zero, cs.player_control.has)
-                if #plcols > 0 then cs.main.die() end
+            local function filter (e)
+                return not cs.pit.has(e)
             end
+            local cols = cs.bump.sweep(obj.ent, cg.vec2_zero, filter)
+            for _, col in ipairs(cols) do
+                if cs.player_control.has(col.other) then
+                    cs.main.die()
+                else
+                    blocked = true
+                end
+            end
+            if blocked then cs.bump.remove(obj.ent) end
         end
-        if not blocked and curr_anim ~= 'closing' and curr_anim ~= 'closed' then
+        if cs.bump.has(obj.ent) and curr_anim ~= 'closing' and curr_anim ~= 'closed' then
             cs.animation.start(obj.ent, 'closing')
         end
     end
