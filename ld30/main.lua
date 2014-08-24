@@ -337,6 +337,7 @@ function cs.bullet.unpaused_update(obj)
         return e ~= obj.creator and not cs.bullet.has(e)
             and not cs.player_control.has(e)
             and not cs.pit.has(e)
+            and not cs.switch.has(e)
     end
     local cols = cs.bump.slide(obj.ent, obj.velocity * cs.timing.dt,
                                filter)
