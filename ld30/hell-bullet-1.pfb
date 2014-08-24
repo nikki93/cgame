@@ -1,9 +1,10 @@
-14803
+14778
 { n n 
   { "script" n 
     { "str" "\"do local _={
   wall={
     auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
     simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
@@ -25,10 +26,10 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [33]={
-          k=_cge(33),
+        [29]={
+          k=_cge(29),
           v={
-            ent=_cge(33)
+            ent=_cge(29)
           }
         }
       }),
@@ -74,11 +75,11 @@
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
     tbl=cg.__entity_table_load({
-        [33]={
-          k=_cge(33),
+        [29]={
+          k=_cge(29),
           v={
-            bbox=cg.bbox(cg.vec2(-0.170000, -0.170000), cg.vec2(0.170000, 0.170000)),
-            ent=_cge(33)
+            bbox=cg.bbox(cg.vec2(-0.187500, -0.187500), cg.vec2(0.187500, 0.187500)),
+            ent=_cge(29)
           }
         }
       }),
@@ -125,8 +126,8 @@
     add=nil
   },
   group=cg.__entity_table_load({
-      [33]={
-        k=_cge(33),
+      [29]={
+        k=_cge(29),
         v={
           default=true
         }
@@ -134,8 +135,8 @@
     }),
   edit={
     sel=cg.__entity_table_load({
-        [33]={
-          k=_cge(33),
+        [29]={
+          k=_cge(29),
           v=true
         }
       })
@@ -259,7 +260,6 @@
   portal={
     auto_saveload=true,
     unpaused_update=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
     set_world_2=function() --[[..skipped..]] end,
     get_world_2=function() --[[..skipped..]] end,
     get_world_1=function() --[[..skipped..]] end,
@@ -313,11 +313,10 @@
     add=function() --[[..skipped..]] end,
     set_time=function() --[[..skipped..]] end,
     tbl=cg.__entity_table_load({
-        [33]={
-          k=_cge(33),
+        [29]={
+          k=_cge(29),
           v={
-            ent=_cge(33),
-            time=9.4171440191567
+            ent=_cge(29)
           }
         }
       }),
@@ -422,12 +421,12 @@ end\" " }
   { "sprite" n 
     { "pool" n 
       { n n 
-        { "depth" "0 " }
+        { "depth" "-1 " }
         [ "texsize" "16.000000 16.000000 " ] 
         [ "texcell" "112.000000 96.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "33 " }
+          { "id" "29 " }
         }
       }
     }
@@ -440,7 +439,7 @@ end\" " }
   { "transform" n 
     { "pool" n 
       { n n 
-        { "dirty_count" "386 " }
+        { "dirty_count" "4 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
         [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
         { "children" n }
@@ -451,7 +450,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "0.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "33 " }
+          { "id" "29 " }
         }
       }
     }
@@ -461,7 +460,7 @@ end\" " }
   }
   { "prefab" n 
     { "saved_root" n 
-      { "id" "0 " }
+      { "id" "29 " }
     }
   }
   { "entity" n 
@@ -469,7 +468,7 @@ end\" " }
     { "exists_pool" n 
       { n n 
         { "pool_elem" n 
-          { "id" "33 " }
+          { "id" "29 " }
         }
       }
     }
