@@ -250,7 +250,7 @@ end
 
 cs.follower = cg.simple_sys()
 
-g_follower_speed = 4
+cg.simple_prop(cs.follower, 'speed', 4)
 
 function cs.follower.create(obj)
     cs.bump.add(obj.ent)
@@ -270,7 +270,7 @@ function cs.follower.unpaused_update(obj)
                 return not cs.player_control.has(e)
                     and not cs.pit.has(e) and not cs.switch.has(e)
             end
-            local cols = cs.bump.slide(obj.ent, g_follower_speed * d * cs.timing.dt,
+            local cols = cs.bump.slide(obj.ent, obj.speed * d * cs.timing.dt,
                                        filter)
         end
     end
@@ -283,6 +283,7 @@ cs.quad_shooter = cg.simple_sys()
 
 cg.simple_prop(cs.quad_shooter, 'next', 1)
 cg.simple_prop(cs.quad_shooter, 'period', 1)
+cg.simple_prop(cs.quad_shooter, 'dir', cg.vec2(1, 0))
 
 function cs.quad_shooter.unpaused_update(obj)
     obj.next = obj.next - cs.timing.dt
@@ -296,21 +297,20 @@ function cs.quad_shooter.unpaused_update(obj)
         obj.shooting = false
         obj.next = obj.period
 
-        local dirs = { cg.vec2(1, 0), cg.vec2(-1, 0),
-                       cg.vec2(0, 1), cg.vec2(0, -1) }
-        local p = cs.transform.get_position(obj.ent)
-        local r = cs.transform.get_rotation(obj.ent)
-
-        for _, dir in ipairs(dirs) do
-            dir = cg.vec2_rot(dir, r)
-            cg.add {
-                prefab = data_dir .. '/hell-bullet-1.pfb',
-                transform = { position = p + 0.7 * dir },
-                bullet = {
-                    creator = cg.Entity(obj.ent),
-                    velocity = 8 * dir,
+        local player = cs.name.find('player')
+        if player ~= cg.entity_nil then
+            local pp = cs.transform.get_position(player)
+            local p = cs.transform.get_position(obj.ent)
+            if cg.vec2_len(pp - p) < 30 then
+                cg.add {
+                    prefab = data_dir .. '/hell-bullet-1.pfb',
+                    transform = { position = p + 0.7 * obj.dir },
+                    bullet = {
+                        creator = cg.Entity(obj.ent),
+                        velocity = 8 * obj.dir,
+                    }
                 }
-            }
+            end
         end
     end
 end
@@ -469,6 +469,8 @@ function cs.switch.create(obj)
 end
 
 function cs.switch.unpaused_update(obj)
+    cs.sprite.set_depth(obj.ent, 5)
+
     local switcher_cols = cs.bump.sweep(obj.ent, cg.vec2_zero, cs.switcher.has)
     obj.on = #switcher_cols > 0
 
