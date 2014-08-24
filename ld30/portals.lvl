@@ -1,4 +1,4 @@
-26071
+26070
 { n n 
   { "script" n 
     { "str" "\"do local _={
@@ -75,65 +75,65 @@
         [33]={
           k=_cge(33),
           v={
-            last_dirty=2532,
             ent=_cge(33),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
+            last_dirty=2211
           }
         },
         [32]={
           k=_cge(32),
           v={
-            ent=_cge(32),
             bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2211
+            last_dirty=3556,
+            ent=_cge(32)
           }
         },
         [31]={
           k=_cge(31),
           v={
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=3556,
-            ent=_cge(31)
+            last_dirty=2919,
+            ent=_cge(31),
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
           }
         },
         [29]={
           k=_cge(29),
           v={
-            ent=_cge(29),
             bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2843
+            last_dirty=2771,
+            ent=_cge(29)
           }
         },
         [28]={
           k=_cge(28),
           v={
+            ent=_cge(28),
             bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2771,
-            ent=_cge(28)
+            last_dirty=2903
           }
         },
         [35]={
           k=_cge(35),
           v={
-            ent=_cge(35),
             bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2903
+            last_dirty=2713,
+            ent=_cge(35)
           }
         },
         [34]={
           k=_cge(34),
           v={
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2713,
-            ent=_cge(34)
+            last_dirty=2532,
+            ent=_cge(34),
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
           }
         },
         [30]={
           k=_cge(30),
           v={
-            last_dirty=2919,
             ent=_cge(30),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
+            last_dirty=2843
           }
         }
       }),
@@ -372,21 +372,21 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [35]={
-          k=_cge(35),
+        [33]={
+          k=_cge(33),
           v={
-            world_2=\\"earth\\",
+            world_2=\\"white\\",
             in_warp=false,
             world_1=\\"hell-1\\",
-            ent=_cge(35)
+            ent=_cge(33)
           }
         },
         [32]={
           k=_cge(32),
           v={
-            world_2=\\"white\\",
+            world_2=\\"earth\\",
             in_warp=false,
-            world_1=\\"hell-1\\",
+            world_1=\\"hell-2\\",
             ent=_cge(32)
           }
         },
@@ -413,26 +413,8 @@
           v={
             world_2=\\"earth\\",
             in_warp=false,
-            world_1=\\"hell-2\\",
-            ent=_cge(28)
-          }
-        },
-        [31]={
-          k=_cge(31),
-          v={
-            world_2=\\"earth\\",
-            in_warp=false,
-            world_1=\\"hell-2\\",
-            ent=_cge(31)
-          }
-        },
-        [33]={
-          k=_cge(33),
-          v={
-            world_2=\\"earth\\",
-            in_warp=false,
             world_1=\\"hell-1\\",
-            ent=_cge(33)
+            ent=_cge(28)
           }
         },
         [34]={
@@ -442,6 +424,24 @@
             in_warp=false,
             world_1=\\"hell-1\\",
             ent=_cge(34)
+          }
+        },
+        [35]={
+          k=_cge(35),
+          v={
+            world_2=\\"earth\\",
+            in_warp=false,
+            world_1=\\"hell-1\\",
+            ent=_cge(35)
+          }
+        },
+        [31]={
+          k=_cge(31),
+          v={
+            world_2=\\"earth\\",
+            in_warp=false,
+            world_1=\\"hell-2\\",
+            ent=_cge(31)
           }
         }
       }),
@@ -696,7 +696,7 @@ end\" " }
   }
   { "camera" n 
     { "pool" n }
-    [ "inverse_view_matrix" "0.107420 -0.000000 0.000000 0.000000 0.143227 -0.000000 -1.620041 0.667850 1.000000 " ] 
+    [ "inverse_view_matrix" "0.107421 -0.000000 0.000000 0.000000 0.143229 -0.000000 1.046764 5.475623 1.000000 " ] 
   }
   { "transform" n 
     { "pool" n 
@@ -712,7 +712,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-11.000000 -20.000000 " ] 
         { "pool_elem" n 
-          { "id" "35 " }
+          { "id" "28 " }
         }
       }
       { n n 
@@ -727,7 +727,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "6.500000 -4.500000 " ] 
         { "pool_elem" n 
-          { "id" "34 " }
+          { "id" "35 " }
         }
       }
       { n n 
@@ -742,7 +742,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "13.500000 -4.500000 " ] 
         { "pool_elem" n 
-          { "id" "33 " }
+          { "id" "34 " }
         }
       }
       { n n 
@@ -757,7 +757,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "0.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "32 " }
+          { "id" "33 " }
         }
       }
       { n n 
@@ -772,7 +772,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "9.000000 -53.000000 " ] 
         { "pool_elem" n 
-          { "id" "31 " }
+          { "id" "32 " }
         }
       }
       { n n 
@@ -787,7 +787,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "8.000000 -43.000000 " ] 
         { "pool_elem" n 
-          { "id" "30 " }
+          { "id" "31 " }
         }
       }
       { n n 
@@ -802,7 +802,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 -42.000000 " ] 
         { "pool_elem" n 
-          { "id" "29 " }
+          { "id" "30 " }
         }
       }
       { n n 
@@ -817,7 +817,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-11.000000 -40.000000 " ] 
         { "pool_elem" n 
-          { "id" "28 " }
+          { "id" "29 " }
         }
       }
     }

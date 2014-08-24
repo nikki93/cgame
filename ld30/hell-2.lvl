@@ -1,4 +1,4 @@
-296204
+298894
 { n n 
   { "script" n 
     { "str" "\"do local _={
@@ -1523,11 +1523,15 @@
       }),
     add=nil
   },
-  dangerous={
+  follower={
     auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    get_speed=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
     simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
+    set_speed=function() --[[..skipped..]] end,
     remove=nil,
     update_all=function() --[[..skipped..]] end,
     simple_update_all=nil,
@@ -1536,7 +1540,9 @@
         [135]={
           k=_cge(135),
           v={
-            ent=_cge(135)
+            t=0,
+            ent=_cge(135),
+            speed=5.1999998092651
           }
         }
       }),
@@ -1551,29 +1557,29 @@
         [44]={
           k=_cge(44),
           v={
-            ent=_cge(44),
-            switch=_cge(96)
+            switch=_cge(96),
+            ent=_cge(44)
           }
         },
         [127]={
           k=_cge(127),
           v={
-            switch=_cge(126),
-            ent=_cge(127)
+            ent=_cge(127),
+            switch=_cge(126)
           }
         },
         [258]={
           k=_cge(258),
           v={
-            ent=_cge(258),
-            switch=_cge(145)
+            switch=_cge(145),
+            ent=_cge(258)
           }
         },
         [39]={
           k=_cge(39),
           v={
-            switch=_cge(265),
-            ent=_cge(39)
+            ent=_cge(39),
+            switch=_cge(265)
           }
         }
       }),
@@ -1643,50 +1649,23 @@
             ent=_cge(39)
           }
         },
-        [258]={
-          k=_cge(258),
+        [135]={
+          k=_cge(135),
           v={
-            t=1.6660156399012,
+            t=0.16687677567825,
             anims={
-              closing={
-                after=\\"closed\\",
+              idle={
                 strip={
-                  t=0.045000001788139,
-                  after=\\"opened\\",
-                  base=cg.vec2(240.000000, 112.000000),
-                  n=3
-                },
-                n=3
-              },
-              opening={
-                after=\\"opened\\",
-                strip={
-                  t=0.045000001788139,
-                  base=cg.vec2(240.000000, 128.000000),
+                  t=0.5,
+                  base=cg.vec2(16.000000, 96.000000),
                   n=1
                 },
-                n=3
-              },
-              closed={
-                strip={
-                  t=1,
-                  base=cg.vec2(224.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              },
-              opened={
-                strip={
-                  t=1,
-                  base=cg.vec2(288.000000, 128.000000),
-                  n=1
-                },
-                n=1
+                n=4
               }
             },
-            curr_anim=\\"closed\\",
+            curr_anim=\\"idle\\",
             frame=1,
-            ent=_cge(258)
+            ent=_cge(135)
           }
         },
         [44]={
@@ -1781,23 +1760,50 @@
             ent=_cge(127)
           }
         },
-        [135]={
-          k=_cge(135),
+        [258]={
+          k=_cge(258),
           v={
-            t=0.16687677567825,
+            t=1.6660156399012,
             anims={
-              idle={
+              closing={
+                after=\\"closed\\",
                 strip={
-                  t=0.5,
-                  base=cg.vec2(16.000000, 96.000000),
+                  t=0.045000001788139,
+                  after=\\"opened\\",
+                  base=cg.vec2(240.000000, 112.000000),
+                  n=3
+                },
+                n=3
+              },
+              opening={
+                after=\\"opened\\",
+                strip={
+                  t=0.045000001788139,
+                  base=cg.vec2(240.000000, 128.000000),
                   n=1
                 },
-                n=4
+                n=3
+              },
+              closed={
+                strip={
+                  t=1,
+                  base=cg.vec2(224.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              },
+              opened={
+                strip={
+                  t=1,
+                  base=cg.vec2(288.000000, 128.000000),
+                  n=1
+                },
+                n=1
               }
             },
-            curr_anim=\\"idle\\",
+            curr_anim=\\"closed\\",
             frame=1,
-            ent=_cge(135)
+            ent=_cge(258)
           }
         },
         [175]={
@@ -1823,8 +1829,8 @@
                 n=1
               }
             },
-            ent=_cge(175),
-            frame=1
+            frame=1,
+            ent=_cge(175)
           }
         }
       }),
@@ -1881,776 +1887,776 @@
         {
           k=_cge(37),
           v={
-            ent=_cge(37),
-            last_dirty=3856
+            last_dirty=3856,
+            ent=_cge(37)
           }
         },
         {
           k=_cge(38),
           v={
-            ent=_cge(38),
-            last_dirty=3847
+            last_dirty=3847,
+            ent=_cge(38)
           }
         },
         {
           k=_cge(39),
           v={
-            last_dirty=412,
-            ent=_cge(39)
+            ent=_cge(39),
+            last_dirty=412
           }
         },
         {
           k=_cge(40),
           v={
-            last_dirty=3009,
-            ent=_cge(40)
+            ent=_cge(40),
+            last_dirty=3009
           }
         },
         {
           k=_cge(41),
           v={
-            last_dirty=3464,
-            ent=_cge(41)
+            ent=_cge(41),
+            last_dirty=3464
           }
         },
         {
           k=_cge(42),
           v={
-            ent=_cge(42),
-            last_dirty=3441
+            last_dirty=3441,
+            ent=_cge(42)
           }
         },
         {
           k=_cge(43),
           v={
-            ent=_cge(43),
-            last_dirty=3129
+            last_dirty=3129,
+            ent=_cge(43)
           }
         },
         {
           k=_cge(44),
           v={
-            ent=_cge(44),
-            last_dirty=669
+            last_dirty=669,
+            ent=_cge(44)
           }
         },
         {
           k=_cge(45),
           v={
-            last_dirty=3568,
-            ent=_cge(45)
+            ent=_cge(45),
+            last_dirty=3568
           }
         },
         {
           k=_cge(46),
           v={
-            ent=_cge(46),
-            last_dirty=3545
+            last_dirty=3545,
+            ent=_cge(46)
           }
         },
         {
           k=_cge(47),
           v={
-            last_dirty=3519,
-            ent=_cge(47)
+            ent=_cge(47),
+            last_dirty=3519
           }
         },
         {
           k=_cge(48),
           v={
-            last_dirty=4022,
-            ent=_cge(48)
+            ent=_cge(48),
+            last_dirty=4022
           }
         },
         {
           k=_cge(49),
           v={
-            ent=_cge(49),
-            last_dirty=3641
+            last_dirty=3641,
+            ent=_cge(49)
           }
         },
         {
           k=_cge(50),
           v={
-            last_dirty=3622,
-            ent=_cge(50)
+            ent=_cge(50),
+            last_dirty=3622
           }
         },
         {
           k=_cge(51),
           v={
-            ent=_cge(51),
-            last_dirty=3607
+            last_dirty=3607,
+            ent=_cge(51)
           }
         },
         {
           k=_cge(52),
           v={
-            last_dirty=3585,
-            ent=_cge(52)
+            ent=_cge(52),
+            last_dirty=3585
           }
         },
         {
           k=_cge(53),
           v={
-            ent=_cge(53),
-            last_dirty=3566
+            last_dirty=3566,
+            ent=_cge(53)
           }
         },
         {
           k=_cge(54),
           v={
-            last_dirty=3551,
-            ent=_cge(54)
+            ent=_cge(54),
+            last_dirty=3551
           }
         },
         {
           k=_cge(55),
           v={
-            ent=_cge(55),
-            last_dirty=3533
+            last_dirty=3533,
+            ent=_cge(55)
           }
         },
         {
           k=_cge(56),
           v={
-            last_dirty=3514,
-            ent=_cge(56)
+            ent=_cge(56),
+            last_dirty=3514
           }
         },
         {
           k=_cge(57),
           v={
-            ent=_cge(57),
-            last_dirty=3499
+            last_dirty=3499,
+            ent=_cge(57)
           }
         },
         {
           k=_cge(58),
           v={
-            ent=_cge(58),
-            last_dirty=4008
+            last_dirty=4008,
+            ent=_cge(58)
           }
         },
         {
           k=_cge(59),
           v={
-            last_dirty=3986,
-            ent=_cge(59)
+            ent=_cge(59),
+            last_dirty=3986
           }
         },
         {
           k=_cge(60),
           v={
-            ent=_cge(60),
-            last_dirty=4131
+            last_dirty=4131,
+            ent=_cge(60)
           }
         },
         {
           k=_cge(61),
           v={
-            last_dirty=4109,
-            ent=_cge(61)
+            ent=_cge(61),
+            last_dirty=4109
           }
         },
         {
           k=_cge(62),
           v={
-            ent=_cge(62),
-            last_dirty=4089
+            last_dirty=4089,
+            ent=_cge(62)
           }
         },
         {
           k=_cge(63),
           v={
-            last_dirty=4069,
-            ent=_cge(63)
+            ent=_cge(63),
+            last_dirty=4069
           }
         },
         {
           k=_cge(64),
           v={
-            ent=_cge(64),
-            last_dirty=4050
+            last_dirty=4050,
+            ent=_cge(64)
           }
         },
         {
           k=_cge(65),
           v={
-            last_dirty=4031,
-            ent=_cge(65)
+            ent=_cge(65),
+            last_dirty=4031
           }
         },
         {
           k=_cge(66),
           v={
-            last_dirty=3089,
-            ent=_cge(66)
+            ent=_cge(66),
+            last_dirty=3089
           }
         },
         {
           k=_cge(67),
           v={
-            ent=_cge(67),
-            last_dirty=3192
+            last_dirty=3192,
+            ent=_cge(67)
           }
         },
         {
           k=_cge(68),
           v={
-            ent=_cge(68),
-            last_dirty=3155
+            last_dirty=3155,
+            ent=_cge(68)
           }
         },
         {
           k=_cge(69),
           v={
-            last_dirty=3140,
-            ent=_cge(69)
+            ent=_cge(69),
+            last_dirty=3140
           }
         },
         {
           k=_cge(70),
           v={
-            ent=_cge(70),
-            last_dirty=2981
+            last_dirty=2981,
+            ent=_cge(70)
           }
         },
         {
           k=_cge(71),
           v={
-            last_dirty=2961,
-            ent=_cge(71)
+            ent=_cge(71),
+            last_dirty=2961
           }
         },
         {
           k=_cge(72),
           v={
-            ent=_cge(72),
-            last_dirty=2940
+            last_dirty=2940,
+            ent=_cge(72)
           }
         },
         {
           k=_cge(73),
           v={
-            last_dirty=2917,
-            ent=_cge(73)
+            ent=_cge(73),
+            last_dirty=2917
           }
         },
         {
           k=_cge(74),
           v={
-            ent=_cge(74),
-            last_dirty=2897
+            last_dirty=2897,
+            ent=_cge(74)
           }
         },
         {
           k=_cge(75),
           v={
-            ent=_cge(75),
-            last_dirty=567
+            last_dirty=567,
+            ent=_cge(75)
           }
         },
         {
           k=_cge(76),
           v={
-            ent=_cge(76),
-            last_dirty=604
+            last_dirty=604,
+            ent=_cge(76)
           }
         },
         {
           k=_cge(77),
           v={
-            last_dirty=3465,
-            ent=_cge(77)
+            ent=_cge(77),
+            last_dirty=3465
           }
         },
         {
           k=_cge(78),
           v={
-            ent=_cge(78),
-            last_dirty=3441
+            last_dirty=3441,
+            ent=_cge(78)
           }
         },
         {
           k=_cge(79),
           v={
-            last_dirty=3420,
-            ent=_cge(79)
+            ent=_cge(79),
+            last_dirty=3420
           }
         },
         {
           k=_cge(80),
           v={
-            last_dirty=3210,
-            ent=_cge(80)
+            ent=_cge(80),
+            last_dirty=3210
           }
         },
         {
           k=_cge(81),
           v={
-            last_dirty=3381,
-            ent=_cge(81)
+            ent=_cge(81),
+            last_dirty=3381
           }
         },
         {
           k=_cge(82),
           v={
-            ent=_cge(82),
-            last_dirty=3363
+            last_dirty=3363,
+            ent=_cge(82)
           }
         },
         {
           k=_cge(83),
           v={
-            last_dirty=3343,
-            ent=_cge(83)
+            ent=_cge(83),
+            last_dirty=3343
           }
         },
         {
           k=_cge(84),
           v={
-            ent=_cge(84),
-            last_dirty=3322
+            last_dirty=3322,
+            ent=_cge(84)
           }
         },
         {
           k=_cge(85),
           v={
-            last_dirty=3302,
-            ent=_cge(85)
+            ent=_cge(85),
+            last_dirty=3302
           }
         },
         {
           k=_cge(86),
           v={
-            ent=_cge(86),
-            last_dirty=3281
+            last_dirty=3281,
+            ent=_cge(86)
           }
         },
         {
           k=_cge(87),
           v={
-            last_dirty=3260,
-            ent=_cge(87)
+            ent=_cge(87),
+            last_dirty=3260
           }
         },
         {
           k=_cge(88),
           v={
-            ent=_cge(88),
-            last_dirty=4049
+            last_dirty=4049,
+            ent=_cge(88)
           }
         },
         {
           k=_cge(89),
           v={
-            last_dirty=4030,
-            ent=_cge(89)
+            ent=_cge(89),
+            last_dirty=4030
           }
         },
         {
           k=_cge(90),
           v={
-            ent=_cge(90),
-            last_dirty=4013
+            last_dirty=4013,
+            ent=_cge(90)
           }
         },
         {
           k=_cge(91),
           v={
-            last_dirty=3988,
-            ent=_cge(91)
+            ent=_cge(91),
+            last_dirty=3988
           }
         },
         {
           k=_cge(92),
           v={
-            ent=_cge(92),
-            last_dirty=3937
+            last_dirty=3937,
+            ent=_cge(92)
           }
         },
         {
           k=_cge(93),
           v={
-            last_dirty=3912,
-            ent=_cge(93)
+            ent=_cge(93),
+            last_dirty=3912
           }
         },
         {
           k=_cge(94),
           v={
-            ent=_cge(94),
-            last_dirty=3890
+            last_dirty=3890,
+            ent=_cge(94)
           }
         },
         {
           k=_cge(95),
           v={
-            last_dirty=3868,
-            ent=_cge(95)
+            ent=_cge(95),
+            last_dirty=3868
           }
         },
         {
           k=_cge(96),
           v={
+            last_dirty=703,
             ent=_cge(96),
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
-            last_dirty=703
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000))
           }
         },
         {
           k=_cge(97),
           v={
-            ent=_cge(97),
-            last_dirty=3296
+            last_dirty=3296,
+            ent=_cge(97)
           }
         },
         {
           k=_cge(98),
           v={
-            last_dirty=3268,
-            ent=_cge(98)
+            ent=_cge(98),
+            last_dirty=3268
           }
         },
         {
           k=_cge(99),
           v={
-            ent=_cge(99),
-            last_dirty=3240
+            last_dirty=3240,
+            ent=_cge(99)
           }
         },
         {
           k=_cge(100),
           v={
-            ent=_cge(100),
-            last_dirty=3356
+            last_dirty=3356,
+            ent=_cge(100)
           }
         },
         {
           k=_cge(101),
           v={
-            last_dirty=3339,
-            ent=_cge(101)
+            ent=_cge(101),
+            last_dirty=3339
           }
         },
         {
           k=_cge(102),
           v={
-            ent=_cge(102),
-            last_dirty=3320
+            last_dirty=3320,
+            ent=_cge(102)
           }
         },
         {
           k=_cge(103),
           v={
-            last_dirty=3291,
-            ent=_cge(103)
+            ent=_cge(103),
+            last_dirty=3291
           }
         },
         {
           k=_cge(104),
           v={
-            ent=_cge(104),
-            last_dirty=3270
+            last_dirty=3270,
+            ent=_cge(104)
           }
         },
         {
           k=_cge(105),
           v={
-            last_dirty=3249,
-            ent=_cge(105)
+            ent=_cge(105),
+            last_dirty=3249
           }
         },
         {
           k=_cge(106),
           v={
-            ent=_cge(106),
-            last_dirty=3226
+            last_dirty=3226,
+            ent=_cge(106)
           }
         },
         {
           k=_cge(107),
           v={
-            last_dirty=3205,
-            ent=_cge(107)
+            ent=_cge(107),
+            last_dirty=3205
           }
         },
         {
           k=_cge(108),
           v={
-            ent=_cge(108),
-            last_dirty=3157
+            last_dirty=3157,
+            ent=_cge(108)
           }
         },
         {
           k=_cge(109),
           v={
-            last_dirty=3141,
-            ent=_cge(109)
+            ent=_cge(109),
+            last_dirty=3141
           }
         },
         {
           k=_cge(110),
           v={
-            ent=_cge(110),
-            last_dirty=3123
+            last_dirty=3123,
+            ent=_cge(110)
           }
         },
         {
           k=_cge(111),
           v={
-            last_dirty=3098,
-            ent=_cge(111)
+            ent=_cge(111),
+            last_dirty=3098
           }
         },
         {
           k=_cge(112),
           v={
-            last_dirty=3215,
-            ent=_cge(112)
+            ent=_cge(112),
+            last_dirty=3215
           }
         },
         {
           k=_cge(113),
           v={
-            ent=_cge(113),
-            last_dirty=3188
+            last_dirty=3188,
+            ent=_cge(113)
           }
         },
         {
           k=_cge(114),
           v={
-            last_dirty=3166,
-            ent=_cge(114)
+            ent=_cge(114),
+            last_dirty=3166
           }
         },
         {
           k=_cge(115),
           v={
-            ent=_cge(115),
-            last_dirty=3097
+            last_dirty=3097,
+            ent=_cge(115)
           }
         },
         {
           k=_cge(116),
           v={
-            last_dirty=3079,
-            ent=_cge(116)
+            ent=_cge(116),
+            last_dirty=3079
           }
         },
         {
           k=_cge(117),
           v={
-            ent=_cge(117),
-            last_dirty=3047
+            last_dirty=3047,
+            ent=_cge(117)
           }
         },
         {
           k=_cge(118),
           v={
-            last_dirty=3011,
-            ent=_cge(118)
+            ent=_cge(118),
+            last_dirty=3011
           }
         },
         {
           k=_cge(119),
           v={
-            ent=_cge(119),
-            last_dirty=3057
+            last_dirty=3057,
+            ent=_cge(119)
           }
         },
         {
           k=_cge(120),
           v={
-            last_dirty=3040,
-            ent=_cge(120)
+            ent=_cge(120),
+            last_dirty=3040
           }
         },
         {
           k=_cge(121),
           v={
-            ent=_cge(121),
-            last_dirty=3023
+            last_dirty=3023,
+            ent=_cge(121)
           }
         },
         {
           k=_cge(122),
           v={
-            last_dirty=3004,
-            ent=_cge(122)
+            ent=_cge(122),
+            last_dirty=3004
           }
         },
         {
           k=_cge(123),
           v={
-            ent=_cge(123),
-            last_dirty=2983
+            last_dirty=2983,
+            ent=_cge(123)
           }
         },
         {
           k=_cge(124),
           v={
-            last_dirty=2962,
-            ent=_cge(124)
+            ent=_cge(124),
+            last_dirty=2962
           }
         },
         nil,
         {
           k=_cge(126),
           v={
+            ent=_cge(126),
             bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
-            last_dirty=819,
-            ent=_cge(126)
+            last_dirty=819
           }
         },
         {
           k=_cge(127),
           v={
-            last_dirty=541,
-            ent=_cge(127)
+            ent=_cge(127),
+            last_dirty=541
           }
         },
         {
           k=_cge(128),
           v={
-            ent=_cge(128),
-            last_dirty=3048
+            last_dirty=3048,
+            ent=_cge(128)
           }
         },
         {
           k=_cge(129),
           v={
-            last_dirty=3032,
-            ent=_cge(129)
+            ent=_cge(129),
+            last_dirty=3032
           }
         },
         {
           k=_cge(130),
           v={
-            ent=_cge(130),
-            last_dirty=3015
+            last_dirty=3015,
+            ent=_cge(130)
           }
         },
         {
           k=_cge(131),
           v={
-            last_dirty=2997,
-            ent=_cge(131)
+            ent=_cge(131),
+            last_dirty=2997
           }
         },
         {
           k=_cge(132),
           v={
-            ent=_cge(132),
-            last_dirty=2979
+            last_dirty=2979,
+            ent=_cge(132)
           }
         },
         {
           k=_cge(133),
           v={
-            last_dirty=2961,
-            ent=_cge(133)
+            ent=_cge(133),
+            last_dirty=2961
           }
         },
         {
           k=_cge(134),
           v={
-            ent=_cge(134),
-            last_dirty=2940
+            last_dirty=2940,
+            ent=_cge(134)
           }
         },
         {
           k=_cge(135),
           v={
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
             ent=_cge(135),
-            last_dirty=1071480,
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
+            last_dirty=1071480
           }
         },
         {
           k=_cge(136),
           v={
-            ent=_cge(136),
-            last_dirty=2889
+            last_dirty=2889,
+            ent=_cge(136)
           }
         },
         {
           k=_cge(137),
           v={
-            last_dirty=2874,
-            ent=_cge(137)
+            ent=_cge(137),
+            last_dirty=2874
           }
         },
         {
           k=_cge(138),
           v={
-            ent=_cge(138),
-            last_dirty=2855
+            last_dirty=2855,
+            ent=_cge(138)
           }
         },
         {
           k=_cge(139),
           v={
-            last_dirty=2835,
-            ent=_cge(139)
+            ent=_cge(139),
+            last_dirty=2835
           }
         },
         {
           k=_cge(140),
           v={
-            ent=_cge(140),
-            last_dirty=2812
+            last_dirty=2812,
+            ent=_cge(140)
           }
         },
         {
           k=_cge(141),
           v={
-            last_dirty=2790,
-            ent=_cge(141)
+            ent=_cge(141),
+            last_dirty=2790
           }
         },
         {
           k=_cge(142),
           v={
-            last_dirty=3728,
-            ent=_cge(142)
+            ent=_cge(142),
+            last_dirty=3728
           }
         },
         {
           k=_cge(143),
           v={
-            last_dirty=3818,
-            ent=_cge(143)
+            ent=_cge(143),
+            last_dirty=3818
           }
         },
         {
           k=_cge(144),
           v={
-            ent=_cge(144),
-            last_dirty=3074
+            last_dirty=3074,
+            ent=_cge(144)
           }
         },
         {
           k=_cge(145),
           v={
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
             last_dirty=299,
-            ent=_cge(145),
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000))
+            ent=_cge(145)
           }
         },
         {
           k=_cge(146),
           v={
-            last_dirty=527,
-            ent=_cge(146)
+            ent=_cge(146),
+            last_dirty=527
           }
         },
         {
           k=_cge(147),
           v={
-            last_dirty=3729,
-            ent=_cge(147)
+            ent=_cge(147),
+            last_dirty=3729
           }
         },
         nil,
@@ -2664,773 +2670,781 @@
         {
           k=_cge(156),
           v={
-            last_dirty=3437,
-            ent=_cge(156)
+            ent=_cge(156),
+            last_dirty=3437
           }
         },
         {
           k=_cge(157),
           v={
-            last_dirty=3749,
-            ent=_cge(157)
+            ent=_cge(157),
+            last_dirty=3749
           }
         },
         {
           k=_cge(158),
           v={
-            last_dirty=3805,
-            ent=_cge(158)
+            ent=_cge(158),
+            last_dirty=3805
           }
         },
         {
           k=_cge(159),
           v={
-            ent=_cge(159),
-            last_dirty=3749
+            last_dirty=3749,
+            ent=_cge(159)
           }
         },
         {
           k=_cge(160),
           v={
-            last_dirty=3775,
-            ent=_cge(160)
+            ent=_cge(160),
+            last_dirty=3775
           }
         },
         {
           k=_cge(161),
           v={
-            ent=_cge(161),
-            last_dirty=3404
+            last_dirty=3404,
+            ent=_cge(161)
           }
         },
         {
           k=_cge(162),
           v={
-            ent=_cge(162),
-            last_dirty=3447
+            last_dirty=3447,
+            ent=_cge(162)
           }
         },
         {
           k=_cge(163),
           v={
-            last_dirty=3371,
-            ent=_cge(163)
+            ent=_cge(163),
+            last_dirty=3371
           }
         },
         {
           k=_cge(164),
           v={
-            last_dirty=3427,
-            ent=_cge(164)
+            ent=_cge(164),
+            last_dirty=3427
           }
         },
         {
           k=_cge(165),
           v={
-            last_dirty=3514,
-            ent=_cge(165)
+            ent=_cge(165),
+            last_dirty=3514
           }
         },
         {
           k=_cge(166),
           v={
-            ent=_cge(166),
-            last_dirty=3536
+            last_dirty=3536,
+            ent=_cge(166)
           }
         },
         {
           k=_cge(167),
           v={
-            ent=_cge(167),
-            last_dirty=3349
+            last_dirty=3349,
+            ent=_cge(167)
           }
         },
         {
           k=_cge(168),
           v={
-            last_dirty=3559,
-            ent=_cge(168)
+            ent=_cge(168),
+            last_dirty=3559
           }
         },
         {
           k=_cge(169),
           v={
-            ent=_cge(169),
-            last_dirty=3777
+            last_dirty=3777,
+            ent=_cge(169)
           }
         },
         {
           k=_cge(170),
           v={
-            ent=_cge(170),
-            last_dirty=3743
+            last_dirty=3743,
+            ent=_cge(170)
           }
         },
         {
           k=_cge(171),
           v={
-            ent=_cge(171),
-            last_dirty=3717
+            last_dirty=3717,
+            ent=_cge(171)
           }
         },
         {
           k=_cge(172),
           v={
-            ent=_cge(172),
-            last_dirty=3698
+            last_dirty=3698,
+            ent=_cge(172)
           }
         },
         {
           k=_cge(173),
           v={
-            ent=_cge(173),
-            last_dirty=3676
+            last_dirty=3676,
+            ent=_cge(173)
           }
         },
         {
           k=_cge(174),
           v={
-            last_dirty=3419,
-            ent=_cge(174)
+            ent=_cge(174),
+            last_dirty=3419
           }
         },
         {
           k=_cge(175),
           v={
+            bbox=cg.bbox(cg.vec2(-0.600000, -0.600000), cg.vec2(0.600000, 0.600000)),
             last_dirty=1276,
-            ent=_cge(175),
-            bbox=cg.bbox(cg.vec2(-0.600000, -0.600000), cg.vec2(0.600000, 0.600000))
+            ent=_cge(175)
           }
         },
         {
           k=_cge(176),
           v={
-            ent=_cge(176),
-            last_dirty=3322
+            last_dirty=3322,
+            ent=_cge(176)
           }
         },
         {
           k=_cge(177),
           v={
-            ent=_cge(177),
-            last_dirty=3783
+            last_dirty=3783,
+            ent=_cge(177)
           }
         },
         {
           k=_cge(178),
           v={
-            ent=_cge(178),
-            last_dirty=3670
+            last_dirty=3670,
+            ent=_cge(178)
           }
         },
         {
           k=_cge(179),
           v={
-            ent=_cge(179),
-            last_dirty=3340
+            last_dirty=3340,
+            ent=_cge(179)
           }
         },
         {
           k=_cge(180),
           v={
-            ent=_cge(180),
-            last_dirty=3139
+            last_dirty=3139,
+            ent=_cge(180)
           }
         },
         {
           k=_cge(181),
           v={
-            ent=_cge(181),
-            last_dirty=3460
+            last_dirty=3460,
+            ent=_cge(181)
           }
         },
         {
           k=_cge(182),
           v={
-            ent=_cge(182),
-            last_dirty=3708
+            last_dirty=3708,
+            ent=_cge(182)
           }
         },
         {
           k=_cge(183),
           v={
-            ent=_cge(183),
-            last_dirty=3347
+            last_dirty=3347,
+            ent=_cge(183)
           }
         },
         {
           k=_cge(184),
           v={
-            ent=_cge(184),
-            last_dirty=3724
+            last_dirty=3724,
+            ent=_cge(184)
           }
         },
         {
           k=_cge(185),
           v={
-            last_dirty=3401,
-            ent=_cge(185)
+            ent=_cge(185),
+            last_dirty=3401
           }
         },
         {
           k=_cge(186),
           v={
-            ent=_cge(186),
-            last_dirty=3711
+            last_dirty=3711,
+            ent=_cge(186)
           }
         },
         {
           k=_cge(187),
           v={
-            last_dirty=3381,
-            ent=_cge(187)
+            ent=_cge(187),
+            last_dirty=3381
           }
         },
         {
           k=_cge(188),
           v={
-            ent=_cge(188),
-            last_dirty=3737
+            last_dirty=3737,
+            ent=_cge(188)
           }
         },
         {
           k=_cge(189),
           v={
-            ent=_cge(189),
-            last_dirty=3374
+            last_dirty=3374,
+            ent=_cge(189)
           }
         },
         {
           k=_cge(190),
           v={
-            ent=_cge(190),
-            last_dirty=3828
+            last_dirty=3828,
+            ent=_cge(190)
           }
         },
         {
           k=_cge(191),
           v={
-            ent=_cge(191),
-            last_dirty=3359
+            last_dirty=3359,
+            ent=_cge(191)
           }
         },
         {
           k=_cge(192),
           v={
-            ent=_cge(192),
-            last_dirty=2564
+            last_dirty=2564,
+            ent=_cge(192)
           }
         },
         {
           k=_cge(193),
           v={
-            ent=_cge(193),
-            last_dirty=3357
+            last_dirty=3357,
+            ent=_cge(193)
           }
         },
         {
           k=_cge(194),
           v={
-            ent=_cge(194),
-            last_dirty=3668
+            last_dirty=3668,
+            ent=_cge(194)
           }
         },
         {
           k=_cge(195),
           v={
-            ent=_cge(195),
-            last_dirty=3591
+            last_dirty=3591,
+            ent=_cge(195)
           }
         },
         {
           k=_cge(196),
           v={
-            last_dirty=3949,
-            ent=_cge(196)
+            ent=_cge(196),
+            last_dirty=3949
           }
         },
         {
           k=_cge(197),
           v={
-            ent=_cge(197),
-            last_dirty=3557
+            last_dirty=3557,
+            ent=_cge(197)
           }
         },
         {
           k=_cge(198),
           v={
-            ent=_cge(198),
-            last_dirty=3375
+            last_dirty=3375,
+            ent=_cge(198)
           }
         },
         {
           k=_cge(199),
           v={
-            ent=_cge(199),
-            last_dirty=3355
+            last_dirty=3355,
+            ent=_cge(199)
           }
         },
         {
           k=_cge(200),
           v={
-            ent=_cge(200),
-            last_dirty=3336
+            last_dirty=3336,
+            ent=_cge(200)
           }
         },
         {
           k=_cge(201),
           v={
-            ent=_cge(201),
-            last_dirty=3079
+            last_dirty=3079,
+            ent=_cge(201)
           }
         },
         {
           k=_cge(202),
           v={
-            ent=_cge(202),
-            last_dirty=3059
+            last_dirty=3059,
+            ent=_cge(202)
           }
         },
         {
           k=_cge(203),
           v={
-            last_dirty=3627,
-            ent=_cge(203)
+            ent=_cge(203),
+            last_dirty=3627
           }
         },
         {
           k=_cge(204),
           v={
-            ent=_cge(204),
-            last_dirty=3025
+            last_dirty=3025,
+            ent=_cge(204)
           }
         },
         {
           k=_cge(205),
           v={
-            ent=_cge(205),
-            last_dirty=3007
+            last_dirty=3007,
+            ent=_cge(205)
           }
         },
         {
           k=_cge(206),
           v={
-            ent=_cge(206),
-            last_dirty=2990
+            last_dirty=2990,
+            ent=_cge(206)
           }
         },
         {
           k=_cge(207),
           v={
-            ent=_cge(207),
-            last_dirty=2973
+            last_dirty=2973,
+            ent=_cge(207)
           }
         },
         {
           k=_cge(208),
           v={
-            ent=_cge(208),
-            last_dirty=2955
+            last_dirty=2955,
+            ent=_cge(208)
           }
         },
         {
           k=_cge(209),
           v={
-            last_dirty=3696,
-            ent=_cge(209)
+            ent=_cge(209),
+            last_dirty=3696
           }
         },
         {
           k=_cge(210),
           v={
-            ent=_cge(210),
-            last_dirty=2835
+            last_dirty=2835,
+            ent=_cge(210)
           }
         },
         {
           k=_cge(211),
           v={
-            ent=_cge(211),
-            last_dirty=2862
+            last_dirty=2862,
+            ent=_cge(211)
           }
         },
         {
           k=_cge(212),
           v={
-            last_dirty=2785,
-            ent=_cge(212)
+            ent=_cge(212),
+            last_dirty=2785
           }
         },
         {
           k=_cge(213),
           v={
-            last_dirty=3399,
-            ent=_cge(213)
+            ent=_cge(213),
+            last_dirty=3399
           }
         },
         {
           k=_cge(214),
           v={
-            ent=_cge(214),
-            last_dirty=3419
+            last_dirty=3419,
+            ent=_cge(214)
           }
         },
         {
           k=_cge(215),
           v={
-            ent=_cge(215),
-            last_dirty=2843
+            last_dirty=2843,
+            ent=_cge(215)
           }
         },
         {
           k=_cge(216),
           v={
-            ent=_cge(216),
-            last_dirty=2819
+            last_dirty=2819,
+            ent=_cge(216)
           }
         },
         {
           k=_cge(217),
           v={
-            ent=_cge(217),
-            last_dirty=2898
+            last_dirty=2898,
+            ent=_cge(217)
           }
         },
         {
           k=_cge(218),
           v={
-            ent=_cge(218),
-            last_dirty=2884
+            last_dirty=2884,
+            ent=_cge(218)
           }
         },
         {
           k=_cge(219),
           v={
-            ent=_cge(219),
-            last_dirty=2869
+            last_dirty=2869,
+            ent=_cge(219)
           }
         },
         {
           k=_cge(220),
           v={
-            ent=_cge(220),
-            last_dirty=2852
+            last_dirty=2852,
+            ent=_cge(220)
           }
         },
         {
           k=_cge(221),
           v={
-            ent=_cge(221),
-            last_dirty=2836
+            last_dirty=2836,
+            ent=_cge(221)
           }
         },
         {
           k=_cge(222),
           v={
-            ent=_cge(222),
-            last_dirty=3401
+            last_dirty=3401,
+            ent=_cge(222)
           }
         },
         {
           k=_cge(223),
           v={
-            ent=_cge(223),
-            last_dirty=2592
+            last_dirty=2592,
+            ent=_cge(223)
           }
         },
         {
           k=_cge(224),
           v={
-            ent=_cge(224),
-            last_dirty=2787
+            last_dirty=2787,
+            ent=_cge(224)
           }
         },
         {
           k=_cge(225),
           v={
-            ent=_cge(225),
-            last_dirty=2771
+            last_dirty=2771,
+            ent=_cge(225)
           }
         },
         {
           k=_cge(226),
           v={
-            ent=_cge(226),
-            last_dirty=2757
+            last_dirty=2757,
+            ent=_cge(226)
           }
         },
         {
           k=_cge(227),
           v={
-            ent=_cge(227),
-            last_dirty=2764
+            last_dirty=2764,
+            ent=_cge(227)
           }
         },
         {
           k=_cge(228),
           v={
-            ent=_cge(228),
-            last_dirty=2753
+            last_dirty=2753,
+            ent=_cge(228)
           }
         },
         {
           k=_cge(229),
           v={
-            ent=_cge(229),
-            last_dirty=2730
+            last_dirty=2730,
+            ent=_cge(229)
           }
         },
         {
           k=_cge(230),
           v={
-            ent=_cge(230),
-            last_dirty=2671
+            last_dirty=2671,
+            ent=_cge(230)
           }
         },
         {
           k=_cge(231),
           v={
-            ent=_cge(231),
-            last_dirty=2624
+            last_dirty=2624,
+            ent=_cge(231)
           }
         },
         {
           k=_cge(232),
           v={
-            ent=_cge(232),
-            last_dirty=2606
+            last_dirty=2606,
+            ent=_cge(232)
           }
         },
         {
           k=_cge(233),
           v={
-            ent=_cge(233),
-            last_dirty=2588
+            last_dirty=2588,
+            ent=_cge(233)
           }
         },
         {
           k=_cge(234),
           v={
-            ent=_cge(234),
-            last_dirty=3044
+            last_dirty=3044,
+            ent=_cge(234)
           }
         },
         {
           k=_cge(235),
           v={
-            ent=_cge(235),
-            last_dirty=3393
+            last_dirty=3393,
+            ent=_cge(235)
           }
         },
         {
           k=_cge(236),
           v={
-            last_dirty=4047,
-            ent=_cge(236)
+            ent=_cge(236),
+            last_dirty=4047
           }
         },
         {
           k=_cge(237),
           v={
-            last_dirty=3875,
-            ent=_cge(237)
+            ent=_cge(237),
+            last_dirty=3875
           }
         },
         {
           k=_cge(238),
           v={
-            ent=_cge(238),
-            last_dirty=3844
+            last_dirty=3844,
+            ent=_cge(238)
           }
         },
         {
           k=_cge(239),
           v={
-            last_dirty=3811,
-            ent=_cge(239)
+            ent=_cge(239),
+            last_dirty=3811
           }
         },
         {
           k=_cge(240),
           v={
-            last_dirty=3959,
-            ent=_cge(240)
+            ent=_cge(240),
+            last_dirty=3959
           }
         },
         {
           k=_cge(241),
           v={
-            last_dirty=3049,
-            ent=_cge(241)
+            ent=_cge(241),
+            last_dirty=3049
           }
         },
         {
           k=_cge(242),
           v={
-            ent=_cge(242),
-            last_dirty=3609
+            last_dirty=3609,
+            ent=_cge(242)
           }
         },
         {
           k=_cge(243),
           v={
-            last_dirty=3578,
-            ent=_cge(243)
+            ent=_cge(243),
+            last_dirty=3578
           }
         },
         {
           k=_cge(244),
           v={
-            last_dirty=3612,
-            ent=_cge(244)
+            ent=_cge(244),
+            last_dirty=3612
           }
         },
         {
           k=_cge(245),
           v={
-            ent=_cge(245),
-            last_dirty=3927
+            last_dirty=3927,
+            ent=_cge(245)
           }
         },
         {
           k=_cge(246),
           v={
-            last_dirty=3902,
-            ent=_cge(246)
+            ent=_cge(246),
+            last_dirty=3902
           }
         },
         {
           k=_cge(247),
           v={
-            ent=_cge(247),
-            last_dirty=3827
+            last_dirty=3827,
+            ent=_cge(247)
           }
         },
         {
           k=_cge(248),
           v={
-            last_dirty=3799,
-            ent=_cge(248)
+            ent=_cge(248),
+            last_dirty=3799
           }
         },
         {
           k=_cge(249),
           v={
-            last_dirty=3324,
-            ent=_cge(249)
+            ent=_cge(249),
+            last_dirty=3324
           }
         },
         {
           k=_cge(250),
           v={
-            ent=_cge(250),
-            last_dirty=3374
+            last_dirty=3374,
+            ent=_cge(250)
           }
         },
         {
           k=_cge(251),
           v={
-            last_dirty=3346,
-            ent=_cge(251)
+            ent=_cge(251),
+            last_dirty=3346
           }
         },
         {
           k=_cge(252),
           v={
-            ent=_cge(252),
-            last_dirty=3314
+            last_dirty=3314,
+            ent=_cge(252)
           }
         },
         {
           k=_cge(253),
           v={
-            last_dirty=3198,
-            ent=_cge(253)
+            ent=_cge(253),
+            last_dirty=3198
           }
         },
         {
           k=_cge(254),
           v={
-            ent=_cge(254),
-            last_dirty=3121
+            last_dirty=3121,
+            ent=_cge(254)
           }
         },
         {
           k=_cge(255),
           v={
-            last_dirty=3025,
-            ent=_cge(255)
+            ent=_cge(255),
+            last_dirty=3025
           }
         },
         {
           k=_cge(256),
           v={
-            last_dirty=3923,
-            ent=_cge(256)
+            ent=_cge(256),
+            last_dirty=3923
           }
         },
         {
           k=_cge(257),
           v={
-            last_dirty=4056,
-            ent=_cge(257)
+            ent=_cge(257),
+            last_dirty=4056
           }
         },
         {
           k=_cge(258),
           v={
-            ent=_cge(258),
-            last_dirty=483
+            last_dirty=483,
+            ent=_cge(258)
           }
         },
         {
           k=_cge(259),
           v={
-            last_dirty=3832,
-            ent=_cge(259)
+            ent=_cge(259),
+            last_dirty=3832
           }
         },
         {
           k=_cge(260),
           v={
-            last_dirty=3099,
-            ent=_cge(260)
+            ent=_cge(260),
+            last_dirty=3099
           }
         },
         {
           k=_cge(261),
           v={
-            ent=_cge(261),
-            last_dirty=4107
+            last_dirty=4107,
+            ent=_cge(261)
           }
         },
         {
           k=_cge(262),
           v={
-            ent=_cge(262),
-            last_dirty=4022
+            last_dirty=4022,
+            ent=_cge(262)
           }
         },
         {
           k=_cge(263),
           v={
-            last_dirty=3793,
-            ent=_cge(263)
+            ent=_cge(263),
+            last_dirty=3793
           }
         },
         {
           k=_cge(264),
           v={
-            ent=_cge(264),
-            last_dirty=4087
+            last_dirty=4087,
+            ent=_cge(264)
           }
         },
         {
           k=_cge(265),
           v={
+            ent=_cge(265),
             bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
-            last_dirty=449,
-            ent=_cge(265)
+            last_dirty=449
+          }
+        },
+        {
+          k=_cge(266),
+          v={
+            bbox=cg.bbox(cg.vec2(-1.500000, -0.500000), cg.vec2(1.500000, 0.500000)),
+            last_dirty=70,
+            ent=_cge(266)
           }
         }
       }),
@@ -3460,6 +3474,15 @@
   main={
     saved_world=\\"hell-2\\"
   },
+  name=cg.__entity_table_load({}),
+  edit={
+    sel=cg.__entity_table_load({
+        [266]={
+          k=_cge(266),
+          v=true
+        }
+      })
+  },
   player_dead={
     auto_saveload=true,
     set_falling=function() --[[..skipped..]] end,
@@ -3474,6 +3497,19 @@
     remove=nil,
     update_all=nil,
     get_time=function() --[[..skipped..]] end,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  pit={
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({}),
     add=nil
@@ -4888,15 +4924,16 @@
         v={
           default=true
         }
+      },
+      {
+        k=_cge(266),
+        v={
+          default=true
+        }
       }
     }),
-  edit={
-    sel=cg.__entity_table_load({
-        [175]={
-          k=_cge(175),
-          v=true
-        }
-      })
+  edit_inspector={
+    tbl=cg.__entity_table_load({})
   },
   gui_textbox={
     auto_saveload=true,
@@ -4919,10 +4956,10 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [76]={
-          k=_cge(76),
+        [146]={
+          k=_cge(146),
           v={
-            ent=_cge(76)
+            ent=_cge(146)
           }
         },
         [75]={
@@ -4937,14 +4974,75 @@
             ent=_cge(135)
           }
         },
-        [146]={
-          k=_cge(146),
+        [76]={
+          k=_cge(76),
           v={
-            ent=_cge(146)
+            ent=_cge(76)
           }
         }
       }),
     add=nil
+  },
+  player_control={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    die=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  message={
+    auto_saveload=true,
+    set_message_name=function() --[[..skipped..]] end,
+    get_message_name=function() --[[..skipped..]] end,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_update_all=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_time=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=nil,
+    get_time=function() --[[..skipped..]] end,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  quad_shooter={
+    unpaused_update=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_next=function() --[[..skipped..]] end,
+    simple_has=nil,
+    get_next=function() --[[..skipped..]] end,
+    auto_saveload=true,
+    set_period=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({
+        [175]={
+          k=_cge(175),
+          v={
+            dir=cg.vec2(-1.000000, 0.000000),
+            next=1,
+            shooting=false,
+            period=1.8999999761581,
+            ent=_cge(175)
+          }
+        }
+      }),
+    set_dir=function() --[[..skipped..]] end,
+    get_dir=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    add=nil,
+    simple_update_all=function() --[[..skipped..]] end,
+    get_period=function() --[[..skipped..]] end,
+    update_all=nil,
+    simple_remove=nil
   },
   gui_window={
     get_body=function() --[[..skipped..]] end,
@@ -4965,88 +5063,6 @@
     remove=function() --[[..skipped..]] end,
     get_title_buttons_area=function() --[[..skipped..]] end
   },
-  pit={
-    auto_saveload=true,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  quad_shooter={
-    unpaused_update=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    set_next=function() --[[..skipped..]] end,
-    simple_has=nil,
-    get_next=function() --[[..skipped..]] end,
-    auto_saveload=true,
-    set_period=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({
-        [175]={
-          k=_cge(175),
-          v={
-            period=1.8999999761581,
-            shooting=false,
-            next=1,
-            dir=cg.vec2(-1.000000, 0.000000),
-            ent=_cge(175)
-          }
-        }
-      }),
-    set_dir=function() --[[..skipped..]] end,
-    get_dir=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    add=nil,
-    simple_update_all=function() --[[..skipped..]] end,
-    get_period=function() --[[..skipped..]] end,
-    update_all=nil,
-    simple_remove=nil
-  },
-  player_control={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    die=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  follower={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    get_speed=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    set_speed=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({
-        [135]={
-          k=_cge(135),
-          v={
-            t=0,
-            speed=5.1999998092651,
-            ent=_cge(135)
-          }
-        }
-      }),
-    add=nil
-  },
   crate={
     auto_saveload=true,
     move=function() --[[..skipped..]] end,
@@ -5061,10 +5077,10 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [76]={
-          k=_cge(76),
+        [75]={
+          k=_cge(75),
           v={
-            ent=_cge(76)
+            ent=_cge(75)
           }
         },
         [146]={
@@ -5073,10 +5089,10 @@
             ent=_cge(146)
           }
         },
-        [75]={
-          k=_cge(75),
+        [76]={
+          k=_cge(76),
           v={
-            ent=_cge(75)
+            ent=_cge(76)
           }
         }
       }),
@@ -5113,18 +5129,18 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [145]={
-          k=_cge(145),
-          v={
-            on=false,
-            ent=_cge(145)
-          }
-        },
         [265]={
           k=_cge(265),
           v={
             on=false,
             ent=_cge(265)
+          }
+        },
+        [145]={
+          k=_cge(145),
+          v={
+            on=false,
+            ent=_cge(145)
           }
         },
         [126]={
@@ -5174,9 +5190,50 @@
     simple_add=nil,
     simple_update_all=nil
   },
-  name=cg.__entity_table_load({}),
-  edit_inspector={
-    tbl=cg.__entity_table_load({})
+  message_trigger={
+    auto_saveload=true,
+    set_message_name=function() --[[..skipped..]] end,
+    get_message_name=function() --[[..skipped..]] end,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_update_all=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_time=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=nil,
+    get_time=function() --[[..skipped..]] end,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({
+        [266]={
+          k=_cge(266),
+          v={
+            time=5,
+            ent=_cge(266),
+            message_name=\\"hell-2\\"
+          }
+        }
+      }),
+    add=nil
+  },
+  dangerous={
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({
+        [135]={
+          k=_cge(135),
+          v={
+            ent=_cge(135)
+          }
+        }
+      }),
+    add=nil
   }
 }
 local __={}
@@ -5184,10 +5241,10 @@ _.wall.remove=_.wall.simple_remove
 _.wall.simple_update_all=_.wall.update_all
 _.wall.simple_has=_.wall.has
 _.wall.add=_.wall.simple_add
-_.dangerous.remove=_.dangerous.simple_remove
-_.dangerous.simple_update_all=_.dangerous.update_all
-_.dangerous.simple_has=_.dangerous.has
-_.dangerous.add=_.dangerous.simple_add
+_.follower.remove=_.follower.simple_remove
+_.follower.simple_update_all=_.follower.update_all
+_.follower.simple_has=_.follower.has
+_.follower.add=_.follower.simple_add
 _.door.remove=_.door.simple_remove
 _.door.simple_update_all=_.door.update_all
 _.door.simple_has=_.door.has
@@ -5203,26 +5260,26 @@ _.player_dead.remove=_.player_dead.simple_remove
 _.player_dead.update_all=_.player_dead.simple_update_all
 _.player_dead.simple_has=_.player_dead.has
 _.player_dead.add=_.player_dead.simple_add
-_.switcher.remove=_.switcher.simple_remove
-_.switcher.simple_update_all=_.switcher.update_all
-_.switcher.simple_has=_.switcher.has
-_.switcher.add=_.switcher.simple_add
 _.pit.remove=_.pit.simple_remove
 _.pit.simple_update_all=_.pit.update_all
 _.pit.simple_has=_.pit.has
 _.pit.add=_.pit.simple_add
-_.quad_shooter.simple_has=_.quad_shooter.has
-_.quad_shooter.add=_.quad_shooter.simple_add
-_.quad_shooter.update_all=_.quad_shooter.simple_update_all
-_.quad_shooter.simple_remove=_.quad_shooter.remove
+_.switcher.remove=_.switcher.simple_remove
+_.switcher.simple_update_all=_.switcher.update_all
+_.switcher.simple_has=_.switcher.has
+_.switcher.add=_.switcher.simple_add
 _.player_control.remove=_.player_control.simple_remove
 _.player_control.simple_update_all=_.player_control.update_all
 _.player_control.simple_has=_.player_control.has
 _.player_control.add=_.player_control.simple_add
-_.follower.remove=_.follower.simple_remove
-_.follower.simple_update_all=_.follower.update_all
-_.follower.simple_has=_.follower.has
-_.follower.add=_.follower.simple_add
+_.message.remove=_.message.simple_remove
+_.message.update_all=_.message.simple_update_all
+_.message.simple_has=_.message.has
+_.message.add=_.message.simple_add
+_.quad_shooter.simple_has=_.quad_shooter.has
+_.quad_shooter.add=_.quad_shooter.simple_add
+_.quad_shooter.update_all=_.quad_shooter.simple_update_all
+_.quad_shooter.simple_remove=_.quad_shooter.remove
 _.crate.remove=_.crate.simple_remove
 _.crate.simple_update_all=_.crate.update_all
 _.crate.simple_has=_.crate.has
@@ -5239,6 +5296,14 @@ _.bullet.simple_has=_.bullet.has
 _.bullet.remove=_.bullet.simple_remove
 _.bullet.simple_add=_.bullet.add
 _.bullet.simple_update_all=_.bullet.update_all
+_.message_trigger.remove=_.message_trigger.simple_remove
+_.message_trigger.update_all=_.message_trigger.simple_update_all
+_.message_trigger.simple_has=_.message_trigger.has
+_.message_trigger.add=_.message_trigger.simple_add
+_.dangerous.remove=_.dangerous.simple_remove
+_.dangerous.simple_update_all=_.dangerous.update_all
+_.dangerous.simple_has=_.dangerous.has
+_.dangerous.add=_.dangerous.simple_add
 return _
 end\" " }
   }
@@ -7333,10 +7398,25 @@ end\" " }
   }
   { "camera" n 
     { "pool" n }
-    [ "inverse_view_matrix" "0.064730 -0.000000 0.000000 0.000000 0.086306 -0.000000 -0.518794 3.327273 1.000000 " ] 
+    [ "inverse_view_matrix" "0.107421 -0.000000 0.000000 0.000000 0.143229 -0.000000 1.046764 5.475623 1.000000 " ] 
   }
   { "transform" n 
     { "pool" n 
+      { n n 
+        { "dirty_count" "70 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -11.000000 -38.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -11.000000 -38.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-11.000000 -38.000000 " ] 
+        { "pool_elem" n 
+          { "id" "266 " }
+        }
+      }
       { n n 
         { "dirty_count" "2624 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -13.000000 -41.000000 1.000000 " ] 
@@ -10785,6 +10865,11 @@ end\" " }
   { "entity" n 
     { "destroyed" n }
     { "exists_pool" n 
+      { n n 
+        { "pool_elem" n 
+          { "id" "266 " }
+        }
+      }
       { n n 
         { "pool_elem" n 
           { "id" "265 " }

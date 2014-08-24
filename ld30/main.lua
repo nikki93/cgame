@@ -588,11 +588,12 @@ end
 -----------------------------------------------------------------------------
 
 g_messages = {
-    default = 'this is a message...',
-    wasd = 'W, A, S, D: move',
+    default = "this is a message...",
+    wasd = "W, A, S, D: move",
     portal = "This is weird... Where am I?\nAnd what is this thing?",
     hell = "Oh my...",
-    earth = "This place looks familiar..."
+    earth = "This place looks familiar...",
+    ['hell-2'] = "What in hell??",
 }
 
 cs.message = cg.simple_sys()
