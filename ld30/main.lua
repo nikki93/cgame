@@ -13,6 +13,7 @@ end
 --- cgame config ------------------------------------------------------------
 
 data_dir = './ld30'
+usr_dir = './usr'
 
 cs.sprite.set_atlas(data_dir .. '/atlas-1.png')
 
@@ -26,13 +27,13 @@ function save_game(name, groups)
     cs.group.set_save_filter(groups, true)
     local s = cg.store_open()
     cs.system.save_all(s)
-    cg.store_write_file(s, data_dir .. '/' .. name)
+    cg.store_write_file(s, usr_dir .. '/' .. name)
     cg.store_close(s)
 end
 
 function load_game(name)
-    if not file_exists(data_dir .. '/' .. name) then return false end
-    local s = cg.store_open_file(data_dir .. '/' .. name)
+    if not file_exists(usr_dir .. '/' .. name) then return false end
+    local s = cg.store_open_file(usr_dir .. '/' .. name)
     cs.system.load_all(s)
     cg.store_close(s)
     return true
@@ -41,18 +42,22 @@ end
 cs.edit.modes.normal['s'] = function ()
     cs.edit.command_save()
 
-    save_game('portals.lvl', 'portals')
+    cs.group.set_save_filter('portals', true)
+    local s = cg.store_open()
+    cs.system.save_all(s)
+    cg.store_write_file(s, data_dir .. '/portals.lvl')
+    cg.store_close(s)
     print('saved portals!')
 end
 
 
 -----------------------------------------------------------------------------
 
-cs.main = { auto_saveload = true }
+cs.main = {}
 
 function cs.main.reload()
     cs.group.destroy('portals warp default')
-    local s = cg.store_open_file(data_dir .. '/curr.sav')
+    local s = cg.store_open_file(usr_dir .. '/curr.sav')
     cs.system.load_all(s)
     cg.store_close(s)
 end
@@ -65,7 +70,7 @@ end
 function cs.main.warp(world)
     print('warping to ' .. world)
     -- save and clear current state
-    -- save_game(cs.main.world .. '.sav', 'default')
+    save_game(cs.main.world .. '.sav', 'default')
     cs.group.destroy('default')
 
     -- set, load new world
@@ -74,7 +79,30 @@ function cs.main.warp(world)
     print('now in ' .. cs.main.world .. ', saving')
 
     -- save progress
+    g_save_world = true
     save_game('curr.sav', 'portals warp default')
+end
+
+g_world_colors = {
+    hell = cg.color_opaque(198 / 255.0, 77 / 255.0, 77 / 255.0),
+    earth = cg.color_opaque(68 / 255.0, 137 / 255.0, 26 / 255.0),
+}
+
+function cs.main.update_all()
+    cs.game.set_bg_color(g_world_colors[cs.main.world]
+                             and g_world_colors[cs.main.world]
+                             or cg.color_white)
+end
+
+g_save_world = false
+function cs.main.save_all()
+    t = {}
+    if g_save_world then t.saved_world = cs.main.world end
+    g_save_world = false
+    return t
+end
+function cs.main.load_all(t)
+    if t and t.world then cs.main.world = t.saved_world end
 end
 
 
