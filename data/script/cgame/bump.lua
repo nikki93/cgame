@@ -124,4 +124,5 @@ end
 
 function cs.bump.update(obj)
     _update_rect(obj)
+    cs.edit.bboxes_update(obj.ent, obj.bbox)
 end
