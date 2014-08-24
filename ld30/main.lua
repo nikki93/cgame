@@ -23,11 +23,12 @@ cs.edit.set_default_prefab_file(data_dir .. '/')
 
 -----------------------------------------------------------------------------
 
-function save_game(name, groups)
+function save_game(name, groups, lvl)
+    local dir = lvl and data_dir or usr_dir
     cs.group.set_save_filter(groups, true)
     local s = cg.store_open()
     cs.system.save_all(s)
-    cg.store_write_file(s, usr_dir .. '/' .. name)
+    cg.store_write_file(s, dir .. '/' .. name)
     cg.store_close(s)
 end
 
