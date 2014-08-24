@@ -11,6 +11,7 @@ SCRIPT(color,
        struct Color { Scalar r, g, b, a; };
 
        EXPORT Color color(Scalar r, Scalar g, Scalar b, Scalar a);
+       EXPORT Color color_opaque(Scalar r, Scalar g, Scalar b);
        EXPORT extern Color color_black;
        EXPORT extern Color color_white;
        EXPORT extern Color color_gray;
@@ -25,5 +26,6 @@ SCRIPT(color,
     )
 
 #define color(r, g, b, a) ((Color) { (r), (g), (b), (a) })
+#define color_opaque(r, g, b, a) color(r, g, b, 1)
 
 #endif

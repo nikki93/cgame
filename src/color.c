@@ -38,6 +38,12 @@ bool color_load(Color *c, const char *n, Color d, Store *s)
     return t != NULL;
 }
 
+#undef color_opaque
+Color color_opaque(Scalar r, Scalar g, Scalar b)
+{
+    return color(r, g, b, 1);
+}
+
 #undef color
 Color color(Scalar r, Scalar g, Scalar b, Scalar a)
 {
