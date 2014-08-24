@@ -1,4 +1,4 @@
-26070
+19572
 { n n 
   { "script" n 
     { "str" "\"do local _={
@@ -71,72 +71,7 @@
     update=function() --[[..skipped..]] end,
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({
-        [33]={
-          k=_cge(33),
-          v={
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2211,
-            ent=_cge(33)
-          }
-        },
-        [32]={
-          k=_cge(32),
-          v={
-            last_dirty=3556,
-            ent=_cge(32),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
-          }
-        },
-        [31]={
-          k=_cge(31),
-          v={
-            ent=_cge(31),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2919
-          }
-        },
-        [29]={
-          k=_cge(29),
-          v={
-            last_dirty=2771,
-            ent=_cge(29),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
-          }
-        },
-        [28]={
-          k=_cge(28),
-          v={
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2903,
-            ent=_cge(28)
-          }
-        },
-        [35]={
-          k=_cge(35),
-          v={
-            last_dirty=2713,
-            ent=_cge(35),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
-          }
-        },
-        [34]={
-          k=_cge(34),
-          v={
-            ent=_cge(34),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2532
-          }
-        },
-        [30]={
-          k=_cge(30),
-          v={
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2843,
-            ent=_cge(30)
-          }
-        }
-      }),
+    tbl=cg.__entity_table_load({}),
     destroy=function() --[[..skipped..]] end,
     update_all=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
@@ -161,7 +96,20 @@
     add=nil
   },
   main={},
-  name=cg.__entity_table_load({}),
+  name=cg.__entity_table_load({
+      [73]={
+        k=_cge(73),
+        v=\\"new-game\\"
+      },
+      [75]={
+        k=_cge(75),
+        v=\\"quit\\"
+      },
+      [74]={
+        k=_cge(74),
+        v=\\"continue\\"
+      }
+    }),
   edit={
     sel=cg.__entity_table_load({})
   },
@@ -197,52 +145,22 @@
     add=nil
   },
   group=cg.__entity_table_load({
-      [33]={
-        k=_cge(33),
+      [75]={
+        k=_cge(75),
         v={
-          portals=true
+          menu=true
         }
       },
-      [32]={
-        k=_cge(32),
+      [73]={
+        k=_cge(73),
         v={
-          portals=true
+          menu=true
         }
       },
-      [31]={
-        k=_cge(31),
+      [74]={
+        k=_cge(74),
         v={
-          portals=true
-        }
-      },
-      [29]={
-        k=_cge(29),
-        v={
-          portals=true
-        }
-      },
-      [28]={
-        k=_cge(28),
-        v={
-          portals=true
-        }
-      },
-      [35]={
-        k=_cge(35),
-        v={
-          portals=true
-        }
-      },
-      [34]={
-        k=_cge(34),
-        v={
-          portals=true
-        }
-      },
-      [30]={
-        k=_cge(30),
-        v={
-          portals=true
+          menu=true
         }
       }
     }),
@@ -371,80 +289,7 @@
     update_all=function() --[[..skipped..]] end,
     simple_update_all=nil,
     simple_has=nil,
-    tbl=cg.__entity_table_load({
-        [33]={
-          k=_cge(33),
-          v={
-            world_2=\\"white\\",
-            in_warp=false,
-            world_1=\\"hell-1\\",
-            ent=_cge(33)
-          }
-        },
-        [32]={
-          k=_cge(32),
-          v={
-            world_2=\\"earth\\",
-            in_warp=false,
-            world_1=\\"hell-2\\",
-            ent=_cge(32)
-          }
-        },
-        [30]={
-          k=_cge(30),
-          v={
-            world_2=\\"earth\\",
-            in_warp=false,
-            world_1=\\"hell-2\\",
-            ent=_cge(30)
-          }
-        },
-        [29]={
-          k=_cge(29),
-          v={
-            world_2=\\"earth\\",
-            in_warp=false,
-            world_1=\\"hell-2\\",
-            ent=_cge(29)
-          }
-        },
-        [28]={
-          k=_cge(28),
-          v={
-            world_2=\\"earth\\",
-            in_warp=false,
-            world_1=\\"hell-1\\",
-            ent=_cge(28)
-          }
-        },
-        [34]={
-          k=_cge(34),
-          v={
-            world_2=\\"earth\\",
-            in_warp=false,
-            world_1=\\"hell-1\\",
-            ent=_cge(34)
-          }
-        },
-        [35]={
-          k=_cge(35),
-          v={
-            world_2=\\"earth\\",
-            in_warp=false,
-            world_1=\\"hell-1\\",
-            ent=_cge(35)
-          }
-        },
-        [31]={
-          k=_cge(31),
-          v={
-            world_2=\\"earth\\",
-            in_warp=false,
-            world_1=\\"hell-2\\",
-            ent=_cge(31)
-          }
-        }
-      }),
+    tbl=cg.__entity_table_load({}),
     add=nil
   },
   switch={
@@ -519,7 +364,26 @@
     update_all=function() --[[..skipped..]] end,
     simple_update_all=nil,
     simple_has=nil,
-    tbl=cg.__entity_table_load({}),
+    tbl=cg.__entity_table_load({
+        [73]={
+          k=_cge(73),
+          v={
+            ent=_cge(73)
+          }
+        },
+        [75]={
+          k=_cge(75),
+          v={
+            ent=_cge(75)
+          }
+        },
+        [74]={
+          k=_cge(74),
+          v={
+            ent=_cge(74)
+          }
+        }
+      }),
     add=nil
   }
 }
@@ -606,92 +470,96 @@ end\" " }
     { "pool" n }
   }
   { "gui_text" n 
-    { "pool" n }
+    { "pool" n 
+      { n n 
+        { "cursor" "-1 " }
+        { "str" "\"quit\" " }
+        { "pool_elem" n 
+          { "id" "75 " }
+        }
+      }
+      { n n 
+        { "cursor" "-1 " }
+        { "str" "\"continue\" " }
+        { "pool_elem" n 
+          { "id" "74 " }
+        }
+      }
+      { n n 
+        { "cursor" "-1 " }
+        { "str" "\"new game\" " }
+        { "pool_elem" n 
+          { "id" "73 " }
+        }
+      }
+    }
   }
   { "gui_rect" n 
     { "pool" n }
   }
   { "gui" n 
-    { "pool" n }
+    { "pool" n 
+      { n n 
+        [ "padding" "5.000000 5.000000 " ] 
+        { "valign" "4 " }
+        { "halign" "4 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "1.000000 " }
+          { "b" "0.500000 " }
+          { "g" "0.500000 " }
+          { "r" "0.500000 " }
+        }
+        { "pool_elem" n 
+          { "id" "75 " }
+        }
+      }
+      { n n 
+        [ "padding" "5.000000 5.000000 " ] 
+        { "valign" "4 " }
+        { "halign" "4 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "1.000000 " }
+          { "b" "0.500000 " }
+          { "g" "0.500000 " }
+          { "r" "0.500000 " }
+        }
+        { "pool_elem" n 
+          { "id" "74 " }
+        }
+      }
+      { n n 
+        [ "padding" "5.000000 5.000000 " ] 
+        { "valign" "4 " }
+        { "halign" "4 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "1.000000 " }
+          { "b" "0.500000 " }
+          { "g" "0.500000 " }
+          { "r" "0.500000 " }
+        }
+        { "pool_elem" n 
+          { "id" "73 " }
+        }
+      }
+    }
   }
   { "physics" n 
     { "pool" n }
   }
   { "sprite" n 
-    { "pool" n 
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "32.000000 32.000000 " ] 
-        [ "texcell" "32.000000 128.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "35 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "32.000000 32.000000 " ] 
-        [ "texcell" "32.000000 128.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "34 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "32.000000 32.000000 " ] 
-        [ "texcell" "32.000000 128.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "33 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "32.000000 32.000000 " ] 
-        [ "texcell" "32.000000 128.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "32 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "32.000000 32.000000 " ] 
-        [ "texcell" "32.000000 128.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "31 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "32.000000 32.000000 " ] 
-        [ "texcell" "32.000000 128.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "30 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "32.000000 32.000000 " ] 
-        [ "texcell" "32.000000 128.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "29 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "32.000000 32.000000 " ] 
-        [ "texcell" "32.000000 128.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "28 " }
-        }
-      }
-    }
+    { "pool" n }
     { "atlas" "\"./ld30/atlas-1.png\" " }
   }
   { "camera" n 
@@ -701,123 +569,48 @@ end\" " }
   { "transform" n 
     { "pool" n 
       { n n 
-        { "dirty_count" "2903 " }
-        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -11.000000 -20.000000 1.000000 " ] 
-        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -11.000000 -20.000000 1.000000 " ] 
+        { "dirty_count" "1364 " }
+        [ "worldmat_cache" "0.087500 0.000000 0.000000 0.000000 0.087491 0.000000 -6.666670 -6.498100 1.000000 " ] 
+        [ "mat_cache" "2.100000 0.000000 0.000000 -0.000000 2.100000 0.000000 239.999939 -456.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
-        [ "scale" "2.000000 2.000000 " ] 
+        [ "scale" "2.100000 2.100000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "-11.000000 -20.000000 " ] 
+        [ "position" "239.999939 -456.000000 " ] 
         { "pool_elem" n 
-          { "id" "28 " }
+          { "id" "75 " }
         }
       }
       { n n 
-        { "dirty_count" "2713 " }
-        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 6.500000 -4.500000 1.000000 " ] 
-        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 6.500000 -4.500000 1.000000 " ] 
+        { "dirty_count" "863 " }
+        [ "worldmat_cache" "0.087500 0.000000 0.000000 0.000000 0.087491 0.000000 -11.666668 -1.498600 1.000000 " ] 
+        [ "mat_cache" "2.100000 0.000000 0.000000 -0.000000 2.100000 0.000000 120.000000 -336.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
-        [ "scale" "2.000000 2.000000 " ] 
+        [ "scale" "2.100000 2.100000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "6.500000 -4.500000 " ] 
+        [ "position" "120.000000 -336.000000 " ] 
         { "pool_elem" n 
-          { "id" "35 " }
+          { "id" "74 " }
         }
       }
       { n n 
-        { "dirty_count" "2532 " }
-        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 13.500000 -4.500000 1.000000 " ] 
-        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 13.500000 -4.500000 1.000000 " ] 
+        { "dirty_count" "639 " }
+        [ "worldmat_cache" "0.087500 0.000000 0.000000 0.000000 0.087491 0.000000 -13.666668 0.501200 1.000000 " ] 
+        [ "mat_cache" "2.100000 0.000000 0.000000 -0.000000 2.100000 0.000000 72.000000 -288.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
-        [ "scale" "2.000000 2.000000 " ] 
+        [ "scale" "2.100000 2.100000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "13.500000 -4.500000 " ] 
+        [ "position" "72.000000 -288.000000 " ] 
         { "pool_elem" n 
-          { "id" "34 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "2211 " }
-        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "2.000000 2.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
-        { "pool_elem" n 
-          { "id" "33 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "3556 " }
-        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 9.000000 -53.000000 1.000000 " ] 
-        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 9.000000 -53.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "2.000000 2.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "9.000000 -53.000000 " ] 
-        { "pool_elem" n 
-          { "id" "32 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "2919 " }
-        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 8.000000 -43.000000 1.000000 " ] 
-        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 8.000000 -43.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "2.000000 2.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "8.000000 -43.000000 " ] 
-        { "pool_elem" n 
-          { "id" "31 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "2843 " }
-        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -2.000000 -42.000000 1.000000 " ] 
-        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -2.000000 -42.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "2.000000 2.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-2.000000 -42.000000 " ] 
-        { "pool_elem" n 
-          { "id" "30 " }
-        }
-      }
-      { n n 
-        { "dirty_count" "2771 " }
-        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -11.000000 -40.000000 1.000000 " ] 
-        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -11.000000 -40.000000 1.000000 " ] 
-        { "children" n }
-        { "parent" n 
-          { "id" "0 " }
-        }
-        [ "scale" "2.000000 2.000000 " ] 
-        { "rotation" "0.000000 " }
-        [ "position" "-11.000000 -40.000000 " ] 
-        { "pool_elem" n 
-          { "id" "29 " }
+          { "id" "73 " }
         }
       }
     }
@@ -835,42 +628,17 @@ end\" " }
     { "exists_pool" n 
       { n n 
         { "pool_elem" n 
-          { "id" "35 " }
+          { "id" "75 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "34 " }
+          { "id" "74 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "33 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "32 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "31 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "30 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "29 " }
-        }
-      }
-      { n n 
-        { "pool_elem" n 
-          { "id" "28 " }
+          { "id" "73 " }
         }
       }
     }

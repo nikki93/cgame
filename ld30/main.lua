@@ -30,11 +30,25 @@ function save_game(name, groups, lvl)
     cs.group.set_save_filter(groups, true)
     local s = cg.store_open()
     cs.system.save_all(s)
-    cg.store_write_file(s, dir .. '/' .. name)
+
+    local str
+    if name then
+        cg.store_write_file(s, dir .. '/' .. name)
+    else
+        str = cg.string(cg.store_write_str(s))
+    end
     cg.store_close(s)
+    return str
 end
 
-function load_game(name, lvl)
+function load_game(name, lvl, str)
+    if str then
+        local s = cg.store_open_str(name)
+        cs.system.load_all(s)
+        cg.store_close(s)
+        return true
+    end
+
     local dir = lvl and data_dir or usr_dir
     if not file_exists(dir .. '/' .. name) then return false end
     local s = cg.store_open_file(dir .. '/' .. name)
@@ -71,6 +85,8 @@ end
 
 cs.main = {}
 
+cs.main.intermediates = {}
+
 function cs.main.reload()
     cs.group.destroy('portals warp default')
     local s = cg.store_open_file(usr_dir .. '/curr.sav')
@@ -88,12 +104,16 @@ end
 function cs.main.warp(world)
     print('warping to ' .. world)
     -- save and clear current state
-    save_game(cs.main.world .. '.sav', 'default')
+    cs.main.intermediates[cs.main.world] = save_game(nil, 'default')
     cs.group.destroy('default')
 
     -- set, load new world
     cs.main.world = world
-    if not load_game(world .. '.sav') then load_game(world .. '.lvl', true) end
+    if cs.main.intermediates[world] then
+        load_game(cs.main.intermediates[world], false, true)
+    else
+        load_game(world .. '.lvl', true)
+    end
     print('now in ' .. cs.main.world .. ', saving')
 
     -- save progress
@@ -119,12 +139,16 @@ end
 g_save_world = false
 function cs.main.save_all()
     t = {}
-    if g_save_world then t.saved_world = cs.main.world end
+    if g_save_world then
+        t.saved_world = cs.main.world
+        t.intermediates = cs.main.intermediates
+    end
     g_save_world = false
     return t
 end
 function cs.main.load_all(t)
-    if t and t.saved_world then cs.main.world = t.saved_world end
+    if t.saved_world then cs.main.world = t.saved_world end
+    if t.intermediates then cs.main.intermediates = t.intermediates end
 end
 
 
@@ -656,12 +680,51 @@ end
 
 -----------------------------------------------------------------------------
 
-cs.main.world = 'white'
-load_game('portals.lvl', true)
+cs.main_menu = {}
+
+function cs.main_menu.update_all()
+    local new_game = cs.name.find('new-game')
+    if new_game ~= cg.entity_nil
+    and cs.gui.event_mouse_down(new_game) == cg.MC_LEFT then
+        cs.group.destroy('menu')
+        cs.timing.set_paused(false)
+        save_game('curr.sav', 'portals warp default')
+    end
+
+    local continue = cs.name.find('continue')
+    if continue ~= cg.entity_nil
+    and cs.gui.event_mouse_down(continue) == cg.MC_LEFT then
+        cs.group.destroy('menu')
+        cs.timing.set_paused(false)
+        cs.main.reload()
+    end
+
+    local quit = cs.name.find('quit')
+    if quit ~= cg.entity_nil
+    and cs.gui.event_mouse_down(quit) == cg.MC_LEFT then
+        cs.game.quit()
+    end
+end
+
+local function main_menu()
+    cs.group.destroy('portals warp default')
+
+    cs.main.world = 'white'
+    load_game('portals.lvl', true)
+    load_game('start.lvl', true)
+
+    cs.timing.set_paused(true)
+    load_game('menu.lvl', true)
+end
 
 if cg.args[2] == 'start' then
-    load_game('start.lvl', true)
+    main_menu()
 else
+    cs.group.destroy('portals warp default')
+
+    cs.main.world = 'white'
+    load_game('portals.lvl', true)
+
     cg.add {
         camera = { viewport_height = 18.75 },
         camera_follow = {},
