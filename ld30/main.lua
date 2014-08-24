@@ -14,11 +14,12 @@ end
 
 data_dir = './ld30'
 usr_dir = './usr'
+prefab_dir = data_dir .. '/prefabs'
 
 cs.sprite.set_atlas(data_dir .. '/atlas-1.png')
 
 cs.edit.set_default_file(data_dir .. '/')
-cs.edit.set_default_prefab_file(data_dir .. '/')
+cs.edit.set_default_prefab_file(prefab_dir .. '/')
 
 
 -----------------------------------------------------------------------------
@@ -86,7 +87,8 @@ function cs.main.warp(world)
 end
 
 g_world_colors = {
-    hell = cg.color_opaque(198 / 255.0, 77 / 255.0, 77 / 255.0),
+    ['hell-1'] = cg.color_opaque(198 / 255.0, 77 / 255.0, 77 / 255.0),
+    ['hell-2'] = cg.color_opaque(198 / 255.0, 77 / 255.0, 77 / 255.0),
     earth = cg.color_opaque(231 / 255.0, 163 / 255.0, 93 / 255.0),
 }
 
@@ -264,7 +266,7 @@ function cs.follower.unpaused_update(obj)
         local pp = cs.transform.get_position(player)
         local d = pp - cs.transform.get_position(obj.ent)
         local len = cg.vec2_len(d)
-        if len < 10 then
+        if len < 20 then
             d = d / len
             local function filter (e)
                 return not cs.player_control.has(e)
@@ -304,7 +306,7 @@ function cs.quad_shooter.unpaused_update(obj)
             local p = cs.transform.get_position(obj.ent)
             if cg.vec2_len(pp - p) < 30 then
                 cg.add {
-                    prefab = data_dir .. '/hell-bullet-1.pfb',
+                    prefab = prefab_dir .. '/hell-bullet-1.pfb',
                     transform = { position = p + 0.7 * obj.dir },
                     bullet = {
                         creator = cg.Entity(obj.ent),

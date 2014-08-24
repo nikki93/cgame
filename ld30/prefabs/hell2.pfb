@@ -1,4 +1,4 @@
-944685
+960034
 { n n 
   { "script" n 
     { "str" "\"do local _={
@@ -5068,50 +5068,50 @@
         [712]={
           k=_cge(712),
           v={
-            switch=_cge(713),
-            ent=_cge(712)
+            ent=_cge(712),
+            switch=_cge(713)
           }
         },
         [481]={
           k=_cge(481),
           v={
-            switch=_cge(350),
-            ent=_cge(481)
+            ent=_cge(481),
+            switch=_cge(350)
           }
         },
         [359]={
           k=_cge(359),
           v={
-            ent=_cge(359),
-            switch=_cge(478)
+            switch=_cge(478),
+            ent=_cge(359)
           }
         },
         [358]={
           k=_cge(358),
           v={
-            ent=_cge(358),
-            switch=_cge(478)
+            switch=_cge(478),
+            ent=_cge(358)
           }
         },
         [581]={
           k=_cge(581),
           v={
-            ent=_cge(581),
-            switch=_cge(567)
+            switch=_cge(567),
+            ent=_cge(581)
           }
         },
         [573]={
           k=_cge(573),
           v={
-            switch=_cge(574),
-            ent=_cge(573)
+            ent=_cge(573),
+            switch=_cge(574)
           }
         },
         [795]={
           k=_cge(795),
           v={
-            ent=_cge(795),
-            switch=_cge(743)
+            switch=_cge(743),
+            ent=_cge(795)
           }
         }
       }),
@@ -5158,8 +5158,8 @@
                 n=1
               }
             },
-            ent=_cge(545),
-            frame=1
+            frame=1,
+            ent=_cge(545)
           }
         },
         [481]={
@@ -5361,8 +5361,8 @@
                 n=1
               }
             },
-            ent=_cge(221),
-            frame=1
+            frame=1,
+            ent=_cge(221)
           }
         },
         [712]={
@@ -5434,8 +5434,8 @@
                 n=1
               }
             },
-            ent=_cge(528),
-            frame=1
+            frame=1,
+            ent=_cge(528)
           }
         },
         [204]={
@@ -5461,8 +5461,8 @@
                 n=1
               }
             },
-            frame=1,
-            ent=_cge(204)
+            ent=_cge(204),
+            frame=1
           }
         },
         [581]={
@@ -5695,1713 +5695,1713 @@
         {
           k=_cge(37),
           v={
-            ent=_cge(37),
-            last_dirty=308
+            last_dirty=308,
+            ent=_cge(37)
           }
         },
         {
           k=_cge(38),
           v={
-            ent=_cge(38),
-            last_dirty=331
+            last_dirty=331,
+            ent=_cge(38)
           }
         },
         {
           k=_cge(39),
           v={
-            ent=_cge(39),
-            last_dirty=421
+            last_dirty=421,
+            ent=_cge(39)
           }
         },
         {
           k=_cge(40),
           v={
-            ent=_cge(40),
-            last_dirty=1200
+            last_dirty=1200,
+            ent=_cge(40)
           }
         },
         {
           k=_cge(41),
           v={
-            ent=_cge(41),
-            last_dirty=1232
+            last_dirty=1232,
+            ent=_cge(41)
           }
         },
         {
           k=_cge(42),
           v={
-            ent=_cge(42),
-            last_dirty=1154
+            last_dirty=1154,
+            ent=_cge(42)
           }
         },
         {
           k=_cge(43),
           v={
-            ent=_cge(43),
-            last_dirty=1178
+            last_dirty=1178,
+            ent=_cge(43)
           }
         },
         {
           k=_cge(44),
           v={
-            ent=_cge(44),
-            last_dirty=1082
+            last_dirty=1082,
+            ent=_cge(44)
           }
         },
         {
           k=_cge(45),
           v={
-            ent=_cge(45),
-            last_dirty=1108
+            last_dirty=1108,
+            ent=_cge(45)
           }
         },
         {
           k=_cge(46),
           v={
-            ent=_cge(46),
-            last_dirty=439
+            last_dirty=439,
+            ent=_cge(46)
           }
         },
         {
           k=_cge(47),
           v={
-            ent=_cge(47),
-            last_dirty=1130
+            last_dirty=1130,
+            ent=_cge(47)
           }
         },
         {
           k=_cge(48),
           v={
-            ent=_cge(48),
-            last_dirty=638
+            last_dirty=638,
+            ent=_cge(48)
           }
         },
         {
           k=_cge(49),
           v={
-            ent=_cge(49),
-            last_dirty=602
+            last_dirty=602,
+            ent=_cge(49)
           }
         },
         {
           k=_cge(50),
           v={
-            ent=_cge(50),
-            last_dirty=630
+            last_dirty=630,
+            ent=_cge(50)
           }
         },
         {
           k=_cge(51),
           v={
-            ent=_cge(51),
-            last_dirty=659
+            last_dirty=659,
+            ent=_cge(51)
           }
         },
         {
           k=_cge(52),
           v={
-            ent=_cge(52),
-            last_dirty=684
+            last_dirty=684,
+            ent=_cge(52)
           }
         },
         {
           k=_cge(53),
           v={
-            ent=_cge(53),
-            last_dirty=768
+            last_dirty=768,
+            ent=_cge(53)
           }
         },
         {
           k=_cge(54),
           v={
-            ent=_cge(54),
-            last_dirty=812
+            last_dirty=812,
+            ent=_cge(54)
           }
         },
         {
           k=_cge(55),
           v={
-            ent=_cge(55),
-            last_dirty=839
+            last_dirty=839,
+            ent=_cge(55)
           }
         },
         {
           k=_cge(56),
           v={
-            ent=_cge(56),
-            last_dirty=872
+            last_dirty=872,
+            ent=_cge(56)
           }
         },
         {
           k=_cge(57),
           v={
-            ent=_cge(57),
-            last_dirty=927
+            last_dirty=927,
+            ent=_cge(57)
           }
         },
         {
           k=_cge(58),
           v={
-            ent=_cge(58),
-            last_dirty=953
+            last_dirty=953,
+            ent=_cge(58)
           }
         },
         {
           k=_cge(59),
           v={
-            ent=_cge(59),
-            last_dirty=976
+            last_dirty=976,
+            ent=_cge(59)
           }
         },
         {
           k=_cge(60),
           v={
-            ent=_cge(60),
-            last_dirty=999
+            last_dirty=999,
+            ent=_cge(60)
           }
         },
         {
           k=_cge(61),
           v={
-            ent=_cge(61),
-            last_dirty=1054
+            last_dirty=1054,
+            ent=_cge(61)
           }
         },
         nil,
         {
           k=_cge(63),
           v={
-            ent=_cge(63),
-            last_dirty=706
+            last_dirty=706,
+            ent=_cge(63)
           }
         },
         {
           k=_cge(64),
           v={
-            ent=_cge(64),
-            last_dirty=468
+            last_dirty=468,
+            ent=_cge(64)
           }
         },
         {
           k=_cge(65),
           v={
-            ent=_cge(65),
-            last_dirty=494
+            last_dirty=494,
+            ent=_cge(65)
           }
         },
         {
           k=_cge(66),
           v={
-            ent=_cge(66),
-            last_dirty=548
+            last_dirty=548,
+            ent=_cge(66)
           }
         },
         {
           k=_cge(67),
           v={
-            ent=_cge(67),
-            last_dirty=961
+            last_dirty=961,
+            ent=_cge(67)
           }
         },
         {
           k=_cge(68),
           v={
-            ent=_cge(68),
-            last_dirty=899
+            last_dirty=899,
+            ent=_cge(68)
           }
         },
         {
           k=_cge(69),
           v={
-            ent=_cge(69),
-            last_dirty=948
+            last_dirty=948,
+            ent=_cge(69)
           }
         },
         {
           k=_cge(70),
           v={
-            ent=_cge(70),
-            last_dirty=918
+            last_dirty=918,
+            ent=_cge(70)
           }
         },
         {
           k=_cge(71),
           v={
-            ent=_cge(71),
-            last_dirty=979
+            last_dirty=979,
+            ent=_cge(71)
           }
         },
         {
           k=_cge(72),
           v={
-            ent=_cge(72),
-            last_dirty=949
+            last_dirty=949,
+            ent=_cge(72)
           }
         },
         {
           k=_cge(73),
           v={
-            ent=_cge(73),
-            last_dirty=1004
+            last_dirty=1004,
+            ent=_cge(73)
           }
         },
         {
           k=_cge(74),
           v={
-            ent=_cge(74),
-            last_dirty=974
+            last_dirty=974,
+            ent=_cge(74)
           }
         },
         {
           k=_cge(75),
           v={
-            ent=_cge(75),
-            last_dirty=1027
+            last_dirty=1027,
+            ent=_cge(75)
           }
         },
         {
           k=_cge(76),
           v={
-            ent=_cge(76),
-            last_dirty=997
+            last_dirty=997,
+            ent=_cge(76)
           }
         },
         {
           k=_cge(77),
           v={
-            ent=_cge(77),
-            last_dirty=1054
+            last_dirty=1054,
+            ent=_cge(77)
           }
         },
         {
           k=_cge(78),
           v={
-            ent=_cge(78),
-            last_dirty=1024
+            last_dirty=1024,
+            ent=_cge(78)
           }
         },
         {
           k=_cge(79),
           v={
-            ent=_cge(79),
-            last_dirty=1079
+            last_dirty=1079,
+            ent=_cge(79)
           }
         },
         {
           k=_cge(80),
           v={
-            ent=_cge(80),
-            last_dirty=1049
+            last_dirty=1049,
+            ent=_cge(80)
           }
         },
         {
           k=_cge(81),
           v={
-            ent=_cge(81),
-            last_dirty=1106
+            last_dirty=1106,
+            ent=_cge(81)
           }
         },
         {
           k=_cge(82),
           v={
-            ent=_cge(82),
-            last_dirty=1076
+            last_dirty=1076,
+            ent=_cge(82)
           }
         },
         {
           k=_cge(83),
           v={
-            ent=_cge(83),
-            last_dirty=1129
+            last_dirty=1129,
+            ent=_cge(83)
           }
         },
         {
           k=_cge(84),
           v={
-            ent=_cge(84),
-            last_dirty=1099
+            last_dirty=1099,
+            ent=_cge(84)
           }
         },
         {
           k=_cge(85),
           v={
-            ent=_cge(85),
-            last_dirty=1153
+            last_dirty=1153,
+            ent=_cge(85)
           }
         },
         {
           k=_cge(86),
           v={
-            ent=_cge(86),
-            last_dirty=1123
+            last_dirty=1123,
+            ent=_cge(86)
           }
         },
         {
           k=_cge(87),
           v={
-            ent=_cge(87),
-            last_dirty=1330
+            last_dirty=1330,
+            ent=_cge(87)
           }
         },
         {
           k=_cge(88),
           v={
-            ent=_cge(88),
-            last_dirty=1300
+            last_dirty=1300,
+            ent=_cge(88)
           }
         },
         {
           k=_cge(89),
           v={
-            ent=_cge(89),
-            last_dirty=1800
+            last_dirty=1800,
+            ent=_cge(89)
           }
         },
         {
           k=_cge(90),
           v={
-            ent=_cge(90),
-            last_dirty=1824
+            last_dirty=1824,
+            ent=_cge(90)
           }
         },
         {
           k=_cge(91),
           v={
-            ent=_cge(91),
-            last_dirty=1861
+            last_dirty=1861,
+            ent=_cge(91)
           }
         },
         {
           k=_cge(92),
           v={
-            ent=_cge(92),
-            last_dirty=1916
+            last_dirty=1916,
+            ent=_cge(92)
           }
         },
         {
           k=_cge(93),
           v={
-            ent=_cge(93),
-            last_dirty=1948
+            last_dirty=1948,
+            ent=_cge(93)
           }
         },
         {
           k=_cge(94),
           v={
-            ent=_cge(94),
-            last_dirty=1983
+            last_dirty=1983,
+            ent=_cge(94)
           }
         },
         {
           k=_cge(95),
           v={
-            ent=_cge(95),
-            last_dirty=1345
+            last_dirty=1345,
+            ent=_cge(95)
           }
         },
         {
           k=_cge(96),
           v={
-            ent=_cge(96),
-            last_dirty=1369
+            last_dirty=1369,
+            ent=_cge(96)
           }
         },
         {
           k=_cge(97),
           v={
-            ent=_cge(97),
-            last_dirty=1392
+            last_dirty=1392,
+            ent=_cge(97)
           }
         },
         {
           k=_cge(98),
           v={
-            ent=_cge(98),
-            last_dirty=1421
+            last_dirty=1421,
+            ent=_cge(98)
           }
         },
         {
           k=_cge(99),
           v={
-            ent=_cge(99),
-            last_dirty=1452
+            last_dirty=1452,
+            ent=_cge(99)
           }
         },
         {
           k=_cge(100),
           v={
-            ent=_cge(100),
-            last_dirty=1487
+            last_dirty=1487,
+            ent=_cge(100)
           }
         },
         {
           k=_cge(101),
           v={
-            ent=_cge(101),
-            last_dirty=1651
+            last_dirty=1651,
+            ent=_cge(101)
           }
         },
         {
           k=_cge(102),
           v={
-            ent=_cge(102),
-            last_dirty=1682
+            last_dirty=1682,
+            ent=_cge(102)
           }
         },
         {
           k=_cge(103),
           v={
-            ent=_cge(103),
-            last_dirty=1725
+            last_dirty=1725,
+            ent=_cge(103)
           }
         },
         {
           k=_cge(104),
           v={
-            ent=_cge(104),
-            last_dirty=1766
+            last_dirty=1766,
+            ent=_cge(104)
           }
         },
         {
           k=_cge(105),
           v={
-            ent=_cge(105),
-            last_dirty=1839
+            last_dirty=1839,
+            ent=_cge(105)
           }
         },
         {
           k=_cge(106),
           v={
-            ent=_cge(106),
-            last_dirty=1874
+            last_dirty=1874,
+            ent=_cge(106)
           }
         },
         {
           k=_cge(107),
           v={
-            ent=_cge(107),
-            last_dirty=1949
+            last_dirty=1949,
+            ent=_cge(107)
           }
         },
         {
           k=_cge(108),
           v={
+            last_dirty=1069407,
             bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            ent=_cge(108),
-            last_dirty=1069407
+            ent=_cge(108)
           }
         },
         {
           k=_cge(109),
           v={
-            ent=_cge(109),
-            last_dirty=1859
+            last_dirty=1859,
+            ent=_cge(109)
           }
         },
         {
           k=_cge(110),
           v={
-            ent=_cge(110),
-            last_dirty=1902
+            last_dirty=1902,
+            ent=_cge(110)
           }
         },
         {
           k=_cge(111),
           v={
-            ent=_cge(111),
-            last_dirty=1943
+            last_dirty=1943,
+            ent=_cge(111)
           }
         },
         {
           k=_cge(112),
           v={
-            ent=_cge(112),
-            last_dirty=2016
+            last_dirty=2016,
+            ent=_cge(112)
           }
         },
         {
           k=_cge(113),
           v={
-            ent=_cge(113),
-            last_dirty=1520
+            last_dirty=1520,
+            ent=_cge(113)
           }
         },
         {
           k=_cge(114),
           v={
-            ent=_cge(114),
-            last_dirty=2044
+            last_dirty=2044,
+            ent=_cge(114)
           }
         },
         {
           k=_cge(115),
           v={
-            ent=_cge(115),
-            last_dirty=1548
+            last_dirty=1548,
+            ent=_cge(115)
           }
         },
         {
           k=_cge(116),
           v={
-            ent=_cge(116),
-            last_dirty=2134
+            last_dirty=2134,
+            ent=_cge(116)
           }
         },
         {
           k=_cge(117),
           v={
-            ent=_cge(117),
-            last_dirty=2478
+            last_dirty=2478,
+            ent=_cge(117)
           }
         },
         {
           k=_cge(118),
           v={
-            ent=_cge(118),
-            last_dirty=2158
+            last_dirty=2158,
+            ent=_cge(118)
           }
         },
         {
           k=_cge(119),
           v={
-            ent=_cge(119),
-            last_dirty=2300
+            last_dirty=2300,
+            ent=_cge(119)
           }
         },
         {
           k=_cge(120),
           v={
-            ent=_cge(120),
-            last_dirty=2186
+            last_dirty=2186,
+            ent=_cge(120)
           }
         },
         {
           k=_cge(121),
           v={
-            ent=_cge(121),
-            last_dirty=1935
+            last_dirty=1935,
+            ent=_cge(121)
           }
         },
         {
           k=_cge(122),
           v={
-            ent=_cge(122),
-            last_dirty=2217
+            last_dirty=2217,
+            ent=_cge(122)
           }
         },
         {
           k=_cge(123),
           v={
-            ent=_cge(123),
-            last_dirty=2323
+            last_dirty=2323,
+            ent=_cge(123)
           }
         },
         {
           k=_cge(124),
           v={
-            ent=_cge(124),
-            last_dirty=2249
+            last_dirty=2249,
+            ent=_cge(124)
           }
         },
         {
           k=_cge(125),
           v={
-            ent=_cge(125),
-            last_dirty=2347
+            last_dirty=2347,
+            ent=_cge(125)
           }
         },
         {
           k=_cge(126),
           v={
-            ent=_cge(126),
-            last_dirty=2277
+            last_dirty=2277,
+            ent=_cge(126)
           }
         },
         {
           k=_cge(127),
           v={
-            ent=_cge(127),
-            last_dirty=1643
+            last_dirty=1643,
+            ent=_cge(127)
           }
         },
         {
           k=_cge(128),
           v={
-            ent=_cge(128),
-            last_dirty=1680
+            last_dirty=1680,
+            ent=_cge(128)
           }
         },
         {
           k=_cge(129),
           v={
-            ent=_cge(129),
-            last_dirty=1713
+            last_dirty=1713,
+            ent=_cge(129)
           }
         },
         {
           k=_cge(130),
           v={
-            ent=_cge(130),
-            last_dirty=1733
+            last_dirty=1733,
+            ent=_cge(130)
           }
         },
         {
           k=_cge(131),
           v={
-            ent=_cge(131),
-            last_dirty=1753
+            last_dirty=1753,
+            ent=_cge(131)
           }
         },
         {
           k=_cge(132),
           v={
-            ent=_cge(132),
-            last_dirty=1773
+            last_dirty=1773,
+            ent=_cge(132)
           }
         },
         {
           k=_cge(133),
           v={
-            ent=_cge(133),
-            last_dirty=1796
+            last_dirty=1796,
+            ent=_cge(133)
           }
         },
         {
           k=_cge(134),
           v={
-            ent=_cge(134),
-            last_dirty=1822
+            last_dirty=1822,
+            ent=_cge(134)
           }
         },
         {
           k=_cge(135),
           v={
-            ent=_cge(135),
-            last_dirty=1849
+            last_dirty=1849,
+            ent=_cge(135)
           }
         },
         {
           k=_cge(136),
           v={
-            ent=_cge(136),
-            last_dirty=1892
+            last_dirty=1892,
+            ent=_cge(136)
           }
         },
         {
           k=_cge(137),
           v={
-            ent=_cge(137),
-            last_dirty=2500
+            last_dirty=2500,
+            ent=_cge(137)
           }
         },
         {
           k=_cge(138),
           v={
-            ent=_cge(138),
-            last_dirty=2640
+            last_dirty=2640,
+            ent=_cge(138)
           }
         },
         {
           k=_cge(139),
           v={
-            ent=_cge(139),
-            last_dirty=2688
+            last_dirty=2688,
+            ent=_cge(139)
           }
         },
         {
           k=_cge(140),
           v={
-            ent=_cge(140),
-            last_dirty=2732
+            last_dirty=2732,
+            ent=_cge(140)
           }
         },
         {
           k=_cge(141),
           v={
-            ent=_cge(141),
-            last_dirty=2758
+            last_dirty=2758,
+            ent=_cge(141)
           }
         },
         {
           k=_cge(142),
           v={
-            ent=_cge(142),
-            last_dirty=2781
+            last_dirty=2781,
+            ent=_cge(142)
           }
         },
         {
           k=_cge(143),
           v={
-            ent=_cge(143),
-            last_dirty=2813
+            last_dirty=2813,
+            ent=_cge(143)
           }
         },
         {
           k=_cge(144),
           v={
-            ent=_cge(144),
-            last_dirty=2943
+            last_dirty=2943,
+            ent=_cge(144)
           }
         },
         {
           k=_cge(145),
           v={
-            ent=_cge(145),
-            last_dirty=1966
+            last_dirty=1966,
+            ent=_cge(145)
           }
         },
         {
           k=_cge(146),
           v={
-            ent=_cge(146),
-            last_dirty=2015
+            last_dirty=2015,
+            ent=_cge(146)
           }
         },
         {
           k=_cge(147),
           v={
-            ent=_cge(147),
-            last_dirty=2036
+            last_dirty=2036,
+            ent=_cge(147)
           }
         },
         {
           k=_cge(148),
           v={
-            ent=_cge(148),
-            last_dirty=2068
+            last_dirty=2068,
+            ent=_cge(148)
           }
         },
         {
           k=_cge(149),
           v={
-            ent=_cge(149),
-            last_dirty=2092
+            last_dirty=2092,
+            ent=_cge(149)
           }
         },
         {
           k=_cge(150),
           v={
-            ent=_cge(150),
-            last_dirty=2115
+            last_dirty=2115,
+            ent=_cge(150)
           }
         },
         {
           k=_cge(151),
           v={
-            ent=_cge(151),
-            last_dirty=2156
+            last_dirty=2156,
+            ent=_cge(151)
           }
         },
         {
           k=_cge(152),
           v={
-            ent=_cge(152),
-            last_dirty=2982
+            last_dirty=2982,
+            ent=_cge(152)
           }
         },
         {
           k=_cge(153),
           v={
-            ent=_cge(153),
-            last_dirty=3187
+            last_dirty=3187,
+            ent=_cge(153)
           }
         },
         {
           k=_cge(154),
           v={
-            ent=_cge(154),
-            last_dirty=3265
+            last_dirty=3265,
+            ent=_cge(154)
           }
         },
         {
           k=_cge(155),
           v={
-            ent=_cge(155),
-            last_dirty=3290
+            last_dirty=3290,
+            ent=_cge(155)
           }
         },
         {
           k=_cge(156),
           v={
-            ent=_cge(156),
-            last_dirty=3320
+            last_dirty=3320,
+            ent=_cge(156)
           }
         },
         {
           k=_cge(157),
           v={
-            ent=_cge(157),
-            last_dirty=3347
+            last_dirty=3347,
+            ent=_cge(157)
           }
         },
         {
           k=_cge(158),
           v={
-            ent=_cge(158),
-            last_dirty=3400
+            last_dirty=3400,
+            ent=_cge(158)
           }
         },
         {
           k=_cge(159),
           v={
-            ent=_cge(159),
-            last_dirty=3432
+            last_dirty=3432,
+            ent=_cge(159)
           }
         },
         {
           k=_cge(160),
           v={
-            ent=_cge(160),
-            last_dirty=3483
+            last_dirty=3483,
+            ent=_cge(160)
           }
         },
         {
           k=_cge(161),
           v={
-            ent=_cge(161),
-            last_dirty=3523
+            last_dirty=3523,
+            ent=_cge(161)
           }
         },
         {
           k=_cge(162),
           v={
-            ent=_cge(162),
-            last_dirty=1903
+            last_dirty=1903,
+            ent=_cge(162)
           }
         },
         {
           k=_cge(163),
           v={
-            ent=_cge(163),
-            last_dirty=1869
+            last_dirty=1869,
+            ent=_cge(163)
           }
         },
         {
           k=_cge(164),
           v={
-            ent=_cge(164),
-            last_dirty=2782
+            last_dirty=2782,
+            ent=_cge(164)
           }
         },
         {
           k=_cge(165),
           v={
-            ent=_cge(165),
-            last_dirty=3598
+            last_dirty=3598,
+            ent=_cge(165)
           }
         },
         {
           k=_cge(166),
           v={
-            ent=_cge(166),
-            last_dirty=3671
+            last_dirty=3671,
+            ent=_cge(166)
           }
         },
         {
           k=_cge(167),
           v={
-            ent=_cge(167),
-            last_dirty=2017
+            last_dirty=2017,
+            ent=_cge(167)
           }
         },
         {
           k=_cge(168),
           v={
-            ent=_cge(168),
-            last_dirty=3802
+            last_dirty=3802,
+            ent=_cge(168)
           }
         },
         {
           k=_cge(169),
           v={
-            ent=_cge(169),
-            last_dirty=3652
+            last_dirty=3652,
+            ent=_cge(169)
           }
         },
         {
           k=_cge(170),
           v={
-            ent=_cge(170),
-            last_dirty=2007
+            last_dirty=2007,
+            ent=_cge(170)
           }
         },
         {
           k=_cge(171),
           v={
-            ent=_cge(171),
-            last_dirty=3809
+            last_dirty=3809,
+            ent=_cge(171)
           }
         },
         {
           k=_cge(172),
           v={
-            ent=_cge(172),
-            last_dirty=3638
+            last_dirty=3638,
+            ent=_cge(172)
           }
         },
         {
           k=_cge(173),
           v={
-            ent=_cge(173),
-            last_dirty=3703
+            last_dirty=3703,
+            ent=_cge(173)
           }
         },
         {
           k=_cge(174),
           v={
-            ent=_cge(174),
-            last_dirty=3745
+            last_dirty=3745,
+            ent=_cge(174)
           }
         },
         {
           k=_cge(175),
           v={
-            ent=_cge(175),
-            last_dirty=3691
+            last_dirty=3691,
+            ent=_cge(175)
           }
         },
         {
           k=_cge(176),
           v={
-            ent=_cge(176),
-            last_dirty=1746
+            last_dirty=1746,
+            ent=_cge(176)
           }
         },
         {
           k=_cge(177),
           v={
-            ent=_cge(177),
-            last_dirty=1766
+            last_dirty=1766,
+            ent=_cge(177)
           }
         },
         {
           k=_cge(178),
           v={
-            ent=_cge(178),
-            last_dirty=1811
+            last_dirty=1811,
+            ent=_cge(178)
           }
         },
         {
           k=_cge(179),
           v={
-            ent=_cge(179),
-            last_dirty=1841
+            last_dirty=1841,
+            ent=_cge(179)
           }
         },
         {
           k=_cge(180),
           v={
-            ent=_cge(180),
-            last_dirty=3620
+            last_dirty=3620,
+            ent=_cge(180)
           }
         },
         {
           k=_cge(181),
           v={
-            ent=_cge(181),
-            last_dirty=3683
+            last_dirty=3683,
+            ent=_cge(181)
           }
         },
         {
           k=_cge(182),
           v={
-            ent=_cge(182),
-            last_dirty=3793
+            last_dirty=3793,
+            ent=_cge(182)
           }
         },
         {
           k=_cge(183),
           v={
-            ent=_cge(183),
-            last_dirty=3699
+            last_dirty=3699,
+            ent=_cge(183)
           }
         },
         {
           k=_cge(184),
           v={
-            ent=_cge(184),
-            last_dirty=3779
+            last_dirty=3779,
+            ent=_cge(184)
           }
         },
         {
           k=_cge(185),
           v={
-            ent=_cge(185),
-            last_dirty=3792
+            last_dirty=3792,
+            ent=_cge(185)
           }
         },
         {
           k=_cge(186),
           v={
-            ent=_cge(186),
-            last_dirty=3592
+            last_dirty=3592,
+            ent=_cge(186)
           }
         },
         {
           k=_cge(187),
           v={
-            ent=_cge(187),
-            last_dirty=3898
+            last_dirty=3898,
+            ent=_cge(187)
           }
         },
         {
           k=_cge(188),
           v={
-            ent=_cge(188),
-            last_dirty=2849
+            last_dirty=2849,
+            ent=_cge(188)
           }
         },
         {
           k=_cge(189),
           v={
-            ent=_cge(189),
-            last_dirty=2070
+            last_dirty=2070,
+            ent=_cge(189)
           }
         },
         {
           k=_cge(190),
           v={
-            ent=_cge(190),
-            last_dirty=2058
+            last_dirty=2058,
+            ent=_cge(190)
           }
         },
         {
           k=_cge(191),
           v={
-            ent=_cge(191),
-            last_dirty=2087
+            last_dirty=2087,
+            ent=_cge(191)
           }
         },
         {
           k=_cge(192),
           v={
-            ent=_cge(192),
-            last_dirty=3567
+            last_dirty=3567,
+            ent=_cge(192)
           }
         },
         {
           k=_cge(193),
           v={
-            ent=_cge(193),
-            last_dirty=2189
+            last_dirty=2189,
+            ent=_cge(193)
           }
         },
         {
           k=_cge(194),
           v={
-            ent=_cge(194),
-            last_dirty=1979
+            last_dirty=1979,
+            ent=_cge(194)
           }
         },
         {
           k=_cge(195),
           v={
-            ent=_cge(195),
-            last_dirty=2002
+            last_dirty=2002,
+            ent=_cge(195)
           }
         },
         {
           k=_cge(196),
           v={
-            ent=_cge(196),
-            last_dirty=2028
+            last_dirty=2028,
+            ent=_cge(196)
           }
         },
         {
           k=_cge(197),
           v={
-            ent=_cge(197),
-            last_dirty=2055
+            last_dirty=2055,
+            ent=_cge(197)
           }
         },
         {
           k=_cge(198),
           v={
-            ent=_cge(198),
-            last_dirty=2098
+            last_dirty=2098,
+            ent=_cge(198)
           }
         },
         {
           k=_cge(199),
           v={
-            ent=_cge(199),
-            last_dirty=2305
+            last_dirty=2305,
+            ent=_cge(199)
           }
         },
         {
           k=_cge(200),
           v={
-            ent=_cge(200),
-            last_dirty=1993
+            last_dirty=1993,
+            ent=_cge(200)
           }
         },
         {
           k=_cge(201),
           v={
-            ent=_cge(201),
-            last_dirty=2016
+            last_dirty=2016,
+            ent=_cge(201)
           }
         },
         {
           k=_cge(202),
           v={
-            ent=_cge(202),
-            last_dirty=2042
+            last_dirty=2042,
+            ent=_cge(202)
           }
         },
         {
           k=_cge(203),
           v={
-            ent=_cge(203),
-            last_dirty=2069
+            last_dirty=2069,
+            ent=_cge(203)
           }
         },
         {
           k=_cge(204),
           v={
+            last_dirty=1250,
             bbox=cg.bbox(cg.vec2(-0.600000, -0.600000), cg.vec2(0.600000, 0.600000)),
-            ent=_cge(204),
-            last_dirty=1250
+            ent=_cge(204)
           }
         },
         {
           k=_cge(205),
           v={
-            ent=_cge(205),
-            last_dirty=2044
+            last_dirty=2044,
+            ent=_cge(205)
           }
         },
         {
           k=_cge(206),
           v={
-            ent=_cge(206),
-            last_dirty=2447
+            last_dirty=2447,
+            ent=_cge(206)
           }
         },
         {
           k=_cge(207),
           v={
-            ent=_cge(207),
-            last_dirty=2481
+            last_dirty=2481,
+            ent=_cge(207)
           }
         },
         {
           k=_cge(208),
           v={
-            ent=_cge(208),
-            last_dirty=2504
+            last_dirty=2504,
+            ent=_cge(208)
           }
         },
         {
           k=_cge(209),
           v={
-            ent=_cge(209),
-            last_dirty=2593
+            last_dirty=2593,
+            ent=_cge(209)
           }
         },
         {
           k=_cge(210),
           v={
-            ent=_cge(210),
-            last_dirty=2624
+            last_dirty=2624,
+            ent=_cge(210)
           }
         },
         {
           k=_cge(211),
           v={
-            ent=_cge(211),
-            last_dirty=2652
+            last_dirty=2652,
+            ent=_cge(211)
           }
         },
         {
           k=_cge(212),
           v={
-            ent=_cge(212),
-            last_dirty=2686
+            last_dirty=2686,
+            ent=_cge(212)
           }
         },
         {
           k=_cge(213),
           v={
-            ent=_cge(213),
-            last_dirty=2714
+            last_dirty=2714,
+            ent=_cge(213)
           }
         },
         {
           k=_cge(214),
           v={
-            ent=_cge(214),
-            last_dirty=2735
+            last_dirty=2735,
+            ent=_cge(214)
           }
         },
         {
           k=_cge(215),
           v={
-            ent=_cge(215),
-            last_dirty=2724
+            last_dirty=2724,
+            ent=_cge(215)
           }
         },
         {
           k=_cge(216),
           v={
-            ent=_cge(216),
-            last_dirty=2752
+            last_dirty=2752,
+            ent=_cge(216)
           }
         },
         {
           k=_cge(217),
           v={
-            ent=_cge(217),
-            last_dirty=2786
+            last_dirty=2786,
+            ent=_cge(217)
           }
         },
         {
           k=_cge(218),
           v={
-            ent=_cge(218),
-            last_dirty=2814
+            last_dirty=2814,
+            ent=_cge(218)
           }
         },
         {
           k=_cge(219),
           v={
-            ent=_cge(219),
-            last_dirty=3119
+            last_dirty=3119,
+            ent=_cge(219)
           }
         },
         {
           k=_cge(220),
           v={
-            ent=_cge(220),
-            last_dirty=2845
+            last_dirty=2845,
+            ent=_cge(220)
           }
         },
         {
           k=_cge(221),
           v={
+            last_dirty=1337,
             ent=_cge(221),
-            bbox=cg.bbox(cg.vec2(-0.600000, -0.600000), cg.vec2(0.600000, 0.600000)),
-            last_dirty=1337
+            bbox=cg.bbox(cg.vec2(-0.600000, -0.600000), cg.vec2(0.600000, 0.600000))
           }
         },
         {
           k=_cge(222),
           v={
-            ent=_cge(222),
-            last_dirty=2860
+            last_dirty=2860,
+            ent=_cge(222)
           }
         },
         {
           k=_cge(223),
           v={
-            ent=_cge(223),
-            last_dirty=3060
+            last_dirty=3060,
+            ent=_cge(223)
           }
         },
         {
           k=_cge(224),
           v={
-            ent=_cge(224),
-            last_dirty=3094
+            last_dirty=3094,
+            ent=_cge(224)
           }
         },
         {
           k=_cge(225),
           v={
-            ent=_cge(225),
-            last_dirty=2941
+            last_dirty=2941,
+            ent=_cge(225)
           }
         },
         {
           k=_cge(226),
           v={
-            ent=_cge(226),
-            last_dirty=2822
+            last_dirty=2822,
+            ent=_cge(226)
           }
         },
         {
           k=_cge(227),
           v={
-            ent=_cge(227),
-            last_dirty=2884
+            last_dirty=2884,
+            ent=_cge(227)
           }
         },
         {
           k=_cge(228),
           v={
-            ent=_cge(228),
-            last_dirty=3019
+            last_dirty=3019,
+            ent=_cge(228)
           }
         },
         {
           k=_cge(229),
           v={
-            ent=_cge(229),
-            last_dirty=3046
+            last_dirty=3046,
+            ent=_cge(229)
           }
         },
         {
           k=_cge(230),
           v={
-            ent=_cge(230),
-            last_dirty=3079
+            last_dirty=3079,
+            ent=_cge(230)
           }
         },
         {
           k=_cge(231),
           v={
-            ent=_cge(231),
-            last_dirty=3333
+            last_dirty=3333,
+            ent=_cge(231)
           }
         },
         {
           k=_cge(232),
           v={
-            ent=_cge(232),
-            last_dirty=3366
+            last_dirty=3366,
+            ent=_cge(232)
           }
         },
         {
           k=_cge(233),
           v={
-            ent=_cge(233),
-            last_dirty=2472
+            last_dirty=2472,
+            ent=_cge(233)
           }
         },
         {
           k=_cge(234),
           v={
-            ent=_cge(234),
-            last_dirty=3554
+            last_dirty=3554,
+            ent=_cge(234)
           }
         },
         {
           k=_cge(235),
           v={
-            ent=_cge(235),
-            last_dirty=3605
+            last_dirty=3605,
+            ent=_cge(235)
           }
         },
         {
           k=_cge(236),
           v={
-            ent=_cge(236),
-            last_dirty=2839
+            last_dirty=2839,
+            ent=_cge(236)
           }
         },
         {
           k=_cge(237),
           v={
-            ent=_cge(237),
-            last_dirty=3637
+            last_dirty=3637,
+            ent=_cge(237)
           }
         },
         {
           k=_cge(238),
           v={
-            ent=_cge(238),
-            last_dirty=3665
+            last_dirty=3665,
+            ent=_cge(238)
           }
         },
         {
           k=_cge(239),
           v={
-            ent=_cge(239),
-            last_dirty=3699
+            last_dirty=3699,
+            ent=_cge(239)
           }
         },
         {
           k=_cge(240),
           v={
-            ent=_cge(240),
-            last_dirty=2129
+            last_dirty=2129,
+            ent=_cge(240)
           }
         },
         {
           k=_cge(241),
           v={
-            ent=_cge(241),
-            last_dirty=2083
+            last_dirty=2083,
+            ent=_cge(241)
           }
         },
         {
           k=_cge(242),
           v={
-            ent=_cge(242),
-            last_dirty=3927
+            last_dirty=3927,
+            ent=_cge(242)
           }
         },
         {
           k=_cge(243),
           v={
-            ent=_cge(243),
-            last_dirty=2321
+            last_dirty=2321,
+            ent=_cge(243)
           }
         },
         {
           k=_cge(244),
           v={
-            ent=_cge(244),
-            last_dirty=2356
+            last_dirty=2356,
+            ent=_cge(244)
           }
         },
         {
           k=_cge(245),
           v={
-            ent=_cge(245),
-            last_dirty=2393
+            last_dirty=2393,
+            ent=_cge(245)
           }
         },
         {
           k=_cge(246),
           v={
-            ent=_cge(246),
-            last_dirty=2422
+            last_dirty=2422,
+            ent=_cge(246)
           }
         },
         {
           k=_cge(247),
           v={
-            ent=_cge(247),
-            last_dirty=2884
+            last_dirty=2884,
+            ent=_cge(247)
           }
         },
         {
           k=_cge(248),
           v={
-            ent=_cge(248),
-            last_dirty=2428
+            last_dirty=2428,
+            ent=_cge(248)
           }
         },
         {
           k=_cge(249),
           v={
-            ent=_cge(249),
-            last_dirty=2428
+            last_dirty=2428,
+            ent=_cge(249)
           }
         },
         {
           k=_cge(250),
           v={
-            ent=_cge(250),
-            last_dirty=2457
+            last_dirty=2457,
+            ent=_cge(250)
           }
         },
         {
           k=_cge(251),
           v={
-            ent=_cge(251),
-            last_dirty=2482
+            last_dirty=2482,
+            ent=_cge(251)
           }
         },
         {
           k=_cge(252),
           v={
-            ent=_cge(252),
-            last_dirty=2915
+            last_dirty=2915,
+            ent=_cge(252)
           }
         },
         {
           k=_cge(253),
           v={
-            ent=_cge(253),
-            last_dirty=2616
+            last_dirty=2616,
+            ent=_cge(253)
           }
         },
         {
           k=_cge(254),
           v={
-            ent=_cge(254),
-            last_dirty=2585
+            last_dirty=2585,
+            ent=_cge(254)
           }
         },
         {
           k=_cge(255),
           v={
-            ent=_cge(255),
-            last_dirty=2872
+            last_dirty=2872,
+            ent=_cge(255)
           }
         },
         {
           k=_cge(256),
           v={
-            ent=_cge(256),
-            last_dirty=2697
+            last_dirty=2697,
+            ent=_cge(256)
           }
         },
         {
           k=_cge(257),
           v={
-            ent=_cge(257),
-            last_dirty=2652
+            last_dirty=2652,
+            ent=_cge(257)
           }
         },
         {
           k=_cge(258),
           v={
-            ent=_cge(258),
-            last_dirty=2099
+            last_dirty=2099,
+            ent=_cge(258)
           }
         },
         {
           k=_cge(259),
           v={
-            ent=_cge(259),
-            last_dirty=2116
+            last_dirty=2116,
+            ent=_cge(259)
           }
         },
         {
           k=_cge(260),
           v={
-            ent=_cge(260),
-            last_dirty=2096
+            last_dirty=2096,
+            ent=_cge(260)
           }
         },
         {
           k=_cge(261),
           v={
-            ent=_cge(261),
-            last_dirty=2193
+            last_dirty=2193,
+            ent=_cge(261)
           }
         },
         {
           k=_cge(262),
           v={
-            ent=_cge(262),
-            last_dirty=2033
+            last_dirty=2033,
+            ent=_cge(262)
           }
         },
         {
           k=_cge(263),
           v={
-            ent=_cge(263),
-            last_dirty=2487
+            last_dirty=2487,
+            ent=_cge(263)
           }
         },
         {
           k=_cge(264),
           v={
-            ent=_cge(264),
-            last_dirty=2512
+            last_dirty=2512,
+            ent=_cge(264)
           }
         },
         {
           k=_cge(265),
           v={
-            ent=_cge(265),
-            last_dirty=2136
+            last_dirty=2136,
+            ent=_cge(265)
           }
         },
         {
           k=_cge(266),
           v={
-            ent=_cge(266),
-            last_dirty=2165
+            last_dirty=2165,
+            ent=_cge(266)
           }
         },
         {
           k=_cge(267),
           v={
-            ent=_cge(267),
-            last_dirty=2162
+            last_dirty=2162,
+            ent=_cge(267)
           }
         },
         {
           k=_cge(268),
           v={
-            ent=_cge(268),
-            last_dirty=2514
+            last_dirty=2514,
+            ent=_cge(268)
           }
         },
         {
           k=_cge(269),
           v={
-            ent=_cge(269),
-            last_dirty=2552
+            last_dirty=2552,
+            ent=_cge(269)
           }
         },
         {
           k=_cge(270),
           v={
-            ent=_cge(270),
-            last_dirty=2674
+            last_dirty=2674,
+            ent=_cge(270)
           }
         },
         {
           k=_cge(271),
           v={
-            ent=_cge(271),
-            last_dirty=2698
+            last_dirty=2698,
+            ent=_cge(271)
           }
         },
         {
           k=_cge(272),
           v={
-            ent=_cge(272),
-            last_dirty=2733
+            last_dirty=2733,
+            ent=_cge(272)
           }
         },
         {
           k=_cge(273),
           v={
-            ent=_cge(273),
-            last_dirty=2778
+            last_dirty=2778,
+            ent=_cge(273)
           }
         },
         {
           k=_cge(274),
           v={
-            ent=_cge(274),
-            last_dirty=3137
+            last_dirty=3137,
+            ent=_cge(274)
           }
         },
         {
           k=_cge(275),
           v={
-            ent=_cge(275),
-            last_dirty=3175
+            last_dirty=3175,
+            ent=_cge(275)
           }
         },
         {
           k=_cge(276),
           v={
-            ent=_cge(276),
-            last_dirty=3176
+            last_dirty=3176,
+            ent=_cge(276)
           }
         },
         {
           k=_cge(277),
           v={
-            ent=_cge(277),
-            last_dirty=3209
+            last_dirty=3209,
+            ent=_cge(277)
           }
         },
         {
           k=_cge(278),
           v={
-            ent=_cge(278),
-            last_dirty=3238
+            last_dirty=3238,
+            ent=_cge(278)
           }
         },
         {
           k=_cge(279),
           v={
-            ent=_cge(279),
-            last_dirty=3274
+            last_dirty=3274,
+            ent=_cge(279)
           }
         },
         {
           k=_cge(280),
           v={
-            ent=_cge(280),
-            last_dirty=3360
+            last_dirty=3360,
+            ent=_cge(280)
           }
         },
         {
           k=_cge(281),
           v={
-            ent=_cge(281),
-            last_dirty=3397
+            last_dirty=3397,
+            ent=_cge(281)
           }
         },
         nil,
@@ -7409,282 +7409,282 @@
         {
           k=_cge(284),
           v={
-            ent=_cge(284),
-            last_dirty=3803
+            last_dirty=3803,
+            ent=_cge(284)
           }
         },
         {
           k=_cge(285),
           v={
-            ent=_cge(285),
-            last_dirty=2012
+            last_dirty=2012,
+            ent=_cge(285)
           }
         },
         {
           k=_cge(286),
           v={
-            ent=_cge(286),
-            last_dirty=1266
+            last_dirty=1266,
+            ent=_cge(286)
           }
         },
         nil,
         {
           k=_cge(288),
           v={
-            ent=_cge(288),
-            last_dirty=3220
+            last_dirty=3220,
+            ent=_cge(288)
           }
         },
         {
           k=_cge(289),
           v={
-            ent=_cge(289),
-            last_dirty=3250
+            last_dirty=3250,
+            ent=_cge(289)
           }
         },
         {
           k=_cge(290),
           v={
-            ent=_cge(290),
-            last_dirty=3838
+            last_dirty=3838,
+            ent=_cge(290)
           }
         },
         {
           k=_cge(291),
           v={
-            ent=_cge(291),
-            last_dirty=3498
+            last_dirty=3498,
+            ent=_cge(291)
           }
         },
         {
           k=_cge(292),
           v={
-            ent=_cge(292),
-            last_dirty=2115
+            last_dirty=2115,
+            ent=_cge(292)
           }
         },
         {
           k=_cge(293),
           v={
-            ent=_cge(293),
-            last_dirty=2137
+            last_dirty=2137,
+            ent=_cge(293)
           }
         },
         {
           k=_cge(294),
           v={
-            ent=_cge(294),
-            last_dirty=2157
+            last_dirty=2157,
+            ent=_cge(294)
           }
         },
         {
           k=_cge(295),
           v={
-            ent=_cge(295),
-            last_dirty=2177
+            last_dirty=2177,
+            ent=_cge(295)
           }
         },
         {
           k=_cge(296),
           v={
-            ent=_cge(296),
-            last_dirty=2198
+            last_dirty=2198,
+            ent=_cge(296)
           }
         },
         {
           k=_cge(297),
           v={
-            ent=_cge(297),
-            last_dirty=3732
+            last_dirty=3732,
+            ent=_cge(297)
           }
         },
         {
           k=_cge(298),
           v={
-            ent=_cge(298),
-            last_dirty=2116
+            last_dirty=2116,
+            ent=_cge(298)
           }
         },
         {
           k=_cge(299),
           v={
-            ent=_cge(299),
-            last_dirty=2148
+            last_dirty=2148,
+            ent=_cge(299)
           }
         },
         {
           k=_cge(300),
           v={
-            ent=_cge(300),
-            last_dirty=2170
+            last_dirty=2170,
+            ent=_cge(300)
           }
         },
         {
           k=_cge(301),
           v={
-            ent=_cge(301),
-            last_dirty=2190
+            last_dirty=2190,
+            ent=_cge(301)
           }
         },
         {
           k=_cge(302),
           v={
-            ent=_cge(302),
-            last_dirty=2210
+            last_dirty=2210,
+            ent=_cge(302)
           }
         },
         {
           k=_cge(303),
           v={
-            ent=_cge(303),
-            last_dirty=2231
+            last_dirty=2231,
+            ent=_cge(303)
           }
         },
         {
           k=_cge(304),
           v={
-            ent=_cge(304),
-            last_dirty=3776
+            last_dirty=3776,
+            ent=_cge(304)
           }
         },
         {
           k=_cge(305),
           v={
-            ent=_cge(305),
-            last_dirty=2160
+            last_dirty=2160,
+            ent=_cge(305)
           }
         },
         {
           k=_cge(306),
           v={
-            ent=_cge(306),
-            last_dirty=2192
+            last_dirty=2192,
+            ent=_cge(306)
           }
         },
         {
           k=_cge(307),
           v={
-            ent=_cge(307),
-            last_dirty=2214
+            last_dirty=2214,
+            ent=_cge(307)
           }
         },
         {
           k=_cge(308),
           v={
-            ent=_cge(308),
-            last_dirty=2234
+            last_dirty=2234,
+            ent=_cge(308)
           }
         },
         {
           k=_cge(309),
           v={
-            ent=_cge(309),
-            last_dirty=2254
+            last_dirty=2254,
+            ent=_cge(309)
           }
         },
         {
           k=_cge(310),
           v={
-            ent=_cge(310),
-            last_dirty=2275
+            last_dirty=2275,
+            ent=_cge(310)
           }
         },
         {
           k=_cge(311),
           v={
-            ent=_cge(311),
-            last_dirty=2214
+            last_dirty=2214,
+            ent=_cge(311)
           }
         },
         {
           k=_cge(312),
           v={
-            ent=_cge(312),
-            last_dirty=2246
+            last_dirty=2246,
+            ent=_cge(312)
           }
         },
         {
           k=_cge(313),
           v={
-            ent=_cge(313),
-            last_dirty=2268
+            last_dirty=2268,
+            ent=_cge(313)
           }
         },
         {
           k=_cge(314),
           v={
-            ent=_cge(314),
-            last_dirty=2150
+            last_dirty=2150,
+            ent=_cge(314)
           }
         },
         {
           k=_cge(315),
           v={
-            ent=_cge(315),
-            last_dirty=2194
+            last_dirty=2194,
+            ent=_cge(315)
           }
         },
         {
           k=_cge(316),
           v={
-            ent=_cge(316),
-            last_dirty=2248
+            last_dirty=2248,
+            ent=_cge(316)
           }
         },
         {
           k=_cge(317),
           v={
-            ent=_cge(317),
-            last_dirty=2445
+            last_dirty=2445,
+            ent=_cge(317)
           }
         },
         {
           k=_cge(318),
           v={
-            ent=_cge(318),
-            last_dirty=2472
+            last_dirty=2472,
+            ent=_cge(318)
           }
         },
         {
           k=_cge(319),
           v={
-            ent=_cge(319),
-            last_dirty=2490
+            last_dirty=2490,
+            ent=_cge(319)
           }
         },
         {
           k=_cge(320),
           v={
-            ent=_cge(320),
-            last_dirty=2508
+            last_dirty=2508,
+            ent=_cge(320)
           }
         },
         {
           k=_cge(321),
           v={
-            ent=_cge(321),
-            last_dirty=3359
+            last_dirty=3359,
+            ent=_cge(321)
           }
         },
         {
           k=_cge(322),
           v={
-            ent=_cge(322),
-            last_dirty=3580
+            last_dirty=3580,
+            ent=_cge(322)
           }
         },
         {
           k=_cge(323),
           v={
-            ent=_cge(323),
-            last_dirty=3631
+            last_dirty=3631,
+            ent=_cge(323)
           }
         },
         {
           k=_cge(324),
           v={
-            ent=_cge(324),
-            last_dirty=3663
+            last_dirty=3663,
+            ent=_cge(324)
           }
         },
         nil,
@@ -7707,992 +7707,992 @@
         {
           k=_cge(342),
           v={
+            last_dirty=1071136,
             ent=_cge(342),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=1071136
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
           }
         },
         {
           k=_cge(343),
           v={
-            ent=_cge(343),
-            last_dirty=5240
+            last_dirty=5240,
+            ent=_cge(343)
           }
         },
         {
           k=_cge(344),
           v={
-            ent=_cge(344),
-            last_dirty=5193
+            last_dirty=5193,
+            ent=_cge(344)
           }
         },
         {
           k=_cge(345),
           v={
-            ent=_cge(345),
-            last_dirty=5220
+            last_dirty=5220,
+            ent=_cge(345)
           }
         },
         {
           k=_cge(346),
           v={
-            ent=_cge(346),
-            last_dirty=5210
+            last_dirty=5210,
+            ent=_cge(346)
           }
         },
         {
           k=_cge(347),
           v={
-            ent=_cge(347),
-            last_dirty=5266
+            last_dirty=5266,
+            ent=_cge(347)
           }
         },
         {
           k=_cge(348),
           v={
-            ent=_cge(348),
-            last_dirty=5244
+            last_dirty=5244,
+            ent=_cge(348)
           }
         },
         {
           k=_cge(349),
           v={
-            ent=_cge(349),
-            last_dirty=5269
+            last_dirty=5269,
+            ent=_cge(349)
           }
         },
         {
           k=_cge(350),
           v={
+            last_dirty=128,
             bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
-            ent=_cge(350),
-            last_dirty=128
+            ent=_cge(350)
           }
         },
         {
           k=_cge(351),
           v={
-            ent=_cge(351),
-            last_dirty=5355
+            last_dirty=5355,
+            ent=_cge(351)
           }
         },
         {
           k=_cge(352),
           v={
-            ent=_cge(352),
-            last_dirty=5308
+            last_dirty=5308,
+            ent=_cge(352)
           }
         },
         {
           k=_cge(353),
           v={
-            ent=_cge(353),
-            last_dirty=5335
+            last_dirty=5335,
+            ent=_cge(353)
           }
         },
         {
           k=_cge(354),
           v={
-            ent=_cge(354),
-            last_dirty=5325
+            last_dirty=5325,
+            ent=_cge(354)
           }
         },
         {
           k=_cge(355),
           v={
-            ent=_cge(355),
-            last_dirty=5381
+            last_dirty=5381,
+            ent=_cge(355)
           }
         },
         {
           k=_cge(356),
           v={
-            ent=_cge(356),
-            last_dirty=5359
+            last_dirty=5359,
+            ent=_cge(356)
           }
         },
         {
           k=_cge(357),
           v={
-            ent=_cge(357),
-            last_dirty=5384
+            last_dirty=5384,
+            ent=_cge(357)
           }
         },
         {
           k=_cge(358),
           v={
-            ent=_cge(358),
-            last_dirty=973
+            last_dirty=973,
+            ent=_cge(358)
           }
         },
         {
           k=_cge(359),
           v={
-            ent=_cge(359),
-            last_dirty=1032
+            last_dirty=1032,
+            ent=_cge(359)
           }
         },
         {
           k=_cge(360),
           v={
-            ent=_cge(360),
-            last_dirty=3714
+            last_dirty=3714,
+            ent=_cge(360)
           }
         },
         {
           k=_cge(361),
           v={
-            ent=_cge(361),
-            last_dirty=2398
+            last_dirty=2398,
+            ent=_cge(361)
           }
         },
         {
           k=_cge(362),
           v={
-            ent=_cge(362),
-            last_dirty=2433
+            last_dirty=2433,
+            ent=_cge(362)
           }
         },
         {
           k=_cge(363),
           v={
-            ent=_cge(363),
-            last_dirty=2470
+            last_dirty=2470,
+            ent=_cge(363)
           }
         },
         {
           k=_cge(364),
           v={
-            ent=_cge(364),
-            last_dirty=3474
+            last_dirty=3474,
+            ent=_cge(364)
           }
         },
         {
           k=_cge(365),
           v={
-            ent=_cge(365),
-            last_dirty=3809
+            last_dirty=3809,
+            ent=_cge(365)
           }
         },
         {
           k=_cge(366),
           v={
-            ent=_cge(366),
-            last_dirty=2287
+            last_dirty=2287,
+            ent=_cge(366)
           }
         },
         {
           k=_cge(367),
           v={
-            ent=_cge(367),
-            last_dirty=2308
+            last_dirty=2308,
+            ent=_cge(367)
           }
         },
         {
           k=_cge(368),
           v={
-            ent=_cge(368),
-            last_dirty=3853
+            last_dirty=3853,
+            ent=_cge(368)
           }
         },
         {
           k=_cge(369),
           v={
-            ent=_cge(369),
-            last_dirty=2331
+            last_dirty=2331,
+            ent=_cge(369)
           }
         },
         {
           k=_cge(370),
           v={
-            ent=_cge(370),
-            last_dirty=2352
+            last_dirty=2352,
+            ent=_cge(370)
           }
         },
         {
           k=_cge(371),
           v={
-            ent=_cge(371),
-            last_dirty=3740
+            last_dirty=3740,
+            ent=_cge(371)
           }
         },
         {
           k=_cge(372),
           v={
-            ent=_cge(372),
-            last_dirty=3291
+            last_dirty=3291,
+            ent=_cge(372)
           }
         },
         {
           k=_cge(373),
           v={
-            ent=_cge(373),
-            last_dirty=3310
+            last_dirty=3310,
+            ent=_cge(373)
           }
         },
         {
           k=_cge(374),
           v={
-            ent=_cge(374),
-            last_dirty=3329
+            last_dirty=3329,
+            ent=_cge(374)
           }
         },
         {
           k=_cge(375),
           v={
-            ent=_cge(375),
-            last_dirty=3948
+            last_dirty=3948,
+            ent=_cge(375)
           }
         },
         {
           k=_cge(376),
           v={
-            ent=_cge(376),
-            last_dirty=2443
+            last_dirty=2443,
+            ent=_cge(376)
           }
         },
         {
           k=_cge(377),
           v={
-            ent=_cge(377),
-            last_dirty=3967
+            last_dirty=3967,
+            ent=_cge(377)
           }
         },
         {
           k=_cge(378),
           v={
-            ent=_cge(378),
-            last_dirty=2462
+            last_dirty=2462,
+            ent=_cge(378)
           }
         },
         {
           k=_cge(379),
           v={
-            ent=_cge(379),
-            last_dirty=3824
+            last_dirty=3824,
+            ent=_cge(379)
           }
         },
         {
           k=_cge(380),
           v={
-            ent=_cge(380),
-            last_dirty=3843
+            last_dirty=3843,
+            ent=_cge(380)
           }
         },
         {
           k=_cge(381),
           v={
-            ent=_cge(381),
-            last_dirty=1979
+            last_dirty=1979,
+            ent=_cge(381)
           }
         },
         {
           k=_cge(382),
           v={
-            ent=_cge(382),
-            last_dirty=3901
+            last_dirty=3901,
+            ent=_cge(382)
           }
         },
         {
           k=_cge(383),
           v={
-            ent=_cge(383),
-            last_dirty=1205
+            last_dirty=1205,
+            ent=_cge(383)
           }
         },
         {
           k=_cge(384),
           v={
-            ent=_cge(384),
-            last_dirty=1228
+            last_dirty=1228,
+            ent=_cge(384)
           }
         },
         {
           k=_cge(385),
           v={
-            ent=_cge(385),
-            last_dirty=1307
+            last_dirty=1307,
+            ent=_cge(385)
           }
         },
         {
           k=_cge(386),
           v={
-            ent=_cge(386),
-            last_dirty=1794
+            last_dirty=1794,
+            ent=_cge(386)
           }
         },
         {
           k=_cge(387),
           v={
-            ent=_cge(387),
-            last_dirty=1821
+            last_dirty=1821,
+            ent=_cge(387)
           }
         },
         {
           k=_cge(388),
           v={
-            ent=_cge(388),
-            last_dirty=1852
+            last_dirty=1852,
+            ent=_cge(388)
           }
         },
         {
           k=_cge(389),
           v={
-            ent=_cge(389),
-            last_dirty=1448
+            last_dirty=1448,
+            ent=_cge(389)
           }
         },
         {
           k=_cge(390),
           v={
-            ent=_cge(390),
-            last_dirty=1471
+            last_dirty=1471,
+            ent=_cge(390)
           }
         },
         {
           k=_cge(391),
           v={
-            ent=_cge(391),
-            last_dirty=1561
+            last_dirty=1561,
+            ent=_cge(391)
           }
         },
         {
           k=_cge(392),
           v={
-            ent=_cge(392),
-            last_dirty=2340
+            last_dirty=2340,
+            ent=_cge(392)
           }
         },
         {
           k=_cge(393),
           v={
-            ent=_cge(393),
-            last_dirty=2372
+            last_dirty=2372,
+            ent=_cge(393)
           }
         },
         {
           k=_cge(394),
           v={
-            ent=_cge(394),
-            last_dirty=1908
+            last_dirty=1908,
+            ent=_cge(394)
           }
         },
         {
           k=_cge(395),
           v={
-            ent=_cge(395),
-            last_dirty=1952
+            last_dirty=1952,
+            ent=_cge(395)
           }
         },
         {
           k=_cge(396),
           v={
-            ent=_cge(396),
-            last_dirty=3927
+            last_dirty=3927,
+            ent=_cge(396)
           }
         },
         {
           k=_cge(397),
           v={
-            ent=_cge(397),
-            last_dirty=3276
+            last_dirty=3276,
+            ent=_cge(397)
           }
         },
         {
           k=_cge(398),
           v={
-            ent=_cge(398),
-            last_dirty=3318
+            last_dirty=3318,
+            ent=_cge(398)
           }
         },
         {
           k=_cge(399),
           v={
-            ent=_cge(399),
-            last_dirty=3396
+            last_dirty=3396,
+            ent=_cge(399)
           }
         },
         {
           k=_cge(400),
           v={
-            ent=_cge(400),
-            last_dirty=3443
+            last_dirty=3443,
+            ent=_cge(400)
           }
         },
         {
           k=_cge(401),
           v={
-            ent=_cge(401),
-            last_dirty=3481
+            last_dirty=3481,
+            ent=_cge(401)
           }
         },
         {
           k=_cge(402),
           v={
-            ent=_cge(402),
-            last_dirty=2274
+            last_dirty=2274,
+            ent=_cge(402)
           }
         },
         {
           k=_cge(403),
           v={
-            ent=_cge(403),
-            last_dirty=2241
+            last_dirty=2241,
+            ent=_cge(403)
           }
         },
         {
           k=_cge(404),
           v={
-            ent=_cge(404),
-            last_dirty=1710
+            last_dirty=1710,
+            ent=_cge(404)
           }
         },
         {
           k=_cge(405),
           v={
-            ent=_cge(405),
-            last_dirty=1733
+            last_dirty=1733,
+            ent=_cge(405)
           }
         },
         {
           k=_cge(406),
           v={
-            ent=_cge(406),
-            last_dirty=1823
+            last_dirty=1823,
+            ent=_cge(406)
           }
         },
         {
           k=_cge(407),
           v={
-            ent=_cge(407),
-            last_dirty=2602
+            last_dirty=2602,
+            ent=_cge(407)
           }
         },
         {
           k=_cge(408),
           v={
-            ent=_cge(408),
-            last_dirty=2634
+            last_dirty=2634,
+            ent=_cge(408)
           }
         },
         {
           k=_cge(409),
           v={
-            ent=_cge(409),
-            last_dirty=2170
+            last_dirty=2170,
+            ent=_cge(409)
           }
         },
         {
           k=_cge(410),
           v={
-            ent=_cge(410),
-            last_dirty=2214
+            last_dirty=2214,
+            ent=_cge(410)
           }
         },
         {
           k=_cge(411),
           v={
-            ent=_cge(411),
-            last_dirty=3272
+            last_dirty=3272,
+            ent=_cge(411)
           }
         },
         {
           k=_cge(412),
           v={
-            ent=_cge(412),
-            last_dirty=3317
+            last_dirty=3317,
+            ent=_cge(412)
           }
         },
         {
           k=_cge(413),
           v={
-            ent=_cge(413),
-            last_dirty=3347
+            last_dirty=3347,
+            ent=_cge(413)
           }
         },
         {
           k=_cge(414),
           v={
-            ent=_cge(414),
-            last_dirty=3373
+            last_dirty=3373,
+            ent=_cge(414)
           }
         },
         {
           k=_cge(415),
           v={
-            ent=_cge(415),
-            last_dirty=3415
+            last_dirty=3415,
+            ent=_cge(415)
           }
         },
         {
           k=_cge(416),
           v={
-            ent=_cge(416),
-            last_dirty=3493
+            last_dirty=3493,
+            ent=_cge(416)
           }
         },
         {
           k=_cge(417),
           v={
-            ent=_cge(417),
-            last_dirty=3511
+            last_dirty=3511,
+            ent=_cge(417)
           }
         },
         {
           k=_cge(418),
           v={
-            ent=_cge(418),
-            last_dirty=3530
+            last_dirty=3530,
+            ent=_cge(418)
           }
         },
         {
           k=_cge(419),
           v={
-            ent=_cge(419),
-            last_dirty=2081
+            last_dirty=2081,
+            ent=_cge(419)
           }
         },
         {
           k=_cge(420),
           v={
-            ent=_cge(420),
-            last_dirty=2048
+            last_dirty=2048,
+            ent=_cge(420)
           }
         },
         {
           k=_cge(421),
           v={
-            ent=_cge(421),
-            last_dirty=1517
+            last_dirty=1517,
+            ent=_cge(421)
           }
         },
         {
           k=_cge(422),
           v={
-            ent=_cge(422),
-            last_dirty=1540
+            last_dirty=1540,
+            ent=_cge(422)
           }
         },
         {
           k=_cge(423),
           v={
-            ent=_cge(423),
-            last_dirty=1630
+            last_dirty=1630,
+            ent=_cge(423)
           }
         },
         {
           k=_cge(424),
           v={
-            ent=_cge(424),
-            last_dirty=2409
+            last_dirty=2409,
+            ent=_cge(424)
           }
         },
         {
           k=_cge(425),
           v={
-            ent=_cge(425),
-            last_dirty=2441
+            last_dirty=2441,
+            ent=_cge(425)
           }
         },
         {
           k=_cge(426),
           v={
-            ent=_cge(426),
-            last_dirty=1977
+            last_dirty=1977,
+            ent=_cge(426)
           }
         },
         {
           k=_cge(427),
           v={
-            ent=_cge(427),
-            last_dirty=2021
+            last_dirty=2021,
+            ent=_cge(427)
           }
         },
         {
           k=_cge(428),
           v={
-            ent=_cge(428),
-            last_dirty=2333
+            last_dirty=2333,
+            ent=_cge(428)
           }
         },
         {
           k=_cge(429),
           v={
-            ent=_cge(429),
-            last_dirty=2300
+            last_dirty=2300,
+            ent=_cge(429)
           }
         },
         {
           k=_cge(430),
           v={
-            ent=_cge(430),
-            last_dirty=1769
+            last_dirty=1769,
+            ent=_cge(430)
           }
         },
         {
           k=_cge(431),
           v={
-            ent=_cge(431),
-            last_dirty=1792
+            last_dirty=1792,
+            ent=_cge(431)
           }
         },
         {
           k=_cge(432),
           v={
-            ent=_cge(432),
-            last_dirty=1882
+            last_dirty=1882,
+            ent=_cge(432)
           }
         },
         {
           k=_cge(433),
           v={
-            ent=_cge(433),
-            last_dirty=2661
+            last_dirty=2661,
+            ent=_cge(433)
           }
         },
         {
           k=_cge(434),
           v={
-            ent=_cge(434),
-            last_dirty=2693
+            last_dirty=2693,
+            ent=_cge(434)
           }
         },
         {
           k=_cge(435),
           v={
-            ent=_cge(435),
-            last_dirty=2229
+            last_dirty=2229,
+            ent=_cge(435)
           }
         },
         {
           k=_cge(436),
           v={
-            ent=_cge(436),
-            last_dirty=2273
+            last_dirty=2273,
+            ent=_cge(436)
           }
         },
         {
           k=_cge(437),
           v={
-            ent=_cge(437),
-            last_dirty=2799
+            last_dirty=2799,
+            ent=_cge(437)
           }
         },
         {
           k=_cge(438),
           v={
-            ent=_cge(438),
-            last_dirty=2825
+            last_dirty=2825,
+            ent=_cge(438)
           }
         },
         {
           k=_cge(439),
           v={
-            ent=_cge(439),
-            last_dirty=2848
+            last_dirty=2848,
+            ent=_cge(439)
           }
         },
         {
           k=_cge(440),
           v={
-            ent=_cge(440),
-            last_dirty=2869
+            last_dirty=2869,
+            ent=_cge(440)
           }
         },
         {
           k=_cge(441),
           v={
-            ent=_cge(441),
-            last_dirty=2888
+            last_dirty=2888,
+            ent=_cge(441)
           }
         },
         {
           k=_cge(442),
           v={
-            ent=_cge(442),
-            last_dirty=2912
+            last_dirty=2912,
+            ent=_cge(442)
           }
         },
         {
           k=_cge(443),
           v={
-            ent=_cge(443),
-            last_dirty=2930
+            last_dirty=2930,
+            ent=_cge(443)
           }
         },
         {
           k=_cge(444),
           v={
-            ent=_cge(444),
-            last_dirty=2950
+            last_dirty=2950,
+            ent=_cge(444)
           }
         },
         {
           k=_cge(445),
           v={
-            ent=_cge(445),
-            last_dirty=2985
+            last_dirty=2985,
+            ent=_cge(445)
           }
         },
         {
           k=_cge(446),
           v={
-            ent=_cge(446),
-            last_dirty=3045
+            last_dirty=3045,
+            ent=_cge(446)
           }
         },
         {
           k=_cge(447),
           v={
-            ent=_cge(447),
-            last_dirty=3150
+            last_dirty=3150,
+            ent=_cge(447)
           }
         },
         {
           k=_cge(448),
           v={
-            ent=_cge(448),
-            last_dirty=3238
+            last_dirty=3238,
+            ent=_cge(448)
           }
         },
         {
           k=_cge(449),
           v={
-            ent=_cge(449),
-            last_dirty=3266
+            last_dirty=3266,
+            ent=_cge(449)
           }
         },
         {
           k=_cge(450),
           v={
-            ent=_cge(450),
-            last_dirty=3284
+            last_dirty=3284,
+            ent=_cge(450)
           }
         },
         {
           k=_cge(451),
           v={
-            ent=_cge(451),
-            last_dirty=3308
+            last_dirty=3308,
+            ent=_cge(451)
           }
         },
         {
           k=_cge(452),
           v={
-            ent=_cge(452),
-            last_dirty=3390
+            last_dirty=3390,
+            ent=_cge(452)
           }
         },
         {
           k=_cge(453),
           v={
-            ent=_cge(453),
-            last_dirty=3435
+            last_dirty=3435,
+            ent=_cge(453)
           }
         },
         {
           k=_cge(454),
           v={
-            ent=_cge(454),
-            last_dirty=3465
+            last_dirty=3465,
+            ent=_cge(454)
           }
         },
         {
           k=_cge(455),
           v={
-            ent=_cge(455),
-            last_dirty=3491
+            last_dirty=3491,
+            ent=_cge(455)
           }
         },
         {
           k=_cge(456),
           v={
-            ent=_cge(456),
-            last_dirty=3533
+            last_dirty=3533,
+            ent=_cge(456)
           }
         },
         {
           k=_cge(457),
           v={
-            ent=_cge(457),
-            last_dirty=3611
+            last_dirty=3611,
+            ent=_cge(457)
           }
         },
         {
           k=_cge(458),
           v={
-            ent=_cge(458),
-            last_dirty=2152
+            last_dirty=2152,
+            ent=_cge(458)
           }
         },
         {
           k=_cge(459),
           v={
-            ent=_cge(459),
-            last_dirty=2480
+            last_dirty=2480,
+            ent=_cge(459)
           }
         },
         {
           k=_cge(460),
           v={
-            ent=_cge(460),
-            last_dirty=2512
+            last_dirty=2512,
+            ent=_cge(460)
           }
         },
         {
           k=_cge(461),
           v={
-            ent=_cge(461),
-            last_dirty=2511
+            last_dirty=2511,
+            ent=_cge(461)
           }
         },
         {
           k=_cge(462),
           v={
-            ent=_cge(462),
-            last_dirty=2529
+            last_dirty=2529,
+            ent=_cge(462)
           }
         },
         {
           k=_cge(463),
           v={
-            ent=_cge(463),
-            last_dirty=3346
+            last_dirty=3346,
+            ent=_cge(463)
           }
         },
         {
           k=_cge(464),
           v={
-            ent=_cge(464),
-            last_dirty=3391
+            last_dirty=3391,
+            ent=_cge(464)
           }
         },
         {
           k=_cge(465),
           v={
-            ent=_cge(465),
-            last_dirty=3421
+            last_dirty=3421,
+            ent=_cge(465)
           }
         },
         {
           k=_cge(466),
           v={
-            ent=_cge(466),
-            last_dirty=3447
+            last_dirty=3447,
+            ent=_cge(466)
           }
         },
         {
           k=_cge(467),
           v={
-            ent=_cge(467),
-            last_dirty=3489
+            last_dirty=3489,
+            ent=_cge(467)
           }
         },
         {
           k=_cge(468),
           v={
-            ent=_cge(468),
-            last_dirty=3567
+            last_dirty=3567,
+            ent=_cge(468)
           }
         },
         {
           k=_cge(469),
           v={
-            ent=_cge(469),
-            last_dirty=3416
+            last_dirty=3416,
+            ent=_cge(469)
           }
         },
         {
           k=_cge(470),
           v={
-            ent=_cge(470),
-            last_dirty=3461
+            last_dirty=3461,
+            ent=_cge(470)
           }
         },
         {
           k=_cge(471),
           v={
-            ent=_cge(471),
-            last_dirty=3491
+            last_dirty=3491,
+            ent=_cge(471)
           }
         },
         {
           k=_cge(472),
           v={
-            ent=_cge(472),
-            last_dirty=3517
+            last_dirty=3517,
+            ent=_cge(472)
           }
         },
         {
           k=_cge(473),
           v={
-            ent=_cge(473),
-            last_dirty=3559
+            last_dirty=3559,
+            ent=_cge(473)
           }
         },
         {
           k=_cge(474),
           v={
-            ent=_cge(474),
-            last_dirty=3637
+            last_dirty=3637,
+            ent=_cge(474)
           }
         },
         {
           k=_cge(475),
           v={
-            ent=_cge(475),
-            last_dirty=3658
+            last_dirty=3658,
+            ent=_cge(475)
           }
         },
         {
           k=_cge(476),
           v={
-            ent=_cge(476),
-            last_dirty=3676
+            last_dirty=3676,
+            ent=_cge(476)
           }
         },
         {
           k=_cge(477),
           v={
-            ent=_cge(477),
-            last_dirty=3698
+            last_dirty=3698,
+            ent=_cge(477)
           }
         },
         {
           k=_cge(478),
           v={
+            last_dirty=67,
             ent=_cge(478),
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
-            last_dirty=67
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000))
           }
         },
         {
           k=_cge(479),
           v={
-            ent=_cge(479),
-            last_dirty=2835
+            last_dirty=2835,
+            ent=_cge(479)
           }
         },
         {
           k=_cge(480),
           v={
-            ent=_cge(480),
-            last_dirty=2870
+            last_dirty=2870,
+            ent=_cge(480)
           }
         },
         {
           k=_cge(481),
           v={
-            ent=_cge(481),
-            last_dirty=1098
+            last_dirty=1098,
+            ent=_cge(481)
           }
         },
         {
           k=_cge(482),
           v={
+            last_dirty=1071176,
             bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            ent=_cge(482),
-            last_dirty=1071176
+            ent=_cge(482)
           }
         },
         nil,
@@ -8701,1378 +8701,1378 @@
         {
           k=_cge(486),
           v={
-            ent=_cge(486),
-            last_dirty=2564
+            last_dirty=2564,
+            ent=_cge(486)
           }
         },
         {
           k=_cge(487),
           v={
-            ent=_cge(487),
-            last_dirty=2588
+            last_dirty=2588,
+            ent=_cge(487)
           }
         },
         {
           k=_cge(488),
           v={
-            ent=_cge(488),
-            last_dirty=2606
+            last_dirty=2606,
+            ent=_cge(488)
           }
         },
         {
           k=_cge(489),
           v={
-            ent=_cge(489),
-            last_dirty=2624
+            last_dirty=2624,
+            ent=_cge(489)
           }
         },
         {
           k=_cge(490),
           v={
-            ent=_cge(490),
-            last_dirty=2671
+            last_dirty=2671,
+            ent=_cge(490)
           }
         },
         {
           k=_cge(491),
           v={
-            ent=_cge(491),
-            last_dirty=2730
+            last_dirty=2730,
+            ent=_cge(491)
           }
         },
         {
           k=_cge(492),
           v={
-            ent=_cge(492),
-            last_dirty=2753
+            last_dirty=2753,
+            ent=_cge(492)
           }
         },
         {
           k=_cge(493),
           v={
-            ent=_cge(493),
-            last_dirty=2764
+            last_dirty=2764,
+            ent=_cge(493)
           }
         },
         {
           k=_cge(494),
           v={
-            ent=_cge(494),
-            last_dirty=2757
+            last_dirty=2757,
+            ent=_cge(494)
           }
         },
         {
           k=_cge(495),
           v={
-            ent=_cge(495),
-            last_dirty=2771
+            last_dirty=2771,
+            ent=_cge(495)
           }
         },
         {
           k=_cge(496),
           v={
-            ent=_cge(496),
-            last_dirty=2787
+            last_dirty=2787,
+            ent=_cge(496)
           }
         },
         {
           k=_cge(497),
           v={
-            ent=_cge(497),
-            last_dirty=2592
+            last_dirty=2592,
+            ent=_cge(497)
           }
         },
         {
           k=_cge(498),
           v={
-            ent=_cge(498),
-            last_dirty=3401
+            last_dirty=3401,
+            ent=_cge(498)
           }
         },
         {
           k=_cge(499),
           v={
-            ent=_cge(499),
-            last_dirty=2836
+            last_dirty=2836,
+            ent=_cge(499)
           }
         },
         {
           k=_cge(500),
           v={
-            ent=_cge(500),
-            last_dirty=2852
+            last_dirty=2852,
+            ent=_cge(500)
           }
         },
         {
           k=_cge(501),
           v={
-            ent=_cge(501),
-            last_dirty=2869
+            last_dirty=2869,
+            ent=_cge(501)
           }
         },
         {
           k=_cge(502),
           v={
-            ent=_cge(502),
-            last_dirty=2884
+            last_dirty=2884,
+            ent=_cge(502)
           }
         },
         {
           k=_cge(503),
           v={
-            ent=_cge(503),
-            last_dirty=2898
+            last_dirty=2898,
+            ent=_cge(503)
           }
         },
         {
           k=_cge(504),
           v={
-            ent=_cge(504),
-            last_dirty=2819
+            last_dirty=2819,
+            ent=_cge(504)
           }
         },
         {
           k=_cge(505),
           v={
-            ent=_cge(505),
-            last_dirty=2843
+            last_dirty=2843,
+            ent=_cge(505)
           }
         },
         {
           k=_cge(506),
           v={
-            ent=_cge(506),
-            last_dirty=3419
+            last_dirty=3419,
+            ent=_cge(506)
           }
         },
         {
           k=_cge(507),
           v={
-            last_dirty=3399,
-            ent=_cge(507)
+            ent=_cge(507),
+            last_dirty=3399
           }
         },
         {
           k=_cge(508),
           v={
-            last_dirty=2785,
-            ent=_cge(508)
+            ent=_cge(508),
+            last_dirty=2785
           }
         },
         {
           k=_cge(509),
           v={
-            ent=_cge(509),
-            last_dirty=2862
+            last_dirty=2862,
+            ent=_cge(509)
           }
         },
         {
           k=_cge(510),
           v={
-            ent=_cge(510),
-            last_dirty=2835
+            last_dirty=2835,
+            ent=_cge(510)
           }
         },
         {
           k=_cge(511),
           v={
-            last_dirty=3696,
-            ent=_cge(511)
+            ent=_cge(511),
+            last_dirty=3696
           }
         },
         {
           k=_cge(512),
           v={
-            ent=_cge(512),
-            last_dirty=2955
+            last_dirty=2955,
+            ent=_cge(512)
           }
         },
         {
           k=_cge(513),
           v={
-            ent=_cge(513),
-            last_dirty=2973
+            last_dirty=2973,
+            ent=_cge(513)
           }
         },
         {
           k=_cge(514),
           v={
-            ent=_cge(514),
-            last_dirty=2990
+            last_dirty=2990,
+            ent=_cge(514)
           }
         },
         {
           k=_cge(515),
           v={
-            ent=_cge(515),
-            last_dirty=3007
+            last_dirty=3007,
+            ent=_cge(515)
           }
         },
         {
           k=_cge(516),
           v={
-            ent=_cge(516),
-            last_dirty=3025
+            last_dirty=3025,
+            ent=_cge(516)
           }
         },
         {
           k=_cge(517),
           v={
-            last_dirty=3627,
-            ent=_cge(517)
+            ent=_cge(517),
+            last_dirty=3627
           }
         },
         {
           k=_cge(518),
           v={
-            ent=_cge(518),
-            last_dirty=3059
+            last_dirty=3059,
+            ent=_cge(518)
           }
         },
         {
           k=_cge(519),
           v={
-            ent=_cge(519),
-            last_dirty=3079
+            last_dirty=3079,
+            ent=_cge(519)
           }
         },
         {
           k=_cge(520),
           v={
-            ent=_cge(520),
-            last_dirty=3336
+            last_dirty=3336,
+            ent=_cge(520)
           }
         },
         {
           k=_cge(521),
           v={
-            ent=_cge(521),
-            last_dirty=3355
+            last_dirty=3355,
+            ent=_cge(521)
           }
         },
         {
           k=_cge(522),
           v={
-            ent=_cge(522),
-            last_dirty=3375
+            last_dirty=3375,
+            ent=_cge(522)
           }
         },
         {
           k=_cge(523),
           v={
-            ent=_cge(523),
-            last_dirty=3557
+            last_dirty=3557,
+            ent=_cge(523)
           }
         },
         {
           k=_cge(524),
           v={
-            last_dirty=3949,
-            ent=_cge(524)
+            ent=_cge(524),
+            last_dirty=3949
           }
         },
         {
           k=_cge(525),
           v={
-            ent=_cge(525),
-            last_dirty=3591
+            last_dirty=3591,
+            ent=_cge(525)
           }
         },
         {
           k=_cge(526),
           v={
-            ent=_cge(526),
-            last_dirty=3668
+            last_dirty=3668,
+            ent=_cge(526)
           }
         },
         {
           k=_cge(527),
           v={
-            ent=_cge(527),
-            last_dirty=3357
+            last_dirty=3357,
+            ent=_cge(527)
           }
         },
         {
           k=_cge(528),
           v={
+            ent=_cge(528),
             last_dirty=1428,
-            bbox=cg.bbox(cg.vec2(-0.600000, -0.600000), cg.vec2(0.600000, 0.600000)),
-            ent=_cge(528)
+            bbox=cg.bbox(cg.vec2(-0.600000, -0.600000), cg.vec2(0.600000, 0.600000))
           }
         },
         {
           k=_cge(529),
           v={
-            ent=_cge(529),
-            last_dirty=3359
+            last_dirty=3359,
+            ent=_cge(529)
           }
         },
         {
           k=_cge(530),
           v={
-            ent=_cge(530),
-            last_dirty=3828
+            last_dirty=3828,
+            ent=_cge(530)
           }
         },
         {
           k=_cge(531),
           v={
-            ent=_cge(531),
-            last_dirty=3374
+            last_dirty=3374,
+            ent=_cge(531)
           }
         },
         {
           k=_cge(532),
           v={
-            ent=_cge(532),
-            last_dirty=3737
+            last_dirty=3737,
+            ent=_cge(532)
           }
         },
         {
           k=_cge(533),
           v={
-            last_dirty=3381,
-            ent=_cge(533)
+            ent=_cge(533),
+            last_dirty=3381
           }
         },
         {
           k=_cge(534),
           v={
-            ent=_cge(534),
-            last_dirty=3711
+            last_dirty=3711,
+            ent=_cge(534)
           }
         },
         {
           k=_cge(535),
           v={
-            last_dirty=3401,
-            ent=_cge(535)
+            ent=_cge(535),
+            last_dirty=3401
           }
         },
         {
           k=_cge(536),
           v={
-            ent=_cge(536),
-            last_dirty=3724
+            last_dirty=3724,
+            ent=_cge(536)
           }
         },
         {
           k=_cge(537),
           v={
-            ent=_cge(537),
-            last_dirty=3347
+            last_dirty=3347,
+            ent=_cge(537)
           }
         },
         {
           k=_cge(538),
           v={
-            ent=_cge(538),
-            last_dirty=3708
+            last_dirty=3708,
+            ent=_cge(538)
           }
         },
         {
           k=_cge(539),
           v={
-            ent=_cge(539),
-            last_dirty=3460
+            last_dirty=3460,
+            ent=_cge(539)
           }
         },
         {
           k=_cge(540),
           v={
-            ent=_cge(540),
-            last_dirty=3139
+            last_dirty=3139,
+            ent=_cge(540)
           }
         },
         {
           k=_cge(541),
           v={
-            ent=_cge(541),
-            last_dirty=3340
+            last_dirty=3340,
+            ent=_cge(541)
           }
         },
         {
           k=_cge(542),
           v={
-            ent=_cge(542),
-            last_dirty=3670
+            last_dirty=3670,
+            ent=_cge(542)
           }
         },
         {
           k=_cge(543),
           v={
-            ent=_cge(543),
-            last_dirty=3783
+            last_dirty=3783,
+            ent=_cge(543)
           }
         },
         {
           k=_cge(544),
           v={
-            ent=_cge(544),
-            last_dirty=3322
+            last_dirty=3322,
+            ent=_cge(544)
           }
         },
         {
           k=_cge(545),
           v={
+            last_dirty=1276,
             ent=_cge(545),
-            bbox=cg.bbox(cg.vec2(-0.600000, -0.600000), cg.vec2(0.600000, 0.600000)),
-            last_dirty=1276
+            bbox=cg.bbox(cg.vec2(-0.600000, -0.600000), cg.vec2(0.600000, 0.600000))
           }
         },
         {
           k=_cge(546),
           v={
-            last_dirty=3419,
-            ent=_cge(546)
+            ent=_cge(546),
+            last_dirty=3419
           }
         },
         {
           k=_cge(547),
           v={
-            ent=_cge(547),
-            last_dirty=3676
+            last_dirty=3676,
+            ent=_cge(547)
           }
         },
         {
           k=_cge(548),
           v={
-            ent=_cge(548),
-            last_dirty=3698
+            last_dirty=3698,
+            ent=_cge(548)
           }
         },
         {
           k=_cge(549),
           v={
-            ent=_cge(549),
-            last_dirty=3717
+            last_dirty=3717,
+            ent=_cge(549)
           }
         },
         {
           k=_cge(550),
           v={
-            ent=_cge(550),
-            last_dirty=3743
+            last_dirty=3743,
+            ent=_cge(550)
           }
         },
         {
           k=_cge(551),
           v={
-            ent=_cge(551),
-            last_dirty=3777
+            last_dirty=3777,
+            ent=_cge(551)
           }
         },
         {
           k=_cge(552),
           v={
-            last_dirty=3559,
-            ent=_cge(552)
+            ent=_cge(552),
+            last_dirty=3559
           }
         },
         {
           k=_cge(553),
           v={
-            ent=_cge(553),
-            last_dirty=3349
+            last_dirty=3349,
+            ent=_cge(553)
           }
         },
         {
           k=_cge(554),
           v={
-            ent=_cge(554),
-            last_dirty=3536
+            last_dirty=3536,
+            ent=_cge(554)
           }
         },
         {
           k=_cge(555),
           v={
-            last_dirty=3514,
-            ent=_cge(555)
+            ent=_cge(555),
+            last_dirty=3514
           }
         },
         {
           k=_cge(556),
           v={
-            last_dirty=3427,
-            ent=_cge(556)
+            ent=_cge(556),
+            last_dirty=3427
           }
         },
         {
           k=_cge(557),
           v={
-            last_dirty=3371,
-            ent=_cge(557)
+            ent=_cge(557),
+            last_dirty=3371
           }
         },
         {
           k=_cge(558),
           v={
-            ent=_cge(558),
-            last_dirty=3447
+            last_dirty=3447,
+            ent=_cge(558)
           }
         },
         {
           k=_cge(559),
           v={
-            ent=_cge(559),
-            last_dirty=3404
+            last_dirty=3404,
+            ent=_cge(559)
           }
         },
         {
           k=_cge(560),
           v={
-            last_dirty=3775,
-            ent=_cge(560)
+            ent=_cge(560),
+            last_dirty=3775
           }
         },
         {
           k=_cge(561),
           v={
-            ent=_cge(561),
-            last_dirty=3749
+            last_dirty=3749,
+            ent=_cge(561)
           }
         },
         {
           k=_cge(562),
           v={
-            last_dirty=3805,
-            ent=_cge(562)
+            ent=_cge(562),
+            last_dirty=3805
           }
         },
         {
           k=_cge(563),
           v={
-            last_dirty=3749,
-            ent=_cge(563)
+            ent=_cge(563),
+            last_dirty=3749
           }
         },
         {
           k=_cge(564),
           v={
-            last_dirty=3437,
-            ent=_cge(564)
+            ent=_cge(564),
+            last_dirty=3437
           }
         },
         {
           k=_cge(565),
           v={
-            last_dirty=3729,
-            ent=_cge(565)
+            ent=_cge(565),
+            last_dirty=3729
           }
         },
         {
           k=_cge(566),
           v={
-            last_dirty=527,
-            ent=_cge(566)
+            ent=_cge(566),
+            last_dirty=527
           }
         },
         {
           k=_cge(567),
           v={
+            last_dirty=299,
             ent=_cge(567),
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
-            last_dirty=299
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000))
           }
         },
         {
           k=_cge(568),
           v={
-            ent=_cge(568),
-            last_dirty=3074
+            last_dirty=3074,
+            ent=_cge(568)
           }
         },
         {
           k=_cge(569),
           v={
-            last_dirty=3818,
-            ent=_cge(569)
+            ent=_cge(569),
+            last_dirty=3818
           }
         },
         {
           k=_cge(570),
           v={
-            last_dirty=3728,
-            ent=_cge(570)
+            ent=_cge(570),
+            last_dirty=3728
           }
         },
         {
           k=_cge(571),
           v={
-            ent=_cge(571),
-            last_dirty=3856
+            last_dirty=3856,
+            ent=_cge(571)
           }
         },
         {
           k=_cge(572),
           v={
-            ent=_cge(572),
-            last_dirty=3847
+            last_dirty=3847,
+            ent=_cge(572)
           }
         },
         {
           k=_cge(573),
           v={
-            last_dirty=412,
-            ent=_cge(573)
+            ent=_cge(573),
+            last_dirty=412
           }
         },
         {
           k=_cge(574),
           v={
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
             last_dirty=449,
-            ent=_cge(574),
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000))
+            ent=_cge(574)
           }
         },
         {
           k=_cge(575),
           v={
-            ent=_cge(575),
-            last_dirty=4087
+            last_dirty=4087,
+            ent=_cge(575)
           }
         },
         {
           k=_cge(576),
           v={
-            last_dirty=3793,
-            ent=_cge(576)
+            ent=_cge(576),
+            last_dirty=3793
           }
         },
         {
           k=_cge(577),
           v={
-            ent=_cge(577),
-            last_dirty=4022
+            last_dirty=4022,
+            ent=_cge(577)
           }
         },
         {
           k=_cge(578),
           v={
-            ent=_cge(578),
-            last_dirty=4107
+            last_dirty=4107,
+            ent=_cge(578)
           }
         },
         {
           k=_cge(579),
           v={
-            last_dirty=3099,
-            ent=_cge(579)
+            ent=_cge(579),
+            last_dirty=3099
           }
         },
         {
           k=_cge(580),
           v={
-            last_dirty=3832,
-            ent=_cge(580)
+            ent=_cge(580),
+            last_dirty=3832
           }
         },
         {
           k=_cge(581),
           v={
-            ent=_cge(581),
-            last_dirty=483
+            last_dirty=483,
+            ent=_cge(581)
           }
         },
         {
           k=_cge(582),
           v={
-            last_dirty=4056,
-            ent=_cge(582)
+            ent=_cge(582),
+            last_dirty=4056
           }
         },
         {
           k=_cge(583),
           v={
-            last_dirty=3923,
-            ent=_cge(583)
+            ent=_cge(583),
+            last_dirty=3923
           }
         },
         {
           k=_cge(584),
           v={
-            last_dirty=3025,
-            ent=_cge(584)
+            ent=_cge(584),
+            last_dirty=3025
           }
         },
         {
           k=_cge(585),
           v={
-            ent=_cge(585),
-            last_dirty=3121
+            last_dirty=3121,
+            ent=_cge(585)
           }
         },
         {
           k=_cge(586),
           v={
-            last_dirty=3198,
-            ent=_cge(586)
+            ent=_cge(586),
+            last_dirty=3198
           }
         },
         {
           k=_cge(587),
           v={
-            ent=_cge(587),
-            last_dirty=3314
+            last_dirty=3314,
+            ent=_cge(587)
           }
         },
         {
           k=_cge(588),
           v={
-            last_dirty=3346,
-            ent=_cge(588)
+            ent=_cge(588),
+            last_dirty=3346
           }
         },
         {
           k=_cge(589),
           v={
-            ent=_cge(589),
-            last_dirty=3374
+            last_dirty=3374,
+            ent=_cge(589)
           }
         },
         {
           k=_cge(590),
           v={
-            last_dirty=3324,
-            ent=_cge(590)
+            ent=_cge(590),
+            last_dirty=3324
           }
         },
         {
           k=_cge(591),
           v={
-            last_dirty=3799,
-            ent=_cge(591)
+            ent=_cge(591),
+            last_dirty=3799
           }
         },
         {
           k=_cge(592),
           v={
-            ent=_cge(592),
-            last_dirty=3827
+            last_dirty=3827,
+            ent=_cge(592)
           }
         },
         {
           k=_cge(593),
           v={
-            last_dirty=3902,
-            ent=_cge(593)
+            ent=_cge(593),
+            last_dirty=3902
           }
         },
         {
           k=_cge(594),
           v={
-            ent=_cge(594),
-            last_dirty=3927
+            last_dirty=3927,
+            ent=_cge(594)
           }
         },
         {
           k=_cge(595),
           v={
-            last_dirty=3612,
-            ent=_cge(595)
+            ent=_cge(595),
+            last_dirty=3612
           }
         },
         {
           k=_cge(596),
           v={
-            last_dirty=3578,
-            ent=_cge(596)
+            ent=_cge(596),
+            last_dirty=3578
           }
         },
         {
           k=_cge(597),
           v={
-            ent=_cge(597),
-            last_dirty=3609
+            last_dirty=3609,
+            ent=_cge(597)
           }
         },
         {
           k=_cge(598),
           v={
-            last_dirty=3049,
-            ent=_cge(598)
+            ent=_cge(598),
+            last_dirty=3049
           }
         },
         {
           k=_cge(599),
           v={
-            last_dirty=3959,
-            ent=_cge(599)
+            ent=_cge(599),
+            last_dirty=3959
           }
         },
         {
           k=_cge(600),
           v={
-            last_dirty=3811,
-            ent=_cge(600)
+            ent=_cge(600),
+            last_dirty=3811
           }
         },
         {
           k=_cge(601),
           v={
-            ent=_cge(601),
-            last_dirty=3844
+            last_dirty=3844,
+            ent=_cge(601)
           }
         },
         {
           k=_cge(602),
           v={
-            last_dirty=3875,
-            ent=_cge(602)
+            ent=_cge(602),
+            last_dirty=3875
           }
         },
         {
           k=_cge(603),
           v={
-            last_dirty=4047,
-            ent=_cge(603)
+            ent=_cge(603),
+            last_dirty=4047
           }
         },
         {
           k=_cge(604),
           v={
-            ent=_cge(604),
-            last_dirty=3393
+            last_dirty=3393,
+            ent=_cge(604)
           }
         },
         {
           k=_cge(605),
           v={
-            ent=_cge(605),
-            last_dirty=3044
+            last_dirty=3044,
+            ent=_cge(605)
           }
         },
         {
           k=_cge(606),
           v={
-            last_dirty=2316,
-            ent=_cge(606)
+            ent=_cge(606),
+            last_dirty=2316
           }
         },
         {
           k=_cge(607),
           v={
-            last_dirty=2283,
-            ent=_cge(607)
+            ent=_cge(607),
+            last_dirty=2283
           }
         },
         {
           k=_cge(608),
           v={
-            last_dirty=1752,
-            ent=_cge(608)
+            ent=_cge(608),
+            last_dirty=1752
           }
         },
         {
           k=_cge(609),
           v={
-            last_dirty=1775,
-            ent=_cge(609)
+            ent=_cge(609),
+            last_dirty=1775
           }
         },
         {
           k=_cge(610),
           v={
-            last_dirty=1865,
-            ent=_cge(610)
+            ent=_cge(610),
+            last_dirty=1865
           }
         },
         {
           k=_cge(611),
           v={
-            last_dirty=2676,
-            ent=_cge(611)
+            ent=_cge(611),
+            last_dirty=2676
           }
         },
         {
           k=_cge(612),
           v={
-            last_dirty=2212,
-            ent=_cge(612)
+            ent=_cge(612),
+            last_dirty=2212
           }
         },
         {
           k=_cge(613),
           v={
-            last_dirty=2256,
-            ent=_cge(613)
+            ent=_cge(613),
+            last_dirty=2256
           }
         },
         {
           k=_cge(614),
           v={
-            last_dirty=3553,
-            ent=_cge(614)
+            ent=_cge(614),
+            last_dirty=3553
           }
         },
         {
           k=_cge(615),
           v={
-            last_dirty=3572,
-            ent=_cge(615)
+            ent=_cge(615),
+            last_dirty=3572
           }
         },
         {
           k=_cge(616),
           v={
-            ent=_cge(616),
-            last_dirty=2371
+            last_dirty=2371,
+            ent=_cge(616)
           }
         },
         {
           k=_cge(617),
           v={
-            ent=_cge(617),
-            last_dirty=2338
+            last_dirty=2338,
+            ent=_cge(617)
           }
         },
         {
           k=_cge(618),
           v={
-            ent=_cge(618),
-            last_dirty=1807
+            last_dirty=1807,
+            ent=_cge(618)
           }
         },
         {
           k=_cge(619),
           v={
-            ent=_cge(619),
-            last_dirty=1830
+            last_dirty=1830,
+            ent=_cge(619)
           }
         },
         {
           k=_cge(620),
           v={
-            ent=_cge(620),
-            last_dirty=1920
+            last_dirty=1920,
+            ent=_cge(620)
           }
         },
         {
           k=_cge(621),
           v={
-            ent=_cge(621),
-            last_dirty=2731
+            last_dirty=2731,
+            ent=_cge(621)
           }
         },
         {
           k=_cge(622),
           v={
-            ent=_cge(622),
-            last_dirty=2267
+            last_dirty=2267,
+            ent=_cge(622)
           }
         },
         {
           k=_cge(623),
           v={
-            ent=_cge(623),
-            last_dirty=2311
+            last_dirty=2311,
+            ent=_cge(623)
           }
         },
         {
           k=_cge(624),
           v={
-            ent=_cge(624),
-            last_dirty=3608
+            last_dirty=3608,
+            ent=_cge(624)
           }
         },
         {
           k=_cge(625),
           v={
-            ent=_cge(625),
-            last_dirty=3627
+            last_dirty=3627,
+            ent=_cge(625)
           }
         },
         {
           k=_cge(626),
           v={
-            last_dirty=3671,
-            ent=_cge(626)
+            ent=_cge(626),
+            last_dirty=3671
           }
         },
         {
           k=_cge(627),
           v={
-            last_dirty=1983,
-            ent=_cge(627)
+            ent=_cge(627),
+            last_dirty=1983
           }
         },
         {
           k=_cge(628),
           v={
-            last_dirty=3690,
-            ent=_cge(628)
+            ent=_cge(628),
+            last_dirty=3690
           }
         },
         {
           k=_cge(629),
           v={
-            last_dirty=1893,
-            ent=_cge(629)
+            ent=_cge(629),
+            last_dirty=1893
           }
         },
         {
           k=_cge(630),
           v={
-            last_dirty=3445,
-            ent=_cge(630)
+            ent=_cge(630),
+            last_dirty=3445
           }
         },
         {
           k=_cge(631),
           v={
-            last_dirty=3475,
-            ent=_cge(631)
+            ent=_cge(631),
+            last_dirty=3475
           }
         },
         {
           k=_cge(632),
           v={
-            last_dirty=3501,
-            ent=_cge(632)
+            ent=_cge(632),
+            last_dirty=3501
           }
         },
         {
           k=_cge(633),
           v={
-            last_dirty=3543,
-            ent=_cge(633)
+            ent=_cge(633),
+            last_dirty=3543
           }
         },
         {
           k=_cge(634),
           v={
-            last_dirty=3621,
-            ent=_cge(634)
+            ent=_cge(634),
+            last_dirty=3621
           }
         },
         {
           k=_cge(635),
           v={
-            ent=_cge(635),
-            last_dirty=3519
+            last_dirty=3519,
+            ent=_cge(635)
           }
         },
         {
           k=_cge(636),
           v={
-            ent=_cge(636),
-            last_dirty=3549
+            last_dirty=3549,
+            ent=_cge(636)
           }
         },
         {
           k=_cge(637),
           v={
-            ent=_cge(637),
-            last_dirty=3575
+            last_dirty=3575,
+            ent=_cge(637)
           }
         },
         {
           k=_cge(638),
           v={
-            ent=_cge(638),
-            last_dirty=3617
+            last_dirty=3617,
+            ent=_cge(638)
           }
         },
         {
           k=_cge(639),
           v={
-            ent=_cge(639),
-            last_dirty=3695
+            last_dirty=3695,
+            ent=_cge(639)
           }
         },
         {
           k=_cge(640),
           v={
-            last_dirty=3562,
-            ent=_cge(640)
+            ent=_cge(640),
+            last_dirty=3562
           }
         },
         {
           k=_cge(641),
           v={
-            last_dirty=3592,
-            ent=_cge(641)
+            ent=_cge(641),
+            last_dirty=3592
           }
         },
         {
           k=_cge(642),
           v={
-            last_dirty=3618,
-            ent=_cge(642)
+            ent=_cge(642),
+            last_dirty=3618
           }
         },
         {
           k=_cge(643),
           v={
-            last_dirty=3660,
-            ent=_cge(643)
+            ent=_cge(643),
+            last_dirty=3660
           }
         },
         {
           k=_cge(644),
           v={
-            last_dirty=3738,
-            ent=_cge(644)
+            ent=_cge(644),
+            last_dirty=3738
           }
         },
         {
           k=_cge(645),
           v={
-            ent=_cge(645),
-            last_dirty=3792
+            last_dirty=3792,
+            ent=_cge(645)
           }
         },
         {
           k=_cge(646),
           v={
-            ent=_cge(646),
-            last_dirty=3822
+            last_dirty=3822,
+            ent=_cge(646)
           }
         },
         {
           k=_cge(647),
           v={
-            ent=_cge(647),
-            last_dirty=3848
+            last_dirty=3848,
+            ent=_cge(647)
           }
         },
         {
           k=_cge(648),
           v={
-            ent=_cge(648),
-            last_dirty=3890
+            last_dirty=3890,
+            ent=_cge(648)
           }
         },
         {
           k=_cge(649),
           v={
-            ent=_cge(649),
-            last_dirty=3968
+            last_dirty=3968,
+            ent=_cge(649)
           }
         },
         {
           k=_cge(650),
           v={
-            last_dirty=2056,
-            ent=_cge(650)
+            ent=_cge(650),
+            last_dirty=2056
           }
         },
         {
           k=_cge(651),
           v={
-            last_dirty=2023,
-            ent=_cge(651)
+            ent=_cge(651),
+            last_dirty=2023
           }
         },
         {
           k=_cge(652),
           v={
-            last_dirty=1492,
-            ent=_cge(652)
+            ent=_cge(652),
+            last_dirty=1492
           }
         },
         {
           k=_cge(653),
           v={
-            last_dirty=1515,
-            ent=_cge(653)
+            ent=_cge(653),
+            last_dirty=1515
           }
         },
         {
           k=_cge(654),
           v={
-            last_dirty=2384,
-            ent=_cge(654)
+            ent=_cge(654),
+            last_dirty=2384
           }
         },
         {
           k=_cge(655),
           v={
-            last_dirty=2416,
-            ent=_cge(655)
+            ent=_cge(655),
+            last_dirty=2416
           }
         },
         {
           k=_cge(656),
           v={
-            last_dirty=1952,
-            ent=_cge(656)
+            ent=_cge(656),
+            last_dirty=1952
           }
         },
         {
           k=_cge(657),
           v={
-            last_dirty=1996,
-            ent=_cge(657)
+            ent=_cge(657),
+            last_dirty=1996
           }
         },
         {
           k=_cge(658),
           v={
-            ent=_cge(658),
-            last_dirty=2114
+            last_dirty=2114,
+            ent=_cge(658)
           }
         },
         {
           k=_cge(659),
           v={
-            ent=_cge(659),
-            last_dirty=2081
+            last_dirty=2081,
+            ent=_cge(659)
           }
         },
         {
           k=_cge(660),
           v={
-            ent=_cge(660),
-            last_dirty=1550
+            last_dirty=1550,
+            ent=_cge(660)
           }
         },
         {
           k=_cge(661),
           v={
-            ent=_cge(661),
-            last_dirty=1573
+            last_dirty=1573,
+            ent=_cge(661)
           }
         },
         {
           k=_cge(662),
           v={
-            ent=_cge(662),
-            last_dirty=2442
+            last_dirty=2442,
+            ent=_cge(662)
           }
         },
         {
           k=_cge(663),
           v={
-            ent=_cge(663),
-            last_dirty=2474
+            last_dirty=2474,
+            ent=_cge(663)
           }
         },
         {
           k=_cge(664),
           v={
-            ent=_cge(664),
-            last_dirty=2010
+            last_dirty=2010,
+            ent=_cge(664)
           }
         },
         {
           k=_cge(665),
           v={
-            ent=_cge(665),
-            last_dirty=2054
+            last_dirty=2054,
+            ent=_cge(665)
           }
         },
         {
           k=_cge(666),
           v={
-            last_dirty=2186,
-            ent=_cge(666)
+            ent=_cge(666),
+            last_dirty=2186
           }
         },
         {
           k=_cge(667),
           v={
-            last_dirty=2153,
-            ent=_cge(667)
+            ent=_cge(667),
+            last_dirty=2153
           }
         },
         {
           k=_cge(668),
           v={
-            last_dirty=1622,
-            ent=_cge(668)
+            ent=_cge(668),
+            last_dirty=1622
           }
         },
         {
           k=_cge(669),
           v={
-            last_dirty=1645,
-            ent=_cge(669)
+            ent=_cge(669),
+            last_dirty=1645
           }
         },
         {
           k=_cge(670),
           v={
-            last_dirty=2514,
-            ent=_cge(670)
+            ent=_cge(670),
+            last_dirty=2514
           }
         },
         {
           k=_cge(671),
           v={
-            last_dirty=2546,
-            ent=_cge(671)
+            ent=_cge(671),
+            last_dirty=2546
           }
         },
         {
           k=_cge(672),
           v={
-            last_dirty=2082,
-            ent=_cge(672)
+            ent=_cge(672),
+            last_dirty=2082
           }
         },
         {
           k=_cge(673),
           v={
-            last_dirty=2126,
-            ent=_cge(673)
+            ent=_cge(673),
+            last_dirty=2126
           }
         },
         nil,
         {
           k=_cge(675),
           v={
-            last_dirty=3382,
-            ent=_cge(675)
+            ent=_cge(675),
+            last_dirty=3382
           }
         },
         {
           k=_cge(676),
           v={
-            last_dirty=3427,
-            ent=_cge(676)
+            ent=_cge(676),
+            last_dirty=3427
           }
         },
         {
           k=_cge(677),
           v={
-            last_dirty=3457,
-            ent=_cge(677)
+            ent=_cge(677),
+            last_dirty=3457
           }
         },
         {
           k=_cge(678),
           v={
-            last_dirty=3483,
-            ent=_cge(678)
+            ent=_cge(678),
+            last_dirty=3483
           }
         },
         {
           k=_cge(679),
           v={
-            last_dirty=3525,
-            ent=_cge(679)
+            ent=_cge(679),
+            last_dirty=3525
           }
         },
         {
           k=_cge(680),
           v={
-            last_dirty=3603,
-            ent=_cge(680)
+            ent=_cge(680),
+            last_dirty=3603
           }
         },
         {
           k=_cge(681),
           v={
-            last_dirty=3621,
-            ent=_cge(681)
+            ent=_cge(681),
+            last_dirty=3621
           }
         },
         {
           k=_cge(682),
           v={
-            ent=_cge(682),
-            last_dirty=3663
+            last_dirty=3663,
+            ent=_cge(682)
           }
         },
         nil,
@@ -10090,733 +10090,733 @@
         {
           k=_cge(695),
           v={
-            last_dirty=3715,
-            ent=_cge(695)
+            ent=_cge(695),
+            last_dirty=3715
           }
         },
         {
           k=_cge(696),
           v={
-            ent=_cge(696),
-            last_dirty=3818
+            last_dirty=3818,
+            ent=_cge(696)
           }
         },
         {
           k=_cge(697),
           v={
-            last_dirty=2116,
-            ent=_cge(697)
+            ent=_cge(697),
+            last_dirty=2116
           }
         },
         {
           k=_cge(698),
           v={
-            last_dirty=2790,
-            ent=_cge(698)
+            ent=_cge(698),
+            last_dirty=2790
           }
         },
         {
           k=_cge(699),
           v={
-            ent=_cge(699),
-            last_dirty=2812
+            last_dirty=2812,
+            ent=_cge(699)
           }
         },
         {
           k=_cge(700),
           v={
-            last_dirty=2835,
-            ent=_cge(700)
+            ent=_cge(700),
+            last_dirty=2835
           }
         },
         {
           k=_cge(701),
           v={
-            ent=_cge(701),
-            last_dirty=2855
+            last_dirty=2855,
+            ent=_cge(701)
           }
         },
         {
           k=_cge(702),
           v={
-            last_dirty=2874,
-            ent=_cge(702)
+            ent=_cge(702),
+            last_dirty=2874
           }
         },
         {
           k=_cge(703),
           v={
-            ent=_cge(703),
-            last_dirty=2889
+            last_dirty=2889,
+            ent=_cge(703)
           }
         },
         {
           k=_cge(704),
           v={
+            ent=_cge(704),
             last_dirty=1071480,
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            ent=_cge(704)
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
           }
         },
         {
           k=_cge(705),
           v={
-            ent=_cge(705),
-            last_dirty=2940
+            last_dirty=2940,
+            ent=_cge(705)
           }
         },
         {
           k=_cge(706),
           v={
-            last_dirty=2961,
-            ent=_cge(706)
+            ent=_cge(706),
+            last_dirty=2961
           }
         },
         {
           k=_cge(707),
           v={
-            ent=_cge(707),
-            last_dirty=2979
+            last_dirty=2979,
+            ent=_cge(707)
           }
         },
         {
           k=_cge(708),
           v={
-            last_dirty=2997,
-            ent=_cge(708)
+            ent=_cge(708),
+            last_dirty=2997
           }
         },
         {
           k=_cge(709),
           v={
-            ent=_cge(709),
-            last_dirty=3015
+            last_dirty=3015,
+            ent=_cge(709)
           }
         },
         {
           k=_cge(710),
           v={
-            last_dirty=3032,
-            ent=_cge(710)
+            ent=_cge(710),
+            last_dirty=3032
           }
         },
         {
           k=_cge(711),
           v={
-            ent=_cge(711),
-            last_dirty=3048
+            last_dirty=3048,
+            ent=_cge(711)
           }
         },
         {
           k=_cge(712),
           v={
-            last_dirty=541,
-            ent=_cge(712)
+            ent=_cge(712),
+            last_dirty=541
           }
         },
         {
           k=_cge(713),
           v={
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
             last_dirty=819,
-            ent=_cge(713),
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000))
+            ent=_cge(713)
           }
         },
         nil,
         {
           k=_cge(715),
           v={
-            last_dirty=2962,
-            ent=_cge(715)
+            ent=_cge(715),
+            last_dirty=2962
           }
         },
         {
           k=_cge(716),
           v={
-            ent=_cge(716),
-            last_dirty=2983
+            last_dirty=2983,
+            ent=_cge(716)
           }
         },
         {
           k=_cge(717),
           v={
-            last_dirty=3004,
-            ent=_cge(717)
+            ent=_cge(717),
+            last_dirty=3004
           }
         },
         {
           k=_cge(718),
           v={
-            ent=_cge(718),
-            last_dirty=3023
+            last_dirty=3023,
+            ent=_cge(718)
           }
         },
         {
           k=_cge(719),
           v={
-            last_dirty=3040,
-            ent=_cge(719)
+            ent=_cge(719),
+            last_dirty=3040
           }
         },
         {
           k=_cge(720),
           v={
-            ent=_cge(720),
-            last_dirty=3057
+            last_dirty=3057,
+            ent=_cge(720)
           }
         },
         {
           k=_cge(721),
           v={
-            last_dirty=3011,
-            ent=_cge(721)
+            ent=_cge(721),
+            last_dirty=3011
           }
         },
         {
           k=_cge(722),
           v={
-            ent=_cge(722),
-            last_dirty=3047
+            last_dirty=3047,
+            ent=_cge(722)
           }
         },
         {
           k=_cge(723),
           v={
-            last_dirty=3079,
-            ent=_cge(723)
+            ent=_cge(723),
+            last_dirty=3079
           }
         },
         {
           k=_cge(724),
           v={
-            ent=_cge(724),
-            last_dirty=3097
+            last_dirty=3097,
+            ent=_cge(724)
           }
         },
         {
           k=_cge(725),
           v={
-            last_dirty=3166,
-            ent=_cge(725)
+            ent=_cge(725),
+            last_dirty=3166
           }
         },
         {
           k=_cge(726),
           v={
-            ent=_cge(726),
-            last_dirty=3188
+            last_dirty=3188,
+            ent=_cge(726)
           }
         },
         {
           k=_cge(727),
           v={
-            last_dirty=3215,
-            ent=_cge(727)
+            ent=_cge(727),
+            last_dirty=3215
           }
         },
         {
           k=_cge(728),
           v={
-            last_dirty=3098,
-            ent=_cge(728)
+            ent=_cge(728),
+            last_dirty=3098
           }
         },
         {
           k=_cge(729),
           v={
-            ent=_cge(729),
-            last_dirty=3123
+            last_dirty=3123,
+            ent=_cge(729)
           }
         },
         {
           k=_cge(730),
           v={
-            last_dirty=3141,
-            ent=_cge(730)
+            ent=_cge(730),
+            last_dirty=3141
           }
         },
         {
           k=_cge(731),
           v={
-            ent=_cge(731),
-            last_dirty=3157
+            last_dirty=3157,
+            ent=_cge(731)
           }
         },
         {
           k=_cge(732),
           v={
-            last_dirty=3205,
-            ent=_cge(732)
+            ent=_cge(732),
+            last_dirty=3205
           }
         },
         {
           k=_cge(733),
           v={
-            ent=_cge(733),
-            last_dirty=3226
+            last_dirty=3226,
+            ent=_cge(733)
           }
         },
         {
           k=_cge(734),
           v={
-            last_dirty=3249,
-            ent=_cge(734)
+            ent=_cge(734),
+            last_dirty=3249
           }
         },
         {
           k=_cge(735),
           v={
-            ent=_cge(735),
-            last_dirty=3270
+            last_dirty=3270,
+            ent=_cge(735)
           }
         },
         {
           k=_cge(736),
           v={
-            last_dirty=3291,
-            ent=_cge(736)
+            ent=_cge(736),
+            last_dirty=3291
           }
         },
         {
           k=_cge(737),
           v={
-            ent=_cge(737),
-            last_dirty=3320
+            last_dirty=3320,
+            ent=_cge(737)
           }
         },
         {
           k=_cge(738),
           v={
-            last_dirty=3339,
-            ent=_cge(738)
+            ent=_cge(738),
+            last_dirty=3339
           }
         },
         {
           k=_cge(739),
           v={
-            ent=_cge(739),
-            last_dirty=3356
+            last_dirty=3356,
+            ent=_cge(739)
           }
         },
         {
           k=_cge(740),
           v={
-            ent=_cge(740),
-            last_dirty=3240
+            last_dirty=3240,
+            ent=_cge(740)
           }
         },
         {
           k=_cge(741),
           v={
-            last_dirty=3268,
-            ent=_cge(741)
+            ent=_cge(741),
+            last_dirty=3268
           }
         },
         {
           k=_cge(742),
           v={
-            ent=_cge(742),
-            last_dirty=3296
+            last_dirty=3296,
+            ent=_cge(742)
           }
         },
         {
           k=_cge(743),
           v={
+            ent=_cge(743),
             bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
-            last_dirty=703,
-            ent=_cge(743)
+            last_dirty=703
           }
         },
         {
           k=_cge(744),
           v={
-            last_dirty=3868,
-            ent=_cge(744)
+            ent=_cge(744),
+            last_dirty=3868
           }
         },
         {
           k=_cge(745),
           v={
-            ent=_cge(745),
-            last_dirty=3890
+            last_dirty=3890,
+            ent=_cge(745)
           }
         },
         {
           k=_cge(746),
           v={
-            last_dirty=3912,
-            ent=_cge(746)
+            ent=_cge(746),
+            last_dirty=3912
           }
         },
         {
           k=_cge(747),
           v={
-            ent=_cge(747),
-            last_dirty=3937
+            last_dirty=3937,
+            ent=_cge(747)
           }
         },
         {
           k=_cge(748),
           v={
-            last_dirty=3988,
-            ent=_cge(748)
+            ent=_cge(748),
+            last_dirty=3988
           }
         },
         {
           k=_cge(749),
           v={
-            ent=_cge(749),
-            last_dirty=4013
+            last_dirty=4013,
+            ent=_cge(749)
           }
         },
         {
           k=_cge(750),
           v={
-            last_dirty=4030,
-            ent=_cge(750)
+            ent=_cge(750),
+            last_dirty=4030
           }
         },
         {
           k=_cge(751),
           v={
-            ent=_cge(751),
-            last_dirty=4049
+            last_dirty=4049,
+            ent=_cge(751)
           }
         },
         {
           k=_cge(752),
           v={
-            last_dirty=3260,
-            ent=_cge(752)
+            ent=_cge(752),
+            last_dirty=3260
           }
         },
         {
           k=_cge(753),
           v={
-            ent=_cge(753),
-            last_dirty=3281
+            last_dirty=3281,
+            ent=_cge(753)
           }
         },
         {
           k=_cge(754),
           v={
-            last_dirty=3302,
-            ent=_cge(754)
+            ent=_cge(754),
+            last_dirty=3302
           }
         },
         {
           k=_cge(755),
           v={
-            ent=_cge(755),
-            last_dirty=3322
+            last_dirty=3322,
+            ent=_cge(755)
           }
         },
         {
           k=_cge(756),
           v={
-            last_dirty=3343,
-            ent=_cge(756)
+            ent=_cge(756),
+            last_dirty=3343
           }
         },
         {
           k=_cge(757),
           v={
-            ent=_cge(757),
-            last_dirty=3363
+            last_dirty=3363,
+            ent=_cge(757)
           }
         },
         {
           k=_cge(758),
           v={
-            last_dirty=3381,
-            ent=_cge(758)
+            ent=_cge(758),
+            last_dirty=3381
           }
         },
         {
           k=_cge(759),
           v={
-            last_dirty=3210,
-            ent=_cge(759)
+            ent=_cge(759),
+            last_dirty=3210
           }
         },
         {
           k=_cge(760),
           v={
-            last_dirty=3420,
-            ent=_cge(760)
+            ent=_cge(760),
+            last_dirty=3420
           }
         },
         {
           k=_cge(761),
           v={
-            ent=_cge(761),
-            last_dirty=3441
+            last_dirty=3441,
+            ent=_cge(761)
           }
         },
         {
           k=_cge(762),
           v={
-            last_dirty=3465,
-            ent=_cge(762)
+            ent=_cge(762),
+            last_dirty=3465
           }
         },
         {
           k=_cge(763),
           v={
-            ent=_cge(763),
-            last_dirty=604
+            last_dirty=604,
+            ent=_cge(763)
           }
         },
         {
           k=_cge(764),
           v={
-            ent=_cge(764),
-            last_dirty=567
+            last_dirty=567,
+            ent=_cge(764)
           }
         },
         {
           k=_cge(765),
           v={
-            ent=_cge(765),
-            last_dirty=2897
+            last_dirty=2897,
+            ent=_cge(765)
           }
         },
         {
           k=_cge(766),
           v={
-            last_dirty=2917,
-            ent=_cge(766)
+            ent=_cge(766),
+            last_dirty=2917
           }
         },
         {
           k=_cge(767),
           v={
-            ent=_cge(767),
-            last_dirty=2940
+            last_dirty=2940,
+            ent=_cge(767)
           }
         },
         {
           k=_cge(768),
           v={
-            last_dirty=2961,
-            ent=_cge(768)
+            ent=_cge(768),
+            last_dirty=2961
           }
         },
         {
           k=_cge(769),
           v={
-            ent=_cge(769),
-            last_dirty=2981
+            last_dirty=2981,
+            ent=_cge(769)
           }
         },
         {
           k=_cge(770),
           v={
-            last_dirty=3140,
-            ent=_cge(770)
+            ent=_cge(770),
+            last_dirty=3140
           }
         },
         {
           k=_cge(771),
           v={
-            ent=_cge(771),
-            last_dirty=3155
+            last_dirty=3155,
+            ent=_cge(771)
           }
         },
         {
           k=_cge(772),
           v={
-            ent=_cge(772),
-            last_dirty=3192
+            last_dirty=3192,
+            ent=_cge(772)
           }
         },
         {
           k=_cge(773),
           v={
             ent=_cge(773),
-            last_dirty=3441
+            last_dirty=3089
           }
         },
         {
           k=_cge(774),
           v={
-            last_dirty=4031,
-            ent=_cge(774)
+            ent=_cge(774),
+            last_dirty=4031
           }
         },
         {
           k=_cge(775),
           v={
-            ent=_cge(775),
-            last_dirty=4050
+            last_dirty=4050,
+            ent=_cge(775)
           }
         },
         {
           k=_cge(776),
           v={
-            last_dirty=4069,
-            ent=_cge(776)
+            ent=_cge(776),
+            last_dirty=4069
           }
         },
         {
           k=_cge(777),
           v={
-            ent=_cge(777),
-            last_dirty=4089
+            last_dirty=4089,
+            ent=_cge(777)
           }
         },
         {
           k=_cge(778),
           v={
-            last_dirty=4109,
-            ent=_cge(778)
+            ent=_cge(778),
+            last_dirty=4109
           }
         },
         {
           k=_cge(779),
           v={
-            ent=_cge(779),
-            last_dirty=4131
+            last_dirty=4131,
+            ent=_cge(779)
           }
         },
         {
           k=_cge(780),
           v={
-            last_dirty=3986,
-            ent=_cge(780)
+            ent=_cge(780),
+            last_dirty=3986
           }
         },
         {
           k=_cge(781),
           v={
-            ent=_cge(781),
-            last_dirty=4008
+            last_dirty=4008,
+            ent=_cge(781)
           }
         },
         {
           k=_cge(782),
           v={
-            ent=_cge(782),
-            last_dirty=3499
+            last_dirty=3499,
+            ent=_cge(782)
           }
         },
         {
           k=_cge(783),
           v={
-            last_dirty=3514,
-            ent=_cge(783)
+            ent=_cge(783),
+            last_dirty=3514
           }
         },
         {
           k=_cge(784),
           v={
-            ent=_cge(784),
-            last_dirty=3533
+            last_dirty=3533,
+            ent=_cge(784)
           }
         },
         {
           k=_cge(785),
           v={
-            last_dirty=3551,
-            ent=_cge(785)
+            ent=_cge(785),
+            last_dirty=3551
           }
         },
         {
           k=_cge(786),
           v={
-            ent=_cge(786),
-            last_dirty=3566
+            last_dirty=3566,
+            ent=_cge(786)
           }
         },
         {
           k=_cge(787),
           v={
-            last_dirty=3585,
-            ent=_cge(787)
+            ent=_cge(787),
+            last_dirty=3585
           }
         },
         {
           k=_cge(788),
           v={
-            ent=_cge(788),
-            last_dirty=3607
+            last_dirty=3607,
+            ent=_cge(788)
           }
         },
         {
           k=_cge(789),
           v={
-            last_dirty=3622,
-            ent=_cge(789)
+            ent=_cge(789),
+            last_dirty=3622
           }
         },
         {
           k=_cge(790),
           v={
-            ent=_cge(790),
-            last_dirty=3641
+            last_dirty=3641,
+            ent=_cge(790)
           }
         },
         {
           k=_cge(791),
           v={
-            last_dirty=4022,
-            ent=_cge(791)
+            ent=_cge(791),
+            last_dirty=4022
           }
         },
         {
           k=_cge(792),
           v={
-            last_dirty=3519,
-            ent=_cge(792)
+            ent=_cge(792),
+            last_dirty=3519
           }
         },
         {
           k=_cge(793),
           v={
-            ent=_cge(793),
-            last_dirty=3545
+            last_dirty=3545,
+            ent=_cge(793)
           }
         },
         {
           k=_cge(794),
           v={
-            last_dirty=3568,
-            ent=_cge(794)
+            ent=_cge(794),
+            last_dirty=3568
           }
         },
         {
           k=_cge(795),
           v={
-            ent=_cge(795),
-            last_dirty=669
+            last_dirty=669,
+            ent=_cge(795)
           }
         },
         {
           k=_cge(796),
           v={
-            ent=_cge(796),
-            last_dirty=3129
+            last_dirty=3129,
+            ent=_cge(796)
           }
         },
         {
           k=_cge(797),
           v={
-            last_dirty=3089,
+            last_dirty=3441,
             ent=_cge(797)
           }
         },
         {
           k=_cge(798),
           v={
-            last_dirty=3464,
-            ent=_cge(798)
+            ent=_cge(798),
+            last_dirty=3464
           }
         },
         {
           k=_cge(799),
           v={
-            last_dirty=3009,
-            ent=_cge(799)
+            ent=_cge(799),
+            last_dirty=3009
           }
         }
       }),
@@ -15481,7 +15481,924 @@
       }
     }),
   edit={
-    sel=cg.__entity_table_load({})
+    sel=cg.__entity_table_load({
+        [487]={
+          k=_cge(487),
+          v=true
+        },
+        [486]={
+          k=_cge(486),
+          v=true
+        },
+        [489]={
+          k=_cge(489),
+          v=true
+        },
+        [488]={
+          k=_cge(488),
+          v=true
+        },
+        [491]={
+          k=_cge(491),
+          v=true
+        },
+        [490]={
+          k=_cge(490),
+          v=true
+        },
+        [493]={
+          k=_cge(493),
+          v=true
+        },
+        [792]={
+          k=_cge(792),
+          v=true
+        },
+        [794]={
+          k=_cge(794),
+          v=true
+        },
+        [494]={
+          k=_cge(494),
+          v=true
+        },
+        [497]={
+          k=_cge(497),
+          v=true
+        },
+        [784]={
+          k=_cge(784),
+          v=true
+        },
+        [786]={
+          k=_cge(786),
+          v=true
+        },
+        [788]={
+          k=_cge(788),
+          v=true
+        },
+        [790]={
+          k=_cge(790),
+          v=true
+        },
+        [776]={
+          k=_cge(776),
+          v=true
+        },
+        [778]={
+          k=_cge(778),
+          v=true
+        },
+        [780]={
+          k=_cge(780),
+          v=true
+        },
+        [782]={
+          k=_cge(782),
+          v=true
+        },
+        [504]={
+          k=_cge(504),
+          v=true
+        },
+        [507]={
+          k=_cge(507),
+          v=true
+        },
+        [770]={
+          k=_cge(770),
+          v=true
+        },
+        [774]={
+          k=_cge(774),
+          v=true
+        },
+        [508]={
+          k=_cge(508),
+          v=true
+        },
+        [763]={
+          k=_cge(763),
+          v=true
+        },
+        [761]={
+          k=_cge(761),
+          v=true
+        },
+        [767]={
+          k=_cge(767),
+          v=true
+        },
+        [765]={
+          k=_cge(765),
+          v=true
+        },
+        [755]={
+          k=_cge(755),
+          v=true
+        },
+        [753]={
+          k=_cge(753),
+          v=true
+        },
+        [759]={
+          k=_cge(759),
+          v=true
+        },
+        [757]={
+          k=_cge(757),
+          v=true
+        },
+        [747]={
+          k=_cge(747),
+          v=true
+        },
+        [745]={
+          k=_cge(745),
+          v=true
+        },
+        [751]={
+          k=_cge(751),
+          v=true
+        },
+        [749]={
+          k=_cge(749),
+          v=true
+        },
+        [739]={
+          k=_cge(739),
+          v=true
+        },
+        [737]={
+          k=_cge(737),
+          v=true
+        },
+        [743]={
+          k=_cge(743),
+          v=true
+        },
+        [741]={
+          k=_cge(741),
+          v=true
+        },
+        [731]={
+          k=_cge(731),
+          v=true
+        },
+        [729]={
+          k=_cge(729),
+          v=true
+        },
+        [735]={
+          k=_cge(735),
+          v=true
+        },
+        [733]={
+          k=_cge(733),
+          v=true
+        },
+        [723]={
+          k=_cge(723),
+          v=true
+        },
+        [721]={
+          k=_cge(721),
+          v=true
+        },
+        [727]={
+          k=_cge(727),
+          v=true
+        },
+        [725]={
+          k=_cge(725),
+          v=true
+        },
+        [715]={
+          k=_cge(715),
+          v=true
+        },
+        [713]={
+          k=_cge(713),
+          v=true
+        },
+        [719]={
+          k=_cge(719),
+          v=true
+        },
+        [717]={
+          k=_cge(717),
+          v=true
+        },
+        [707]={
+          k=_cge(707),
+          v=true
+        },
+        [705]={
+          k=_cge(705),
+          v=true
+        },
+        [571]={
+          k=_cge(571),
+          v=true
+        },
+        [709]={
+          k=_cge(709),
+          v=true
+        },
+        [575]={
+          k=_cge(575),
+          v=true
+        },
+        [703]={
+          k=_cge(703),
+          v=true
+        },
+        [699]={
+          k=_cge(699),
+          v=true
+        },
+        [689]={
+          k=_cge(689),
+          v=true
+        },
+        [691]={
+          k=_cge(691),
+          v=true
+        },
+        [685]={
+          k=_cge(685),
+          v=true
+        },
+        [687]={
+          k=_cge(687),
+          v=true
+        },
+        [543]={
+          k=_cge(543),
+          v=true
+        },
+        [539]={
+          k=_cge(539),
+          v=true
+        },
+        [531]={
+          k=_cge(531),
+          v=true
+        },
+        [527]={
+          k=_cge(527),
+          v=true
+        },
+        [541]={
+          k=_cge(541),
+          v=true
+        },
+        [798]={
+          k=_cge(798),
+          v=true
+        },
+        [525]={
+          k=_cge(525),
+          v=true
+        },
+        [796]={
+          k=_cge(796),
+          v=true
+        },
+        [521]={
+          k=_cge(521),
+          v=true
+        },
+        [701]={
+          k=_cge(701),
+          v=true
+        },
+        [519]={
+          k=_cge(519),
+          v=true
+        },
+        [547]={
+          k=_cge(547),
+          v=true
+        },
+        [549]={
+          k=_cge(549),
+          v=true
+        },
+        [551]={
+          k=_cge(551),
+          v=true
+        },
+        [537]={
+          k=_cge(537),
+          v=true
+        },
+        [771]={
+          k=_cge(771),
+          v=true
+        },
+        [711]={
+          k=_cge(711),
+          v=true
+        },
+        [568]={
+          k=_cge(568),
+          v=true
+        },
+        [572]={
+          k=_cge(572),
+          v=true
+        },
+        [772]={
+          k=_cge(772),
+          v=true
+        },
+        [510]={
+          k=_cge(510),
+          v=true
+        },
+        [573]={
+          k=_cge(573),
+          v=true
+        },
+        [768]={
+          k=_cge(768),
+          v=true
+        },
+        [604]={
+          k=_cge(604),
+          v=true
+        },
+        [602]={
+          k=_cge(602),
+          v=true
+        },
+        [600]={
+          k=_cge(600),
+          v=true
+        },
+        [598]={
+          k=_cge(598),
+          v=true
+        },
+        [596]={
+          k=_cge(596),
+          v=true
+        },
+        [594]={
+          k=_cge(594),
+          v=true
+        },
+        [592]={
+          k=_cge(592),
+          v=true
+        },
+        [590]={
+          k=_cge(590),
+          v=true
+        },
+        [588]={
+          k=_cge(588),
+          v=true
+        },
+        [586]={
+          k=_cge(586),
+          v=true
+        },
+        [584]={
+          k=_cge(584),
+          v=true
+        },
+        [582]={
+          k=_cge(582),
+          v=true
+        },
+        [580]={
+          k=_cge(580),
+          v=true
+        },
+        [578]={
+          k=_cge(578),
+          v=true
+        },
+        [576]={
+          k=_cge(576),
+          v=true
+        },
+        [569]={
+          k=_cge(569),
+          v=true
+        },
+        [570]={
+          k=_cge(570),
+          v=true
+        },
+        [567]={
+          k=_cge(567),
+          v=true
+        },
+        [566]={
+          k=_cge(566),
+          v=true
+        },
+        [562]={
+          k=_cge(562),
+          v=true
+        },
+        [563]={
+          k=_cge(563),
+          v=true
+        },
+        [565]={
+          k=_cge(565),
+          v=true
+        },
+        [561]={
+          k=_cge(561),
+          v=true
+        },
+        [560]={
+          k=_cge(560),
+          v=true
+        },
+        [564]={
+          k=_cge(564),
+          v=true
+        },
+        [492]={
+          k=_cge(492),
+          v=true
+        },
+        [495]={
+          k=_cge(495),
+          v=true
+        },
+        [496]={
+          k=_cge(496),
+          v=true
+        },
+        [498]={
+          k=_cge(498),
+          v=true
+        },
+        [793]={
+          k=_cge(793),
+          v=true
+        },
+        [795]={
+          k=_cge(795),
+          v=true
+        },
+        [797]={
+          k=_cge(797),
+          v=true
+        },
+        [799]={
+          k=_cge(799),
+          v=true
+        },
+        [785]={
+          k=_cge(785),
+          v=true
+        },
+        [787]={
+          k=_cge(787),
+          v=true
+        },
+        [789]={
+          k=_cge(789),
+          v=true
+        },
+        [791]={
+          k=_cge(791),
+          v=true
+        },
+        [777]={
+          k=_cge(777),
+          v=true
+        },
+        [779]={
+          k=_cge(779),
+          v=true
+        },
+        [781]={
+          k=_cge(781),
+          v=true
+        },
+        [783]={
+          k=_cge(783),
+          v=true
+        },
+        [499]={
+          k=_cge(499),
+          v=true
+        },
+        [769]={
+          k=_cge(769),
+          v=true
+        },
+        [773]={
+          k=_cge(773),
+          v=true
+        },
+        [775]={
+          k=_cge(775),
+          v=true
+        },
+        [500]={
+          k=_cge(500),
+          v=true
+        },
+        [762]={
+          k=_cge(762),
+          v=true
+        },
+        [760]={
+          k=_cge(760),
+          v=true
+        },
+        [766]={
+          k=_cge(766),
+          v=true
+        },
+        [516]={
+          k=_cge(516),
+          v=true
+        },
+        [754]={
+          k=_cge(754),
+          v=true
+        },
+        [752]={
+          k=_cge(752),
+          v=true
+        },
+        [522]={
+          k=_cge(522),
+          v=true
+        },
+        [524]={
+          k=_cge(524),
+          v=true
+        },
+        [526]={
+          k=_cge(526),
+          v=true
+        },
+        [744]={
+          k=_cge(744),
+          v=true
+        },
+        [530]={
+          k=_cge(530),
+          v=true
+        },
+        [532]={
+          k=_cge(532),
+          v=true
+        },
+        [534]={
+          k=_cge(534),
+          v=true
+        },
+        [536]={
+          k=_cge(536),
+          v=true
+        },
+        [538]={
+          k=_cge(538),
+          v=true
+        },
+        [540]={
+          k=_cge(540),
+          v=true
+        },
+        [542]={
+          k=_cge(542),
+          v=true
+        },
+        [544]={
+          k=_cge(544),
+          v=true
+        },
+        [546]={
+          k=_cge(546),
+          v=true
+        },
+        [548]={
+          k=_cge(548),
+          v=true
+        },
+        [550]={
+          k=_cge(550),
+          v=true
+        },
+        [552]={
+          k=_cge(552),
+          v=true
+        },
+        [554]={
+          k=_cge(554),
+          v=true
+        },
+        [556]={
+          k=_cge(556),
+          v=true
+        },
+        [558]={
+          k=_cge(558),
+          v=true
+        },
+        [712]={
+          k=_cge(712),
+          v=true
+        },
+        [718]={
+          k=_cge(718),
+          v=true
+        },
+        [716]={
+          k=_cge(716),
+          v=true
+        },
+        [706]={
+          k=_cge(706),
+          v=true
+        },
+        [704]={
+          k=_cge(704),
+          v=true
+        },
+        [710]={
+          k=_cge(710),
+          v=true
+        },
+        [708]={
+          k=_cge(708),
+          v=true
+        },
+        [700]={
+          k=_cge(700),
+          v=true
+        },
+        [702]={
+          k=_cge(702),
+          v=true
+        },
+        [501]={
+          k=_cge(501),
+          v=true
+        },
+        [698]={
+          k=_cge(698),
+          v=true
+        },
+        [502]={
+          k=_cge(502),
+          v=true
+        },
+        [503]={
+          k=_cge(503),
+          v=true
+        },
+        [688]={
+          k=_cge(688),
+          v=true
+        },
+        [690]={
+          k=_cge(690),
+          v=true
+        },
+        [684]={
+          k=_cge(684),
+          v=true
+        },
+        [686]={
+          k=_cge(686),
+          v=true
+        },
+        [505]={
+          k=_cge(505),
+          v=true
+        },
+        [506]={
+          k=_cge(506),
+          v=true
+        },
+        [545]={
+          k=_cge(545),
+          v=true
+        },
+        [509]={
+          k=_cge(509),
+          v=true
+        },
+        [533]={
+          k=_cge(533),
+          v=true
+        },
+        [511]={
+          k=_cge(511),
+          v=true
+        },
+        [512]={
+          k=_cge(512),
+          v=true
+        },
+        [513]={
+          k=_cge(513),
+          v=true
+        },
+        [514]={
+          k=_cge(514),
+          v=true
+        },
+        [515]={
+          k=_cge(515),
+          v=true
+        },
+        [517]={
+          k=_cge(517),
+          v=true
+        },
+        [518]={
+          k=_cge(518),
+          v=true
+        },
+        [520]={
+          k=_cge(520),
+          v=true
+        },
+        [574]={
+          k=_cge(574),
+          v=true
+        },
+        [714]={
+          k=_cge(714),
+          v=true
+        },
+        [724]={
+          k=_cge(724),
+          v=true
+        },
+        [726]={
+          k=_cge(726),
+          v=true
+        },
+        [720]={
+          k=_cge(720),
+          v=true
+        },
+        [722]={
+          k=_cge(722),
+          v=true
+        },
+        [732]={
+          k=_cge(732),
+          v=true
+        },
+        [734]={
+          k=_cge(734),
+          v=true
+        },
+        [728]={
+          k=_cge(728),
+          v=true
+        },
+        [730]={
+          k=_cge(730),
+          v=true
+        },
+        [740]={
+          k=_cge(740),
+          v=true
+        },
+        [742]={
+          k=_cge(742),
+          v=true
+        },
+        [736]={
+          k=_cge(736),
+          v=true
+        },
+        [738]={
+          k=_cge(738),
+          v=true
+        },
+        [748]={
+          k=_cge(748),
+          v=true
+        },
+        [750]={
+          k=_cge(750),
+          v=true
+        },
+        [746]={
+          k=_cge(746),
+          v=true
+        },
+        [756]={
+          k=_cge(756),
+          v=true
+        },
+        [758]={
+          k=_cge(758),
+          v=true
+        },
+        [764]={
+          k=_cge(764),
+          v=true
+        },
+        [523]={
+          k=_cge(523),
+          v=true
+        },
+        [555]={
+          k=_cge(555),
+          v=true
+        },
+        [553]={
+          k=_cge(553),
+          v=true
+        },
+        [557]={
+          k=_cge(557),
+          v=true
+        },
+        [559]={
+          k=_cge(559),
+          v=true
+        },
+        [529]={
+          k=_cge(529),
+          v=true
+        },
+        [535]={
+          k=_cge(535),
+          v=true
+        },
+        [605]={
+          k=_cge(605),
+          v=true
+        },
+        [603]={
+          k=_cge(603),
+          v=true
+        },
+        [601]={
+          k=_cge(601),
+          v=true
+        },
+        [599]={
+          k=_cge(599),
+          v=true
+        },
+        [597]={
+          k=_cge(597),
+          v=true
+        },
+        [595]={
+          k=_cge(595),
+          v=true
+        },
+        [593]={
+          k=_cge(593),
+          v=true
+        },
+        [591]={
+          k=_cge(591),
+          v=true
+        },
+        [589]={
+          k=_cge(589),
+          v=true
+        },
+        [587]={
+          k=_cge(587),
+          v=true
+        },
+        [585]={
+          k=_cge(585),
+          v=true
+        },
+        [583]={
+          k=_cge(583),
+          v=true
+        },
+        [581]={
+          k=_cge(581),
+          v=true
+        },
+        [579]={
+          k=_cge(579),
+          v=true
+        },
+        [577]={
+          k=_cge(577),
+          v=true
+        }
+      })
   },
   gui_textbox={
     auto_saveload=true,
@@ -15504,10 +16421,10 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [566]={
-          k=_cge(566),
+        [342]={
+          k=_cge(342),
           v={
-            ent=_cge(566)
+            ent=_cge(342)
           }
         },
         [764]={
@@ -15516,10 +16433,10 @@
             ent=_cge(764)
           }
         },
-        [342]={
-          k=_cge(342),
+        [566]={
+          k=_cge(566),
           v={
-            ent=_cge(342)
+            ent=_cge(566)
           }
         },
         [704]={
@@ -15594,39 +16511,39 @@
         [545]={
           k=_cge(545),
           v={
-            period=1.7999999523163,
-            shooting=false,
-            next=1,
             dir=cg.vec2(-1.000000, 0.000000),
+            next=1,
+            shooting=false,
+            period=1.7999999523163,
             ent=_cge(545)
           }
         },
         [528]={
           k=_cge(528),
           v={
-            ent=_cge(528),
+            period=2,
             shooting=false,
             next=1,
-            period=2
+            ent=_cge(528)
           }
         },
         [204]={
           k=_cge(204),
           v={
-            period=2,
-            shooting=false,
-            next=1,
             dir=cg.vec2(-1.000000, 0.000000),
+            next=1,
+            shooting=false,
+            period=2,
             ent=_cge(204)
           }
         },
         [221]={
           k=_cge(221),
           v={
-            period=1,
-            shooting=false,
-            next=1,
             dir=cg.vec2(0.000000, 1.000000),
+            next=1,
+            shooting=false,
+            period=1,
             ent=_cge(221)
           }
         }
@@ -15672,8 +16589,8 @@
           k=_cge(704),
           v={
             t=0,
-            speed=5.1999998092651,
-            ent=_cge(704)
+            ent=_cge(704),
+            speed=5.1999998092651
           }
         },
         [108]={
@@ -15687,16 +16604,16 @@
           k=_cge(482),
           v={
             t=0,
-            ent=_cge(482),
-            speed=5.1999998092651
+            speed=5.1999998092651,
+            ent=_cge(482)
           }
         },
         [342]={
           k=_cge(342),
           v={
             t=0,
-            speed=5.1999998092651,
-            ent=_cge(342)
+            ent=_cge(342),
+            speed=5.1999998092651
           }
         }
       }),
@@ -22808,7 +23725,7 @@ end\" " }
   }
   { "camera" n 
     { "pool" n }
-    [ "inverse_view_matrix" "0.049855 -0.000000 0.000000 0.000000 0.066473 -0.000000 0.105732 3.118275 1.000000 " ] 
+    [ "inverse_view_matrix" "0.025583 -0.000000 0.000000 0.000000 0.034110 -0.000000 0.028407 1.500772 1.000000 " ] 
   }
   { "transform" n 
     { "pool" n 
@@ -22854,7 +23771,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "2.000000 -56.000000 " ] 
         { "pool_elem" n 
-          { "id" "773 " }
+          { "id" "797 " }
         }
       }
       { n n 
@@ -33939,7 +34856,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-1.000000 -50.000000 " ] 
         { "pool_elem" n 
-          { "id" "797 " }
+          { "id" "773 " }
         }
       }
       { n n 
@@ -34282,7 +35199,7 @@ end\" " }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "773 " }
+          { "id" "797 " }
         }
       }
       { n n 
@@ -34402,7 +35319,7 @@ end\" " }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "797 " }
+          { "id" "773 " }
         }
       }
       { n n 
