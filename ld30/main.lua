@@ -225,6 +225,7 @@ function cs.player_control.unpaused_update(obj)
             function (e)
                 return not cs.portal.has(e) and not cs.dangerous.has(e)
                     and not cs.pit.has(e) and not cs.switch.has(e)
+                    and not cs.message_trigger.has(e)
             end)
     end
 
@@ -641,4 +642,20 @@ function show_message(name, time)
             time = time,
         }
     }
+end
+
+
+-----------------------------------------------------------------------------
+
+cs.message_trigger = cg.simple_sys()
+
+cg.simple_prop(cs.message_trigger, 'time', 10)
+cg.simple_prop(cs.message_trigger, 'message_name', 'default')
+
+function cs.message_trigger.unpaused_update(obj)
+    local pcols = cs.bump.sweep(obj.ent, cg.vec2_zero, cs.player_control.has)
+    if #pcols > 0 then
+        show_message(obj.message_name, obj.time)
+        cs.entity.destroy(obj.ent)
+    end
 end
