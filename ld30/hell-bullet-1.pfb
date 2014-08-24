@@ -1,4 +1,4 @@
-14778
+14887
 { n n 
   { "script" n 
     { "str" "\"do local _={
@@ -26,10 +26,10 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [29]={
-          k=_cge(29),
+        [32]={
+          k=_cge(32),
           v={
-            ent=_cge(29)
+            ent=_cge(32)
           }
         }
       }),
@@ -75,11 +75,11 @@
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
     tbl=cg.__entity_table_load({
-        [29]={
-          k=_cge(29),
+        [32]={
+          k=_cge(32),
           v={
-            bbox=cg.bbox(cg.vec2(-0.187500, -0.187500), cg.vec2(0.187500, 0.187500)),
-            ent=_cge(29)
+            ent=_cge(32),
+            bbox=cg.bbox(cg.vec2(-0.187500, -0.187500), cg.vec2(0.187500, 0.187500))
           }
         }
       }),
@@ -126,8 +126,8 @@
     add=nil
   },
   group=cg.__entity_table_load({
-      [29]={
-        k=_cge(29),
+      [32]={
+        k=_cge(32),
         v={
           default=true
         }
@@ -135,8 +135,8 @@
     }),
   edit={
     sel=cg.__entity_table_load({
-        [29]={
-          k=_cge(29),
+        [32]={
+          k=_cge(32),
           v=true
         }
       })
@@ -161,7 +161,14 @@
     update_all=function() --[[..skipped..]] end,
     simple_update_all=nil,
     simple_has=nil,
-    tbl=cg.__entity_table_load({}),
+    tbl=cg.__entity_table_load({
+        [32]={
+          k=_cge(32),
+          v={
+            ent=_cge(32)
+          }
+        }
+      }),
     add=nil
   },
   gui_window={
@@ -313,10 +320,10 @@
     add=function() --[[..skipped..]] end,
     set_time=function() --[[..skipped..]] end,
     tbl=cg.__entity_table_load({
-        [29]={
-          k=_cge(29),
+        [32]={
+          k=_cge(32),
           v={
-            ent=_cge(29)
+            ent=_cge(32)
           }
         }
       }),
@@ -426,7 +433,7 @@ end\" " }
         [ "texcell" "112.000000 96.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
-          { "id" "29 " }
+          { "id" "32 " }
         }
       }
     }
@@ -439,18 +446,18 @@ end\" " }
   { "transform" n 
     { "pool" n 
       { n n 
-        { "dirty_count" "4 " }
-        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 " ] 
+        { "dirty_count" "31 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -3.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 -3.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "1.000000 1.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
+        [ "position" "0.000000 -3.000000 " ] 
         { "pool_elem" n 
-          { "id" "29 " }
+          { "id" "32 " }
         }
       }
     }
@@ -460,7 +467,7 @@ end\" " }
   }
   { "prefab" n 
     { "saved_root" n 
-      { "id" "29 " }
+      { "id" "32 " }
     }
   }
   { "entity" n 
@@ -468,7 +475,7 @@ end\" " }
     { "exists_pool" n 
       { n n 
         { "pool_elem" n 
-          { "id" "29 " }
+          { "id" "32 " }
         }
       }
     }
