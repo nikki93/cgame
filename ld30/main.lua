@@ -333,8 +333,8 @@ function cs.quad_shooter.unpaused_update(obj)
                     }
                 }
 
-                if d < 10 then
-                    local g = (10 - d) / 10
+                if d < 15 then
+                    local g = (15 - d) / 15
                     cg.add {
                         sound = {
                             path = sound_dir .. '/quad.wav',
@@ -527,8 +527,8 @@ function cs.switch.unpaused_update(obj)
     if player ~= cg.entity_nil and sound then
         local pp = cs.transform.get_position(player)
         local d = cg.vec2_len(pp - cs.transform.get_position(obj.ent))
-        if d < 10 then
-            local g = (10 - d) / 10
+        if d < 15 then
+            local g = (15 - d) / 15
             cg.add {
                 sound = {
                     path = sound_dir .. '/' .. sound,
