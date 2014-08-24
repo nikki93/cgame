@@ -22,7 +22,9 @@ function cs.bump.create(obj)
     _update_rect(obj, true)
 end
 function cs.bump.destroy(obj)
-    world:remove(obj.ent.id)
+    if world:hasItem(obj.ent.id) then
+        world:remove(obj.ent.id)
+    end
 end
 
 function cs.bump.set_position(ent, pos)
