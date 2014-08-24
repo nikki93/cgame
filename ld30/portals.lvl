@@ -1,9 +1,10 @@
-14653
+14663
 { n n 
   { "script" n 
     { "str" "\"do local _={
   wall={
     auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
     simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
@@ -70,8 +71,8 @@
         [28]={
           k=_cge(28),
           v={
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            ent=_cge(28)
+            ent=_cge(28),
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
           }
         }
       }),
@@ -247,7 +248,6 @@
   portal={
     auto_saveload=true,
     unpaused_update=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
     set_world_2=function() --[[..skipped..]] end,
     get_world_2=function() --[[..skipped..]] end,
     get_world_1=function() --[[..skipped..]] end,
@@ -424,7 +424,7 @@ end\" " }
   }
   { "camera" n 
     { "pool" n }
-    [ "inverse_view_matrix" "0.060000 0.000000 0.000000 0.000000 0.080000 -0.000000 -0.000000 0.000000 1.000000 " ] 
+    [ "inverse_view_matrix" "0.041612 -0.000000 0.000000 0.000000 0.055482 -0.000000 -0.577124 0.412658 1.000000 " ] 
   }
   { "transform" n 
     { "pool" n 
