@@ -1,4 +1,4 @@
-17262
+20207
 { n n 
   { "script" n 
     { "str" "\"do local _={
@@ -68,25 +68,44 @@
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
     tbl=cg.__entity_table_load({
+        [32]={
+          k=_cge(32),
+          v={
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
+            last_dirty=1735,
+            ent=_cge(32)
+          }
+        },
+        [31]={
+          k=_cge(31),
+          v={
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
+            last_dirty=648,
+            ent=_cge(31)
+          }
+        },
+        [29]={
+          k=_cge(29),
+          v={
+            ent=_cge(29),
+            last_dirty=1256,
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
+          }
+        },
         [28]={
           k=_cge(28),
           v={
             ent=_cge(28),
+            last_dirty=1489,
             bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
           }
         },
         [30]={
           k=_cge(30),
           v={
-            ent=_cge(30),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
-          }
-        },
-        [29]={
-          k=_cge(29),
-          v={
             bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            ent=_cge(29)
+            last_dirty=1343,
+            ent=_cge(30)
           }
         }
       }),
@@ -133,6 +152,24 @@
     add=nil
   },
   group=cg.__entity_table_load({
+      [32]={
+        k=_cge(32),
+        v={
+          portals=true
+        }
+      },
+      [31]={
+        k=_cge(31),
+        v={
+          portals=true
+        }
+      },
+      [29]={
+        k=_cge(29),
+        v={
+          portals=true
+        }
+      },
       [28]={
         k=_cge(28),
         v={
@@ -141,12 +178,6 @@
       },
       [30]={
         k=_cge(30),
-        v={
-          portals=true
-        }
-      },
-      [29]={
-        k=_cge(29),
         v={
           portals=true
         }
@@ -211,21 +242,23 @@
     add=nil
   },
   quad_shooter={
-    auto_saveload=true,
-    set_period=function() --[[..skipped..]] end,
-    get_period=function() --[[..skipped..]] end,
     unpaused_update=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
-    simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
     set_next=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
     simple_has=nil,
     get_next=function() --[[..skipped..]] end,
-    add=nil
+    auto_saveload=true,
+    set_period=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    set_dir=function() --[[..skipped..]] end,
+    get_dir=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    add=nil,
+    simple_update_all=function() --[[..skipped..]] end,
+    get_period=function() --[[..skipped..]] end,
+    update_all=nil,
+    simple_remove=nil
   },
   player_control={
     auto_saveload=true,
@@ -244,10 +277,12 @@
   follower={
     auto_saveload=true,
     unpaused_update=function() --[[..skipped..]] end,
+    get_speed=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
     simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
+    set_speed=function() --[[..skipped..]] end,
     remove=nil,
     update_all=function() --[[..skipped..]] end,
     simple_update_all=nil,
@@ -286,10 +321,34 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
+        [32]={
+          k=_cge(32),
+          v={
+            world_2=\\"earth\\",
+            in_warp=false,
+            ent=_cge(32)
+          }
+        },
+        [31]={
+          k=_cge(31),
+          v={
+            world_2=\\"white\\",
+            in_warp=false,
+            ent=_cge(31)
+          }
+        },
+        [29]={
+          k=_cge(29),
+          v={
+            world_2=\\"earth\\",
+            in_warp=false,
+            ent=_cge(29)
+          }
+        },
         [28]={
           k=_cge(28),
           v={
-            world_2=\\"white\\",
+            world_2=\\"earth\\",
             in_warp=false,
             ent=_cge(28)
           }
@@ -300,14 +359,6 @@
             world_2=\\"earth\\",
             in_warp=false,
             ent=_cge(30)
-          }
-        },
-        [29]={
-          k=_cge(29),
-          v={
-            world_2=\\"earth\\",
-            in_warp=false,
-            ent=_cge(29)
           }
         }
       }),
@@ -396,10 +447,10 @@ _.pit.remove=_.pit.simple_remove
 _.pit.simple_update_all=_.pit.update_all
 _.pit.simple_has=_.pit.has
 _.pit.add=_.pit.simple_add
-_.quad_shooter.remove=_.quad_shooter.simple_remove
-_.quad_shooter.simple_update_all=_.quad_shooter.update_all
 _.quad_shooter.simple_has=_.quad_shooter.has
 _.quad_shooter.add=_.quad_shooter.simple_add
+_.quad_shooter.update_all=_.quad_shooter.simple_update_all
+_.quad_shooter.simple_remove=_.quad_shooter.remove
 _.player_control.remove=_.player_control.simple_remove
 _.player_control.simple_update_all=_.player_control.update_all
 _.player_control.simple_has=_.player_control.has
@@ -458,6 +509,24 @@ end\" " }
         [ "texcell" "32.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
+          { "id" "32 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 128.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "31 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 128.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
           { "id" "30 " }
         }
       }
@@ -484,23 +553,23 @@ end\" " }
   }
   { "camera" n 
     { "pool" n }
-    [ "inverse_view_matrix" "0.055740 -0.000000 0.000000 0.000000 0.074320 -0.000000 -0.157379 0.884688 1.000000 " ] 
+    [ "inverse_view_matrix" "0.047678 -0.000000 0.000000 0.000000 0.063571 -0.000000 0.022481 2.152433 1.000000 " ] 
   }
   { "transform" n 
     { "pool" n 
       { n n 
-        { "dirty_count" "1343 " }
-        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 6.500000 -4.500000 1.000000 " ] 
-        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 6.500000 -4.500000 1.000000 " ] 
+        { "dirty_count" "648 " }
+        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 0.000000 0.000000 1.000000 " ] 
+        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 0.000000 0.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "2.000000 2.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "6.500000 -4.500000 " ] 
+        [ "position" "0.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "30 " }
+          { "id" "31 " }
         }
       }
       { n n 
@@ -519,18 +588,48 @@ end\" " }
         }
       }
       { n n 
-        { "dirty_count" "648 " }
-        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 0.000000 0.000000 1.000000 " ] 
-        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 0.000000 0.000000 1.000000 " ] 
+        { "dirty_count" "1343 " }
+        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 6.500000 -4.500000 1.000000 " ] 
+        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 6.500000 -4.500000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "2.000000 2.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "0.000000 0.000000 " ] 
+        [ "position" "6.500000 -4.500000 " ] 
+        { "pool_elem" n 
+          { "id" "30 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1489 " }
+        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -11.000000 -20.000000 1.000000 " ] 
+        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -11.000000 -20.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "2.000000 2.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-11.000000 -20.000000 " ] 
         { "pool_elem" n 
           { "id" "28 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "1735 " }
+        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -11.000000 -39.000000 1.000000 " ] 
+        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -11.000000 -39.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "2.000000 2.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-11.000000 -39.000000 " ] 
+        { "pool_elem" n 
+          { "id" "32 " }
         }
       }
     }
@@ -546,6 +645,16 @@ end\" " }
   { "entity" n 
     { "destroyed" n }
     { "exists_pool" n 
+      { n n 
+        { "pool_elem" n 
+          { "id" "32 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "31 " }
+        }
+      }
       { n n 
         { "pool_elem" n 
           { "id" "30 " }
