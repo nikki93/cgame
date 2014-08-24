@@ -235,6 +235,15 @@ function cs.wall.create(obj)
     cs.bump.add(obj.ent)
 end
 
+function cs.wall.unpaused_update(obj)
+    if not obj.randomized then
+        if math.random() > 0.5 then
+            cs.transform.rotate(obj.ent, math.pi)
+        end
+        obj.randomized = true
+    end
+end
+
 
 -----------------------------------------------------------------------------
 
