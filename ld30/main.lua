@@ -124,6 +124,12 @@ function cs.main.warp(world)
     play_sound('portal.wav')
 end
 
+function cs.main.key_down(k)
+    if k == cg.KC_ESCAPE then
+        main_menu()
+    end
+end
+
 g_world_colors = {
     ['hell-1'] = cg.color_opaque(198 / 255.0, 77 / 255.0, 77 / 255.0),
     ['hell-2'] = cg.color_opaque(198 / 255.0, 77 / 255.0, 77 / 255.0),
@@ -706,7 +712,7 @@ function cs.main_menu.update_all()
     end
 end
 
-local function main_menu()
+function main_menu()
     cs.group.destroy('portals warp default')
 
     cs.main.world = 'white'
