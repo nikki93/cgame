@@ -503,7 +503,6 @@ function cs.door.unpaused_update(obj)
             cs.animation.start(obj.ent, 'opening')
         end
     else
-        local blocked = false
         if not cs.bump.has(obj.ent) then
             cs.bump.add(obj.ent)
 
@@ -512,14 +511,7 @@ function cs.door.unpaused_update(obj)
                 return not cs.pit.has(e)
             end
             local cols = cs.bump.sweep(obj.ent, cg.vec2_zero, filter)
-            for _, col in ipairs(cols) do
-                if cs.player_control.has(col.other) then
-                    cs.main.die()
-                else
-                    blocked = true
-                end
-            end
-            if blocked then cs.bump.remove(obj.ent) end
+            if #cols > 0 then cs.bump.remove(obj.ent) end
         end
         if cs.bump.has(obj.ent) and curr_anim ~= 'closing' and curr_anim ~= 'closed' then
             cs.animation.start(obj.ent, 'closing')
