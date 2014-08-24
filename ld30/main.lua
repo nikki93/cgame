@@ -597,3 +597,48 @@ else
         group = { groups = 'warp' },
     }
 end
+
+
+-----------------------------------------------------------------------------
+
+g_messages = {
+    default = 'this is a message...',
+    wasd = 'W, A, S, D: move',
+}
+
+cs.message = cg.simple_sys()
+
+cg.simple_prop(cs.message, 'time', 10)
+cg.simple_prop(cs.message, 'message_name', 'default')
+
+function cs.message.set_message_name(ent, name)
+    local obj = cs.message.tbl[ent]
+    assert(obj, 'must be in message')
+
+    local message = g_messages[name] or g_messages.default
+    cs.gui_text.set_str(ent, message)
+end
+
+function cs.message.unpaused_update(obj)
+    obj.time = obj.time - cs.timing.dt
+
+    if obj.time < 1 then
+        local c = cs.gui.get_color(obj.ent)
+        c.a = obj.time
+        cs.gui.set_color(obj.ent, c)
+    end
+
+    if obj.time <= 0 then
+        cs.entity.destroy(obj.ent)
+    end
+end
+
+function show_message(name, time)
+    cg.add {
+        prefab = prefab_dir .. '/message.pfb',
+        message = {
+            message_name = name,
+            time = time,
+        }
+    }
+end
