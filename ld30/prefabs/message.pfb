@@ -1,4 +1,4 @@
-15813
+16646
 { n n 
   { "script" n 
     { "str" "\"do local _={
@@ -49,18 +49,18 @@
     set_switch=function() --[[..skipped..]] end,
     add=nil
   },
-  pit={
+  animation={
     auto_saveload=true,
-    simple_remove=function() --[[..skipped..]] end,
+    get_curr_anim=function() --[[..skipped..]] end,
+    set_strips=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
-    remove=nil,
     update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
+    remove=function() --[[..skipped..]] end,
+    switch=function() --[[..skipped..]] end,
     tbl=cg.__entity_table_load({}),
-    add=nil
+    add=function() --[[..skipped..]] end,
+    start=function() --[[..skipped..]] end,
+    set_frames=function() --[[..skipped..]] end
   },
   bump={
     slide=function() --[[..skipped..]] end,
@@ -96,18 +96,14 @@
     add=nil
   },
   main={},
-  animation={
-    auto_saveload=true,
-    get_curr_anim=function() --[[..skipped..]] end,
-    set_strips=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    switch=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
-    add=function() --[[..skipped..]] end,
-    start=function() --[[..skipped..]] end,
-    set_frames=function() --[[..skipped..]] end
+  name=cg.__entity_table_load({}),
+  edit={
+    sel=cg.__entity_table_load({
+        [60]={
+          k=_cge(60),
+          v=true
+        }
+      })
   },
   player_dead={
     auto_saveload=true,
@@ -127,11 +123,12 @@
     tbl=cg.__entity_table_load({}),
     add=nil
   },
-  dangerous={
+  pit={
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
     remove=nil,
     update_all=function() --[[..skipped..]] end,
     simple_update_all=nil,
@@ -139,13 +136,16 @@
     tbl=cg.__entity_table_load({}),
     add=nil
   },
-  edit={
-    sel=cg.__entity_table_load({
-        [37]={
-          k=_cge(37),
-          v=true
+  group=cg.__entity_table_load({
+      [60]={
+        k=_cge(60),
+        v={
+          default=true
         }
-      })
+      }
+    }),
+  edit_inspector={
+    tbl=cg.__entity_table_load({})
   },
   gui_textbox={
     auto_saveload=true,
@@ -158,14 +158,6 @@
     has=function() --[[..skipped..]] end,
     remove=function() --[[..skipped..]] end
   },
-  group=cg.__entity_table_load({
-      [37]={
-        k=_cge(37),
-        v={
-          default=true
-        }
-      }
-    }),
   switcher={
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
@@ -178,24 +170,19 @@
     tbl=cg.__entity_table_load({}),
     add=nil
   },
-  gui_window={
-    get_body=function() --[[..skipped..]] end,
-    get_minimized=function() --[[..skipped..]] end,
-    set_highlight=function() --[[..skipped..]] end,
-    set_title=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    get_title=function() --[[..skipped..]] end,
-    mouse_up=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    set_minimized=function() --[[..skipped..]] end,
+  player_control={
     auto_saveload=true,
-    get_highlight=function() --[[..skipped..]] end,
-    get_closeable=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    die=function() --[[..skipped..]] end,
+    remove=nil,
     update_all=function() --[[..skipped..]] end,
-    set_closeable=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    get_title_buttons_area=function() --[[..skipped..]] end
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
   },
   message={
     auto_saveload=true,
@@ -212,27 +199,13 @@
     get_time=function() --[[..skipped..]] end,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [37]={
-          k=_cge(37),
+        [60]={
+          k=_cge(60),
           v={
-            ent=_cge(37)
+            ent=_cge(60)
           }
         }
       }),
-    add=nil
-  },
-  player_control={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    die=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
     add=nil
   },
   quad_shooter={
@@ -253,6 +226,25 @@
     get_period=function() --[[..skipped..]] end,
     update_all=nil,
     simple_remove=nil
+  },
+  gui_window={
+    get_body=function() --[[..skipped..]] end,
+    get_minimized=function() --[[..skipped..]] end,
+    set_highlight=function() --[[..skipped..]] end,
+    set_title=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    get_title=function() --[[..skipped..]] end,
+    mouse_up=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    set_minimized=function() --[[..skipped..]] end,
+    auto_saveload=true,
+    get_highlight=function() --[[..skipped..]] end,
+    get_closeable=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    update_all=function() --[[..skipped..]] end,
+    set_closeable=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    get_title_buttons_area=function() --[[..skipped..]] end
   },
   crate={
     auto_saveload=true,
@@ -333,9 +325,34 @@
     simple_add=nil,
     simple_update_all=nil
   },
-  name=cg.__entity_table_load({}),
-  edit_inspector={
-    tbl=cg.__entity_table_load({})
+  message_trigger={
+    auto_saveload=true,
+    set_message_name=function() --[[..skipped..]] end,
+    get_message_name=function() --[[..skipped..]] end,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_update_all=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_time=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=nil,
+    get_time=function() --[[..skipped..]] end,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  dangerous={
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
   }
 }
 local __={}
@@ -351,10 +368,6 @@ _.door.remove=_.door.simple_remove
 _.door.simple_update_all=_.door.update_all
 _.door.simple_has=_.door.has
 _.door.add=_.door.simple_add
-_.pit.remove=_.pit.simple_remove
-_.pit.simple_update_all=_.pit.update_all
-_.pit.simple_has=_.pit.has
-_.pit.add=_.pit.simple_add
 _.bump.add=_.bump.simple_add
 _.bump.remove=_.bump.simple_remove
 _.bump.simple_has=_.bump.has
@@ -366,22 +379,22 @@ _.player_dead.remove=_.player_dead.simple_remove
 _.player_dead.update_all=_.player_dead.simple_update_all
 _.player_dead.simple_has=_.player_dead.has
 _.player_dead.add=_.player_dead.simple_add
-_.dangerous.remove=_.dangerous.simple_remove
-_.dangerous.simple_update_all=_.dangerous.update_all
-_.dangerous.simple_has=_.dangerous.has
-_.dangerous.add=_.dangerous.simple_add
+_.pit.remove=_.pit.simple_remove
+_.pit.simple_update_all=_.pit.update_all
+_.pit.simple_has=_.pit.has
+_.pit.add=_.pit.simple_add
 _.switcher.remove=_.switcher.simple_remove
 _.switcher.simple_update_all=_.switcher.update_all
 _.switcher.simple_has=_.switcher.has
 _.switcher.add=_.switcher.simple_add
-_.message.remove=_.message.simple_remove
-_.message.update_all=_.message.simple_update_all
-_.message.simple_has=_.message.has
-_.message.add=_.message.simple_add
 _.player_control.remove=_.player_control.simple_remove
 _.player_control.simple_update_all=_.player_control.update_all
 _.player_control.simple_has=_.player_control.has
 _.player_control.add=_.player_control.simple_add
+_.message.remove=_.message.simple_remove
+_.message.update_all=_.message.simple_update_all
+_.message.simple_has=_.message.has
+_.message.add=_.message.simple_add
 _.quad_shooter.simple_has=_.quad_shooter.has
 _.quad_shooter.add=_.quad_shooter.simple_add
 _.quad_shooter.update_all=_.quad_shooter.simple_update_all
@@ -402,6 +415,14 @@ _.bullet.simple_has=_.bullet.has
 _.bullet.remove=_.bullet.simple_remove
 _.bullet.simple_add=_.bullet.add
 _.bullet.simple_update_all=_.bullet.update_all
+_.message_trigger.remove=_.message_trigger.simple_remove
+_.message_trigger.update_all=_.message_trigger.simple_update_all
+_.message_trigger.simple_has=_.message_trigger.has
+_.message_trigger.add=_.message_trigger.simple_add
+_.dangerous.remove=_.dangerous.simple_remove
+_.dangerous.simple_update_all=_.dangerous.update_all
+_.dangerous.simple_has=_.dangerous.has
+_.dangerous.add=_.dangerous.simple_add
 return _
 end\" " }
   }
@@ -422,7 +443,7 @@ end\" " }
         { "cursor" "-1 " }
         { "str" "\"this is a message...\" " }
         { "pool_elem" n 
-          { "id" "37 " }
+          { "id" "60 " }
         }
       }
     }
@@ -447,7 +468,7 @@ end\" " }
           { "r" "0.000000 " }
         }
         { "pool_elem" n 
-          { "id" "37 " }
+          { "id" "60 " }
         }
       }
     }
@@ -466,18 +487,18 @@ end\" " }
   { "transform" n 
     { "pool" n 
       { n n 
-        { "dirty_count" "26841 " }
-        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -4.166668 7.500000 1.000000 " ] 
-        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 300.000000 -120.000000 1.000000 " ] 
+        { "dirty_count" "28969 " }
+        [ "worldmat_cache" "0.041667 0.000000 0.000000 0.000000 0.041667 0.000000 -4.166668 10.500000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 300.000000 -48.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "1.000000 1.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "300.000000 -120.000000 " ] 
+        [ "position" "300.000000 -48.000000 " ] 
         { "pool_elem" n 
-          { "id" "37 " }
+          { "id" "60 " }
         }
       }
     }
@@ -487,7 +508,7 @@ end\" " }
   }
   { "prefab" n 
     { "saved_root" n 
-      { "id" "37 " }
+      { "id" "60 " }
     }
   }
   { "entity" n 
@@ -495,7 +516,7 @@ end\" " }
     { "exists_pool" n 
       { n n 
         { "pool_elem" n 
-          { "id" "37 " }
+          { "id" "60 " }
         }
       }
     }
