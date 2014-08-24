@@ -383,19 +383,22 @@ function cs.portal.unpaused_update(obj)
     local cols = cs.bump.sweep(obj.ent)
     if obj.in_warp == nil then obj.in_warp = false end
 
-    local next_in_warp = false
-    for _, col in ipairs(cols) do
-        if cs.name.get_name(col.other) == 'player' then
-            next_in_warp = true
-            if not obj.in_warp then
-                local ow = (obj.world_1 == cs.main.world)
-                    and obj.world_2 or obj.world_1
-                obj.in_warp = true  -- do it here to save it for the warp-save
-                cs.main.warp(ow)
+
+    if obj.world_1 == cs.main.world or obj.world_2 == cs.main.world then
+        local next_in_warp = false
+        for _, col in ipairs(cols) do
+            if cs.name.get_name(col.other) == 'player' then
+                next_in_warp = true
+                if not obj.in_warp then
+                    local ow = (obj.world_1 == cs.main.world)
+                        and obj.world_2 or obj.world_1
+                    obj.in_warp = true  -- do it here to save it for the warp-save
+                    cs.main.warp(ow)
+                end
             end
         end
+        obj.in_warp = next_in_warp
     end
-    obj.in_warp = next_in_warp
 end
 
 
