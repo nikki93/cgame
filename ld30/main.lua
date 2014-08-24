@@ -194,7 +194,7 @@ function cs.player_control.unpaused_update(obj)
     end
     d = cg.vec2_normalize(d)
 
-    local crate_cols = cs.bump.sweep(obj.ent, 0.05 * d,
+    local crate_cols = cs.bump.sweep(obj.ent, 0.01 * d,
                                      function (e) return cs.crate.has(e) end)
     for _, col in ipairs(crate_cols) do
         cs.crate.move(col.other, -col.normal)
@@ -269,6 +269,8 @@ function cs.follower.unpaused_update(obj)
             local function filter (e)
                 return not cs.player_control.has(e)
                     and not cs.pit.has(e) and not cs.switch.has(e)
+                    and not cs.follower.has(e)
+                    and not cs.bullet.has(e)
             end
             local cols = cs.bump.slide(obj.ent, obj.speed * d * cs.timing.dt,
                                        filter)
