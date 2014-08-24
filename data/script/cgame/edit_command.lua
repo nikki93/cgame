@@ -199,10 +199,11 @@ function cs.edit.command_inspect()
 end
 
 local last_save = cgame_usr_path .. 'levels/'
-function cs.edit.command_save()
+function cs.edit.command_save(callback)
     local function save(f)
         cs.console.printf("edit: saving group 'default' to file '"
                               .. f .. "' ... ")
+        callback(f)
         cs.group.set_save_filter('default', true)
         local s = cg.store_open()
         cs.system.save_all(s)

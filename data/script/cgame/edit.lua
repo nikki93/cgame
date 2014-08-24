@@ -105,7 +105,7 @@ cs.edit.stopped = true
 local stop_savepoint = nil
 local stop_save_next_frame = false -- whether to save a stop soon
 local function stop_save()
-    cs.group.set_save_filter('default edit_inspector', true)
+    cs.group.set_save_filter('default portal warp edit_inspector', true)
     local s = cg.store_open()
     cs.system.save_all(s)
     stop_savepoint = ffi.string(cg.store_write_str(s))
@@ -120,7 +120,7 @@ end
 function cs.edit.stop()
     if not stop_savepoint then return end
 
-    cs.group.destroy('default edit_inspector')
+    cs.group.destroy('default portal warp edit_inspector')
     local s = cg.store_open_str(stop_savepoint)
     cs.system.load_all(s)
     cg.store_close(s)
@@ -143,7 +143,7 @@ end
 cs.edit.history = {}
 
 function cs.edit.undo_save()
-    cs.group.set_save_filter('default edit_inspector', true)
+    cs.group.set_save_filter('default portal warp edit_inspector', true)
     local s = cg.store_open()
     cs.system.save_all(s)
 
@@ -161,7 +161,7 @@ function cs.edit.undo()
     end
 
     -- TODO: make 'edit' entity group and destroy all except that?
-    cs.group.destroy('default edit_inspector')
+    cs.group.destroy('default portal warp edit_inspector')
 
     table.remove(cs.edit.history)
     local str = cs.edit.history[#cs.edit.history]
