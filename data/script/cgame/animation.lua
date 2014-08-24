@@ -64,6 +64,12 @@ local function _enter_frame(entry, frame, anim)
     end
 end
 
+function cs.animation.get_curr_anim(ent, anim)
+    local entry = cs.animation.tbl[ent]
+    assert(entry, 'entity must be in animation system')
+    return entry.curr_anim
+end
+
 function cs.animation.switch(ent, anim)
     local entry = cs.animation.tbl[ent]
     assert(entry, 'entity must be in animation system')
