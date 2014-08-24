@@ -264,7 +264,7 @@ function cs.follower.unpaused_update(obj)
         local pp = cs.transform.get_position(player)
         local d = pp - cs.transform.get_position(obj.ent)
         local len = cg.vec2_len(d)
-        if len < 20 then
+        if len < 10 then
             d = d / len
             local function filter (e)
                 return not cs.player_control.has(e)
@@ -277,7 +277,6 @@ function cs.follower.unpaused_update(obj)
         end
     end
 end
-
 
 -----------------------------------------------------------------------------
 
