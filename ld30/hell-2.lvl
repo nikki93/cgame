@@ -1,18 +1,9 @@
-298894
+318497
 { n n 
   { "script" n 
     { "str" "\"do local _={
   wall={
     auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
     tbl=cg.__entity_table_load({
         nil,
         nil,
@@ -1519,8 +1510,124 @@
             randomized=true,
             ent=_cge(264)
           }
+        },
+        nil,
+        nil,
+        {
+          k=_cge(267),
+          v={
+            randomized=true,
+            ent=_cge(267)
+          }
+        },
+        {
+          k=_cge(268),
+          v={
+            randomized=true,
+            ent=_cge(268)
+          }
+        },
+        {
+          k=_cge(269),
+          v={
+            randomized=true,
+            ent=_cge(269)
+          }
+        },
+        {
+          k=_cge(270),
+          v={
+            randomized=true,
+            ent=_cge(270)
+          }
+        },
+        {
+          k=_cge(271),
+          v={
+            randomized=true,
+            ent=_cge(271)
+          }
+        },
+        {
+          k=_cge(272),
+          v={
+            randomized=true,
+            ent=_cge(272)
+          }
+        },
+        {
+          k=_cge(273),
+          v={
+            randomized=true,
+            ent=_cge(273)
+          }
+        },
+        {
+          k=_cge(274),
+          v={
+            randomized=true,
+            ent=_cge(274)
+          }
+        },
+        {
+          k=_cge(275),
+          v={
+            randomized=true,
+            ent=_cge(275)
+          }
+        },
+        {
+          k=_cge(276),
+          v={
+            randomized=true,
+            ent=_cge(276)
+          }
+        },
+        {
+          k=_cge(277),
+          v={
+            randomized=true,
+            ent=_cge(277)
+          }
+        },
+        {
+          k=_cge(278),
+          v={
+            randomized=true,
+            ent=_cge(278)
+          }
+        },
+        {
+          k=_cge(279),
+          v={
+            randomized=true,
+            ent=_cge(279)
+          }
+        },
+        {
+          k=_cge(280),
+          v={
+            randomized=true,
+            ent=_cge(280)
+          }
+        },
+        {
+          k=_cge(281),
+          v={
+            randomized=true,
+            ent=_cge(281)
+          }
         }
       }),
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    update=function() --[[..skipped..]] end,
     add=nil
   },
   follower={
@@ -1542,7 +1649,7 @@
           v={
             t=0,
             ent=_cge(135),
-            speed=5.1999998092651
+            speed=4.8000001907349
           }
         }
       }),
@@ -1557,29 +1664,33 @@
         [44]={
           k=_cge(44),
           v={
-            switch=_cge(96),
-            ent=_cge(44)
-          }
-        },
-        [127]={
-          k=_cge(127),
-          v={
-            ent=_cge(127),
-            switch=_cge(126)
+            open=false,
+            ent=_cge(44),
+            switch=_cge(96)
           }
         },
         [258]={
           k=_cge(258),
           v={
-            switch=_cge(145),
-            ent=_cge(258)
+            open=false,
+            ent=_cge(258),
+            switch=_cge(145)
+          }
+        },
+        [127]={
+          k=_cge(127),
+          v={
+            open=false,
+            switch=_cge(126),
+            ent=_cge(127)
           }
         },
         [39]={
           k=_cge(39),
           v={
-            ent=_cge(39),
-            switch=_cge(265)
+            open=true,
+            switch=_cge(265),
+            ent=_cge(39)
           }
         }
       }),
@@ -1594,249 +1705,18 @@
     set_switch=function() --[[..skipped..]] end,
     add=nil
   },
-  animation={
+  pit={
     auto_saveload=true,
-    get_curr_anim=function() --[[..skipped..]] end,
-    set_strips=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    remove=nil,
     update_all=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    switch=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({
-        [39]={
-          k=_cge(39),
-          v={
-            t=1.6660156399012,
-            anims={
-              closing={
-                after=\\"closed\\",
-                strip={
-                  t=0.045000001788139,
-                  after=\\"opened\\",
-                  base=cg.vec2(240.000000, 112.000000),
-                  n=3
-                },
-                n=3
-              },
-              opening={
-                after=\\"opened\\",
-                strip={
-                  t=0.045000001788139,
-                  base=cg.vec2(240.000000, 128.000000),
-                  n=1
-                },
-                n=3
-              },
-              closed={
-                strip={
-                  t=1,
-                  base=cg.vec2(224.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              },
-              opened={
-                strip={
-                  t=1,
-                  base=cg.vec2(288.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              }
-            },
-            curr_anim=\\"closed\\",
-            frame=1,
-            ent=_cge(39)
-          }
-        },
-        [135]={
-          k=_cge(135),
-          v={
-            t=0.16687677567825,
-            anims={
-              idle={
-                strip={
-                  t=0.5,
-                  base=cg.vec2(16.000000, 96.000000),
-                  n=1
-                },
-                n=4
-              }
-            },
-            curr_anim=\\"idle\\",
-            frame=1,
-            ent=_cge(135)
-          }
-        },
-        [44]={
-          k=_cge(44),
-          v={
-            t=1.6660156399012,
-            anims={
-              closing={
-                after=\\"closed\\",
-                strip={
-                  t=0.045000001788139,
-                  after=\\"opened\\",
-                  base=cg.vec2(240.000000, 112.000000),
-                  n=3
-                },
-                n=3
-              },
-              opening={
-                after=\\"opened\\",
-                strip={
-                  t=0.045000001788139,
-                  base=cg.vec2(240.000000, 128.000000),
-                  n=1
-                },
-                n=3
-              },
-              closed={
-                strip={
-                  t=1,
-                  base=cg.vec2(224.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              },
-              opened={
-                strip={
-                  t=1,
-                  base=cg.vec2(288.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              }
-            },
-            curr_anim=\\"closed\\",
-            frame=1,
-            ent=_cge(44)
-          }
-        },
-        [127]={
-          k=_cge(127),
-          v={
-            t=1.6660156399012,
-            anims={
-              closing={
-                after=\\"closed\\",
-                strip={
-                  t=0.045000001788139,
-                  after=\\"opened\\",
-                  base=cg.vec2(240.000000, 112.000000),
-                  n=3
-                },
-                n=3
-              },
-              opening={
-                after=\\"opened\\",
-                strip={
-                  t=0.045000001788139,
-                  base=cg.vec2(240.000000, 128.000000),
-                  n=1
-                },
-                n=3
-              },
-              closed={
-                strip={
-                  t=1,
-                  base=cg.vec2(224.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              },
-              opened={
-                strip={
-                  t=1,
-                  base=cg.vec2(288.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              }
-            },
-            curr_anim=\\"closed\\",
-            frame=1,
-            ent=_cge(127)
-          }
-        },
-        [258]={
-          k=_cge(258),
-          v={
-            t=1.6660156399012,
-            anims={
-              closing={
-                after=\\"closed\\",
-                strip={
-                  t=0.045000001788139,
-                  after=\\"opened\\",
-                  base=cg.vec2(240.000000, 112.000000),
-                  n=3
-                },
-                n=3
-              },
-              opening={
-                after=\\"opened\\",
-                strip={
-                  t=0.045000001788139,
-                  base=cg.vec2(240.000000, 128.000000),
-                  n=1
-                },
-                n=3
-              },
-              closed={
-                strip={
-                  t=1,
-                  base=cg.vec2(224.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              },
-              opened={
-                strip={
-                  t=1,
-                  base=cg.vec2(288.000000, 128.000000),
-                  n=1
-                },
-                n=1
-              }
-            },
-            curr_anim=\\"closed\\",
-            frame=1,
-            ent=_cge(258)
-          }
-        },
-        [175]={
-          k=_cge(175),
-          v={
-            t=1.9620455801487,
-            anims={
-              shoot={
-                after=\\"idle\\",
-                strip={
-                  t=0.070000000298023,
-                  base=cg.vec2(96.000000, 64.000000),
-                  n=1
-                },
-                n=4
-              },
-              idle={
-                strip={
-                  t=1,
-                  base=cg.vec2(96.000000, 64.000000),
-                  n=1
-                },
-                n=1
-              }
-            },
-            frame=1,
-            ent=_cge(175)
-          }
-        }
-      }),
-    add=function() --[[..skipped..]] end,
-    start=function() --[[..skipped..]] end,
-    set_frames=function() --[[..skipped..]] end
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
   },
   bump={
     slide=function() --[[..skipped..]] end,
@@ -1898,13 +1778,7 @@
             ent=_cge(38)
           }
         },
-        {
-          k=_cge(39),
-          v={
-            ent=_cge(39),
-            last_dirty=412
-          }
-        },
+        nil,
         {
           k=_cge(40),
           v={
@@ -1936,8 +1810,9 @@
         {
           k=_cge(44),
           v={
-            last_dirty=669,
-            ent=_cge(44)
+            bbox=cg.bbox(cg.vec2(-0.500000, -0.187500), cg.vec2(0.500000, 0.187500)),
+            ent=_cge(44),
+            last_dirty=669
           }
         },
         {
@@ -2300,9 +2175,9 @@
         {
           k=_cge(96),
           v={
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
             last_dirty=703,
-            ent=_cge(96),
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000))
+            ent=_cge(96)
           }
         },
         {
@@ -2505,16 +2380,17 @@
         {
           k=_cge(126),
           v={
+            last_dirty=819,
             ent=_cge(126),
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
-            last_dirty=819
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000))
           }
         },
         {
           k=_cge(127),
           v={
-            ent=_cge(127),
-            last_dirty=541
+            bbox=cg.bbox(cg.vec2(-0.187500, -0.500000), cg.vec2(0.187500, 0.500000)),
+            last_dirty=541,
+            ent=_cge(127)
           }
         },
         {
@@ -2569,9 +2445,9 @@
         {
           k=_cge(135),
           v={
+            last_dirty=1071480,
             bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            ent=_cge(135),
-            last_dirty=1071480
+            ent=_cge(135)
           }
         },
         {
@@ -2640,9 +2516,9 @@
         {
           k=_cge(145),
           v={
+            ent=_cge(145),
             bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
-            last_dirty=299,
-            ent=_cge(145)
+            last_dirty=299
           }
         },
         {
@@ -2803,9 +2679,9 @@
         {
           k=_cge(175),
           v={
+            ent=_cge(175),
             bbox=cg.bbox(cg.vec2(-0.600000, -0.600000), cg.vec2(0.600000, 0.600000)),
-            last_dirty=1276,
-            ent=_cge(175)
+            last_dirty=1276
           }
         },
         {
@@ -3385,8 +3261,9 @@
         {
           k=_cge(258),
           v={
-            last_dirty=483,
-            ent=_cge(258)
+            bbox=cg.bbox(cg.vec2(-0.187500, -0.500000), cg.vec2(0.187500, 0.500000)),
+            ent=_cge(258),
+            last_dirty=483
           }
         },
         {
@@ -3434,17 +3311,130 @@
         {
           k=_cge(265),
           v={
+            last_dirty=449,
             ent=_cge(265),
-            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000)),
-            last_dirty=449
+            bbox=cg.bbox(cg.vec2(-0.250000, -0.250000), cg.vec2(0.250000, 0.500000))
           }
         },
         {
           k=_cge(266),
           v={
+            ent=_cge(266),
             bbox=cg.bbox(cg.vec2(-1.500000, -0.500000), cg.vec2(1.500000, 0.500000)),
-            last_dirty=70,
-            ent=_cge(266)
+            last_dirty=70
+          }
+        },
+        {
+          k=_cge(267),
+          v={
+            last_dirty=3040,
+            ent=_cge(267)
+          }
+        },
+        {
+          k=_cge(268),
+          v={
+            ent=_cge(268),
+            last_dirty=3064
+          }
+        },
+        {
+          k=_cge(269),
+          v={
+            last_dirty=3079,
+            ent=_cge(269)
+          }
+        },
+        {
+          k=_cge(270),
+          v={
+            ent=_cge(270),
+            last_dirty=3104
+          }
+        },
+        {
+          k=_cge(271),
+          v={
+            last_dirty=3124,
+            ent=_cge(271)
+          }
+        },
+        {
+          k=_cge(272),
+          v={
+            ent=_cge(272),
+            last_dirty=3146
+          }
+        },
+        {
+          k=_cge(273),
+          v={
+            last_dirty=3161,
+            ent=_cge(273)
+          }
+        },
+        {
+          k=_cge(274),
+          v={
+            ent=_cge(274),
+            last_dirty=3174
+          }
+        },
+        {
+          k=_cge(275),
+          v={
+            last_dirty=3185,
+            ent=_cge(275)
+          }
+        },
+        {
+          k=_cge(276),
+          v={
+            ent=_cge(276),
+            last_dirty=3196
+          }
+        },
+        {
+          k=_cge(277),
+          v={
+            last_dirty=3209,
+            ent=_cge(277)
+          }
+        },
+        {
+          k=_cge(278),
+          v={
+            ent=_cge(278),
+            last_dirty=3223
+          }
+        },
+        {
+          k=_cge(279),
+          v={
+            last_dirty=3235,
+            ent=_cge(279)
+          }
+        },
+        {
+          k=_cge(280),
+          v={
+            ent=_cge(280),
+            last_dirty=3248
+          }
+        },
+        {
+          k=_cge(281),
+          v={
+            last_dirty=3262,
+            ent=_cge(281)
+          }
+        },
+        {
+          k=_cge(282),
+          v={
+            last_dirty=380,
+            ent=_cge(282),
+            bbox=cg.bbox(cg.vec2(-2.500000, -0.500000), cg.vec2(2.500000, 0.500000))
           }
         }
       }),
@@ -3457,62 +3447,6 @@
     simple_update_all=nil,
     sweep=function() --[[..skipped..]] end,
     get_bbox=function() --[[..skipped..]] end
-  },
-  camera_follow={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=function() --[[..skipped..]] end,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  main={
-    saved_world=\\"hell-2\\"
-  },
-  name=cg.__entity_table_load({}),
-  edit={
-    sel=cg.__entity_table_load({
-        [266]={
-          k=_cge(266),
-          v=true
-        }
-      })
-  },
-  player_dead={
-    auto_saveload=true,
-    set_falling=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
-    get_falling=function() --[[..skipped..]] end,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_update_all=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    set_time=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=nil,
-    get_time=function() --[[..skipped..]] end,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  pit={
-    auto_saveload=true,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
   },
   group=cg.__entity_table_load({
       nil,
@@ -4930,77 +4864,117 @@
         v={
           default=true
         }
+      },
+      {
+        k=_cge(267),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(268),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(269),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(270),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(271),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(272),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(273),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(274),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(275),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(276),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(277),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(278),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(279),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(280),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(281),
+        v={
+          default=true
+        }
+      },
+      {
+        k=_cge(282),
+        v={
+          default=true
+        }
       }
     }),
-  edit_inspector={
-    tbl=cg.__entity_table_load({})
+  main={
+    visited={},
+    saved_world=\\"hell-2\\"
   },
-  gui_textbox={
-    auto_saveload=true,
-    set_click_focus=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
-    get_click_focus=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    get_text=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end
+  name=cg.__entity_table_load({}),
+  edit={
+    sel=cg.__entity_table_load({})
   },
-  switcher={
+  player_dead={
     auto_saveload=true,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({
-        [146]={
-          k=_cge(146),
-          v={
-            ent=_cge(146)
-          }
-        },
-        [75]={
-          k=_cge(75),
-          v={
-            ent=_cge(75)
-          }
-        },
-        [135]={
-          k=_cge(135),
-          v={
-            ent=_cge(135)
-          }
-        },
-        [76]={
-          k=_cge(76),
-          v={
-            ent=_cge(76)
-          }
-        }
-      }),
-    add=nil
-  },
-  player_control={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    die=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  message={
-    auto_saveload=true,
-    set_message_name=function() --[[..skipped..]] end,
-    get_message_name=function() --[[..skipped..]] end,
+    set_falling=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    get_falling=function() --[[..skipped..]] end,
     unpaused_update=function() --[[..skipped..]] end,
     simple_update_all=function() --[[..skipped..]] end,
     simple_remove=function() --[[..skipped..]] end,
@@ -5028,7 +5002,7 @@
           k=_cge(175),
           v={
             dir=cg.vec2(-1.000000, 0.000000),
-            next=1,
+            next=0.96708318125452,
             shooting=false,
             period=1.8999999761581,
             ent=_cge(175)
@@ -5043,6 +5017,333 @@
     get_period=function() --[[..skipped..]] end,
     update_all=nil,
     simple_remove=nil
+  },
+  player_control={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    die=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  gui_textbox={
+    auto_saveload=true,
+    set_click_focus=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    get_click_focus=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    get_text=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end
+  },
+  animation={
+    auto_saveload=true,
+    get_curr_anim=function() --[[..skipped..]] end,
+    set_strips=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    switch=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({
+        [39]={
+          k=_cge(39),
+          v={
+            t=1.6834342461079,
+            anims={
+              closing={
+                after=\\"closed\\",
+                strip={
+                  t=0.045000001788139,
+                  after=\\"opened\\",
+                  base=cg.vec2(240.000000, 112.000000),
+                  n=3
+                },
+                n=3
+              },
+              opening={
+                after=\\"opened\\",
+                strip={
+                  t=0.045000001788139,
+                  base=cg.vec2(240.000000, 128.000000),
+                  n=1
+                },
+                n=3
+              },
+              closed={
+                strip={
+                  t=1,
+                  base=cg.vec2(224.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              },
+              opened={
+                strip={
+                  t=1,
+                  base=cg.vec2(288.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              }
+            },
+            curr_anim=\\"opened\\",
+            frame=1,
+            ent=_cge(39)
+          }
+        },
+        [135]={
+          k=_cge(135),
+          v={
+            t=0.30039040185511,
+            anims={
+              idle={
+                strip={
+                  t=0.5,
+                  base=cg.vec2(16.000000, 96.000000),
+                  n=1
+                },
+                n=4
+              }
+            },
+            curr_anim=\\"idle\\",
+            frame=2,
+            ent=_cge(135)
+          }
+        },
+        [44]={
+          k=_cge(44),
+          v={
+            t=1.2835863232613,
+            anims={
+              closing={
+                after=\\"closed\\",
+                strip={
+                  t=0.045000001788139,
+                  after=\\"opened\\",
+                  base=cg.vec2(240.000000, 112.000000),
+                  n=3
+                },
+                n=3
+              },
+              opening={
+                after=\\"opened\\",
+                strip={
+                  t=0.045000001788139,
+                  base=cg.vec2(240.000000, 128.000000),
+                  n=1
+                },
+                n=3
+              },
+              closed={
+                strip={
+                  t=1,
+                  base=cg.vec2(224.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              },
+              opened={
+                strip={
+                  t=1,
+                  base=cg.vec2(288.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              }
+            },
+            curr_anim=\\"closed\\",
+            frame=1,
+            ent=_cge(44)
+          }
+        },
+        [127]={
+          k=_cge(127),
+          v={
+            t=1.2835863232613,
+            anims={
+              closing={
+                after=\\"closed\\",
+                strip={
+                  t=0.045000001788139,
+                  after=\\"opened\\",
+                  base=cg.vec2(240.000000, 112.000000),
+                  n=3
+                },
+                n=3
+              },
+              opening={
+                after=\\"opened\\",
+                strip={
+                  t=0.045000001788139,
+                  base=cg.vec2(240.000000, 128.000000),
+                  n=1
+                },
+                n=3
+              },
+              closed={
+                strip={
+                  t=1,
+                  base=cg.vec2(224.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              },
+              opened={
+                strip={
+                  t=1,
+                  base=cg.vec2(288.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              }
+            },
+            curr_anim=\\"closed\\",
+            frame=1,
+            ent=_cge(127)
+          }
+        },
+        [258]={
+          k=_cge(258),
+          v={
+            t=1.2835863232613,
+            anims={
+              closing={
+                after=\\"closed\\",
+                strip={
+                  t=0.045000001788139,
+                  after=\\"opened\\",
+                  base=cg.vec2(240.000000, 112.000000),
+                  n=3
+                },
+                n=3
+              },
+              opening={
+                after=\\"opened\\",
+                strip={
+                  t=0.045000001788139,
+                  base=cg.vec2(240.000000, 128.000000),
+                  n=1
+                },
+                n=3
+              },
+              closed={
+                strip={
+                  t=1,
+                  base=cg.vec2(224.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              },
+              opened={
+                strip={
+                  t=1,
+                  base=cg.vec2(288.000000, 128.000000),
+                  n=1
+                },
+                n=1
+              }
+            },
+            curr_anim=\\"closed\\",
+            frame=1,
+            ent=_cge(258)
+          }
+        },
+        [175]={
+          k=_cge(175),
+          v={
+            t=1.2334125917405,
+            anims={
+              shoot={
+                after=\\"idle\\",
+                strip={
+                  t=0.070000000298023,
+                  base=cg.vec2(96.000000, 64.000000),
+                  n=1
+                },
+                n=4
+              },
+              idle={
+                strip={
+                  t=1,
+                  base=cg.vec2(96.000000, 64.000000),
+                  n=1
+                },
+                n=1
+              }
+            },
+            curr_anim=\\"idle\\",
+            frame=1,
+            ent=_cge(175)
+          }
+        }
+      }),
+    add=function() --[[..skipped..]] end,
+    start=function() --[[..skipped..]] end,
+    set_frames=function() --[[..skipped..]] end
+  },
+  switcher={
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({
+        [75]={
+          k=_cge(75),
+          v={
+            ent=_cge(75)
+          }
+        },
+        [146]={
+          k=_cge(146),
+          v={
+            ent=_cge(146)
+          }
+        },
+        [135]={
+          k=_cge(135),
+          v={
+            ent=_cge(135)
+          }
+        },
+        [76]={
+          k=_cge(76),
+          v={
+            ent=_cge(76)
+          }
+        }
+      }),
+    add=nil
+  },
+  edit_inspector={
+    tbl=cg.__entity_table_load({})
+  },
+  message={
+    auto_saveload=true,
+    tbl=cg.__entity_table_load({}),
+    get_message_name=function() --[[..skipped..]] end,
+    set_message_name=function() --[[..skipped..]] end,
+    simple_update_all=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_time=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=nil,
+    get_time=function() --[[..skipped..]] end,
+    simple_has=nil,
+    update=function() --[[..skipped..]] end,
+    add=nil
   },
   gui_window={
     get_body=function() --[[..skipped..]] end,
@@ -5063,6 +5364,19 @@
     remove=function() --[[..skipped..]] end,
     get_title_buttons_area=function() --[[..skipped..]] end
   },
+  camera_follow={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
   crate={
     auto_saveload=true,
     move=function() --[[..skipped..]] end,
@@ -5077,16 +5391,16 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [75]={
-          k=_cge(75),
-          v={
-            ent=_cge(75)
-          }
-        },
         [146]={
           k=_cge(146),
           v={
             ent=_cge(146)
+          }
+        },
+        [75]={
+          k=_cge(75),
+          v={
+            ent=_cge(75)
           }
         },
         [76]={
@@ -5129,23 +5443,26 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [265]={
-          k=_cge(265),
-          v={
-            on=false,
-            ent=_cge(265)
-          }
-        },
         [145]={
           k=_cge(145),
           v={
+            prev_on=false,
             on=false,
             ent=_cge(145)
+          }
+        },
+        [265]={
+          k=_cge(265),
+          v={
+            prev_on=true,
+            on=true,
+            ent=_cge(265)
           }
         },
         [126]={
           k=_cge(126),
           v={
+            prev_on=false,
             on=false,
             ent=_cge(126)
           }
@@ -5153,6 +5470,7 @@
         [96]={
           k=_cge(96),
           v={
+            prev_on=false,
             on=false,
             ent=_cge(96)
           }
@@ -5212,6 +5530,14 @@
             ent=_cge(266),
             message_name=\\"hell-2\\"
           }
+        },
+        [282]={
+          k=_cge(282),
+          v={
+            time=6,
+            message_name=\\"like\\",
+            ent=_cge(282)
+          }
         }
       }),
     add=nil
@@ -5249,37 +5575,38 @@ _.door.remove=_.door.simple_remove
 _.door.simple_update_all=_.door.update_all
 _.door.simple_has=_.door.has
 _.door.add=_.door.simple_add
-_.bump.add=_.bump.simple_add
-_.bump.remove=_.bump.simple_remove
-_.bump.simple_has=_.bump.has
-_.bump.simple_update_all=_.bump.update_all
-_.camera_follow.remove=_.camera_follow.simple_remove
-_.camera_follow.simple_has=_.camera_follow.has
-_.camera_follow.add=_.camera_follow.simple_add
-_.player_dead.remove=_.player_dead.simple_remove
-_.player_dead.update_all=_.player_dead.simple_update_all
-_.player_dead.simple_has=_.player_dead.has
-_.player_dead.add=_.player_dead.simple_add
 _.pit.remove=_.pit.simple_remove
 _.pit.simple_update_all=_.pit.update_all
 _.pit.simple_has=_.pit.has
 _.pit.add=_.pit.simple_add
-_.switcher.remove=_.switcher.simple_remove
-_.switcher.simple_update_all=_.switcher.update_all
-_.switcher.simple_has=_.switcher.has
-_.switcher.add=_.switcher.simple_add
-_.player_control.remove=_.player_control.simple_remove
-_.player_control.simple_update_all=_.player_control.update_all
-_.player_control.simple_has=_.player_control.has
-_.player_control.add=_.player_control.simple_add
-_.message.remove=_.message.simple_remove
-_.message.update_all=_.message.simple_update_all
-_.message.simple_has=_.message.has
-_.message.add=_.message.simple_add
+_.bump.add=_.bump.simple_add
+_.bump.remove=_.bump.simple_remove
+_.bump.simple_has=_.bump.has
+_.bump.simple_update_all=_.bump.update_all
+_.player_dead.remove=_.player_dead.simple_remove
+_.player_dead.update_all=_.player_dead.simple_update_all
+_.player_dead.simple_has=_.player_dead.has
+_.player_dead.add=_.player_dead.simple_add
 _.quad_shooter.simple_has=_.quad_shooter.has
 _.quad_shooter.add=_.quad_shooter.simple_add
 _.quad_shooter.update_all=_.quad_shooter.simple_update_all
 _.quad_shooter.simple_remove=_.quad_shooter.remove
+_.player_control.remove=_.player_control.simple_remove
+_.player_control.simple_update_all=_.player_control.update_all
+_.player_control.simple_has=_.player_control.has
+_.player_control.add=_.player_control.simple_add
+_.switcher.remove=_.switcher.simple_remove
+_.switcher.simple_update_all=_.switcher.update_all
+_.switcher.simple_has=_.switcher.has
+_.switcher.add=_.switcher.simple_add
+_.message.remove=_.message.simple_remove
+_.message.update_all=_.message.simple_update_all
+_.message.simple_has=_.message.has
+_.message.add=_.message.simple_add
+_.camera_follow.remove=_.camera_follow.simple_remove
+_.camera_follow.simple_update_all=_.camera_follow.update_all
+_.camera_follow.simple_has=_.camera_follow.has
+_.camera_follow.add=_.camera_follow.simple_add
 _.crate.remove=_.crate.simple_remove
 _.crate.simple_update_all=_.crate.update_all
 _.crate.simple_has=_.crate.has
@@ -5339,6 +5666,141 @@ end\" " }
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "154 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "281 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "280 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "279 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "278 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "277 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "276 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "275 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "274 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "273 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "272 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "271 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "270 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "269 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "268 " }
+        }
+      }
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "272.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "267 " }
         }
       }
       { n n 
@@ -6343,15 +6805,6 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "144.000000 128.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "145 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
         [ "texcell" "272.000000 48.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
@@ -6433,7 +6886,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "16.000000 96.000000 " ] 
+        [ "texcell" "32.000000 96.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "135 " }
@@ -6509,15 +6962,6 @@ end\" " }
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "127 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "144.000000 128.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "126 " }
         }
       }
       { n n 
@@ -6770,15 +7214,6 @@ end\" " }
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "97 " }
-        }
-      }
-      { n n 
-        { "depth" "0 " }
-        [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "144.000000 128.000000 " ] 
-        [ "size" "1.000000 1.000000 " ] 
-        { "pool_elem" n 
-          { "id" "96 " }
         }
       }
       { n n 
@@ -7288,7 +7723,7 @@ end\" " }
       { n n 
         { "depth" "0 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "224.000000 128.000000 " ] 
+        [ "texcell" "288.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "39 " }
@@ -7315,10 +7750,37 @@ end\" " }
       { n n 
         { "depth" "5 " }
         [ "texsize" "16.000000 16.000000 " ] 
-        [ "texcell" "144.000000 128.000000 " ] 
+        [ "texcell" "160.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
         { "pool_elem" n 
           { "id" "265 " }
+        }
+      }
+      { n n 
+        { "depth" "5 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "144.000000 128.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "145 " }
+        }
+      }
+      { n n 
+        { "depth" "5 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "144.000000 128.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "126 " }
+        }
+      }
+      { n n 
+        { "depth" "5 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "144.000000 128.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "96 " }
         }
       }
       { n n 
@@ -7398,10 +7860,250 @@ end\" " }
   }
   { "camera" n 
     { "pool" n }
-    [ "inverse_view_matrix" "0.107421 -0.000000 0.000000 0.000000 0.143229 -0.000000 1.046764 5.475623 1.000000 " ] 
+    [ "inverse_view_matrix" "0.053785 -0.000000 0.000000 0.000000 0.071714 -0.000000 0.308963 3.472870 1.000000 " ] 
   }
   { "transform" n 
     { "pool" n 
+      { n n 
+        { "dirty_count" "380 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 -49.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 -49.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-6.000000 -49.000000 " ] 
+        { "pool_elem" n 
+          { "id" "282 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3262 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 -57.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 -57.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-3.000000 -57.000000 " ] 
+        { "pool_elem" n 
+          { "id" "281 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3248 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 -58.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 -58.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-3.000000 -58.000000 " ] 
+        { "pool_elem" n 
+          { "id" "280 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3235 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 -59.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 -59.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-3.000000 -59.000000 " ] 
+        { "pool_elem" n 
+          { "id" "279 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3223 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 -60.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -3.000000 -60.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-3.000000 -60.000000 " ] 
+        { "pool_elem" n 
+          { "id" "278 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3209 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -4.000000 -60.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -4.000000 -60.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-4.000000 -60.000000 " ] 
+        { "pool_elem" n 
+          { "id" "277 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3196 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -5.000000 -60.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -5.000000 -60.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-5.000000 -60.000000 " ] 
+        { "pool_elem" n 
+          { "id" "276 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3185 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 -60.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -6.000000 -60.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-6.000000 -60.000000 " ] 
+        { "pool_elem" n 
+          { "id" "275 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3174 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -7.000000 -60.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -7.000000 -60.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-7.000000 -60.000000 " ] 
+        { "pool_elem" n 
+          { "id" "274 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3161 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -60.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -8.000000 -60.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-8.000000 -60.000000 " ] 
+        { "pool_elem" n 
+          { "id" "273 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3146 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -60.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -60.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-9.000000 -60.000000 " ] 
+        { "pool_elem" n 
+          { "id" "272 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3124 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -59.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -59.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-9.000000 -59.000000 " ] 
+        { "pool_elem" n 
+          { "id" "271 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3104 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -58.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -58.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-9.000000 -58.000000 " ] 
+        { "pool_elem" n 
+          { "id" "270 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3079 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -56.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -56.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-9.000000 -56.000000 " ] 
+        { "pool_elem" n 
+          { "id" "269 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3064 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -57.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -57.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-9.000000 -57.000000 " ] 
+        { "pool_elem" n 
+          { "id" "268 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "3040 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -55.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -9.000000 -55.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-9.000000 -55.000000 " ] 
+        { "pool_elem" n 
+          { "id" "267 " }
+        }
+      }
       { n n 
         { "dirty_count" "70 " }
         [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 -11.000000 -38.000000 1.000000 " ] 
@@ -10865,6 +11567,86 @@ end\" " }
   { "entity" n 
     { "destroyed" n }
     { "exists_pool" n 
+      { n n 
+        { "pool_elem" n 
+          { "id" "282 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "281 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "280 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "279 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "278 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "277 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "276 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "275 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "274 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "273 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "272 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "271 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "270 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "269 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "268 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "267 " }
+        }
+      }
       { n n 
         { "pool_elem" n 
           { "id" "266 " }

@@ -29,4 +29,4 @@ require 'cgame.physics'
 require 'cgame.sound'
 
 require 'cgame.console'
-require 'cgame.fps'
+-- require 'cgame.fps'

@@ -30,30 +30,18 @@ function save_game(name, groups, lvl)
     cs.group.set_save_filter(groups, true)
     local s = cg.store_open()
     cs.system.save_all(s)
-
-    local str
-    if name then
-        cg.store_write_file(s, dir .. '/' .. name)
-    else
-        str = cg.string(cg.store_write_str(s))
-    end
+    cg.store_write_file(s, dir .. '/' .. name)
     cg.store_close(s)
-    return str
 end
 
-function load_game(name, lvl, str)
-    if str then
-        local s = cg.store_open_str(name)
-        cs.system.load_all(s)
-        cg.store_close(s)
-        return true
-    end
-
+function load_game(name, lvl)
     local dir = lvl and data_dir or usr_dir
     if not file_exists(dir .. '/' .. name) then return false end
     local s = cg.store_open_file(dir .. '/' .. name)
     cs.system.load_all(s)
     cg.store_close(s)
+    load_frames = 2
+    cs.timing.set_paused(true)
     return true
 end
 
@@ -85,13 +73,13 @@ end
 
 cs.main = {}
 
-cs.main.intermediates = {}
+cs.main.visited = {}
+
+load_frames = 0
 
 function cs.main.reload()
     cs.group.destroy('portals warp default')
-    local s = cg.store_open_file(usr_dir .. '/curr.sav')
-    cs.system.load_all(s)
-    cg.store_close(s)
+    load_game('curr.sav')
 end
 
 function cs.main.die(...)
@@ -104,17 +92,18 @@ end
 function cs.main.warp(world)
     print('warping to ' .. world)
     -- save and clear current state
-    cs.main.intermediates[cs.main.world] = save_game(nil, 'default')
+    save_game(cs.main.world .. '.sav', 'default')
     cs.group.destroy('default')
 
     -- set, load new world
     cs.main.world = world
-    if cs.main.intermediates[world] then
-        load_game(cs.main.intermediates[world], false, true)
-    else
+    if not cs.main.visited[world] then
         load_game(world .. '.lvl', true)
+    else
+        if not load_game(world .. '.sav') then load_game(world .. '.lvl', true) end
     end
     print('now in ' .. cs.main.world .. ', saving')
+    cs.main.visited[world] = true
 
     -- save progress
     g_save_world = true
@@ -125,7 +114,7 @@ function cs.main.warp(world)
 end
 
 function cs.main.key_down(k)
-    if k == cg.KC_ESCAPE then
+    if k == cg.KC_ESCAPE and not cs.edit.get_enabled() then
         main_menu()
     end
 end
@@ -136,7 +125,16 @@ g_world_colors = {
     earth = cg.color_opaque(231 / 255.0, 163 / 255.0, 93 / 255.0),
 }
 
+function in_load()
+    return load_frames > 0
+end
+
 function cs.main.update_all()
+    if load_frames > 0 then
+        load_frames = load_frames - 1
+    elseif load_frames == 0 then
+        cs.timing.set_paused(false)
+    end
     cs.game.set_bg_color(g_world_colors[cs.main.world]
                              and g_world_colors[cs.main.world]
                              or cg.color_white)
@@ -147,14 +145,14 @@ function cs.main.save_all()
     t = {}
     if g_save_world then
         t.saved_world = cs.main.world
-        t.intermediates = cs.main.intermediates
+        t.visited = cs.main.visited
     end
     g_save_world = false
     return t
 end
 function cs.main.load_all(t)
     if t.saved_world then cs.main.world = t.saved_world end
-    if t.intermediates then cs.main.intermediates = t.intermediates end
+    if t.visited then cs.main.visited = t.visited end
 end
 
 
@@ -183,7 +181,13 @@ function cs.player_dead.unpaused_update(obj)
     obj.time = obj.time - cs.timing.dt
 
     if obj.time <= 0 then
-        cs.main.reload()
+        if cs.main.world ~= 'white-2' then
+            cs.main.reload()
+        else
+            load_game('menu.lvl', true)
+            cs.timing.set_paused(false)
+            load_frames = 0
+        end
     end
 
     if obj.falling then
@@ -214,7 +218,10 @@ function cs.player_control.die(ent, falling)
             texcell = cg.vec2(64, 16),
             texsize = cg.vec2(32, 32),
         },
-        player_dead = { falling = falling }
+        player_dead = {
+            time = cs.main.world == 'white-2' and 5.5 or 0.7,
+            falling = falling
+        }
     }
 end
 
@@ -243,6 +250,11 @@ function cs.player_control.unpaused_update(obj)
         d = d + cg.vec2(-1,  0)
     end
     d = cg.vec2_normalize(d)
+
+    if cs.main.world == 'white-2' then
+        pressed = true
+        d = cg.vec2(0, -0.3)
+    end
 
     local crate_cols = cs.bump.sweep(obj.ent, 0.01 * d,
                                      function (e) return cs.crate.has(e) end)
@@ -287,7 +299,7 @@ function cs.wall.create(obj)
     cs.bump.add(obj.ent)
 end
 
-function cs.wall.unpaused_update(obj)
+function cs.wall.update(obj)
     if not obj.randomized then
         if math.random() > 0.5 then
             cs.transform.rotate(obj.ent, math.pi)
@@ -311,7 +323,7 @@ function cs.follower.unpaused_update(obj)
     if not obj.t then obj.t = 0 end
 
     local player = cs.name.find('player')
-    if player ~= cg.entity_nil then
+    if player ~= cg.entity_nil and cs.transform.has(player) then
         local pp = cs.transform.get_position(player)
         local d = pp - cs.transform.get_position(obj.ent)
         local len = cg.vec2_len(d)
@@ -322,6 +334,7 @@ function cs.follower.unpaused_update(obj)
                     and not cs.pit.has(e) and not cs.switch.has(e)
                     and not cs.follower.has(e)
                     and not cs.bullet.has(e)
+                    and not cs.portal.has(e)
             end
             local cols = cs.bump.slide(obj.ent, obj.speed * d * cs.timing.dt,
                                        filter)
@@ -417,18 +430,25 @@ end
 
 cs.camera_follow = cg.simple_sys()
 
-function cs.camera_follow.update_all()
-    local cam = cs.camera.get_current_camera()
-    if cam ~= cg.entity_nil and cam ~= cs.edit.camera
-    and not cs.camera_follow.has(cam) then
-        cs.camera_follow.add(cam)
-        cs.group.set_groups(cam, 'warp')
-    end
+-- function cs.camera_follow.update_all()
+--     -- local cam = cs.camera.get_current_camera()
+--     -- if cam ~= cg.entity_nil and cam ~= cs.edit.camera
+--     -- and not cs.camera_follow.has(cam) then
+--     --     cs.camera_follow.add(cam)
+--     --     cs.group.set_groups(cam, 'warp')
+--     -- end
 
-    cs.camera_follow.simple_update_all()
-end
+--     cs.camera_follow.simple_update_all()
+-- end
 
 function cs.camera_follow.unpaused_update(obj)
+    if cs.main.world == 'white-2' then
+        local ppw = cs.transform.get_position(cs.name.find('end-target'))
+        local d = ppw - cs.transform.get_position(obj.ent)
+        cs.transform.translate(obj.ent, 1 * d * cs.timing.dt)
+        return
+    end
+
     local player = cs.name.find('player')
     if player ~= cg.entity_nil then
         local ppw = cs.transform.local_to_world(player, cg.vec2_zero)
@@ -446,16 +466,18 @@ cg.simple_prop(cs.portal, 'world_1', 'hell')
 cg.simple_prop(cs.portal, 'world_2', 'earth')
 
 function cs.portal.unpaused_update(obj)
+    cs.sprite.set_depth(obj.ent, 3)
+
     local cols = cs.bump.sweep(obj.ent)
     if obj.in_warp == nil then obj.in_warp = false end
 
 
+    local next_in_warp = false
     if obj.world_1 == cs.main.world or obj.world_2 == cs.main.world then
-        local next_in_warp = false
         for _, col in ipairs(cols) do
             if cs.name.get_name(col.other) == 'player' then
                 next_in_warp = true
-                if not obj.in_warp then
+                if not obj.in_warp and not in_load() then
                     local ow = (obj.world_1 == cs.main.world)
                         and obj.world_2 or obj.world_1
                     obj.in_warp = true  -- do it here to save it for the warp-save
@@ -463,8 +485,8 @@ function cs.portal.unpaused_update(obj)
                 end
             end
         end
-        obj.in_warp = next_in_warp
     end
+    obj.in_warp = next_in_warp
 end
 
 
@@ -624,6 +646,9 @@ g_messages = {
     hell = "Oh my...",
     earth = "This place looks familiar...",
     ['hell-2'] = "What in hell??",
+    ['end'] = "No!! This can't be it!\nAaaah...",
+    ['no-save'] = "No saved game",
+    like = "I don't like this very much."
 }
 
 cs.message = cg.simple_sys()
@@ -639,8 +664,8 @@ function cs.message.set_message_name(ent, name)
     cs.gui_text.set_str(ent, message)
 end
 
-function cs.message.unpaused_update(obj)
-    obj.time = obj.time - cs.timing.dt
+function cs.message.update(obj)
+    obj.time = obj.time - cs.timing.true_dt
 
     if obj.time < 1 then
         local c = cs.gui.get_color(obj.ent)
@@ -692,17 +717,31 @@ function cs.main_menu.update_all()
     local new_game = cs.name.find('new-game')
     if new_game ~= cg.entity_nil
     and cs.gui.event_mouse_down(new_game) == cg.MC_LEFT then
+        if cs.main.world ~= 'white' then
+            cs.group.destroy('portals warp default')
+
+            cs.main.world = 'white'
+            load_game('portals.lvl', true)
+            load_game('start.lvl', true)
+        end
+
         cs.group.destroy('menu')
         cs.timing.set_paused(false)
+        cs.main.visited = {}
+        cs.main.visited['white'] = true
         save_game('curr.sav', 'portals warp default')
     end
 
     local continue = cs.name.find('continue')
     if continue ~= cg.entity_nil
     and cs.gui.event_mouse_down(continue) == cg.MC_LEFT then
-        cs.group.destroy('menu')
-        cs.timing.set_paused(false)
-        cs.main.reload()
+        if file_exists(usr_dir .. '/curr.sav') then
+            cs.group.destroy('menu')
+            cs.timing.set_paused(false)
+            cs.main.reload()
+        else
+            show_message('no-save', 4)
+        end
     end
 
     local quit = cs.name.find('quit')
@@ -721,6 +760,8 @@ function main_menu()
 
     cs.timing.set_paused(true)
     load_game('menu.lvl', true)
+
+    load_frames = -1
 end
 
 if cg.args[2] == 'start' then

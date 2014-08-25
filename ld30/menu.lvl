@@ -1,10 +1,10 @@
-19572
+21062
 { n n 
   { "script" n 
     { "str" "\"do local _={
   wall={
     auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
     simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
@@ -13,7 +13,7 @@
     update_all=function() --[[..skipped..]] end,
     simple_update_all=nil,
     simple_has=nil,
-    tbl=cg.__entity_table_load({}),
+    update=function() --[[..skipped..]] end,
     add=nil
   },
   follower={
@@ -49,18 +49,18 @@
     set_switch=function() --[[..skipped..]] end,
     add=nil
   },
-  animation={
+  pit={
     auto_saveload=true,
-    get_curr_anim=function() --[[..skipped..]] end,
-    set_strips=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    remove=nil,
     update_all=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    switch=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
     tbl=cg.__entity_table_load({}),
-    add=function() --[[..skipped..]] end,
-    start=function() --[[..skipped..]] end,
-    set_frames=function() --[[..skipped..]] end
+    add=nil
   },
   bump={
     slide=function() --[[..skipped..]] end,
@@ -82,32 +82,49 @@
     sweep=function() --[[..skipped..]] end,
     get_bbox=function() --[[..skipped..]] end
   },
-  camera_follow={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=function() --[[..skipped..]] end,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
+  group=cg.__entity_table_load({
+      [37]={
+        k=_cge(37),
+        v={
+          menu=true
+        }
+      },
+      [39]={
+        k=_cge(39),
+        v={
+          menu=true
+        }
+      },
+      [40]={
+        k=_cge(40),
+        v={
+          menu=true
+        }
+      },
+      [38]={
+        k=_cge(38),
+        v={
+          menu=true
+        }
+      }
+    }),
   main={},
   name=cg.__entity_table_load({
-      [73]={
-        k=_cge(73),
+      [38]={
+        k=_cge(38),
+        v=\\"continue\\"
+      },
+      [37]={
+        k=_cge(37),
         v=\\"new-game\\"
       },
-      [75]={
-        k=_cge(75),
-        v=\\"quit\\"
+      [40]={
+        k=_cge(40),
+        v=\\"new-game-0\\"
       },
-      [74]={
-        k=_cge(74),
-        v=\\"continue\\"
+      [39]={
+        k=_cge(39),
+        v=\\"quit\\"
       }
     }),
   edit={
@@ -118,96 +135,6 @@
     set_falling=function() --[[..skipped..]] end,
     create=function() --[[..skipped..]] end,
     get_falling=function() --[[..skipped..]] end,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_update_all=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    set_time=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=nil,
-    get_time=function() --[[..skipped..]] end,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  pit={
-    auto_saveload=true,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  group=cg.__entity_table_load({
-      [75]={
-        k=_cge(75),
-        v={
-          menu=true
-        }
-      },
-      [73]={
-        k=_cge(73),
-        v={
-          menu=true
-        }
-      },
-      [74]={
-        k=_cge(74),
-        v={
-          menu=true
-        }
-      }
-    }),
-  edit_inspector={
-    tbl=cg.__entity_table_load({})
-  },
-  gui_textbox={
-    auto_saveload=true,
-    set_click_focus=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
-    get_click_focus=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    get_text=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end
-  },
-  switcher={
-    auto_saveload=true,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  player_control={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    die=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  message={
-    auto_saveload=true,
-    set_message_name=function() --[[..skipped..]] end,
-    get_message_name=function() --[[..skipped..]] end,
     unpaused_update=function() --[[..skipped..]] end,
     simple_update_all=function() --[[..skipped..]] end,
     simple_remove=function() --[[..skipped..]] end,
@@ -240,6 +167,76 @@
     update_all=nil,
     simple_remove=nil
   },
+  player_control={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    die=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  gui_textbox={
+    auto_saveload=true,
+    set_click_focus=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    get_click_focus=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    get_text=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end
+  },
+  animation={
+    auto_saveload=true,
+    get_curr_anim=function() --[[..skipped..]] end,
+    set_strips=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    switch=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    add=function() --[[..skipped..]] end,
+    start=function() --[[..skipped..]] end,
+    set_frames=function() --[[..skipped..]] end
+  },
+  switcher={
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  edit_inspector={
+    tbl=cg.__entity_table_load({})
+  },
+  message={
+    auto_saveload=true,
+    tbl=cg.__entity_table_load({}),
+    get_message_name=function() --[[..skipped..]] end,
+    set_message_name=function() --[[..skipped..]] end,
+    simple_update_all=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_time=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=nil,
+    get_time=function() --[[..skipped..]] end,
+    simple_has=nil,
+    update=function() --[[..skipped..]] end,
+    add=nil
+  },
   gui_window={
     get_body=function() --[[..skipped..]] end,
     get_minimized=function() --[[..skipped..]] end,
@@ -258,6 +255,19 @@
     set_closeable=function() --[[..skipped..]] end,
     remove=function() --[[..skipped..]] end,
     get_title_buttons_area=function() --[[..skipped..]] end
+  },
+  camera_follow={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
   },
   crate={
     auto_saveload=true,
@@ -365,22 +375,28 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [73]={
-          k=_cge(73),
+        [38]={
+          k=_cge(38),
           v={
-            ent=_cge(73)
+            ent=_cge(38)
           }
         },
-        [75]={
-          k=_cge(75),
+        [37]={
+          k=_cge(37),
           v={
-            ent=_cge(75)
+            ent=_cge(37)
           }
         },
-        [74]={
-          k=_cge(74),
+        [40]={
+          k=_cge(40),
           v={
-            ent=_cge(74)
+            ent=_cge(40)
+          }
+        },
+        [39]={
+          k=_cge(39),
+          v={
+            ent=_cge(39)
           }
         }
       }),
@@ -400,37 +416,38 @@ _.door.remove=_.door.simple_remove
 _.door.simple_update_all=_.door.update_all
 _.door.simple_has=_.door.has
 _.door.add=_.door.simple_add
-_.bump.add=_.bump.simple_add
-_.bump.remove=_.bump.simple_remove
-_.bump.simple_has=_.bump.has
-_.bump.simple_update_all=_.bump.update_all
-_.camera_follow.remove=_.camera_follow.simple_remove
-_.camera_follow.simple_has=_.camera_follow.has
-_.camera_follow.add=_.camera_follow.simple_add
-_.player_dead.remove=_.player_dead.simple_remove
-_.player_dead.update_all=_.player_dead.simple_update_all
-_.player_dead.simple_has=_.player_dead.has
-_.player_dead.add=_.player_dead.simple_add
 _.pit.remove=_.pit.simple_remove
 _.pit.simple_update_all=_.pit.update_all
 _.pit.simple_has=_.pit.has
 _.pit.add=_.pit.simple_add
-_.switcher.remove=_.switcher.simple_remove
-_.switcher.simple_update_all=_.switcher.update_all
-_.switcher.simple_has=_.switcher.has
-_.switcher.add=_.switcher.simple_add
-_.player_control.remove=_.player_control.simple_remove
-_.player_control.simple_update_all=_.player_control.update_all
-_.player_control.simple_has=_.player_control.has
-_.player_control.add=_.player_control.simple_add
-_.message.remove=_.message.simple_remove
-_.message.update_all=_.message.simple_update_all
-_.message.simple_has=_.message.has
-_.message.add=_.message.simple_add
+_.bump.add=_.bump.simple_add
+_.bump.remove=_.bump.simple_remove
+_.bump.simple_has=_.bump.has
+_.bump.simple_update_all=_.bump.update_all
+_.player_dead.remove=_.player_dead.simple_remove
+_.player_dead.update_all=_.player_dead.simple_update_all
+_.player_dead.simple_has=_.player_dead.has
+_.player_dead.add=_.player_dead.simple_add
 _.quad_shooter.simple_has=_.quad_shooter.has
 _.quad_shooter.add=_.quad_shooter.simple_add
 _.quad_shooter.update_all=_.quad_shooter.simple_update_all
 _.quad_shooter.simple_remove=_.quad_shooter.remove
+_.player_control.remove=_.player_control.simple_remove
+_.player_control.simple_update_all=_.player_control.update_all
+_.player_control.simple_has=_.player_control.has
+_.player_control.add=_.player_control.simple_add
+_.switcher.remove=_.switcher.simple_remove
+_.switcher.simple_update_all=_.switcher.update_all
+_.switcher.simple_has=_.switcher.has
+_.switcher.add=_.switcher.simple_add
+_.message.remove=_.message.simple_remove
+_.message.update_all=_.message.simple_update_all
+_.message.simple_has=_.message.has
+_.message.add=_.message.simple_add
+_.camera_follow.remove=_.camera_follow.simple_remove
+_.camera_follow.simple_update_all=_.camera_follow.update_all
+_.camera_follow.simple_has=_.camera_follow.has
+_.camera_follow.add=_.camera_follow.simple_add
 _.crate.remove=_.crate.simple_remove
 _.crate.simple_update_all=_.crate.update_all
 _.crate.simple_has=_.crate.has
@@ -473,23 +490,30 @@ end\" " }
     { "pool" n 
       { n n 
         { "cursor" "-1 " }
+        { "str" "\"Reminisce\" " }
+        { "pool_elem" n 
+          { "id" "40 " }
+        }
+      }
+      { n n 
+        { "cursor" "-1 " }
         { "str" "\"quit\" " }
         { "pool_elem" n 
-          { "id" "75 " }
+          { "id" "39 " }
         }
       }
       { n n 
         { "cursor" "-1 " }
         { "str" "\"continue\" " }
         { "pool_elem" n 
-          { "id" "74 " }
+          { "id" "38 " }
         }
       }
       { n n 
         { "cursor" "-1 " }
         { "str" "\"new game\" " }
         { "pool_elem" n 
-          { "id" "73 " }
+          { "id" "37 " }
         }
       }
     }
@@ -509,12 +533,12 @@ end\" " }
         { "visible" "1 " }
         { "color" n 
           { "a" "1.000000 " }
-          { "b" "0.500000 " }
-          { "g" "0.500000 " }
-          { "r" "0.500000 " }
+          { "b" "0.200000 " }
+          { "g" "0.200000 " }
+          { "r" "0.600000 " }
         }
         { "pool_elem" n 
-          { "id" "75 " }
+          { "id" "40 " }
         }
       }
       { n n 
@@ -532,7 +556,7 @@ end\" " }
           { "r" "0.500000 " }
         }
         { "pool_elem" n 
-          { "id" "74 " }
+          { "id" "39 " }
         }
       }
       { n n 
@@ -550,7 +574,25 @@ end\" " }
           { "r" "0.500000 " }
         }
         { "pool_elem" n 
-          { "id" "73 " }
+          { "id" "38 " }
+        }
+      }
+      { n n 
+        [ "padding" "5.000000 5.000000 " ] 
+        { "valign" "4 " }
+        { "halign" "4 " }
+        { "captures_events" "1 " }
+        { "focusable" "0 " }
+        { "setvisible" "1 " }
+        { "visible" "1 " }
+        { "color" n 
+          { "a" "1.000000 " }
+          { "b" "0.500000 " }
+          { "g" "0.500000 " }
+          { "r" "0.500000 " }
+        }
+        { "pool_elem" n 
+          { "id" "37 " }
         }
       }
     }
@@ -569,48 +611,63 @@ end\" " }
   { "transform" n 
     { "pool" n 
       { n n 
-        { "dirty_count" "1364 " }
-        [ "worldmat_cache" "0.087500 0.000000 0.000000 0.000000 0.087491 0.000000 -6.666670 -6.498100 1.000000 " ] 
-        [ "mat_cache" "2.100000 0.000000 0.000000 -0.000000 2.100000 0.000000 239.999939 -456.000000 1.000000 " ] 
+        { "dirty_count" "962 " }
+        [ "worldmat_cache" "0.125000 0.000000 0.000000 0.000000 0.125000 0.000000 -14.666669 6.500000 1.000000 " ] 
+        [ "mat_cache" "3.000000 0.000000 0.000000 -0.000000 3.000000 0.000000 47.999969 -144.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
-        [ "scale" "2.100000 2.100000 " ] 
+        [ "scale" "3.000000 3.000000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "239.999939 -456.000000 " ] 
+        [ "position" "47.999969 -144.000000 " ] 
         { "pool_elem" n 
-          { "id" "75 " }
+          { "id" "40 " }
         }
       }
       { n n 
-        { "dirty_count" "863 " }
-        [ "worldmat_cache" "0.087500 0.000000 0.000000 0.000000 0.087491 0.000000 -11.666668 -1.498600 1.000000 " ] 
-        [ "mat_cache" "2.100000 0.000000 0.000000 -0.000000 2.100000 0.000000 120.000000 -336.000000 1.000000 " ] 
+        { "dirty_count" "1484 " }
+        [ "worldmat_cache" "0.087500 0.000000 0.000000 0.000000 0.087500 0.000000 -5.666670 -5.500000 1.000000 " ] 
+        [ "mat_cache" "2.100000 0.000000 0.000000 -0.000000 2.100000 0.000000 263.999939 -432.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "2.100000 2.100000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "120.000000 -336.000000 " ] 
+        [ "position" "263.999939 -432.000000 " ] 
         { "pool_elem" n 
-          { "id" "74 " }
+          { "id" "39 " }
         }
       }
       { n n 
-        { "dirty_count" "639 " }
-        [ "worldmat_cache" "0.087500 0.000000 0.000000 0.000000 0.087491 0.000000 -13.666668 0.501200 1.000000 " ] 
-        [ "mat_cache" "2.100000 0.000000 0.000000 -0.000000 2.100000 0.000000 72.000000 -288.000000 1.000000 " ] 
+        { "dirty_count" "983 " }
+        [ "worldmat_cache" "0.087500 0.000000 0.000000 0.000000 0.087500 0.000000 -10.666668 -0.500000 1.000000 " ] 
+        [ "mat_cache" "2.100000 0.000000 0.000000 -0.000000 2.100000 0.000000 144.000000 -312.000000 1.000000 " ] 
         { "children" n }
         { "parent" n 
           { "id" "0 " }
         }
         [ "scale" "2.100000 2.100000 " ] 
         { "rotation" "0.000000 " }
-        [ "position" "72.000000 -288.000000 " ] 
+        [ "position" "144.000000 -312.000000 " ] 
         { "pool_elem" n 
-          { "id" "73 " }
+          { "id" "38 " }
+        }
+      }
+      { n n 
+        { "dirty_count" "759 " }
+        [ "worldmat_cache" "0.087500 0.000000 0.000000 0.000000 0.087500 0.000000 -12.666668 1.500000 1.000000 " ] 
+        [ "mat_cache" "2.100000 0.000000 0.000000 -0.000000 2.100000 0.000000 96.000000 -264.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "2.100000 2.100000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "96.000000 -264.000000 " ] 
+        { "pool_elem" n 
+          { "id" "37 " }
         }
       }
     }
@@ -628,17 +685,22 @@ end\" " }
     { "exists_pool" n 
       { n n 
         { "pool_elem" n 
-          { "id" "75 " }
+          { "id" "40 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "74 " }
+          { "id" "39 " }
         }
       }
       { n n 
         { "pool_elem" n 
-          { "id" "73 " }
+          { "id" "38 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "37 " }
         }
       }
     }

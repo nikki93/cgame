@@ -1,10 +1,10 @@
-26070
+27453
 { n n 
   { "script" n 
     { "str" "\"do local _={
   wall={
     auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
     simple_remove=function() --[[..skipped..]] end,
     has=function() --[[..skipped..]] end,
     simple_add=function() --[[..skipped..]] end,
@@ -13,7 +13,7 @@
     update_all=function() --[[..skipped..]] end,
     simple_update_all=nil,
     simple_has=nil,
-    tbl=cg.__entity_table_load({}),
+    update=function() --[[..skipped..]] end,
     add=nil
   },
   follower={
@@ -49,140 +49,6 @@
     set_switch=function() --[[..skipped..]] end,
     add=nil
   },
-  animation={
-    auto_saveload=true,
-    get_curr_anim=function() --[[..skipped..]] end,
-    set_strips=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end,
-    switch=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
-    add=function() --[[..skipped..]] end,
-    start=function() --[[..skipped..]] end,
-    set_frames=function() --[[..skipped..]] end
-  },
-  bump={
-    slide=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
-    set_position=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    add=nil,
-    update=function() --[[..skipped..]] end,
-    auto_saveload=true,
-    simple_remove=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({
-        [33]={
-          k=_cge(33),
-          v={
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2211,
-            ent=_cge(33)
-          }
-        },
-        [32]={
-          k=_cge(32),
-          v={
-            last_dirty=3556,
-            ent=_cge(32),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
-          }
-        },
-        [31]={
-          k=_cge(31),
-          v={
-            ent=_cge(31),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2919
-          }
-        },
-        [29]={
-          k=_cge(29),
-          v={
-            last_dirty=2771,
-            ent=_cge(29),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
-          }
-        },
-        [28]={
-          k=_cge(28),
-          v={
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2903,
-            ent=_cge(28)
-          }
-        },
-        [35]={
-          k=_cge(35),
-          v={
-            last_dirty=2713,
-            ent=_cge(35),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
-          }
-        },
-        [34]={
-          k=_cge(34),
-          v={
-            ent=_cge(34),
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2532
-          }
-        },
-        [30]={
-          k=_cge(30),
-          v={
-            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
-            last_dirty=2843,
-            ent=_cge(30)
-          }
-        }
-      }),
-    destroy=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    remove=nil,
-    set_bbox=function() --[[..skipped..]] end,
-    simple_has=nil,
-    simple_update_all=nil,
-    sweep=function() --[[..skipped..]] end,
-    get_bbox=function() --[[..skipped..]] end
-  },
-  camera_follow={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=function() --[[..skipped..]] end,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  main={},
-  name=cg.__entity_table_load({}),
-  edit={
-    sel=cg.__entity_table_load({})
-  },
-  player_dead={
-    auto_saveload=true,
-    set_falling=function() --[[..skipped..]] end,
-    create=function() --[[..skipped..]] end,
-    get_falling=function() --[[..skipped..]] end,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_update_all=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    set_time=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=nil,
-    get_time=function() --[[..skipped..]] end,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
   pit={
     auto_saveload=true,
     simple_remove=function() --[[..skipped..]] end,
@@ -196,9 +62,102 @@
     tbl=cg.__entity_table_load({}),
     add=nil
   },
+  bump={
+    slide=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    set_position=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    add=nil,
+    update=function() --[[..skipped..]] end,
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({
+        [34]={
+          k=_cge(34),
+          v={
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
+            last_dirty=2771,
+            ent=_cge(34)
+          }
+        },
+        [32]={
+          k=_cge(32),
+          v={
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
+            last_dirty=2713,
+            ent=_cge(32)
+          }
+        },
+        [30]={
+          k=_cge(30),
+          v={
+            ent=_cge(30),
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
+            last_dirty=2211
+          }
+        },
+        [29]={
+          k=_cge(29),
+          v={
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
+            last_dirty=3556,
+            ent=_cge(29)
+          }
+        },
+        [28]={
+          k=_cge(28),
+          v={
+            ent=_cge(28),
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
+            last_dirty=2843
+          }
+        },
+        [27]={
+          k=_cge(27),
+          v={
+            ent=_cge(27),
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
+            last_dirty=3871
+          }
+        },
+        [33]={
+          k=_cge(33),
+          v={
+            ent=_cge(33),
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000)),
+            last_dirty=2903
+          }
+        },
+        [35]={
+          k=_cge(35),
+          v={
+            last_dirty=2919,
+            ent=_cge(35),
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
+          }
+        },
+        [31]={
+          k=_cge(31),
+          v={
+            last_dirty=2532,
+            ent=_cge(31),
+            bbox=cg.bbox(cg.vec2(-0.375000, -0.375000), cg.vec2(0.375000, 0.375000))
+          }
+        }
+      }),
+    destroy=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    remove=nil,
+    set_bbox=function() --[[..skipped..]] end,
+    simple_has=nil,
+    simple_update_all=nil,
+    sweep=function() --[[..skipped..]] end,
+    get_bbox=function() --[[..skipped..]] end
+  },
   group=cg.__entity_table_load({
-      [33]={
-        k=_cge(33),
+      [34]={
+        k=_cge(34),
         v={
           portals=true
         }
@@ -209,8 +168,8 @@
           portals=true
         }
       },
-      [31]={
-        k=_cge(31),
+      [30]={
+        k=_cge(30),
         v={
           portals=true
         }
@@ -227,69 +186,41 @@
           portals=true
         }
       },
+      [27]={
+        k=_cge(27),
+        v={
+          portals=true
+        }
+      },
+      [33]={
+        k=_cge(33),
+        v={
+          portals=true
+        }
+      },
       [35]={
         k=_cge(35),
         v={
           portals=true
         }
       },
-      [34]={
-        k=_cge(34),
-        v={
-          portals=true
-        }
-      },
-      [30]={
-        k=_cge(30),
+      [31]={
+        k=_cge(31),
         v={
           portals=true
         }
       }
     }),
-  edit_inspector={
-    tbl=cg.__entity_table_load({})
+  main={},
+  name=cg.__entity_table_load({}),
+  edit={
+    sel=cg.__entity_table_load({})
   },
-  gui_textbox={
+  player_dead={
     auto_saveload=true,
-    set_click_focus=function() --[[..skipped..]] end,
-    tbl=cg.__entity_table_load({}),
-    get_click_focus=function() --[[..skipped..]] end,
-    update_all=function() --[[..skipped..]] end,
-    get_text=function() --[[..skipped..]] end,
-    add=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    remove=function() --[[..skipped..]] end
-  },
-  switcher={
-    auto_saveload=true,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  player_control={
-    auto_saveload=true,
-    unpaused_update=function() --[[..skipped..]] end,
-    simple_remove=function() --[[..skipped..]] end,
-    has=function() --[[..skipped..]] end,
-    simple_add=function() --[[..skipped..]] end,
-    die=function() --[[..skipped..]] end,
-    remove=nil,
-    update_all=function() --[[..skipped..]] end,
-    simple_update_all=nil,
-    simple_has=nil,
-    tbl=cg.__entity_table_load({}),
-    add=nil
-  },
-  message={
-    auto_saveload=true,
-    set_message_name=function() --[[..skipped..]] end,
-    get_message_name=function() --[[..skipped..]] end,
+    set_falling=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    get_falling=function() --[[..skipped..]] end,
     unpaused_update=function() --[[..skipped..]] end,
     simple_update_all=function() --[[..skipped..]] end,
     simple_remove=function() --[[..skipped..]] end,
@@ -322,6 +253,76 @@
     update_all=nil,
     simple_remove=nil
   },
+  player_control={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    die=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  gui_textbox={
+    auto_saveload=true,
+    set_click_focus=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    get_click_focus=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    get_text=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end
+  },
+  animation={
+    auto_saveload=true,
+    get_curr_anim=function() --[[..skipped..]] end,
+    set_strips=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    switch=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    add=function() --[[..skipped..]] end,
+    start=function() --[[..skipped..]] end,
+    set_frames=function() --[[..skipped..]] end
+  },
+  switcher={
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  edit_inspector={
+    tbl=cg.__entity_table_load({})
+  },
+  message={
+    auto_saveload=true,
+    tbl=cg.__entity_table_load({}),
+    get_message_name=function() --[[..skipped..]] end,
+    set_message_name=function() --[[..skipped..]] end,
+    simple_update_all=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    set_time=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=nil,
+    get_time=function() --[[..skipped..]] end,
+    simple_has=nil,
+    update=function() --[[..skipped..]] end,
+    add=nil
+  },
   gui_window={
     get_body=function() --[[..skipped..]] end,
     get_minimized=function() --[[..skipped..]] end,
@@ -340,6 +341,19 @@
     set_closeable=function() --[[..skipped..]] end,
     remove=function() --[[..skipped..]] end,
     get_title_buttons_area=function() --[[..skipped..]] end
+  },
+  camera_follow={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
   },
   crate={
     auto_saveload=true,
@@ -372,13 +386,13 @@
     simple_update_all=nil,
     simple_has=nil,
     tbl=cg.__entity_table_load({
-        [33]={
-          k=_cge(33),
+        [34]={
+          k=_cge(34),
           v={
-            world_2=\\"white\\",
+            world_2=\\"earth\\",
             in_warp=false,
-            world_1=\\"hell-1\\",
-            ent=_cge(33)
+            world_1=\\"hell-2\\",
+            ent=_cge(34)
           }
         },
         [32]={
@@ -386,17 +400,17 @@
           v={
             world_2=\\"earth\\",
             in_warp=false,
-            world_1=\\"hell-2\\",
+            world_1=\\"hell-1\\",
             ent=_cge(32)
           }
         },
-        [30]={
-          k=_cge(30),
+        [31]={
+          k=_cge(31),
           v={
             world_2=\\"earth\\",
             in_warp=false,
-            world_1=\\"hell-2\\",
-            ent=_cge(30)
+            world_1=\\"hell-1\\",
+            ent=_cge(31)
           }
         },
         [29]={
@@ -413,17 +427,17 @@
           v={
             world_2=\\"earth\\",
             in_warp=false,
-            world_1=\\"hell-1\\",
+            world_1=\\"hell-2\\",
             ent=_cge(28)
           }
         },
-        [34]={
-          k=_cge(34),
+        [27]={
+          k=_cge(27),
           v={
-            world_2=\\"earth\\",
+            world_2=\\"white-2\\",
             in_warp=false,
-            world_1=\\"hell-1\\",
-            ent=_cge(34)
+            world_1=\\"hell-2\\",
+            ent=_cge(27)
           }
         },
         [35]={
@@ -431,17 +445,26 @@
           v={
             world_2=\\"earth\\",
             in_warp=false,
-            world_1=\\"hell-1\\",
+            world_1=\\"hell-2\\",
             ent=_cge(35)
           }
         },
-        [31]={
-          k=_cge(31),
+        [33]={
+          k=_cge(33),
           v={
             world_2=\\"earth\\",
             in_warp=false,
-            world_1=\\"hell-2\\",
-            ent=_cge(31)
+            world_1=\\"hell-1\\",
+            ent=_cge(33)
+          }
+        },
+        [30]={
+          k=_cge(30),
+          v={
+            world_2=\\"white\\",
+            in_warp=false,
+            world_1=\\"hell-1\\",
+            ent=_cge(30)
           }
         }
       }),
@@ -536,37 +559,38 @@ _.door.remove=_.door.simple_remove
 _.door.simple_update_all=_.door.update_all
 _.door.simple_has=_.door.has
 _.door.add=_.door.simple_add
-_.bump.add=_.bump.simple_add
-_.bump.remove=_.bump.simple_remove
-_.bump.simple_has=_.bump.has
-_.bump.simple_update_all=_.bump.update_all
-_.camera_follow.remove=_.camera_follow.simple_remove
-_.camera_follow.simple_has=_.camera_follow.has
-_.camera_follow.add=_.camera_follow.simple_add
-_.player_dead.remove=_.player_dead.simple_remove
-_.player_dead.update_all=_.player_dead.simple_update_all
-_.player_dead.simple_has=_.player_dead.has
-_.player_dead.add=_.player_dead.simple_add
 _.pit.remove=_.pit.simple_remove
 _.pit.simple_update_all=_.pit.update_all
 _.pit.simple_has=_.pit.has
 _.pit.add=_.pit.simple_add
-_.switcher.remove=_.switcher.simple_remove
-_.switcher.simple_update_all=_.switcher.update_all
-_.switcher.simple_has=_.switcher.has
-_.switcher.add=_.switcher.simple_add
-_.player_control.remove=_.player_control.simple_remove
-_.player_control.simple_update_all=_.player_control.update_all
-_.player_control.simple_has=_.player_control.has
-_.player_control.add=_.player_control.simple_add
-_.message.remove=_.message.simple_remove
-_.message.update_all=_.message.simple_update_all
-_.message.simple_has=_.message.has
-_.message.add=_.message.simple_add
+_.bump.add=_.bump.simple_add
+_.bump.remove=_.bump.simple_remove
+_.bump.simple_has=_.bump.has
+_.bump.simple_update_all=_.bump.update_all
+_.player_dead.remove=_.player_dead.simple_remove
+_.player_dead.update_all=_.player_dead.simple_update_all
+_.player_dead.simple_has=_.player_dead.has
+_.player_dead.add=_.player_dead.simple_add
 _.quad_shooter.simple_has=_.quad_shooter.has
 _.quad_shooter.add=_.quad_shooter.simple_add
 _.quad_shooter.update_all=_.quad_shooter.simple_update_all
 _.quad_shooter.simple_remove=_.quad_shooter.remove
+_.player_control.remove=_.player_control.simple_remove
+_.player_control.simple_update_all=_.player_control.update_all
+_.player_control.simple_has=_.player_control.has
+_.player_control.add=_.player_control.simple_add
+_.switcher.remove=_.switcher.simple_remove
+_.switcher.simple_update_all=_.switcher.update_all
+_.switcher.simple_has=_.switcher.has
+_.switcher.add=_.switcher.simple_add
+_.message.remove=_.message.simple_remove
+_.message.update_all=_.message.simple_update_all
+_.message.simple_has=_.message.has
+_.message.add=_.message.simple_add
+_.camera_follow.remove=_.camera_follow.simple_remove
+_.camera_follow.simple_update_all=_.camera_follow.update_all
+_.camera_follow.simple_has=_.camera_follow.has
+_.camera_follow.add=_.camera_follow.simple_add
 _.crate.remove=_.crate.simple_remove
 _.crate.simple_update_all=_.crate.update_all
 _.crate.simple_has=_.crate.has
@@ -620,7 +644,7 @@ end\" " }
   { "sprite" n 
     { "pool" n 
       { n n 
-        { "depth" "0 " }
+        { "depth" "3 " }
         [ "texsize" "32.000000 32.000000 " ] 
         [ "texcell" "32.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
@@ -629,7 +653,7 @@ end\" " }
         }
       }
       { n n 
-        { "depth" "0 " }
+        { "depth" "3 " }
         [ "texsize" "32.000000 32.000000 " ] 
         [ "texcell" "32.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
@@ -638,7 +662,7 @@ end\" " }
         }
       }
       { n n 
-        { "depth" "0 " }
+        { "depth" "3 " }
         [ "texsize" "32.000000 32.000000 " ] 
         [ "texcell" "32.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
@@ -647,7 +671,7 @@ end\" " }
         }
       }
       { n n 
-        { "depth" "0 " }
+        { "depth" "3 " }
         [ "texsize" "32.000000 32.000000 " ] 
         [ "texcell" "32.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
@@ -656,7 +680,7 @@ end\" " }
         }
       }
       { n n 
-        { "depth" "0 " }
+        { "depth" "3 " }
         [ "texsize" "32.000000 32.000000 " ] 
         [ "texcell" "32.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
@@ -665,7 +689,7 @@ end\" " }
         }
       }
       { n n 
-        { "depth" "0 " }
+        { "depth" "3 " }
         [ "texsize" "32.000000 32.000000 " ] 
         [ "texcell" "32.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
@@ -674,7 +698,7 @@ end\" " }
         }
       }
       { n n 
-        { "depth" "0 " }
+        { "depth" "3 " }
         [ "texsize" "32.000000 32.000000 " ] 
         [ "texcell" "32.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
@@ -683,7 +707,7 @@ end\" " }
         }
       }
       { n n 
-        { "depth" "0 " }
+        { "depth" "3 " }
         [ "texsize" "32.000000 32.000000 " ] 
         [ "texcell" "32.000000 128.000000 " ] 
         [ "size" "1.000000 1.000000 " ] 
@@ -691,15 +715,39 @@ end\" " }
           { "id" "28 " }
         }
       }
+      { n n 
+        { "depth" "3 " }
+        [ "texsize" "32.000000 32.000000 " ] 
+        [ "texcell" "32.000000 128.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "27 " }
+        }
+      }
     }
     { "atlas" "\"./ld30/atlas-1.png\" " }
   }
   { "camera" n 
     { "pool" n }
-    [ "inverse_view_matrix" "0.060000 0.000000 0.000000 0.000000 0.080000 -0.000000 -0.000000 0.000000 1.000000 " ] 
+    [ "inverse_view_matrix" "0.053785 -0.000000 0.000000 0.000000 0.071714 -0.000000 0.308963 3.472870 1.000000 " ] 
   }
   { "transform" n 
     { "pool" n 
+      { n n 
+        { "dirty_count" "3871 " }
+        [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -6.000000 -57.000000 1.000000 " ] 
+        [ "mat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -6.000000 -57.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "2.000000 2.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "-6.000000 -57.000000 " ] 
+        { "pool_elem" n 
+          { "id" "27 " }
+        }
+      }
       { n n 
         { "dirty_count" "2903 " }
         [ "worldmat_cache" "2.000000 0.000000 0.000000 -0.000000 2.000000 0.000000 -11.000000 -20.000000 1.000000 " ] 
@@ -712,7 +760,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-11.000000 -20.000000 " ] 
         { "pool_elem" n 
-          { "id" "28 " }
+          { "id" "33 " }
         }
       }
       { n n 
@@ -727,7 +775,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "6.500000 -4.500000 " ] 
         { "pool_elem" n 
-          { "id" "35 " }
+          { "id" "32 " }
         }
       }
       { n n 
@@ -742,7 +790,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "13.500000 -4.500000 " ] 
         { "pool_elem" n 
-          { "id" "34 " }
+          { "id" "31 " }
         }
       }
       { n n 
@@ -757,7 +805,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "0.000000 0.000000 " ] 
         { "pool_elem" n 
-          { "id" "33 " }
+          { "id" "30 " }
         }
       }
       { n n 
@@ -772,7 +820,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "9.000000 -53.000000 " ] 
         { "pool_elem" n 
-          { "id" "32 " }
+          { "id" "29 " }
         }
       }
       { n n 
@@ -787,7 +835,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "8.000000 -43.000000 " ] 
         { "pool_elem" n 
-          { "id" "31 " }
+          { "id" "35 " }
         }
       }
       { n n 
@@ -802,7 +850,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-2.000000 -42.000000 " ] 
         { "pool_elem" n 
-          { "id" "30 " }
+          { "id" "28 " }
         }
       }
       { n n 
@@ -817,7 +865,7 @@ end\" " }
         { "rotation" "0.000000 " }
         [ "position" "-11.000000 -40.000000 " ] 
         { "pool_elem" n 
-          { "id" "29 " }
+          { "id" "34 " }
         }
       }
     }
@@ -871,6 +919,11 @@ end\" " }
       { n n 
         { "pool_elem" n 
           { "id" "28 " }
+        }
+      }
+      { n n 
+        { "pool_elem" n 
+          { "id" "27 " }
         }
       }
     }
