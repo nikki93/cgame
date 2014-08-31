@@ -47,16 +47,25 @@ static void _flip_image_vertical(unsigned char *data,
     free(new_data);
 }
 
-static void _load(Texture *tex)
+static bool _load(Texture *tex)
 {
     struct stat st;
     unsigned char *data;
 
+    console_printf("texture: loading texture '%s' ...", tex->filename);
+
+    /* read in texture data */
+    data = stbi_load(tex->filename, &tex->width, &tex->height,
+                     &tex->components, 0);
+    if (!data)
+    {
+        console_printf(" unsuccessful\n");
+        return false;
+    }
+
     /* release old GL texture if exists */
     if (tex->gl_name != 0)
         glDeleteTextures(1, &tex->gl_name);
-
-    console_printf("texture: loading texture '%s'\n", tex->filename);
 
     /* generate GL texture */
     glGenTextures(1, &tex->gl_name);
@@ -65,9 +74,7 @@ static void _load(Texture *tex)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    /* read in texture data */
-    data = stbi_load(tex->filename, &tex->width, &tex->height,
-                     &tex->components, 0);
+    /* copy texture data to GL */
     _flip_image_vertical(data, tex->width, tex->height);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex->width, tex->height,
                  0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -76,6 +83,9 @@ static void _load(Texture *tex)
     /* update modified time */
     stat(tex->filename, &st);
     tex->last_modified = st.st_mtime;
+
+    console_printf(" successful\n");
+    return true;
 }
 
 static Texture *_find(const char *filename)
@@ -88,19 +98,26 @@ static Texture *_find(const char *filename)
     return NULL;
 }
 
-void texture_load(const char *filename)
+bool texture_load(const char *filename)
 {
     Texture *tex;
 
     if (_find(filename))
-        return;
+        return true;
 
     tex = array_add(textures);
     tex->gl_name = 0;
     tex->filename = malloc(strlen(filename) + 1);
     strcpy(tex->filename, filename);
 
-    _load(tex);
+    if (!_load(tex))
+    {
+        /* remove bad texture */
+        free(tex->filename);
+        array_quick_remove(textures, tex - ((Texture *) array_begin(textures)));
+        return false;
+    }
+    return true;
 }
 
 void texture_bind(const char *filename)
@@ -145,6 +162,9 @@ void texture_update()
         /* outdated? reload */
         stat(tex->filename, &st);
         if (st.st_mtime != tex->last_modified)
-            _load(tex);
+        {
+            _load(tex); /* might fail, but we keep the old version */
+            tex->last_modified = st.st_mtime;
+        }
     }
 }
