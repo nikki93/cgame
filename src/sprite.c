@@ -40,11 +40,22 @@ static GLuint vbo;
 
 /* ------------------------------------------------------------------------- */
 
-static void _update_atlas()
+/* copy string from filename, err is whether to error(...) if bad */
+static void _set_atlas(const char *filename, bool err)
 {
     Vec2 atlas_size;
 
-    texture_load(atlas);
+    if (!texture_load(filename))
+    {
+        if (err)
+            error("couldn't load atlas from path '%s', check path and format",
+                  filename);
+        return;
+    }
+
+    free(atlas);
+    atlas = malloc(strlen(filename) + 1);
+    strcpy(atlas, filename);
 
     atlas_size = texture_get_size(atlas);
     glUseProgram(program);
@@ -53,10 +64,7 @@ static void _update_atlas()
 }
 void sprite_set_atlas(const char *filename)
 {
-    free(atlas);
-    atlas = malloc(strlen(filename) + 1);
-    strcpy(atlas, filename);
-    _update_atlas();
+    _set_atlas(filename, true);
 }
 const char *sprite_get_atlas()
 {
@@ -263,9 +271,8 @@ void sprite_load_all(Store *s)
         /* only replace atlas if actually found something */
         if (string_load(&tatlas, "atlas", NULL, t))
         {
-            free(atlas);
-            atlas = tatlas;
-            _update_atlas();
+            _set_atlas(tatlas, false);
+            free(tatlas);
         }
 
         entitypool_load_foreach(sprite, sprite_s, pool, "pool", t)
