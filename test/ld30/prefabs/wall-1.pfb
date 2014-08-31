@@ -1,0 +1,227 @@
+6337
+{ n n 
+  { "script" n 
+    { "str" "\"do local _={
+  gui_textbox={
+    auto_saveload=true,
+    set_click_focus=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    get_click_focus=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    get_text=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end
+  },
+  gui_window={
+    get_body=function() --[[..skipped..]] end,
+    get_minimized=function() --[[..skipped..]] end,
+    set_highlight=function() --[[..skipped..]] end,
+    set_title=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    get_title=function() --[[..skipped..]] end,
+    mouse_up=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    set_minimized=function() --[[..skipped..]] end,
+    auto_saveload=true,
+    get_highlight=function() --[[..skipped..]] end,
+    get_closeable=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    update_all=function() --[[..skipped..]] end,
+    set_closeable=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    get_title_buttons_area=function() --[[..skipped..]] end
+  },
+  edit_inspector={
+    tbl=cg.__entity_table_load({})
+  },
+  animation={
+    auto_saveload=true,
+    set_frames=function() --[[..skipped..]] end,
+    set_strips=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    switch=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    start=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({})
+  },
+  bump={
+    slide=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    set_position=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    add=nil,
+    update=function() --[[..skipped..]] end,
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({
+        [38]={
+          k=_cge(38),
+          v={
+            ent=_cge(38)
+          }
+        }
+      }),
+    destroy=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    remove=nil,
+    set_bbox=function() --[[..skipped..]] end,
+    simple_has=nil,
+    simple_update_all=nil,
+    sweep=function() --[[..skipped..]] end,
+    get_bbox=function() --[[..skipped..]] end
+  },
+  edit={
+    sel=cg.__entity_table_load({
+        [38]={
+          k=_cge(38),
+          v=true
+        }
+      })
+  },
+  player_control={
+    auto_saveload=true,
+    unpaused_update=function() --[[..skipped..]] end,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    remove=nil,
+    unpaused_tick=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  gui_checkbox={
+    auto_saveload=true,
+    toggle=function() --[[..skipped..]] end,
+    tbl=cg.__entity_table_load({}),
+    get_checked=function() --[[..skipped..]] end,
+    update_all=function() --[[..skipped..]] end,
+    remove=function() --[[..skipped..]] end,
+    set_checked=function() --[[..skipped..]] end,
+    add=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end
+  },
+  wall={
+    auto_saveload=true,
+    simple_remove=function() --[[..skipped..]] end,
+    has=function() --[[..skipped..]] end,
+    simple_add=function() --[[..skipped..]] end,
+    create=function() --[[..skipped..]] end,
+    remove=nil,
+    update_all=function() --[[..skipped..]] end,
+    simple_update_all=nil,
+    simple_has=nil,
+    tbl=cg.__entity_table_load({}),
+    add=nil
+  },
+  name=cg.__entity_table_load({}),
+  group=cg.__entity_table_load({
+      [38]={
+        k=_cge(38),
+        v={
+          default=true
+        }
+      }
+    })
+}
+local __={}
+_.bump.add=_.bump.simple_add
+_.bump.remove=_.bump.simple_remove
+_.bump.simple_has=_.bump.has
+_.bump.simple_update_all=_.bump.update_all
+_.player_control.remove=_.player_control.simple_remove
+_.player_control.simple_update_all=_.player_control.update_all
+_.player_control.simple_has=_.player_control.has
+_.player_control.add=_.player_control.simple_add
+_.wall.remove=_.wall.simple_remove
+_.wall.simple_update_all=_.wall.update_all
+_.wall.simple_has=_.wall.has
+_.wall.add=_.wall.simple_add
+return _
+end\" " }
+  }
+  { "keyboard_controlled" n }
+  { "sound" n 
+    { "pool" n }
+  }
+  { "edit" n 
+    { "uneditable_pool" n }
+    [ "grid_size" "1.000000 1.000000 " ] 
+  }
+  { "gui_textedit" n 
+    { "pool" n }
+  }
+  { "gui_text" n 
+    { "pool" n }
+  }
+  { "gui_rect" n 
+    { "pool" n }
+  }
+  { "gui" n 
+    { "pool" n }
+  }
+  { "physics" n 
+    { "pool" n }
+  }
+  { "sprite" n 
+    { "pool" n 
+      { n n 
+        { "depth" "0 " }
+        [ "texsize" "16.000000 16.000000 " ] 
+        [ "texcell" "32.000000 48.000000 " ] 
+        [ "size" "1.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "38 " }
+        }
+      }
+    }
+    { "atlas" "\"./ld30/atlas-1.png\" " }
+  }
+  { "camera" n 
+    { "pool" n }
+    [ "inverse_view_matrix" "0.078950 0.000000 0.000000 0.000000 0.105267 -0.000000 -0.353840 -0.262875 1.000000 " ] 
+  }
+  { "transform" n 
+    { "pool" n 
+      { n n 
+        { "dirty_count" "238 " }
+        [ "worldmat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 5.000000 1.000000 1.000000 " ] 
+        [ "mat_cache" "1.000000 0.000000 0.000000 -0.000000 1.000000 0.000000 5.000000 1.000000 1.000000 " ] 
+        { "children" n }
+        { "parent" n 
+          { "id" "0 " }
+        }
+        [ "scale" "1.000000 1.000000 " ] 
+        { "rotation" "0.000000 " }
+        [ "position" "5.000000 1.000000 " ] 
+        { "pool_elem" n 
+          { "id" "38 " }
+        }
+      }
+    }
+  }
+  { "timing" n 
+    { "scale" "1.000000 " }
+  }
+  { "prefab" n 
+    { "saved_root" n 
+      { "id" "38 " }
+    }
+  }
+  { "entity" n 
+    { "destroyed" n }
+    { "exists_pool" n 
+      { n n 
+        { "pool_elem" n 
+          { "id" "38 " }
+        }
+      }
+    }
+  }
+}
