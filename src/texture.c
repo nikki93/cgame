@@ -55,9 +55,12 @@ static bool _load(Texture *tex)
     /* already have latest? */
     if (stat(tex->filename, &st) != 0)
     {
-        tex->last_modified = 0;
-        console_printf("texture: loading texture '%s' ... unsuccessful",
-                       tex->filename);
+        if (tex->last_modified == 0)
+        {
+            console_printf("texture: loading texture '%s' ... unsuccessful\n",
+                           tex->filename);
+            time(&tex->last_modified);
+        }
         return false;
     }
     if (st.st_mtime == tex->last_modified)
@@ -117,6 +120,7 @@ bool texture_load(const char *filename)
 
     tex = array_add(textures);
     tex->gl_name = 0;
+    tex->last_modified = 0;
     tex->filename = malloc(strlen(filename) + 1);
     strcpy(tex->filename, filename);
     return _load(tex);
