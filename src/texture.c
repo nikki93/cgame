@@ -15,7 +15,7 @@ typedef struct Texture Texture;
 struct Texture
 {
     char *filename;
-    GLuint gl_name;
+    GLuint gl_name; /* 0 if uninitialized or error texture */
     int width;
     int height;
     int components;
@@ -52,6 +52,17 @@ static bool _load(Texture *tex)
     struct stat st;
     unsigned char *data;
 
+    /* already have latest? */
+    if (stat(tex->filename, &st) != 0)
+    {
+        tex->last_modified = 0;
+        console_printf("texture: loading texture '%s' ... unsuccessful",
+                       tex->filename);
+        return false;
+    }
+    if (st.st_mtime == tex->last_modified)
+        return tex->gl_name != 0;
+
     console_printf("texture: loading texture '%s' ...", tex->filename);
 
     /* read in texture data */
@@ -59,8 +70,9 @@ static bool _load(Texture *tex)
                      &tex->components, 0);
     if (!data)
     {
+        tex->last_modified = st.st_mtime;
         console_printf(" unsuccessful\n");
-        return false;
+        return false; /* keep old GL texture */
     }
 
     /* release old GL texture if exists */
@@ -80,10 +92,7 @@ static bool _load(Texture *tex)
                  0, GL_RGBA, GL_UNSIGNED_BYTE, data);
     stbi_image_free(data);
 
-    /* update modified time */
-    stat(tex->filename, &st);
     tex->last_modified = st.st_mtime;
-
     console_printf(" successful\n");
     return true;
 }
@@ -102,22 +111,15 @@ bool texture_load(const char *filename)
 {
     Texture *tex;
 
-    if (_find(filename))
-        return true;
+    /* already exists? */
+    if ((tex = _find(filename)))
+        return tex->gl_name != 0;
 
     tex = array_add(textures);
     tex->gl_name = 0;
     tex->filename = malloc(strlen(filename) + 1);
     strcpy(tex->filename, filename);
-
-    if (!_load(tex))
-    {
-        /* remove bad texture */
-        free(tex->filename);
-        array_quick_remove(textures, tex - ((Texture *) array_begin(textures)));
-        return false;
-    }
-    return true;
+    return _load(tex);
 }
 
 void texture_bind(const char *filename)
@@ -125,7 +127,7 @@ void texture_bind(const char *filename)
     Texture *tex;
 
     tex = _find(filename);
-    if (tex)
+    if (tex && tex->gl_name != 0)
         glBindTexture(GL_TEXTURE_2D, tex->gl_name);
 }
 
@@ -158,13 +160,5 @@ void texture_update()
     Texture *tex;
 
     array_foreach(tex, textures)
-    {
-        /* outdated? reload */
-        stat(tex->filename, &st);
-        if (st.st_mtime != tex->last_modified)
-        {
-            _load(tex); /* might fail, but we keep the old version */
-            tex->last_modified = st.st_mtime;
-        }
-    }
+        _load(tex);
 }
