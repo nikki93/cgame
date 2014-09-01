@@ -164,6 +164,8 @@ static void _bboxes_update_all()
     entitypool_foreach(elem, bbox_pool)
     {
         ent = elem->pool_elem.ent;
+        if (!transform_has(ent))
+            continue;
 
         /* update world matrix */
         elem->wmat = transform_get_world_matrix(ent);
