@@ -35,7 +35,7 @@ function cs.edit.command_completion_substr(t)
     return function(s)
         local comps = {}
         local s = string.lower(s)
-        for k, _ in pairs(t) do
+        for k in pairs(t) do
             if subseq(string.lower(k), s) then
                 table.insert(comps, k)
             end
@@ -183,7 +183,7 @@ function cs.edit.command_inspect()
             cs.edit_inspector.add(e, s)
             cs.edit.select[e] = true
         elseif not cg.entity_table_empty(cs.edit.select) then
-            for ent, _ in pairs(cs.edit.select) do
+            for ent in pairs(cs.edit.select) do
                 cs.edit_inspector.add(ent, s)
             end
         end
@@ -251,7 +251,7 @@ function cs.edit.command_save_prefab()
     if cg.entity_table_empty(cs.edit.select) then return end
 
     local function save(f)
-        for ent, _ in pairs(cs.edit.select) do
+        for ent in pairs(cs.edit.select) do
             if cs.transform.has(ent) then
                 cs.transform.set_save_filter_rec(ent, true)
             else

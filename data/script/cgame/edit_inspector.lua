@@ -370,7 +370,7 @@ local function add_properties(inspector)
             add_property(inspector, p.name)
         end
     elseif rawget(cs, inspector.sys) then
-        for f, _ in pairs(cs[inspector.sys]) do
+        for f in pairs(cs[inspector.sys]) do
             if string.sub(f, 1, 4) == 'set_' then
                 local prop = string.sub(f, 5, string.len(f))
                 if cs[inspector.sys]['get_' .. prop] then
@@ -481,8 +481,8 @@ end
 function cs.edit_inspector.get_systems()
     local sys = {}
     -- system must either have property metadata or an 'add(...)' function
-    for k, _ in pairs(cs.meta.props) do sys[k] = true end
-    for k, _ in pairs(cs) do
+    for k in pairs(cs.meta.props) do sys[k] = true end
+    for k in pairs(cs) do
         if cs[k].inspect ~= false and cs[k].add then
             sys[k] = true
         end

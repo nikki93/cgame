@@ -84,7 +84,7 @@ function cg.entity_table()
 end
 
 function cg.entity_table_empty(t)
-    for _, _ in pairs(t) do return false end
+    for _ in pairs(t) do return false end
     return true
 end
 

@@ -103,7 +103,7 @@ function cs.group.set_save_filter(groups, val)
 end
 
 function cs.group.update_all()
-    for ent, _ in pairs(entity_groups) do
+    for ent in pairs(entity_groups) do
         if cs.entity.destroyed(ent) then cs.group.remove(ent) end
     end
 end

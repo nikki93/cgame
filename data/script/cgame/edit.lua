@@ -292,7 +292,7 @@ function cs.edit.scroll(scroll)
 end
 
 function cs.edit.update_all()
-    for ent, _ in pairs(cs.edit.select) do
+    for ent in pairs(cs.edit.select) do
         if cs.entity.destroyed(ent) then cs.edit.select[ent] = nil end
     end
 

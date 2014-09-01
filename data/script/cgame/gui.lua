@@ -33,7 +33,7 @@ add_event('key_down', cg.KC_NONE)
 add_event('key_up', cg.KC_NONE)
 
 function cs.gui_event.update_all()
-    for ent, _ in pairs(event_handlers) do
+    for ent in pairs(event_handlers) do
         if cs.entity.destroyed(ent) then event_handlers[ent] = nil end
     end
 
@@ -199,7 +199,7 @@ function cs.gui_window.update_all()
     if drag_window and cs.entity.destroyed(drag_window) then
         drag_window = nil
     end
-    for ent, _ in pairs(cs.gui_window.tbl) do
+    for ent in pairs(cs.gui_window.tbl) do
         if cs.entity.destroyed(ent) then cs.gui_window.remove(ent) end
     end
 
@@ -288,7 +288,7 @@ function cs.gui_textbox.get_text(ent)
 end
 
 function cs.gui_textbox.update_all()
-    for ent, _ in pairs(cs.gui_textbox.tbl) do
+    for ent in pairs(cs.gui_textbox.tbl) do
         if cs.entity.destroyed(ent) then cs.gui_textbox.remove(ent) end
     end
 
@@ -348,7 +348,7 @@ function cs.gui_checkbox.get_checked(ent, checked)
 end
 
 function cs.gui_checkbox.update_all(ent)
-    for ent, _ in pairs(cs.gui_checkbox.tbl) do
+    for ent in pairs(cs.gui_checkbox.tbl) do
         if cs.entity.destroyed(ent) then cs.gui_checkbox.remove(ent) end
     end
 

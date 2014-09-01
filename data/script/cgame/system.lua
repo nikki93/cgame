@@ -38,7 +38,7 @@ function cg.__fire_event(event, args)
         sysnames[name] = sys.receive_events == nil or sys.receive_events
     end
 
-    for name, _ in pairs(sysnames) do
+    for name in pairs(sysnames) do
         local system = cs[name]
         if system.enabled == nil or system.enabled then
             local func = system[event]

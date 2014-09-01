@@ -2,7 +2,7 @@ cs.edit.select = cg.entity_table()
 
 -- get some selected entity, or nil if none selected
 function cs.edit.select_get_first()
-    for ent, _ in pairs(cs.edit.select) do
+    for ent in pairs(cs.edit.select) do
         return ent
     end
     return nil

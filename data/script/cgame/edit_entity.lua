@@ -1,7 +1,7 @@
 local ffi = require 'ffi'
 
 function cs.edit.destroy_rec()
-    for ent, _ in pairs(cs.edit.select) do
+    for ent in pairs(cs.edit.select) do
         cs.transform.destroy_rec(ent)
     end
 
@@ -9,7 +9,7 @@ function cs.edit.destroy_rec()
 end
 
 function cs.edit.destroy()
-    for ent, _ in pairs(cs.edit.select) do
+    for ent in pairs(cs.edit.select) do
         cs.entity.destroy(ent)
     end
 
@@ -18,7 +18,7 @@ end
 
 function cs.edit.duplicate()
     -- save just current selection to a string
-    for ent, _ in pairs(cs.edit.select) do
+    for ent in pairs(cs.edit.select) do
         if cs.transform.has(ent) then
             cs.transform.set_save_filter_rec(ent, true)
         else

@@ -12,7 +12,7 @@ function cs.edit.grab_end()
     cs.edit.undo_save()
 end
 function cs.edit.grab_cancel()
-    for ent, _ in pairs(cs.edit.select) do
+    for ent in pairs(cs.edit.select) do
         cs.transform.set_position(ent, grab_old_pos[ent])
     end
     cs.edit.set_mode('normal')
@@ -48,7 +48,7 @@ function cs.edit.modes.grab.enter()
 
     -- store old positions
     grab_old_pos = cg.entity_table()
-    for ent, _ in pairs(cs.edit.select) do
+    for ent in pairs(cs.edit.select) do
         grab_old_pos[ent] = cs.transform.get_position(ent)
     end
 end
@@ -69,7 +69,7 @@ function cs.edit.modes.grab.update_all()
     end
 
     -- move selected objects
-    for ent, _ in pairs(cs.edit.select) do
+    for ent in pairs(cs.edit.select) do
         -- move only if no ancestor is being moved (avoid double-move)
         local anc = cs.transform.get_parent(ent)
         while anc ~= cg.entity_nil and not cs.edit.select[anc] do
@@ -107,7 +107,7 @@ function cs.edit.rotate_end()
     cs.edit.undo_save()
 end
 function cs.edit.rotate_cancel()
-    for ent, _ in pairs(cs.edit.select) do
+    for ent in pairs(cs.edit.select) do
         cs.transform.set_position(ent, rotate_old_posrot[ent].pos)
         cs.transform.set_rotation(ent, rotate_old_posrot[ent].rot)
     end
@@ -123,7 +123,7 @@ function cs.edit.modes.rotate.enter()
 
     -- store old positions, rotations
     rotate_old_posrot = cg.entity_table()
-    for ent, _ in pairs(cs.edit.select) do
+    for ent in pairs(cs.edit.select) do
         rotate_old_posrot[ent] = {
             pos = cs.transform.get_position(ent),
             rot = cs.transform.get_rotation(ent),
@@ -133,7 +133,7 @@ function cs.edit.modes.rotate.enter()
     -- compute pivot (currently just the median)
     local n = 0
     rotate_pivot = cg.vec2_zero
-    for ent, _ in pairs(cs.edit.select) do
+    for ent in pairs(cs.edit.select) do
         rotate_pivot = rotate_pivot + cs.transform.get_world_position(ent)
         n = n + 1
     end
@@ -146,7 +146,7 @@ function cs.edit.modes.rotate.update_all()
     local ang = cg.vec2_atan2(mc - rotate_pivot)
         - cg.vec2_atan2(ms - rotate_pivot)
 
-    for ent, _ in pairs(cs.edit.select) do
+    for ent in pairs(cs.edit.select) do
         -- set new rotation
         cs.transform.set_rotation(ent, rotate_old_posrot[ent].rot + ang)
 
